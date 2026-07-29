@@ -19,6 +19,10 @@ service cloud.firestore {
       return isSignedIn() && (role() == 'church' || role() == 'admin');
     }
 
+    function isAdmin() {
+      return isSignedIn() && role() == 'admin';
+    }
+
     // ---- Users ----
     match /users/{userId} {
       allow read: if isSignedIn();
@@ -26,9 +30,20 @@ service cloud.firestore {
                     // Users can only self-assign 'member' or 'pending_church' on signup —
                     // never 'church' or 'admin' directly.
                     && request.resource.data.role in ['member', 'pending_church'];
-      allow update: if isSignedIn() && request.auth.uid == userId
-                    // Users cannot change their own role (only an admin process/back office can).
-                    && request.resource.data.role == resource.data.role;
+      allow update: if isSignedIn() && (
+                      // users can update their own profile, but never their own role
+                      (request.auth.uid == userId
+                        && request.resource.data.role == resource.data.role)
+                      ||
+                      // an admin may approve/deny a pending church — but ONLY that:
+                      // the target must currently be pending_church, the new role must
+                      // be church (approve) or member (deny), and nothing else on the
+                      // document may change in the same write.
+                      (isAdmin() && userId != request.auth.uid
+                        && resource.data.role == 'pending_church'
+                        && request.resource.data.role in ['church', 'member']
+                        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['role']))
+                    );
     }
 
     // ---- Posts ----

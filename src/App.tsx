@@ -2,10 +2,10 @@ import { useState, useEffect } from 'react'
 import {
   Home, Church, PlusCircle, User, MessageCircle, Heart, Share2,
   Image as ImageIcon, Video, Mic, X, Send, LogOut,
-  Youtube, Facebook, CheckCircle2, Clock, ArrowRight
+  Youtube, Facebook, CheckCircle2, Clock, ArrowRight, ShieldCheck, UserX
 } from 'lucide-react'
 import {
-  collection, addDoc, onSnapshot, query, orderBy,
+  collection, addDoc, onSnapshot, query, orderBy, where,
   serverTimestamp, doc, updateDoc, increment, setDoc, getDoc
 } from 'firebase/firestore'
 import {
@@ -187,6 +187,7 @@ export default function App() {
   const [showCreate, setShowCreate] = useState(false)
   const [activeCommentsPost, setActiveCommentsPost] = useState<string | null>(null)
   const [loading, setLoading] = useState(true)
+  const [pendingChurches, setPendingChurches] = useState<AppUser[]>([])
 
   // Auth listener
   useEffect(() => {
@@ -220,6 +221,16 @@ export default function App() {
     const q = query(collection(db, 'comments'), orderBy('createdAt', 'asc'))
     const unsub = onSnapshot(q, (snap) => {
       setComments(snap.docs.map(d => ({ id: d.id, ...d.data() } as Comment)))
+    })
+    return unsub
+  }, [user])
+
+  // Pending church signups (admin only)
+  useEffect(() => {
+    if (!user || user.role !== 'admin') return
+    const q = query(collection(db, 'users'), where('role', '==', 'pending_church'))
+    const unsub = onSnapshot(q, (snap) => {
+      setPendingChurches(snap.docs.map(d => ({ ...d.data() } as AppUser)))
     })
     return unsub
   }, [user])
@@ -269,6 +280,16 @@ export default function App() {
     if (!post) return
     await updateDoc(doc(db, 'posts', id), { likes: increment(post.liked ? -1 : 1) })
     setPosts(prev => prev.map(p => p.id === id ? { ...p, liked: !p.liked, likes: (p.likes || 0) + (p.liked ? -1 : 1) } : p))
+  }
+
+  const handleApproveChurch = async (uid: string) => {
+    await updateDoc(doc(db, 'users', uid), { role: 'church' })
+  }
+
+  const handleDenyChurch = async (uid: string) => {
+    // Deny doesn't delete the account — it just drops them back to a normal
+    // member so they aren't stuck pending forever and can still use the app.
+    await updateDoc(doc(db, 'users', uid), { role: 'member' })
   }
 
   if (authLoading) {
@@ -324,10 +345,14 @@ export default function App() {
             <h2 className="text-xl font-bold text-slate-900">{user.displayName}</h2>
             <p className="text-slate-400 text-sm mt-1">{user.email}</p>
             <div className="mt-4 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 text-xs font-semibold">
-              {user.role === 'church' ? <><CheckCircle2 size={14} /> Verified Church</> : 'Member'}
+              {user.role === 'church' ? <><CheckCircle2 size={14} /> Verified Church</> : user.role === 'admin' ? <><ShieldCheck size={14} /> Admin</> : 'Member'}
             </div>
             {user.churchName && <p className="mt-3 text-slate-600 font-medium">{user.churchName}</p>}
           </div>
+        )}
+
+        {activeTab === 'admin' && user.role === 'admin' && (
+          <AdminPanel pendingChurches={pendingChurches} onApprove={handleApproveChurch} onDeny={handleDenyChurch} />
         )}
       </main>
 
@@ -338,14 +363,21 @@ export default function App() {
             id: 'feed', icon: Home, label: 'Feed'
           }, {
             id: 'profile', icon: User, label: 'Profile'
-          }].map(item => {
+          },
+          ...(user.role === 'admin' ? [{ id: 'admin', icon: ShieldCheck, label: 'Admin' }] : [])
+          ].map(item => {
             const Icon = item.icon
             const active = activeTab === item.id
             return (
               <button key={item.id} onClick={() => setActiveTab(item.id)}
-                className={`flex flex-col items-center justify-center w-20 h-full transition ${
+                className={`relative flex flex-col items-center justify-center w-20 h-full transition ${
                   active ? 'text-emerald-600' : 'text-slate-400'}`}>
                 <Icon size={22} strokeWidth={active ? 2.5 : 2} />
+                {item.id === 'admin' && pendingChurches.length > 0 && (
+                  <span className="absolute top-1.5 right-5 w-4 h-4 rounded-full bg-red-500 text-white text-[9px] font-bold flex items-center justify-center">
+                    {pendingChurches.length}
+                  </span>
+                )}
                 <span className="text-[10px] mt-1 font-medium">{item.label}</span>
               </button>
             )
@@ -374,6 +406,66 @@ export default function App() {
 }
 
 // ==================== COMPONENTS ====================
+function AdminPanel({ pendingChurches, onApprove, onDeny }: {
+  pendingChurches: AppUser[]
+  onApprove: (uid: string) => void
+  onDeny: (uid: string) => void
+}) {
+  const [busyUid, setBusyUid] = useState<string | null>(null)
+
+  const handle = async (uid: string, action: 'approve' | 'deny') => {
+    setBusyUid(uid)
+    try {
+      if (action === 'approve') await onApprove(uid)
+      else await onDeny(uid)
+    } finally {
+      setBusyUid(null)
+    }
+  }
+
+  if (pendingChurches.length === 0) {
+    return (
+      <div className="text-center py-20">
+        <div className="w-16 h-16 rounded-full bg-emerald-50 flex items-center justify-center mx-auto mb-4">
+          <ShieldCheck size={28} className="text-emerald-500" />
+        </div>
+        <p className="text-slate-500 font-medium">No pending churches</p>
+        <p className="text-sm text-slate-400 mt-1">New church signups will show up here for approval</p>
+      </div>
+    )
+  }
+
+  return (
+    <div className="space-y-4">
+      <h2 className="text-lg font-bold text-slate-900 px-1">Pending Churches ({pendingChurches.length})</h2>
+      {pendingChurches.map(church => (
+        <div key={church.uid} className="bg-white rounded-3xl p-5 shadow-sm border border-slate-100">
+          <div className="flex items-center gap-3 mb-4">
+            <div className="w-12 h-12 rounded-full bg-gradient-to-br from-amber-300 to-orange-400 flex items-center justify-center text-white font-bold shrink-0">
+              {(church.churchName || church.displayName).charAt(0).toUpperCase()}
+            </div>
+            <div className="min-w-0">
+              <h3 className="font-semibold text-slate-900 truncate">{church.churchName || church.displayName}</h3>
+              <p className="text-xs text-slate-400 truncate">{church.email}</p>
+              {church.location && <p className="text-xs text-slate-400">{church.location}</p>}
+            </div>
+          </div>
+          <div className="flex gap-2">
+            <button onClick={() => handle(church.uid, 'approve')} disabled={busyUid === church.uid}
+              className="flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-semibold transition disabled:opacity-50">
+              <CheckCircle2 size={16} /> Approve
+            </button>
+            <button onClick={() => handle(church.uid, 'deny')} disabled={busyUid === church.uid}
+              className="flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-600 text-sm font-semibold transition disabled:opacity-50">
+              <UserX size={16} /> Deny
+            </button>
+          </div>
+        </div>
+      ))}
+    </div>
+  )
+}
+
 function PostCard({ post, onLike, onOpenComments }: {
   post: Post; onLike: (id: string) => void; onOpenComments: (id: string) => void
 }) {
