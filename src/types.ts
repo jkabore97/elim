@@ -7,19 +7,19 @@ export interface ChurchProfile {
   avatar: string;
   followers: number;
   verified: boolean;
-  role?: UserRole;
 }
 
 export interface Post {
   id: string;
   churchId: string;
+  churchName?: string;
   type: "text-image" | "audio" | "video";
   content: string;
   mediaUrl?: string;
   coverUrl?: string;
   likes: number;
   commentsCount: number;
-  createdAt: string;
+  createdAt: any;
   liked?: boolean;
 }
 
@@ -27,8 +27,8 @@ export interface Comment {
   id: string;
   postId: string;
   userName: string;
-  userAvatar: string;
+  userAvatar?: string;
   text: string;
-  createdAt: string;
+  createdAt: any;
   userId?: string;
 }
