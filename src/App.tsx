@@ -646,7 +646,7 @@ export default function App() {
     return unsub
   }, [user])
 
-  const canPost = (user?.role === 'church' || user?.role === 'admin') && emailVerified
+  const canPost = user?.role === 'church' || user?.role === 'admin'
 
   const handleLogout = async () => {
     await signOut(auth)

@@ -32,7 +32,7 @@ Four roles, enforced server-side in `firestore.rules` (never trusted from the cl
 - **Email/password and Google Sign-In** are the two supported methods.
 - **No client can assign itself `church` or `admin`.** Account creation is restricted to `member` or `pending_church` at the rules level, regardless of what the client sends. `church` only happens via admin approval; `admin` only via direct console action by the project owner (there is intentionally no in-app path to grant it — this is a bootstrap step, not a feature).
 - **Password minimum length: 8 characters** (raised from an earlier 6-character minimum to align with current NIST 800-63B guidance, which favors length over forced complexity/rotation rules).
-- **Email verification is required to publish.** A verification email is sent automatically on signup. Firestore's own create-rule for posts checks the `email_verified` claim on the auth token directly — this is enforced server-side, not just hidden in the UI.
+- **Email verification is encouraged, not required.** A verification email is sent automatically on signup, and a persistent (non-blocking) banner reminds an unverified user to check their inbox. Deliberately, verification does **not** gate publishing or any other action — for a low-stakes community app, we chose immediate access over adding friction to signup. This is a real tradeoff, not an oversight: it trades some identity assurance for a smoother first experience. If ELIM later needs stronger identity assurance (e.g. handling payments/giving), this is the first control to revisit.
 - **Password reset** is self-service via Firebase's standard reset-email flow.
 
 ---

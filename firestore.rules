@@ -49,10 +49,10 @@ service cloud.firestore {
     // ---- Posts ----
     match /posts/{postId} {
       allow read: if isSignedIn();
-      // Publishing requires a verified email address (SECURITY.md §3) in
-      // addition to the church/admin role check.
+      // Publishing requires the church/admin role. Email verification is
+      // encouraged (see the in-app banner) but does not block publishing —
+      // see SECURITY.md §3 for the reasoning.
       allow create: if canPublish()
-                    && request.auth.token.email_verified == true
                     && request.resource.data.churchId == request.auth.uid;
       // The owning church/admin can edit their own post; any signed-in
       // member can bump likes or the comment counter; an admin can also
