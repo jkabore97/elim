@@ -3,7 +3,7 @@ import {
   Home, Church, PlusCircle, User, MessageCircle, Heart, Share2,
   Image as ImageIcon, Video, Mic, X, Send, LogOut,
   Youtube, Facebook, CheckCircle2, Clock, ArrowRight, ShieldCheck, UserX, Sparkles,
-  Trash2, Camera, FileText, Upload, Mail
+  Trash2, Camera, FileText, Upload, Mail, Pencil
 } from 'lucide-react'
 import {
   collection, addDoc, onSnapshot, query, orderBy, where,
@@ -594,6 +594,7 @@ export default function App() {
   const [posts, setPosts] = useState<Post[]>([])
   const [comments, setComments] = useState<Comment[]>([])
   const [showCreate, setShowCreate] = useState(false)
+  const [editingPost, setEditingPost] = useState<Post | null>(null)
   const [activeCommentsPost, setActiveCommentsPost] = useState<string | null>(null)
   const [loading, setLoading] = useState(true)
   const [pendingChurches, setPendingChurches] = useState<AppUser[]>([])
@@ -655,6 +656,10 @@ export default function App() {
 
   const handleDeletePost = async (id: string) => {
     await deleteDoc(doc(db, 'posts', id))
+  }
+
+  const handleEditPost = async (id: string, content: string) => {
+    await updateDoc(doc(db, 'posts', id), { content })
   }
 
   const handleCreatePost = async (data: { type: Post['type']; content: string; mediaUrl?: string; coverUrl?: string; fileName?: string }) => {
@@ -806,13 +811,13 @@ export default function App() {
                 )}
                 {posts.map(post => (
                   <PostCard key={post.id} post={post} onLike={handleLike} onOpenComments={setActiveCommentsPost}
-                    currentUserUid={user.uid} isAdmin={user.role === 'admin'} onDelete={handleDeletePost} />
+                    currentUserUid={user.uid} onEdit={setEditingPost} onDelete={handleDeletePost} />
                 ))}
               </div>
             )}
 
             {activeTab === 'profile' && (
-              <ProfileTab user={user} onAvatarUpdated={(url) => setUser(prev => prev ? { ...prev, avatar: url } : prev)} />
+              <ProfileTab user={user} onProfileUpdated={(updates) => setUser(prev => prev ? { ...prev, ...updates } : prev)} />
             )}
 
             {activeTab === 'admin' && user.role === 'admin' && (
@@ -857,6 +862,9 @@ export default function App() {
       {showCreate && canPost && (
         <CreatePostModal onClose={() => setShowCreate(false)} onSubmit={handleCreatePost} uploaderUid={user.uid} />
       )}
+      {editingPost && (
+        <EditPostModal post={editingPost} onClose={() => setEditingPost(null)} onSave={handleEditPost} />
+      )}
       {activeCommentsPost && (
         <CommentsSheet postId={activeCommentsPost} comments={comments}
           onClose={() => setActiveCommentsPost(null)} onAdd={handleAddComment} />
@@ -865,25 +873,59 @@ export default function App() {
   )
 }
 
+const COUNTRIES = [
+  'Afghanistan', 'Albania', 'Algeria', 'Andorra', 'Angola', 'Antigua and Barbuda', 'Argentina', 'Armenia',
+  'Australia', 'Austria', 'Azerbaijan', 'Bahamas', 'Bahrain', 'Bangladesh', 'Barbados', 'Belarus', 'Belgium',
+  'Belize', 'Benin', 'Bhutan', 'Bolivia', 'Bosnia and Herzegovina', 'Botswana', 'Brazil', 'Brunei', 'Bulgaria',
+  'Burkina Faso', 'Burundi', 'Cabo Verde', 'Cambodia', 'Cameroon', 'Canada', 'Central African Republic', 'Chad',
+  'Chile', 'China', 'Colombia', 'Comoros', 'Congo (Brazzaville)', 'Costa Rica', 'Croatia', 'Cuba', 'Cyprus',
+  'Czechia', 'Democratic Republic of the Congo', 'Denmark', 'Djibouti', 'Dominica', 'Dominican Republic',
+  'Ecuador', 'Egypt', 'El Salvador', 'Equatorial Guinea', 'Eritrea', 'Estonia', 'Eswatini', 'Ethiopia', 'Fiji',
+  'Finland', 'France', 'Gabon', 'Gambia', 'Georgia', 'Germany', 'Ghana', 'Greece', 'Grenada', 'Guatemala',
+  'Guinea', 'Guinea-Bissau', 'Guyana', 'Haiti', 'Honduras', 'Hungary', 'Iceland', 'India', 'Indonesia', 'Iran',
+  'Iraq', 'Ireland', 'Israel', 'Italy', 'Ivory Coast', 'Jamaica', 'Japan', 'Jordan', 'Kazakhstan', 'Kenya',
+  'Kiribati', 'Kuwait', 'Kyrgyzstan', 'Laos', 'Latvia', 'Lebanon', 'Lesotho', 'Liberia', 'Libya', 'Liechtenstein',
+  'Lithuania', 'Luxembourg', 'Madagascar', 'Malawi', 'Malaysia', 'Maldives', 'Mali', 'Malta', 'Marshall Islands',
+  'Mauritania', 'Mauritius', 'Mexico', 'Micronesia', 'Moldova', 'Monaco', 'Mongolia', 'Montenegro', 'Morocco',
+  'Mozambique', 'Myanmar', 'Namibia', 'Nauru', 'Nepal', 'Netherlands', 'New Zealand', 'Nicaragua', 'Niger',
+  'Nigeria', 'North Korea', 'North Macedonia', 'Norway', 'Oman', 'Pakistan', 'Palau', 'Palestine', 'Panama',
+  'Papua New Guinea', 'Paraguay', 'Peru', 'Philippines', 'Poland', 'Portugal', 'Qatar', 'Romania', 'Russia',
+  'Rwanda', 'Saint Kitts and Nevis', 'Saint Lucia', 'Saint Vincent and the Grenadines', 'Samoa', 'San Marino',
+  'Sao Tome and Principe', 'Saudi Arabia', 'Senegal', 'Serbia', 'Seychelles', 'Sierra Leone', 'Singapore',
+  'Slovakia', 'Slovenia', 'Solomon Islands', 'Somalia', 'South Africa', 'South Korea', 'South Sudan', 'Spain',
+  'Sri Lanka', 'Sudan', 'Suriname', 'Sweden', 'Switzerland', 'Syria', 'Taiwan', 'Tajikistan', 'Tanzania',
+  'Thailand', 'Timor-Leste', 'Togo', 'Tonga', 'Trinidad and Tobago', 'Tunisia', 'Turkey', 'Turkmenistan',
+  'Tuvalu', 'Uganda', 'Ukraine', 'United Arab Emirates', 'United Kingdom', 'United States', 'Uruguay',
+  'Uzbekistan', 'Vanuatu', 'Vatican City', 'Venezuela', 'Vietnam', 'Yemen', 'Zambia', 'Zimbabwe'
+]
+
 // ==================== COMPONENTS ====================
-function ProfileTab({ user, onAvatarUpdated }: {
+function ProfileTab({ user, onProfileUpdated }: {
   user: AppUser
-  onAvatarUpdated: (url: string) => void
+  onProfileUpdated: (updates: Partial<AppUser>) => void
 }) {
   const [uploading, setUploading] = useState(false)
-  const [error, setError] = useState('')
+  const [avatarError, setAvatarError] = useState('')
 
-  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const [churchName, setChurchName] = useState(user.churchName || '')
+  const [country, setCountry] = useState(user.country || '')
+  const [city, setCity] = useState(user.city || '')
+  const [phone, setPhone] = useState(user.phone || '')
+  const [saving, setSaving] = useState(false)
+  const [saved, setSaved] = useState(false)
+  const [saveError, setSaveError] = useState('')
+
+  const handleAvatarChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
     e.target.value = ''
     if (!file) return
-    setError('')
+    setAvatarError('')
     if (!file.type.startsWith('image/')) {
-      setError('Please choose an image file (JPEG, PNG, or WebP).')
+      setAvatarError('Please choose an image file (JPEG, PNG, or WebP).')
       return
     }
     if (file.size > 5 * 1024 * 1024) {
-      setError('Image must be under 5MB.')
+      setAvatarError('Image must be under 5MB.')
       return
     }
     setUploading(true)
@@ -892,40 +934,99 @@ function ProfileTab({ user, onAvatarUpdated }: {
       await uploadBytes(storageRef, file)
       const url = await getDownloadURL(storageRef)
       await updateDoc(doc(db, 'users', user.uid), { avatar: url })
-      onAvatarUpdated(url)
+      onProfileUpdated({ avatar: url })
     } catch (err: any) {
-      setError(err.message?.replace('Firebase: ', '') || 'Upload failed')
+      setAvatarError(err.message?.replace('Firebase: ', '') || 'Upload failed')
     } finally {
       setUploading(false)
     }
   }
 
+  const handleSaveProfile = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setSaving(true)
+    setSaveError('')
+    setSaved(false)
+    try {
+      const updates = { churchName, country, city, phone }
+      await updateDoc(doc(db, 'users', user.uid), updates)
+      onProfileUpdated(updates)
+      setSaved(true)
+      setTimeout(() => setSaved(false), 2500)
+    } catch (err: any) {
+      setSaveError(err.message?.replace('Firebase: ', '') || 'Could not save changes')
+    } finally {
+      setSaving(false)
+    }
+  }
+
   return (
-    <div className="bg-white rounded-3xl p-8 shadow-sm border border-slate-100 text-center">
-      <div className="relative w-24 h-24 mx-auto mb-4">
-        {user.avatar ? (
-          <img src={user.avatar} alt="" className="w-24 h-24 rounded-full object-cover shadow-lg shadow-emerald-200" />
-        ) : (
-          <div className="w-24 h-24 rounded-full bg-gradient-to-br from-emerald-400 to-teal-500 flex items-center justify-center text-3xl font-bold text-white shadow-lg shadow-emerald-200">
-            {user.displayName.charAt(0).toUpperCase()}
-          </div>
-        )}
-        <label className="absolute bottom-0 right-0 w-8 h-8 rounded-full bg-white border-2 border-emerald-500 text-emerald-600 flex items-center justify-center cursor-pointer shadow-md hover:bg-emerald-50 transition">
-          {uploading ? (
-            <div className="w-3.5 h-3.5 border-2 border-emerald-500 border-t-transparent rounded-full animate-spin" />
+    <div className="space-y-4">
+      <div className="bg-white rounded-3xl p-8 shadow-sm border border-slate-100 text-center">
+        <div className="relative w-24 h-24 mx-auto mb-4">
+          {user.avatar ? (
+            <img src={user.avatar} alt="" className="w-24 h-24 rounded-full object-cover shadow-lg shadow-emerald-200" />
           ) : (
-            <Camera size={14} />
+            <div className="w-24 h-24 rounded-full bg-gradient-to-br from-emerald-400 to-teal-500 flex items-center justify-center text-3xl font-bold text-white shadow-lg shadow-emerald-200">
+              {user.displayName.charAt(0).toUpperCase()}
+            </div>
           )}
-          <input type="file" accept="image/jpeg,image/png,image/webp" className="hidden" onChange={handleFileChange} disabled={uploading} />
-        </label>
+          <label className="absolute bottom-0 right-0 w-8 h-8 rounded-full bg-white border-2 border-emerald-500 text-emerald-600 flex items-center justify-center cursor-pointer shadow-md hover:bg-emerald-50 transition">
+            {uploading ? (
+              <div className="w-3.5 h-3.5 border-2 border-emerald-500 border-t-transparent rounded-full animate-spin" />
+            ) : (
+              <Camera size={14} />
+            )}
+            <input type="file" accept="image/jpeg,image/png,image/webp" className="hidden" onChange={handleAvatarChange} disabled={uploading} />
+          </label>
+        </div>
+        <h2 className="text-xl font-bold text-slate-900">{user.displayName}</h2>
+        <p className="text-slate-400 text-sm mt-1">{user.email}</p>
+        <div className="mt-4 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 text-xs font-semibold">
+          {user.role === 'church' ? <><CheckCircle2 size={14} /> Verified Church</> : user.role === 'admin' ? <><ShieldCheck size={14} /> Admin</> : 'Member'}
+        </div>
+        {avatarError && <p className="mt-4 text-xs text-red-500 bg-red-50 rounded-xl px-3 py-2 inline-block">{avatarError}</p>}
       </div>
-      <h2 className="text-xl font-bold text-slate-900">{user.displayName}</h2>
-      <p className="text-slate-400 text-sm mt-1">{user.email}</p>
-      <div className="mt-4 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 text-xs font-semibold">
-        {user.role === 'church' ? <><CheckCircle2 size={14} /> Verified Church</> : user.role === 'admin' ? <><ShieldCheck size={14} /> Admin</> : 'Member'}
-      </div>
-      {user.churchName && <p className="mt-3 text-slate-600 font-medium">{user.churchName}</p>}
-      {error && <p className="mt-4 text-xs text-red-500 bg-red-50 rounded-xl px-3 py-2 inline-block">{error}</p>}
+
+      <form onSubmit={handleSaveProfile} className="bg-white rounded-3xl p-6 shadow-sm border border-slate-100 space-y-4">
+        <h3 className="font-bold text-slate-900 px-1">Profile details</h3>
+
+        <div>
+          <label className="text-xs font-semibold text-slate-500 px-1">Church</label>
+          <input value={churchName} onChange={e => setChurchName(e.target.value)} placeholder="e.g. Grace Community Church"
+            className="w-full mt-1.5 px-4 py-3 rounded-2xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-400 text-[15px]" />
+        </div>
+
+        <div className="grid grid-cols-2 gap-3">
+          <div>
+            <label className="text-xs font-semibold text-slate-500 px-1">Country</label>
+            <select value={country} onChange={e => setCountry(e.target.value)}
+              className="w-full mt-1.5 px-4 py-3 rounded-2xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-400 text-[15px] bg-white">
+              <option value="">Select...</option>
+              {COUNTRIES.map(c => <option key={c} value={c}>{c}</option>)}
+            </select>
+          </div>
+          <div>
+            <label className="text-xs font-semibold text-slate-500 px-1">City</label>
+            <input value={city} onChange={e => setCity(e.target.value)} placeholder="e.g. Ouagadougou"
+              className="w-full mt-1.5 px-4 py-3 rounded-2xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-400 text-[15px]" />
+          </div>
+        </div>
+
+        <div>
+          <label className="text-xs font-semibold text-slate-500 px-1">Phone number</label>
+          <input type="tel" value={phone} onChange={e => setPhone(e.target.value)} placeholder="e.g. +226 70 00 00 00"
+            className="w-full mt-1.5 px-4 py-3 rounded-2xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-400 text-[15px]" />
+        </div>
+
+        {saveError && <p className="text-sm text-red-500 bg-red-50 rounded-xl px-4 py-3">{saveError}</p>}
+        {saved && <p className="text-sm text-emerald-700 bg-emerald-50 rounded-xl px-4 py-3">Profile updated.</p>}
+
+        <button type="submit" disabled={saving}
+          className="w-full py-3.5 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-[15px] transition disabled:opacity-60">
+          {saving ? 'Saving...' : 'Save Changes'}
+        </button>
+      </form>
     </div>
   )
 }
@@ -990,17 +1091,17 @@ function AdminPanel({ pendingChurches, onApprove, onDeny }: {
   )
 }
 
-function PostCard({ post, onLike, onOpenComments, currentUserUid, isAdmin, onDelete }: {
+function PostCard({ post, onLike, onOpenComments, currentUserUid, onEdit, onDelete }: {
   post: Post
   onLike: (id: string) => void
   onOpenComments: (id: string) => void
   currentUserUid: string
-  isAdmin: boolean
+  onEdit: (post: Post) => void
   onDelete: (id: string) => void
 }) {
   const ytId = post.mediaUrl ? getYoutubeId(post.mediaUrl) : null
   const [confirmingDelete, setConfirmingDelete] = useState(false)
-  const canDelete = post.churchId === currentUserUid || isAdmin
+  const isOwner = post.churchId === currentUserUid
 
   return (
     <article className="bg-white rounded-3xl shadow-sm border border-slate-100/80 overflow-hidden">
@@ -1016,7 +1117,7 @@ function PostCard({ post, onLike, onOpenComments, currentUserUid, isAdmin, onDel
           <h3 className="font-semibold text-slate-900 truncate">{post.churchName || 'Church'}</h3>
           <p className="text-xs text-slate-400">{timeAgo(post.createdAt)}</p>
         </div>
-        {canDelete && (
+        {isOwner && (
           confirmingDelete ? (
             <div className="flex items-center gap-1.5 shrink-0">
               <button onClick={() => onDelete(post.id)}
@@ -1029,10 +1130,16 @@ function PostCard({ post, onLike, onOpenComments, currentUserUid, isAdmin, onDel
               </button>
             </div>
           ) : (
-            <button onClick={() => setConfirmingDelete(true)}
-              className="p-2 rounded-full text-slate-300 hover:text-red-500 hover:bg-red-50 transition shrink-0">
-              <Trash2 size={17} />
-            </button>
+            <div className="flex items-center gap-0.5 shrink-0">
+              <button onClick={() => onEdit(post)}
+                className="p-2 rounded-full text-slate-300 hover:text-emerald-600 hover:bg-emerald-50 transition">
+                <Pencil size={16} />
+              </button>
+              <button onClick={() => setConfirmingDelete(true)}
+                className="p-2 rounded-full text-slate-300 hover:text-red-500 hover:bg-red-50 transition">
+                <Trash2 size={17} />
+              </button>
+            </div>
           )
         )}
       </div>
@@ -1276,6 +1383,50 @@ function CreatePostModal({ onClose, onSubmit, uploaderUid }: {
             <input value={coverUrl} onChange={e => setCoverUrl(e.target.value)}
               placeholder="Paste cover image URL (optional)"
               className="w-full px-4 py-3.5 rounded-2xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-400" />
+          )}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function EditPostModal({ post, onClose, onSave }: {
+  post: Post
+  onClose: () => void
+  onSave: (id: string, content: string) => Promise<void>
+}) {
+  const [content, setContent] = useState(post.content)
+  const [saving, setSaving] = useState(false)
+
+  const handleSave = async () => {
+    if (!content.trim() || saving) return
+    setSaving(true)
+    try {
+      await onSave(post.id, content.trim())
+      onClose()
+    } finally {
+      setSaving(false)
+    }
+  }
+
+  return (
+    <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-end sm:items-center justify-center">
+      <div className="bg-white w-full max-w-lg rounded-t-3xl sm:rounded-3xl shadow-2xl">
+        <div className="px-5 py-4 border-b border-slate-100 flex items-center justify-between">
+          <button onClick={onClose} className="p-1.5 rounded-full hover:bg-slate-100"><X size={20} /></button>
+          <h2 className="font-bold text-lg">Edit Post</h2>
+          <button onClick={handleSave} disabled={!content.trim() || saving}
+            className="text-emerald-600 font-semibold disabled:opacity-40">
+            {saving ? 'Saving...' : 'Save'}
+          </button>
+        </div>
+        <div className="p-5">
+          <textarea value={content} onChange={e => setContent(e.target.value)}
+            className="w-full min-h-[130px] p-4 rounded-2xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-400 resize-none text-[15px]" />
+          {post.mediaUrl && (
+            <p className="mt-3 text-xs text-slate-400">
+              Only the text can be edited here. To change the attached photo, audio, or video, delete this post and share a new one.
+            </p>
           )}
         </div>
       </div>

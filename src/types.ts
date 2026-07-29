@@ -7,6 +7,9 @@ export interface AppUser {
   role: UserRole;
   churchName?: string;
   location?: string;
+  country?: string;
+  city?: string;
+  phone?: string;
   avatar?: string;
   createdAt?: any;
 }

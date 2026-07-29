@@ -40,8 +40,8 @@ Four roles, enforced server-side in `firestore.rules` (never trusted from the cl
 ## 4. Content & Moderation
 
 - Only `church`/`admin` roles may create posts; enforced in `firestore.rules`, not just hidden buttons.
-- **A church can remove its own posts.** An **admin can remove any post**, for moderation.
-- Comments can be removed by their author. (Admin-removal of comments is on the roadmap — see §9.)
+- **A church can edit or delete only its own posts** — enforced server-side; there is deliberately no admin override to touch another account's posts (a product decision, not an oversight — see Roadmap if that changes). Editing is limited to the text content; changing the attached media requires deleting and re-posting.
+- Comments can be removed by their author only.
 - **Prohibited content** (policy-level, enforced by moderation rather than automated filtering at this stage): hate speech, harassment or bullying, sexually explicit material, content that endangers or exposes a minor without guardian consent, illegal content, and spam/scams.
 - **Minors:** ELIM is not directed at children under 13, and churches must not publish content that identifies or exposes an unaccompanied minor without a guardian's consent. This is a policy-level rule for church admins today; automated enforcement is not yet built (see Roadmap).
 
@@ -67,7 +67,7 @@ Members and churches can upload real files (not just paste a URL). Every upload 
 
 ## 6. Data Collected
 
-Email, display name, role, and (for churches) a church name and city/state — plus, now, an optional profile picture. No payment data, no precise geolocation, no health data. Google Sign-In shares only the name/email/profile photo Google itself provides.
+Email, display name, role, and — now optional and user-editable — a church name, country, city, phone number, and profile picture. No payment data, no precise geolocation, no health data. Google Sign-In shares only the name/email/profile photo Google itself provides.
 
 ---
 
@@ -87,10 +87,10 @@ Any change to `firestore.rules` or Storage rules is reviewed against this docume
 ## 9. Roadmap (known gaps, not yet built)
 
 - Content **reporting** (flag a post/comment for admin review)
+- **Admin ability to remove posts/comments that violate policy** — intentionally left out for now so that only the original poster controls their own content; revisit if moderation needs arise
 - **Rate limiting** / abuse prevention (needs a Cloud Function + App Check; can't be done in Firestore/Storage rules alone)
 - **Malware scanning** on uploaded files
 - **Account deletion & data export** (GDPR/CCPA-style self-service)
-- **Admin ability to remove comments**, not just posts
 - Optional **MFA** for admin accounts specifically
 - Structured audit logging for admin actions (approvals, deletions)
 

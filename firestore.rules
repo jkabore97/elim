@@ -54,14 +54,14 @@ service cloud.firestore {
       // see SECURITY.md §3 for the reasoning.
       allow create: if canPublish()
                     && request.resource.data.churchId == request.auth.uid;
-      // The owning church/admin can edit their own post; any signed-in
-      // member can bump likes or the comment counter; an admin can also
-      // delete any post for moderation (SECURITY.md §4).
+      // The owning church/admin can edit or delete their own post (and only
+      // their own — see SECURITY.md §4); any signed-in member can separately
+      // bump likes or the comment counter.
       allow update: if isSignedIn() && (
                       (resource.data.churchId == request.auth.uid) ||
                       (request.resource.data.diff(resource.data).affectedKeys().hasOnly(['likes', 'commentsCount']))
                     );
-      allow delete: if isSignedIn() && (resource.data.churchId == request.auth.uid || isAdmin());
+      allow delete: if isSignedIn() && resource.data.churchId == request.auth.uid;
     }
 
     // ---- Comments ----
