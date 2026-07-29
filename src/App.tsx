@@ -96,9 +96,11 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
           email,
           displayName: name,
           role,
-          churchName: accountType === 'church' ? churchName : undefined,
-          location: accountType === 'church' ? location : undefined,
-          createdAt: serverTimestamp()
+          createdAt: serverTimestamp(),
+          // Omit churchName/location entirely for members rather than setting
+          // them to `undefined` — Firestore's setDoc() rejects undefined
+          // field values outright (this is what was crashing "Member" signup).
+          ...(accountType === 'church' ? { churchName, location } : {})
         }
         await setDoc(doc(db, 'users', cred.user.uid), profile)
         onSuccess(profile)
@@ -142,9 +144,8 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
         email: googleUser.email || '',
         displayName: googleUser.displayName || 'Member',
         role,
-        churchName: googleAccountType === 'church' ? googleChurchName : undefined,
-        location: googleAccountType === 'church' ? googleLocation : undefined,
-        createdAt: serverTimestamp()
+        createdAt: serverTimestamp(),
+        ...(googleAccountType === 'church' ? { churchName: googleChurchName, location: googleLocation } : {})
       }
       await setDoc(doc(db, 'users', googleUser.uid), profile)
       onSuccess(profile)
