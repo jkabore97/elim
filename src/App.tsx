@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import {
   Home, Church, PlusCircle, User, MessageCircle, Heart, Share2,
-  Play, Pause, Image as ImageIcon, Video, Mic, X, Send, LogOut,
+  Image as ImageIcon, Video, Mic, X, Send, LogOut,
   Youtube, Facebook, CheckCircle2, Clock, ArrowRight
 } from 'lucide-react'
 import {
@@ -231,9 +231,11 @@ export default function App() {
     setUser(null)
   }
 
-  const handleCreatePost = async (data: { type: Post['type']; content: string; mediaUrl?: string }) => {
+  const handleCreatePost = async (data: { type: Post['type']; content: string; mediaUrl?: string; coverUrl?: string }) => {
     let finalType = data.type
-    if (data.mediaUrl) {
+    // Only auto-detect YouTube/Facebook links when the user didn't explicitly pick
+    // a distinct media type (audio posts can otherwise get silently reclassified).
+    if (data.mediaUrl && data.type !== 'audio') {
       if (getYoutubeId(data.mediaUrl)) finalType = 'youtube'
       else if (isFacebookVideo(data.mediaUrl)) finalType = 'facebook'
     }
@@ -243,6 +245,7 @@ export default function App() {
       type: finalType,
       content: data.content,
       mediaUrl: data.mediaUrl || null,
+      coverUrl: data.coverUrl || null,
       likes: 0,
       commentsCount: 0,
       createdAt: serverTimestamp()
@@ -425,6 +428,20 @@ function PostCard({ post, onLike, onOpenComments }: {
         <video src={post.mediaUrl} controls className="w-full max-h-72 bg-black" />
       )}
 
+      {post.type === 'audio' && post.mediaUrl && (
+        <div className="px-4 pb-4">
+          {post.coverUrl && (
+            <img src={post.coverUrl} alt="" className="w-full h-40 object-cover rounded-2xl mb-3" />
+          )}
+          <div className="flex items-center gap-3 bg-slate-50 rounded-2xl px-4 py-3">
+            <div className="w-9 h-9 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-600 shrink-0">
+              <Mic size={16} />
+            </div>
+            <audio src={post.mediaUrl} controls className="w-full h-9" />
+          </div>
+        </div>
+      )}
+
       <div className="flex items-center justify-between px-4 py-3 border-t border-slate-50">
         <div className="flex items-center gap-5">
           <button onClick={() => onLike(post.id)}
@@ -447,11 +464,12 @@ function PostCard({ post, onLike, onOpenComments }: {
 
 function CreatePostModal({ onClose, onSubmit }: {
   onClose: () => void
-  onSubmit: (data: { type: Post['type']; content: string; mediaUrl?: string }) => void
+  onSubmit: (data: { type: Post['type']; content: string; mediaUrl?: string; coverUrl?: string }) => void
 }) {
   const [type, setType] = useState<Post['type']>('text-image')
   const [content, setContent] = useState('')
   const [mediaUrl, setMediaUrl] = useState('')
+  const [coverUrl, setCoverUrl] = useState('')
 
   return (
     <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-end sm:items-center justify-center">
@@ -459,15 +477,22 @@ function CreatePostModal({ onClose, onSubmit }: {
         <div className="sticky top-0 bg-white/90 backdrop-blur border-b border-slate-100 px-5 py-4 flex items-center justify-between">
           <button onClick={onClose} className="p-1.5 rounded-full hover:bg-slate-100"><X size={20} /></button>
           <h2 className="font-bold text-lg">New Post</h2>
-          <button onClick={() => { if (content.trim()) { onSubmit({ type, content: content.trim(), mediaUrl: mediaUrl || undefined }); onClose() } }}
+          <button onClick={() => {
+            if (content.trim()) {
+              onSubmit({ type, content: content.trim(), mediaUrl: mediaUrl || undefined, coverUrl: (type === 'audio' && coverUrl) ? coverUrl : undefined })
+              onClose()
+            }
+          }}
             disabled={!content.trim()}
             className="text-emerald-600 font-semibold disabled:opacity-40">Publish</button>
         </div>
 
         <div className="p-5 space-y-5">
-          <div className="grid grid-cols-4 gap-2">
+          <div className="grid grid-cols-5 gap-2">
             {[{
               id: 'text-image', icon: ImageIcon, label: 'Photo'
+            }, {
+              id: 'audio', icon: Mic, label: 'Audio'
             }, {
               id: 'youtube', icon: Youtube, label: 'YouTube'
             }, {
@@ -492,9 +517,16 @@ function CreatePostModal({ onClose, onSubmit }: {
             placeholder={
               type === 'youtube' ? 'Paste YouTube link...' :
               type === 'facebook' ? 'Paste Facebook video link...' :
+              type === 'audio' ? 'Paste audio file URL (mp3, m4a...)' :
               'Paste image or video URL...'
             }
             className="w-full px-4 py-3.5 rounded-2xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-400" />
+
+          {type === 'audio' && (
+            <input value={coverUrl} onChange={e => setCoverUrl(e.target.value)}
+              placeholder="Paste cover image URL (optional)"
+              className="w-full px-4 py-3.5 rounded-2xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-400" />
+          )}
         </div>
       </div>
     </div>

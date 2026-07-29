@@ -1,0 +1,58 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function userDoc() {
+      return get(/databases/$(database)/documents/users/$(request.auth.uid));
+    }
+
+    function role() {
+      return userDoc().data.role;
+    }
+
+    function canPublish() {
+      return isSignedIn() && (role() == 'church' || role() == 'admin');
+    }
+
+    // ---- Users ----
+    match /users/{userId} {
+      allow read: if isSignedIn();
+      allow create: if isSignedIn() && request.auth.uid == userId
+                    // Users can only self-assign 'member' or 'pending_church' on signup —
+                    // never 'church' or 'admin' directly.
+                    && request.resource.data.role in ['member', 'pending_church'];
+      allow update: if isSignedIn() && request.auth.uid == userId
+                    // Users cannot change their own role (only an admin process/back office can).
+                    && request.resource.data.role == resource.data.role;
+    }
+
+    // ---- Posts ----
+    match /posts/{postId} {
+      allow read: if isSignedIn();
+      allow create: if canPublish()
+                    && request.resource.data.churchId == request.auth.uid;
+      // Only the original church/admin can edit or delete their own post.
+      allow update: if isSignedIn() && (
+                      // the owner can edit anything on their own post
+                      (resource.data.churchId == request.auth.uid) ||
+                      // any signed-in member can bump likes (via increment) or the
+                      // comment counter (when they post a comment)
+                      (request.resource.data.diff(resource.data).affectedKeys().hasOnly(['likes', 'commentsCount']))
+                    );
+      allow delete: if isSignedIn() && resource.data.churchId == request.auth.uid;
+    }
+
+    // ---- Comments ----
+    match /comments/{commentId} {
+      allow read: if isSignedIn();
+      allow create: if isSignedIn() && request.resource.data.userId == request.auth.uid;
+      allow update: if false;
+      allow delete: if isSignedIn() && resource.data.userId == request.auth.uid;
+    }
+  }
+}
