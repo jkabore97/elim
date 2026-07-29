@@ -1,4 +1,15 @@
-export type UserRole = "member" | "church";
+export type UserRole = "member" | "church" | "pending_church" | "admin";
+
+export interface AppUser {
+  uid: string;
+  email: string;
+  displayName: string;
+  role: UserRole;
+  churchName?: string;
+  location?: string;
+  avatar?: string;
+  createdAt?: any;
+}
 
 export interface ChurchProfile {
   id: string;
@@ -7,13 +18,14 @@ export interface ChurchProfile {
   avatar: string;
   followers: number;
   verified: boolean;
+  ownerId?: string;
 }
 
 export interface Post {
   id: string;
   churchId: string;
   churchName?: string;
-  type: "text-image" | "audio" | "video";
+  type: "text-image" | "audio" | "video" | "youtube" | "facebook";
   content: string;
   mediaUrl?: string;
   coverUrl?: string;
