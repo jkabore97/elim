@@ -1,0 +1,32 @@
+{
+  "name": "elim-app",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "lint": "oxlint",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "react-router-dom": "^7.6.0",
+    "lucide-react": "^0.511.0",
+    "firebase": "^11.8.1",
+    "clsx": "^2.1.1",
+    "date-fns": "^4.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.13.2",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.3",
+    "oxlint": "^1.71.0",
+    "typescript": "~6.0.2",
+    "vite": "^8.1.1",
+    "tailwindcss": "^4.1.7",
+    "@tailwindcss/vite": "^4.1.7"
+  }
+}
