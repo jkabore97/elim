@@ -25,10 +25,12 @@ export interface Post {
   id: string;
   churchId: string;
   churchName?: string;
-  type: "text-image" | "audio" | "video" | "youtube" | "facebook";
+  churchAvatar?: string;
+  type: "text-image" | "audio" | "video" | "youtube" | "facebook" | "document";
   content: string;
   mediaUrl?: string;
   coverUrl?: string;
+  fileName?: string;
   likes: number;
   commentsCount: number;
   createdAt: any;

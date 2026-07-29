@@ -1,0 +1,45 @@
+rules_version = '2';
+
+// See SECURITY.md §5 for the policy this file enforces. Every limit here
+// should match the table in that document — if you change one, change both.
+service firebase.storage {
+  match /b/{bucket}/o {
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(uid) {
+      return isSignedIn() && request.auth.uid == uid;
+    }
+
+    // Profile pictures — each user manages only their own folder.
+    // Public read: avatars appear on posts visible to the whole feed anyway.
+    match /profile-pictures/{uid}/{fileName} {
+      allow read: if true;
+      allow write: if isOwner(uid)
+                   && request.resource.size < 5 * 1024 * 1024
+                   && request.resource.contentType.matches('image/(jpeg|png|webp)');
+    }
+
+    // Post media (image / audio / video / document) — scoped to the
+    // uploader's own folder. Role enforcement (only church/admin may
+    // actually reference this file in a post) happens in firestore.rules
+    // on the posts collection; an orphaned upload with no matching post
+    // document is inert and never shown in the app.
+    match /post-media/{uid}/{fileName} {
+      allow read: if true;
+      allow write: if isOwner(uid) && (
+        (request.resource.contentType.matches('image/.*') && request.resource.size < 10 * 1024 * 1024) ||
+        (request.resource.contentType.matches('audio/.*') && request.resource.size < 50 * 1024 * 1024) ||
+        (request.resource.contentType.matches('video/.*') && request.resource.size < 200 * 1024 * 1024) ||
+        (request.resource.contentType == 'application/pdf' && request.resource.size < 20 * 1024 * 1024)
+      );
+    }
+
+    // Deny everything else by default.
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}

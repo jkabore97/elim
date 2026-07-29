@@ -49,17 +49,19 @@ service cloud.firestore {
     // ---- Posts ----
     match /posts/{postId} {
       allow read: if isSignedIn();
+      // Publishing requires a verified email address (SECURITY.md §3) in
+      // addition to the church/admin role check.
       allow create: if canPublish()
+                    && request.auth.token.email_verified == true
                     && request.resource.data.churchId == request.auth.uid;
-      // Only the original church/admin can edit or delete their own post.
+      // The owning church/admin can edit their own post; any signed-in
+      // member can bump likes or the comment counter; an admin can also
+      // delete any post for moderation (SECURITY.md §4).
       allow update: if isSignedIn() && (
-                      // the owner can edit anything on their own post
                       (resource.data.churchId == request.auth.uid) ||
-                      // any signed-in member can bump likes (via increment) or the
-                      // comment counter (when they post a comment)
                       (request.resource.data.diff(resource.data).affectedKeys().hasOnly(['likes', 'commentsCount']))
                     );
-      allow delete: if isSignedIn() && resource.data.churchId == request.auth.uid;
+      allow delete: if isSignedIn() && (resource.data.churchId == request.auth.uid || isAdmin());
     }
 
     // ---- Comments ----

@@ -2,19 +2,21 @@ import { useState, useEffect } from 'react'
 import {
   Home, Church, PlusCircle, User, MessageCircle, Heart, Share2,
   Image as ImageIcon, Video, Mic, X, Send, LogOut,
-  Youtube, Facebook, CheckCircle2, Clock, ArrowRight, ShieldCheck, UserX, Sparkles
+  Youtube, Facebook, CheckCircle2, Clock, ArrowRight, ShieldCheck, UserX, Sparkles,
+  Trash2, Camera, FileText, Upload, Mail
 } from 'lucide-react'
 import {
   collection, addDoc, onSnapshot, query, orderBy, where,
-  serverTimestamp, doc, updateDoc, increment, setDoc, getDoc
+  serverTimestamp, doc, updateDoc, deleteDoc, increment, setDoc, getDoc
 } from 'firebase/firestore'
 import {
   createUserWithEmailAndPassword, signInWithEmailAndPassword,
   signOut, onAuthStateChanged, updateProfile,
-  GoogleAuthProvider, signInWithPopup
+  GoogleAuthProvider, signInWithPopup, sendEmailVerification, sendPasswordResetEmail
 } from 'firebase/auth'
 import type { User as FirebaseUser } from 'firebase/auth'
-import { auth, db } from './firebase'
+import { ref, uploadBytes, uploadBytesResumable, getDownloadURL } from 'firebase/storage'
+import { auth, db, storage } from './firebase'
 import type { Post, Comment, AppUser, UserRole } from './types'
 
 function timeAgo(date: any) {
@@ -68,6 +70,7 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
   const [location, setLocation] = useState('')
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
+  const [resetSent, setResetSent] = useState(false)
 
   // A brand-new Google sign-in has no account-type yet — we hold the
   // Firebase Auth user here until they finish that one extra step.
@@ -89,6 +92,9 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
       } else {
         const cred = await createUserWithEmailAndPassword(auth, email, password)
         await updateProfile(cred.user, { displayName: name })
+        // Fire-and-forget — a failure here shouldn't block account creation;
+        // the in-app banner offers a "Resend" button as a fallback anyway.
+        sendEmailVerification(cred.user).catch(() => {})
 
         const role: UserRole = accountType === 'church' ? 'pending_church' : 'member'
         const profile: AppUser = {
@@ -107,6 +113,24 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
       }
     } catch (err: any) {
       setError(err.message?.replace('Firebase: ', '') || 'Something went wrong')
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const handleForgotPassword = async () => {
+    if (!email) {
+      setError('Enter your email above first, then tap "Forgot password?"')
+      return
+    }
+    setError('')
+    setResetSent(false)
+    setLoading(true)
+    try {
+      await sendPasswordResetEmail(auth, email)
+      setResetSent(true)
+    } catch (err: any) {
+      setError(err.message?.replace('Firebase: ', '') || 'Could not send reset email')
     } finally {
       setLoading(false)
     }
@@ -259,9 +283,24 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
         )}
         <input required type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="Email address"
           className="w-full px-4 py-3.5 rounded-2xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-400 text-[15px]" />
-        <input required type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="Password" minLength={6}
+        <input required type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="Password"
+          minLength={mode === 'register' ? 8 : undefined}
           className="w-full px-4 py-3.5 rounded-2xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-400 text-[15px]" />
 
+        {mode === 'login' && (
+          <div className="text-right -mt-2">
+            <button type="button" onClick={handleForgotPassword}
+              className="text-xs font-semibold text-emerald-600 hover:text-emerald-700">
+              Forgot password?
+            </button>
+          </div>
+        )}
+
+        {resetSent && (
+          <p className="text-sm text-emerald-700 bg-emerald-50 rounded-xl px-4 py-3">
+            Password reset email sent — check your inbox.
+          </p>
+        )}
         {error && <p className="text-sm text-red-500 bg-red-50 rounded-xl px-4 py-3">{error}</p>}
 
         <button type="submit" disabled={loading}
@@ -318,6 +357,58 @@ function AuthModal({ onClose, onSuccess, initialMode }: {
         </div>
         <AuthForm onSuccess={onSuccess} initialMode={initialMode} />
       </div>
+    </div>
+  )
+}
+
+// Persistent (non-blocking) banner shown to signed-in users whose email
+// isn't verified yet. Publishing is actually gated on this at the Firestore
+// rules layer too — this banner is the friendly way to resolve it.
+function EmailVerificationBanner() {
+  const [sent, setSent] = useState(false)
+  const [sending, setSending] = useState(false)
+  const [checking, setChecking] = useState(false)
+
+  const resend = async () => {
+    if (!auth.currentUser) return
+    setSending(true)
+    try {
+      await sendEmailVerification(auth.currentUser)
+      setSent(true)
+    } catch {
+      // Firebase rate-limits repeated verification emails — failing quietly
+      // here is better than showing a scary error for "already sent recently."
+    } finally {
+      setSending(false)
+    }
+  }
+
+  const refresh = async () => {
+    if (!auth.currentUser) return
+    setChecking(true)
+    try {
+      await auth.currentUser.reload()
+      await auth.currentUser.getIdToken(true)
+      if (auth.currentUser.emailVerified) window.location.reload()
+    } finally {
+      setChecking(false)
+    }
+  }
+
+  return (
+    <div className="bg-amber-50 border-b border-amber-100 px-4 py-2.5 flex items-center gap-2.5 text-xs lg:text-sm">
+      <Mail size={15} className="text-amber-600 shrink-0" />
+      <span className="text-amber-800 flex-1">
+        {sent ? 'Verification email sent — check your inbox.' : 'Please verify your email to publish posts.'}
+      </span>
+      <button onClick={resend} disabled={sending}
+        className="font-semibold text-amber-700 hover:text-amber-900 shrink-0 disabled:opacity-50">
+        Resend
+      </button>
+      <button onClick={refresh} disabled={checking}
+        className="font-semibold text-amber-700 hover:text-amber-900 shrink-0 disabled:opacity-50">
+        {checking ? '...' : "I've verified"}
+      </button>
     </div>
   )
 }
@@ -506,6 +597,7 @@ export default function App() {
   const [activeCommentsPost, setActiveCommentsPost] = useState<string | null>(null)
   const [loading, setLoading] = useState(true)
   const [pendingChurches, setPendingChurches] = useState<AppUser[]>([])
+  const [emailVerified, setEmailVerified] = useState(true)
 
   // Auth listener
   useEffect(() => {
@@ -514,6 +606,7 @@ export default function App() {
         const snap = await getDoc(doc(db, 'users', firebaseUser.uid))
         if (snap.exists()) setUser(snap.data() as AppUser)
         else setUser(null)
+        setEmailVerified(firebaseUser.emailVerified)
       } else {
         setUser(null)
       }
@@ -553,28 +646,34 @@ export default function App() {
     return unsub
   }, [user])
 
-  const canPost = user?.role === 'church' || user?.role === 'admin'
+  const canPost = (user?.role === 'church' || user?.role === 'admin') && emailVerified
 
   const handleLogout = async () => {
     await signOut(auth)
     setUser(null)
   }
 
-  const handleCreatePost = async (data: { type: Post['type']; content: string; mediaUrl?: string; coverUrl?: string }) => {
+  const handleDeletePost = async (id: string) => {
+    await deleteDoc(doc(db, 'posts', id))
+  }
+
+  const handleCreatePost = async (data: { type: Post['type']; content: string; mediaUrl?: string; coverUrl?: string; fileName?: string }) => {
     let finalType = data.type
     // Only auto-detect YouTube/Facebook links when the user didn't explicitly pick
-    // a distinct media type (audio posts can otherwise get silently reclassified).
-    if (data.mediaUrl && data.type !== 'audio') {
+    // a distinct media type (audio/document posts can otherwise get silently reclassified).
+    if (data.mediaUrl && !['audio', 'document'].includes(data.type)) {
       if (getYoutubeId(data.mediaUrl)) finalType = 'youtube'
       else if (isFacebookVideo(data.mediaUrl)) finalType = 'facebook'
     }
     await addDoc(collection(db, 'posts'), {
       churchId: user!.uid,
       churchName: user!.churchName || user!.displayName,
+      churchAvatar: user!.avatar || null,
       type: finalType,
       content: data.content,
       mediaUrl: data.mediaUrl || null,
       coverUrl: data.coverUrl || null,
+      fileName: data.fileName || null,
       likes: 0,
       commentsCount: 0,
       createdAt: serverTimestamp()
@@ -638,130 +737,125 @@ export default function App() {
   ]
 
   return (
-    <div className="min-h-screen bg-[#f8faf9] max-w-lg mx-auto lg:max-w-none lg:mx-0 lg:flex relative">
-      {/* Sidebar — desktop only */}
-      <aside className="hidden lg:flex lg:flex-col lg:w-64 lg:shrink-0 lg:h-screen lg:sticky lg:top-0 border-r border-slate-100 bg-white px-6 py-8">
-        <Logo size={34} />
-        <nav className="mt-10 flex-1 space-y-1">
-          {navItems.map(item => {
-            const Icon = item.icon
-            const active = activeTab === item.id
-            return (
-              <button key={item.id} onClick={() => setActiveTab(item.id)}
-                className={`w-full flex items-center gap-3 px-4 py-3 rounded-2xl text-sm font-semibold transition ${
-                  active ? 'bg-emerald-50 text-emerald-700' : 'text-slate-500 hover:bg-slate-50'}`}>
-                <Icon size={19} />
-                {item.label}
-                {item.id === 'admin' && pendingChurches.length > 0 && (
-                  <span className="ml-auto w-5 h-5 rounded-full bg-red-500 text-white text-[10px] font-bold flex items-center justify-center">
-                    {pendingChurches.length}
-                  </span>
-                )}
-              </button>
-            )
-          })}
-        </nav>
-        {canPost && (
-          <button onClick={() => setShowCreate(true)}
-            className="w-full flex items-center justify-center gap-2 py-3.5 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-sm transition shadow-lg shadow-emerald-200 mb-4">
-            <PlusCircle size={18} /> New Post
-          </button>
-        )}
-        <div className="pt-4 border-t border-slate-100 flex items-center justify-between">
-          <span className="text-xs font-medium text-slate-500 truncate">{user.displayName}</span>
-          <button onClick={handleLogout} className="p-2 rounded-full hover:bg-slate-100 text-slate-400">
-            <LogOut size={16} />
-          </button>
-        </div>
-      </aside>
+    <div className="min-h-screen bg-[#f8faf9] max-w-lg mx-auto lg:max-w-none lg:mx-0 relative">
+      {!emailVerified && <EmailVerificationBanner />}
 
-      <div className="flex-1 min-w-0">
-        {/* Header — mobile & tablet only */}
-        <header className="lg:hidden sticky top-0 z-40 bg-white/80 backdrop-blur-xl border-b border-slate-100/80">
-          <div className="px-5 h-14 flex items-center justify-between">
-            <Logo size={32} />
-            <div className="flex items-center gap-3">
-              <span className="text-xs font-medium text-slate-400 truncate max-w-[120px]">{user.displayName}</span>
-              <button onClick={handleLogout} className="p-2 rounded-full hover:bg-slate-100 text-slate-400">
-                <LogOut size={18} />
-              </button>
-            </div>
-          </div>
-        </header>
-
-        <main className="pb-28 lg:pb-16 px-4 lg:px-10 pt-4 lg:pt-10 lg:max-w-3xl xl:max-w-4xl lg:mx-auto">
-          {activeTab === 'feed' && (
-            <div className="space-y-4">
-              {loading && <p className="text-center text-slate-400 py-16">Loading...</p>}
-              {!loading && posts.length === 0 && (
-                <div className="text-center py-20">
-                  <div className="w-16 h-16 rounded-full bg-emerald-50 flex items-center justify-center mx-auto mb-4">
-                    <Church size={28} className="text-emerald-500" />
-                  </div>
-                  <p className="text-slate-500 font-medium">No posts yet</p>
-                  <p className="text-sm text-slate-400 mt-1">Be the first to share something</p>
-                </div>
-              )}
-              {posts.map(post => (
-                <PostCard key={post.id} post={post} onLike={handleLike} onOpenComments={setActiveCommentsPost} />
-              ))}
-            </div>
-          )}
-
-          {activeTab === 'profile' && (
-            <div className="bg-white rounded-3xl p-8 shadow-sm border border-slate-100 text-center">
-              <div className="w-24 h-24 rounded-full bg-gradient-to-br from-emerald-400 to-teal-500 mx-auto flex items-center justify-center text-3xl font-bold text-white mb-4 shadow-lg shadow-emerald-200">
-                {user.displayName.charAt(0).toUpperCase()}
-              </div>
-              <h2 className="text-xl font-bold text-slate-900">{user.displayName}</h2>
-              <p className="text-slate-400 text-sm mt-1">{user.email}</p>
-              <div className="mt-4 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 text-xs font-semibold">
-                {user.role === 'church' ? <><CheckCircle2 size={14} /> Verified Church</> : user.role === 'admin' ? <><ShieldCheck size={14} /> Admin</> : 'Member'}
-              </div>
-              {user.churchName && <p className="mt-3 text-slate-600 font-medium">{user.churchName}</p>}
-            </div>
-          )}
-
-          {activeTab === 'admin' && user.role === 'admin' && (
-            <AdminPanel pendingChurches={pendingChurches} onApprove={handleApproveChurch} onDeny={handleDenyChurch} />
-          )}
-        </main>
-      </div>
-
-      {/* Bottom Nav — mobile & tablet only */}
-      <nav className="lg:hidden fixed bottom-0 left-0 right-0 bg-white/90 backdrop-blur-xl border-t border-slate-100 safe-bottom z-50">
-        <div className="max-w-lg mx-auto flex justify-around items-center h-16 px-2">
-          {navItems.map(item => {
-            const Icon = item.icon
-            const active = activeTab === item.id
-            return (
-              <button key={item.id} onClick={() => setActiveTab(item.id)}
-                className={`relative flex flex-col items-center justify-center w-20 h-full transition ${
-                  active ? 'text-emerald-600' : 'text-slate-400'}`}>
-                <Icon size={22} strokeWidth={active ? 2.5 : 2} />
-                {item.id === 'admin' && pendingChurches.length > 0 && (
-                  <span className="absolute top-1.5 right-5 w-4 h-4 rounded-full bg-red-500 text-white text-[9px] font-bold flex items-center justify-center">
-                    {pendingChurches.length}
-                  </span>
-                )}
-                <span className="text-[10px] mt-1 font-medium">{item.label}</span>
-              </button>
-            )
-          })}
+      <div className="lg:flex">
+        {/* Sidebar — desktop only */}
+        <aside className="hidden lg:flex lg:flex-col lg:w-64 lg:shrink-0 lg:h-screen lg:sticky lg:top-0 border-r border-slate-100 bg-white px-6 py-8">
+          <Logo size={34} />
+          <nav className="mt-10 flex-1 space-y-1">
+            {navItems.map(item => {
+              const Icon = item.icon
+              const active = activeTab === item.id
+              return (
+                <button key={item.id} onClick={() => setActiveTab(item.id)}
+                  className={`w-full flex items-center gap-3 px-4 py-3 rounded-2xl text-sm font-semibold transition ${
+                    active ? 'bg-emerald-50 text-emerald-700' : 'text-slate-500 hover:bg-slate-50'}`}>
+                  <Icon size={19} />
+                  {item.label}
+                  {item.id === 'admin' && pendingChurches.length > 0 && (
+                    <span className="ml-auto w-5 h-5 rounded-full bg-red-500 text-white text-[10px] font-bold flex items-center justify-center">
+                      {pendingChurches.length}
+                    </span>
+                  )}
+                </button>
+              )
+            })}
+          </nav>
           {canPost && (
             <button onClick={() => setShowCreate(true)}
-              className="flex flex-col items-center justify-center w-20 h-full text-emerald-600">
-              <div className="w-10 h-10 rounded-full bg-emerald-600 text-white flex items-center justify-center shadow-lg shadow-emerald-200 -mt-4">
-                <PlusCircle size={22} />
-              </div>
-              <span className="text-[10px] mt-1 font-medium">Post</span>
+              className="w-full flex items-center justify-center gap-2 py-3.5 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-sm transition shadow-lg shadow-emerald-200 mb-4">
+              <PlusCircle size={18} /> New Post
             </button>
           )}
+          <div className="pt-4 border-t border-slate-100 flex items-center justify-between">
+            <span className="text-xs font-medium text-slate-500 truncate">{user.displayName}</span>
+            <button onClick={handleLogout} className="p-2 rounded-full hover:bg-slate-100 text-slate-400">
+              <LogOut size={16} />
+            </button>
+          </div>
+        </aside>
+
+        <div className="flex-1 min-w-0">
+          {/* Header — mobile & tablet only */}
+          <header className="lg:hidden sticky top-0 z-40 bg-white/80 backdrop-blur-xl border-b border-slate-100/80">
+            <div className="px-5 h-14 flex items-center justify-between">
+              <Logo size={32} />
+              <div className="flex items-center gap-3">
+                <span className="text-xs font-medium text-slate-400 truncate max-w-[120px]">{user.displayName}</span>
+                <button onClick={handleLogout} className="p-2 rounded-full hover:bg-slate-100 text-slate-400">
+                  <LogOut size={18} />
+                </button>
+              </div>
+            </div>
+          </header>
+
+          <main className="pb-28 lg:pb-16 px-4 lg:px-10 pt-4 lg:pt-10 lg:max-w-3xl xl:max-w-4xl lg:mx-auto">
+            {activeTab === 'feed' && (
+              <div className="space-y-4">
+                {loading && <p className="text-center text-slate-400 py-16">Loading...</p>}
+                {!loading && posts.length === 0 && (
+                  <div className="text-center py-20">
+                    <div className="w-16 h-16 rounded-full bg-emerald-50 flex items-center justify-center mx-auto mb-4">
+                      <Church size={28} className="text-emerald-500" />
+                    </div>
+                    <p className="text-slate-500 font-medium">No posts yet</p>
+                    <p className="text-sm text-slate-400 mt-1">Be the first to share something</p>
+                  </div>
+                )}
+                {posts.map(post => (
+                  <PostCard key={post.id} post={post} onLike={handleLike} onOpenComments={setActiveCommentsPost}
+                    currentUserUid={user.uid} isAdmin={user.role === 'admin'} onDelete={handleDeletePost} />
+                ))}
+              </div>
+            )}
+
+            {activeTab === 'profile' && (
+              <ProfileTab user={user} onAvatarUpdated={(url) => setUser(prev => prev ? { ...prev, avatar: url } : prev)} />
+            )}
+
+            {activeTab === 'admin' && user.role === 'admin' && (
+              <AdminPanel pendingChurches={pendingChurches} onApprove={handleApproveChurch} onDeny={handleDenyChurch} />
+            )}
+          </main>
         </div>
-      </nav>
+
+        {/* Bottom Nav — mobile & tablet only */}
+        <nav className="lg:hidden fixed bottom-0 left-0 right-0 bg-white/90 backdrop-blur-xl border-t border-slate-100 safe-bottom z-50">
+          <div className="max-w-lg mx-auto flex justify-around items-center h-16 px-2">
+            {navItems.map(item => {
+              const Icon = item.icon
+              const active = activeTab === item.id
+              return (
+                <button key={item.id} onClick={() => setActiveTab(item.id)}
+                  className={`relative flex flex-col items-center justify-center w-20 h-full transition ${
+                    active ? 'text-emerald-600' : 'text-slate-400'}`}>
+                  <Icon size={22} strokeWidth={active ? 2.5 : 2} />
+                  {item.id === 'admin' && pendingChurches.length > 0 && (
+                    <span className="absolute top-1.5 right-5 w-4 h-4 rounded-full bg-red-500 text-white text-[9px] font-bold flex items-center justify-center">
+                      {pendingChurches.length}
+                    </span>
+                  )}
+                  <span className="text-[10px] mt-1 font-medium">{item.label}</span>
+                </button>
+              )
+            })}
+            {canPost && (
+              <button onClick={() => setShowCreate(true)}
+                className="flex flex-col items-center justify-center w-20 h-full text-emerald-600">
+                <div className="w-10 h-10 rounded-full bg-emerald-600 text-white flex items-center justify-center shadow-lg shadow-emerald-200 -mt-4">
+                  <PlusCircle size={22} />
+                </div>
+                <span className="text-[10px] mt-1 font-medium">Post</span>
+              </button>
+            )}
+          </div>
+        </nav>
+      </div>
 
       {showCreate && canPost && (
-        <CreatePostModal onClose={() => setShowCreate(false)} onSubmit={handleCreatePost} />
+        <CreatePostModal onClose={() => setShowCreate(false)} onSubmit={handleCreatePost} uploaderUid={user.uid} />
       )}
       {activeCommentsPost && (
         <CommentsSheet postId={activeCommentsPost} comments={comments}
@@ -772,6 +866,70 @@ export default function App() {
 }
 
 // ==================== COMPONENTS ====================
+function ProfileTab({ user, onAvatarUpdated }: {
+  user: AppUser
+  onAvatarUpdated: (url: string) => void
+}) {
+  const [uploading, setUploading] = useState(false)
+  const [error, setError] = useState('')
+
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    e.target.value = ''
+    if (!file) return
+    setError('')
+    if (!file.type.startsWith('image/')) {
+      setError('Please choose an image file (JPEG, PNG, or WebP).')
+      return
+    }
+    if (file.size > 5 * 1024 * 1024) {
+      setError('Image must be under 5MB.')
+      return
+    }
+    setUploading(true)
+    try {
+      const storageRef = ref(storage, `profile-pictures/${user.uid}/${Date.now()}-${file.name}`)
+      await uploadBytes(storageRef, file)
+      const url = await getDownloadURL(storageRef)
+      await updateDoc(doc(db, 'users', user.uid), { avatar: url })
+      onAvatarUpdated(url)
+    } catch (err: any) {
+      setError(err.message?.replace('Firebase: ', '') || 'Upload failed')
+    } finally {
+      setUploading(false)
+    }
+  }
+
+  return (
+    <div className="bg-white rounded-3xl p-8 shadow-sm border border-slate-100 text-center">
+      <div className="relative w-24 h-24 mx-auto mb-4">
+        {user.avatar ? (
+          <img src={user.avatar} alt="" className="w-24 h-24 rounded-full object-cover shadow-lg shadow-emerald-200" />
+        ) : (
+          <div className="w-24 h-24 rounded-full bg-gradient-to-br from-emerald-400 to-teal-500 flex items-center justify-center text-3xl font-bold text-white shadow-lg shadow-emerald-200">
+            {user.displayName.charAt(0).toUpperCase()}
+          </div>
+        )}
+        <label className="absolute bottom-0 right-0 w-8 h-8 rounded-full bg-white border-2 border-emerald-500 text-emerald-600 flex items-center justify-center cursor-pointer shadow-md hover:bg-emerald-50 transition">
+          {uploading ? (
+            <div className="w-3.5 h-3.5 border-2 border-emerald-500 border-t-transparent rounded-full animate-spin" />
+          ) : (
+            <Camera size={14} />
+          )}
+          <input type="file" accept="image/jpeg,image/png,image/webp" className="hidden" onChange={handleFileChange} disabled={uploading} />
+        </label>
+      </div>
+      <h2 className="text-xl font-bold text-slate-900">{user.displayName}</h2>
+      <p className="text-slate-400 text-sm mt-1">{user.email}</p>
+      <div className="mt-4 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 text-xs font-semibold">
+        {user.role === 'church' ? <><CheckCircle2 size={14} /> Verified Church</> : user.role === 'admin' ? <><ShieldCheck size={14} /> Admin</> : 'Member'}
+      </div>
+      {user.churchName && <p className="mt-3 text-slate-600 font-medium">{user.churchName}</p>}
+      {error && <p className="mt-4 text-xs text-red-500 bg-red-50 rounded-xl px-3 py-2 inline-block">{error}</p>}
+    </div>
+  )
+}
+
 function AdminPanel({ pendingChurches, onApprove, onDeny }: {
   pendingChurches: AppUser[]
   onApprove: (uid: string) => void
@@ -832,21 +990,51 @@ function AdminPanel({ pendingChurches, onApprove, onDeny }: {
   )
 }
 
-function PostCard({ post, onLike, onOpenComments }: {
-  post: Post; onLike: (id: string) => void; onOpenComments: (id: string) => void
+function PostCard({ post, onLike, onOpenComments, currentUserUid, isAdmin, onDelete }: {
+  post: Post
+  onLike: (id: string) => void
+  onOpenComments: (id: string) => void
+  currentUserUid: string
+  isAdmin: boolean
+  onDelete: (id: string) => void
 }) {
   const ytId = post.mediaUrl ? getYoutubeId(post.mediaUrl) : null
+  const [confirmingDelete, setConfirmingDelete] = useState(false)
+  const canDelete = post.churchId === currentUserUid || isAdmin
 
   return (
     <article className="bg-white rounded-3xl shadow-sm border border-slate-100/80 overflow-hidden">
       <div className="flex items-center gap-3 p-4">
-        <div className="w-11 h-11 rounded-full bg-gradient-to-br from-emerald-400 to-teal-500 flex items-center justify-center text-white font-bold text-sm">
-          {(post.churchName || 'C').charAt(0)}
-        </div>
+        {post.churchAvatar ? (
+          <img src={post.churchAvatar} alt="" className="w-11 h-11 rounded-full object-cover shrink-0" />
+        ) : (
+          <div className="w-11 h-11 rounded-full bg-gradient-to-br from-emerald-400 to-teal-500 flex items-center justify-center text-white font-bold text-sm shrink-0">
+            {(post.churchName || 'C').charAt(0)}
+          </div>
+        )}
         <div className="flex-1 min-w-0">
           <h3 className="font-semibold text-slate-900 truncate">{post.churchName || 'Church'}</h3>
           <p className="text-xs text-slate-400">{timeAgo(post.createdAt)}</p>
         </div>
+        {canDelete && (
+          confirmingDelete ? (
+            <div className="flex items-center gap-1.5 shrink-0">
+              <button onClick={() => onDelete(post.id)}
+                className="text-xs font-semibold text-white bg-red-500 hover:bg-red-600 px-3 py-1.5 rounded-full transition">
+                Delete
+              </button>
+              <button onClick={() => setConfirmingDelete(false)}
+                className="text-xs font-semibold text-slate-400 hover:text-slate-600 px-2">
+                Cancel
+              </button>
+            </div>
+          ) : (
+            <button onClick={() => setConfirmingDelete(true)}
+              className="p-2 rounded-full text-slate-300 hover:text-red-500 hover:bg-red-50 transition shrink-0">
+              <Trash2 size={17} />
+            </button>
+          )
+        )}
       </div>
 
       {post.content && (
@@ -900,6 +1088,21 @@ function PostCard({ post, onLike, onOpenComments }: {
         </div>
       )}
 
+      {post.type === 'document' && post.mediaUrl && (
+        <div className="px-4 pb-4">
+          <a href={post.mediaUrl} target="_blank" rel="noreferrer"
+            className="flex items-center gap-3 bg-slate-50 hover:bg-slate-100 rounded-2xl px-4 py-3.5 transition">
+            <div className="w-10 h-10 rounded-xl bg-red-50 flex items-center justify-center text-red-500 shrink-0">
+              <FileText size={19} />
+            </div>
+            <div className="min-w-0 flex-1">
+              <p className="text-sm font-semibold text-slate-800 truncate">{post.fileName || 'Document'}</p>
+              <p className="text-xs text-slate-400">Tap to open</p>
+            </div>
+          </a>
+        </div>
+      )}
+
       <div className="flex items-center justify-between px-4 py-3 border-t border-slate-50">
         <div className="flex items-center gap-5">
           <button onClick={() => onLike(post.id)}
@@ -920,14 +1123,61 @@ function PostCard({ post, onLike, onOpenComments }: {
   )
 }
 
-function CreatePostModal({ onClose, onSubmit }: {
+const UPLOAD_RULES: Record<string, { accept: string; maxMB: number; check: (f: File) => boolean; label: string }> = {
+  'text-image': { accept: 'image/jpeg,image/png,image/webp,image/gif', maxMB: 10, check: f => f.type.startsWith('image/'), label: 'a photo' },
+  audio: { accept: 'audio/*,.m4a', maxMB: 50, check: f => f.type.startsWith('audio/'), label: 'an audio file' },
+  video: { accept: 'video/mp4,video/webm,video/quicktime', maxMB: 200, check: f => f.type.startsWith('video/'), label: 'a video' },
+  document: { accept: 'application/pdf', maxMB: 20, check: f => f.type === 'application/pdf', label: 'a PDF' },
+}
+
+function CreatePostModal({ onClose, onSubmit, uploaderUid }: {
   onClose: () => void
-  onSubmit: (data: { type: Post['type']; content: string; mediaUrl?: string; coverUrl?: string }) => void
+  onSubmit: (data: { type: Post['type']; content: string; mediaUrl?: string; coverUrl?: string; fileName?: string }) => void
+  uploaderUid: string
 }) {
   const [type, setType] = useState<Post['type']>('text-image')
   const [content, setContent] = useState('')
   const [mediaUrl, setMediaUrl] = useState('')
   const [coverUrl, setCoverUrl] = useState('')
+  const [fileName, setFileName] = useState('')
+  const [uploading, setUploading] = useState(false)
+  const [uploadProgress, setUploadProgress] = useState(0)
+  const [uploadError, setUploadError] = useState('')
+
+  const canUploadDirectly = type === 'text-image' || type === 'audio' || type === 'video' || type === 'document'
+  const rule = UPLOAD_RULES[type]
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    e.target.value = ''
+    if (!file || !rule) return
+    setUploadError('')
+    if (!rule.check(file)) {
+      setUploadError("That doesn't look like a supported file for this post type.")
+      return
+    }
+    if (file.size > rule.maxMB * 1024 * 1024) {
+      setUploadError(`File is too large — max ${rule.maxMB}MB for this type.`)
+      return
+    }
+    setUploading(true)
+    setUploadProgress(0)
+    const storageRef = ref(storage, `post-media/${uploaderUid}/${Date.now()}-${file.name}`)
+    const task = uploadBytesResumable(storageRef, file)
+    task.on('state_changed',
+      snap => setUploadProgress(Math.round((snap.bytesTransferred / snap.totalBytes) * 100)),
+      err => {
+        setUploadError(err.message || 'Upload failed')
+        setUploading(false)
+      },
+      async () => {
+        const url = await getDownloadURL(storageRef)
+        setMediaUrl(url)
+        setFileName(file.name)
+        setUploading(false)
+      }
+    )
+  }
 
   return (
     <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-end sm:items-center justify-center">
@@ -936,21 +1186,28 @@ function CreatePostModal({ onClose, onSubmit }: {
           <button onClick={onClose} className="p-1.5 rounded-full hover:bg-slate-100"><X size={20} /></button>
           <h2 className="font-bold text-lg">New Post</h2>
           <button onClick={() => {
-            if (content.trim()) {
-              onSubmit({ type, content: content.trim(), mediaUrl: mediaUrl || undefined, coverUrl: (type === 'audio' && coverUrl) ? coverUrl : undefined })
+            if (content.trim() && !uploading) {
+              onSubmit({
+                type, content: content.trim(),
+                mediaUrl: mediaUrl || undefined,
+                coverUrl: (type === 'audio' && coverUrl) ? coverUrl : undefined,
+                fileName: (type === 'document' && fileName) ? fileName : undefined
+              })
               onClose()
             }
           }}
-            disabled={!content.trim()}
+            disabled={!content.trim() || uploading}
             className="text-emerald-600 font-semibold disabled:opacity-40">Publish</button>
         </div>
 
         <div className="p-5 space-y-5">
-          <div className="grid grid-cols-5 gap-2">
+          <div className="grid grid-cols-3 gap-2">
             {[{
               id: 'text-image', icon: ImageIcon, label: 'Photo'
             }, {
               id: 'audio', icon: Mic, label: 'Audio'
+            }, {
+              id: 'document', icon: FileText, label: 'Document'
             }, {
               id: 'youtube', icon: Youtube, label: 'YouTube'
             }, {
@@ -958,7 +1215,7 @@ function CreatePostModal({ onClose, onSubmit }: {
             }, {
               id: 'video', icon: Video, label: 'Video'
             }].map(t => (
-              <button key={t.id} onClick={() => setType(t.id as Post['type'])}
+              <button key={t.id} onClick={() => { setType(t.id as Post['type']); setMediaUrl(''); setFileName(''); setUploadError('') }}
                 className={`flex flex-col items-center gap-1.5 py-3 rounded-2xl border-2 transition ${
                   type === t.id ? 'border-emerald-500 bg-emerald-50 text-emerald-700' : 'border-slate-100 text-slate-400'}`}>
                 <t.icon size={20} />
@@ -971,11 +1228,46 @@ function CreatePostModal({ onClose, onSubmit }: {
             placeholder="Share an encouragement, announcement or message..."
             className="w-full min-h-[130px] p-4 rounded-2xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-400 resize-none text-[15px]" />
 
-          <input value={mediaUrl} onChange={e => setMediaUrl(e.target.value)}
+          {canUploadDirectly && rule && (
+            <div>
+              <label className={`flex flex-col items-center justify-center gap-2 py-6 rounded-2xl border-2 border-dashed transition cursor-pointer ${
+                mediaUrl && fileName ? 'border-emerald-300 bg-emerald-50' : 'border-slate-200 hover:border-emerald-300 hover:bg-slate-50'}`}>
+                {uploading ? (
+                  <>
+                    <div className="w-6 h-6 border-2 border-emerald-500 border-t-transparent rounded-full animate-spin" />
+                    <span className="text-xs text-slate-500">Uploading... {uploadProgress}%</span>
+                  </>
+                ) : mediaUrl && fileName ? (
+                  <>
+                    <CheckCircle2 size={22} className="text-emerald-500" />
+                    <span className="text-xs text-slate-600 font-medium px-4 text-center break-all">{fileName}</span>
+                    <span className="text-[11px] text-emerald-600">Tap to replace</span>
+                  </>
+                ) : (
+                  <>
+                    <Upload size={22} className="text-slate-400" />
+                    <span className="text-xs text-slate-500 font-medium">Upload {rule.label}</span>
+                    <span className="text-[11px] text-slate-400">Max {rule.maxMB}MB</span>
+                  </>
+                )}
+                <input type="file" accept={rule.accept} className="hidden" onChange={handleFileChange} disabled={uploading} />
+              </label>
+              {uploadError && <p className="mt-2 text-xs text-red-500 bg-red-50 rounded-xl px-3 py-2">{uploadError}</p>}
+            </div>
+          )}
+
+          <div className="flex items-center gap-3">
+            <div className="h-px bg-slate-100 flex-1" />
+            <span className="text-xs text-slate-400 font-medium">{canUploadDirectly ? 'or paste a link instead' : 'paste a link'}</span>
+            <div className="h-px bg-slate-100 flex-1" />
+          </div>
+
+          <input value={mediaUrl} onChange={e => { setMediaUrl(e.target.value); setFileName('') }}
             placeholder={
               type === 'youtube' ? 'Paste YouTube link...' :
               type === 'facebook' ? 'Paste Facebook video link...' :
               type === 'audio' ? 'Paste audio file URL (mp3, m4a...)' :
+              type === 'document' ? 'Paste a document URL...' :
               'Paste image or video URL...'
             }
             className="w-full px-4 py-3.5 rounded-2xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-400" />
