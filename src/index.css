@@ -53,3 +53,8 @@ video, audio {
 .safe-bottom {
   padding-bottom: env(safe-area-inset-bottom, 0px);
 }
+
+/* Soft, warm "heavenly light" backdrop used on the landing page and auth screens */
+.heavenly-bg {
+  background: linear-gradient(180deg, #fffbeb 0%, #ffffff 40%, #f0fdf6 100%);
+}

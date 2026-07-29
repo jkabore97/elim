@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import {
   Home, Church, PlusCircle, User, MessageCircle, Heart, Share2,
   Image as ImageIcon, Video, Mic, X, Send, LogOut,
-  Youtube, Facebook, CheckCircle2, Clock, ArrowRight, ShieldCheck, UserX
+  Youtube, Facebook, CheckCircle2, Clock, ArrowRight, ShieldCheck, UserX, Sparkles
 } from 'lucide-react'
 import {
   collection, addDoc, onSnapshot, query, orderBy, where,
@@ -10,8 +10,10 @@ import {
 } from 'firebase/firestore'
 import {
   createUserWithEmailAndPassword, signInWithEmailAndPassword,
-  signOut, onAuthStateChanged, updateProfile
+  signOut, onAuthStateChanged, updateProfile,
+  GoogleAuthProvider, signInWithPopup
 } from 'firebase/auth'
+import type { User as FirebaseUser } from 'firebase/auth'
 import { auth, db } from './firebase'
 import type { Post, Comment, AppUser, UserRole } from './types'
 
@@ -39,9 +41,25 @@ function Logo({ size = 36 }: { size?: number }) {
   return <img src="/elim-logo.svg" alt="ELIM" style={{ height: size }} className="object-contain" />
 }
 
-// ==================== AUTH SCREENS ====================
-function AuthScreen({ onSuccess }: { onSuccess: (user: AppUser) => void }) {
-  const [mode, setMode] = useState<'login' | 'register'>('login')
+function GoogleIcon({ size = 18 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 48 48" aria-hidden="true">
+      <path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.9 32.7 29.4 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.1 8 3l5.7-5.7C34.6 6.1 29.6 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.2-.1-2.4-.4-3.5z" />
+      <path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.6 15.9 18.9 13 24 13c3.1 0 5.8 1.1 8 3l5.7-5.7C34.6 7.1 29.6 5 24 5c-7.8 0-14.5 4.4-17.9 10.7z" />
+      <path fill="#4CAF50" d="M24 44c5.5 0 10.4-1.9 14.2-5.1l-6.6-5.4C29.6 35.1 26.9 36 24 36c-5.3 0-9.8-3.3-11.4-8l-6.6 5.1C9.4 39.7 16.1 44 24 44z" />
+      <path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-1 2.9-3 5.3-5.6 6.9l6.6 5.4C39.9 37.6 44 31.9 44 24c0-1.2-.1-2.4-.4-3.5z" />
+    </svg>
+  )
+}
+
+// ==================== SHARED AUTH FORM ====================
+// Used inside both the mobile/tablet full-screen AuthScreen and the
+// desktop AuthModal, so the login/register/Google logic lives in one place.
+function AuthForm({ onSuccess, initialMode = 'login' }: {
+  onSuccess: (user: AppUser) => void
+  initialMode?: 'login' | 'register'
+}) {
+  const [mode, setMode] = useState<'login' | 'register'>(initialMode)
   const [accountType, setAccountType] = useState<'member' | 'church'>('member')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -50,6 +68,13 @@ function AuthScreen({ onSuccess }: { onSuccess: (user: AppUser) => void }) {
   const [location, setLocation] = useState('')
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
+
+  // A brand-new Google sign-in has no account-type yet — we hold the
+  // Firebase Auth user here until they finish that one extra step.
+  const [googleUser, setGoogleUser] = useState<FirebaseUser | null>(null)
+  const [googleAccountType, setGoogleAccountType] = useState<'member' | 'church'>('member')
+  const [googleChurchName, setGoogleChurchName] = useState('')
+  const [googleLocation, setGoogleLocation] = useState('')
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -85,78 +110,370 @@ function AuthScreen({ onSuccess }: { onSuccess: (user: AppUser) => void }) {
     }
   }
 
+  const handleGoogleSignIn = async () => {
+    setError('')
+    setLoading(true)
+    try {
+      const provider = new GoogleAuthProvider()
+      const cred = await signInWithPopup(auth, provider)
+      const snap = await getDoc(doc(db, 'users', cred.user.uid))
+      if (snap.exists()) {
+        onSuccess(snap.data() as AppUser)
+      } else {
+        // First time we've seen this Google account — ask account type next.
+        setGoogleUser(cred.user)
+      }
+    } catch (err: any) {
+      setError(err.message?.replace('Firebase: ', '') || 'Google sign-in failed')
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const handleFinishGoogleSetup = async (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!googleUser) return
+    setError('')
+    setLoading(true)
+    try {
+      const role: UserRole = googleAccountType === 'church' ? 'pending_church' : 'member'
+      const profile: AppUser = {
+        uid: googleUser.uid,
+        email: googleUser.email || '',
+        displayName: googleUser.displayName || 'Member',
+        role,
+        churchName: googleAccountType === 'church' ? googleChurchName : undefined,
+        location: googleAccountType === 'church' ? googleLocation : undefined,
+        createdAt: serverTimestamp()
+      }
+      await setDoc(doc(db, 'users', googleUser.uid), profile)
+      onSuccess(profile)
+    } catch (err: any) {
+      setError(err.message?.replace('Firebase: ', '') || 'Something went wrong')
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  if (googleUser) {
+    return (
+      <div>
+        <div className="text-center mb-6">
+          <div className="w-14 h-14 rounded-full bg-gradient-to-br from-emerald-400 to-amber-400 mx-auto flex items-center justify-center text-white font-bold text-xl mb-4">
+            {(googleUser.displayName || 'U').charAt(0)}
+          </div>
+          <h2 className="text-xl font-bold text-slate-900">
+            Almost there{googleUser.displayName ? `, ${googleUser.displayName.split(' ')[0]}` : ''}
+          </h2>
+          <p className="text-sm text-slate-500 mt-1">Tell us how you'll be using ELIM</p>
+        </div>
+        <div className="flex gap-3 mb-6">
+          <button type="button" onClick={() => setGoogleAccountType('member')}
+            className={`flex-1 py-3 rounded-2xl border-2 text-sm font-medium transition ${
+              googleAccountType === 'member' ? 'border-emerald-500 bg-emerald-50 text-emerald-800' : 'border-slate-200 text-slate-500'}`}>
+            Member
+          </button>
+          <button type="button" onClick={() => setGoogleAccountType('church')}
+            className={`flex-1 py-3 rounded-2xl border-2 text-sm font-medium transition ${
+              googleAccountType === 'church' ? 'border-emerald-500 bg-emerald-50 text-emerald-800' : 'border-slate-200 text-slate-500'}`}>
+            Church
+          </button>
+        </div>
+        <form onSubmit={handleFinishGoogleSetup} className="space-y-4">
+          {googleAccountType === 'church' && (
+            <>
+              <input required value={googleChurchName} onChange={e => setGoogleChurchName(e.target.value)} placeholder="Church name"
+                className="w-full px-4 py-3.5 rounded-2xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-400 text-[15px]" />
+              <input required value={googleLocation} onChange={e => setGoogleLocation(e.target.value)} placeholder="City, State"
+                className="w-full px-4 py-3.5 rounded-2xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-400 text-[15px]" />
+            </>
+          )}
+          {error && <p className="text-sm text-red-500 bg-red-50 rounded-xl px-4 py-3">{error}</p>}
+          <button type="submit" disabled={loading}
+            className="w-full py-4 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-[15px] transition flex items-center justify-center gap-2 disabled:opacity-60">
+            {loading ? 'Please wait...' : 'Finish Setup'}
+            {!loading && <ArrowRight size={18} />}
+          </button>
+        </form>
+        {googleAccountType === 'church' && (
+          <p className="mt-5 text-xs text-center text-slate-400 leading-relaxed">
+            Church accounts require approval before you can publish content.
+          </p>
+        )}
+      </div>
+    )
+  }
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-white to-teal-50 flex flex-col">
+    <div>
+      <div className="flex bg-slate-100 rounded-2xl p-1 mb-6">
+        <button onClick={() => setMode('login')}
+          className={`flex-1 py-2.5 rounded-xl text-sm font-semibold transition ${mode === 'login' ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-500'}`}>
+          Sign In
+        </button>
+        <button onClick={() => setMode('register')}
+          className={`flex-1 py-2.5 rounded-xl text-sm font-semibold transition ${mode === 'register' ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-500'}`}>
+          Create Account
+        </button>
+      </div>
+
+      <button type="button" onClick={handleGoogleSignIn} disabled={loading}
+        className="w-full py-3.5 rounded-2xl border border-slate-200 hover:bg-slate-50 text-slate-700 font-semibold text-[15px] transition flex items-center justify-center gap-2.5 disabled:opacity-60 mb-5">
+        <GoogleIcon size={18} /> Continue with Google
+      </button>
+
+      <div className="flex items-center gap-3 mb-5">
+        <div className="h-px bg-slate-100 flex-1" />
+        <span className="text-xs text-slate-400 font-medium">or</span>
+        <div className="h-px bg-slate-100 flex-1" />
+      </div>
+
+      {mode === 'register' && (
+        <div className="flex gap-3 mb-6">
+          <button onClick={() => setAccountType('member')}
+            className={`flex-1 py-3 rounded-2xl border-2 text-sm font-medium transition ${
+              accountType === 'member' ? 'border-emerald-500 bg-emerald-50 text-emerald-800' : 'border-slate-200 text-slate-500'}`}>
+            Member
+          </button>
+          <button onClick={() => setAccountType('church')}
+            className={`flex-1 py-3 rounded-2xl border-2 text-sm font-medium transition ${
+              accountType === 'church' ? 'border-emerald-500 bg-emerald-50 text-emerald-800' : 'border-slate-200 text-slate-500'}`}>
+            Church
+          </button>
+        </div>
+      )}
+
+      <form onSubmit={handleSubmit} className="space-y-4">
+        {mode === 'register' && (
+          <input required value={name} onChange={e => setName(e.target.value)} placeholder="Your full name"
+            className="w-full px-4 py-3.5 rounded-2xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-400 text-[15px]" />
+        )}
+        {mode === 'register' && accountType === 'church' && (
+          <>
+            <input required value={churchName} onChange={e => setChurchName(e.target.value)} placeholder="Church name"
+              className="w-full px-4 py-3.5 rounded-2xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-400 text-[15px]" />
+            <input required value={location} onChange={e => setLocation(e.target.value)} placeholder="City, State"
+              className="w-full px-4 py-3.5 rounded-2xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-400 text-[15px]" />
+          </>
+        )}
+        <input required type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="Email address"
+          className="w-full px-4 py-3.5 rounded-2xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-400 text-[15px]" />
+        <input required type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="Password" minLength={6}
+          className="w-full px-4 py-3.5 rounded-2xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-400 text-[15px]" />
+
+        {error && <p className="text-sm text-red-500 bg-red-50 rounded-xl px-4 py-3">{error}</p>}
+
+        <button type="submit" disabled={loading}
+          className="w-full py-4 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-[15px] transition flex items-center justify-center gap-2 disabled:opacity-60">
+          {loading ? 'Please wait...' : mode === 'login' ? 'Sign In' : 'Create Account'}
+          {!loading && <ArrowRight size={18} />}
+        </button>
+      </form>
+
+      {mode === 'register' && accountType === 'church' && (
+        <p className="mt-5 text-xs text-center text-slate-400 leading-relaxed">
+          Church accounts require approval before you can publish content.
+        </p>
+      )}
+    </div>
+  )
+}
+
+// ==================== AUTH SCREENS ====================
+// Full-screen version — shown on phone & tablet (the "app style" experience).
+function AuthScreen({ onSuccess }: { onSuccess: (user: AppUser) => void }) {
+  return (
+    <div className="min-h-screen heavenly-bg flex flex-col">
       <div className="flex-1 flex flex-col items-center justify-center px-6 py-12">
         <div className="w-full max-w-md">
-          <div className="text-center mb-10">
+          <div className="text-center mb-8">
             <Logo size={48} />
             <h1 className="mt-6 text-3xl font-bold text-slate-900 tracking-tight">Welcome to ELIM</h1>
             <p className="mt-2 text-slate-500">A peaceful place for the church community</p>
           </div>
-
           <div className="bg-white rounded-3xl shadow-xl shadow-emerald-100/50 border border-emerald-50 p-8">
-            <div className="flex bg-slate-100 rounded-2xl p-1 mb-8">
-              <button onClick={() => setMode('login')}
-                className={`flex-1 py-2.5 rounded-xl text-sm font-semibold transition ${mode === 'login' ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-500'}`}>
-                Sign In
-              </button>
-              <button onClick={() => setMode('register')}
-                className={`flex-1 py-2.5 rounded-xl text-sm font-semibold transition ${mode === 'register' ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-500'}`}>
-                Create Account
-              </button>
-            </div>
-
-            {mode === 'register' && (
-              <div className="flex gap-3 mb-6">
-                <button onClick={() => setAccountType('member')}
-                  className={`flex-1 py-3 rounded-2xl border-2 text-sm font-medium transition ${
-                    accountType === 'member' ? 'border-emerald-500 bg-emerald-50 text-emerald-800' : 'border-slate-200 text-slate-500'}`}>
-                  Member
-                </button>
-                <button onClick={() => setAccountType('church')}
-                  className={`flex-1 py-3 rounded-2xl border-2 text-sm font-medium transition ${
-                    accountType === 'church' ? 'border-emerald-500 bg-emerald-50 text-emerald-800' : 'border-slate-200 text-slate-500'}`}>
-                  Church
-                </button>
-              </div>
-            )}
-
-            <form onSubmit={handleSubmit} className="space-y-4">
-              {mode === 'register' && (
-                <input required value={name} onChange={e => setName(e.target.value)} placeholder="Your full name"
-                  className="w-full px-4 py-3.5 rounded-2xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-400 text-[15px]" />
-              )}
-              {mode === 'register' && accountType === 'church' && (
-                <>
-                  <input required value={churchName} onChange={e => setChurchName(e.target.value)} placeholder="Church name"
-                    className="w-full px-4 py-3.5 rounded-2xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-400 text-[15px]" />
-                  <input required value={location} onChange={e => setLocation(e.target.value)} placeholder="City, State"
-                    className="w-full px-4 py-3.5 rounded-2xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-400 text-[15px]" />
-                </>
-              )}
-              <input required type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="Email address"
-                className="w-full px-4 py-3.5 rounded-2xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-400 text-[15px]" />
-              <input required type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="Password" minLength={6}
-                className="w-full px-4 py-3.5 rounded-2xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-400 text-[15px]" />
-
-              {error && <p className="text-sm text-red-500 bg-red-50 rounded-xl px-4 py-3">{error}</p>}
-
-              <button type="submit" disabled={loading}
-                className="w-full py-4 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-[15px] transition flex items-center justify-center gap-2 disabled:opacity-60">
-                {loading ? 'Please wait...' : mode === 'login' ? 'Sign In' : 'Create Account'}
-                {!loading && <ArrowRight size={18} />}
-              </button>
-            </form>
-
-            {mode === 'register' && accountType === 'church' && (
-              <p className="mt-5 text-xs text-center text-slate-400 leading-relaxed">
-                Church accounts require approval before you can publish content.
-              </p>
-            )}
+            <AuthForm onSuccess={onSuccess} />
           </div>
         </div>
       </div>
+    </div>
+  )
+}
+
+// Modal version — opened from the desktop landing page.
+function AuthModal({ onClose, onSuccess, initialMode }: {
+  onClose: () => void
+  onSuccess: (user: AppUser) => void
+  initialMode: 'login' | 'register'
+}) {
+  return (
+    <div className="fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-sm flex items-center justify-center p-4">
+      <div className="bg-white w-full max-w-md rounded-3xl shadow-2xl p-8 relative max-h-[90vh] overflow-y-auto">
+        <button onClick={onClose} className="absolute top-5 right-5 p-1.5 rounded-full hover:bg-slate-100 text-slate-400">
+          <X size={20} />
+        </button>
+        <div className="text-center mb-6">
+          <Logo size={40} />
+        </div>
+        <AuthForm onSuccess={onSuccess} initialMode={initialMode} />
+      </div>
+    </div>
+  )
+}
+
+// ==================== DESKTOP LANDING PAGE ====================
+// The "big for computer browsers" experience — shown on lg+ screens only.
+function LandingPage({ onSuccess }: { onSuccess: (user: AppUser) => void }) {
+  const [authMode, setAuthMode] = useState<'login' | 'register' | null>(null)
+
+  return (
+    <div className="min-h-screen bg-white">
+      <header className="sticky top-0 z-30 bg-white/80 backdrop-blur-xl border-b border-slate-100">
+        <div className="max-w-6xl mx-auto px-8 h-20 flex items-center justify-between">
+          <Logo size={36} />
+          <div className="flex items-center gap-3">
+            <button onClick={() => setAuthMode('login')}
+              className="px-5 py-2.5 rounded-full text-sm font-semibold text-slate-600 hover:bg-slate-50 transition">
+              Sign In
+            </button>
+            <button onClick={() => setAuthMode('register')}
+              className="px-5 py-2.5 rounded-full text-sm font-semibold bg-emerald-600 hover:bg-emerald-700 text-white transition shadow-lg shadow-emerald-200">
+              Get Started
+            </button>
+          </div>
+        </div>
+      </header>
+
+      {/* Hero */}
+      <section className="relative overflow-hidden">
+        <div className="absolute inset-0 heavenly-bg" />
+        <div className="absolute -top-20 left-1/4 w-[500px] h-[500px] bg-amber-200/30 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute top-10 right-1/4 w-[400px] h-[400px] bg-emerald-200/40 rounded-full blur-3xl pointer-events-none" />
+        <div className="relative max-w-5xl mx-auto px-8 pt-24 pb-28 text-center">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/80 border border-emerald-100 text-xs font-semibold text-emerald-700 tracking-wide mb-8">
+            <Sparkles size={14} /> A MODERN HOME FOR YOUR CHURCH COMMUNITY
+          </div>
+          <h1 className="text-5xl lg:text-6xl xl:text-7xl font-extrabold text-slate-900 tracking-tight leading-[1.05]">
+            Stay close to your<br />
+            <span className="bg-gradient-to-r from-emerald-600 via-emerald-500 to-amber-500 bg-clip-text text-transparent">
+              church family.
+            </span>
+          </h1>
+          <p className="mt-8 text-lg xl:text-xl text-slate-500 max-w-2xl mx-auto leading-relaxed">
+            ELIM brings sermons, updates, and encouragement from your church straight to your pocket —
+            photos, audio, video, and real conversation, all in one gentle, focused space.
+          </p>
+          <div className="mt-10 flex items-center justify-center gap-4">
+            <button onClick={() => setAuthMode('register')}
+              className="px-8 py-4 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-[15px] transition shadow-xl shadow-emerald-200 flex items-center gap-2">
+              Get Started <ArrowRight size={18} />
+            </button>
+            <button onClick={() => setAuthMode('login')}
+              className="px-8 py-4 rounded-full bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 font-semibold text-[15px] transition">
+              Sign In
+            </button>
+          </div>
+        </div>
+      </section>
+
+      {/* Value props */}
+      <section className="border-y border-slate-100 bg-slate-50/50">
+        <div className="max-w-6xl mx-auto px-8 py-10 grid grid-cols-4 gap-8">
+          {[
+            { icon: ImageIcon, label: 'Photos & Updates' },
+            { icon: Mic, label: 'Audio Messages' },
+            { icon: Video, label: 'Sermons & Video' },
+            { icon: ShieldCheck, label: 'Verified Churches' },
+          ].map((item, i) => (
+            <div key={i} className="flex flex-col items-center text-center gap-2.5">
+              <div className="w-11 h-11 rounded-2xl bg-white border border-slate-100 flex items-center justify-center text-emerald-600 shadow-sm">
+                <item.icon size={20} />
+              </div>
+              <span className="text-sm font-semibold text-slate-600">{item.label}</span>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* For Churches / For Members */}
+      <section className="max-w-6xl mx-auto px-8 py-24">
+        <div className="text-center mb-14">
+          <p className="text-xs font-bold tracking-widest text-amber-600 mb-3">WHO IT'S FOR</p>
+          <h2 className="text-3xl xl:text-4xl font-bold text-slate-900 tracking-tight">Built for both sides of the pew.</h2>
+        </div>
+        <div className="grid grid-cols-2 gap-6">
+          <div className="rounded-3xl p-8 bg-gradient-to-br from-emerald-50 to-white border border-emerald-100">
+            <div className="w-12 h-12 rounded-2xl bg-emerald-600 text-white flex items-center justify-center mb-6 shadow-lg shadow-emerald-200">
+              <Church size={22} />
+            </div>
+            <h3 className="text-xl font-bold text-slate-900 mb-3">For Churches</h3>
+            <ul className="space-y-3 text-slate-500 text-[15px]">
+              <li className="flex gap-2.5"><CheckCircle2 size={18} className="text-emerald-500 shrink-0 mt-0.5" /> Share sermons as text, audio, or video</li>
+              <li className="flex gap-2.5"><CheckCircle2 size={18} className="text-emerald-500 shrink-0 mt-0.5" /> Reach your whole congregation instantly</li>
+              <li className="flex gap-2.5"><CheckCircle2 size={18} className="text-emerald-500 shrink-0 mt-0.5" /> A verified badge builds trust with members</li>
+            </ul>
+          </div>
+          <div className="rounded-3xl p-8 bg-gradient-to-br from-amber-50 to-white border border-amber-100">
+            <div className="w-12 h-12 rounded-2xl bg-amber-500 text-white flex items-center justify-center mb-6 shadow-lg shadow-amber-200">
+              <User size={22} />
+            </div>
+            <h3 className="text-xl font-bold text-slate-900 mb-3">For Members</h3>
+            <ul className="space-y-3 text-slate-500 text-[15px]">
+              <li className="flex gap-2.5"><CheckCircle2 size={18} className="text-amber-500 shrink-0 mt-0.5" /> Follow your church's feed, wherever you are</li>
+              <li className="flex gap-2.5"><CheckCircle2 size={18} className="text-amber-500 shrink-0 mt-0.5" /> Comment and stay part of the conversation</li>
+              <li className="flex gap-2.5"><CheckCircle2 size={18} className="text-amber-500 shrink-0 mt-0.5" /> Never miss an update or encouragement</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      {/* How it works */}
+      <section className="bg-slate-50/50 border-y border-slate-100">
+        <div className="max-w-5xl mx-auto px-8 py-24">
+          <div className="text-center mb-14">
+            <p className="text-xs font-bold tracking-widest text-emerald-600 mb-3">GETTING STARTED</p>
+            <h2 className="text-3xl xl:text-4xl font-bold text-slate-900 tracking-tight">Three steps to feeling at home.</h2>
+          </div>
+          <div className="grid grid-cols-3 gap-8">
+            {[
+              { n: '1', title: 'Create your account', desc: 'Sign up in seconds as a member, or register your church for verification.' },
+              { n: '2', title: 'Follow your church', desc: 'Find your church and start seeing their posts in your feed right away.' },
+              { n: '3', title: 'Stay connected', desc: 'Like, comment, and never miss a message from the people you gather with.' },
+            ].map(step => (
+              <div key={step.n} className="text-left">
+                <div className="w-11 h-11 rounded-full bg-white border-2 border-emerald-500 text-emerald-600 font-bold flex items-center justify-center mb-5">
+                  {step.n}
+                </div>
+                <h3 className="font-bold text-slate-900 mb-2">{step.title}</h3>
+                <p className="text-sm text-slate-500 leading-relaxed">{step.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Final CTA */}
+      <section className="max-w-4xl mx-auto px-8 py-24 text-center">
+        <h2 className="text-3xl xl:text-5xl font-bold text-slate-900 tracking-tight mb-6">
+          Your church, always{' '}
+          <span className="bg-gradient-to-r from-emerald-600 to-amber-500 bg-clip-text text-transparent">within reach.</span>
+        </h2>
+        <button onClick={() => setAuthMode('register')}
+          className="mt-4 px-10 py-4 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-base transition shadow-xl shadow-emerald-200 inline-flex items-center gap-2">
+          Get Started Free <ArrowRight size={18} />
+        </button>
+      </section>
+
+      <footer className="border-t border-slate-100">
+        <div className="max-w-6xl mx-auto px-8 py-10 flex items-center justify-between gap-4">
+          <Logo size={26} />
+          <p className="text-sm text-slate-400">A peaceful place for the church community.</p>
+        </div>
+      </footer>
+
+      {authMode && (
+        <AuthModal initialMode={authMode} onClose={() => setAuthMode(null)} onSuccess={onSuccess} />
+      )}
     </div>
   )
 }
@@ -300,72 +617,120 @@ export default function App() {
     )
   }
 
-  if (!user) return <AuthScreen onSuccess={setUser} />
+  // Logged out: phone & tablet get the compact app-style auth screen,
+  // computer browsers (lg+) get the full marketing landing page.
+  if (!user) {
+    return (
+      <>
+        <div className="lg:hidden"><AuthScreen onSuccess={setUser} /></div>
+        <div className="hidden lg:block"><LandingPage onSuccess={setUser} /></div>
+      </>
+    )
+  }
+
   if (user.role === 'pending_church') return <PendingScreen user={user} onLogout={handleLogout} />
 
+  const navItems = [
+    { id: 'feed', icon: Home, label: 'Feed' },
+    { id: 'profile', icon: User, label: 'Profile' },
+    ...(user.role === 'admin' ? [{ id: 'admin', icon: ShieldCheck, label: 'Admin' }] : [])
+  ]
+
   return (
-    <div className="min-h-screen bg-[#f8faf9] max-w-lg mx-auto relative">
-      {/* Header */}
-      <header className="sticky top-0 z-40 bg-white/80 backdrop-blur-xl border-b border-slate-100/80">
-        <div className="px-5 h-14 flex items-center justify-between">
-          <Logo size={32} />
-          <div className="flex items-center gap-3">
-            <span className="text-xs font-medium text-slate-400 truncate max-w-[120px]">{user.displayName}</span>
-            <button onClick={handleLogout} className="p-2 rounded-full hover:bg-slate-100 text-slate-400">
-              <LogOut size={18} />
-            </button>
-          </div>
+    <div className="min-h-screen bg-[#f8faf9] max-w-lg mx-auto lg:max-w-none lg:mx-0 lg:flex relative">
+      {/* Sidebar — desktop only */}
+      <aside className="hidden lg:flex lg:flex-col lg:w-64 lg:shrink-0 lg:h-screen lg:sticky lg:top-0 border-r border-slate-100 bg-white px-6 py-8">
+        <Logo size={34} />
+        <nav className="mt-10 flex-1 space-y-1">
+          {navItems.map(item => {
+            const Icon = item.icon
+            const active = activeTab === item.id
+            return (
+              <button key={item.id} onClick={() => setActiveTab(item.id)}
+                className={`w-full flex items-center gap-3 px-4 py-3 rounded-2xl text-sm font-semibold transition ${
+                  active ? 'bg-emerald-50 text-emerald-700' : 'text-slate-500 hover:bg-slate-50'}`}>
+                <Icon size={19} />
+                {item.label}
+                {item.id === 'admin' && pendingChurches.length > 0 && (
+                  <span className="ml-auto w-5 h-5 rounded-full bg-red-500 text-white text-[10px] font-bold flex items-center justify-center">
+                    {pendingChurches.length}
+                  </span>
+                )}
+              </button>
+            )
+          })}
+        </nav>
+        {canPost && (
+          <button onClick={() => setShowCreate(true)}
+            className="w-full flex items-center justify-center gap-2 py-3.5 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-sm transition shadow-lg shadow-emerald-200 mb-4">
+            <PlusCircle size={18} /> New Post
+          </button>
+        )}
+        <div className="pt-4 border-t border-slate-100 flex items-center justify-between">
+          <span className="text-xs font-medium text-slate-500 truncate">{user.displayName}</span>
+          <button onClick={handleLogout} className="p-2 rounded-full hover:bg-slate-100 text-slate-400">
+            <LogOut size={16} />
+          </button>
         </div>
-      </header>
+      </aside>
 
-      <main className="pb-28 px-4 pt-4">
-        {activeTab === 'feed' && (
-          <div className="space-y-4">
-            {loading && <p className="text-center text-slate-400 py-16">Loading...</p>}
-            {!loading && posts.length === 0 && (
-              <div className="text-center py-20">
-                <div className="w-16 h-16 rounded-full bg-emerald-50 flex items-center justify-center mx-auto mb-4">
-                  <Church size={28} className="text-emerald-500" />
+      <div className="flex-1 min-w-0">
+        {/* Header — mobile & tablet only */}
+        <header className="lg:hidden sticky top-0 z-40 bg-white/80 backdrop-blur-xl border-b border-slate-100/80">
+          <div className="px-5 h-14 flex items-center justify-between">
+            <Logo size={32} />
+            <div className="flex items-center gap-3">
+              <span className="text-xs font-medium text-slate-400 truncate max-w-[120px]">{user.displayName}</span>
+              <button onClick={handleLogout} className="p-2 rounded-full hover:bg-slate-100 text-slate-400">
+                <LogOut size={18} />
+              </button>
+            </div>
+          </div>
+        </header>
+
+        <main className="pb-28 lg:pb-16 px-4 lg:px-10 pt-4 lg:pt-10 lg:max-w-3xl xl:max-w-4xl lg:mx-auto">
+          {activeTab === 'feed' && (
+            <div className="space-y-4">
+              {loading && <p className="text-center text-slate-400 py-16">Loading...</p>}
+              {!loading && posts.length === 0 && (
+                <div className="text-center py-20">
+                  <div className="w-16 h-16 rounded-full bg-emerald-50 flex items-center justify-center mx-auto mb-4">
+                    <Church size={28} className="text-emerald-500" />
+                  </div>
+                  <p className="text-slate-500 font-medium">No posts yet</p>
+                  <p className="text-sm text-slate-400 mt-1">Be the first to share something</p>
                 </div>
-                <p className="text-slate-500 font-medium">No posts yet</p>
-                <p className="text-sm text-slate-400 mt-1">Be the first to share something</p>
+              )}
+              {posts.map(post => (
+                <PostCard key={post.id} post={post} onLike={handleLike} onOpenComments={setActiveCommentsPost} />
+              ))}
+            </div>
+          )}
+
+          {activeTab === 'profile' && (
+            <div className="bg-white rounded-3xl p-8 shadow-sm border border-slate-100 text-center">
+              <div className="w-24 h-24 rounded-full bg-gradient-to-br from-emerald-400 to-teal-500 mx-auto flex items-center justify-center text-3xl font-bold text-white mb-4 shadow-lg shadow-emerald-200">
+                {user.displayName.charAt(0).toUpperCase()}
               </div>
-            )}
-            {posts.map(post => (
-              <PostCard key={post.id} post={post} onLike={handleLike} onOpenComments={setActiveCommentsPost} />
-            ))}
-          </div>
-        )}
-
-        {activeTab === 'profile' && (
-          <div className="bg-white rounded-3xl p-8 shadow-sm border border-slate-100 text-center">
-            <div className="w-24 h-24 rounded-full bg-gradient-to-br from-emerald-400 to-teal-500 mx-auto flex items-center justify-center text-3xl font-bold text-white mb-4 shadow-lg shadow-emerald-200">
-              {user.displayName.charAt(0).toUpperCase()}
+              <h2 className="text-xl font-bold text-slate-900">{user.displayName}</h2>
+              <p className="text-slate-400 text-sm mt-1">{user.email}</p>
+              <div className="mt-4 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 text-xs font-semibold">
+                {user.role === 'church' ? <><CheckCircle2 size={14} /> Verified Church</> : user.role === 'admin' ? <><ShieldCheck size={14} /> Admin</> : 'Member'}
+              </div>
+              {user.churchName && <p className="mt-3 text-slate-600 font-medium">{user.churchName}</p>}
             </div>
-            <h2 className="text-xl font-bold text-slate-900">{user.displayName}</h2>
-            <p className="text-slate-400 text-sm mt-1">{user.email}</p>
-            <div className="mt-4 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 text-xs font-semibold">
-              {user.role === 'church' ? <><CheckCircle2 size={14} /> Verified Church</> : user.role === 'admin' ? <><ShieldCheck size={14} /> Admin</> : 'Member'}
-            </div>
-            {user.churchName && <p className="mt-3 text-slate-600 font-medium">{user.churchName}</p>}
-          </div>
-        )}
+          )}
 
-        {activeTab === 'admin' && user.role === 'admin' && (
-          <AdminPanel pendingChurches={pendingChurches} onApprove={handleApproveChurch} onDeny={handleDenyChurch} />
-        )}
-      </main>
+          {activeTab === 'admin' && user.role === 'admin' && (
+            <AdminPanel pendingChurches={pendingChurches} onApprove={handleApproveChurch} onDeny={handleDenyChurch} />
+          )}
+        </main>
+      </div>
 
-      {/* Bottom Nav */}
-      <nav className="fixed bottom-0 left-0 right-0 bg-white/90 backdrop-blur-xl border-t border-slate-100 safe-bottom z-50">
+      {/* Bottom Nav — mobile & tablet only */}
+      <nav className="lg:hidden fixed bottom-0 left-0 right-0 bg-white/90 backdrop-blur-xl border-t border-slate-100 safe-bottom z-50">
         <div className="max-w-lg mx-auto flex justify-around items-center h-16 px-2">
-          {[{
-            id: 'feed', icon: Home, label: 'Feed'
-          }, {
-            id: 'profile', icon: User, label: 'Profile'
-          },
-          ...(user.role === 'admin' ? [{ id: 'admin', icon: ShieldCheck, label: 'Admin' }] : [])
-          ].map(item => {
+          {navItems.map(item => {
             const Icon = item.icon
             const active = activeTab === item.id
             return (
