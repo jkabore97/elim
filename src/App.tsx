@@ -608,6 +608,7 @@ export default function App() {
   const [loading, setLoading] = useState(true)
   const [pendingChurches, setPendingChurches] = useState<AppUser[]>([])
   const [emailVerified, setEmailVerified] = useState(true)
+  const [likedPostIds, setLikedPostIds] = useState<Set<string>>(new Set())
 
   // Auth listener
   useEffect(() => {
@@ -632,6 +633,20 @@ export default function App() {
     const unsub = onSnapshot(q, (snap) => {
       setPosts(snap.docs.map(d => ({ id: d.id, ...d.data() } as Post)))
       setLoading(false)
+    })
+    return unsub
+  }, [user])
+
+  // The current user's likes — kept as its own collection (one doc per
+  // postId+userId) rather than a field on the post itself, since a post
+  // has no way to know "did *this* user like it" otherwise. This is what
+  // was actually broken before: `liked` lived only in local state and got
+  // wiped by the very next posts snapshot.
+  useEffect(() => {
+    if (!user || user.role === 'pending_church') return
+    const q = query(collection(db, 'likes'), where('userId', '==', user.uid))
+    const unsub = onSnapshot(q, (snap) => {
+      setLikedPostIds(new Set(snap.docs.map(d => d.data().postId as string)))
     })
     return unsub
   }, [user])
@@ -706,11 +721,19 @@ export default function App() {
     await updateDoc(doc(db, 'posts', activeCommentsPost), { commentsCount: increment(1) })
   }
 
-  const handleLike = async (id: string) => {
-    const post = posts.find(p => p.id === id)
-    if (!post) return
-    await updateDoc(doc(db, 'posts', id), { likes: increment(post.liked ? -1 : 1) })
-    setPosts(prev => prev.map(p => p.id === id ? { ...p, liked: !p.liked, likes: (p.likes || 0) + (p.liked ? -1 : 1) } : p))
+  const handleLike = async (postId: string) => {
+    if (!user) return
+    const likeDocId = `${postId}_${user.uid}`
+    const alreadyLiked = likedPostIds.has(postId)
+    if (alreadyLiked) {
+      await deleteDoc(doc(db, 'likes', likeDocId))
+      await updateDoc(doc(db, 'posts', postId), { likes: increment(-1) })
+    } else {
+      await setDoc(doc(db, 'likes', likeDocId), {
+        postId, userId: user.uid, createdAt: serverTimestamp()
+      })
+      await updateDoc(doc(db, 'posts', postId), { likes: increment(1) })
+    }
   }
 
   const handleApproveChurch = async (uid: string) => {
@@ -820,7 +843,7 @@ export default function App() {
                 )}
                 {posts.map(post => (
                   <PostCard key={post.id} post={post} onLike={handleLike} onOpenComments={setActiveCommentsPost}
-                    currentUserUid={user.uid} onEdit={setEditingPost} onDelete={handleDeletePost} />
+                    currentUserUid={user.uid} isLiked={likedPostIds.has(post.id)} onEdit={setEditingPost} onDelete={handleDeletePost} />
                 ))}
               </div>
             )}
@@ -1100,11 +1123,12 @@ function AdminPanel({ pendingChurches, onApprove, onDeny }: {
   )
 }
 
-function PostCard({ post, onLike, onOpenComments, currentUserUid, onEdit, onDelete }: {
+function PostCard({ post, onLike, onOpenComments, currentUserUid, isLiked, onEdit, onDelete }: {
   post: Post
   onLike: (id: string) => void
   onOpenComments: (id: string) => void
   currentUserUid: string
+  isLiked: boolean
   onEdit: (post: Post) => void
   onDelete: (id: string) => void
 }) {
@@ -1223,8 +1247,8 @@ function PostCard({ post, onLike, onOpenComments, currentUserUid, onEdit, onDele
         <div className="flex items-center gap-5">
           <button onClick={() => onLike(post.id)}
             className={`flex items-center gap-1.5 text-sm font-medium transition ${
-              post.liked ? 'text-red-500' : 'text-slate-400 hover:text-red-500'}`}>
-            <Heart size={18} fill={post.liked ? 'currentColor' : 'none'} />
+              isLiked ? 'text-red-500' : 'text-slate-400 hover:text-red-500'}`}>
+            <Heart size={18} fill={isLiked ? 'currentColor' : 'none'} />
             {post.likes || 0}
           </button>
           <button onClick={() => onOpenComments(post.id)}

@@ -71,5 +71,19 @@ service cloud.firestore {
       allow update: if false;
       allow delete: if isSignedIn() && resource.data.userId == request.auth.uid;
     }
+
+    // ---- Likes ----
+    // One doc per postId+userId (doc ID is literally "{postId}_{userId}"),
+    // which is what makes "has this user already liked this post" a simple
+    // existence check instead of needing a query, and prevents a user from
+    // creating more than one like doc for the same post under a different ID.
+    match /likes/{likeId} {
+      allow read: if isSignedIn();
+      allow create: if isSignedIn()
+                    && request.resource.data.userId == request.auth.uid
+                    && likeId == (request.resource.data.postId + '_' + request.auth.uid);
+      allow delete: if isSignedIn() && resource.data.userId == request.auth.uid;
+      allow update: if false;
+    }
   }
 }

@@ -37,7 +37,6 @@ export interface Post {
   likes: number;
   commentsCount: number;
   createdAt: any;
-  liked?: boolean;
 }
 
 export interface Comment {
