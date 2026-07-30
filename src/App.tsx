@@ -39,8 +39,15 @@ function isFacebookVideo(url: string) {
   return url.includes('facebook.com') || url.includes('fb.watch')
 }
 
-function Logo({ size = 36 }: { size?: number }) {
-  return <img src="/elim-logo.svg" alt="ELIM" style={{ height: size }} className="object-contain" />
+function Logo({ size = 36, variant = 'mark' }: { size?: number; variant?: 'mark' | 'full' }) {
+  return (
+    <img
+      src={variant === 'full' ? '/elim-logo-full.png' : '/elim-logo-mark.png'}
+      alt="ELIM"
+      style={{ height: size }}
+      className="object-contain"
+    />
+  )
 }
 
 function GoogleIcon({ size = 18 }: { size?: number }) {
@@ -327,7 +334,7 @@ function AuthScreen({ onSuccess }: { onSuccess: (user: AppUser) => void }) {
       <div className="flex-1 flex flex-col items-center justify-center px-6 py-12">
         <div className="w-full max-w-md">
           <div className="text-center mb-8">
-            <Logo size={48} />
+            <Logo size={64} />
             <h1 className="mt-6 text-3xl font-bold text-slate-900 tracking-tight">Welcome to ELIM</h1>
             <p className="mt-2 text-slate-500">A peaceful place for the church community</p>
           </div>
@@ -441,8 +448,10 @@ function LandingPage({ onSuccess }: { onSuccess: (user: AppUser) => void }) {
         <div className="absolute inset-0 heavenly-bg" />
         <div className="absolute -top-20 left-1/4 w-[500px] h-[500px] bg-amber-200/30 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute top-10 right-1/4 w-[400px] h-[400px] bg-emerald-200/40 rounded-full blur-3xl pointer-events-none" />
-        <div className="relative max-w-5xl mx-auto px-8 pt-24 pb-28 text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/80 border border-emerald-100 text-xs font-semibold text-emerald-700 tracking-wide mb-8">
+        <div className="absolute top-40 left-1/3 w-[350px] h-[350px] bg-blue-200/30 rounded-full blur-3xl pointer-events-none" />
+        <div className="relative max-w-5xl mx-auto px-8 pt-20 pb-28 text-center">
+          <Logo size={128} variant="full" />
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/80 border border-emerald-100 text-xs font-semibold text-emerald-700 tracking-wide mt-8 mb-8">
             <Sparkles size={14} /> A MODERN HOME FOR YOUR CHURCH COMMUNITY
           </div>
           <h1 className="text-5xl lg:text-6xl xl:text-7xl font-extrabold text-slate-900 tracking-tight leading-[1.05]">
@@ -505,15 +514,15 @@ function LandingPage({ onSuccess }: { onSuccess: (user: AppUser) => void }) {
               <li className="flex gap-2.5"><CheckCircle2 size={18} className="text-emerald-500 shrink-0 mt-0.5" /> A verified badge builds trust with members</li>
             </ul>
           </div>
-          <div className="rounded-3xl p-8 bg-gradient-to-br from-amber-50 to-white border border-amber-100">
-            <div className="w-12 h-12 rounded-2xl bg-amber-500 text-white flex items-center justify-center mb-6 shadow-lg shadow-amber-200">
+          <div className="rounded-3xl p-8 bg-gradient-to-br from-blue-50 to-white border border-blue-100">
+            <div className="w-12 h-12 rounded-2xl bg-blue-700 text-white flex items-center justify-center mb-6 shadow-lg shadow-blue-200">
               <User size={22} />
             </div>
             <h3 className="text-xl font-bold text-slate-900 mb-3">For Members</h3>
             <ul className="space-y-3 text-slate-500 text-[15px]">
-              <li className="flex gap-2.5"><CheckCircle2 size={18} className="text-amber-500 shrink-0 mt-0.5" /> Follow your church's feed, wherever you are</li>
-              <li className="flex gap-2.5"><CheckCircle2 size={18} className="text-amber-500 shrink-0 mt-0.5" /> Comment and stay part of the conversation</li>
-              <li className="flex gap-2.5"><CheckCircle2 size={18} className="text-amber-500 shrink-0 mt-0.5" /> Never miss an update or encouragement</li>
+              <li className="flex gap-2.5"><CheckCircle2 size={18} className="text-blue-600 shrink-0 mt-0.5" /> Follow your church's feed, wherever you are</li>
+              <li className="flex gap-2.5"><CheckCircle2 size={18} className="text-blue-600 shrink-0 mt-0.5" /> Comment and stay part of the conversation</li>
+              <li className="flex gap-2.5"><CheckCircle2 size={18} className="text-blue-600 shrink-0 mt-0.5" /> Never miss an update or encouragement</li>
             </ul>
           </div>
         </div>
@@ -528,12 +537,12 @@ function LandingPage({ onSuccess }: { onSuccess: (user: AppUser) => void }) {
           </div>
           <div className="grid grid-cols-3 gap-8">
             {[
-              { n: '1', title: 'Create your account', desc: 'Sign up in seconds as a member, or register your church for verification.' },
-              { n: '2', title: 'Follow your church', desc: 'Find your church and start seeing their posts in your feed right away.' },
-              { n: '3', title: 'Stay connected', desc: 'Like, comment, and never miss a message from the people you gather with.' },
+              { n: '1', title: 'Create your account', desc: 'Sign up in seconds as a member, or register your church for verification.', color: 'border-emerald-500 text-emerald-600' },
+              { n: '2', title: 'Follow your church', desc: 'Find your church and start seeing their posts in your feed right away.', color: 'border-blue-600 text-blue-700' },
+              { n: '3', title: 'Stay connected', desc: 'Like, comment, and never miss a message from the people you gather with.', color: 'border-amber-500 text-amber-600' },
             ].map(step => (
               <div key={step.n} className="text-left">
-                <div className="w-11 h-11 rounded-full bg-white border-2 border-emerald-500 text-emerald-600 font-bold flex items-center justify-center mb-5">
+                <div className={`w-11 h-11 rounded-full bg-white border-2 font-bold flex items-center justify-center mb-5 ${step.color}`}>
                   {step.n}
                 </div>
                 <h3 className="font-bold text-slate-900 mb-2">{step.title}</h3>
