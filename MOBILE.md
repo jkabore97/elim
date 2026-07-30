@@ -32,12 +32,24 @@ I have no access to macOS (Xcode is Mac-only) or a way to reach the Android SDK'
    ```
 2. Build the web app and sync it into both native projects:
    ```
-   npm run build
-   npx cap sync
+   npm run cap:sync
    ```
    Run this **every time** you change the web code and want the native apps to pick it up — Capacitor bundles a snapshot, it doesn't live-load from ccelim.com.
 3. **iOS** (on a Mac): `npx cap open ios` — opens Xcode. Set your Apple Developer team under Signing & Capabilities, then Product → Archive to submit via App Store Connect.
-4. **Android**: `npx cap open android` — opens Android Studio. Build → Generate Signed Bundle/APK, then upload the `.aab` to Google Play Console.
+4. **Android**: `npm run cap:android` — opens Android Studio. First run does a Gradle sync (10–30 min, downloads SDK components). Use Device Manager to create an emulator, or enable USB debugging on a real phone (Settings → About phone → tap Build number ×7 → Developer options → USB debugging), then hit ▶ Run to test it as a real app.
+
+### Android: signing and Play Store submission
+
+1. **Build → Generate Signed Bundle / APK → Android App Bundle → Create new...** to make a keystore (`.jks`). Save it outside the project folder and **back it up permanently** — lose it and you can never update this app again under the same identity.
+2. Finish the wizard on the **release** variant → produces the `.aab` file Play Console requires (not a plain APK).
+3. Register at https://play.google.com/console ($25 one-time), create the app entry.
+4. Under **Policy → App Content**, complete three mandatory forms (each needs a green checkmark): **Content rating** (IARC questionnaire), **Data safety** (declare what ELIM collects — maps to this doc's Data Collected section), **Target audience**.
+5. Fill out the store listing: icon (512×512), feature graphic (1024×500), screenshots from a real running build, short description (80 chars), full description (4,000 chars).
+6. **2026 requirement for new developer accounts:** a closed test with **at least 12 opted-in testers for 14 continuous days** is mandatory before Google allows a production release. Plan for this — it's the step most first-time publishers don't budget time for.
+7. After the closed test window, submit to production.
+8. For every future update: `npm run cap:sync`, bump `versionCode`/`versionName` in `android/app/build.gradle` (Play Console rejects duplicate version codes), regenerate the signed bundle, upload as a new release.
+
+**Target SDK note:** this project already targets SDK 36 (Android 16) in `android/variables.gradle`, which is what Google requires for all new app submissions starting August 31, 2026 — already handled, nothing to change here.
 
 ## Before submitting to either store
 
