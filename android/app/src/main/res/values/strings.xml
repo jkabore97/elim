@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">ELIM</string>
+    <string name="title_activity_main">ELIM</string>
+    <string name="package_name">com.ccelim.app</string>
+    <string name="custom_url_scheme">com.ccelim.app</string>
+</resources>
