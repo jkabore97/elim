@@ -617,12 +617,12 @@ export default function App() {
   ]
 
   return (
-    <div className="min-h-screen bg-[#0a0e1a] max-w-lg mx-auto lg:max-w-none lg:mx-0 relative">
+    <div className="min-h-screen bg-[#0f172a] max-w-lg mx-auto lg:max-w-none lg:mx-0 relative">
       <div className="fixed top-0 left-1/4 w-[500px] h-[500px] bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
       <div className="fixed bottom-0 right-0 lg:right-1/4 w-[400px] h-[400px] bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
       <div className="lg:flex">
         {/* Sidebar — desktop only */}
-        <aside className="hidden lg:flex lg:flex-col lg:w-64 lg:shrink-0 lg:h-screen lg:sticky lg:top-0 border-r border-white/5 bg-[#0d1424] px-6 py-8">
+        <aside className="hidden lg:flex lg:flex-col lg:w-64 lg:shrink-0 lg:h-screen lg:sticky lg:top-0 border-r border-white/10 bg-[#1e293b] px-6 py-8">
           <Logo size={34} />
           <nav className="mt-10 flex-1 space-y-1">
             {navItems.map(item => {
@@ -649,7 +649,7 @@ export default function App() {
               <PlusCircle size={18} /> New Post
             </button>
           )}
-          <div className="pt-4 border-t border-white/5 flex items-center justify-between">
+          <div className="pt-4 border-t border-white/10 flex items-center justify-between">
             <span className="text-xs font-medium text-slate-400 truncate">{user.displayName}</span>
             <button onClick={handleLogout} className="p-2 rounded-full hover:bg-white/5 text-slate-400">
               <LogOut size={16} />
@@ -659,7 +659,7 @@ export default function App() {
 
         <div className="flex-1 min-w-0">
           {/* Header — mobile & tablet only */}
-          <header className="lg:hidden sticky top-0 z-40 bg-[#0a0e1a]/80 backdrop-blur-xl border-b border-white/5">
+          <header className="lg:hidden sticky top-0 z-40 bg-[#0f172a]/80 backdrop-blur-xl border-b border-white/10">
             <div className="px-5 h-14 flex items-center justify-between">
               <Logo size={32} />
               <div className="flex items-center gap-3">
@@ -702,7 +702,7 @@ export default function App() {
         </div>
 
         {/* Bottom Nav — mobile & tablet only */}
-        <nav className="lg:hidden fixed bottom-0 left-0 right-0 bg-[#0a0e1a]/90 backdrop-blur-xl border-t border-white/5 safe-bottom z-50">
+        <nav className="lg:hidden fixed bottom-0 left-0 right-0 bg-[#0f172a]/90 backdrop-blur-xl border-t border-white/10 safe-bottom z-50">
           <div className="max-w-lg mx-auto flex justify-around items-center h-16 px-2">
             {navItems.map(item => {
               const Icon = item.icon
