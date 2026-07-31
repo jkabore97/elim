@@ -617,10 +617,12 @@ export default function App() {
   ]
 
   return (
-    <div className="min-h-screen bg-[#f8faf9] max-w-lg mx-auto lg:max-w-none lg:mx-0 relative">
+    <div className="min-h-screen bg-[#0a0e1a] max-w-lg mx-auto lg:max-w-none lg:mx-0 relative">
+      <div className="fixed top-0 left-1/4 w-[500px] h-[500px] bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="fixed bottom-0 right-0 lg:right-1/4 w-[400px] h-[400px] bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
       <div className="lg:flex">
         {/* Sidebar — desktop only */}
-        <aside className="hidden lg:flex lg:flex-col lg:w-64 lg:shrink-0 lg:h-screen lg:sticky lg:top-0 border-r border-slate-100 bg-white px-6 py-8">
+        <aside className="hidden lg:flex lg:flex-col lg:w-64 lg:shrink-0 lg:h-screen lg:sticky lg:top-0 border-r border-white/5 bg-[#0d1424] px-6 py-8">
           <Logo size={34} />
           <nav className="mt-10 flex-1 space-y-1">
             {navItems.map(item => {
@@ -629,7 +631,7 @@ export default function App() {
               return (
                 <button key={item.id} onClick={() => setActiveTab(item.id)}
                   className={`w-full flex items-center gap-3 px-4 py-3 rounded-2xl text-sm font-semibold transition ${
-                    active ? 'bg-emerald-50 text-emerald-700' : 'text-slate-500 hover:bg-slate-50'}`}>
+                    active ? 'bg-emerald-500/15 text-emerald-400' : 'text-slate-400 hover:bg-white/5 hover:text-slate-200'}`}>
                   <Icon size={19} />
                   {item.label}
                   {item.id === 'admin' && pendingChurches.length > 0 && (
@@ -643,13 +645,13 @@ export default function App() {
           </nav>
           {canPost && (
             <button onClick={() => setShowCreate(true)}
-              className="w-full flex items-center justify-center gap-2 py-3.5 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-sm transition shadow-lg shadow-emerald-200 mb-4">
+              className="w-full flex items-center justify-center gap-2 py-3.5 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-sm transition shadow-lg shadow-emerald-500/30 mb-4">
               <PlusCircle size={18} /> New Post
             </button>
           )}
-          <div className="pt-4 border-t border-slate-100 flex items-center justify-between">
-            <span className="text-xs font-medium text-slate-500 truncate">{user.displayName}</span>
-            <button onClick={handleLogout} className="p-2 rounded-full hover:bg-slate-100 text-slate-400">
+          <div className="pt-4 border-t border-white/5 flex items-center justify-between">
+            <span className="text-xs font-medium text-slate-400 truncate">{user.displayName}</span>
+            <button onClick={handleLogout} className="p-2 rounded-full hover:bg-white/5 text-slate-400">
               <LogOut size={16} />
             </button>
           </div>
@@ -657,12 +659,12 @@ export default function App() {
 
         <div className="flex-1 min-w-0">
           {/* Header — mobile & tablet only */}
-          <header className="lg:hidden sticky top-0 z-40 bg-white/80 backdrop-blur-xl border-b border-slate-100/80">
+          <header className="lg:hidden sticky top-0 z-40 bg-[#0a0e1a]/80 backdrop-blur-xl border-b border-white/5">
             <div className="px-5 h-14 flex items-center justify-between">
               <Logo size={32} />
               <div className="flex items-center gap-3">
                 <span className="text-xs font-medium text-slate-400 truncate max-w-[120px]">{user.displayName}</span>
-                <button onClick={handleLogout} className="p-2 rounded-full hover:bg-slate-100 text-slate-400">
+                <button onClick={handleLogout} className="p-2 rounded-full hover:bg-white/5 text-slate-400">
                   <LogOut size={18} />
                 </button>
               </div>
@@ -675,11 +677,11 @@ export default function App() {
                 {loading && <p className="text-center text-slate-400 py-16">Loading...</p>}
                 {!loading && posts.length === 0 && (
                   <div className="text-center py-20">
-                    <div className="w-16 h-16 rounded-full bg-emerald-50 flex items-center justify-center mx-auto mb-4">
-                      <Church size={28} className="text-emerald-500" />
+                    <div className="w-16 h-16 rounded-full bg-emerald-500/10 flex items-center justify-center mx-auto mb-4">
+                      <Church size={28} className="text-emerald-400" />
                     </div>
-                    <p className="text-slate-500 font-medium">No posts yet</p>
-                    <p className="text-sm text-slate-400 mt-1">Be the first to share something</p>
+                    <p className="text-slate-300 font-medium">No posts yet</p>
+                    <p className="text-sm text-slate-500 mt-1">Be the first to share something</p>
                   </div>
                 )}
                 {posts.map(post => (
@@ -700,7 +702,7 @@ export default function App() {
         </div>
 
         {/* Bottom Nav — mobile & tablet only */}
-        <nav className="lg:hidden fixed bottom-0 left-0 right-0 bg-white/90 backdrop-blur-xl border-t border-slate-100 safe-bottom z-50">
+        <nav className="lg:hidden fixed bottom-0 left-0 right-0 bg-[#0a0e1a]/90 backdrop-blur-xl border-t border-white/5 safe-bottom z-50">
           <div className="max-w-lg mx-auto flex justify-around items-center h-16 px-2">
             {navItems.map(item => {
               const Icon = item.icon
@@ -708,7 +710,7 @@ export default function App() {
               return (
                 <button key={item.id} onClick={() => setActiveTab(item.id)}
                   className={`relative flex flex-col items-center justify-center w-20 h-full transition ${
-                    active ? 'text-emerald-600' : 'text-slate-400'}`}>
+                    active ? 'text-emerald-400' : 'text-slate-400'}`}>
                   <Icon size={22} strokeWidth={active ? 2.5 : 2} />
                   {item.id === 'admin' && pendingChurches.length > 0 && (
                     <span className="absolute top-1.5 right-5 w-4 h-4 rounded-full bg-red-500 text-white text-[9px] font-bold flex items-center justify-center">
@@ -721,8 +723,8 @@ export default function App() {
             })}
             {canPost && (
               <button onClick={() => setShowCreate(true)}
-                className="flex flex-col items-center justify-center w-20 h-full text-emerald-600">
-                <div className="w-10 h-10 rounded-full bg-emerald-600 text-white flex items-center justify-center shadow-lg shadow-emerald-200 -mt-4">
+                className="flex flex-col items-center justify-center w-20 h-full text-emerald-400">
+                <div className="w-10 h-10 rounded-full bg-emerald-600 text-white flex items-center justify-center shadow-lg shadow-emerald-500/40 -mt-4">
                   <PlusCircle size={22} />
                 </div>
                 <span className="text-[10px] mt-1 font-medium">Post</span>
