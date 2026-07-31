@@ -3,7 +3,7 @@ import {
   Home, Church, PlusCircle, User, MessageCircle, Heart, Share2,
   Image as ImageIcon, Video, Mic, X, Send, LogOut,
   Youtube, Facebook, CheckCircle2, Clock, ArrowRight, ShieldCheck, UserX, Sparkles,
-  Trash2, Camera, FileText, Upload, Mail, Pencil
+  Trash2, Camera, FileText, Upload, Pencil
 } from 'lucide-react'
 import {
   collection, addDoc, onSnapshot, query, orderBy, where,
@@ -12,9 +12,8 @@ import {
 import {
   createUserWithEmailAndPassword, signInWithEmailAndPassword,
   signOut, onAuthStateChanged, updateProfile,
-  GoogleAuthProvider, signInWithPopup, sendEmailVerification, sendPasswordResetEmail
+  sendEmailVerification, sendPasswordResetEmail
 } from 'firebase/auth'
-import type { User as FirebaseUser } from 'firebase/auth'
 import { ref, uploadBytes, uploadBytesResumable, getDownloadURL } from 'firebase/storage'
 import { auth, db, storage } from './firebase'
 import type { Post, Comment, AppUser, UserRole } from './types'
@@ -50,20 +49,9 @@ function Logo({ size = 36, variant = 'mark' }: { size?: number; variant?: 'mark'
   )
 }
 
-function GoogleIcon({ size = 18 }: { size?: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 48 48" aria-hidden="true">
-      <path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.9 32.7 29.4 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.1 8 3l5.7-5.7C34.6 6.1 29.6 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.2-.1-2.4-.4-3.5z" />
-      <path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.6 15.9 18.9 13 24 13c3.1 0 5.8 1.1 8 3l5.7-5.7C34.6 7.1 29.6 5 24 5c-7.8 0-14.5 4.4-17.9 10.7z" />
-      <path fill="#4CAF50" d="M24 44c5.5 0 10.4-1.9 14.2-5.1l-6.6-5.4C29.6 35.1 26.9 36 24 36c-5.3 0-9.8-3.3-11.4-8l-6.6 5.1C9.4 39.7 16.1 44 24 44z" />
-      <path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-1 2.9-3 5.3-5.6 6.9l6.6 5.4C39.9 37.6 44 31.9 44 24c0-1.2-.1-2.4-.4-3.5z" />
-    </svg>
-  )
-}
-
 // ==================== SHARED AUTH FORM ====================
 // Used inside both the mobile/tablet full-screen AuthScreen and the
-// desktop AuthModal, so the login/register/Google logic lives in one place.
+// desktop AuthModal, so the login/register logic lives in one place.
 function AuthForm({ onSuccess, initialMode = 'login' }: {
   onSuccess: (user: AppUser) => void
   initialMode?: 'login' | 'register'
@@ -78,17 +66,18 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
   const [resetSent, setResetSent] = useState(false)
+  const [registerSuccess, setRegisterSuccess] = useState(false)
 
-  // A brand-new Google sign-in has no account-type yet — we hold the
-  // Firebase Auth user here until they finish that one extra step.
-  const [googleUser, setGoogleUser] = useState<FirebaseUser | null>(null)
-  const [googleAccountType, setGoogleAccountType] = useState<'member' | 'church'>('member')
-  const [googleChurchName, setGoogleChurchName] = useState('')
-  const [googleLocation, setGoogleLocation] = useState('')
+  const switchMode = (m: 'login' | 'register') => {
+    setMode(m)
+    setError('')
+    setResetSent(false)
+  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setError('')
+    setRegisterSuccess(false)
     setLoading(true)
     try {
       if (mode === 'login') {
@@ -99,8 +88,7 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
       } else {
         const cred = await createUserWithEmailAndPassword(auth, email, password)
         await updateProfile(cred.user, { displayName: name })
-        // Fire-and-forget — a failure here shouldn't block account creation;
-        // the in-app banner offers a "Resend" button as a fallback anyway.
+        // Fire-and-forget — a failure here shouldn't block account creation.
         sendEmailVerification(cred.user).catch(() => {})
 
         const role: UserRole = accountType === 'church' ? 'pending_church' : 'member'
@@ -116,7 +104,14 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
           ...(accountType === 'church' ? { churchName, location } : {})
         }
         await setDoc(doc(db, 'users', cred.user.uid), profile)
-        onSuccess(profile)
+
+        // Sign out right after creating the account rather than dropping
+        // them straight into the app — they come back to Sign In and log
+        // in deliberately with the credentials they just set.
+        await signOut(auth)
+        setMode('login')
+        setPassword('')
+        setRegisterSuccess(true)
       }
     } catch (err: any) {
       setError(err.message?.replace('Firebase: ', '') || 'Something went wrong')
@@ -143,121 +138,17 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
     }
   }
 
-  const handleGoogleSignIn = async () => {
-    setError('')
-    setLoading(true)
-    try {
-      const provider = new GoogleAuthProvider()
-      const cred = await signInWithPopup(auth, provider)
-      const snap = await getDoc(doc(db, 'users', cred.user.uid))
-      if (snap.exists()) {
-        onSuccess(snap.data() as AppUser)
-      } else {
-        // First time we've seen this Google account — ask account type next.
-        setGoogleUser(cred.user)
-      }
-    } catch (err: any) {
-      setError(err.message?.replace('Firebase: ', '') || 'Google sign-in failed')
-    } finally {
-      setLoading(false)
-    }
-  }
-
-  const handleFinishGoogleSetup = async (e: React.FormEvent) => {
-    e.preventDefault()
-    if (!googleUser) return
-    setError('')
-    setLoading(true)
-    try {
-      const role: UserRole = googleAccountType === 'church' ? 'pending_church' : 'member'
-      const profile: AppUser = {
-        uid: googleUser.uid,
-        email: googleUser.email || '',
-        displayName: googleUser.displayName || 'Member',
-        role,
-        createdAt: serverTimestamp(),
-        ...(googleAccountType === 'church' ? { churchName: googleChurchName, location: googleLocation } : {})
-      }
-      await setDoc(doc(db, 'users', googleUser.uid), profile)
-      onSuccess(profile)
-    } catch (err: any) {
-      setError(err.message?.replace('Firebase: ', '') || 'Something went wrong')
-    } finally {
-      setLoading(false)
-    }
-  }
-
-  if (googleUser) {
-    return (
-      <div>
-        <div className="text-center mb-6">
-          <div className="w-14 h-14 rounded-full bg-gradient-to-br from-emerald-400 to-amber-400 mx-auto flex items-center justify-center text-white font-bold text-xl mb-4">
-            {(googleUser.displayName || 'U').charAt(0)}
-          </div>
-          <h2 className="text-xl font-bold text-slate-900">
-            Almost there{googleUser.displayName ? `, ${googleUser.displayName.split(' ')[0]}` : ''}
-          </h2>
-          <p className="text-sm text-slate-500 mt-1">Tell us how you'll be using ELIM</p>
-        </div>
-        <div className="flex gap-3 mb-6">
-          <button type="button" onClick={() => setGoogleAccountType('member')}
-            className={`flex-1 py-3 rounded-2xl border-2 text-sm font-medium transition ${
-              googleAccountType === 'member' ? 'border-emerald-500 bg-emerald-50 text-emerald-800' : 'border-slate-200 text-slate-500'}`}>
-            Member
-          </button>
-          <button type="button" onClick={() => setGoogleAccountType('church')}
-            className={`flex-1 py-3 rounded-2xl border-2 text-sm font-medium transition ${
-              googleAccountType === 'church' ? 'border-emerald-500 bg-emerald-50 text-emerald-800' : 'border-slate-200 text-slate-500'}`}>
-            Church
-          </button>
-        </div>
-        <form onSubmit={handleFinishGoogleSetup} className="space-y-4">
-          {googleAccountType === 'church' && (
-            <>
-              <input required value={googleChurchName} onChange={e => setGoogleChurchName(e.target.value)} placeholder="Church name"
-                className="w-full px-4 py-3.5 rounded-2xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-400 text-[15px]" />
-              <input required value={googleLocation} onChange={e => setGoogleLocation(e.target.value)} placeholder="City, State"
-                className="w-full px-4 py-3.5 rounded-2xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-400 text-[15px]" />
-            </>
-          )}
-          {error && <p className="text-sm text-red-500 bg-red-50 rounded-xl px-4 py-3">{error}</p>}
-          <button type="submit" disabled={loading}
-            className="w-full py-4 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-[15px] transition flex items-center justify-center gap-2 disabled:opacity-60">
-            {loading ? 'Please wait...' : 'Finish Setup'}
-            {!loading && <ArrowRight size={18} />}
-          </button>
-        </form>
-        {googleAccountType === 'church' && (
-          <p className="mt-5 text-xs text-center text-slate-400 leading-relaxed">
-            Church accounts require approval before you can publish content.
-          </p>
-        )}
-      </div>
-    )
-  }
-
   return (
     <div>
       <div className="flex bg-slate-100 rounded-2xl p-1 mb-6">
-        <button onClick={() => setMode('login')}
+        <button onClick={() => switchMode('login')}
           className={`flex-1 py-2.5 rounded-xl text-sm font-semibold transition ${mode === 'login' ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-500'}`}>
           Sign In
         </button>
-        <button onClick={() => setMode('register')}
+        <button onClick={() => switchMode('register')}
           className={`flex-1 py-2.5 rounded-xl text-sm font-semibold transition ${mode === 'register' ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-500'}`}>
           Create Account
         </button>
-      </div>
-
-      <button type="button" onClick={handleGoogleSignIn} disabled={loading}
-        className="w-full py-3.5 rounded-2xl border border-slate-200 hover:bg-slate-50 text-slate-700 font-semibold text-[15px] transition flex items-center justify-center gap-2.5 disabled:opacity-60 mb-5">
-        <GoogleIcon size={18} /> Continue with Google
-      </button>
-
-      <div className="flex items-center gap-3 mb-5">
-        <div className="h-px bg-slate-100 flex-1" />
-        <span className="text-xs text-slate-400 font-medium">or</span>
-        <div className="h-px bg-slate-100 flex-1" />
       </div>
 
       {mode === 'register' && (
@@ -273,6 +164,12 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
             Church
           </button>
         </div>
+      )}
+
+      {registerSuccess && (
+        <p className="mb-4 text-sm text-emerald-700 bg-emerald-50 rounded-xl px-4 py-3">
+          Account created! Sign in below to continue.
+        </p>
       )}
 
       <form onSubmit={handleSubmit} className="space-y-4">
@@ -364,58 +261,6 @@ function AuthModal({ onClose, onSuccess, initialMode }: {
         </div>
         <AuthForm onSuccess={onSuccess} initialMode={initialMode} />
       </div>
-    </div>
-  )
-}
-
-// Persistent (non-blocking) banner shown to signed-in users whose email
-// isn't verified yet. Publishing is actually gated on this at the Firestore
-// rules layer too — this banner is the friendly way to resolve it.
-function EmailVerificationBanner() {
-  const [sent, setSent] = useState(false)
-  const [sending, setSending] = useState(false)
-  const [checking, setChecking] = useState(false)
-
-  const resend = async () => {
-    if (!auth.currentUser) return
-    setSending(true)
-    try {
-      await sendEmailVerification(auth.currentUser)
-      setSent(true)
-    } catch {
-      // Firebase rate-limits repeated verification emails — failing quietly
-      // here is better than showing a scary error for "already sent recently."
-    } finally {
-      setSending(false)
-    }
-  }
-
-  const refresh = async () => {
-    if (!auth.currentUser) return
-    setChecking(true)
-    try {
-      await auth.currentUser.reload()
-      await auth.currentUser.getIdToken(true)
-      if (auth.currentUser.emailVerified) window.location.reload()
-    } finally {
-      setChecking(false)
-    }
-  }
-
-  return (
-    <div className="bg-amber-50 border-b border-amber-100 px-4 py-2.5 flex items-center gap-2.5 text-xs lg:text-sm">
-      <Mail size={15} className="text-amber-600 shrink-0" />
-      <span className="text-amber-800 flex-1">
-        {sent ? 'Verification email sent — check your inbox.' : 'Please verify your email to publish posts.'}
-      </span>
-      <button onClick={resend} disabled={sending}
-        className="font-semibold text-amber-700 hover:text-amber-900 shrink-0 disabled:opacity-50">
-        Resend
-      </button>
-      <button onClick={refresh} disabled={checking}
-        className="font-semibold text-amber-700 hover:text-amber-900 shrink-0 disabled:opacity-50">
-        {checking ? '...' : "I've verified"}
-      </button>
     </div>
   )
 }
@@ -607,7 +452,6 @@ export default function App() {
   const [activeCommentsPost, setActiveCommentsPost] = useState<string | null>(null)
   const [loading, setLoading] = useState(true)
   const [pendingChurches, setPendingChurches] = useState<AppUser[]>([])
-  const [emailVerified, setEmailVerified] = useState(true)
   const [likedPostIds, setLikedPostIds] = useState<Set<string>>(new Set())
 
   // Auth listener
@@ -617,7 +461,6 @@ export default function App() {
         const snap = await getDoc(doc(db, 'users', firebaseUser.uid))
         if (snap.exists()) setUser(snap.data() as AppUser)
         else setUser(null)
-        setEmailVerified(firebaseUser.emailVerified)
       } else {
         setUser(null)
       }
@@ -775,8 +618,6 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-[#f8faf9] max-w-lg mx-auto lg:max-w-none lg:mx-0 relative">
-      {!emailVerified && <EmailVerificationBanner />}
-
       <div className="lg:flex">
         {/* Sidebar — desktop only */}
         <aside className="hidden lg:flex lg:flex-col lg:w-64 lg:shrink-0 lg:h-screen lg:sticky lg:top-0 border-r border-slate-100 bg-white px-6 py-8">
@@ -1125,7 +966,7 @@ function AdminPanel({ pendingChurches, onApprove, onDeny }: {
 
 function PostCard({ post, onLike, onOpenComments, currentUserUid, isLiked, onEdit, onDelete }: {
   post: Post
-  onLike: (id: string) => void
+  onLike: (id: string) => Promise<void>
   onOpenComments: (id: string) => void
   currentUserUid: string
   isLiked: boolean
@@ -1134,7 +975,21 @@ function PostCard({ post, onLike, onOpenComments, currentUserUid, isLiked, onEdi
 }) {
   const ytId = post.mediaUrl ? getYoutubeId(post.mediaUrl) : null
   const [confirmingDelete, setConfirmingDelete] = useState(false)
+  const [likeError, setLikeError] = useState(false)
   const isOwner = post.churchId === currentUserUid
+
+  const handleLikeClick = async () => {
+    setLikeError(false)
+    try {
+      await onLike(post.id)
+    } catch {
+      // Surface the failure instead of the button silently doing nothing —
+      // most commonly this means the Firestore rules for the likes
+      // collection haven't been published yet.
+      setLikeError(true)
+      setTimeout(() => setLikeError(false), 4000)
+    }
+  }
 
   return (
     <article className="bg-white rounded-3xl shadow-sm border border-slate-100/80 overflow-hidden">
@@ -1244,13 +1099,18 @@ function PostCard({ post, onLike, onOpenComments, currentUserUid, isLiked, onEdi
       )}
 
       <div className="flex items-center justify-between px-4 py-3 border-t border-slate-50">
-        <div className="flex items-center gap-5">
-          <button onClick={() => onLike(post.id)}
+        <div className="flex items-center gap-5 relative">
+          <button onClick={handleLikeClick}
             className={`flex items-center gap-1.5 text-sm font-medium transition ${
               isLiked ? 'text-red-500' : 'text-slate-400 hover:text-red-500'}`}>
             <Heart size={18} fill={isLiked ? 'currentColor' : 'none'} />
             {post.likes || 0}
           </button>
+          {likeError && (
+            <span className="absolute -top-7 left-0 text-[11px] font-medium text-red-500 bg-red-50 rounded-full px-2.5 py-1 whitespace-nowrap">
+              Couldn't update — try again
+            </span>
+          )}
           <button onClick={() => onOpenComments(post.id)}
             className="flex items-center gap-1.5 text-sm font-medium text-slate-400 hover:text-emerald-600">
             <MessageCircle size={18} />

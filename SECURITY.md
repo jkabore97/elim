@@ -29,10 +29,11 @@ Four roles, enforced server-side in `firestore.rules` (never trusted from the cl
 
 ## 3. Authentication
 
-- **Email/password and Google Sign-In** are the two supported methods.
+- **Email/password only.** Google Sign-In was implemented and then intentionally disabled — the code path was fully removed (not just hidden) to avoid dead/unused code. Straightforward to reintroduce later if wanted.
 - **No client can assign itself `church` or `admin`.** Account creation is restricted to `member` or `pending_church` at the rules level, regardless of what the client sends. `church` only happens via admin approval; `admin` only via direct console action by the project owner (there is intentionally no in-app path to grant it — this is a bootstrap step, not a feature).
 - **Password minimum length: 8 characters** (raised from an earlier 6-character minimum to align with current NIST 800-63B guidance, which favors length over forced complexity/rotation rules).
-- **Email verification is encouraged, not required.** A verification email is sent automatically on signup, and a persistent (non-blocking) banner reminds an unverified user to check their inbox. Deliberately, verification does **not** gate publishing or any other action — for a low-stakes community app, we chose immediate access over adding friction to signup. This is a real tradeoff, not an oversight: it trades some identity assurance for a smoother first experience. If ELIM later needs stronger identity assurance (e.g. handling payments/giving), this is the first control to revisit.
+- **New accounts are signed out immediately after registration**, rather than being dropped straight into the app. They land back on Sign In with a confirmation message and log in deliberately with the credentials they just set.
+- **Email verification is encouraged, not required.** A verification email is still sent automatically on signup. There's no in-app reminder banner (removed for a cleaner first impression) and verification does **not** gate publishing or any other action — for a low-stakes community app, we chose less friction over stronger identity assurance. If ELIM later needs that assurance (e.g. handling payments/giving), this is the first control to revisit.
 - **Password reset** is self-service via Firebase's standard reset-email flow.
 
 ---
