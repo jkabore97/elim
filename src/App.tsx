@@ -29,7 +29,7 @@ function timeAgo(date: any) {
 }
 
 function getYoutubeId(url: string) {
-  const reg = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/
+  const reg = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?|shorts|live)\/|.*[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/
   const match = url.match(reg)
   return match ? match[1] : null
 }
@@ -1051,6 +1051,17 @@ function PostCard({ post, onLike, onOpenComments, currentUserUid, isLiked, onEdi
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
           />
+        </div>
+      )}
+
+      {post.type === 'youtube' && post.mediaUrl && !ytId && (
+        <div className="bg-slate-50 p-4">
+          <div className="flex items-center gap-2 text-red-600 mb-2">
+            <Youtube size={18} />
+            <span className="text-sm font-medium">YouTube Video</span>
+          </div>
+          <a href={post.mediaUrl} target="_blank" rel="noreferrer"
+            className="text-sm text-emerald-600 underline break-all">{post.mediaUrl}</a>
         </div>
       )}
 
