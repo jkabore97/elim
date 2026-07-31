@@ -29,12 +29,15 @@ Four roles, enforced server-side in `firestore.rules` (never trusted from the cl
 
 ## 3. Authentication
 
-- **Email/password only.** Google Sign-In was implemented and then intentionally disabled — the code path was fully removed (not just hidden) to avoid dead/unused code. Straightforward to reintroduce later if wanted.
+- **Email/password, plus Google Sign-In.** Google Sign-In was previously implemented, then intentionally removed, and has now been reintroduced (v4) as a lower-friction option alongside email/password. A brand-new Google sign-in still completes one extra step in-app (member vs. church, phone number) before an account document is created — Google itself never tells us which of those a person wants.
+- **Phone number is now required at signup** (previously optional, editable only after account creation from the Profile tab — it remains editable there). Collected for both the email/password and Google paths.
+- **Passwords are entered twice at signup** (confirm-password field) purely as a client-side typo guard — this is a UX safeguard, not a security control; Firestore rules and Firebase Auth itself are unaffected by it.
 - **No client can assign itself `church` or `admin`.** Account creation is restricted to `member` or `pending_church` at the rules level, regardless of what the client sends. `church` only happens via admin approval; `admin` only via direct console action by the project owner (there is intentionally no in-app path to grant it — this is a bootstrap step, not a feature).
 - **Password minimum length: 8 characters** (raised from an earlier 6-character minimum to align with current NIST 800-63B guidance, which favors length over forced complexity/rotation rules).
 - **New accounts are signed out immediately after registration**, rather than being dropped straight into the app. They land back on Sign In with a confirmation message and log in deliberately with the credentials they just set.
 - **Email verification is encouraged, not required.** A verification email is still sent automatically on signup. There's no in-app reminder banner (removed for a cleaner first impression) and verification does **not** gate publishing or any other action — for a low-stakes community app, we chose less friction over stronger identity assurance. If ELIM later needs that assurance (e.g. handling payments/giving), this is the first control to revisit.
 - **Password reset** is self-service via Firebase's standard reset-email flow.
+- **UI language (French/English)** is a display-only preference stored in the browser (`localStorage`), not sent to or read by Firestore rules — it has no bearing on access control. Defaults to French, since most users are expected to be French speakers, unless the device is set to English.
 
 ---
 
@@ -68,7 +71,7 @@ Members and churches can upload real files (not just paste a URL). Every upload 
 
 ## 6. Data Collected
 
-Email, display name, role, and — now optional and user-editable — a church name, country, city, phone number, and profile picture. No payment data, no precise geolocation, no health data. Google Sign-In shares only the name/email/profile photo Google itself provides.
+Email, display name, role, and — required at signup as of v4 — a phone number, plus optional/user-editable church name, country, city, and profile picture. No payment data, no precise geolocation, no health data. Google Sign-In shares only the name/email/profile photo Google itself provides.
 
 ---
 

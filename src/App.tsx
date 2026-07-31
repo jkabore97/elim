@@ -3,7 +3,7 @@ import {
   Home, Church, PlusCircle, User, MessageCircle, Heart, Share2,
   Image as ImageIcon, Video, Mic, X, Send, LogOut,
   Youtube, Facebook, CheckCircle2, Clock, ArrowRight, ShieldCheck, UserX, Sparkles,
-  Trash2, Camera, FileText, Upload, Pencil
+  Trash2, Camera, FileText, Upload, Pencil, Globe
 } from 'lucide-react'
 import {
   collection, addDoc, onSnapshot, query, orderBy, where,
@@ -12,11 +12,14 @@ import {
 import {
   createUserWithEmailAndPassword, signInWithEmailAndPassword,
   signOut, onAuthStateChanged, updateProfile,
-  sendEmailVerification, sendPasswordResetEmail
+  sendEmailVerification, sendPasswordResetEmail,
+  GoogleAuthProvider, signInWithPopup
 } from 'firebase/auth'
+import type { User as FirebaseUser } from 'firebase/auth'
 import { ref, uploadBytes, uploadBytesResumable, getDownloadURL } from 'firebase/storage'
 import { auth, db, storage } from './firebase'
 import type { Post, Comment, AppUser, UserRole } from './types'
+import { LanguageProvider, useLanguage, type Language } from './i18n'
 
 function timeAgo(date: any) {
   if (!date) return ''
@@ -49,6 +52,41 @@ function Logo({ size = 36, variant = 'mark' }: { size?: number; variant?: 'mark'
   )
 }
 
+function GoogleIcon({ size = 18 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 48 48" aria-hidden="true">
+      <path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.9 32.7 29.4 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.1 8 3l5.7-5.7C34.6 6.1 29.6 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.2-.1-2.4-.4-3.5z" />
+      <path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.6 15.9 18.9 13 24 13c3.1 0 5.8 1.1 8 3l5.7-5.7C34.6 7.1 29.6 5 24 5c-7.8 0-14.5 4.4-17.9 10.7z" />
+      <path fill="#4CAF50" d="M24 44c5.5 0 10.4-1.9 14.2-5.1l-6.6-5.4C29.6 35.1 26.9 36 24 36c-5.3 0-9.8-3.3-11.4-8l-6.6 5.1C9.4 39.7 16.1 44 24 44z" />
+      <path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-1 2.9-3 5.3-5.6 6.9l6.6 5.4C39.9 37.6 44 31.9 44 24c0-1.2-.1-2.4-.4-3.5z" />
+    </svg>
+  )
+}
+
+// Small EN/FR toggle. `dark` picks the variant meant to sit on dark
+// surfaces (auth screens, sidebar) vs. light ones (landing page nav).
+function LanguageSwitcher({ dark = false }: { dark?: boolean }) {
+  const { language, setLanguage } = useLanguage()
+  const base = dark
+    ? 'bg-white/5 border-white/10'
+    : 'bg-slate-100 border-transparent'
+  const inactive = dark ? 'text-slate-400' : 'text-slate-500'
+  const active = dark ? 'bg-white/10 text-white' : 'bg-white text-slate-900 shadow-sm'
+
+  return (
+    <div className={`inline-flex items-center gap-0.5 p-1 rounded-full border ${base}`}>
+      <Globe size={13} className={`ml-1.5 mr-0.5 ${inactive}`} />
+      {(['fr', 'en'] as Language[]).map(lang => (
+        <button key={lang} onClick={() => setLanguage(lang)}
+          className={`px-2.5 py-1 rounded-full text-[11px] font-bold uppercase tracking-wide transition ${
+            language === lang ? active : `${inactive} hover:text-slate-300`}`}>
+          {lang}
+        </button>
+      ))}
+    </div>
+  )
+}
+
 // ==================== SHARED AUTH FORM ====================
 // Used inside both the mobile/tablet full-screen AuthScreen and the
 // desktop AuthModal, so the login/register logic lives in one place.
@@ -56,10 +94,13 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
   onSuccess: (user: AppUser) => void
   initialMode?: 'login' | 'register'
 }) {
+  const { t } = useLanguage()
   const [mode, setMode] = useState<'login' | 'register'>(initialMode)
   const [accountType, setAccountType] = useState<'member' | 'church'>('member')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [confirmPassword, setConfirmPassword] = useState('')
+  const [phone, setPhone] = useState('')
   const [name, setName] = useState('')
   const [churchName, setChurchName] = useState('')
   const [location, setLocation] = useState('')
@@ -67,6 +108,16 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
   const [loading, setLoading] = useState(false)
   const [resetSent, setResetSent] = useState(false)
   const [registerSuccess, setRegisterSuccess] = useState(false)
+
+  // A brand-new Google sign-in has no role/phone yet — held here until
+  // they finish that one extra step.
+  const [googleUser, setGoogleUser] = useState<FirebaseUser | null>(null)
+  const [googleAccountType, setGoogleAccountType] = useState<'member' | 'church'>('member')
+  const [googleChurchName, setGoogleChurchName] = useState('')
+  const [googleLocation, setGoogleLocation] = useState('')
+  const [googlePhone, setGooglePhone] = useState('')
+
+  const inputClass = "w-full px-4 py-3.5 rounded-2xl bg-white/5 border border-white/10 text-white placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-emerald-400/60 focus:border-emerald-400/60 text-[15px]"
 
   const switchMode = (m: 'login' | 'register') => {
     setMode(m)
@@ -78,6 +129,22 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
     e.preventDefault()
     setError('')
     setRegisterSuccess(false)
+
+    if (mode === 'register') {
+      if (password.length < 8) {
+        setError(t('auth.passwordTooShort'))
+        return
+      }
+      if (password !== confirmPassword) {
+        setError(t('auth.passwordsDontMatch'))
+        return
+      }
+      if (!phone.trim()) {
+        setError(t('auth.phoneRequired'))
+        return
+      }
+    }
+
     setLoading(true)
     try {
       if (mode === 'login') {
@@ -97,10 +164,11 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
           email,
           displayName: name,
           role,
+          phone: phone.trim(),
           createdAt: serverTimestamp(),
           // Omit churchName/location entirely for members rather than setting
           // them to `undefined` — Firestore's setDoc() rejects undefined
-          // field values outright (this is what was crashing "Member" signup).
+          // field values outright.
           ...(accountType === 'church' ? { churchName, location } : {})
         }
         await setDoc(doc(db, 'users', cred.user.uid), profile)
@@ -111,10 +179,11 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
         await signOut(auth)
         setMode('login')
         setPassword('')
+        setConfirmPassword('')
         setRegisterSuccess(true)
       }
     } catch (err: any) {
-      setError(err.message?.replace('Firebase: ', '') || 'Something went wrong')
+      setError(err.message?.replace('Firebase: ', '') || t('auth.somethingWrong'))
     } finally {
       setLoading(false)
     }
@@ -122,7 +191,7 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
 
   const handleForgotPassword = async () => {
     if (!email) {
-      setError('Enter your email above first, then tap "Forgot password?"')
+      setError(t('auth.enterEmailFirst'))
       return
     }
     setError('')
@@ -132,91 +201,210 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
       await sendPasswordResetEmail(auth, email)
       setResetSent(true)
     } catch (err: any) {
-      setError(err.message?.replace('Firebase: ', '') || 'Could not send reset email')
+      setError(err.message?.replace('Firebase: ', '') || t('auth.somethingWrong'))
     } finally {
       setLoading(false)
     }
   }
 
+  const handleGoogleSignIn = async () => {
+    setError('')
+    setLoading(true)
+    try {
+      const provider = new GoogleAuthProvider()
+      const cred = await signInWithPopup(auth, provider)
+      const snap = await getDoc(doc(db, 'users', cred.user.uid))
+      if (snap.exists()) {
+        onSuccess(snap.data() as AppUser)
+      } else {
+        setGoogleUser(cred.user)
+      }
+    } catch (err: any) {
+      setError(err.message?.replace('Firebase: ', '') || t('auth.googleSignInFailed'))
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const handleFinishGoogleSetup = async (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!googleUser) return
+    if (!googlePhone.trim()) {
+      setError(t('auth.phoneRequired'))
+      return
+    }
+    setError('')
+    setLoading(true)
+    try {
+      const role: UserRole = googleAccountType === 'church' ? 'pending_church' : 'member'
+      const profile: AppUser = {
+        uid: googleUser.uid,
+        email: googleUser.email || '',
+        displayName: googleUser.displayName || 'Member',
+        role,
+        phone: googlePhone.trim(),
+        ...(googleAccountType === 'church' ? { churchName: googleChurchName, location: googleLocation } : {}),
+        createdAt: serverTimestamp()
+      }
+      await setDoc(doc(db, 'users', googleUser.uid), profile)
+      onSuccess(profile)
+    } catch (err: any) {
+      setError(err.message?.replace('Firebase: ', '') || t('auth.somethingWrong'))
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  if (googleUser) {
+    return (
+      <div>
+        <div className="text-center mb-6">
+          <div className="w-14 h-14 rounded-full bg-gradient-to-br from-emerald-400 to-amber-400 mx-auto flex items-center justify-center text-white font-bold text-xl mb-4">
+            {(googleUser.displayName || 'U').charAt(0)}
+          </div>
+          <h2 className="text-xl font-bold text-white">
+            {t('auth.almostThere')}{googleUser.displayName ? `, ${googleUser.displayName.split(' ')[0]}` : ''}
+          </h2>
+          <p className="text-sm text-slate-400 mt-1">{t('auth.tellUsHowYoullUse')}</p>
+        </div>
+        <div className="flex gap-3 mb-6">
+          <button type="button" onClick={() => setGoogleAccountType('member')}
+            className={`flex-1 py-3 rounded-2xl border-2 text-sm font-medium transition ${
+              googleAccountType === 'member' ? 'border-emerald-400 bg-emerald-500/10 text-emerald-300' : 'border-white/10 text-slate-400'}`}>
+            {t('auth.member')}
+          </button>
+          <button type="button" onClick={() => setGoogleAccountType('church')}
+            className={`flex-1 py-3 rounded-2xl border-2 text-sm font-medium transition ${
+              googleAccountType === 'church' ? 'border-emerald-400 bg-emerald-500/10 text-emerald-300' : 'border-white/10 text-slate-400'}`}>
+            {t('auth.church')}
+          </button>
+        </div>
+        <form onSubmit={handleFinishGoogleSetup} className="space-y-4">
+          {googleAccountType === 'church' && (
+            <>
+              <input required value={googleChurchName} onChange={e => setGoogleChurchName(e.target.value)} placeholder={t('auth.churchName')}
+                className={inputClass} />
+              <input required value={googleLocation} onChange={e => setGoogleLocation(e.target.value)} placeholder={t('auth.cityState')}
+                className={inputClass} />
+            </>
+          )}
+          <input required type="tel" value={googlePhone} onChange={e => setGooglePhone(e.target.value)} placeholder={t('auth.phoneNumber')}
+            className={inputClass} />
+          {error && <p className="text-sm text-red-400 bg-red-500/10 border border-red-500/20 rounded-xl px-4 py-3">{error}</p>}
+          <button type="submit" disabled={loading}
+            className="w-full py-4 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-[15px] transition flex items-center justify-center gap-2 disabled:opacity-60 shadow-lg shadow-emerald-500/20">
+            {loading ? t('auth.pleaseWait') : t('auth.finishSetup')}
+            {!loading && <ArrowRight size={18} />}
+          </button>
+        </form>
+        {googleAccountType === 'church' && (
+          <p className="mt-5 text-xs text-center text-slate-500 leading-relaxed">
+            {t('auth.churchApprovalNote')}
+          </p>
+        )}
+      </div>
+    )
+  }
+
   return (
     <div>
-      <div className="flex bg-slate-100 rounded-2xl p-1 mb-6">
+      <div className="flex bg-white/5 border border-white/10 rounded-2xl p-1 mb-6">
         <button onClick={() => switchMode('login')}
-          className={`flex-1 py-2.5 rounded-xl text-sm font-semibold transition ${mode === 'login' ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-500'}`}>
-          Sign In
+          className={`flex-1 py-2.5 rounded-xl text-sm font-semibold transition ${mode === 'login' ? 'bg-white/10 text-white' : 'text-slate-400'}`}>
+          {t('auth.signIn')}
         </button>
         <button onClick={() => switchMode('register')}
-          className={`flex-1 py-2.5 rounded-xl text-sm font-semibold transition ${mode === 'register' ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-500'}`}>
-          Create Account
+          className={`flex-1 py-2.5 rounded-xl text-sm font-semibold transition ${mode === 'register' ? 'bg-white/10 text-white' : 'text-slate-400'}`}>
+          {t('auth.createAccount')}
         </button>
+      </div>
+
+      <button type="button" onClick={handleGoogleSignIn} disabled={loading}
+        className="w-full py-3.5 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 text-white font-semibold text-[15px] transition flex items-center justify-center gap-2.5 disabled:opacity-60 mb-5">
+        <GoogleIcon size={18} /> {t('auth.continueWithGoogle')}
+      </button>
+
+      <div className="flex items-center gap-3 mb-5">
+        <div className="h-px bg-white/10 flex-1" />
+        <span className="text-xs text-slate-500 font-medium">{t('auth.or')}</span>
+        <div className="h-px bg-white/10 flex-1" />
       </div>
 
       {mode === 'register' && (
         <div className="flex gap-3 mb-6">
           <button onClick={() => setAccountType('member')}
             className={`flex-1 py-3 rounded-2xl border-2 text-sm font-medium transition ${
-              accountType === 'member' ? 'border-emerald-500 bg-emerald-50 text-emerald-800' : 'border-slate-200 text-slate-500'}`}>
-            Member
+              accountType === 'member' ? 'border-emerald-400 bg-emerald-500/10 text-emerald-300' : 'border-white/10 text-slate-400'}`}>
+            {t('auth.member')}
           </button>
           <button onClick={() => setAccountType('church')}
             className={`flex-1 py-3 rounded-2xl border-2 text-sm font-medium transition ${
-              accountType === 'church' ? 'border-emerald-500 bg-emerald-50 text-emerald-800' : 'border-slate-200 text-slate-500'}`}>
-            Church
+              accountType === 'church' ? 'border-emerald-400 bg-emerald-500/10 text-emerald-300' : 'border-white/10 text-slate-400'}`}>
+            {t('auth.church')}
           </button>
         </div>
       )}
 
       {registerSuccess && (
-        <p className="mb-4 text-sm text-emerald-700 bg-emerald-50 rounded-xl px-4 py-3">
-          Account created! Sign in below to continue.
+        <p className="mb-4 text-sm text-emerald-300 bg-emerald-500/10 border border-emerald-500/20 rounded-xl px-4 py-3">
+          {t('auth.accountCreated')}
         </p>
       )}
 
       <form onSubmit={handleSubmit} className="space-y-4">
         {mode === 'register' && (
-          <input required value={name} onChange={e => setName(e.target.value)} placeholder="Your full name"
-            className="w-full px-4 py-3.5 rounded-2xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-400 text-[15px]" />
+          <input required value={name} onChange={e => setName(e.target.value)} placeholder={t('auth.fullName')}
+            className={inputClass} />
         )}
         {mode === 'register' && accountType === 'church' && (
           <>
-            <input required value={churchName} onChange={e => setChurchName(e.target.value)} placeholder="Church name"
-              className="w-full px-4 py-3.5 rounded-2xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-400 text-[15px]" />
-            <input required value={location} onChange={e => setLocation(e.target.value)} placeholder="City, State"
-              className="w-full px-4 py-3.5 rounded-2xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-400 text-[15px]" />
+            <input required value={churchName} onChange={e => setChurchName(e.target.value)} placeholder={t('auth.churchName')}
+              className={inputClass} />
+            <input required value={location} onChange={e => setLocation(e.target.value)} placeholder={t('auth.cityState')}
+              className={inputClass} />
           </>
         )}
-        <input required type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="Email address"
-          className="w-full px-4 py-3.5 rounded-2xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-400 text-[15px]" />
-        <input required type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="Password"
+        <input required type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder={t('auth.email')}
+          className={inputClass} />
+        <input required type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder={t('auth.password')}
           minLength={mode === 'register' ? 8 : undefined}
-          className="w-full px-4 py-3.5 rounded-2xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-400 text-[15px]" />
+          className={inputClass} />
+        {mode === 'register' && (
+          <>
+            <input required type="password" value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)}
+              placeholder={t('auth.confirmPassword')} minLength={8}
+              className={inputClass} />
+            <input required type="tel" value={phone} onChange={e => setPhone(e.target.value)} placeholder={t('auth.phoneNumber')}
+              className={inputClass} />
+          </>
+        )}
 
         {mode === 'login' && (
           <div className="text-right -mt-2">
             <button type="button" onClick={handleForgotPassword}
-              className="text-xs font-semibold text-emerald-600 hover:text-emerald-700">
-              Forgot password?
+              className="text-xs font-semibold text-emerald-400 hover:text-emerald-300">
+              {t('auth.forgotPassword')}
             </button>
           </div>
         )}
 
         {resetSent && (
-          <p className="text-sm text-emerald-700 bg-emerald-50 rounded-xl px-4 py-3">
-            Password reset email sent — check your inbox.
+          <p className="text-sm text-emerald-300 bg-emerald-500/10 border border-emerald-500/20 rounded-xl px-4 py-3">
+            {t('auth.resetSent')}
           </p>
         )}
-        {error && <p className="text-sm text-red-500 bg-red-50 rounded-xl px-4 py-3">{error}</p>}
+        {error && <p className="text-sm text-red-400 bg-red-500/10 border border-red-500/20 rounded-xl px-4 py-3">{error}</p>}
 
         <button type="submit" disabled={loading}
-          className="w-full py-4 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-[15px] transition flex items-center justify-center gap-2 disabled:opacity-60">
-          {loading ? 'Please wait...' : mode === 'login' ? 'Sign In' : 'Create Account'}
+          className="w-full py-4 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-[15px] transition flex items-center justify-center gap-2 disabled:opacity-60 shadow-lg shadow-emerald-500/20">
+          {loading ? t('auth.pleaseWait') : mode === 'login' ? t('auth.signIn') : t('auth.createAccount')}
           {!loading && <ArrowRight size={18} />}
         </button>
       </form>
 
       {mode === 'register' && accountType === 'church' && (
-        <p className="mt-5 text-xs text-center text-slate-400 leading-relaxed">
-          Church accounts require approval before you can publish content.
+        <p className="mt-5 text-xs text-center text-slate-500 leading-relaxed">
+          {t('auth.churchApprovalNote')}
         </p>
       )}
     </div>
@@ -226,16 +414,22 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
 // ==================== AUTH SCREENS ====================
 // Full-screen version — shown on phone & tablet (the "app style" experience).
 function AuthScreen({ onSuccess }: { onSuccess: (user: AppUser) => void }) {
+  const { t } = useLanguage()
   return (
-    <div className="min-h-screen heavenly-bg flex flex-col">
-      <div className="flex-1 flex flex-col items-center justify-center px-6 py-12">
+    <div className="min-h-screen bg-[#0a0e1a] flex flex-col relative overflow-hidden">
+      <div className="fixed top-0 left-1/4 w-[500px] h-[500px] bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="fixed bottom-0 right-0 w-[400px] h-[400px] bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="relative flex justify-end px-6 pt-6">
+        <LanguageSwitcher dark />
+      </div>
+      <div className="relative flex-1 flex flex-col items-center justify-center px-6 py-12">
         <div className="w-full max-w-md">
           <div className="text-center mb-8">
             <Logo size={64} />
-            <h1 className="mt-6 text-3xl font-bold text-slate-900 tracking-tight">Welcome to ELIM</h1>
-            <p className="mt-2 text-slate-500">A peaceful place for the church community</p>
+            <h1 className="mt-6 text-3xl font-bold text-white tracking-tight">{t('auth.welcomeTo')}</h1>
+            <p className="mt-2 text-slate-400">{t('auth.peacefulPlace')}</p>
           </div>
-          <div className="bg-white rounded-3xl shadow-xl shadow-emerald-100/50 border border-emerald-50 p-8">
+          <div className="bg-white/[0.03] backdrop-blur-xl rounded-3xl shadow-2xl border border-white/10 p-8">
             <AuthForm onSuccess={onSuccess} />
           </div>
         </div>
@@ -251,12 +445,15 @@ function AuthModal({ onClose, onSuccess, initialMode }: {
   initialMode: 'login' | 'register'
 }) {
   return (
-    <div className="fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-sm flex items-center justify-center p-4">
-      <div className="bg-white w-full max-w-md rounded-3xl shadow-2xl p-8 relative max-h-[90vh] overflow-y-auto">
-        <button onClick={onClose} className="absolute top-5 right-5 p-1.5 rounded-full hover:bg-slate-100 text-slate-400">
+    <div className="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-sm flex items-center justify-center p-4">
+      <div className="bg-[#0d1424] w-full max-w-md rounded-3xl shadow-2xl border border-white/10 p-8 relative max-h-[90vh] overflow-y-auto">
+        <button onClick={onClose} className="absolute top-5 right-5 p-1.5 rounded-full hover:bg-white/5 text-slate-400">
           <X size={20} />
         </button>
-        <div className="text-center mb-6">
+        <div className="flex justify-center mb-2">
+          <LanguageSwitcher dark />
+        </div>
+        <div className="text-center mb-6 mt-4">
           <Logo size={40} />
         </div>
         <AuthForm onSuccess={onSuccess} initialMode={initialMode} />
@@ -268,6 +465,7 @@ function AuthModal({ onClose, onSuccess, initialMode }: {
 // ==================== DESKTOP LANDING PAGE ====================
 // The "big for computer browsers" experience — shown on lg+ screens only.
 function LandingPage({ onSuccess }: { onSuccess: (user: AppUser) => void }) {
+  const { t } = useLanguage()
   const [authMode, setAuthMode] = useState<'login' | 'register' | null>(null)
 
   return (
@@ -276,13 +474,14 @@ function LandingPage({ onSuccess }: { onSuccess: (user: AppUser) => void }) {
         <div className="max-w-6xl mx-auto px-8 h-20 flex items-center justify-between">
           <Logo size={36} />
           <div className="flex items-center gap-3">
+            <LanguageSwitcher />
             <button onClick={() => setAuthMode('login')}
               className="px-5 py-2.5 rounded-full text-sm font-semibold text-slate-600 hover:bg-slate-50 transition">
-              Sign In
+              {t('auth.signIn')}
             </button>
             <button onClick={() => setAuthMode('register')}
               className="px-5 py-2.5 rounded-full text-sm font-semibold bg-emerald-600 hover:bg-emerald-700 text-white transition shadow-lg shadow-emerald-200">
-              Get Started
+              {t('landing.getStarted')}
             </button>
           </div>
         </div>
@@ -297,26 +496,25 @@ function LandingPage({ onSuccess }: { onSuccess: (user: AppUser) => void }) {
         <div className="relative max-w-5xl mx-auto px-8 pt-20 pb-28 text-center">
           <Logo size={128} variant="full" />
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/80 border border-emerald-100 text-xs font-semibold text-emerald-700 tracking-wide mt-8 mb-8">
-            <Sparkles size={14} /> A MODERN HOME FOR YOUR CHURCH COMMUNITY
+            <Sparkles size={14} /> {t('landing.badge')}
           </div>
           <h1 className="text-5xl lg:text-6xl xl:text-7xl font-extrabold text-slate-900 tracking-tight leading-[1.05]">
-            Stay close to your<br />
+            {t('landing.heroLine1')}<br />
             <span className="bg-gradient-to-r from-emerald-600 via-emerald-500 to-amber-500 bg-clip-text text-transparent">
-              church family.
+              {t('landing.heroLine2')}
             </span>
           </h1>
           <p className="mt-8 text-lg xl:text-xl text-slate-500 max-w-2xl mx-auto leading-relaxed">
-            ELIM brings sermons, updates, and encouragement from your church straight to your pocket —
-            photos, audio, video, and real conversation, all in one gentle, focused space.
+            {t('landing.heroSubtitle')}
           </p>
           <div className="mt-10 flex items-center justify-center gap-4">
             <button onClick={() => setAuthMode('register')}
               className="px-8 py-4 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-[15px] transition shadow-xl shadow-emerald-200 flex items-center gap-2">
-              Get Started <ArrowRight size={18} />
+              {t('landing.getStarted')} <ArrowRight size={18} />
             </button>
             <button onClick={() => setAuthMode('login')}
               className="px-8 py-4 rounded-full bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 font-semibold text-[15px] transition">
-              Sign In
+              {t('auth.signIn')}
             </button>
           </div>
         </div>
@@ -326,10 +524,10 @@ function LandingPage({ onSuccess }: { onSuccess: (user: AppUser) => void }) {
       <section className="border-y border-slate-100 bg-slate-50/50">
         <div className="max-w-6xl mx-auto px-8 py-10 grid grid-cols-4 gap-8">
           {[
-            { icon: ImageIcon, label: 'Photos & Updates' },
-            { icon: Mic, label: 'Audio Messages' },
-            { icon: Video, label: 'Sermons & Video' },
-            { icon: ShieldCheck, label: 'Verified Churches' },
+            { icon: ImageIcon, label: t('landing.valueProp.photos') },
+            { icon: Mic, label: t('landing.valueProp.audio') },
+            { icon: Video, label: t('landing.valueProp.video') },
+            { icon: ShieldCheck, label: t('landing.valueProp.verified') },
           ].map((item, i) => (
             <div key={i} className="flex flex-col items-center text-center gap-2.5">
               <div className="w-11 h-11 rounded-2xl bg-white border border-slate-100 flex items-center justify-center text-emerald-600 shadow-sm">
@@ -344,30 +542,30 @@ function LandingPage({ onSuccess }: { onSuccess: (user: AppUser) => void }) {
       {/* For Churches / For Members */}
       <section className="max-w-6xl mx-auto px-8 py-24">
         <div className="text-center mb-14">
-          <p className="text-xs font-bold tracking-widest text-amber-600 mb-3">WHO IT'S FOR</p>
-          <h2 className="text-3xl xl:text-4xl font-bold text-slate-900 tracking-tight">Built for both sides of the pew.</h2>
+          <p className="text-xs font-bold tracking-widest text-amber-600 mb-3">{t('landing.whoItsFor')}</p>
+          <h2 className="text-3xl xl:text-4xl font-bold text-slate-900 tracking-tight">{t('landing.builtForBoth')}</h2>
         </div>
         <div className="grid grid-cols-2 gap-6">
           <div className="rounded-3xl p-8 bg-gradient-to-br from-emerald-50 to-white border border-emerald-100">
             <div className="w-12 h-12 rounded-2xl bg-emerald-600 text-white flex items-center justify-center mb-6 shadow-lg shadow-emerald-200">
               <Church size={22} />
             </div>
-            <h3 className="text-xl font-bold text-slate-900 mb-3">For Churches</h3>
+            <h3 className="text-xl font-bold text-slate-900 mb-3">{t('landing.forChurches')}</h3>
             <ul className="space-y-3 text-slate-500 text-[15px]">
-              <li className="flex gap-2.5"><CheckCircle2 size={18} className="text-emerald-500 shrink-0 mt-0.5" /> Share sermons as text, audio, or video</li>
-              <li className="flex gap-2.5"><CheckCircle2 size={18} className="text-emerald-500 shrink-0 mt-0.5" /> Reach your whole congregation instantly</li>
-              <li className="flex gap-2.5"><CheckCircle2 size={18} className="text-emerald-500 shrink-0 mt-0.5" /> A verified badge builds trust with members</li>
+              <li className="flex gap-2.5"><CheckCircle2 size={18} className="text-emerald-500 shrink-0 mt-0.5" /> {t('landing.forChurches.1')}</li>
+              <li className="flex gap-2.5"><CheckCircle2 size={18} className="text-emerald-500 shrink-0 mt-0.5" /> {t('landing.forChurches.2')}</li>
+              <li className="flex gap-2.5"><CheckCircle2 size={18} className="text-emerald-500 shrink-0 mt-0.5" /> {t('landing.forChurches.3')}</li>
             </ul>
           </div>
           <div className="rounded-3xl p-8 bg-gradient-to-br from-blue-50 to-white border border-blue-100">
             <div className="w-12 h-12 rounded-2xl bg-blue-700 text-white flex items-center justify-center mb-6 shadow-lg shadow-blue-200">
               <User size={22} />
             </div>
-            <h3 className="text-xl font-bold text-slate-900 mb-3">For Members</h3>
+            <h3 className="text-xl font-bold text-slate-900 mb-3">{t('landing.forMembers')}</h3>
             <ul className="space-y-3 text-slate-500 text-[15px]">
-              <li className="flex gap-2.5"><CheckCircle2 size={18} className="text-blue-600 shrink-0 mt-0.5" /> Follow your church's feed, wherever you are</li>
-              <li className="flex gap-2.5"><CheckCircle2 size={18} className="text-blue-600 shrink-0 mt-0.5" /> Comment and stay part of the conversation</li>
-              <li className="flex gap-2.5"><CheckCircle2 size={18} className="text-blue-600 shrink-0 mt-0.5" /> Never miss an update or encouragement</li>
+              <li className="flex gap-2.5"><CheckCircle2 size={18} className="text-blue-600 shrink-0 mt-0.5" /> {t('landing.forMembers.1')}</li>
+              <li className="flex gap-2.5"><CheckCircle2 size={18} className="text-blue-600 shrink-0 mt-0.5" /> {t('landing.forMembers.2')}</li>
+              <li className="flex gap-2.5"><CheckCircle2 size={18} className="text-blue-600 shrink-0 mt-0.5" /> {t('landing.forMembers.3')}</li>
             </ul>
           </div>
         </div>
@@ -377,14 +575,14 @@ function LandingPage({ onSuccess }: { onSuccess: (user: AppUser) => void }) {
       <section className="bg-slate-50/50 border-y border-slate-100">
         <div className="max-w-5xl mx-auto px-8 py-24">
           <div className="text-center mb-14">
-            <p className="text-xs font-bold tracking-widest text-emerald-600 mb-3">GETTING STARTED</p>
-            <h2 className="text-3xl xl:text-4xl font-bold text-slate-900 tracking-tight">Three steps to feeling at home.</h2>
+            <p className="text-xs font-bold tracking-widest text-emerald-600 mb-3">{t('landing.gettingStarted')}</p>
+            <h2 className="text-3xl xl:text-4xl font-bold text-slate-900 tracking-tight">{t('landing.threeSteps')}</h2>
           </div>
           <div className="grid grid-cols-3 gap-8">
             {[
-              { n: '1', title: 'Create your account', desc: 'Sign up in seconds as a member, or register your church for verification.', color: 'border-emerald-500 text-emerald-600' },
-              { n: '2', title: 'Follow your church', desc: 'Find your church and start seeing their posts in your feed right away.', color: 'border-blue-600 text-blue-700' },
-              { n: '3', title: 'Stay connected', desc: 'Like, comment, and never miss a message from the people you gather with.', color: 'border-amber-500 text-amber-600' },
+              { n: '1', title: t('landing.step1.title'), desc: t('landing.step1.desc'), color: 'border-emerald-500 text-emerald-600' },
+              { n: '2', title: t('landing.step2.title'), desc: t('landing.step2.desc'), color: 'border-blue-600 text-blue-700' },
+              { n: '3', title: t('landing.step3.title'), desc: t('landing.step3.desc'), color: 'border-amber-500 text-amber-600' },
             ].map(step => (
               <div key={step.n} className="text-left">
                 <div className={`w-11 h-11 rounded-full bg-white border-2 font-bold flex items-center justify-center mb-5 ${step.color}`}>
@@ -401,19 +599,19 @@ function LandingPage({ onSuccess }: { onSuccess: (user: AppUser) => void }) {
       {/* Final CTA */}
       <section className="max-w-4xl mx-auto px-8 py-24 text-center">
         <h2 className="text-3xl xl:text-5xl font-bold text-slate-900 tracking-tight mb-6">
-          Your church, always{' '}
-          <span className="bg-gradient-to-r from-emerald-600 to-amber-500 bg-clip-text text-transparent">within reach.</span>
+          {t('landing.finalCta1')}{' '}
+          <span className="bg-gradient-to-r from-emerald-600 to-amber-500 bg-clip-text text-transparent">{t('landing.finalCta2')}</span>
         </h2>
         <button onClick={() => setAuthMode('register')}
           className="mt-4 px-10 py-4 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-base transition shadow-xl shadow-emerald-200 inline-flex items-center gap-2">
-          Get Started Free <ArrowRight size={18} />
+          {t('landing.getStartedFree')} <ArrowRight size={18} />
         </button>
       </section>
 
       <footer className="border-t border-slate-100">
         <div className="max-w-6xl mx-auto px-8 py-10 flex items-center justify-between gap-4">
           <Logo size={26} />
-          <p className="text-sm text-slate-400">A peaceful place for the church community.</p>
+          <p className="text-sm text-slate-400">{t('landing.footerTagline')}</p>
         </div>
       </footer>
 
@@ -425,23 +623,25 @@ function LandingPage({ onSuccess }: { onSuccess: (user: AppUser) => void }) {
 }
 
 function PendingScreen({ user, onLogout }: { user: AppUser; onLogout: () => void }) {
+  const { t } = useLanguage()
   return (
     <div className="min-h-screen bg-gradient-to-br from-amber-50 via-white to-orange-50 flex flex-col items-center justify-center px-6">
       <div className="max-w-md w-full text-center">
         <div className="w-20 h-20 rounded-full bg-amber-100 flex items-center justify-center mx-auto mb-6">
           <Clock size={36} className="text-amber-600" />
         </div>
-        <h1 className="text-2xl font-bold text-slate-900 mb-3">Waiting for Approval</h1>
-        <p className="text-slate-500 mb-2">Your church account <strong>{user.churchName}</strong> is under review.</p>
-        <p className="text-slate-400 text-sm mb-8">You will be able to publish once an administrator approves your request.</p>
-        <button onClick={onLogout} className="text-sm text-slate-500 underline">Sign out</button>
+        <h1 className="text-2xl font-bold text-slate-900 mb-3">{t('pending.title')}</h1>
+        <p className="text-slate-500 mb-2">{t('pending.yourChurchAccount')} <strong>{user.churchName}</strong> {t('pending.underReview')}</p>
+        <p className="text-slate-400 text-sm mb-8">{t('pending.note')}</p>
+        <button onClick={onLogout} className="text-sm text-slate-500 underline">{t('pending.signOut')}</button>
       </div>
     </div>
   )
 }
 
 // ==================== MAIN APP ====================
-export default function App() {
+function AppInner() {
+  const { t } = useLanguage()
   const [user, setUser] = useState<AppUser | null>(null)
   const [authLoading, setAuthLoading] = useState(true)
   const [activeTab, setActiveTab] = useState('feed')
@@ -611,9 +811,9 @@ export default function App() {
   if (user.role === 'pending_church') return <PendingScreen user={user} onLogout={handleLogout} />
 
   const navItems = [
-    { id: 'feed', icon: Home, label: 'Feed' },
-    { id: 'profile', icon: User, label: 'Profile' },
-    ...(user.role === 'admin' ? [{ id: 'admin', icon: ShieldCheck, label: 'Admin' }] : [])
+    { id: 'feed', icon: Home, label: t('nav.feed') },
+    { id: 'profile', icon: User, label: t('nav.profile') },
+    ...(user.role === 'admin' ? [{ id: 'admin', icon: ShieldCheck, label: t('nav.admin') }] : [])
   ]
 
   return (
@@ -623,8 +823,11 @@ export default function App() {
       <div className="lg:flex">
         {/* Sidebar — desktop only */}
         <aside className="hidden lg:flex lg:flex-col lg:w-64 lg:shrink-0 lg:h-screen lg:sticky lg:top-0 border-r border-white/10 bg-[#1e293b] px-6 py-8">
-          <Logo size={34} />
-          <nav className="mt-10 flex-1 space-y-1">
+          <div className="flex items-center justify-between">
+            <Logo size={34} />
+          </div>
+          <div className="mt-4"><LanguageSwitcher dark /></div>
+          <nav className="mt-6 flex-1 space-y-1">
             {navItems.map(item => {
               const Icon = item.icon
               const active = activeTab === item.id
@@ -646,7 +849,7 @@ export default function App() {
           {canPost && (
             <button onClick={() => setShowCreate(true)}
               className="w-full flex items-center justify-center gap-2 py-3.5 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-sm transition shadow-lg shadow-emerald-500/30 mb-4">
-              <PlusCircle size={18} /> New Post
+              <PlusCircle size={18} /> {t('nav.newPost')}
             </button>
           )}
           <div className="pt-4 border-t border-white/10 flex items-center justify-between">
@@ -662,8 +865,9 @@ export default function App() {
           <header className="lg:hidden sticky top-0 z-40 bg-[#0f172a]/80 backdrop-blur-xl border-b border-white/10">
             <div className="px-5 h-14 flex items-center justify-between">
               <Logo size={32} />
-              <div className="flex items-center gap-3">
-                <span className="text-xs font-medium text-slate-400 truncate max-w-[120px]">{user.displayName}</span>
+              <div className="flex items-center gap-2.5">
+                <LanguageSwitcher dark />
+                <span className="text-xs font-medium text-slate-400 truncate max-w-[80px]">{user.displayName}</span>
                 <button onClick={handleLogout} className="p-2 rounded-full hover:bg-white/5 text-slate-400">
                   <LogOut size={18} />
                 </button>
@@ -674,14 +878,14 @@ export default function App() {
           <main className="pb-28 lg:pb-16 px-4 lg:px-10 pt-4 lg:pt-10 lg:max-w-3xl xl:max-w-4xl lg:mx-auto">
             {activeTab === 'feed' && (
               <div className="space-y-4">
-                {loading && <p className="text-center text-slate-400 py-16">Loading...</p>}
+                {loading && <p className="text-center text-slate-400 py-16">{t('app.loading')}</p>}
                 {!loading && posts.length === 0 && (
                   <div className="text-center py-20">
                     <div className="w-16 h-16 rounded-full bg-emerald-500/10 flex items-center justify-center mx-auto mb-4">
                       <Church size={28} className="text-emerald-400" />
                     </div>
-                    <p className="text-slate-300 font-medium">No posts yet</p>
-                    <p className="text-sm text-slate-500 mt-1">Be the first to share something</p>
+                    <p className="text-slate-300 font-medium">{t('app.noPostsYet')}</p>
+                    <p className="text-sm text-slate-500 mt-1">{t('app.beFirstToShare')}</p>
                   </div>
                 )}
                 {posts.map(post => (
@@ -727,7 +931,7 @@ export default function App() {
                 <div className="w-10 h-10 rounded-full bg-emerald-600 text-white flex items-center justify-center shadow-lg shadow-emerald-500/40 -mt-4">
                   <PlusCircle size={22} />
                 </div>
-                <span className="text-[10px] mt-1 font-medium">Post</span>
+                <span className="text-[10px] mt-1 font-medium">{t('nav.post')}</span>
               </button>
             )}
           </div>
@@ -779,6 +983,7 @@ function ProfileTab({ user, onProfileUpdated }: {
   user: AppUser
   onProfileUpdated: (updates: Partial<AppUser>) => void
 }) {
+  const { t } = useLanguage()
   const [uploading, setUploading] = useState(false)
   const [avatarError, setAvatarError] = useState('')
 
@@ -796,11 +1001,11 @@ function ProfileTab({ user, onProfileUpdated }: {
     if (!file) return
     setAvatarError('')
     if (!file.type.startsWith('image/')) {
-      setAvatarError('Please choose an image file (JPEG, PNG, or WebP).')
+      setAvatarError(t('profile.imageTypeError'))
       return
     }
     if (file.size > 5 * 1024 * 1024) {
-      setAvatarError('Image must be under 5MB.')
+      setAvatarError(t('profile.imageSizeError'))
       return
     }
     setUploading(true)
@@ -811,7 +1016,7 @@ function ProfileTab({ user, onProfileUpdated }: {
       await updateDoc(doc(db, 'users', user.uid), { avatar: url })
       onProfileUpdated({ avatar: url })
     } catch (err: any) {
-      setAvatarError(err.message?.replace('Firebase: ', '') || 'Upload failed')
+      setAvatarError(err.message?.replace('Firebase: ', '') || t('profile.uploadFailed'))
     } finally {
       setUploading(false)
     }
@@ -829,7 +1034,7 @@ function ProfileTab({ user, onProfileUpdated }: {
       setSaved(true)
       setTimeout(() => setSaved(false), 2500)
     } catch (err: any) {
-      setSaveError(err.message?.replace('Firebase: ', '') || 'Could not save changes')
+      setSaveError(err.message?.replace('Firebase: ', '') || t('profile.couldNotSave'))
     } finally {
       setSaving(false)
     }
@@ -858,48 +1063,48 @@ function ProfileTab({ user, onProfileUpdated }: {
         <h2 className="text-xl font-bold text-slate-900">{user.displayName}</h2>
         <p className="text-slate-400 text-sm mt-1">{user.email}</p>
         <div className="mt-4 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 text-xs font-semibold">
-          {user.role === 'church' ? <><CheckCircle2 size={14} /> Verified Church</> : user.role === 'admin' ? <><ShieldCheck size={14} /> Admin</> : 'Member'}
+          {user.role === 'church' ? <><CheckCircle2 size={14} /> {t('app.verifiedChurch')}</> : user.role === 'admin' ? <><ShieldCheck size={14} /> {t('app.admin')}</> : t('app.member')}
         </div>
         {avatarError && <p className="mt-4 text-xs text-red-500 bg-red-50 rounded-xl px-3 py-2 inline-block">{avatarError}</p>}
       </div>
 
       <form onSubmit={handleSaveProfile} className="bg-white rounded-3xl p-6 shadow-sm border border-slate-100 space-y-4">
-        <h3 className="font-bold text-slate-900 px-1">Profile details</h3>
+        <h3 className="font-bold text-slate-900 px-1">{t('profile.details')}</h3>
 
         <div>
-          <label className="text-xs font-semibold text-slate-500 px-1">Church</label>
-          <input value={churchName} onChange={e => setChurchName(e.target.value)} placeholder="e.g. Grace Community Church"
+          <label className="text-xs font-semibold text-slate-500 px-1">{t('profile.church')}</label>
+          <input value={churchName} onChange={e => setChurchName(e.target.value)} placeholder={t('profile.churchPlaceholder')}
             className="w-full mt-1.5 px-4 py-3 rounded-2xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-400 text-[15px]" />
         </div>
 
         <div className="grid grid-cols-2 gap-3">
           <div>
-            <label className="text-xs font-semibold text-slate-500 px-1">Country</label>
+            <label className="text-xs font-semibold text-slate-500 px-1">{t('profile.country')}</label>
             <select value={country} onChange={e => setCountry(e.target.value)}
               className="w-full mt-1.5 px-4 py-3 rounded-2xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-400 text-[15px] bg-white">
-              <option value="">Select...</option>
+              <option value="">{t('profile.selectCountry')}</option>
               {COUNTRIES.map(c => <option key={c} value={c}>{c}</option>)}
             </select>
           </div>
           <div>
-            <label className="text-xs font-semibold text-slate-500 px-1">City</label>
+            <label className="text-xs font-semibold text-slate-500 px-1">{t('profile.city')}</label>
             <input value={city} onChange={e => setCity(e.target.value)} placeholder="e.g. Ouagadougou"
               className="w-full mt-1.5 px-4 py-3 rounded-2xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-400 text-[15px]" />
           </div>
         </div>
 
         <div>
-          <label className="text-xs font-semibold text-slate-500 px-1">Phone number</label>
+          <label className="text-xs font-semibold text-slate-500 px-1">{t('profile.phoneNumber')}</label>
           <input type="tel" value={phone} onChange={e => setPhone(e.target.value)} placeholder="e.g. +226 70 00 00 00"
             className="w-full mt-1.5 px-4 py-3 rounded-2xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-400 text-[15px]" />
         </div>
 
         {saveError && <p className="text-sm text-red-500 bg-red-50 rounded-xl px-4 py-3">{saveError}</p>}
-        {saved && <p className="text-sm text-emerald-700 bg-emerald-50 rounded-xl px-4 py-3">Profile updated.</p>}
+        {saved && <p className="text-sm text-emerald-700 bg-emerald-50 rounded-xl px-4 py-3">{t('profile.updated')}</p>}
 
         <button type="submit" disabled={saving}
           className="w-full py-3.5 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-[15px] transition disabled:opacity-60">
-          {saving ? 'Saving...' : 'Save Changes'}
+          {saving ? t('profile.saving') : t('profile.saveChanges')}
         </button>
       </form>
     </div>
@@ -911,6 +1116,7 @@ function AdminPanel({ pendingChurches, onApprove, onDeny }: {
   onApprove: (uid: string) => void
   onDeny: (uid: string) => void
 }) {
+  const { t } = useLanguage()
   const [busyUid, setBusyUid] = useState<string | null>(null)
 
   const handle = async (uid: string, action: 'approve' | 'deny') => {
@@ -929,15 +1135,15 @@ function AdminPanel({ pendingChurches, onApprove, onDeny }: {
         <div className="w-16 h-16 rounded-full bg-emerald-50 flex items-center justify-center mx-auto mb-4">
           <ShieldCheck size={28} className="text-emerald-500" />
         </div>
-        <p className="text-slate-500 font-medium">No pending churches</p>
-        <p className="text-sm text-slate-400 mt-1">New church signups will show up here for approval</p>
+        <p className="text-slate-500 font-medium">{t('admin.noPending')}</p>
+        <p className="text-sm text-slate-400 mt-1">{t('admin.noPendingNote')}</p>
       </div>
     )
   }
 
   return (
     <div className="space-y-4">
-      <h2 className="text-lg font-bold text-slate-900 px-1">Pending Churches ({pendingChurches.length})</h2>
+      <h2 className="text-lg font-bold text-slate-900 px-1">{t('admin.pendingChurches')} ({pendingChurches.length})</h2>
       {pendingChurches.map(church => (
         <div key={church.uid} className="bg-white rounded-3xl p-5 shadow-sm border border-slate-100">
           <div className="flex items-center gap-3 mb-4">
@@ -953,11 +1159,11 @@ function AdminPanel({ pendingChurches, onApprove, onDeny }: {
           <div className="flex gap-2">
             <button onClick={() => handle(church.uid, 'approve')} disabled={busyUid === church.uid}
               className="flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-semibold transition disabled:opacity-50">
-              <CheckCircle2 size={16} /> Approve
+              <CheckCircle2 size={16} /> {t('admin.approve')}
             </button>
             <button onClick={() => handle(church.uid, 'deny')} disabled={busyUid === church.uid}
               className="flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-600 text-sm font-semibold transition disabled:opacity-50">
-              <UserX size={16} /> Deny
+              <UserX size={16} /> {t('admin.deny')}
             </button>
           </div>
         </div>
@@ -975,6 +1181,7 @@ function PostCard({ post, onLike, onOpenComments, currentUserUid, isLiked, onEdi
   onEdit: (post: Post) => void
   onDelete: (id: string) => void
 }) {
+  const { t } = useLanguage()
   const ytId = post.mediaUrl ? getYoutubeId(post.mediaUrl) : null
   const [confirmingDelete, setConfirmingDelete] = useState(false)
   const [likeError, setLikeError] = useState(false)
@@ -1004,7 +1211,7 @@ function PostCard({ post, onLike, onOpenComments, currentUserUid, isLiked, onEdi
           </div>
         )}
         <div className="flex-1 min-w-0">
-          <h3 className="font-semibold text-slate-900 truncate">{post.churchName || 'Church'}</h3>
+          <h3 className="font-semibold text-slate-900 truncate">{post.churchName || t('common.church')}</h3>
           <p className="text-xs text-slate-400">{timeAgo(post.createdAt)}</p>
         </div>
         {isOwner && (
@@ -1012,11 +1219,11 @@ function PostCard({ post, onLike, onOpenComments, currentUserUid, isLiked, onEdi
             <div className="flex items-center gap-1.5 shrink-0">
               <button onClick={() => onDelete(post.id)}
                 className="text-xs font-semibold text-white bg-red-500 hover:bg-red-600 px-3 py-1.5 rounded-full transition">
-                Delete
+                {t('post.delete')}
               </button>
               <button onClick={() => setConfirmingDelete(false)}
                 className="text-xs font-semibold text-slate-400 hover:text-slate-600 px-2">
-                Cancel
+                {t('post.cancel')}
               </button>
             </div>
           ) : (
@@ -1079,7 +1286,7 @@ function PostCard({ post, onLike, onOpenComments, currentUserUid, isLiked, onEdi
           </div>
           <a href={post.mediaUrl} target="_blank" rel="noreferrer"
             className="flex items-center justify-center gap-1.5 py-2.5 text-xs font-medium text-blue-600 hover:bg-slate-50 border-t border-slate-50">
-            <Facebook size={13} /> Watch on Facebook
+            <Facebook size={13} /> {t('post.watchOnFacebook')}
           </a>
         </div>
       )}
@@ -1110,8 +1317,8 @@ function PostCard({ post, onLike, onOpenComments, currentUserUid, isLiked, onEdi
               <FileText size={19} />
             </div>
             <div className="min-w-0 flex-1">
-              <p className="text-sm font-semibold text-slate-800 truncate">{post.fileName || 'Document'}</p>
-              <p className="text-xs text-slate-400">Tap to open</p>
+              <p className="text-sm font-semibold text-slate-800 truncate">{post.fileName || t('post.document.fallback')}</p>
+              <p className="text-xs text-slate-400">{t('post.tapToOpen')}</p>
             </div>
           </a>
         </div>
@@ -1127,7 +1334,7 @@ function PostCard({ post, onLike, onOpenComments, currentUserUid, isLiked, onEdi
           </button>
           {likeError && (
             <span className="absolute -top-7 left-0 text-[11px] font-medium text-red-500 bg-red-50 rounded-full px-2.5 py-1 whitespace-nowrap">
-              Couldn't update — try again
+              {t('post.couldntUpdate')}
             </span>
           )}
           <button onClick={() => onOpenComments(post.id)}
@@ -1154,6 +1361,7 @@ function CreatePostModal({ onClose, onSubmit, uploaderUid }: {
   onSubmit: (data: { type: Post['type']; content: string; mediaUrl?: string; coverUrl?: string; fileName?: string }) => void
   uploaderUid: string
 }) {
+  const { t } = useLanguage()
   const [type, setType] = useState<Post['type']>('text-image')
   const [content, setContent] = useState('')
   const [mediaUrl, setMediaUrl] = useState('')
@@ -1203,7 +1411,7 @@ function CreatePostModal({ onClose, onSubmit, uploaderUid }: {
       <div className="bg-white w-full max-w-lg rounded-t-3xl sm:rounded-3xl max-h-[90vh] overflow-y-auto shadow-2xl">
         <div className="sticky top-0 bg-white/90 backdrop-blur border-b border-slate-100 px-5 py-4 flex items-center justify-between">
           <button onClick={onClose} className="p-1.5 rounded-full hover:bg-slate-100"><X size={20} /></button>
-          <h2 className="font-bold text-lg">New Post</h2>
+          <h2 className="font-bold text-lg">{t('post.new')}</h2>
           <button onClick={() => {
             if (content.trim() && !uploading) {
               onSubmit({
@@ -1216,35 +1424,35 @@ function CreatePostModal({ onClose, onSubmit, uploaderUid }: {
             }
           }}
             disabled={!content.trim() || uploading}
-            className="text-emerald-600 font-semibold disabled:opacity-40">Publish</button>
+            className="text-emerald-600 font-semibold disabled:opacity-40">{t('post.publish')}</button>
         </div>
 
         <div className="p-5 space-y-5">
           <div className="grid grid-cols-3 gap-2">
             {[{
-              id: 'text-image', icon: ImageIcon, label: 'Photo'
+              id: 'text-image', icon: ImageIcon, label: t('post.photo')
             }, {
-              id: 'audio', icon: Mic, label: 'Audio'
+              id: 'audio', icon: Mic, label: t('post.audio')
             }, {
-              id: 'document', icon: FileText, label: 'Document'
+              id: 'document', icon: FileText, label: t('post.document')
             }, {
               id: 'youtube', icon: Youtube, label: 'YouTube'
             }, {
               id: 'facebook', icon: Facebook, label: 'Facebook'
             }, {
-              id: 'video', icon: Video, label: 'Video'
-            }].map(t => (
-              <button key={t.id} onClick={() => { setType(t.id as Post['type']); setMediaUrl(''); setFileName(''); setUploadError('') }}
+              id: 'video', icon: Video, label: t('post.video')
+            }].map(opt => (
+              <button key={opt.id} onClick={() => { setType(opt.id as Post['type']); setMediaUrl(''); setFileName(''); setUploadError('') }}
                 className={`flex flex-col items-center gap-1.5 py-3 rounded-2xl border-2 transition ${
-                  type === t.id ? 'border-emerald-500 bg-emerald-50 text-emerald-700' : 'border-slate-100 text-slate-400'}`}>
-                <t.icon size={20} />
-                <span className="text-[11px] font-medium">{t.label}</span>
+                  type === opt.id ? 'border-emerald-500 bg-emerald-50 text-emerald-700' : 'border-slate-100 text-slate-400'}`}>
+                <opt.icon size={20} />
+                <span className="text-[11px] font-medium">{opt.label}</span>
               </button>
             ))}
           </div>
 
           <textarea value={content} onChange={e => setContent(e.target.value)}
-            placeholder="Share an encouragement, announcement or message..."
+            placeholder={t('post.contentPlaceholder')}
             className="w-full min-h-[130px] p-4 rounded-2xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-400 resize-none text-[15px]" />
 
           {canUploadDirectly && rule && (
@@ -1254,19 +1462,21 @@ function CreatePostModal({ onClose, onSubmit, uploaderUid }: {
                 {uploading ? (
                   <>
                     <div className="w-6 h-6 border-2 border-emerald-500 border-t-transparent rounded-full animate-spin" />
-                    <span className="text-xs text-slate-500">Uploading... {uploadProgress}%</span>
+                    <span className="text-xs text-slate-500">{t('post.uploading')} {uploadProgress}%</span>
                   </>
                 ) : mediaUrl && fileName ? (
                   <>
                     <CheckCircle2 size={22} className="text-emerald-500" />
                     <span className="text-xs text-slate-600 font-medium px-4 text-center break-all">{fileName}</span>
-                    <span className="text-[11px] text-emerald-600">Tap to replace</span>
+                    <span className="text-[11px] text-emerald-600">{t('post.tapToReplace')}</span>
                   </>
                 ) : (
                   <>
                     <Upload size={22} className="text-slate-400" />
-                    <span className="text-xs text-slate-500 font-medium">Upload {rule.label}</span>
-                    <span className="text-[11px] text-slate-400">Max {rule.maxMB}MB</span>
+                    <span className="text-xs text-slate-500 font-medium">
+                      {t(`post.upload${type === 'text-image' ? 'Photo' : type === 'audio' ? 'Audio' : type === 'video' ? 'Video' : 'Pdf'}` as any)}
+                    </span>
+                    <span className="text-[11px] text-slate-400">{t('post.maxSize')} {rule.maxMB}MB</span>
                   </>
                 )}
                 <input type="file" accept={rule.accept} className="hidden" onChange={handleFileChange} disabled={uploading} />
@@ -1277,23 +1487,23 @@ function CreatePostModal({ onClose, onSubmit, uploaderUid }: {
 
           <div className="flex items-center gap-3">
             <div className="h-px bg-slate-100 flex-1" />
-            <span className="text-xs text-slate-400 font-medium">{canUploadDirectly ? 'or paste a link instead' : 'paste a link'}</span>
+            <span className="text-xs text-slate-400 font-medium">{canUploadDirectly ? t('post.orPasteLinkInstead') : t('post.pasteLink')}</span>
             <div className="h-px bg-slate-100 flex-1" />
           </div>
 
           <input value={mediaUrl} onChange={e => { setMediaUrl(e.target.value); setFileName('') }}
             placeholder={
-              type === 'youtube' ? 'Paste YouTube link...' :
-              type === 'facebook' ? 'Paste Facebook video link...' :
-              type === 'audio' ? 'Paste audio file URL (mp3, m4a...)' :
-              type === 'document' ? 'Paste a document URL...' :
-              'Paste image or video URL...'
+              type === 'youtube' ? t('post.pasteYoutube') :
+              type === 'facebook' ? t('post.pasteFacebook') :
+              type === 'audio' ? t('post.pasteAudioUrl') :
+              type === 'document' ? t('post.pasteDocUrl') :
+              t('post.pasteImageVideoUrl')
             }
             className="w-full px-4 py-3.5 rounded-2xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-400" />
 
           {type === 'audio' && (
             <input value={coverUrl} onChange={e => setCoverUrl(e.target.value)}
-              placeholder="Paste cover image URL (optional)"
+              placeholder={t('post.pasteCoverUrl')}
               className="w-full px-4 py-3.5 rounded-2xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-400" />
           )}
         </div>
@@ -1307,6 +1517,7 @@ function EditPostModal({ post, onClose, onSave }: {
   onClose: () => void
   onSave: (id: string, content: string) => Promise<void>
 }) {
+  const { t } = useLanguage()
   const [content, setContent] = useState(post.content)
   const [saving, setSaving] = useState(false)
 
@@ -1326,10 +1537,10 @@ function EditPostModal({ post, onClose, onSave }: {
       <div className="bg-white w-full max-w-lg rounded-t-3xl sm:rounded-3xl shadow-2xl">
         <div className="px-5 py-4 border-b border-slate-100 flex items-center justify-between">
           <button onClick={onClose} className="p-1.5 rounded-full hover:bg-slate-100"><X size={20} /></button>
-          <h2 className="font-bold text-lg">Edit Post</h2>
+          <h2 className="font-bold text-lg">{t('post.edit')}</h2>
           <button onClick={handleSave} disabled={!content.trim() || saving}
             className="text-emerald-600 font-semibold disabled:opacity-40">
-            {saving ? 'Saving...' : 'Save'}
+            {saving ? t('post.saving') : t('post.save')}
           </button>
         </div>
         <div className="p-5">
@@ -1337,7 +1548,7 @@ function EditPostModal({ post, onClose, onSave }: {
             className="w-full min-h-[130px] p-4 rounded-2xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-400 resize-none text-[15px]" />
           {post.mediaUrl && (
             <p className="mt-3 text-xs text-slate-400">
-              Only the text can be edited here. To change the attached photo, audio, or video, delete this post and share a new one.
+              {t('post.editNote')}
             </p>
           )}
         </div>
@@ -1349,6 +1560,7 @@ function EditPostModal({ post, onClose, onSave }: {
 function CommentsSheet({ postId, comments, onClose, onAdd }: {
   postId: string; comments: Comment[]; onClose: () => void; onAdd: (text: string) => void
 }) {
+  const { t } = useLanguage()
   const [text, setText] = useState('')
   const list = comments.filter(c => c.postId === postId)
 
@@ -1356,11 +1568,11 @@ function CommentsSheet({ postId, comments, onClose, onAdd }: {
     <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-end">
       <div className="bg-white w-full max-w-lg mx-auto rounded-t-3xl max-h-[75vh] flex flex-col shadow-2xl">
         <div className="px-5 py-4 border-b border-slate-100 flex items-center justify-between">
-          <h3 className="font-bold">Comments</h3>
+          <h3 className="font-bold">{t('comments.title')}</h3>
           <button onClick={onClose} className="p-1.5 rounded-full hover:bg-slate-100"><X size={18} /></button>
         </div>
         <div className="flex-1 overflow-y-auto p-5 space-y-4">
-          {list.length === 0 && <p className="text-center text-slate-400 text-sm py-10">No comments yet</p>}
+          {list.length === 0 && <p className="text-center text-slate-400 text-sm py-10">{t('comments.none')}</p>}
           {list.map(c => (
             <div key={c.id} className="flex gap-3">
               <div className="w-9 h-9 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-700 font-semibold text-sm shrink-0">
@@ -1377,7 +1589,7 @@ function CommentsSheet({ postId, comments, onClose, onAdd }: {
           ))}
         </div>
         <div className="p-4 border-t border-slate-100 flex gap-2">
-          <input value={text} onChange={e => setText(e.target.value)} placeholder="Write a comment..."
+          <input value={text} onChange={e => setText(e.target.value)} placeholder={t('comments.writePlaceholder')}
             className="flex-1 bg-slate-100 rounded-full px-5 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-400"
             onKeyDown={e => { if (e.key === 'Enter' && text.trim()) { onAdd(text.trim()); setText('') } }} />
           <button onClick={() => { if (text.trim()) { onAdd(text.trim()); setText('') } }}
@@ -1387,5 +1599,17 @@ function CommentsSheet({ postId, comments, onClose, onAdd }: {
         </div>
       </div>
     </div>
+  )
+}
+
+// ==================== ROOT EXPORT ====================
+// Wraps the actual app in the language provider so every component above
+// can call useLanguage(). Kept as a thin wrapper here rather than moving
+// this into main.tsx, so App.tsx stays fully self-contained.
+export default function App() {
+  return (
+    <LanguageProvider>
+      <AppInner />
+    </LanguageProvider>
   )
 }

@@ -1,0 +1,210 @@
+import { createContext, useContext, useState, useEffect, type ReactNode } from 'react'
+
+export type Language = 'en' | 'fr'
+
+const translations = {
+  // ---- Common ----
+  'common.church': { en: 'Church', fr: 'Église' },
+
+  // ---- Auth: shared ----
+  'auth.signIn': { en: 'Sign In', fr: 'Se connecter' },
+  'auth.createAccount': { en: 'Create Account', fr: 'Créer un compte' },
+  'auth.continueWithGoogle': { en: 'Continue with Google', fr: 'Continuer avec Google' },
+  'auth.or': { en: 'or', fr: 'ou' },
+  'auth.member': { en: 'Member', fr: 'Membre' },
+  'auth.church': { en: 'Church', fr: 'Église' },
+  'auth.fullName': { en: 'Your full name', fr: 'Votre nom complet' },
+  'auth.churchName': { en: 'Church name', fr: "Nom de l'église" },
+  'auth.cityState': { en: 'City, State', fr: 'Ville, Région' },
+  'auth.email': { en: 'Email address', fr: 'Adresse e-mail' },
+  'auth.password': { en: 'Password', fr: 'Mot de passe' },
+  'auth.confirmPassword': { en: 'Confirm password', fr: 'Confirmer le mot de passe' },
+  'auth.phoneNumber': { en: 'Phone number', fr: 'Numéro de téléphone' },
+  'auth.forgotPassword': { en: 'Forgot password?', fr: 'Mot de passe oublié ?' },
+  'auth.resetSent': { en: 'Password reset email sent — check your inbox.', fr: 'E-mail de réinitialisation envoyé — vérifiez votre boîte de réception.' },
+  'auth.enterEmailFirst': { en: 'Enter your email above first, then tap "Forgot password?"', fr: 'Entrez d\'abord votre e-mail ci-dessus, puis appuyez sur « Mot de passe oublié ? »' },
+  'auth.pleaseWait': { en: 'Please wait...', fr: 'Veuillez patienter...' },
+  'auth.churchApprovalNote': { en: 'Church accounts require approval before you can publish content.', fr: 'Les comptes église doivent être approuvés avant de pouvoir publier du contenu.' },
+  'auth.passwordsDontMatch': { en: "Passwords don't match.", fr: 'Les mots de passe ne correspondent pas.' },
+  'auth.passwordTooShort': { en: 'Password must be at least 8 characters.', fr: 'Le mot de passe doit contenir au moins 8 caractères.' },
+  'auth.phoneRequired': { en: 'Phone number is required.', fr: 'Le numéro de téléphone est requis.' },
+  'auth.accountCreated': { en: 'Account created! Sign in below to continue.', fr: 'Compte créé ! Connectez-vous ci-dessous pour continuer.' },
+  'auth.somethingWrong': { en: 'Something went wrong', fr: "Une erreur s'est produite" },
+  'auth.googleSignInFailed': { en: 'Google sign-in failed', fr: 'Échec de la connexion avec Google' },
+  'auth.almostThere': { en: 'Almost there', fr: 'Vous y êtes presque' },
+  'auth.tellUsHowYoullUse': { en: "Tell us how you'll be using ELIM", fr: "Dites-nous comment vous allez utiliser ELIM" },
+  'auth.finishSetup': { en: 'Finish Setup', fr: "Terminer l'inscription" },
+  'auth.welcomeTo': { en: 'Welcome to ELIM', fr: 'Bienvenue sur ELIM' },
+  'auth.peacefulPlace': { en: 'A peaceful place for the church community', fr: 'Un espace paisible pour la communauté de l\'église' },
+
+  // ---- Landing page ----
+  'landing.badge': { en: 'A MODERN HOME FOR YOUR CHURCH COMMUNITY', fr: 'UN FOYER MODERNE POUR VOTRE COMMUNAUTÉ D\'ÉGLISE' },
+  'landing.heroLine1': { en: 'Stay close to your', fr: 'Restez proche de votre' },
+  'landing.heroLine2': { en: 'church family.', fr: 'famille d\'église.' },
+  'landing.heroSubtitle': { en: 'ELIM brings sermons, updates, and encouragement from your church straight to your pocket — photos, audio, video, and real conversation, all in one gentle, focused space.', fr: 'ELIM apporte les sermons, actualités et messages d\'encouragement de votre église directement dans votre poche — photos, audio, vidéo et vraies conversations, le tout dans un espace paisible et dédié.' },
+  'landing.getStarted': { en: 'Get Started', fr: 'Commencer' },
+  'landing.getStartedFree': { en: 'Get Started Free', fr: 'Commencer gratuitement' },
+  'landing.valueProp.photos': { en: 'Photos & Updates', fr: 'Photos et actualités' },
+  'landing.valueProp.audio': { en: 'Audio Messages', fr: 'Messages audio' },
+  'landing.valueProp.video': { en: 'Sermons & Video', fr: 'Sermons et vidéos' },
+  'landing.valueProp.verified': { en: 'Verified Churches', fr: 'Églises vérifiées' },
+  'landing.whoItsFor': { en: "WHO IT'S FOR", fr: 'POUR QUI' },
+  'landing.builtForBoth': { en: 'Built for both sides of the pew.', fr: 'Pensé pour toute la communauté.' },
+  'landing.forChurches': { en: 'For Churches', fr: 'Pour les églises' },
+  'landing.forChurches.1': { en: 'Share sermons as text, audio, or video', fr: 'Partagez vos sermons en texte, audio ou vidéo' },
+  'landing.forChurches.2': { en: 'Reach your whole congregation instantly', fr: 'Touchez toute votre congrégation instantanément' },
+  'landing.forChurches.3': { en: 'A verified badge builds trust with members', fr: 'Un badge vérifié renforce la confiance des membres' },
+  'landing.forMembers': { en: 'For Members', fr: 'Pour les membres' },
+  'landing.forMembers.1': { en: "Follow your church's feed, wherever you are", fr: 'Suivez le fil de votre église, où que vous soyez' },
+  'landing.forMembers.2': { en: 'Comment and stay part of the conversation', fr: 'Commentez et participez à la conversation' },
+  'landing.forMembers.3': { en: 'Never miss an update or encouragement', fr: 'Ne manquez plus jamais une actualité ou un message' },
+  'landing.gettingStarted': { en: 'GETTING STARTED', fr: 'POUR COMMENCER' },
+  'landing.threeSteps': { en: 'Three steps to feeling at home.', fr: 'Trois étapes pour se sentir chez soi.' },
+  'landing.step1.title': { en: 'Create your account', fr: 'Créez votre compte' },
+  'landing.step1.desc': { en: 'Sign up in seconds as a member, or register your church for verification.', fr: 'Inscrivez-vous en tant que membre, ou enregistrez votre église pour vérification.' },
+  'landing.step2.title': { en: 'Follow your church', fr: 'Suivez votre église' },
+  'landing.step2.desc': { en: 'Find your church and start seeing their posts in your feed right away.', fr: 'Trouvez votre église et voyez ses publications dans votre fil immédiatement.' },
+  'landing.step3.title': { en: 'Stay connected', fr: 'Restez connecté' },
+  'landing.step3.desc': { en: 'Like, comment, and never miss a message from the people you gather with.', fr: 'Aimez, commentez, et ne manquez aucun message de votre communauté.' },
+  'landing.finalCta1': { en: 'Your church, always', fr: 'Votre église, toujours' },
+  'landing.finalCta2': { en: 'within reach.', fr: 'à portée de main.' },
+  'landing.footerTagline': { en: 'A peaceful place for the church community.', fr: 'Un espace paisible pour la communauté de l\'église.' },
+
+  // ---- App shell / nav ----
+  'nav.feed': { en: 'Feed', fr: 'Fil' },
+  'nav.profile': { en: 'Profile', fr: 'Profil' },
+  'nav.admin': { en: 'Admin', fr: 'Admin' },
+  'nav.post': { en: 'Post', fr: 'Publier' },
+  'nav.newPost': { en: 'New Post', fr: 'Nouvelle publication' },
+  'app.loading': { en: 'Loading...', fr: 'Chargement...' },
+  'app.noPostsYet': { en: 'No posts yet', fr: 'Aucune publication' },
+  'app.beFirstToShare': { en: 'Be the first to share something', fr: 'Soyez le premier à partager quelque chose' },
+  'app.verifiedChurch': { en: 'Verified Church', fr: 'Église vérifiée' },
+  'app.admin': { en: 'Admin', fr: 'Admin' },
+  'app.member': { en: 'Member', fr: 'Membre' },
+
+  // ---- Pending screen ----
+  'pending.title': { en: 'Waiting for Approval', fr: "En attente d'approbation" },
+  'pending.underReview': { en: 'is under review.', fr: 'est en cours d\'examen.' },
+  'pending.yourChurchAccount': { en: 'Your church account', fr: 'Votre compte église' },
+  'pending.note': { en: 'You will be able to publish once an administrator approves your request.', fr: 'Vous pourrez publier une fois qu\'un administrateur aura approuvé votre demande.' },
+  'pending.signOut': { en: 'Sign out', fr: 'Se déconnecter' },
+
+  // ---- Create post modal ----
+  'post.new': { en: 'New Post', fr: 'Nouvelle publication' },
+  'post.publish': { en: 'Publish', fr: 'Publier' },
+  'post.photo': { en: 'Photo', fr: 'Photo' },
+  'post.audio': { en: 'Audio', fr: 'Audio' },
+  'post.document': { en: 'Document', fr: 'Document' },
+  'post.video': { en: 'Video', fr: 'Vidéo' },
+  'post.contentPlaceholder': { en: 'Share an encouragement, announcement or message...', fr: 'Partagez un encouragement, une annonce ou un message...' },
+  'post.uploadPhoto': { en: 'a photo', fr: 'une photo' },
+  'post.uploadAudio': { en: 'an audio file', fr: 'un fichier audio' },
+  'post.uploadVideo': { en: 'a video', fr: 'une vidéo' },
+  'post.uploadPdf': { en: 'a PDF', fr: 'un PDF' },
+  'post.uploading': { en: 'Uploading...', fr: 'Téléversement...' },
+  'post.tapToReplace': { en: 'Tap to replace', fr: 'Appuyez pour remplacer' },
+  'post.maxSize': { en: 'Max', fr: 'Max' },
+  'post.orPasteLinkInstead': { en: 'or paste a link instead', fr: 'ou collez un lien à la place' },
+  'post.pasteLink': { en: 'paste a link', fr: 'collez un lien' },
+  'post.pasteYoutube': { en: 'Paste YouTube link...', fr: 'Collez le lien YouTube...' },
+  'post.pasteFacebook': { en: 'Paste Facebook video link...', fr: 'Collez le lien vidéo Facebook...' },
+  'post.pasteAudioUrl': { en: 'Paste audio file URL (mp3, m4a...)', fr: 'Collez l\'URL du fichier audio (mp3, m4a...)' },
+  'post.pasteDocUrl': { en: 'Paste a document URL...', fr: 'Collez l\'URL du document...' },
+  'post.pasteImageVideoUrl': { en: 'Paste image or video URL...', fr: 'Collez l\'URL de l\'image ou de la vidéo...' },
+  'post.pasteCoverUrl': { en: 'Paste cover image URL (optional)', fr: 'Collez l\'URL de l\'image de couverture (facultatif)' },
+  'post.watchOnFacebook': { en: 'Watch on Facebook', fr: 'Regarder sur Facebook' },
+  'post.tapToOpen': { en: 'Tap to open', fr: 'Appuyez pour ouvrir' },
+  'post.document.fallback': { en: 'Document', fr: 'Document' },
+  'post.couldntUpdate': { en: "Couldn't update — try again", fr: 'Échec — réessayez' },
+  'post.delete': { en: 'Delete', fr: 'Supprimer' },
+  'post.cancel': { en: 'Cancel', fr: 'Annuler' },
+  'post.edit': { en: 'Edit Post', fr: 'Modifier la publication' },
+  'post.save': { en: 'Save', fr: 'Enregistrer' },
+  'post.saving': { en: 'Saving...', fr: 'Enregistrement...' },
+  'post.editNote': { en: 'Only the text can be edited here. To change the attached photo, audio, or video, delete this post and share a new one.', fr: 'Seul le texte peut être modifié ici. Pour changer la photo, l\'audio ou la vidéo, supprimez cette publication et partagez-en une nouvelle.' },
+
+  // ---- Comments ----
+  'comments.title': { en: 'Comments', fr: 'Commentaires' },
+  'comments.none': { en: 'No comments yet', fr: 'Aucun commentaire' },
+  'comments.writePlaceholder': { en: 'Write a comment...', fr: 'Écrivez un commentaire...' },
+
+  // ---- Profile tab ----
+  'profile.details': { en: 'Profile details', fr: 'Détails du profil' },
+  'profile.church': { en: 'Church', fr: 'Église' },
+  'profile.churchPlaceholder': { en: 'e.g. Grace Community Church', fr: 'ex. Église de la Grâce' },
+  'profile.country': { en: 'Country', fr: 'Pays' },
+  'profile.selectCountry': { en: 'Select...', fr: 'Sélectionner...' },
+  'profile.city': { en: 'City', fr: 'Ville' },
+  'profile.phoneNumber': { en: 'Phone number', fr: 'Numéro de téléphone' },
+  'profile.saveChanges': { en: 'Save Changes', fr: 'Enregistrer les modifications' },
+  'profile.saving': { en: 'Saving...', fr: 'Enregistrement...' },
+  'profile.updated': { en: 'Profile updated.', fr: 'Profil mis à jour.' },
+  'profile.imageTypeError': { en: 'Please choose an image file (JPEG, PNG, or WebP).', fr: 'Veuillez choisir un fichier image (JPEG, PNG ou WebP).' },
+  'profile.imageSizeError': { en: 'Image must be under 5MB.', fr: 'L\'image doit faire moins de 5 Mo.' },
+  'profile.uploadFailed': { en: 'Upload failed', fr: 'Échec du téléversement' },
+  'profile.couldNotSave': { en: 'Could not save changes', fr: 'Impossible d\'enregistrer les modifications' },
+
+  // ---- Admin panel ----
+  'admin.pendingChurches': { en: 'Pending Churches', fr: 'Églises en attente' },
+  'admin.noPending': { en: 'No pending churches', fr: 'Aucune église en attente' },
+  'admin.noPendingNote': { en: 'New church signups will show up here for approval', fr: 'Les nouvelles inscriptions d\'église apparaîtront ici pour approbation' },
+  'admin.approve': { en: 'Approve', fr: 'Approuver' },
+  'admin.deny': { en: 'Deny', fr: 'Refuser' },
+} as const
+
+export type TranslationKey = keyof typeof translations
+
+interface LanguageContextValue {
+  language: Language
+  setLanguage: (lang: Language) => void
+  t: (key: TranslationKey) => string
+}
+
+const LanguageContext = createContext<LanguageContextValue | null>(null)
+
+function detectDefaultLanguage(): Language {
+  try {
+    const stored = localStorage.getItem('elim-language')
+    if (stored === 'en' || stored === 'fr') return stored
+  } catch {
+    // localStorage unavailable (e.g. some webview contexts) - fall through to browser detection
+  }
+  // Most ELIM users are French speakers - default to French unless the
+  // device is clearly set to English, rather than the more usual "default
+  // to English" assumption.
+  const browserLang = typeof navigator !== 'undefined' ? navigator.language.toLowerCase() : ''
+  return browserLang.startsWith('en') ? 'en' : 'fr'
+}
+
+export function LanguageProvider({ children }: { children: ReactNode }) {
+  const [language, setLanguageState] = useState<Language>(detectDefaultLanguage)
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('elim-language', language)
+    } catch {
+      // ignore if storage isn't available
+    }
+  }, [language])
+
+  const setLanguage = (lang: Language) => setLanguageState(lang)
+
+  const t = (key: TranslationKey): string => {
+    const entry = translations[key]
+    if (!entry) return key
+    return entry[language]
+  }
+
+  return (
+    <LanguageContext.Provider value={{ language, setLanguage, t }}>
+      {children}
+    </LanguageContext.Provider>
+  )
+}
+
+export function useLanguage() {
+  const ctx = useContext(LanguageContext)
+  if (!ctx) throw new Error('useLanguage must be used within a LanguageProvider')
+  return ctx
+}
