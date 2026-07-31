@@ -1068,13 +1068,19 @@ function PostCard({ post, onLike, onOpenComments, currentUserUid, isLiked, onEdi
       )}
 
       {post.type === 'facebook' && post.mediaUrl && (
-        <div className="relative aspect-video bg-black">
-          <iframe
-            src={`https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(post.mediaUrl)}&show_text=false`}
-            className="absolute inset-0 w-full h-full"
-            allow="autoplay; encrypted-media; picture-in-picture; web-share"
-            allowFullScreen
-          />
+        <div>
+          <div className="relative aspect-video bg-black">
+            <iframe
+              src={`https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(post.mediaUrl)}&show_text=false`}
+              className="absolute inset-0 w-full h-full"
+              allow="autoplay; encrypted-media; picture-in-picture; web-share"
+              allowFullScreen
+            />
+          </div>
+          <a href={post.mediaUrl} target="_blank" rel="noreferrer"
+            className="flex items-center justify-center gap-1.5 py-2.5 text-xs font-medium text-blue-600 hover:bg-slate-50 border-t border-slate-50">
+            <Facebook size={13} /> Watch on Facebook
+          </a>
         </div>
       )}
 
