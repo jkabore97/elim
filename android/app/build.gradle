@@ -16,10 +16,27 @@ android {
             ignoreAssetsPattern = '!.svn:!.git:!.ds_store:!*.scc:.*:!CVS:!thumbs.db:!picasa.ini:!*~'
         }
     }
+    signingConfigs {
+        release {
+            // Populated from GitHub Secrets in CI (see .github/workflows/android-build.yml).
+            // If these env vars aren't set (e.g. a plain local build), this config is simply
+            // never assigned below, and the release build comes out unsigned instead of failing.
+            def keystorePath = System.getenv("ANDROID_KEYSTORE_PATH")
+            if (keystorePath != null) {
+                storeFile file(keystorePath)
+                storePassword System.getenv("ANDROID_KEYSTORE_PASSWORD")
+                keyAlias System.getenv("ANDROID_KEY_ALIAS")
+                keyPassword System.getenv("ANDROID_KEY_PASSWORD")
+            }
+        }
+    }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            if (System.getenv("ANDROID_KEYSTORE_PATH") != null) {
+                signingConfig signingConfigs.release
+            }
         }
     }
 }
