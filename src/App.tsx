@@ -302,7 +302,8 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
 
         {(accountType === 'member' || mode === 'register') && (
           <div className="flex gap-2">
-            <select value={countryCode} onChange={e => setCountryCode(e.target.value)} className={selectClass + " w-[92px] shrink-0 px-2"}>
+            <select value={countryCode} onChange={e => setCountryCode(e.target.value)}
+              className="w-[92px] shrink-0 px-2 py-3.5 rounded-2xl bg-white/5 border border-white/10 text-white focus:outline-none focus:ring-2 focus:ring-emerald-400/60 focus:border-emerald-400/60 text-[15px] appearance-none">
               {COUNTRY_CODES.map(c => <option key={c.name} value={c.code}>{c.code}</option>)}
             </select>
             <input required type="tel" value={phone} onChange={e => setPhone(e.target.value)} placeholder={t('auth.phoneNumber')}
