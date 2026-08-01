@@ -1147,6 +1147,8 @@ function AdminPanel({ pendingChurches, onApprove, onDeny }: {
 }) {
   const { t } = useLanguage()
   const [busyUid, setBusyUid] = useState<string | null>(null)
+  const [syncing, setSyncing] = useState(false)
+  const [syncResult, setSyncResult] = useState<{ ok: boolean; count?: number } | null>(null)
 
   const handle = async (uid: string, action: 'approve' | 'deny') => {
     setBusyUid(uid)
@@ -1158,14 +1160,49 @@ function AdminPanel({ pendingChurches, onApprove, onDeny }: {
     }
   }
 
+  const handleSyncDirectory = async () => {
+    setSyncing(true)
+    setSyncResult(null)
+    try {
+      const snap = await getDocs(query(collection(db, 'users'), where('role', '==', 'church')))
+      await Promise.all(snap.docs.map(d => {
+        const data = d.data() as AppUser
+        return setDoc(doc(db, 'churchDirectory', d.id), { name: data.churchName || data.displayName })
+      }))
+      setSyncResult({ ok: true, count: snap.size })
+    } catch {
+      setSyncResult({ ok: false })
+    } finally {
+      setSyncing(false)
+    }
+  }
+
+  const syncSection = (
+    <div className="bg-white rounded-3xl p-5 shadow-sm border border-slate-100">
+      <button onClick={handleSyncDirectory} disabled={syncing}
+        className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-sm font-semibold transition disabled:opacity-50">
+        {syncing ? t('admin.syncing') : t('admin.syncDirectory')}
+      </button>
+      <p className="text-xs text-slate-400 mt-2 text-center">{t('admin.syncDirectoryNote')}</p>
+      {syncResult && (
+        <p className={`text-xs mt-2 text-center font-medium ${syncResult.ok ? 'text-emerald-600' : 'text-red-500'}`}>
+          {syncResult.ok ? `${t('admin.synced')} ${syncResult.count} ${t('admin.churchesSelectable')}` : t('admin.syncFailed')}
+        </p>
+      )}
+    </div>
+  )
+
   if (pendingChurches.length === 0) {
     return (
-      <div className="text-center py-20">
-        <div className="w-16 h-16 rounded-full bg-emerald-50 flex items-center justify-center mx-auto mb-4">
-          <ShieldCheck size={28} className="text-emerald-500" />
+      <div className="space-y-4">
+        <div className="text-center py-16">
+          <div className="w-16 h-16 rounded-full bg-emerald-50 flex items-center justify-center mx-auto mb-4">
+            <ShieldCheck size={28} className="text-emerald-500" />
+          </div>
+          <p className="text-slate-500 font-medium">{t('admin.noPending')}</p>
+          <p className="text-sm text-slate-400 mt-1">{t('admin.noPendingNote')}</p>
         </div>
-        <p className="text-slate-500 font-medium">{t('admin.noPending')}</p>
-        <p className="text-sm text-slate-400 mt-1">{t('admin.noPendingNote')}</p>
+        {syncSection}
       </div>
     )
   }
@@ -1197,6 +1234,7 @@ function AdminPanel({ pendingChurches, onApprove, onDeny }: {
           </div>
         </div>
       ))}
+      {syncSection}
     </div>
   )
 }

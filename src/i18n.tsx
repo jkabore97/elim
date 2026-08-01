@@ -169,6 +169,12 @@ const translations = {
   'admin.noPendingNote': { en: 'New church signups will show up here for approval', fr: 'Les nouvelles inscriptions d\'église apparaîtront ici pour approbation' },
   'admin.approve': { en: 'Approve', fr: 'Approuver' },
   'admin.deny': { en: 'Deny', fr: 'Refuser' },
+  'admin.syncDirectory': { en: 'Sync Church Directory', fr: 'Synchroniser le répertoire' },
+  'admin.syncDirectoryNote': { en: "Run this if a church isn't showing up as an option for members signing up.", fr: "Exécutez ceci si une église n'apparaît pas comme option pour les membres qui s'inscrivent." },
+  'admin.syncing': { en: 'Syncing...', fr: 'Synchronisation...' },
+  'admin.synced': { en: 'Directory synced —', fr: 'Répertoire synchronisé —' },
+  'admin.churchesSelectable': { en: 'church(es) now selectable.', fr: 'église(s) désormais sélectionnable(s).' },
+  'admin.syncFailed': { en: 'Sync failed', fr: 'Échec de la synchronisation' },
 } as const
 
 export type TranslationKey = keyof typeof translations
