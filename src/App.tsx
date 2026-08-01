@@ -387,6 +387,8 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
 // Full-screen version — shown on phone & tablet (the "app style" experience).
 function AuthScreen({ onSuccess }: { onSuccess: (user: AppUser) => void }) {
   const { t } = useLanguage()
+  const [showWelcome, setShowWelcome] = useState(true)
+
   return (
     <div className="min-h-screen bg-[#0a0e1a] flex flex-col relative overflow-hidden">
       <div className="fixed top-0 left-1/4 w-[500px] h-[500px] bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
@@ -394,18 +396,48 @@ function AuthScreen({ onSuccess }: { onSuccess: (user: AppUser) => void }) {
       <div className="relative flex justify-end px-6 pt-6">
         <LanguageSwitcher dark />
       </div>
-      <div className="relative flex-1 flex flex-col items-center justify-center px-6 py-12">
-        <div className="w-full max-w-md">
-          <div className="text-center mb-8">
-            <Logo size={64} />
-            <h1 className="mt-6 text-3xl font-bold text-white tracking-tight">{t('auth.welcomeTo')}</h1>
-            <p className="mt-2 text-slate-400">{t('auth.peacefulPlace')}</p>
-          </div>
-          <div className="bg-white/[0.03] backdrop-blur-xl rounded-3xl shadow-2xl border border-white/10 p-8">
-            <AuthForm onSuccess={onSuccess} />
+
+      {showWelcome ? (
+        <div className="relative flex-1 flex flex-col items-center justify-center px-6 py-12">
+          <div className="w-full max-w-md text-center">
+            <Logo size={110} variant="full" />
+            <h1 className="mt-8 text-3xl font-bold text-white tracking-tight">{t('auth.welcomeTo')}</h1>
+            <p className="mt-3 text-slate-400 leading-relaxed">{t('auth.peacefulPlace')}</p>
+
+            <div className="mt-10 grid grid-cols-2 gap-4">
+              {[
+                { icon: ImageIcon, label: t('landing.valueProp.photos') },
+                { icon: Mic, label: t('landing.valueProp.audio') },
+                { icon: Video, label: t('landing.valueProp.video') },
+                { icon: ShieldCheck, label: t('landing.valueProp.verified') },
+              ].map((item, i) => (
+                <div key={i} className="flex flex-col items-center gap-2 py-4 rounded-2xl bg-white/[0.03] border border-white/10">
+                  <div className="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-400">
+                    <item.icon size={18} />
+                  </div>
+                  <span className="text-xs font-medium text-slate-300 text-center px-1">{item.label}</span>
+                </div>
+              ))}
+            </div>
+
+            <button onClick={() => setShowWelcome(false)}
+              className="mt-10 w-full py-4 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-[15px] transition flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/20">
+              {t('landing.getStarted')} <ArrowRight size={18} />
+            </button>
           </div>
         </div>
-      </div>
+      ) : (
+        <div className="relative flex-1 flex flex-col items-center justify-center px-6 py-12">
+          <div className="w-full max-w-md">
+            <div className="text-center mb-8">
+              <Logo size={64} />
+            </div>
+            <div className="bg-white/[0.03] backdrop-blur-xl rounded-3xl shadow-2xl border border-white/10 p-8">
+              <AuthForm onSuccess={onSuccess} />
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
