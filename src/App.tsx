@@ -18,6 +18,7 @@ import { ref, uploadBytes, uploadBytesResumable, getDownloadURL } from 'firebase
 import { Capacitor, SystemBars, SystemBarsStyle } from '@capacitor/core'
 import { EdgeToEdge } from '@capawesome/capacitor-android-edge-to-edge-support'
 import { auth, db, storage } from './firebase'
+import { enableNotifications, disableNotifications, listenForForegroundMessages } from './notifications'
 import type { Post, Comment, AppUser } from './types'
 import { LanguageProvider, useLanguage, type Language } from './i18n'
 
@@ -667,6 +668,9 @@ function AppInner() {
       SystemBars.setStyle({ style: SystemBarsStyle.Dark }).catch(() => {})
       EdgeToEdge.setBackgroundColor({ color: '#0f172a' }).catch(() => {})
     }
+    // Web only (no-ops on native) - lets an already-open browser tab show a
+    // notification for a new post without needing to reload.
+    listenForForegroundMessages()
   }, [])
 
   // Auth listener
@@ -1055,6 +1059,22 @@ function ProfileTab({ user, onProfileUpdated }: {
   const [saving, setSaving] = useState(false)
   const [saved, setSaved] = useState(false)
   const [saveError, setSaveError] = useState('')
+  const [notifLoading, setNotifLoading] = useState(false)
+  const [notifError, setNotifError] = useState('')
+
+  const handleToggleNotifications = async () => {
+    setNotifError('')
+    if (user.notificationsEnabled) {
+      await disableNotifications(user.uid)
+      onProfileUpdated({ notificationsEnabled: false })
+      return
+    }
+    setNotifLoading(true)
+    const ok = await enableNotifications(user.uid)
+    setNotifLoading(false)
+    if (ok) onProfileUpdated({ notificationsEnabled: true })
+    else setNotifError(t('profile.notificationsPermissionDenied'))
+  }
 
   const handleAvatarChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
@@ -1168,6 +1188,23 @@ function ProfileTab({ user, onProfileUpdated }: {
           {saving ? t('profile.saving') : t('profile.saveChanges')}
         </button>
       </form>
+
+      <div className="bg-white rounded-3xl p-6 shadow-sm border border-slate-100">
+        <div className="flex items-center justify-between gap-4">
+          <div>
+            <h3 className="font-bold text-slate-900">{t('profile.notifications')}</h3>
+            <p className="text-xs text-slate-400 mt-0.5">{t('profile.notificationsNote')}</p>
+          </div>
+          <button onClick={handleToggleNotifications} disabled={notifLoading}
+            role="switch" aria-checked={!!user.notificationsEnabled}
+            className={`relative shrink-0 w-12 h-7 rounded-full transition disabled:opacity-60 ${
+              user.notificationsEnabled ? 'bg-emerald-600' : 'bg-slate-200'}`}>
+            <span className={`absolute top-1 left-1 w-5 h-5 rounded-full bg-white shadow transition-transform ${
+              user.notificationsEnabled ? 'translate-x-5' : ''}`} />
+          </button>
+        </div>
+        {notifError && <p className="mt-3 text-xs text-red-500 bg-red-50 rounded-xl px-3 py-2">{notifError}</p>}
+      </div>
     </div>
   )
 }

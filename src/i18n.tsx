@@ -162,6 +162,9 @@ const translations = {
   'profile.imageSizeError': { en: 'Image must be under 5MB.', fr: 'L\'image doit faire moins de 5 Mo.' },
   'profile.uploadFailed': { en: 'Upload failed', fr: 'Échec du téléversement' },
   'profile.couldNotSave': { en: 'Could not save changes', fr: 'Impossible d\'enregistrer les modifications' },
+  'profile.notifications': { en: 'Notifications', fr: 'Notifications' },
+  'profile.notificationsNote': { en: 'Get notified when your church shares something new.', fr: 'Soyez averti quand votre église partage quelque chose de nouveau.' },
+  'profile.notificationsPermissionDenied': { en: "Permission denied — check your device's notification settings for this app.", fr: 'Autorisation refusée — vérifiez les paramètres de notification de votre appareil pour cette application.' },
 
   // ---- Admin panel ----
   'admin.pendingChurches': { en: 'Pending Churches', fr: 'Églises en attente' },

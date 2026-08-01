@@ -81,7 +81,21 @@ Members and churches can upload real files (not just paste a URL). Every upload 
 
 **Both roles, optionally, editable later from the Profile tab:** profile picture, country, city.
 
+**Both roles, optionally, if notifications are turned on:** a device/browser push notification token (Firebase Cloud Messaging). Used only to deliver "your church posted something new" notifications — never for anything else, never shared externally. Turning notifications off (Profile tab) stops new notifications immediately; existing tokens are not actively purged on toggle-off, but dead/expired tokens (uninstalled app, revoked OS permission, etc.) are automatically cleaned up by the sending function whenever FCM reports them invalid.
+
 No payment data, no precise geolocation, no health data, and — as of v4.1 — no third-party sign-in provider is used at all (Google Sign-In was removed again; see §3), so no data is shared with or received from Google.
+
+---
+
+## 6a. Push Notifications (server-side component)
+
+This is the one piece of ELIM that isn't purely client-side. A Cloud Function (`functions/notifyOnNewPost`) listens for new documents in `/posts` and sends a notification to every user with `notificationsEnabled: true`, excluding the poster themselves. It:
+
+- Reads only `notificationsEnabled` and `fcmTokens` from user documents — no other profile fields are touched.
+- Sends in batches of ≤500 tokens (FCM's per-call limit), in parallel.
+- Automatically prunes tokens FCM reports as permanently invalid (uninstalled, permission revoked), so the token list doesn't grow indefinitely with dead entries.
+- Requires the Firebase project to be on the Blaze (pay-as-you-go) plan — Cloud Functions cannot be deployed on the free Spark plan at all, regardless of usage volume. In practice, expected usage (one invocation per new post) should stay well within Cloud Functions' own free monthly tier.
+- Is deployed via the Firebase CLI (`firebase deploy --only functions`) from a developer's authenticated machine — there is no way to deploy this from the app itself, by design (the Admin SDK credentials it runs under must never be embedded in client-side code).
 
 ---
 

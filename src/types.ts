@@ -18,6 +18,9 @@ export interface AppUser {
   // directory), or undefined if they picked "Other".
   memberChurchId?: string;
   memberChurchName?: string;
+  // Push notifications
+  notificationsEnabled?: boolean;
+  fcmTokens?: string[];
 }
 
 export interface ChurchProfile {
