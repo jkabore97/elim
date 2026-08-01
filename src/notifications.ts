@@ -4,10 +4,10 @@ import { getMessaging, getToken, onMessage } from 'firebase/messaging'
 import { doc, updateDoc, arrayUnion } from 'firebase/firestore'
 import { app, db } from './firebase'
 
-// Get this from Firebase console -> Project settings -> Cloud Messaging ->
-// Web Push certificates -> "Generate key pair". Needed only for the web
-// (browser) notification path - native Android doesn't use this at all.
-const VAPID_KEY = 'PASTE_YOUR_WEB_PUSH_VAPID_KEY_HERE'
+// From Firebase console -> Project settings -> Cloud Messaging -> Web
+// Push certificates. Needed only for the web (browser) notification path -
+// native Android doesn't use this at all.
+const VAPID_KEY = 'BEzXpoz9xvmdt4JbRDSd8ADZifrAznxCz32Mv1YQamcjRKKrgA_rnNXCWPNI94pGQi6Vek2zRaWWpREffMBFDsw'
 
 async function saveToken(uid: string, token: string) {
   await updateDoc(doc(db, 'users', uid), {
