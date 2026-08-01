@@ -6,7 +6,7 @@ const config: CapacitorConfig = {
   webDir: 'dist',
   plugins: {
     EdgeToEdge: {
-      backgroundColor: '#ffffff'
+      backgroundColor: '#0f172a'
     }
   }
 };

@@ -15,6 +15,8 @@ import {
   sendEmailVerification, sendPasswordResetEmail
 } from 'firebase/auth'
 import { ref, uploadBytes, uploadBytesResumable, getDownloadURL } from 'firebase/storage'
+import { Capacitor, SystemBars, SystemBarsStyle } from '@capacitor/core'
+import { EdgeToEdge } from '@capawesome/capacitor-android-edge-to-edge-support'
 import { auth, db, storage } from './firebase'
 import type { Post, Comment, AppUser } from './types'
 import { LanguageProvider, useLanguage, type Language } from './i18n'
@@ -622,6 +624,17 @@ function AppInner() {
   const [loading, setLoading] = useState(true)
   const [pendingChurches, setPendingChurches] = useState<AppUser[]>([])
   const [likedPostIds, setLikedPostIds] = useState<Set<string>>(new Set())
+
+  // The whole app is dark-themed on native (both the auth screens and the
+  // main shell), so this is applied once, unconditionally, rather than
+  // switching per-screen. Native-only: these APIs don't exist on web, where
+  // the browser's own chrome is what's visible instead of a device status bar.
+  useEffect(() => {
+    if (Capacitor.isNativePlatform()) {
+      SystemBars.setStyle({ style: SystemBarsStyle.Dark }).catch(() => {})
+      EdgeToEdge.setBackgroundColor({ color: '#0f172a' }).catch(() => {})
+    }
+  }, [])
 
   // Auth listener
   useEffect(() => {
