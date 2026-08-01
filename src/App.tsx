@@ -1148,7 +1148,7 @@ function AdminPanel({ pendingChurches, onApprove, onDeny }: {
   const { t } = useLanguage()
   const [busyUid, setBusyUid] = useState<string | null>(null)
   const [syncing, setSyncing] = useState(false)
-  const [syncResult, setSyncResult] = useState<{ ok: boolean; count?: number } | null>(null)
+  const [syncResult, setSyncResult] = useState<{ ok: boolean; count?: number; total?: number; error?: string } | null>(null)
 
   const handle = async (uid: string, action: 'approve' | 'deny') => {
     setBusyUid(uid)
@@ -1165,13 +1165,26 @@ function AdminPanel({ pendingChurches, onApprove, onDeny }: {
     setSyncResult(null)
     try {
       const snap = await getDocs(query(collection(db, 'users'), where('role', '==', 'church')))
-      await Promise.all(snap.docs.map(d => {
+      const results = await Promise.allSettled(snap.docs.map(d => {
         const data = d.data() as AppUser
-        return setDoc(doc(db, 'churchDirectory', d.id), { name: data.churchName || data.displayName })
+        // Firestore rejects `undefined` field values outright, so this needs
+        // an actual fallback string, not just `a || b` with both possibly
+        // undefined (this was the likely cause of the previous failure).
+        const name = data.churchName || data.displayName || 'Church'
+        return setDoc(doc(db, 'churchDirectory', d.id), { name })
       }))
-      setSyncResult({ ok: true, count: snap.size })
-    } catch {
-      setSyncResult({ ok: false })
+      const succeeded = results.filter(r => r.status === 'fulfilled').length
+      const firstFailure = results.find(r => r.status === 'rejected') as PromiseRejectedResult | undefined
+      if (firstFailure) {
+        setSyncResult({
+          ok: succeeded > 0, count: succeeded, total: results.length,
+          error: firstFailure.reason?.message || firstFailure.reason?.code || String(firstFailure.reason)
+        })
+      } else {
+        setSyncResult({ ok: true, count: succeeded, total: results.length })
+      }
+    } catch (err: any) {
+      setSyncResult({ ok: false, error: err.message || err.code || String(err) })
     } finally {
       setSyncing(false)
     }
@@ -1186,7 +1199,9 @@ function AdminPanel({ pendingChurches, onApprove, onDeny }: {
       <p className="text-xs text-slate-400 mt-2 text-center">{t('admin.syncDirectoryNote')}</p>
       {syncResult && (
         <p className={`text-xs mt-2 text-center font-medium ${syncResult.ok ? 'text-emerald-600' : 'text-red-500'}`}>
-          {syncResult.ok ? `${t('admin.synced')} ${syncResult.count} ${t('admin.churchesSelectable')}` : t('admin.syncFailed')}
+          {syncResult.ok
+            ? `${t('admin.synced')} ${syncResult.count}${syncResult.total ? `/${syncResult.total}` : ''} ${t('admin.churchesSelectable')}`
+            : `${t('admin.syncFailed')}${syncResult.error ? ': ' + syncResult.error : ''}`}
         </p>
       )}
     </div>
