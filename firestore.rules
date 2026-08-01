@@ -46,6 +46,17 @@ service cloud.firestore {
                     );
     }
 
+    // ---- Church directory ----
+    // A minimal public mirror of church accounts (name only), specifically so
+    // the member-signup form can populate a "pick your church" dropdown
+    // *before* the person has an authenticated session at all. Written only
+    // by the admin-approval flow in the client - never directly reachable
+    // by anyone else. Deliberately excludes email/phone/anything sensitive.
+    match /churchDirectory/{churchId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
     // ---- Posts ----
     match /posts/{postId} {
       allow read: if isSignedIn();

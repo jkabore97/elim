@@ -4,6 +4,8 @@ export interface AppUser {
   uid: string;
   email: string;
   displayName: string;
+  firstName?: string;
+  lastName?: string;
   role: UserRole;
   churchName?: string;
   location?: string;
@@ -12,6 +14,10 @@ export interface AppUser {
   phone?: string;
   avatar?: string;
   createdAt?: any;
+  // For members: which church they picked at signup (from the public
+  // directory), or undefined if they picked "Other".
+  memberChurchId?: string;
+  memberChurchName?: string;
 }
 
 export interface ChurchProfile {

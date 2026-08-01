@@ -3,22 +3,20 @@ import {
   Home, Church, PlusCircle, User, MessageCircle, Heart, Share2,
   Image as ImageIcon, Video, Mic, X, Send, LogOut,
   Youtube, Facebook, CheckCircle2, Clock, ArrowRight, ShieldCheck, UserX, Sparkles,
-  Trash2, Camera, FileText, Upload, Pencil, Globe
+  Trash2, Camera, FileText, Upload, Pencil, Globe, Eye, EyeOff
 } from 'lucide-react'
 import {
   collection, addDoc, onSnapshot, query, orderBy, where,
-  serverTimestamp, doc, updateDoc, deleteDoc, increment, setDoc, getDoc
+  serverTimestamp, doc, updateDoc, deleteDoc, increment, setDoc, getDoc, getDocs
 } from 'firebase/firestore'
 import {
   createUserWithEmailAndPassword, signInWithEmailAndPassword,
   signOut, onAuthStateChanged, updateProfile,
-  sendEmailVerification, sendPasswordResetEmail,
-  GoogleAuthProvider, signInWithPopup
+  sendEmailVerification, sendPasswordResetEmail
 } from 'firebase/auth'
-import type { User as FirebaseUser } from 'firebase/auth'
 import { ref, uploadBytes, uploadBytesResumable, getDownloadURL } from 'firebase/storage'
 import { auth, db, storage } from './firebase'
-import type { Post, Comment, AppUser, UserRole } from './types'
+import type { Post, Comment, AppUser } from './types'
 import { LanguageProvider, useLanguage, type Language } from './i18n'
 
 function timeAgo(date: any) {
@@ -41,6 +39,17 @@ function isFacebookVideo(url: string) {
   return url.includes('facebook.com') || url.includes('fb.watch')
 }
 
+// Members authenticate with phone number + a 6-digit PIN, not email/password.
+// Firebase Auth still needs *an* email string under the hood, so this builds
+// a synthetic, never-emailed-to one from their (country code + number) —
+// entirely invisible to the person, who only ever sees "phone number".
+function sanitizeDigits(str: string) {
+  return str.replace(/\D/g, '')
+}
+function memberAuthEmail(countryCode: string, phone: string) {
+  return `${sanitizeDigits(countryCode)}${sanitizeDigits(phone)}@elim-member.app`
+}
+
 function Logo({ size = 36, variant = 'mark' }: { size?: number; variant?: 'mark' | 'full' }) {
   return (
     <img
@@ -49,17 +58,6 @@ function Logo({ size = 36, variant = 'mark' }: { size?: number; variant?: 'mark'
       style={{ height: size }}
       className="object-contain"
     />
-  )
-}
-
-function GoogleIcon({ size = 18 }: { size?: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 48 48" aria-hidden="true">
-      <path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.9 32.7 29.4 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.1 8 3l5.7-5.7C34.6 6.1 29.6 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.2-.1-2.4-.4-3.5z" />
-      <path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.6 15.9 18.9 13 24 13c3.1 0 5.8 1.1 8 3l5.7-5.7C34.6 7.1 29.6 5 24 5c-7.8 0-14.5 4.4-17.9 10.7z" />
-      <path fill="#4CAF50" d="M24 44c5.5 0 10.4-1.9 14.2-5.1l-6.6-5.4C29.6 35.1 26.9 36 24 36c-5.3 0-9.8-3.3-11.4-8l-6.6 5.1C9.4 39.7 16.1 44 24 44z" />
-      <path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-1 2.9-3 5.3-5.6 6.9l6.6 5.4C39.9 37.6 44 31.9 44 24c0-1.2-.1-2.4-.4-3.5z" />
-    </svg>
   )
 }
 
@@ -97,32 +95,53 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
   const { t } = useLanguage()
   const [mode, setMode] = useState<'login' | 'register'>(initialMode)
   const [accountType, setAccountType] = useState<'member' | 'church'>('member')
+
+  // Shared name fields
+  const [firstName, setFirstName] = useState('')
+  const [lastName, setLastName] = useState('')
+
+  // Phone — used by: member signup, member login, church signup
+  const [countryCode, setCountryCode] = useState('+226')
+  const [phone, setPhone] = useState('')
+
+  // Member-only
+  const [selectedChurchId, setSelectedChurchId] = useState('other')
+  const [pin, setPin] = useState('')
+  const [confirmPin, setConfirmPin] = useState('')
+  const [showPin, setShowPin] = useState(false)
+  const [churches, setChurches] = useState<{ id: string; name: string }[]>([])
+
+  // Church-only
+  const [churchName, setChurchName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
-  const [phone, setPhone] = useState('')
-  const [name, setName] = useState('')
-  const [churchName, setChurchName] = useState('')
-  const [location, setLocation] = useState('')
+  const [showPassword, setShowPassword] = useState(false)
+
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
   const [resetSent, setResetSent] = useState(false)
   const [registerSuccess, setRegisterSuccess] = useState(false)
 
-  // A brand-new Google sign-in has no role/phone yet — held here until
-  // they finish that one extra step.
-  const [googleUser, setGoogleUser] = useState<FirebaseUser | null>(null)
-  const [googleAccountType, setGoogleAccountType] = useState<'member' | 'church'>('member')
-  const [googleChurchName, setGoogleChurchName] = useState('')
-  const [googleLocation, setGoogleLocation] = useState('')
-  const [googlePhone, setGooglePhone] = useState('')
-
   const inputClass = "w-full px-4 py-3.5 rounded-2xl bg-white/5 border border-white/10 text-white placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-emerald-400/60 focus:border-emerald-400/60 text-[15px]"
+  const selectClass = inputClass + " appearance-none"
+
+  // The church picker needs to be readable before anyone is signed in —
+  // fetched once when member+register is selected (churchDirectory is a
+  // public-read collection specifically for this).
+  useEffect(() => {
+    if (mode === 'register' && accountType === 'member' && churches.length === 0) {
+      getDocs(collection(db, 'churchDirectory')).then(snap => {
+        setChurches(snap.docs.map(d => ({ id: d.id, name: (d.data() as any).name })))
+      }).catch(() => {})
+    }
+  }, [mode, accountType])
 
   const switchMode = (m: 'login' | 'register') => {
     setMode(m)
     setError('')
     setResetSent(false)
+    setRegisterSuccess(false)
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -130,60 +149,77 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
     setError('')
     setRegisterSuccess(false)
 
-    if (mode === 'register') {
-      if (password.length < 8) {
-        setError(t('auth.passwordTooShort'))
-        return
-      }
-      if (password !== confirmPassword) {
-        setError(t('auth.passwordsDontMatch'))
-        return
-      }
-      if (!phone.trim()) {
-        setError(t('auth.phoneRequired'))
-        return
-      }
+    if (accountType === 'member') {
+      if (!sanitizeDigits(phone)) { setError(t('auth.phoneInvalid')); return }
+      if (!/^\d{6}$/.test(pin)) { setError(t('auth.pinMustBe6Digits')); return }
+      if (mode === 'register' && pin !== confirmPin) { setError(t('auth.pinsDontMatch')); return }
+    } else if (mode === 'register') {
+      if (!sanitizeDigits(phone)) { setError(t('auth.phoneInvalid')); return }
+      if (password.length < 8) { setError(t('auth.passwordTooShort')); return }
+      if (password !== confirmPassword) { setError(t('auth.passwordsDontMatch')); return }
     }
 
     setLoading(true)
     try {
       if (mode === 'login') {
-        const cred = await signInWithEmailAndPassword(auth, email, password)
+        const loginEmail = accountType === 'member' ? memberAuthEmail(countryCode, phone) : email
+        const loginPassword = accountType === 'member' ? pin : password
+        const cred = await signInWithEmailAndPassword(auth, loginEmail, loginPassword)
         const snap = await getDoc(doc(db, 'users', cred.user.uid))
         if (snap.exists()) onSuccess(snap.data() as AppUser)
         else throw new Error('User profile not found')
       } else {
-        const cred = await createUserWithEmailAndPassword(auth, email, password)
-        await updateProfile(cred.user, { displayName: name })
-        // Fire-and-forget — a failure here shouldn't block account creation.
-        sendEmailVerification(cred.user).catch(() => {})
-
-        const role: UserRole = accountType === 'church' ? 'pending_church' : 'member'
-        const profile: AppUser = {
-          uid: cred.user.uid,
-          email,
-          displayName: name,
-          role,
-          phone: phone.trim(),
-          createdAt: serverTimestamp(),
-          // Omit churchName/location entirely for members rather than setting
-          // them to `undefined` — Firestore's setDoc() rejects undefined
-          // field values outright.
-          ...(accountType === 'church' ? { churchName, location } : {})
+        const fullName = `${firstName} ${lastName}`.trim()
+        if (accountType === 'member') {
+          const authEmail = memberAuthEmail(countryCode, phone)
+          const cred = await createUserWithEmailAndPassword(auth, authEmail, pin)
+          await updateProfile(cred.user, { displayName: fullName })
+          const selectedChurch = churches.find(c => c.id === selectedChurchId)
+          const profile: AppUser = {
+            uid: cred.user.uid,
+            email: authEmail,
+            displayName: fullName,
+            firstName, lastName,
+            role: 'member',
+            phone: `${countryCode} ${phone.trim()}`,
+            createdAt: serverTimestamp(),
+            ...(selectedChurch ? { memberChurchId: selectedChurch.id, memberChurchName: selectedChurch.name } : {})
+          }
+          await setDoc(doc(db, 'users', cred.user.uid), profile)
+          await signOut(auth)
+          setMode('login')
+          setPin(''); setConfirmPin('')
+          setRegisterSuccess(true)
+        } else {
+          const cred = await createUserWithEmailAndPassword(auth, email, password)
+          await updateProfile(cred.user, { displayName: fullName })
+          sendEmailVerification(cred.user).catch(() => {})
+          const profile: AppUser = {
+            uid: cred.user.uid,
+            email,
+            displayName: fullName,
+            firstName, lastName,
+            role: 'pending_church',
+            phone: `${countryCode} ${phone.trim()}`,
+            churchName,
+            createdAt: serverTimestamp()
+          }
+          await setDoc(doc(db, 'users', cred.user.uid), profile)
+          await signOut(auth)
+          setMode('login')
+          setPassword(''); setConfirmPassword('')
+          setRegisterSuccess(true)
         }
-        await setDoc(doc(db, 'users', cred.user.uid), profile)
-
-        // Sign out right after creating the account rather than dropping
-        // them straight into the app — they come back to Sign In and log
-        // in deliberately with the credentials they just set.
-        await signOut(auth)
-        setMode('login')
-        setPassword('')
-        setConfirmPassword('')
-        setRegisterSuccess(true)
       }
     } catch (err: any) {
-      setError(err.message?.replace('Firebase: ', '') || t('auth.somethingWrong'))
+      const code = err.code || ''
+      if (code === 'auth/email-already-in-use' && accountType === 'member') {
+        setError(t('auth.phoneAlreadyRegistered'))
+      } else if (['auth/invalid-credential', 'auth/wrong-password', 'auth/user-not-found'].includes(code) && accountType === 'member') {
+        setError(t('auth.wrongPhoneOrPin'))
+      } else {
+        setError(err.message?.replace('Firebase: ', '') || t('auth.somethingWrong'))
+      }
     } finally {
       setLoading(false)
     }
@@ -207,108 +243,9 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
     }
   }
 
-  const handleGoogleSignIn = async () => {
-    setError('')
-    setLoading(true)
-    try {
-      const provider = new GoogleAuthProvider()
-      const cred = await signInWithPopup(auth, provider)
-      const snap = await getDoc(doc(db, 'users', cred.user.uid))
-      if (snap.exists()) {
-        onSuccess(snap.data() as AppUser)
-      } else {
-        setGoogleUser(cred.user)
-      }
-    } catch (err: any) {
-      setError(err.message?.replace('Firebase: ', '') || t('auth.googleSignInFailed'))
-    } finally {
-      setLoading(false)
-    }
-  }
-
-  const handleFinishGoogleSetup = async (e: React.FormEvent) => {
-    e.preventDefault()
-    if (!googleUser) return
-    if (!googlePhone.trim()) {
-      setError(t('auth.phoneRequired'))
-      return
-    }
-    setError('')
-    setLoading(true)
-    try {
-      const role: UserRole = googleAccountType === 'church' ? 'pending_church' : 'member'
-      const profile: AppUser = {
-        uid: googleUser.uid,
-        email: googleUser.email || '',
-        displayName: googleUser.displayName || 'Member',
-        role,
-        phone: googlePhone.trim(),
-        ...(googleAccountType === 'church' ? { churchName: googleChurchName, location: googleLocation } : {}),
-        createdAt: serverTimestamp()
-      }
-      await setDoc(doc(db, 'users', googleUser.uid), profile)
-      onSuccess(profile)
-    } catch (err: any) {
-      setError(err.message?.replace('Firebase: ', '') || t('auth.somethingWrong'))
-    } finally {
-      setLoading(false)
-    }
-  }
-
-  if (googleUser) {
-    return (
-      <div>
-        <div className="text-center mb-6">
-          <div className="w-14 h-14 rounded-full bg-gradient-to-br from-emerald-400 to-amber-400 mx-auto flex items-center justify-center text-white font-bold text-xl mb-4">
-            {(googleUser.displayName || 'U').charAt(0)}
-          </div>
-          <h2 className="text-xl font-bold text-white">
-            {t('auth.almostThere')}{googleUser.displayName ? `, ${googleUser.displayName.split(' ')[0]}` : ''}
-          </h2>
-          <p className="text-sm text-slate-400 mt-1">{t('auth.tellUsHowYoullUse')}</p>
-        </div>
-        <div className="flex gap-3 mb-6">
-          <button type="button" onClick={() => setGoogleAccountType('member')}
-            className={`flex-1 py-3 rounded-2xl border-2 text-sm font-medium transition ${
-              googleAccountType === 'member' ? 'border-emerald-400 bg-emerald-500/10 text-emerald-300' : 'border-white/10 text-slate-400'}`}>
-            {t('auth.member')}
-          </button>
-          <button type="button" onClick={() => setGoogleAccountType('church')}
-            className={`flex-1 py-3 rounded-2xl border-2 text-sm font-medium transition ${
-              googleAccountType === 'church' ? 'border-emerald-400 bg-emerald-500/10 text-emerald-300' : 'border-white/10 text-slate-400'}`}>
-            {t('auth.church')}
-          </button>
-        </div>
-        <form onSubmit={handleFinishGoogleSetup} className="space-y-4">
-          {googleAccountType === 'church' && (
-            <>
-              <input required value={googleChurchName} onChange={e => setGoogleChurchName(e.target.value)} placeholder={t('auth.churchName')}
-                className={inputClass} />
-              <input required value={googleLocation} onChange={e => setGoogleLocation(e.target.value)} placeholder={t('auth.cityState')}
-                className={inputClass} />
-            </>
-          )}
-          <input required type="tel" value={googlePhone} onChange={e => setGooglePhone(e.target.value)} placeholder={t('auth.phoneNumber')}
-            className={inputClass} />
-          {error && <p className="text-sm text-red-400 bg-red-500/10 border border-red-500/20 rounded-xl px-4 py-3">{error}</p>}
-          <button type="submit" disabled={loading}
-            className="w-full py-4 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-[15px] transition flex items-center justify-center gap-2 disabled:opacity-60 shadow-lg shadow-emerald-500/20">
-            {loading ? t('auth.pleaseWait') : t('auth.finishSetup')}
-            {!loading && <ArrowRight size={18} />}
-          </button>
-        </form>
-        {googleAccountType === 'church' && (
-          <p className="mt-5 text-xs text-center text-slate-500 leading-relaxed">
-            {t('auth.churchApprovalNote')}
-          </p>
-        )}
-      </div>
-    )
-  }
-
   return (
     <div>
-      <div className="flex bg-white/5 border border-white/10 rounded-2xl p-1 mb-6">
+      <div className="flex bg-white/5 border border-white/10 rounded-2xl p-1 mb-5">
         <button onClick={() => switchMode('login')}
           className={`flex-1 py-2.5 rounded-xl text-sm font-semibold transition ${mode === 'login' ? 'bg-white/10 text-white' : 'text-slate-400'}`}>
           {t('auth.signIn')}
@@ -319,31 +256,19 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
         </button>
       </div>
 
-      <button type="button" onClick={handleGoogleSignIn} disabled={loading}
-        className="w-full py-3.5 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 text-white font-semibold text-[15px] transition flex items-center justify-center gap-2.5 disabled:opacity-60 mb-5">
-        <GoogleIcon size={18} /> {t('auth.continueWithGoogle')}
-      </button>
-
-      <div className="flex items-center gap-3 mb-5">
-        <div className="h-px bg-white/10 flex-1" />
-        <span className="text-xs text-slate-500 font-medium">{t('auth.or')}</span>
-        <div className="h-px bg-white/10 flex-1" />
+      <p className="text-xs font-semibold text-slate-500 mb-2 px-1">{t('auth.iAmA')}</p>
+      <div className="flex gap-3 mb-6">
+        <button onClick={() => { setAccountType('member'); setError('') }}
+          className={`flex-1 py-3 rounded-2xl border-2 text-sm font-medium transition ${
+            accountType === 'member' ? 'border-emerald-400 bg-emerald-500/10 text-emerald-300' : 'border-white/10 text-slate-400'}`}>
+          {t('auth.memberSignIn')}
+        </button>
+        <button onClick={() => { setAccountType('church'); setError('') }}
+          className={`flex-1 py-3 rounded-2xl border-2 text-sm font-medium transition ${
+            accountType === 'church' ? 'border-emerald-400 bg-emerald-500/10 text-emerald-300' : 'border-white/10 text-slate-400'}`}>
+          {t('auth.churchSignIn')}
+        </button>
       </div>
-
-      {mode === 'register' && (
-        <div className="flex gap-3 mb-6">
-          <button onClick={() => setAccountType('member')}
-            className={`flex-1 py-3 rounded-2xl border-2 text-sm font-medium transition ${
-              accountType === 'member' ? 'border-emerald-400 bg-emerald-500/10 text-emerald-300' : 'border-white/10 text-slate-400'}`}>
-            {t('auth.member')}
-          </button>
-          <button onClick={() => setAccountType('church')}
-            className={`flex-1 py-3 rounded-2xl border-2 text-sm font-medium transition ${
-              accountType === 'church' ? 'border-emerald-400 bg-emerald-500/10 text-emerald-300' : 'border-white/10 text-slate-400'}`}>
-            {t('auth.church')}
-          </button>
-        </div>
-      )}
 
       {registerSuccess && (
         <p className="mb-4 text-sm text-emerald-300 bg-emerald-500/10 border border-emerald-500/20 rounded-xl px-4 py-3">
@@ -353,33 +278,77 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
 
       <form onSubmit={handleSubmit} className="space-y-4">
         {mode === 'register' && (
-          <input required value={name} onChange={e => setName(e.target.value)} placeholder={t('auth.fullName')}
+          <div className="flex gap-3">
+            <input required value={firstName} onChange={e => setFirstName(e.target.value)} placeholder={t('auth.firstName')}
+              className={inputClass} />
+            <input required value={lastName} onChange={e => setLastName(e.target.value)} placeholder={t('auth.lastName')}
+              className={inputClass} />
+          </div>
+        )}
+
+        {mode === 'register' && accountType === 'member' && (
+          <select required value={selectedChurchId} onChange={e => setSelectedChurchId(e.target.value)} className={selectClass}>
+            <option value="other">{t('auth.otherNoChurch')}</option>
+            {churches.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
+          </select>
+        )}
+
+        {mode === 'register' && accountType === 'church' && (
+          <input required value={churchName} onChange={e => setChurchName(e.target.value)} placeholder={t('auth.newChurchName')}
             className={inputClass} />
         )}
-        {mode === 'register' && accountType === 'church' && (
-          <>
-            <input required value={churchName} onChange={e => setChurchName(e.target.value)} placeholder={t('auth.churchName')}
-              className={inputClass} />
-            <input required value={location} onChange={e => setLocation(e.target.value)} placeholder={t('auth.cityState')}
-              className={inputClass} />
-          </>
-        )}
-        <input required type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder={t('auth.email')}
-          className={inputClass} />
-        <input required type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder={t('auth.password')}
-          minLength={mode === 'register' ? 8 : undefined}
-          className={inputClass} />
-        {mode === 'register' && (
-          <>
-            <input required type="password" value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)}
-              placeholder={t('auth.confirmPassword')} minLength={8}
-              className={inputClass} />
+
+        {(accountType === 'member' || mode === 'register') && (
+          <div className="flex gap-2">
+            <select value={countryCode} onChange={e => setCountryCode(e.target.value)} className={selectClass + " w-[92px] shrink-0 px-2"}>
+              {COUNTRY_CODES.map(c => <option key={c.name} value={c.code}>{c.code}</option>)}
+            </select>
             <input required type="tel" value={phone} onChange={e => setPhone(e.target.value)} placeholder={t('auth.phoneNumber')}
               className={inputClass} />
+          </div>
+        )}
+
+        {accountType === 'member' ? (
+          <>
+            <div className="relative">
+              <input required type={showPin ? 'text' : 'password'} inputMode="numeric" maxLength={6}
+                value={pin} onChange={e => setPin(sanitizeDigits(e.target.value).slice(0, 6))} placeholder={t('auth.pin')}
+                className={inputClass + " pr-12"} />
+              <button type="button" onClick={() => setShowPin(s => !s)}
+                aria-label={showPin ? t('auth.hidePassword') : t('auth.showPassword')}
+                className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-200">
+                {showPin ? <EyeOff size={18} /> : <Eye size={18} />}
+              </button>
+            </div>
+            {mode === 'register' && (
+              <input required type={showPin ? 'text' : 'password'} inputMode="numeric" maxLength={6}
+                value={confirmPin} onChange={e => setConfirmPin(sanitizeDigits(e.target.value).slice(0, 6))} placeholder={t('auth.confirmPin')}
+                className={inputClass} />
+            )}
+          </>
+        ) : (
+          <>
+            <input required type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder={t('auth.email')}
+              className={inputClass} />
+            <div className="relative">
+              <input required type={showPassword ? 'text' : 'password'} value={password} onChange={e => setPassword(e.target.value)}
+                placeholder={t('auth.password')} minLength={mode === 'register' ? 8 : undefined}
+                className={inputClass + " pr-12"} />
+              <button type="button" onClick={() => setShowPassword(s => !s)}
+                aria-label={showPassword ? t('auth.hidePassword') : t('auth.showPassword')}
+                className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-200">
+                {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+              </button>
+            </div>
+            {mode === 'register' && (
+              <input required type={showPassword ? 'text' : 'password'} value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)}
+                placeholder={t('auth.confirmPassword')} minLength={8}
+                className={inputClass} />
+            )}
           </>
         )}
 
-        {mode === 'login' && (
+        {mode === 'login' && accountType === 'church' && (
           <div className="text-right -mt-2">
             <button type="button" onClick={handleForgotPassword}
               className="text-xs font-semibold text-emerald-400 hover:text-emerald-300">
@@ -780,7 +749,13 @@ function AppInner() {
   }
 
   const handleApproveChurch = async (uid: string) => {
+    const church = pendingChurches.find(c => c.uid === uid)
     await updateDoc(doc(db, 'users', uid), { role: 'church' })
+    // Mirror into the public directory so the member-signup dropdown can
+    // read it without needing an authenticated session.
+    if (church) {
+      await setDoc(doc(db, 'churchDirectory', uid), { name: church.churchName || church.displayName })
+    }
   }
 
   const handleDenyChurch = async (uid: string) => {
@@ -976,6 +951,46 @@ const COUNTRIES = [
   'Thailand', 'Timor-Leste', 'Togo', 'Tonga', 'Trinidad and Tobago', 'Tunisia', 'Turkey', 'Turkmenistan',
   'Tuvalu', 'Uganda', 'Ukraine', 'United Arab Emirates', 'United Kingdom', 'United States', 'Uruguay',
   'Uzbekistan', 'Vanuatu', 'Vatican City', 'Venezuela', 'Vietnam', 'Yemen', 'Zambia', 'Zimbabwe'
+]
+
+// Calling codes for the phone input's country picker. Not exhaustive (that's
+// what COUNTRIES above is for) - just a curated, sensible set prioritizing
+// Burkina Faso and neighboring West African countries first, since that's
+// this app's primary user base, followed by other common ones.
+const COUNTRY_CODES = [
+  { name: 'Burkina Faso', code: '+226' },
+  { name: "Côte d'Ivoire", code: '+225' },
+  { name: 'Mali', code: '+223' },
+  { name: 'Niger', code: '+227' },
+  { name: 'Senegal', code: '+221' },
+  { name: 'Ghana', code: '+233' },
+  { name: 'Togo', code: '+228' },
+  { name: 'Benin', code: '+229' },
+  { name: 'Guinea', code: '+224' },
+  { name: 'Guinea-Bissau', code: '+245' },
+  { name: 'Sierra Leone', code: '+232' },
+  { name: 'Liberia', code: '+231' },
+  { name: 'The Gambia', code: '+220' },
+  { name: 'Mauritania', code: '+222' },
+  { name: 'Nigeria', code: '+234' },
+  { name: 'Cameroon', code: '+237' },
+  { name: 'Chad', code: '+235' },
+  { name: 'Gabon', code: '+241' },
+  { name: 'Congo (Brazzaville)', code: '+242' },
+  { name: 'DR Congo', code: '+243' },
+  { name: 'Central African Republic', code: '+236' },
+  { name: 'Morocco', code: '+212' },
+  { name: 'Algeria', code: '+213' },
+  { name: 'Tunisia', code: '+216' },
+  { name: 'France', code: '+33' },
+  { name: 'Belgium', code: '+32' },
+  { name: 'Switzerland', code: '+41' },
+  { name: 'Italy', code: '+39' },
+  { name: 'Germany', code: '+49' },
+  { name: 'Spain', code: '+34' },
+  { name: 'United Kingdom', code: '+44' },
+  { name: 'Canada', code: '+1' },
+  { name: 'United States', code: '+1' },
 ]
 
 // ==================== COMPONENTS ====================
