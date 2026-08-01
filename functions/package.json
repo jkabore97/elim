@@ -2,7 +2,7 @@
   "name": "functions",
   "description": "Cloud Functions for ELIM - sends a push notification to every user with notifications enabled whenever a new post is published.",
   "engines": {
-    "node": "20"
+    "node": "24"
   },
   "main": "index.js",
   "dependencies": {
