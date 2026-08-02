@@ -1,9 +1,9 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import {
   Home, Church, PlusCircle, User, MessageCircle, Heart, Share2,
   Image as ImageIcon, Video, Mic, X, Send, LogOut,
   Youtube, Facebook, CheckCircle2, Clock, ArrowRight, ShieldCheck, UserX, Sparkles,
-  Trash2, Camera, FileText, Upload, Pencil, Globe, Eye, EyeOff
+  Trash2, Camera, FileText, Upload, Pencil, Globe, Eye, EyeOff, Search, Bell
 } from 'lucide-react'
 import {
   collection, addDoc, onSnapshot, query, orderBy, where,
@@ -16,9 +16,10 @@ import {
 } from 'firebase/auth'
 import { ref, uploadBytes, uploadBytesResumable, getDownloadURL } from 'firebase/storage'
 import { Capacitor, SystemBars, SystemBarsStyle } from '@capacitor/core'
+import { Share } from '@capacitor/share'
 import { EdgeToEdge } from '@capawesome/capacitor-android-edge-to-edge-support'
 import { auth, db, storage } from './firebase'
-import { enableNotifications, disableNotifications, listenForForegroundMessages } from './notifications'
+import { enableNotifications, disableNotifications, listenForForegroundMessages, checkNotificationPermission, reconcileNotificationState } from './notifications'
 import type { Post, Comment, AppUser } from './types'
 import { LanguageProvider, useLanguage, type Language } from './i18n'
 
@@ -658,6 +659,9 @@ function AppInner() {
   const [loading, setLoading] = useState(true)
   const [pendingChurches, setPendingChurches] = useState<AppUser[]>([])
   const [likedPostIds, setLikedPostIds] = useState<Set<string>>(new Set())
+  const [showNotifPrompt, setShowNotifPrompt] = useState(false)
+  const [feedFilter, setFeedFilter] = useState<'all' | 'video' | 'audio' | 'posts'>('all')
+  const [searchQuery, setSearchQuery] = useState('')
 
   // The whole app is dark-themed on native (both the auth screens and the
   // main shell), so this is applied once, unconditionally, rather than
@@ -672,6 +676,34 @@ function AppInner() {
     // notification for a new post without needing to reload.
     listenForForegroundMessages()
   }, [])
+
+  // Reconcile our stored notificationsEnabled flag against what the OS
+  // actually reports whenever a user loads. Handles the case where someone
+  // granted permission in-app but later revoked it in system settings -
+  // previously the app kept showing the toggle as on while notifications
+  // silently didn't arrive.
+  useEffect(() => {
+    if (!user) return
+    let cancelled = false
+    ;(async () => {
+      const actuallyEnabled = await reconcileNotificationState(user.uid, !!user.notificationsEnabled)
+      if (cancelled) return
+      if (actuallyEnabled !== !!user.notificationsEnabled) {
+        setUser(prev => prev ? { ...prev, notificationsEnabled: actuallyEnabled } : prev)
+      }
+      // Prompt anyone who hasn't made a decision yet - but only once per
+      // session, and never for someone who explicitly denied it (that would
+      // be nagging, and the OS won't re-prompt after a denial anyway).
+      if (!actuallyEnabled) {
+        const perm = await checkNotificationPermission()
+        if (!cancelled && perm === 'prompt' && !sessionStorage.getItem('elim-notif-prompted')) {
+          sessionStorage.setItem('elim-notif-prompted', '1')
+          setShowNotifPrompt(true)
+        }
+      }
+    })()
+    return () => { cancelled = true }
+  }, [user?.uid])
 
   // Auth listener
   useEffect(() => {
@@ -835,6 +867,32 @@ function AppInner() {
 
   if (user.role === 'pending_church') return <PendingScreen user={user} onLogout={handleLogout} />
 
+  // Filtering and search run client-side over the already-loaded feed. At
+  // congregation scale this is instant and avoids extra Firestore reads or
+  // composite indexes; if the post count ever grows large enough for this to
+  // lag, it'd move to server-side queries with pagination.
+  const visiblePosts = useMemo(() => {
+    let result = posts
+
+    if (feedFilter === 'video') {
+      result = result.filter(p => p.type === 'video' || p.type === 'youtube' || p.type === 'facebook')
+    } else if (feedFilter === 'audio') {
+      result = result.filter(p => p.type === 'audio')
+    } else if (feedFilter === 'posts') {
+      result = result.filter(p => p.type === 'text-image' || p.type === 'document')
+    }
+
+    const q = searchQuery.trim().toLowerCase()
+    if (q) {
+      result = result.filter(p =>
+        (p.content || '').toLowerCase().includes(q) ||
+        (p.churchName || '').toLowerCase().includes(q) ||
+        (p.fileName || '').toLowerCase().includes(q)
+      )
+    }
+    return result
+  }, [posts, feedFilter, searchQuery])
+
   const navItems = [
     { id: 'feed', icon: Home, label: t('nav.feed') },
     { id: 'profile', icon: User, label: t('nav.profile') },
@@ -903,17 +961,51 @@ function AppInner() {
           <main className="pb-28 lg:pb-16 px-4 lg:px-10 pt-4 lg:pt-10 lg:max-w-3xl xl:max-w-4xl lg:mx-auto">
             {activeTab === 'feed' && (
               <div className="space-y-4">
+                <div className="relative">
+                  <Search size={17} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 pointer-events-none" />
+                  <input value={searchQuery} onChange={e => setSearchQuery(e.target.value)}
+                    placeholder={t('feed.searchPlaceholder')}
+                    className="w-full pl-11 pr-10 py-3 rounded-2xl bg-white/5 border border-white/10 text-white placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-emerald-400/60 text-[15px]" />
+                  {searchQuery && (
+                    <button onClick={() => setSearchQuery('')}
+                      className="absolute right-3 top-1/2 -translate-y-1/2 p-1 rounded-full text-slate-400 hover:text-white hover:bg-white/10">
+                      <X size={15} />
+                    </button>
+                  )}
+                </div>
+
+                <div className="flex gap-2 overflow-x-auto pb-1">
+                  {([
+                    { id: 'all', label: t('feed.all') },
+                    { id: 'video', label: t('feed.videos') },
+                    { id: 'audio', label: t('feed.audios') },
+                    { id: 'posts', label: t('feed.posts') },
+                  ] as const).map(tab => (
+                    <button key={tab.id} onClick={() => setFeedFilter(tab.id)}
+                      className={`shrink-0 px-4 py-2 rounded-full text-sm font-semibold transition ${
+                        feedFilter === tab.id
+                          ? 'bg-emerald-500/15 text-emerald-400 border border-emerald-400/40'
+                          : 'bg-white/5 text-slate-400 border border-white/10 hover:text-slate-200'}`}>
+                      {tab.label}
+                    </button>
+                  ))}
+                </div>
+
                 {loading && <p className="text-center text-slate-400 py-16">{t('app.loading')}</p>}
-                {!loading && posts.length === 0 && (
+                {!loading && visiblePosts.length === 0 && (
                   <div className="text-center py-20">
                     <div className="w-16 h-16 rounded-full bg-emerald-500/10 flex items-center justify-center mx-auto mb-4">
                       <Church size={28} className="text-emerald-400" />
                     </div>
-                    <p className="text-slate-300 font-medium">{t('app.noPostsYet')}</p>
-                    <p className="text-sm text-slate-500 mt-1">{t('app.beFirstToShare')}</p>
+                    <p className="text-slate-300 font-medium">
+                      {searchQuery || feedFilter !== 'all' ? t('feed.noMatches') : t('app.noPostsYet')}
+                    </p>
+                    <p className="text-sm text-slate-500 mt-1">
+                      {searchQuery || feedFilter !== 'all' ? t('feed.tryDifferent') : t('app.beFirstToShare')}
+                    </p>
                   </div>
                 )}
-                {posts.map(post => (
+                {visiblePosts.map(post => (
                   <PostCard key={post.id} post={post} onLike={handleLike} onOpenComments={setActiveCommentsPost}
                     currentUserUid={user.uid} isLiked={likedPostIds.has(post.id)} onEdit={setEditingPost} onDelete={handleDeletePost} />
                 ))}
@@ -962,6 +1054,34 @@ function AppInner() {
           </div>
         </nav>
       </div>
+
+      {showNotifPrompt && (
+        <div className="fixed bottom-20 lg:bottom-6 left-4 right-4 lg:left-auto lg:right-6 lg:w-96 z-50 bg-[#1e293b] border border-white/10 rounded-3xl shadow-2xl p-5">
+          <div className="flex items-start gap-3">
+            <div className="w-10 h-10 rounded-2xl bg-emerald-500/15 flex items-center justify-center text-emerald-400 shrink-0">
+              <Bell size={19} />
+            </div>
+            <div className="min-w-0">
+              <h3 className="font-bold text-white text-[15px]">{t('notifPrompt.title')}</h3>
+              <p className="text-xs text-slate-400 mt-1 leading-relaxed">{t('notifPrompt.body')}</p>
+            </div>
+          </div>
+          <div className="flex gap-2 mt-4">
+            <button onClick={async () => {
+              setShowNotifPrompt(false)
+              const ok = await enableNotifications(user.uid)
+              if (ok) setUser(prev => prev ? { ...prev, notificationsEnabled: true } : prev)
+            }}
+              className="flex-1 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-semibold transition">
+              {t('notifPrompt.enable')}
+            </button>
+            <button onClick={() => setShowNotifPrompt(false)}
+              className="px-4 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-slate-300 text-sm font-semibold transition">
+              {t('notifPrompt.later')}
+            </button>
+          </div>
+        </div>
+      )}
 
       {showCreate && canPost && (
         <CreatePostModal onClose={() => setShowCreate(false)} onSubmit={handleCreatePost} uploaderUid={user.uid} />
@@ -1336,6 +1456,34 @@ function PostCard({ post, onLike, onOpenComments, currentUserUid, isLiked, onEdi
   const ytId = post.mediaUrl ? getYoutubeId(post.mediaUrl) : null
   const [confirmingDelete, setConfirmingDelete] = useState(false)
   const [likeError, setLikeError] = useState(false)
+  const [shareCopied, setShareCopied] = useState(false)
+
+  const handleShare = async () => {
+    const shareUrl = `https://ccelim.com/?post=${post.id}`
+    const shareTitle = post.churchName || 'ELIM'
+    const shareText = (post.content || '').slice(0, 160)
+
+    try {
+      // Native share sheet on Android/iOS.
+      if (Capacitor.isNativePlatform()) {
+        await Share.share({ title: shareTitle, text: shareText, url: shareUrl })
+        return
+      }
+      // Web Share API where supported (most mobile browsers).
+      if (navigator.share) {
+        await navigator.share({ title: shareTitle, text: shareText, url: shareUrl })
+        return
+      }
+      // Desktop browsers: copy to clipboard and confirm visually.
+      await navigator.clipboard.writeText(shareUrl)
+      setShareCopied(true)
+      setTimeout(() => setShareCopied(false), 2000)
+    } catch {
+      // User dismissing the share sheet throws too - not worth surfacing
+      // as an error, so this stays silent.
+    }
+  }
+
   const isOwner = post.churchId === currentUserUid
 
   const handleLikeClick = async () => {
@@ -1494,7 +1642,14 @@ function PostCard({ post, onLike, onOpenComments, currentUserUid, isLiked, onEdi
             {post.commentsCount || 0}
           </button>
         </div>
-        <button className="text-slate-300 hover:text-emerald-600"><Share2 size={18} /></button>
+        <button onClick={handleShare} className="relative text-slate-300 hover:text-emerald-600">
+          <Share2 size={18} />
+          {shareCopied && (
+            <span className="absolute -top-8 right-0 text-[11px] font-medium text-emerald-700 bg-emerald-50 rounded-full px-2.5 py-1 whitespace-nowrap">
+              {t('post.linkCopied')}
+            </span>
+          )}
+        </button>
       </div>
     </article>
   )

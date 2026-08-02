@@ -3,6 +3,22 @@ import { createContext, useContext, useState, useEffect, type ReactNode } from '
 export type Language = 'en' | 'fr'
 
 const translations = {
+  // ---- Feed filters & search ----
+  'feed.searchPlaceholder': { en: 'Search posts...', fr: 'Rechercher des publications...' },
+  'feed.all': { en: 'All', fr: 'Tout' },
+  'feed.videos': { en: 'Videos', fr: 'Vidéos' },
+  'feed.audios': { en: 'Audio', fr: 'Audio' },
+  'feed.posts': { en: 'Posts', fr: 'Publications' },
+  'feed.noMatches': { en: 'Nothing found', fr: 'Aucun résultat' },
+  'feed.tryDifferent': { en: 'Try a different search or filter', fr: 'Essayez une autre recherche ou un autre filtre' },
+  'post.linkCopied': { en: 'Link copied', fr: 'Lien copié' },
+
+  // ---- Notification prompt ----
+  'notifPrompt.title': { en: 'Stay updated', fr: 'Restez informé' },
+  'notifPrompt.body': { en: 'Turn on notifications to know when your church shares something new.', fr: 'Activez les notifications pour savoir quand votre église partage du nouveau contenu.' },
+  'notifPrompt.enable': { en: 'Turn on', fr: 'Activer' },
+  'notifPrompt.later': { en: 'Not now', fr: 'Plus tard' },
+
   // ---- Common ----
   'common.church': { en: 'Church', fr: 'Église' },
 

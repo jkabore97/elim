@@ -55,6 +55,44 @@ export async function disableNotifications(uid: string) {
   await updateDoc(doc(db, 'users', uid), { notificationsEnabled: false })
 }
 
+// Reads the REAL current permission state from the OS/browser, rather than
+// trusting our own stored notificationsEnabled flag. These can drift apart:
+// someone can revoke notification permission in system settings at any time,
+// and nothing tells the app that happened - which is why the toggle could
+// appear on while notifications silently no longer worked.
+export async function checkNotificationPermission(): Promise<'granted' | 'denied' | 'prompt'> {
+  try {
+    if (Capacitor.isNativePlatform()) {
+      const status = await PushNotifications.checkPermissions()
+      if (status.receive === 'granted') return 'granted'
+      if (status.receive === 'denied') return 'denied'
+      return 'prompt'
+    }
+    if (!('Notification' in window)) return 'denied'
+    if (Notification.permission === 'granted') return 'granted'
+    if (Notification.permission === 'denied') return 'denied'
+    return 'prompt'
+  } catch {
+    return 'denied'
+  }
+}
+
+// Called at startup: if our stored flag says notifications are on but the OS
+// disagrees, the flag is stale and gets corrected so the UI reflects reality.
+export async function reconcileNotificationState(uid: string, storedEnabled: boolean): Promise<boolean> {
+  const actual = await checkNotificationPermission()
+  if (storedEnabled && actual !== 'granted') {
+    await updateDoc(doc(db, 'users', uid), { notificationsEnabled: false }).catch(() => {})
+    return false
+  }
+  // Permission is granted and the flag agrees - but the token may have been
+  // rotated or cleared (OS reinstall, cleared data), so re-register to be safe.
+  if (storedEnabled && actual === 'granted') {
+    enableNotifications(uid).catch(() => {})
+  }
+  return storedEnabled && actual === 'granted'
+}
+
 // Foreground web notifications don't show natively (that's browser
 // behavior, not a bug) - this listens while the tab is open and shows one
 // manually so web users get the same experience as the native app.
