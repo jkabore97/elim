@@ -1058,27 +1058,27 @@ function AppInner() {
 
         {/* Bottom Nav — mobile & tablet only */}
         <nav className="lg:hidden fixed bottom-0 left-0 right-0 bg-[#0f172a]/90 backdrop-blur-xl border-t border-white/10 safe-bottom z-50">
-          <div className="max-w-lg mx-auto flex justify-around items-center h-16 px-2">
+          <div className="max-w-lg mx-auto flex items-center h-16 px-1">
             {navItems.map(item => {
               const Icon = item.icon
               const active = activeTab === item.id
               return (
                 <button key={item.id} onClick={() => setActiveTab(item.id)}
-                  className={`relative flex flex-col items-center justify-center w-20 h-full transition ${
+                  className={`relative flex flex-col items-center justify-center flex-1 min-w-0 h-full transition ${
                     active ? 'text-emerald-400' : 'text-slate-400'}`}>
-                  <Icon size={22} strokeWidth={active ? 2.5 : 2} />
+                  <Icon size={21} strokeWidth={active ? 2.5 : 2} />
                   {item.id === 'admin' && pendingChurches.length > 0 && (
-                    <span className="absolute top-1.5 right-5 w-4 h-4 rounded-full bg-red-500 text-white text-[9px] font-bold flex items-center justify-center">
+                    <span className="absolute top-1.5 right-2 w-4 h-4 rounded-full bg-red-500 text-white text-[9px] font-bold flex items-center justify-center">
                       {pendingChurches.length}
                     </span>
                   )}
-                  <span className="text-[10px] mt-1 font-medium">{item.label}</span>
+                  <span className="text-[10px] mt-1 font-medium truncate max-w-full px-0.5">{item.label}</span>
                 </button>
               )
             })}
             {canPost && (
               <button onClick={() => setShowCreate(true)}
-                className="flex flex-col items-center justify-center w-20 h-full text-emerald-400">
+                className="flex flex-col items-center justify-center flex-1 min-w-0 h-full text-emerald-400">
                 <div className="w-10 h-10 rounded-full bg-emerald-600 text-white flex items-center justify-center shadow-lg shadow-emerald-500/40 -mt-4">
                   <PlusCircle size={22} />
                 </div>
