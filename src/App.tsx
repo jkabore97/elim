@@ -21,6 +21,7 @@ import { EdgeToEdge } from '@capawesome/capacitor-android-edge-to-edge-support'
 import { auth, db, storage } from './firebase'
 import { enableNotifications, disableNotifications, listenForForegroundMessages, checkNotificationPermission, reconcileNotificationState } from './notifications'
 import { logActivity } from './activityLog'
+import { AnimatedSplash } from './AnimatedSplash'
 import type { Post, Comment, AppUser, ActivityLog } from './types'
 import { LanguageProvider, useLanguage, type Language } from './i18n'
 
@@ -669,6 +670,7 @@ function AppInner() {
   const [pendingChurches, setPendingChurches] = useState<AppUser[]>([])
   const [likedPostIds, setLikedPostIds] = useState<Set<string>>(new Set())
   const [showNotifPrompt, setShowNotifPrompt] = useState(false)
+  const [splashDone, setSplashDone] = useState(false)
   const [feedFilter, setFeedFilter] = useState<'all' | 'video' | 'audio' | 'posts'>('all')
   const [searchQuery, setSearchQuery] = useState('')
 
@@ -862,9 +864,17 @@ function AppInner() {
     logActivity(user, 'church_denied', church?.churchName || church?.displayName || uid)
   }
 
+  // The animated intro runs ahead of everything, including the auth check -
+  // so the app feels like it's presenting itself rather than making the
+  // person watch a loading spinner. Auth resolves in the background during
+  // the animation, so this usually costs no extra wait at all.
+  if (!splashDone) {
+    return <AnimatedSplash onDone={() => setSplashDone(true)} />
+  }
+
   if (authLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-slate-50">
+      <div className="min-h-screen flex items-center justify-center bg-[#0f172a]">
         <div className="w-10 h-10 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin" />
       </div>
     )

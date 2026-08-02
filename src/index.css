@@ -58,3 +58,9 @@ video, audio {
 .heavenly-bg {
   background: linear-gradient(180deg, #fffbeb 0%, #ffffff 40%, #f0fdf6 100%);
 }
+
+/* Shimmer sweep used by the animated splash loading bar */
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(300%); }
+}
