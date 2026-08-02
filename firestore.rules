@@ -46,6 +46,18 @@ service cloud.firestore {
                     );
     }
 
+    // ---- Activity logs ----
+    // Admin-only visibility. Any signed-in user can append entries about
+    // their own actions (that's how sign-ins/posts get recorded at all),
+    // but the userId must match their own uid, so nobody can fabricate
+    // entries attributed to someone else. Immutable once written - no
+    // updates or deletes, by anyone, including admins.
+    match /activityLogs/{logId} {
+      allow read: if isAdmin();
+      allow create: if isSignedIn() && request.resource.data.userId == request.auth.uid;
+      allow update, delete: if false;
+    }
+
     // ---- Church directory ----
     // A minimal public mirror of church accounts (name only), specifically so
     // the member-signup form can populate a "pick your church" dropdown

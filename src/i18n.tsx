@@ -19,6 +19,22 @@ const translations = {
   'notifPrompt.enable': { en: 'Turn on', fr: 'Activer' },
   'notifPrompt.later': { en: 'Not now', fr: 'Plus tard' },
 
+  'nav.logs': { en: 'Logs', fr: 'Journaux' },
+  'logs.searchPlaceholder': { en: 'Search logs...', fr: 'Rechercher dans les journaux...' },
+  'logs.all': { en: 'All', fr: 'Tout' },
+  'logs.authFilter': { en: 'Sign-ins', fr: 'Connexions' },
+  'logs.postsFilter': { en: 'Posts', fr: 'Publications' },
+  'logs.adminFilter': { en: 'Admin', fr: 'Admin' },
+  'logs.empty': { en: 'No activity recorded yet', fr: 'Aucune activité enregistrée' },
+  'logs.signin': { en: 'SIGN IN', fr: 'CONNEXION' },
+  'logs.signup': { en: 'SIGN UP', fr: 'INSCRIPTION' },
+  'logs.postCreated': { en: 'POST', fr: 'PUBLICATION' },
+  'logs.postEdited': { en: 'EDITED', fr: 'MODIFIÉ' },
+  'logs.postDeleted': { en: 'DELETED', fr: 'SUPPRIMÉ' },
+  'logs.churchApproved': { en: 'APPROVED', fr: 'APPROUVÉ' },
+  'logs.churchDenied': { en: 'DENIED', fr: 'REFUSÉ' },
+  'logs.directorySynced': { en: 'SYNCED', fr: 'SYNCHRONISÉ' },
+
   // ---- Common ----
   'common.church': { en: 'Church', fr: 'Église' },
 

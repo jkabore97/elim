@@ -48,6 +48,23 @@ export interface Post {
   createdAt: any;
 }
 
+export type ActivityAction =
+  | 'signin' | 'signup'
+  | 'post_created' | 'post_edited' | 'post_deleted'
+  | 'church_approved' | 'church_denied'
+  | 'directory_synced';
+
+export interface ActivityLog {
+  id: string;
+  action: ActivityAction;
+  userId: string;
+  userName: string;
+  userRole: string;
+  // Human-readable context, e.g. the church name approved or a post excerpt.
+  detail?: string;
+  createdAt?: any;
+}
+
 export interface Comment {
   id: string;
   postId: string;

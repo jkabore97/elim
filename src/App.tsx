@@ -3,11 +3,11 @@ import {
   Home, Church, PlusCircle, User, MessageCircle, Heart, Share2,
   Image as ImageIcon, Video, Mic, X, Send, LogOut,
   Youtube, Facebook, CheckCircle2, Clock, ArrowRight, ShieldCheck, UserX, Sparkles,
-  Trash2, Camera, FileText, Upload, Pencil, Globe, Eye, EyeOff, Search, Bell
+  Trash2, Camera, FileText, Upload, Pencil, Globe, Eye, EyeOff, Search, Bell, ScrollText
 } from 'lucide-react'
 import {
   collection, addDoc, onSnapshot, query, orderBy, where,
-  serverTimestamp, doc, updateDoc, deleteDoc, increment, setDoc, getDoc, getDocs
+  serverTimestamp, doc, updateDoc, deleteDoc, increment, setDoc, getDoc, getDocs, limit
 } from 'firebase/firestore'
 import {
   createUserWithEmailAndPassword, signInWithEmailAndPassword,
@@ -20,7 +20,8 @@ import { Share } from '@capacitor/share'
 import { EdgeToEdge } from '@capawesome/capacitor-android-edge-to-edge-support'
 import { auth, db, storage } from './firebase'
 import { enableNotifications, disableNotifications, listenForForegroundMessages, checkNotificationPermission, reconcileNotificationState } from './notifications'
-import type { Post, Comment, AppUser } from './types'
+import { logActivity } from './activityLog'
+import type { Post, Comment, AppUser, ActivityLog } from './types'
 import { LanguageProvider, useLanguage, type Language } from './i18n'
 
 function timeAgo(date: any) {
@@ -170,7 +171,11 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
         const loginPassword = accountType === 'member' ? pin : password
         const cred = await signInWithEmailAndPassword(auth, loginEmail, loginPassword)
         const snap = await getDoc(doc(db, 'users', cred.user.uid))
-        if (snap.exists()) onSuccess(snap.data() as AppUser)
+        if (snap.exists()) {
+          const profile = snap.data() as AppUser
+          logActivity(profile, 'signin')
+          onSuccess(profile)
+        }
         else throw new Error('User profile not found')
       } else {
         const fullName = `${firstName} ${lastName}`.trim()
@@ -190,6 +195,9 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
             ...(selectedChurch ? { memberChurchId: selectedChurch.id, memberChurchName: selectedChurch.name } : {})
           }
           await setDoc(doc(db, 'users', cred.user.uid), profile)
+          // Must log before signOut - the rules require request.auth.uid to
+          // match the entry's userId, which is only true while signed in.
+          logActivity(profile, 'signup', selectedChurch ? `Member - ${selectedChurch.name}` : 'Member - no church')
           await signOut(auth)
           setMode('login')
           setPin(''); setConfirmPin('')
@@ -209,6 +217,7 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
             createdAt: serverTimestamp()
           }
           await setDoc(doc(db, 'users', cred.user.uid), profile)
+          logActivity(profile, 'signup', `Church - ${churchName}`)
           await signOut(auth)
           setMode('login')
           setPassword(''); setConfirmPassword('')
@@ -773,11 +782,14 @@ function AppInner() {
   }
 
   const handleDeletePost = async (id: string) => {
+    const post = posts.find(p => p.id === id)
     await deleteDoc(doc(db, 'posts', id))
+    logActivity(user, 'post_deleted', post?.content?.slice(0, 80))
   }
 
   const handleEditPost = async (id: string, content: string) => {
     await updateDoc(doc(db, 'posts', id), { content })
+    logActivity(user, 'post_edited', content.slice(0, 80))
   }
 
   const handleCreatePost = async (data: { type: Post['type']; content: string; mediaUrl?: string; coverUrl?: string; fileName?: string }) => {
@@ -801,6 +813,7 @@ function AppInner() {
       commentsCount: 0,
       createdAt: serverTimestamp()
     })
+    logActivity(user, 'post_created', `${finalType} - ${data.content.slice(0, 60)}`)
   }
 
   const handleAddComment = async (text: string) => {
@@ -838,12 +851,15 @@ function AppInner() {
     if (church) {
       await setDoc(doc(db, 'churchDirectory', uid), { name: church.churchName || church.displayName })
     }
+    logActivity(user, 'church_approved', church?.churchName || church?.displayName || uid)
   }
 
   const handleDenyChurch = async (uid: string) => {
+    const church = pendingChurches.find(c => c.uid === uid)
     // Deny doesn't delete the account — it just drops them back to a normal
     // member so they aren't stuck pending forever and can still use the app.
     await updateDoc(doc(db, 'users', uid), { role: 'member' })
+    logActivity(user, 'church_denied', church?.churchName || church?.displayName || uid)
   }
 
   if (authLoading) {
@@ -896,7 +912,10 @@ function AppInner() {
   const navItems = [
     { id: 'feed', icon: Home, label: t('nav.feed') },
     { id: 'profile', icon: User, label: t('nav.profile') },
-    ...(user.role === 'admin' ? [{ id: 'admin', icon: ShieldCheck, label: t('nav.admin') }] : [])
+    ...(user.role === 'admin' ? [
+      { id: 'admin', icon: ShieldCheck, label: t('nav.admin') },
+      { id: 'logs', icon: ScrollText, label: t('nav.logs') }
+    ] : [])
   ]
 
   return (
@@ -1017,7 +1036,11 @@ function AppInner() {
             )}
 
             {activeTab === 'admin' && user.role === 'admin' && (
-              <AdminPanel pendingChurches={pendingChurches} onApprove={handleApproveChurch} onDeny={handleDenyChurch} />
+              <AdminPanel pendingChurches={pendingChurches} onApprove={handleApproveChurch} onDeny={handleDenyChurch} currentUser={user} />
+            )}
+
+            {activeTab === 'logs' && user.role === 'admin' && (
+              <LogsPanel />
             )}
           </main>
         </div>
@@ -1329,10 +1352,121 @@ function ProfileTab({ user, onProfileUpdated }: {
   )
 }
 
-function AdminPanel({ pendingChurches, onApprove, onDeny }: {
+function LogsPanel() {
+  const { t } = useLanguage()
+  const [logs, setLogs] = useState<ActivityLog[]>([])
+  const [loading, setLoading] = useState(true)
+  const [filter, setFilter] = useState<'all' | 'auth' | 'posts' | 'admin'>('all')
+  const [search, setSearch] = useState('')
+
+  useEffect(() => {
+    // Capped at 300 - enough to troubleshoot recent issues without pulling
+    // an unbounded collection into memory as the log grows over time.
+    const q = query(collection(db, 'activityLogs'), orderBy('createdAt', 'desc'), limit(300))
+    const unsub = onSnapshot(q, snap => {
+      setLogs(snap.docs.map(d => ({ id: d.id, ...d.data() } as ActivityLog)))
+      setLoading(false)
+    }, () => setLoading(false))
+    return () => unsub()
+  }, [])
+
+  const ACTION_META: Record<string, { label: string; color: string }> = {
+    signin: { label: t('logs.signin'), color: 'bg-blue-50 text-blue-700' },
+    signup: { label: t('logs.signup'), color: 'bg-emerald-50 text-emerald-700' },
+    post_created: { label: t('logs.postCreated'), color: 'bg-emerald-50 text-emerald-700' },
+    post_edited: { label: t('logs.postEdited'), color: 'bg-amber-50 text-amber-700' },
+    post_deleted: { label: t('logs.postDeleted'), color: 'bg-red-50 text-red-700' },
+    church_approved: { label: t('logs.churchApproved'), color: 'bg-emerald-50 text-emerald-700' },
+    church_denied: { label: t('logs.churchDenied'), color: 'bg-red-50 text-red-700' },
+    directory_synced: { label: t('logs.directorySynced'), color: 'bg-slate-100 text-slate-600' },
+  }
+
+  const visible = useMemo(() => {
+    let result = logs
+    if (filter === 'auth') result = result.filter(l => ['signin', 'signup'].includes(l.action))
+    else if (filter === 'posts') result = result.filter(l => l.action.startsWith('post_'))
+    else if (filter === 'admin') result = result.filter(l => l.action.startsWith('church_') || l.action === 'directory_synced')
+
+    const q = search.trim().toLowerCase()
+    if (q) {
+      result = result.filter(l =>
+        (l.userName || '').toLowerCase().includes(q) ||
+        (l.detail || '').toLowerCase().includes(q) ||
+        (ACTION_META[l.action]?.label || l.action).toLowerCase().includes(q)
+      )
+    }
+    return result
+  }, [logs, filter, search])
+
+  return (
+    <div className="space-y-4">
+      <div className="relative">
+        <Search size={17} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 pointer-events-none" />
+        <input value={search} onChange={e => setSearch(e.target.value)} placeholder={t('logs.searchPlaceholder')}
+          className="w-full pl-11 pr-10 py-3 rounded-2xl bg-white/5 border border-white/10 text-white placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-emerald-400/60 text-[15px]" />
+        {search && (
+          <button onClick={() => setSearch('')}
+            className="absolute right-3 top-1/2 -translate-y-1/2 p-1 rounded-full text-slate-400 hover:text-white hover:bg-white/10">
+            <X size={15} />
+          </button>
+        )}
+      </div>
+
+      <div className="flex gap-2 overflow-x-auto pb-1">
+        {([
+          { id: 'all', label: t('logs.all') },
+          { id: 'auth', label: t('logs.authFilter') },
+          { id: 'posts', label: t('logs.postsFilter') },
+          { id: 'admin', label: t('logs.adminFilter') },
+        ] as const).map(tab => (
+          <button key={tab.id} onClick={() => setFilter(tab.id)}
+            className={`shrink-0 px-4 py-2 rounded-full text-sm font-semibold transition ${
+              filter === tab.id
+                ? 'bg-emerald-500/15 text-emerald-400 border border-emerald-400/40'
+                : 'bg-white/5 text-slate-400 border border-white/10 hover:text-slate-200'}`}>
+            {tab.label}
+          </button>
+        ))}
+      </div>
+
+      {loading && <p className="text-center text-slate-400 py-16">{t('app.loading')}</p>}
+
+      {!loading && visible.length === 0 && (
+        <div className="text-center py-20">
+          <div className="w-16 h-16 rounded-full bg-emerald-500/10 flex items-center justify-center mx-auto mb-4">
+            <ScrollText size={28} className="text-emerald-400" />
+          </div>
+          <p className="text-slate-300 font-medium">{t('logs.empty')}</p>
+        </div>
+      )}
+
+      {!loading && visible.length > 0 && (
+        <div className="bg-white rounded-3xl shadow-sm border border-slate-100 overflow-hidden">
+          {visible.map((log, i) => {
+            const meta = ACTION_META[log.action] || { label: log.action, color: 'bg-slate-100 text-slate-600' }
+            return (
+              <div key={log.id} className={`px-5 py-3.5 ${i !== visible.length - 1 ? 'border-b border-slate-50' : ''}`}>
+                <div className="flex items-center gap-2 flex-wrap">
+                  <span className={`text-[11px] font-bold px-2 py-0.5 rounded-full ${meta.color}`}>{meta.label}</span>
+                  <span className="text-sm font-semibold text-slate-800">{log.userName}</span>
+                  <span className="text-[11px] text-slate-400">({log.userRole})</span>
+                  <span className="text-[11px] text-slate-400 ml-auto">{timeAgo(log.createdAt)}</span>
+                </div>
+                {log.detail && <p className="text-xs text-slate-500 mt-1.5 break-words">{log.detail}</p>}
+              </div>
+            )
+          })}
+        </div>
+      )}
+    </div>
+  )
+}
+
+function AdminPanel({ pendingChurches, onApprove, onDeny, currentUser }: {
   pendingChurches: AppUser[]
   onApprove: (uid: string) => void
   onDeny: (uid: string) => void
+  currentUser: AppUser
 }) {
   const { t } = useLanguage()
   const [busyUid, setBusyUid] = useState<string | null>(null)
@@ -1371,6 +1505,7 @@ function AdminPanel({ pendingChurches, onApprove, onDeny }: {
         })
       } else {
         setSyncResult({ ok: true, count: succeeded, total: results.length })
+        logActivity(currentUser, 'directory_synced', `${succeeded} church(es)`)
       }
     } catch (err: any) {
       setSyncResult({ ok: false, error: err.message || err.code || String(err) })
