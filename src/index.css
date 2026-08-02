@@ -64,3 +64,17 @@ video, audio {
   0% { transform: translateX(-100%); }
   100% { transform: translateX(300%); }
 }
+
+/* Scroll performance on mobile.
+   The feed's fixed blurred glow layers forced a full re-composite on every
+   scroll frame, which showed up as visible flashing/tearing on phones.
+   Containing paint per card stops each one from invalidating the whole
+   scroll area, and the momentum-scroll hint keeps iOS smooth. */
+@media (max-width: 1023px) {
+  article {
+    contain: paint;
+  }
+  main {
+    -webkit-overflow-scrolling: touch;
+  }
+}

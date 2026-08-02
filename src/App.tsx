@@ -931,8 +931,14 @@ function AppInner() {
 
   return (
     <div className="min-h-screen bg-[#0f172a] max-w-lg mx-auto lg:max-w-none lg:mx-0 relative">
-      <div className="fixed top-0 left-1/4 w-[500px] h-[500px] bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
-      <div className="fixed bottom-0 right-0 lg:right-1/4 w-[400px] h-[400px] bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
+      <div
+        className="fixed top-0 left-1/4 w-[500px] h-[500px] bg-emerald-500/10 rounded-full blur-2xl lg:blur-3xl pointer-events-none"
+        style={{ transform: 'translateZ(0)', willChange: 'transform' }}
+      />
+      <div
+        className="fixed bottom-0 right-0 lg:right-1/4 w-[400px] h-[400px] bg-amber-500/10 rounded-full blur-2xl lg:blur-3xl pointer-events-none"
+        style={{ transform: 'translateZ(0)', willChange: 'transform' }}
+      />
       <div className="lg:flex">
         {/* Sidebar — desktop only */}
         <aside className="hidden lg:flex lg:flex-col lg:w-64 lg:shrink-0 lg:h-screen lg:sticky lg:top-0 border-r border-white/10 bg-[#1e293b] px-6 py-8">
@@ -975,7 +981,7 @@ function AppInner() {
 
         <div className="flex-1 min-w-0">
           {/* Header — mobile & tablet only */}
-          <header className="lg:hidden sticky top-0 z-40 bg-[#0f172a]/80 backdrop-blur-xl border-b border-white/10">
+          <header className="lg:hidden sticky top-0 z-40 bg-[#0f172a] border-b border-white/10">
             <div className="px-5 h-14 flex items-center justify-between">
               <Logo size={32} />
               <div className="flex items-center gap-2.5">
@@ -1057,7 +1063,7 @@ function AppInner() {
         </div>
 
         {/* Bottom Nav — mobile & tablet only */}
-        <nav className="lg:hidden fixed bottom-0 left-0 right-0 bg-[#0f172a]/90 backdrop-blur-xl border-t border-white/10 safe-bottom z-50">
+        <nav className="lg:hidden fixed bottom-0 left-0 right-0 bg-[#0f172a] border-t border-white/10 safe-bottom z-50">
           <div className="max-w-lg mx-auto flex items-center h-16 px-1">
             {navItems.map(item => {
               const Icon = item.icon
