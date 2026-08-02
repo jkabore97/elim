@@ -865,6 +865,32 @@ function AppInner() {
     logActivity(user, 'church_denied', church?.churchName || church?.displayName || uid)
   }
 
+  // Filtering and search run client-side over the already-loaded feed. At
+  // congregation scale this is instant and avoids extra Firestore reads or
+  // composite indexes; if the post count ever grows large enough for this to
+  // lag, it'd move to server-side queries with pagination.
+  const visiblePosts = useMemo(() => {
+    let result = posts
+
+    if (feedFilter === 'video') {
+      result = result.filter(p => p.type === 'video' || p.type === 'youtube' || p.type === 'facebook')
+    } else if (feedFilter === 'audio') {
+      result = result.filter(p => p.type === 'audio')
+    } else if (feedFilter === 'posts') {
+      result = result.filter(p => p.type === 'text-image' || p.type === 'document')
+    }
+
+    const q = searchQuery.trim().toLowerCase()
+    if (q) {
+      result = result.filter(p =>
+        (p.content || '').toLowerCase().includes(q) ||
+        (p.churchName || '').toLowerCase().includes(q) ||
+        (p.fileName || '').toLowerCase().includes(q)
+      )
+    }
+    return result
+  }, [posts, feedFilter, searchQuery])
+
   // The animated intro runs ahead of everything, including the auth check -
   // so the app feels like it's presenting itself rather than making the
   // person watch a loading spinner. Auth resolves in the background during
@@ -893,32 +919,6 @@ function AppInner() {
   }
 
   if (user.role === 'pending_church') return <PendingScreen user={user} onLogout={handleLogout} />
-
-  // Filtering and search run client-side over the already-loaded feed. At
-  // congregation scale this is instant and avoids extra Firestore reads or
-  // composite indexes; if the post count ever grows large enough for this to
-  // lag, it'd move to server-side queries with pagination.
-  const visiblePosts = useMemo(() => {
-    let result = posts
-
-    if (feedFilter === 'video') {
-      result = result.filter(p => p.type === 'video' || p.type === 'youtube' || p.type === 'facebook')
-    } else if (feedFilter === 'audio') {
-      result = result.filter(p => p.type === 'audio')
-    } else if (feedFilter === 'posts') {
-      result = result.filter(p => p.type === 'text-image' || p.type === 'document')
-    }
-
-    const q = searchQuery.trim().toLowerCase()
-    if (q) {
-      result = result.filter(p =>
-        (p.content || '').toLowerCase().includes(q) ||
-        (p.churchName || '').toLowerCase().includes(q) ||
-        (p.fileName || '').toLowerCase().includes(q)
-      )
-    }
-    return result
-  }, [posts, feedFilter, searchQuery])
 
   const navItems = [
     { id: 'feed', icon: Home, label: t('nav.feed') },
