@@ -22,6 +22,7 @@ import { auth, db, storage } from './firebase'
 import { enableNotifications, disableNotifications, listenForForegroundMessages, checkNotificationPermission, reconcileNotificationState } from './notifications'
 import { logActivity } from './activityLog'
 import { AnimatedSplash } from './AnimatedSplash'
+import { attachMediaSession, updateMediaSessionState } from './mediaSession'
 import type { Post, Comment, AppUser, ActivityLog } from './types'
 import { LanguageProvider, useLanguage, type Language } from './i18n'
 
@@ -1736,7 +1737,7 @@ function PostCard({ post, onLike, onOpenComments, currentUserUid, isLiked, onEdi
       )}
 
       {post.type === 'video' && post.mediaUrl && !ytId && (
-        <video src={post.mediaUrl} controls className="w-full max-h-72 bg-black" />
+        <video src={post.mediaUrl} controls playsInline preload="metadata" className="w-full max-h-72 bg-black" />
       )}
 
       {post.type === 'audio' && post.mediaUrl && (
@@ -1748,7 +1749,21 @@ function PostCard({ post, onLike, onOpenComments, currentUserUid, isLiked, onEdi
             <div className="w-9 h-9 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-600 shrink-0">
               <Mic size={16} />
             </div>
-            <audio src={post.mediaUrl} controls className="w-full h-9" />
+            <audio
+              src={post.mediaUrl}
+              controls
+              preload="metadata"
+              className="w-full h-9"
+              onPlay={e => {
+                attachMediaSession(e.currentTarget, {
+                  title: post.content?.slice(0, 60) || 'Audio',
+                  artist: post.churchName || 'ELIM',
+                  artwork: post.coverUrl || undefined
+                })
+                updateMediaSessionState(true)
+              }}
+              onPause={() => updateMediaSessionState(false)}
+            />
           </div>
         </div>
       )}
