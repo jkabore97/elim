@@ -37,6 +37,19 @@ service firebase.storage {
       );
     }
 
+    // Message attachments (photos and voice notes). Written only by the
+    // sender, under their own uid. Read is open like the other buckets —
+    // the real security boundary for messaging is firestore.rules on the
+    // conversations/messages collections, which controls who can ever
+    // learn the URL in the first place.
+    match /message-media/{uid}/{fileName} {
+      allow read: if true;
+      allow write: if isOwner(uid) && (
+        (request.resource.contentType.matches('image/.*') && request.resource.size < 10 * 1024 * 1024) ||
+        (request.resource.contentType.matches('audio/.*') && request.resource.size < 25 * 1024 * 1024)
+      );
+    }
+
     // Deny everything else by default.
     match /{allPaths=**} {
       allow read, write: if false;

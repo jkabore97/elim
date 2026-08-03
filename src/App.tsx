@@ -828,7 +828,7 @@ function AppInner() {
     return unsub
   }, [user])
 
-  const canPost = user?.role === 'church' || user?.role === 'admin'
+  const canPost = user?.role === 'church' || user?.role === 'admin' || user?.role === 'pastor'
 
   const handleLogout = async () => {
     await signOut(auth)
@@ -975,7 +975,7 @@ function AppInner() {
     { id: 'feed', icon: Home, label: t('nav.feed') },
     { id: 'messages', icon: MessageCircle, label: t('nav.messages') },
     { id: 'profile', icon: User, label: t('nav.profile') },
-    ...(user.role === 'admin' ? [
+    ...((user.role === 'admin' || user.role === 'pastor') ? [
       { id: 'admin', icon: ShieldCheck, label: t('nav.admin') },
       { id: 'logs', icon: ScrollText, label: t('nav.logs') }
     ] : [])
@@ -1109,11 +1109,11 @@ function AppInner() {
               <ProfileTab user={user} onProfileUpdated={(updates) => setUser(prev => prev ? { ...prev, ...updates } : prev)} />
             )}
 
-            {activeTab === 'admin' && user.role === 'admin' && (
+            {activeTab === 'admin' && (user.role === 'admin' || user.role === 'pastor') && (
               <AdminPanel pendingChurches={pendingChurches} onApprove={handleApproveChurch} onDeny={handleDenyChurch} currentUser={user} />
             )}
 
-            {activeTab === 'logs' && user.role === 'admin' && (
+            {activeTab === 'logs' && (user.role === 'admin' || user.role === 'pastor') && (
               <LogsPanel />
             )}
           </main>

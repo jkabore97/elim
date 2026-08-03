@@ -1,4 +1,7 @@
-export type UserRole = "member" | "church" | "pending_church" | "admin";
+// 'pastor' carries the same privileges as 'admin' (approvals, logs, etc.)
+// but is a distinct role so pastoral message threads can be routed to the
+// pastor specifically, separate from technical support.
+export type UserRole = "member" | "church" | "pending_church" | "admin" | "pastor";
 
 export interface AppUser {
   uid: string;
@@ -73,12 +76,17 @@ export interface ActivityLog {
 //    church/admin accounts can start these.
 export interface Conversation {
   id: string;
-  type: 'support' | 'direct';
+  // 'pastor' and 'tech' are the two support channels every member and
+  // church can open. 'direct' is a one-to-one thread started by staff.
+  type: 'pastor' | 'tech' | 'direct';
   // For 'support' this is just [memberUid]; staff access is granted by role
   // rather than membership, so any staff member can pick up the thread.
   participantIds: string[];
   participantNames: Record<string, string>;
   participantAvatars?: Record<string, string>;
+  // Role of the non-staff side, so the inbox can badge a thread without a
+  // second lookup on the user document.
+  ownerRole?: string;
   lastMessage?: string;
   lastMessageAt?: any;
   lastSenderId?: string;
@@ -95,6 +103,11 @@ export interface Message {
   senderName: string;
   senderRole: string;
   text: string;
+  // Optional attachment. 'image' and 'audio' are uploaded to Storage under
+  // message-media/{senderUid}/ and referenced by download URL.
+  mediaUrl?: string;
+  mediaType?: 'image' | 'audio';
+  mediaDuration?: number;
   // Denormalized from the parent conversation so security rules can check
   // access on the message itself, without an expensive get() on every single
   // message read.

@@ -3,36 +3,93 @@ import {
   collection, doc, setDoc, addDoc, updateDoc, onSnapshot,
   query, where, orderBy, limit, serverTimestamp, getDoc, getDocs
 } from 'firebase/firestore'
-import { ArrowLeft, Send, Search, MessageCircle, Plus, X, LifeBuoy, ShieldCheck } from 'lucide-react'
-import { db } from './firebase'
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
+import {
+  ArrowLeft, Send, Search, MessageCircle, Plus, X, LifeBuoy,
+  ShieldCheck, HeartHandshake, Image as ImageIcon, Mic, Trash2, Play, Pause
+} from 'lucide-react'
+import { db, storage } from './firebase'
 import { useLanguage } from './i18n'
 import type { AppUser, Conversation, Message } from './types'
 
-// Staff = anyone who can see the support inbox and start conversations.
+// Staff = the two accounts that receive and answer messages. Church accounts
+// are deliberately NOT staff here: for messaging they are recipients like any
+// member, and get the same two support channels.
 export function isStaff(user: AppUser) {
-  return user.role === 'church' || user.role === 'admin'
+  return user.role === 'pastor' || user.role === 'admin'
 }
 
-// Deterministic IDs mean a given pair (or a given member's support thread)
-// can only ever have one conversation - no duplicate threads if two people
-// hit "message" at the same moment.
-export function supportConversationId(memberUid: string) {
-  return `support_${memberUid}`
+export function pastorConversationId(uid: string) { return `pastor_${uid}` }
+export function techConversationId(uid: string) { return `tech_${uid}` }
+export function directConversationId(a: string, b: string) {
+  return `direct_${[a, b].sort().join('_')}`
 }
-export function directConversationId(uidA: string, uidB: string) {
-  return `direct_${[uidA, uidB].sort().join('_')}`
+
+// Single source of truth for how each role is labelled and coloured, so a
+// pastor looks like a pastor everywhere rather than drifting between screens.
+export function roleMeta(role: string, t: (k: any) => string) {
+  switch (role) {
+    case 'pastor':
+      return { label: t('role.pastor'), chip: 'bg-indigo-100 text-indigo-700', Icon: HeartHandshake }
+    case 'admin':
+      return { label: t('role.admin'), chip: 'bg-blue-100 text-blue-700', Icon: ShieldCheck }
+    case 'church':
+      return { label: t('role.church'), chip: 'bg-emerald-100 text-emerald-700', Icon: ShieldCheck }
+    case 'pending_church':
+      return { label: t('role.pendingChurch'), chip: 'bg-amber-100 text-amber-700', Icon: ShieldCheck }
+    default:
+      return { label: t('role.member'), chip: 'bg-slate-100 text-slate-600', Icon: MessageCircle }
+  }
 }
 
 function timeShort(date: any): string {
   if (!date) return ''
   const d = date.toDate ? date.toDate() : new Date(date)
   const now = new Date()
-  const sameDay = d.toDateString() === now.toDateString()
-  if (sameDay) return d.toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit' })
-  const yesterday = new Date(now)
-  yesterday.setDate(now.getDate() - 1)
-  if (d.toDateString() === yesterday.toDateString()) return 'Hier'
+  if (d.toDateString() === now.toDateString()) {
+    return d.toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit' })
+  }
   return d.toLocaleDateString(undefined, { day: 'numeric', month: 'short' })
+}
+
+function fmtDuration(secs: number) {
+  const m = Math.floor(secs / 60)
+  const s = Math.floor(secs % 60)
+  return `${m}:${s.toString().padStart(2, '0')}`
+}
+
+// ==================== AUDIO BUBBLE ====================
+
+function AudioBubble({ url, mine }: { url: string; mine: boolean }) {
+  const audioRef = useRef<HTMLAudioElement>(null)
+  const [playing, setPlaying] = useState(false)
+
+  const toggle = () => {
+    const a = audioRef.current
+    if (!a) return
+    if (playing) a.pause()
+    else a.play().catch(() => {})
+  }
+
+  return (
+    <div className="flex items-center gap-2.5 py-1">
+      <button onClick={toggle}
+        className={`w-9 h-9 rounded-full flex items-center justify-center shrink-0 ${
+          mine ? 'bg-white/20 text-white' : 'bg-emerald-500/20 text-emerald-400'}`}>
+        {playing ? <Pause size={15} /> : <Play size={15} />}
+      </button>
+      <div className="flex items-end gap-0.5 h-6">
+        {[6, 11, 8, 16, 12, 20, 14, 9, 17, 11, 7, 13, 9, 5].map((h, i) => (
+          <span key={i} className={`w-0.5 rounded-full ${mine ? 'bg-white/80' : 'bg-emerald-400/80'}`}
+            style={{ height: h }} />
+        ))}
+      </div>
+      <audio ref={audioRef} src={url} preload="metadata"
+        onPlay={() => setPlaying(true)}
+        onPause={() => setPlaying(false)}
+        onEnded={() => setPlaying(false)} />
+    </div>
+  )
 }
 
 // ==================== CHAT VIEW ====================
@@ -48,6 +105,12 @@ function ChatView({ conversation, user, onBack }: {
   const [sending, setSending] = useState(false)
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(true)
+
+  const [recording, setRecording] = useState(false)
+  const [elapsed, setElapsed] = useState(0)
+  const recorderRef = useRef<MediaRecorder | null>(null)
+  const chunksRef = useRef<Blob[]>([])
+  const timerRef = useRef<any>(null)
   const bottomRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -61,67 +124,142 @@ function ChatView({ conversation, user, onBack }: {
       setMessages(snap.docs.map(d => ({ id: d.id, ...d.data() } as Message)))
       setError('')
       setLoading(false)
-    }, err => {
-      setError(err?.message || String(err))
-      setLoading(false)
-    })
+    }, err => { setError(err?.message || String(err)); setLoading(false) })
     return () => unsub()
   }, [conversation.id])
 
-  // Mark read whenever the thread is open and new messages land.
   useEffect(() => {
     updateDoc(doc(db, 'conversations', conversation.id), {
       [`readBy.${user.uid}`]: serverTimestamp()
     }).catch(() => {})
   }, [conversation.id, messages.length, user.uid])
 
-  useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: 'smooth' })
-  }, [messages.length])
+  useEffect(() => { bottomRef.current?.scrollIntoView({ behavior: 'smooth' }) }, [messages.length])
+
+  // The parent conversation doc may not exist yet (someone opening a channel
+  // for the very first time), so this upserts it before the message lands.
+  const upsertConversation = async (preview: string) => {
+    await setDoc(doc(db, 'conversations', conversation.id), {
+      type: conversation.type,
+      participantIds: conversation.participantIds,
+      participantNames: conversation.participantNames,
+      ownerRole: conversation.ownerRole || user.role,
+      lastMessage: preview.slice(0, 120),
+      lastMessageAt: serverTimestamp(),
+      lastSenderId: user.uid,
+      [`readBy.${user.uid}`]: serverTimestamp(),
+      createdAt: conversation.createdAt || serverTimestamp()
+    }, { merge: true })
+  }
+
+  const pushMessage = async (payload: Partial<Message>, preview: string) => {
+    await upsertConversation(preview)
+    await addDoc(collection(db, 'messages'), {
+      conversationId: conversation.id,
+      senderId: user.uid,
+      senderName: user.displayName,
+      senderRole: user.role,
+      text: payload.text || '',
+      participantIds: conversation.participantIds,
+      ...(payload.mediaUrl ? { mediaUrl: payload.mediaUrl, mediaType: payload.mediaType } : {}),
+      ...(payload.mediaDuration ? { mediaDuration: payload.mediaDuration } : {}),
+      createdAt: serverTimestamp()
+    })
+  }
 
   const handleSend = async () => {
     const body = text.trim()
     if (!body || sending) return
-    setSending(true)
-    setError('')
+    setSending(true); setError('')
     try {
-      // The conversation doc may not exist yet (a member opening support for
-      // the very first time), so this upserts it before the message lands.
-      await setDoc(doc(db, 'conversations', conversation.id), {
-        type: conversation.type,
-        participantIds: conversation.participantIds,
-        participantNames: conversation.participantNames,
-        lastMessage: body.slice(0, 120),
-        lastMessageAt: serverTimestamp(),
-        lastSenderId: user.uid,
-        [`readBy.${user.uid}`]: serverTimestamp(),
-        createdAt: conversation.createdAt || serverTimestamp()
-      }, { merge: true })
-
-      await addDoc(collection(db, 'messages'), {
-        conversationId: conversation.id,
-        senderId: user.uid,
-        senderName: user.displayName,
-        senderRole: user.role,
-        text: body,
-        participantIds: conversation.participantIds,
-        createdAt: serverTimestamp()
-      })
+      await pushMessage({ text: body }, body)
       setText('')
     } catch (err: any) {
       setError(err?.message || t('msg.sendFailed'))
+    } finally { setSending(false) }
+  }
+
+  const handleImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    e.target.value = ''
+    if (!file) return
+    if (!file.type.startsWith('image/')) { setError(t('msg.notAnImage')); return }
+    if (file.size > 10 * 1024 * 1024) { setError(t('msg.imageTooLarge')); return }
+    setSending(true); setError('')
+    try {
+      const sref = ref(storage, `message-media/${user.uid}/${Date.now()}-${file.name}`)
+      await uploadBytes(sref, file)
+      const url = await getDownloadURL(sref)
+      await pushMessage({ mediaUrl: url, mediaType: 'image', text: text.trim() }, t('msg.sentPhoto'))
+      setText('')
+    } catch (err: any) {
+      setError(err?.message || t('msg.sendFailed'))
+    } finally { setSending(false) }
+  }
+
+  const startRecording = async () => {
+    setError('')
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true })
+      const recorder = new MediaRecorder(stream)
+      chunksRef.current = []
+      recorder.ondataavailable = ev => { if (ev.data.size > 0) chunksRef.current.push(ev.data) }
+      recorder.onstop = () => stream.getTracks().forEach(tk => tk.stop())
+      recorder.start()
+      recorderRef.current = recorder
+      setRecording(true)
+      setElapsed(0)
+      timerRef.current = setInterval(() => setElapsed(s => s + 1), 1000)
+    } catch {
+      setError(t('msg.micDenied'))
+    }
+  }
+
+  const stopRecording = async (send: boolean) => {
+    const recorder = recorderRef.current
+    if (!recorder) return
+    clearInterval(timerRef.current)
+    const seconds = elapsed
+    setRecording(false)
+
+    await new Promise<void>(resolve => {
+      recorder.addEventListener('stop', () => resolve(), { once: true })
+      recorder.stop()
+    })
+
+    if (!send || chunksRef.current.length === 0) { chunksRef.current = []; return }
+
+    setSending(true)
+    try {
+      const blob = new Blob(chunksRef.current, { type: recorder.mimeType || 'audio/webm' })
+      const ext = (recorder.mimeType || '').includes('mp4') ? 'mp4' : 'webm'
+      const sref = ref(storage, `message-media/${user.uid}/${Date.now()}-voice.${ext}`)
+      await uploadBytes(sref, blob)
+      const url = await getDownloadURL(sref)
+      await pushMessage({ mediaUrl: url, mediaType: 'audio', mediaDuration: seconds }, t('msg.sentVoice'))
+    } catch (err: any) {
+      setError(err?.message || t('msg.sendFailed'))
     } finally {
+      chunksRef.current = []
       setSending(false)
     }
   }
 
-  // For a member, the other side is "Support". For staff, it's whoever the
-  // thread belongs to.
-  const title = conversation.type === 'support'
-    ? (isStaff(user)
-        ? (conversation.participantNames[conversation.participantIds[0]] || t('msg.support'))
-        : t('msg.support'))
-    : (conversation.participantNames[conversation.participantIds.find(id => id !== user.uid) || ''] || t('msg.conversation'))
+  const staff = isStaff(user)
+  const channelMeta = conversation.type === 'pastor'
+    ? { label: t('msg.pastorChannel'), Icon: HeartHandshake, tone: 'bg-indigo-500/15 text-indigo-400' }
+    : conversation.type === 'tech'
+      ? { label: t('msg.techChannel'), Icon: LifeBuoy, tone: 'bg-blue-500/15 text-blue-400' }
+      : { label: '', Icon: MessageCircle, tone: 'bg-emerald-500/15 text-emerald-400' }
+
+  const otherUid = conversation.participantIds.find(id => id !== user.uid) || conversation.participantIds[0]
+  const title = conversation.type === 'direct'
+    ? (conversation.participantNames?.[otherUid] || t('msg.conversation'))
+    : staff
+      ? (conversation.participantNames?.[conversation.participantIds[0]] || t('msg.conversation'))
+      : channelMeta.label
+
+  const ChannelIcon = channelMeta.Icon
 
   return (
     <div className="flex flex-col h-[calc(100vh-13rem)] lg:h-[calc(100vh-10rem)]">
@@ -131,21 +269,16 @@ function ChatView({ conversation, user, onBack }: {
             <ArrowLeft size={20} />
           </button>
         )}
-        <div className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 ${
-          conversation.type === 'support' && !isStaff(user)
-            ? 'bg-emerald-500/15 text-emerald-400'
-            : 'bg-gradient-to-br from-emerald-400 to-teal-500 text-white font-bold'}`}>
-          {conversation.type === 'support' && !isStaff(user)
-            ? <LifeBuoy size={18} />
-            : title.charAt(0).toUpperCase()}
+        <div className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 ${channelMeta.tone}`}>
+          <ChannelIcon size={18} />
         </div>
         <div className="min-w-0">
           <h2 className="font-bold text-white truncate">{title}</h2>
-          {conversation.type === 'support' && (
-            <p className="text-[11px] text-slate-400">
-              {isStaff(user) ? t('msg.supportThread') : t('msg.supportSubtitle')}
-            </p>
-          )}
+          <p className="text-[11px] text-slate-400 truncate">
+            {conversation.type === 'direct'
+              ? roleMeta(conversation.ownerRole || 'member', t).label
+              : staff ? channelMeta.label : t('msg.usuallyReplies')}
+          </p>
         </div>
       </div>
 
@@ -160,30 +293,52 @@ function ChatView({ conversation, user, onBack }: {
 
         {!loading && !error && messages.length === 0 && (
           <div className="text-center py-12">
-            <div className="w-14 h-14 rounded-full bg-emerald-500/10 flex items-center justify-center mx-auto mb-3">
-              <MessageCircle size={24} className="text-emerald-400" />
+            <div className={`w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-3 ${channelMeta.tone}`}>
+              <ChannelIcon size={24} />
             </div>
             <p className="text-slate-300 text-sm font-medium">{t('msg.noMessages')}</p>
             <p className="text-xs text-slate-500 mt-1 px-8 leading-relaxed">
-              {conversation.type === 'support' && !isStaff(user) ? t('msg.supportHint') : t('msg.startHint')}
+              {conversation.type === 'pastor' ? t('msg.pastorHint')
+                : conversation.type === 'tech' ? t('msg.techHint')
+                : t('msg.startHint')}
             </p>
           </div>
         )}
 
         {messages.map(m => {
           const mine = m.senderId === user.uid
+          const meta = roleMeta(m.senderRole, t)
           return (
             <div key={m.id} className={`flex ${mine ? 'justify-end' : 'justify-start'}`}>
-              <div className={`max-w-[78%] rounded-2xl px-4 py-2.5 ${
+              <div className={`max-w-[78%] rounded-2xl px-3.5 py-2.5 ${
                 mine ? 'bg-emerald-600 text-white' : 'bg-white/[0.06] border border-white/10 text-slate-100'}`}>
                 {!mine && (
-                  <p className="text-[11px] font-semibold text-emerald-400 mb-0.5">
+                  <p className="text-[11px] font-semibold text-emerald-400 mb-1 flex items-center gap-1.5 flex-wrap">
                     {m.senderName}
-                    {(m.senderRole === 'church' || m.senderRole === 'admin') && ` · ${t('msg.staffBadge')}`}
+                    {(m.senderRole === 'pastor' || m.senderRole === 'admin') && (
+                      <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded-full ${meta.chip}`}>
+                        {meta.label}
+                      </span>
+                    )}
                   </p>
                 )}
-                <p className="text-[15px] leading-relaxed whitespace-pre-wrap break-words">{m.text}</p>
+
+                {m.mediaType === 'image' && m.mediaUrl && (
+                  <a href={m.mediaUrl} target="_blank" rel="noreferrer">
+                    <img src={m.mediaUrl} alt="" className="rounded-xl max-h-64 w-auto mb-1" />
+                  </a>
+                )}
+
+                {m.mediaType === 'audio' && m.mediaUrl && (
+                  <AudioBubble url={m.mediaUrl} mine={mine} />
+                )}
+
+                {m.text && (
+                  <p className="text-[15px] leading-relaxed whitespace-pre-wrap break-words">{m.text}</p>
+                )}
+
                 <p className={`text-[10px] mt-1 ${mine ? 'text-emerald-100/70' : 'text-slate-500'}`}>
+                  {m.mediaType === 'audio' && m.mediaDuration ? `${fmtDuration(m.mediaDuration)} · ` : ''}
                   {timeShort(m.createdAt)}
                 </p>
               </div>
@@ -193,18 +348,45 @@ function ChatView({ conversation, user, onBack }: {
         <div ref={bottomRef} />
       </div>
 
-      <div className="pt-3 border-t border-white/10 flex gap-2">
-        <input
-          value={text}
-          onChange={e => setText(e.target.value)}
-          onKeyDown={e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); handleSend() } }}
-          placeholder={t('msg.writePlaceholder')}
-          className="flex-1 px-4 py-3 rounded-2xl bg-white/5 border border-white/10 text-white placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-emerald-400/60 text-[15px]"
-        />
-        <button onClick={handleSend} disabled={!text.trim() || sending}
-          className="w-12 h-12 rounded-2xl bg-emerald-600 hover:bg-emerald-700 disabled:opacity-40 text-white flex items-center justify-center shrink-0 transition">
-          <Send size={18} />
-        </button>
+      <div className="pt-3 border-t border-white/10">
+        {recording ? (
+          <div className="flex items-center gap-3 px-4 py-3 rounded-2xl bg-red-500/10 border border-red-500/30">
+            <span className="w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse shrink-0" />
+            <span className="text-sm font-medium text-red-300 tabular-nums">{fmtDuration(elapsed)}</span>
+            <span className="text-xs text-slate-400 flex-1 truncate">{t('msg.recording')}</span>
+            <button onClick={() => stopRecording(false)}
+              className="w-9 h-9 rounded-full bg-white/5 hover:bg-white/10 text-slate-300 flex items-center justify-center shrink-0">
+              <Trash2 size={16} />
+            </button>
+            <button onClick={() => stopRecording(true)}
+              className="w-9 h-9 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white flex items-center justify-center shrink-0">
+              <Send size={15} />
+            </button>
+          </div>
+        ) : (
+          <div className="flex gap-2 items-end">
+            <label className="w-11 h-11 rounded-2xl bg-white/5 hover:bg-white/10 text-slate-300 flex items-center justify-center shrink-0 cursor-pointer transition">
+              <ImageIcon size={18} />
+              <input type="file" accept="image/*" className="hidden" onChange={handleImage} disabled={sending} />
+            </label>
+            <button onClick={startRecording} disabled={sending}
+              className="w-11 h-11 rounded-2xl bg-white/5 hover:bg-white/10 text-slate-300 flex items-center justify-center shrink-0 transition disabled:opacity-50">
+              <Mic size={18} />
+            </button>
+            <input
+              value={text}
+              onChange={e => setText(e.target.value)}
+              onKeyDown={e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); handleSend() } }}
+              placeholder={t('msg.writePlaceholder')}
+              className="flex-1 min-w-0 px-4 py-3 rounded-2xl bg-white/5 border border-white/10 text-white placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-emerald-400/60 text-[15px]"
+            />
+            <button onClick={handleSend} disabled={!text.trim() || sending}
+              className="w-11 h-11 rounded-2xl bg-emerald-600 hover:bg-emerald-700 disabled:opacity-40 text-white flex items-center justify-center shrink-0 transition">
+              <Send size={18} />
+            </button>
+          </div>
+        )}
+        {sending && <p className="text-[11px] text-slate-500 mt-2 text-center">{t('msg.sending')}</p>}
       </div>
     </div>
   )
@@ -226,9 +408,7 @@ function NewMessagePicker({ user, onPick, onClose }: {
   useEffect(() => {
     getDocs(collection(db, 'users'))
       .then(snap => {
-        setPeople(snap.docs
-          .map(d => ({ uid: d.id, ...d.data() } as AppUser))
-          .filter(p => p.uid !== user.uid))
+        setPeople(snap.docs.map(d => ({ uid: d.id, ...d.data() } as AppUser)).filter(p => p.uid !== user.uid))
         setLoading(false)
       })
       .catch(err => { setError(err?.message || String(err)); setLoading(false) })
@@ -249,9 +429,7 @@ function NewMessagePicker({ user, onPick, onClose }: {
       <div className="bg-[#0d1424] w-full max-w-md rounded-t-3xl sm:rounded-3xl border border-white/10 shadow-2xl max-h-[85vh] flex flex-col">
         <div className="px-5 py-4 border-b border-white/10 flex items-center justify-between">
           <h2 className="font-bold text-white">{t('msg.newMessage')}</h2>
-          <button onClick={onClose} className="p-1.5 rounded-full hover:bg-white/5 text-slate-400">
-            <X size={20} />
-          </button>
+          <button onClick={onClose} className="p-1.5 rounded-full hover:bg-white/5 text-slate-400"><X size={20} /></button>
         </div>
 
         <div className="p-4">
@@ -265,35 +443,36 @@ function NewMessagePicker({ user, onPick, onClose }: {
         <div className="flex-1 overflow-y-auto px-4 pb-5">
           {loading && <p className="text-center text-slate-400 py-10 text-sm">{t('app.loading')}</p>}
           {!loading && error && (
-            <p className="text-sm text-red-400 bg-red-500/10 border border-red-500/20 rounded-xl px-4 py-3">{error}</p>
+            <p className="text-sm text-red-400 bg-red-500/10 border border-red-500/20 rounded-xl px-4 py-3 break-words">{error}</p>
           )}
           {!loading && !error && visible.length === 0 && (
             <p className="text-center text-slate-400 py-10 text-sm">{t('msg.noPeople')}</p>
           )}
           <div className="space-y-1">
-            {visible.map(p => (
-              <button key={p.uid} onClick={() => onPick(p)}
-                className="w-full flex items-center gap-3 px-3 py-3 rounded-2xl hover:bg-white/5 transition text-left">
-                {p.avatar ? (
-                  <img src={p.avatar} alt="" className="w-10 h-10 rounded-full object-cover shrink-0" />
-                ) : (
-                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-emerald-400 to-teal-500 flex items-center justify-center text-white font-bold shrink-0">
-                    {(p.displayName || '?').charAt(0).toUpperCase()}
+            {visible.map(p => {
+              const meta = roleMeta(p.role, t)
+              return (
+                <button key={p.uid} onClick={() => onPick(p)}
+                  className="w-full flex items-center gap-3 px-3 py-3 rounded-2xl hover:bg-white/5 transition text-left">
+                  {p.avatar ? (
+                    <img src={p.avatar} alt="" className="w-10 h-10 rounded-full object-cover shrink-0" />
+                  ) : (
+                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-emerald-400 to-teal-500 flex items-center justify-center text-white font-bold shrink-0">
+                      {(p.displayName || '?').charAt(0).toUpperCase()}
+                    </div>
+                  )}
+                  <div className="min-w-0 flex-1">
+                    <p className="text-sm font-semibold text-white truncate">{p.displayName}</p>
+                    <p className="text-[11px] text-slate-400 truncate">
+                      {p.churchName || p.memberChurchName || p.phone || ''}
+                    </p>
                   </div>
-                )}
-                <div className="min-w-0 flex-1">
-                  <p className="text-sm font-semibold text-white truncate">{p.displayName}</p>
-                  <p className="text-[11px] text-slate-400 truncate">
-                    {p.role === 'church' || p.role === 'admin'
-                      ? (p.churchName || t('msg.roleStaff'))
-                      : (p.memberChurchName || t('msg.roleMember'))}
-                  </p>
-                </div>
-                {(p.role === 'church' || p.role === 'admin') && (
-                  <ShieldCheck size={15} className="text-emerald-400 shrink-0" />
-                )}
-              </button>
-            ))}
+                  <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full shrink-0 ${meta.chip}`}>
+                    {meta.label}
+                  </span>
+                </button>
+              )
+            })}
           </div>
         </div>
       </div>
@@ -301,7 +480,7 @@ function NewMessagePicker({ user, onPick, onClose }: {
   )
 }
 
-// ==================== CONVERSATION LIST (staff only) ====================
+// ==================== STAFF INBOX ====================
 
 function ConversationList({ user, onOpen }: {
   user: AppUser
@@ -320,18 +499,18 @@ function ConversationList({ user, onOpen }: {
       setConversations(snap.docs.map(d => ({ id: d.id, ...d.data() } as Conversation)))
       setError('')
       setLoading(false)
-    }, err => {
-      setError(err?.message || String(err))
-      setLoading(false)
-    })
+    }, err => { setError(err?.message || String(err)); setLoading(false) })
     return () => unsub()
   }, [])
 
   const visible = useMemo(() => {
-    // Staff see every support thread, plus any direct thread they're in -
-    // but not other people's private direct threads.
+    // The pastor sees pastoral threads; the technical admin sees technical
+    // threads. Both see their own direct conversations. This split is
+    // deliberate - pastoral messages are often personal, and shouldn't land
+    // in a technical support queue.
+    const myChannel = user.role === 'pastor' ? 'pastor' : 'tech'
     let result = conversations.filter(c =>
-      c.type === 'support' || c.participantIds.includes(user.uid)
+      c.type === myChannel || (c.type === 'direct' && c.participantIds.includes(user.uid))
     )
     const q = search.trim().toLowerCase()
     if (q) {
@@ -341,32 +520,36 @@ function ConversationList({ user, onOpen }: {
       )
     }
     return result
-  }, [conversations, user.uid, search])
+  }, [conversations, user.uid, user.role, search])
 
   const startDirect = async (target: AppUser) => {
-    const id = directConversationId(user.uid, target.uid)
-    const existing = await getDoc(doc(db, 'conversations', id))
-    const convo: Conversation = existing.exists()
-      ? ({ id, ...existing.data() } as Conversation)
-      : {
-          id,
-          type: 'direct',
-          participantIds: [user.uid, target.uid],
-          participantNames: {
-            [user.uid]: user.displayName,
-            [target.uid]: target.displayName
-          }
-        }
     setPicking(false)
-    onOpen(convo)
+    setError('')
+    const id = directConversationId(user.uid, target.uid)
+    const base: Conversation = {
+      id,
+      type: 'direct',
+      participantIds: [user.uid, target.uid],
+      participantNames: { [user.uid]: user.displayName, [target.uid]: target.displayName },
+      ownerRole: target.role
+    }
+    try {
+      const existing = await getDoc(doc(db, 'conversations', id))
+      onOpen(existing.exists() ? ({ id, ...existing.data() } as Conversation) : base)
+    } catch (err: any) {
+      // This previously threw silently and the picker just closed with nothing
+      // happening - exactly the "I can see contacts but can't message them"
+      // symptom. Now the real reason is shown.
+      setError(err?.message || String(err))
+    }
   }
 
   const titleFor = (c: Conversation) => {
-    if (c.type === 'support') {
-      return c.participantNames?.[c.participantIds[0]] || t('msg.support')
+    if (c.type === 'direct') {
+      const other = c.participantIds.find(id => id !== user.uid) || ''
+      return c.participantNames?.[other] || t('msg.conversation')
     }
-    const other = c.participantIds.find(id => id !== user.uid) || ''
-    return c.participantNames?.[other] || t('msg.conversation')
+    return c.participantNames?.[c.participantIds[0]] || t('msg.conversation')
   }
 
   const isUnread = (c: Conversation) => {
@@ -420,19 +603,22 @@ function ConversationList({ user, onOpen }: {
                 className={`w-full flex items-center gap-3 px-4 py-3.5 text-left hover:bg-slate-50 transition ${
                   i !== visible.length - 1 ? 'border-b border-slate-50' : ''}`}>
                 <div className={`w-11 h-11 rounded-full flex items-center justify-center shrink-0 ${
-                  c.type === 'support'
-                    ? 'bg-amber-100 text-amber-600'
+                  c.type === 'pastor' ? 'bg-indigo-100 text-indigo-600'
+                    : c.type === 'tech' ? 'bg-blue-100 text-blue-600'
                     : 'bg-gradient-to-br from-emerald-400 to-teal-500 text-white font-bold'}`}>
-                  {c.type === 'support' ? <LifeBuoy size={18} /> : titleFor(c).charAt(0).toUpperCase()}
+                  {c.type === 'pastor' ? <HeartHandshake size={18} />
+                    : c.type === 'tech' ? <LifeBuoy size={18} />
+                    : titleFor(c).charAt(0).toUpperCase()}
                 </div>
                 <div className="min-w-0 flex-1">
                   <div className="flex items-baseline gap-2">
                     <span className={`text-sm truncate ${unread ? 'font-bold text-slate-900' : 'font-semibold text-slate-800'}`}>
                       {titleFor(c)}
                     </span>
-                    {c.type === 'support' && (
-                      <span className="text-[10px] font-bold text-amber-600 bg-amber-50 px-1.5 py-0.5 rounded-full shrink-0">
-                        {t('msg.supportTag')}
+                    {c.type !== 'direct' && (
+                      <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded-full shrink-0 ${
+                        c.type === 'pastor' ? 'text-indigo-600 bg-indigo-50' : 'text-blue-600 bg-blue-50'}`}>
+                        {c.type === 'pastor' ? t('msg.pastorTag') : t('msg.techTag')}
                       </span>
                     )}
                     <span className="text-[11px] text-slate-400 ml-auto shrink-0">{timeShort(c.lastMessageAt)}</span>
@@ -448,9 +634,61 @@ function ConversationList({ user, onOpen }: {
         </div>
       )}
 
-      {picking && (
-        <NewMessagePicker user={user} onPick={startDirect} onClose={() => setPicking(false)} />
-      )}
+      {picking && <NewMessagePicker user={user} onPick={startDirect} onClose={() => setPicking(false)} />}
+    </div>
+  )
+}
+
+// ==================== CHANNEL CHOOSER (members + churches) ====================
+
+function ChannelChooser({ user, onOpen }: {
+  user: AppUser
+  onOpen: (c: Conversation) => void
+}) {
+  const { t } = useLanguage()
+
+  const open = (type: 'pastor' | 'tech') => {
+    onOpen({
+      id: type === 'pastor' ? pastorConversationId(user.uid) : techConversationId(user.uid),
+      type,
+      participantIds: [user.uid],
+      participantNames: { [user.uid]: user.displayName },
+      ownerRole: user.role
+    })
+  }
+
+  const channels = [
+    {
+      type: 'pastor' as const,
+      Icon: HeartHandshake,
+      title: t('msg.pastorChannel'),
+      desc: t('msg.pastorChannelDesc'),
+      tone: 'bg-indigo-100 text-indigo-600'
+    },
+    {
+      type: 'tech' as const,
+      Icon: LifeBuoy,
+      title: t('msg.techChannel'),
+      desc: t('msg.techChannelDesc'),
+      tone: 'bg-blue-100 text-blue-600'
+    }
+  ]
+
+  return (
+    <div className="space-y-3">
+      <p className="text-sm text-slate-400 px-1">{t('msg.chooseChannel')}</p>
+      {channels.map(ch => (
+        <button key={ch.type} onClick={() => open(ch.type)}
+          className="w-full flex items-center gap-4 p-5 rounded-3xl bg-white shadow-sm border border-slate-100 hover:border-emerald-200 hover:shadow-md transition text-left">
+          <div className={`w-12 h-12 rounded-2xl flex items-center justify-center shrink-0 ${ch.tone}`}>
+            <ch.Icon size={22} />
+          </div>
+          <div className="min-w-0">
+            <h3 className="font-bold text-slate-900">{ch.title}</h3>
+            <p className="text-xs text-slate-400 mt-0.5 leading-relaxed">{ch.desc}</p>
+          </div>
+        </button>
+      ))}
     </div>
   )
 }
@@ -458,30 +696,13 @@ function ConversationList({ user, onOpen }: {
 // ==================== TAB ENTRY POINT ====================
 
 export function MessagesTab({ user }: { user: AppUser }) {
-  const [openConversation, setOpenConversation] = useState<Conversation | null>(null)
+  const [open, setOpen] = useState<Conversation | null>(null)
 
-  // Members never see a list - there's exactly one thread they can have, so
-  // sending them through an inbox with a single row would be pure friction.
-  if (!isStaff(user)) {
-    const id = supportConversationId(user.uid)
-    const convo: Conversation = {
-      id,
-      type: 'support',
-      participantIds: [user.uid],
-      participantNames: { [user.uid]: user.displayName }
-    }
-    return <ChatView conversation={convo} user={user} />
+  if (open) {
+    return <ChatView conversation={open} user={user} onBack={() => setOpen(null)} />
   }
 
-  if (openConversation) {
-    return (
-      <ChatView
-        conversation={openConversation}
-        user={user}
-        onBack={() => setOpenConversation(null)}
-      />
-    )
-  }
-
-  return <ConversationList user={user} onOpen={setOpenConversation} />
+  return isStaff(user)
+    ? <ConversationList user={user} onOpen={setOpen} />
+    : <ChannelChooser user={user} onOpen={setOpen} />
 }

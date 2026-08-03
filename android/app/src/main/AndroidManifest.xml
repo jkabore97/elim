@@ -38,4 +38,9 @@
     <!-- Permissions -->
 
     <uses-permission android:name="android.permission.INTERNET" />
+
+    <!-- Required for recording voice messages in chat. MODIFY_AUDIO_SETTINGS
+         accompanies RECORD_AUDIO for WebView getUserMedia on some devices. -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
 </manifest>

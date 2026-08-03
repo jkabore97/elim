@@ -16,11 +16,13 @@ service cloud.firestore {
     }
 
     function canPublish() {
-      return isSignedIn() && (role() == 'church' || role() == 'admin');
+      return isSignedIn() && (role() == 'church' || role() == 'admin' || role() == 'pastor');
     }
 
+    // 'pastor' carries full admin rights - approvals, logs, everything -
+    // so every existing isAdmin() check covers both accounts.
     function isAdmin() {
-      return isSignedIn() && role() == 'admin';
+      return isSignedIn() && (role() == 'admin' || role() == 'pastor');
     }
 
     // ---- Users ----
@@ -47,54 +49,63 @@ service cloud.firestore {
     }
 
     // ---- Messaging ----
-    // Staff (church + admin) share the support inbox: they can read and
-    // reply to any support thread, which is why access here is granted by
-    // role rather than by membership in participantIds.
-    function isStaff() {
-      return isSignedIn() && (role() == 'church' || role() == 'admin');
+    // Two support channels, each answered by one account:
+    //   'pastor' threads -> the pastor account
+    //   'tech'   threads -> the technical admin account
+    // They're separated deliberately: a pastoral message is often personal,
+    // and shouldn't land in a technical support queue.
+    function isPastor() { return isSignedIn() && role() == 'pastor'; }
+    function isTechAdmin() { return isSignedIn() && role() == 'admin'; }
+
+    // Can this user answer the given channel type?
+    function ownsChannel(convType) {
+      return (convType == 'pastor' && isPastor())
+             || (convType == 'tech' && isTechAdmin());
     }
 
     match /conversations/{convId} {
       allow read: if isSignedIn() && (
                     request.auth.uid in resource.data.participantIds
-                    || (resource.data.type == 'support' && isStaff())
+                    || ownsChannel(resource.data.type)
                   );
 
-      // A member may only ever open a support thread, and only their own -
-      // participantIds must be exactly [their uid]. Only staff can create a
-      // 'direct' thread, and only one they're actually part of.
+      // Anyone signed in may open their OWN pastor/tech thread - and only
+      // their own: participantIds must be exactly [their uid]. A 'direct'
+      // thread can only be created by the pastor or the technical admin,
+      // and only one they're actually part of. So a member cannot open a
+      // thread with another member even by crafting the request by hand.
       allow create: if isSignedIn() && (
-                      (request.resource.data.type == 'support'
+                      (request.resource.data.type in ['pastor', 'tech']
                         && request.resource.data.participantIds == [request.auth.uid])
-                      || (isStaff()
-                        && request.resource.data.type == 'direct'
+                      || (request.resource.data.type == 'direct'
+                        && (isPastor() || isTechAdmin())
                         && request.auth.uid in request.resource.data.participantIds)
                     );
 
       allow update: if isSignedIn() && (
                       request.auth.uid in resource.data.participantIds
-                      || (resource.data.type == 'support' && isStaff())
+                      || ownsChannel(resource.data.type)
                     );
       allow delete: if false;
     }
 
     match /messages/{msgId} {
-      // participantIds is denormalized onto each message specifically so this
-      // check needs no get() on the parent conversation - that would be one
-      // extra read per message, on every message, forever.
+      // participantIds is denormalized onto each message so this check needs
+      // no get() on the parent conversation - that would otherwise be one
+      // extra document read per message, on every message, forever.
       allow read: if isSignedIn() && (
                     request.auth.uid in resource.data.participantIds
-                    || isStaff()
+                    || isPastor() || isTechAdmin()
                   );
 
       allow create: if isSignedIn()
                     && request.resource.data.senderId == request.auth.uid
                     && (
                       request.auth.uid in request.resource.data.participantIds
-                      || isStaff()
+                      || isPastor() || isTechAdmin()
                     );
 
-      // Messages are immutable once sent - no edit, no delete, by anyone.
+      // Immutable once sent - no edit, no delete, by anyone.
       allow update, delete: if false;
     }
 
