@@ -3,7 +3,7 @@ import {
   Home, Church, PlusCircle, User, MessageCircle, Heart, Share2,
   Image as ImageIcon, Video, Mic, X, Send, LogOut,
   Youtube, Facebook, CheckCircle2, Clock, ArrowRight, ShieldCheck, UserX, Sparkles,
-  Trash2, Camera, FileText, Upload, Pencil, Globe, Eye, EyeOff, Search, Bell, ScrollText
+  Trash2, Camera, FileText, Upload, Pencil, Globe, Eye, EyeOff, Search, Bell, ScrollText, Mail
 } from 'lucide-react'
 import {
   collection, addDoc, onSnapshot, query, orderBy, where,
@@ -666,9 +666,15 @@ function LandingPage({ onSuccess }: { onSuccess: (user: AppUser) => void }) {
           </div>
           <div className="mt-6 pt-6 border-t border-slate-50 flex flex-wrap items-center justify-between gap-3">
             <p className="text-xs text-slate-400">{COPYRIGHT}</p>
-            <a href="/privacy.html" className="text-xs text-slate-400 hover:text-emerald-600 underline">
-              {t('footer.privacy')}
-            </a>
+            <div className="flex items-center gap-4">
+              <a href="/privacy.html" className="text-xs text-slate-400 hover:text-emerald-600 underline">
+                {t('footer.privacy')}
+              </a>
+              <a href="mailto:hello@kaj-consulting.com?subject=ELIM%20App%20Support"
+                className="text-xs text-slate-400 hover:text-emerald-600 underline">
+                {t('support.title')}
+              </a>
+            </div>
           </div>
         </div>
       </footer>
@@ -1409,6 +1415,43 @@ function ProfileTab({ user, onProfileUpdated }: {
           </button>
         </div>
         {notifError && <p className="mt-3 text-xs text-red-500 bg-red-50 rounded-xl px-3 py-2">{notifError}</p>}
+      </div>
+
+      <div className="bg-white rounded-3xl p-6 shadow-sm border border-slate-100">
+        <h3 className="font-bold text-slate-900">{t('support.title')}</h3>
+        <p className="text-xs text-slate-400 mt-0.5 leading-relaxed">{t('support.note')}</p>
+
+        <div className="mt-4 space-y-2">
+          <a
+            href={`mailto:hello@kaj-consulting.com?subject=${encodeURIComponent('ELIM App Support')}&body=${encodeURIComponent(
+              `\n\n---\nAccount: ${user.displayName} (${user.role})\nApp: ELIM`
+            )}`}
+            className="flex items-center gap-3 w-full px-4 py-3 rounded-2xl bg-slate-50 hover:bg-slate-100 transition"
+          >
+            <div className="w-9 h-9 rounded-xl bg-emerald-100 flex items-center justify-center text-emerald-600 shrink-0">
+              <Mail size={16} />
+            </div>
+            <div className="min-w-0 text-left">
+              <p className="text-sm font-semibold text-slate-800">{t('support.emailUs')}</p>
+              <p className="text-xs text-slate-400 truncate">hello@kaj-consulting.com</p>
+            </div>
+          </a>
+
+          <a
+            href="https://kaj-consulting.com"
+            target="_blank"
+            rel="noreferrer"
+            className="flex items-center gap-3 w-full px-4 py-3 rounded-2xl bg-slate-50 hover:bg-slate-100 transition"
+          >
+            <div className="w-9 h-9 rounded-xl bg-blue-100 flex items-center justify-center text-blue-600 shrink-0">
+              <Globe size={16} />
+            </div>
+            <div className="min-w-0 text-left">
+              <p className="text-sm font-semibold text-slate-800">{t('support.visitSite')}</p>
+              <p className="text-xs text-slate-400 truncate">kaj-consulting.com</p>
+            </div>
+          </a>
+        </div>
       </div>
 
       <div className="text-center py-4">
