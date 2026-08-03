@@ -35,6 +35,8 @@ const translations = {
   'logs.churchDenied': { en: 'Denied a church', fr: 'A refusé une église' },
   'logs.directorySynced': { en: 'Synced the church directory', fr: 'A synchronisé le répertoire' },
   'footer.privacy': { en: 'Privacy Policy', fr: 'Politique de confidentialité' },
+  'logs.loadFailed': { en: "Couldn't load logs", fr: 'Impossible de charger les journaux' },
+  'logs.rulesHint': { en: "If this says 'Missing or insufficient permissions', the Firestore rules for activityLogs haven't been published yet in the Firebase console.", fr: "Si le message indique « Missing or insufficient permissions », les règles Firestore pour activityLogs n'ont pas encore été publiées dans la console Firebase." },
   'logs.today': { en: 'Today', fr: "Aujourd'hui" },
   'logs.yesterday': { en: 'Yesterday', fr: 'Hier' },
   'logs.unknownDate': { en: 'Pending', fr: 'En attente' },

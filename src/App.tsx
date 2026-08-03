@@ -440,8 +440,11 @@ function AuthScreen({ onSuccess }: { onSuccess: (user: AppUser) => void }) {
         <div className="relative flex-1 flex flex-col items-center justify-center px-6 py-12">
           <div className="w-full max-w-md text-center">
             <Logo size={110} variant="full" />
-            <h1 className="mt-8 text-3xl font-bold text-white tracking-tight">{t('auth.welcomeTo')}</h1>
-            <p className="mt-3 text-slate-400 leading-relaxed">{t('auth.peacefulPlace')}</p>
+            <h1 className="mt-8 text-3xl font-bold text-white tracking-tight">ELIM</h1>
+            <p className="mt-2 text-[13px] text-emerald-400/90 font-medium leading-relaxed px-4">
+              Centre Chrétien d'Enseignement,<br />de Libéralité et de Moisson
+            </p>
+            <p className="mt-4 text-slate-400 leading-relaxed">{t('auth.peacefulPlace')}</p>
 
             <div className="mt-10 grid grid-cols-2 gap-4">
               {[
@@ -1423,17 +1426,34 @@ function LogsPanel() {
   const { t } = useLanguage()
   const [logs, setLogs] = useState<ActivityLog[]>([])
   const [loading, setLoading] = useState(true)
+  const [error, setError] = useState('')
   const [filter, setFilter] = useState<'all' | 'auth' | 'posts' | 'admin'>('all')
   const [search, setSearch] = useState('')
 
   useEffect(() => {
     // Capped at 300 - enough to troubleshoot recent issues without pulling
     // an unbounded collection into memory as the log grows over time.
-    const q = query(collection(db, 'activityLogs'), orderBy('createdAt', 'desc'), limit(300))
+    // Last 48 hours only - this page is for troubleshooting what just
+    // happened, so an unbounded history mostly gets in the way. The limit()
+    // stays as a hard ceiling in case of a very busy two days.
+    const cutoff = new Date(Date.now() - 48 * 60 * 60 * 1000)
+    const q = query(
+      collection(db, 'activityLogs'),
+      where('createdAt', '>=', cutoff),
+      orderBy('createdAt', 'desc'),
+      limit(300)
+    )
     const unsub = onSnapshot(q, snap => {
       setLogs(snap.docs.map(d => ({ id: d.id, ...d.data() } as ActivityLog)))
+      setError('')
       setLoading(false)
-    }, () => setLoading(false))
+    }, (err) => {
+      // Surface the real reason rather than silently rendering an empty
+      // state - an empty list and a permissions failure look identical to
+      // the user otherwise, which makes this impossible to diagnose.
+      setError(err?.message || String(err))
+      setLoading(false)
+    })
     return () => unsub()
   }, [])
 
@@ -1513,7 +1533,15 @@ function LogsPanel() {
 
       {loading && <p className="text-center text-slate-400 py-16">{t('app.loading')}</p>}
 
-      {!loading && visible.length === 0 && (
+      {!loading && error && (
+        <div className="bg-red-50 border border-red-200 rounded-2xl p-5">
+          <p className="text-sm font-semibold text-red-700">{t('logs.loadFailed')}</p>
+          <p className="text-xs text-red-600 mt-1.5 break-words">{error}</p>
+          <p className="text-xs text-red-500 mt-3 leading-relaxed">{t('logs.rulesHint')}</p>
+        </div>
+      )}
+
+      {!loading && !error && visible.length === 0 && (
         <div className="text-center py-20">
           <div className="w-16 h-16 rounded-full bg-emerald-500/10 flex items-center justify-center mx-auto mb-4">
             <ScrollText size={28} className="text-emerald-400" />
