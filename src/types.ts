@@ -65,6 +65,43 @@ export interface ActivityLog {
   createdAt?: any;
 }
 
+// Two shapes of conversation:
+//  - 'support': a member's thread with the church/support team. Any church
+//    or admin account can see and reply to these - it's a shared inbox, not
+//    a thread with one specific staff member.
+//  - 'direct': a one-to-one thread between two specific accounts. Only
+//    church/admin accounts can start these.
+export interface Conversation {
+  id: string;
+  type: 'support' | 'direct';
+  // For 'support' this is just [memberUid]; staff access is granted by role
+  // rather than membership, so any staff member can pick up the thread.
+  participantIds: string[];
+  participantNames: Record<string, string>;
+  participantAvatars?: Record<string, string>;
+  lastMessage?: string;
+  lastMessageAt?: any;
+  lastSenderId?: string;
+  // uid -> timestamp of when that user last opened the thread. Used to show
+  // unread state without needing a separate per-user counter document.
+  readBy?: Record<string, any>;
+  createdAt?: any;
+}
+
+export interface Message {
+  id: string;
+  conversationId: string;
+  senderId: string;
+  senderName: string;
+  senderRole: string;
+  text: string;
+  // Denormalized from the parent conversation so security rules can check
+  // access on the message itself, without an expensive get() on every single
+  // message read.
+  participantIds: string[];
+  createdAt?: any;
+}
+
 export interface Comment {
   id: string;
   postId: string;

@@ -46,6 +46,58 @@ service cloud.firestore {
                     );
     }
 
+    // ---- Messaging ----
+    // Staff (church + admin) share the support inbox: they can read and
+    // reply to any support thread, which is why access here is granted by
+    // role rather than by membership in participantIds.
+    function isStaff() {
+      return isSignedIn() && (role() == 'church' || role() == 'admin');
+    }
+
+    match /conversations/{convId} {
+      allow read: if isSignedIn() && (
+                    request.auth.uid in resource.data.participantIds
+                    || (resource.data.type == 'support' && isStaff())
+                  );
+
+      // A member may only ever open a support thread, and only their own -
+      // participantIds must be exactly [their uid]. Only staff can create a
+      // 'direct' thread, and only one they're actually part of.
+      allow create: if isSignedIn() && (
+                      (request.resource.data.type == 'support'
+                        && request.resource.data.participantIds == [request.auth.uid])
+                      || (isStaff()
+                        && request.resource.data.type == 'direct'
+                        && request.auth.uid in request.resource.data.participantIds)
+                    );
+
+      allow update: if isSignedIn() && (
+                      request.auth.uid in resource.data.participantIds
+                      || (resource.data.type == 'support' && isStaff())
+                    );
+      allow delete: if false;
+    }
+
+    match /messages/{msgId} {
+      // participantIds is denormalized onto each message specifically so this
+      // check needs no get() on the parent conversation - that would be one
+      // extra read per message, on every message, forever.
+      allow read: if isSignedIn() && (
+                    request.auth.uid in resource.data.participantIds
+                    || isStaff()
+                  );
+
+      allow create: if isSignedIn()
+                    && request.resource.data.senderId == request.auth.uid
+                    && (
+                      request.auth.uid in request.resource.data.participantIds
+                      || isStaff()
+                    );
+
+      // Messages are immutable once sent - no edit, no delete, by anyone.
+      allow update, delete: if false;
+    }
+
     // ---- Activity logs ----
     // Admin-only visibility. Any signed-in user can append entries about
     // their own actions (that's how sign-ins/posts get recorded at all),

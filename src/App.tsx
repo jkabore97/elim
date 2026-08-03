@@ -22,6 +22,7 @@ import { auth, db, storage } from './firebase'
 import { enableNotifications, disableNotifications, listenForForegroundMessages, checkNotificationPermission, reconcileNotificationState, initNativeNotifications } from './notifications'
 import { logActivity } from './activityLog'
 import { AnimatedSplash } from './AnimatedSplash'
+import { MessagesTab } from './Messages'
 import { attachMediaSession, updateMediaSessionState } from './mediaSession'
 import type { Post, Comment, AppUser, ActivityLog } from './types'
 import { LanguageProvider, useLanguage, type Language } from './i18n'
@@ -972,6 +973,7 @@ function AppInner() {
 
   const navItems = [
     { id: 'feed', icon: Home, label: t('nav.feed') },
+    { id: 'messages', icon: MessageCircle, label: t('nav.messages') },
     { id: 'profile', icon: User, label: t('nav.profile') },
     ...(user.role === 'admin' ? [
       { id: 'admin', icon: ShieldCheck, label: t('nav.admin') },
@@ -1097,6 +1099,10 @@ function AppInner() {
                     currentUserUid={user.uid} isLiked={likedPostIds.has(post.id)} onEdit={setEditingPost} onDelete={handleDeletePost} />
                 ))}
               </div>
+            )}
+
+            {activeTab === 'messages' && (
+              <MessagesTab user={user} />
             )}
 
             {activeTab === 'profile' && (
