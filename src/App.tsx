@@ -19,7 +19,7 @@ import { Capacitor, SystemBars, SystemBarsStyle } from '@capacitor/core'
 import { Share } from '@capacitor/share'
 import { EdgeToEdge } from '@capawesome/capacitor-android-edge-to-edge-support'
 import { auth, db, storage } from './firebase'
-import { enableNotifications, disableNotifications, listenForForegroundMessages, checkNotificationPermission, reconcileNotificationState } from './notifications'
+import { enableNotifications, disableNotifications, listenForForegroundMessages, checkNotificationPermission, reconcileNotificationState, initNativeNotifications } from './notifications'
 import { logActivity } from './activityLog'
 import { AnimatedSplash } from './AnimatedSplash'
 import { attachMediaSession, updateMediaSessionState } from './mediaSession'
@@ -55,6 +55,32 @@ function sanitizeDigits(str: string) {
 }
 function memberAuthEmail(countryCode: string, phone: string) {
   return `${sanitizeDigits(countryCode)}${sanitizeDigits(phone)}@elim-member.app`
+}
+
+// Single source of truth for the copyright line, so the year and wording
+// never drift between the landing page, auth screens, sidebar, and splash.
+const COPYRIGHT = `© ${new Date().getFullYear()} Centre Chrétien E.L.I.M. All rights reserved.`
+
+// Groups log entries under Today / Yesterday / an explicit date.
+function dayLabel(date: any, t: (k: any) => string): string {
+  if (!date) return t('logs.unknownDate')
+  const d = date.toDate ? date.toDate() : new Date(date)
+  const today = new Date()
+  const yesterday = new Date(today)
+  yesterday.setDate(today.getDate() - 1)
+  const sameDay = (a: Date, b: Date) =>
+    a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate()
+  if (sameDay(d, today)) return t('logs.today')
+  if (sameDay(d, yesterday)) return t('logs.yesterday')
+  return d.toLocaleDateString(undefined, { day: 'numeric', month: 'short', year: 'numeric' })
+}
+
+// Exact wall-clock time - for troubleshooting, "14:32" is far more useful
+// than a relative "2 hours ago".
+function clockTime(date: any): string {
+  if (!date) return ''
+  const d = date.toDate ? date.toDate() : new Date(date)
+  return d.toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit' })
 }
 
 function Logo({ size = 36, variant = 'mark' }: { size?: number; variant?: 'mark' | 'full' }) {
@@ -451,6 +477,10 @@ function AuthScreen({ onSuccess }: { onSuccess: (user: AppUser) => void }) {
           </div>
         </div>
       )}
+
+      <div className="relative pb-6 px-6 text-center">
+        <p className="text-[11px] text-slate-600">{COPYRIGHT}</p>
+      </div>
     </div>
   )
 }
@@ -626,9 +656,17 @@ function LandingPage({ onSuccess }: { onSuccess: (user: AppUser) => void }) {
       </section>
 
       <footer className="border-t border-slate-100">
-        <div className="max-w-6xl mx-auto px-8 py-10 flex items-center justify-between gap-4">
-          <Logo size={26} />
-          <p className="text-sm text-slate-400">{t('landing.footerTagline')}</p>
+        <div className="max-w-6xl mx-auto px-8 py-10">
+          <div className="flex items-center justify-between gap-4">
+            <Logo size={26} />
+            <p className="text-sm text-slate-400">{t('landing.footerTagline')}</p>
+          </div>
+          <div className="mt-6 pt-6 border-t border-slate-50 flex flex-wrap items-center justify-between gap-3">
+            <p className="text-xs text-slate-400">{COPYRIGHT}</p>
+            <a href="/privacy.html" className="text-xs text-slate-400 hover:text-emerald-600 underline">
+              {t('footer.privacy')}
+            </a>
+          </div>
         </div>
       </footer>
 
@@ -687,6 +725,9 @@ function AppInner() {
     // Web only (no-ops on native) - lets an already-open browser tab show a
     // notification for a new post without needing to reload.
     listenForForegroundMessages()
+    // Native only - creates the Android notification channel (required on
+    // Android 8+) and handles foreground pushes, which FCM won't display.
+    initNativeNotifications()
   }, [])
 
   // Reconcile our stored notificationsEnabled flag against what the OS
@@ -977,6 +1018,7 @@ function AppInner() {
               <LogOut size={16} />
             </button>
           </div>
+          <p className="mt-3 text-[10px] text-slate-600 leading-relaxed">{COPYRIGHT}</p>
         </aside>
 
         <div className="flex-1 min-w-0">
@@ -1365,6 +1407,14 @@ function ProfileTab({ user, onProfileUpdated }: {
         </div>
         {notifError && <p className="mt-3 text-xs text-red-500 bg-red-50 rounded-xl px-3 py-2">{notifError}</p>}
       </div>
+
+      <div className="text-center py-4">
+        <p className="text-[11px] text-slate-500">{COPYRIGHT}</p>
+        <a href="/privacy.html" target="_blank" rel="noreferrer"
+          className="text-[11px] text-slate-500 hover:text-emerald-400 underline mt-1 inline-block">
+          {t('footer.privacy')}
+        </a>
+      </div>
     </div>
   )
 }
@@ -1387,15 +1437,18 @@ function LogsPanel() {
     return () => unsub()
   }, [])
 
-  const ACTION_META: Record<string, { label: string; color: string }> = {
-    signin: { label: t('logs.signin'), color: 'bg-blue-50 text-blue-700' },
-    signup: { label: t('logs.signup'), color: 'bg-emerald-50 text-emerald-700' },
-    post_created: { label: t('logs.postCreated'), color: 'bg-emerald-50 text-emerald-700' },
-    post_edited: { label: t('logs.postEdited'), color: 'bg-amber-50 text-amber-700' },
-    post_deleted: { label: t('logs.postDeleted'), color: 'bg-red-50 text-red-700' },
-    church_approved: { label: t('logs.churchApproved'), color: 'bg-emerald-50 text-emerald-700' },
-    church_denied: { label: t('logs.churchDenied'), color: 'bg-red-50 text-red-700' },
-    directory_synced: { label: t('logs.directorySynced'), color: 'bg-slate-100 text-slate-600' },
+  // Full sentences rather than terse ALL-CAPS tags - the point of this page
+  // is troubleshooting at a glance, so it should read like a story of what
+  // happened, not a database dump.
+  const ACTION_META: Record<string, { label: string; color: string; Icon: any }> = {
+    signin: { label: t('logs.signin'), color: 'bg-blue-50 text-blue-600', Icon: LogOut },
+    signup: { label: t('logs.signup'), color: 'bg-emerald-50 text-emerald-600', Icon: User },
+    post_created: { label: t('logs.postCreated'), color: 'bg-emerald-50 text-emerald-600', Icon: PlusCircle },
+    post_edited: { label: t('logs.postEdited'), color: 'bg-amber-50 text-amber-600', Icon: Pencil },
+    post_deleted: { label: t('logs.postDeleted'), color: 'bg-red-50 text-red-600', Icon: Trash2 },
+    church_approved: { label: t('logs.churchApproved'), color: 'bg-emerald-50 text-emerald-600', Icon: CheckCircle2 },
+    church_denied: { label: t('logs.churchDenied'), color: 'bg-red-50 text-red-600', Icon: UserX },
+    directory_synced: { label: t('logs.directorySynced'), color: 'bg-slate-100 text-slate-500', Icon: Church },
   }
 
   const visible = useMemo(() => {
@@ -1414,6 +1467,18 @@ function LogsPanel() {
     }
     return result
   }, [logs, filter, search])
+
+  // Group by day so a long list reads as "what happened today / yesterday"
+  // rather than an undifferentiated wall of rows.
+  const grouped = useMemo(() => {
+    const out: Record<string, ActivityLog[]> = {}
+    for (const log of visible) {
+      const key = dayLabel(log.createdAt, t)
+      if (!out[key]) out[key] = []
+      out[key].push(log)
+    }
+    return out
+  }, [visible, t])
 
   return (
     <div className="space-y-4">
@@ -1458,21 +1523,36 @@ function LogsPanel() {
       )}
 
       {!loading && visible.length > 0 && (
-        <div className="bg-white rounded-3xl shadow-sm border border-slate-100 overflow-hidden">
-          {visible.map((log, i) => {
-            const meta = ACTION_META[log.action] || { label: log.action, color: 'bg-slate-100 text-slate-600' }
-            return (
-              <div key={log.id} className={`px-5 py-3.5 ${i !== visible.length - 1 ? 'border-b border-slate-50' : ''}`}>
-                <div className="flex items-center gap-2 flex-wrap">
-                  <span className={`text-[11px] font-bold px-2 py-0.5 rounded-full ${meta.color}`}>{meta.label}</span>
-                  <span className="text-sm font-semibold text-slate-800">{log.userName}</span>
-                  <span className="text-[11px] text-slate-400">({log.userRole})</span>
-                  <span className="text-[11px] text-slate-400 ml-auto">{timeAgo(log.createdAt)}</span>
-                </div>
-                {log.detail && <p className="text-xs text-slate-500 mt-1.5 break-words">{log.detail}</p>}
+        <div className="space-y-5">
+          {Object.entries(grouped).map(([dayLabel, dayLogs]) => (
+            <div key={dayLabel}>
+              <h3 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2 px-1">{dayLabel}</h3>
+              <div className="bg-white rounded-3xl shadow-sm border border-slate-100 overflow-hidden">
+                {dayLogs.map((log, i) => {
+                  const meta = ACTION_META[log.action] || { label: log.action, color: 'bg-slate-100 text-slate-600', Icon: ScrollText }
+                  const LogIcon = meta.Icon
+                  return (
+                    <div key={log.id} className={`flex gap-3 px-4 py-3.5 ${i !== dayLogs.length - 1 ? 'border-b border-slate-50' : ''}`}>
+                      <div className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 ${meta.color}`}>
+                        <LogIcon size={16} />
+                      </div>
+                      <div className="min-w-0 flex-1">
+                        <div className="flex items-baseline gap-2">
+                          <span className="text-sm font-semibold text-slate-900 truncate">{log.userName}</span>
+                          <span className="text-[11px] text-slate-400 shrink-0">{log.userRole}</span>
+                          <span className="text-[11px] text-slate-400 ml-auto shrink-0">{clockTime(log.createdAt)}</span>
+                        </div>
+                        <p className="text-[13px] text-slate-600 mt-0.5">{meta.label}</p>
+                        {log.detail && (
+                          <p className="text-xs text-slate-400 mt-1 break-words leading-relaxed">{log.detail}</p>
+                        )}
+                      </div>
+                    </div>
+                  )
+                })}
               </div>
-            )
-          })}
+            </div>
+          ))}
         </div>
       )}
     </div>

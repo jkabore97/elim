@@ -51,6 +51,58 @@ export async function enableNotifications(uid: string): Promise<boolean> {
   }
 }
 
+// Native only. Two gaps that FCM does NOT handle automatically:
+//
+// 1. Android 8+ requires an explicit notification channel to exist before
+//    any notification can be displayed at all. Without one, notifications
+//    are silently dropped - which looks exactly like "nothing arrives."
+// 2. FCM only auto-displays notifications while the app is in the
+//    BACKGROUND. Foreground pushes fire an event and display nothing
+//    unless the app handles them, so a notification arriving while
+//    someone has the app open would otherwise go unseen.
+export async function initNativeNotifications() {
+  if (!Capacitor.isNativePlatform()) return
+  try {
+    await PushNotifications.createChannel({
+      id: 'elim-default',
+      name: 'ELIM',
+      description: 'New posts from your church',
+      importance: 5,
+      visibility: 1,
+      lights: true,
+      vibration: true
+    })
+  } catch {
+    // createChannel is Android-only; it throws on iOS, which is expected.
+  }
+
+  try {
+    await PushNotifications.removeAllListeners()
+
+    // Foreground arrival - post a local notification so it still shows in
+    // the shade rather than silently vanishing.
+    await PushNotifications.addListener('pushNotificationReceived', async (notification) => {
+      try {
+        const { LocalNotifications } = await import('@capacitor/local-notifications')
+        await LocalNotifications.schedule({
+          notifications: [{
+            id: Math.floor(Math.random() * 100000),
+            title: notification.title || 'ELIM',
+            body: notification.body || '',
+            channelId: 'elim-default',
+            smallIcon: 'ic_stat_notify'
+          }]
+        })
+      } catch {
+        // If local notifications aren't available, there's nothing further
+        // we can do here - the push simply won't render in the foreground.
+      }
+    })
+  } catch {
+    // ignore
+  }
+}
+
 export async function disableNotifications(uid: string) {
   await updateDoc(doc(db, 'users', uid), { notificationsEnabled: false })
 }

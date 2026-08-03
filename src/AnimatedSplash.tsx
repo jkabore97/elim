@@ -65,6 +65,13 @@ export function AnimatedSplash({ onDone }: { onDone: () => void }) {
           <div className="h-full w-1/2 bg-gradient-to-r from-transparent via-emerald-400 to-transparent animate-[shimmer_1.4s_ease-in-out_infinite]" />
         </div>
       </div>
+
+      <p
+        className="absolute bottom-8 text-[10px] text-slate-600 transition-opacity duration-700"
+        style={{ opacity: phase === 'enter' ? 0 : 1, transitionDelay: '800ms' }}
+      >
+        © {new Date().getFullYear()} Centre Chrétien E.L.I.M.
+      </p>
     </div>
   )
 }

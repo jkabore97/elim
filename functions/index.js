@@ -51,7 +51,16 @@ exports.notifyOnNewPost = onDocumentCreated('posts/{postId}', async (event) => {
           fcmOptions: { link: 'https://ccelim.com' }
         },
         android: {
-          notification: { color: '#10b981' }
+          priority: 'high',
+          notification: {
+            color: '#10b981',
+            // Must match the channel created client-side in
+            // initNativeNotifications() - Android 8+ drops notifications
+            // that reference a channel which doesn't exist.
+            channelId: 'elim-default',
+            icon: 'ic_stat_notify',
+            defaultSound: true
+          }
         }
       })
     )
