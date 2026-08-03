@@ -40,8 +40,12 @@ export async function enableNotifications(uid: string): Promise<boolean> {
       const permission = await Notification.requestPermission()
       if (permission !== 'granted') return false
 
+      const registration = await ensureServiceWorker()
       const messaging = getMessaging(app)
-      const token = await getToken(messaging, { vapidKey: VAPID_KEY })
+      const token = await getToken(messaging, {
+        vapidKey: VAPID_KEY,
+        ...(registration ? { serviceWorkerRegistration: registration } : {})
+      })
       if (!token) return false
       await saveToken(uid, token)
       return true
@@ -163,5 +167,71 @@ export function listenForForegroundMessages() {
   } catch {
     // Messaging isn't supported in every browser context (e.g. some
     // in-app browsers) - fail quietly rather than break the app over it.
+  }
+}
+
+
+// Explicitly registers the web service worker before asking Firebase for a
+// token. Left implicit, the browser sometimes hasn't finished registering it
+// when getToken() runs, and token retrieval fails for no visible reason.
+export async function ensureServiceWorker(): Promise<ServiceWorkerRegistration | undefined> {
+  if (Capacitor.isNativePlatform()) return undefined
+  if (!('serviceWorker' in navigator)) return undefined
+  try {
+    return await navigator.serviceWorker.register('/firebase-messaging-sw.js')
+  } catch {
+    return undefined
+  }
+}
+
+// Fires a purely local notification - no server, no FCM, no Cloud Function.
+// If this appears, the display path (OS permission + Android channel) is
+// healthy and any missing notification is a SENDING problem. If it does not
+// appear, the problem is on the device and no amount of server work will
+// help. That split is the whole point of this being here.
+export async function sendTestNotification(): Promise<{ ok: boolean; detail: string }> {
+  try {
+    if (Capacitor.isNativePlatform()) {
+      const perm = await checkNotificationPermission()
+      if (perm !== 'granted') return { ok: false, detail: `Permission: ${perm}` }
+      const { LocalNotifications } = await import('@capacitor/local-notifications')
+      const localPerm = await LocalNotifications.requestPermissions()
+      if (localPerm.display !== 'granted') return { ok: false, detail: `Local permission: ${localPerm.display}` }
+      await LocalNotifications.schedule({
+        notifications: [{
+          id: Math.floor(Math.random() * 100000),
+          title: "ELIM",
+          body: "Test notification - if you can see this, notifications work.",
+          channelId: "elim-default",
+          smallIcon: "ic_stat_notify"
+        }]
+      })
+      return { ok: true, detail: "Sent to the notification shade" }
+    }
+
+    if (!("Notification" in window)) return { ok: false, detail: "This browser has no notification support" }
+    if (Notification.permission !== "granted") {
+      const asked = await Notification.requestPermission()
+      if (asked !== "granted") return { ok: false, detail: `Permission: ${asked}` }
+    }
+    new Notification("ELIM", {
+      body: "Test notification - if you can see this, notifications work.",
+      icon: "/elim-logo-mark.png"
+    })
+    return { ok: true, detail: "Shown by the browser" }
+  } catch (err: any) {
+    return { ok: false, detail: err?.message || String(err) }
+  }
+}
+
+// Returns a plain-language snapshot of every link in the chain, so a failure
+// can be pinpointed instead of guessed at.
+export async function notificationDiagnostics(user: { uid: string; notificationsEnabled?: boolean; fcmTokens?: string[] }) {
+  const perm = await checkNotificationPermission()
+  return {
+    platform: Capacitor.isNativePlatform() ? "Native app" : "Browser",
+    osPermission: perm,
+    enabledInApp: !!user.notificationsEnabled,
+    tokensStored: user.fcmTokens?.length || 0
   }
 }

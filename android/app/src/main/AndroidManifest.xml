@@ -43,4 +43,13 @@
          accompanies RECORD_AUDIO for WebView getUserMedia on some devices. -->
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+
+    <!-- MANDATORY on Android 13 (API 33) and above. Without this declared,
+         the OS silently refuses to display any notification, no matter how
+         correct the channel, token, and payload are. This was almost
+         certainly why notifications never appeared on the phone. -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
+    <!-- Lets audio keep playing while the app is backgrounded. -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 </manifest>

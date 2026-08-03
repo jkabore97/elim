@@ -19,7 +19,7 @@ import { Capacitor, SystemBars, SystemBarsStyle } from '@capacitor/core'
 import { Share } from '@capacitor/share'
 import { EdgeToEdge } from '@capawesome/capacitor-android-edge-to-edge-support'
 import { auth, db, storage } from './firebase'
-import { enableNotifications, disableNotifications, listenForForegroundMessages, checkNotificationPermission, reconcileNotificationState, initNativeNotifications } from './notifications'
+import { enableNotifications, disableNotifications, listenForForegroundMessages, checkNotificationPermission, reconcileNotificationState, initNativeNotifications, sendTestNotification, notificationDiagnostics } from './notifications'
 import { logActivity } from './activityLog'
 import { AnimatedSplash } from './AnimatedSplash'
 import { MessagesTab } from './Messages'
@@ -1278,6 +1278,19 @@ function ProfileTab({ user, onProfileUpdated }: {
   const [saveError, setSaveError] = useState('')
   const [notifLoading, setNotifLoading] = useState(false)
   const [notifError, setNotifError] = useState('')
+  const [testResult, setTestResult] = useState<{ ok: boolean; detail: string } | null>(null)
+  const [diag, setDiag] = useState<any>(null)
+
+  useEffect(() => {
+    notificationDiagnostics(user).then(setDiag).catch(() => {})
+  }, [user.notificationsEnabled, user.uid])
+
+  const handleTestNotification = async () => {
+    setTestResult(null)
+    const result = await sendTestNotification()
+    setTestResult(result)
+    notificationDiagnostics(user).then(setDiag).catch(() => {})
+  }
 
   const handleToggleNotifications = async () => {
     setNotifError('')
@@ -1421,6 +1434,34 @@ function ProfileTab({ user, onProfileUpdated }: {
           </button>
         </div>
         {notifError && <p className="mt-3 text-xs text-red-500 bg-red-50 rounded-xl px-3 py-2">{notifError}</p>}
+
+        <button onClick={handleTestNotification}
+          className="mt-4 w-full py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-sm font-semibold transition">
+          {t('profile.testNotification')}
+        </button>
+
+        {testResult && (
+          <p className={`mt-2 text-xs rounded-xl px-3 py-2 ${
+            testResult.ok ? 'text-emerald-700 bg-emerald-50' : 'text-red-600 bg-red-50'}`}>
+            {testResult.ok ? t('profile.testSent') : t('profile.testFailed')} — {testResult.detail}
+          </p>
+        )}
+
+        {diag && (
+          <div className="mt-3 pt-3 border-t border-slate-50 grid grid-cols-2 gap-x-3 gap-y-1.5">
+            {[
+              [t('profile.diagPlatform'), diag.platform],
+              [t('profile.diagPermission'), diag.osPermission],
+              [t('profile.diagEnabled'), diag.enabledInApp ? '✓' : '✗'],
+              [t('profile.diagTokens'), String(diag.tokensStored)]
+            ].map(([k, v]) => (
+              <div key={k as string} className="flex justify-between gap-2">
+                <span className="text-[11px] text-slate-400">{k}</span>
+                <span className="text-[11px] font-semibold text-slate-600 truncate">{v}</span>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
 
       <div className="bg-white rounded-3xl p-6 shadow-sm border border-slate-100">
