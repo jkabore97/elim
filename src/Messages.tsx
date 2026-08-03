@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useMemo } from 'react'
 import {
   collection, doc, setDoc, addDoc, updateDoc, onSnapshot,
-  query, where, orderBy, limit, serverTimestamp, getDoc, getDocs
+  query, where, limit, serverTimestamp, getDoc, getDocs
 } from 'firebase/firestore'
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
 import {
@@ -114,19 +114,34 @@ function ChatView({ conversation, user, onBack }: {
   const bottomRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    const q = query(
-      collection(db, 'messages'),
-      where('conversationId', '==', conversation.id),
-      orderBy('createdAt', 'asc'),
-      limit(500)
-    )
+    // Firestore rejects a whole query unless it can prove UP FRONT that every
+    // result is readable - rules filter nothing. A member's read rule depends
+    // on participantIds, so the query must filter on participantIds too, or
+    // the entire query is denied. Staff read rules are unconditional
+    // (isPastor/isTechAdmin), so their query needs no such filter - and must
+    // not have one, since staff are deliberately absent from participantIds
+    // on channel threads.
+    const constraints: any[] = [where('conversationId', '==', conversation.id)]
+    if (!isStaff(user)) {
+      constraints.push(where('participantIds', 'array-contains', user.uid))
+    }
+    const q = query(collection(db, 'messages'), ...constraints, limit(500))
+
     const unsub = onSnapshot(q, snap => {
-      setMessages(snap.docs.map(d => ({ id: d.id, ...d.data() } as Message)))
+      // Sorted client-side rather than with orderBy() so this needs no
+      // composite index on top of the filters above.
+      const rows = snap.docs.map(d => ({ id: d.id, ...d.data() } as Message))
+      rows.sort((a, b) => {
+        const ta = a.createdAt?.toMillis ? a.createdAt.toMillis() : 0
+        const tb = b.createdAt?.toMillis ? b.createdAt.toMillis() : 0
+        return ta - tb
+      })
+      setMessages(rows)
       setError('')
       setLoading(false)
     }, err => { setError(err?.message || String(err)); setLoading(false) })
     return () => unsub()
-  }, [conversation.id])
+  }, [conversation.id, user.uid, user.role])
 
   useEffect(() => {
     updateDoc(doc(db, 'conversations', conversation.id), {
@@ -494,24 +509,55 @@ function ConversationList({ user, onOpen }: {
   const [picking, setPicking] = useState(false)
 
   useEffect(() => {
-    const q = query(collection(db, 'conversations'), orderBy('lastMessageAt', 'desc'), limit(200))
-    const unsub = onSnapshot(q, snap => {
-      setConversations(snap.docs.map(d => ({ id: d.id, ...d.data() } as Conversation)))
-      setError('')
+    // Same constraint as above: an unfiltered "all conversations" query can't
+    // be proven safe, so Firestore denies it outright. Split into two queries
+    // that CAN be proven - the channel this account answers, and direct
+    // threads it belongs to - then merged here.
+    const myChannel = user.role === 'pastor' ? 'pastor' : 'tech'
+    let channelRows: Conversation[] = []
+    let directRows: Conversation[] = []
+
+    const publish = () => {
+      const byId = new Map<string, Conversation>()
+      for (const row of [...channelRows, ...directRows]) byId.set(row.id, row)
+      const merged = Array.from(byId.values())
+      merged.sort((a, b) => {
+        const ta = a.lastMessageAt?.toMillis ? a.lastMessageAt.toMillis() : 0
+        const tb = b.lastMessageAt?.toMillis ? b.lastMessageAt.toMillis() : 0
+        return tb - ta
+      })
+      setConversations(merged)
       setLoading(false)
-    }, err => { setError(err?.message || String(err)); setLoading(false) })
-    return () => unsub()
-  }, [])
+    }
+
+    const unsubChannel = onSnapshot(
+      query(collection(db, 'conversations'), where('type', '==', myChannel), limit(200)),
+      snap => {
+        channelRows = snap.docs.map(d => ({ id: d.id, ...d.data() } as Conversation))
+        setError('')
+        publish()
+      },
+      err => { setError(err?.message || String(err)); setLoading(false) }
+    )
+
+    const unsubDirect = onSnapshot(
+      query(collection(db, 'conversations'), where('participantIds', 'array-contains', user.uid), limit(200)),
+      snap => {
+        directRows = snap.docs.map(d => ({ id: d.id, ...d.data() } as Conversation))
+        publish()
+      },
+      err => { setError(err?.message || String(err)); setLoading(false) }
+    )
+
+    return () => { unsubChannel(); unsubDirect() }
+  }, [user.uid, user.role])
 
   const visible = useMemo(() => {
     // The pastor sees pastoral threads; the technical admin sees technical
     // threads. Both see their own direct conversations. This split is
     // deliberate - pastoral messages are often personal, and shouldn't land
     // in a technical support queue.
-    const myChannel = user.role === 'pastor' ? 'pastor' : 'tech'
-    let result = conversations.filter(c =>
-      c.type === myChannel || (c.type === 'direct' && c.participantIds.includes(user.uid))
-    )
+    let result = conversations
     const q = search.trim().toLowerCase()
     if (q) {
       result = result.filter(c =>
