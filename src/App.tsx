@@ -3,7 +3,7 @@ import {
   Home, Church, PlusCircle, User, MessageCircle, Heart, Share2,
   Image as ImageIcon, Video, Mic, X, Send, LogOut,
   Youtube, Facebook, CheckCircle2, Clock, ArrowRight, ShieldCheck, UserX, Sparkles,
-  Trash2, Camera, FileText, Upload, Pencil, Globe, Eye, EyeOff, Search, Bell, ScrollText, Mail
+  Trash2, Camera, FileText, Upload, Pencil, Globe, Eye, EyeOff, Search, Bell, ScrollText, Mail, Play, Pause
 } from 'lucide-react'
 import {
   collection, addDoc, onSnapshot, query, orderBy, where,
@@ -22,8 +22,9 @@ import { auth, db, storage } from './firebase'
 import { enableNotifications, disableNotifications, listenForForegroundMessages, checkNotificationPermission, reconcileNotificationState, initNativeNotifications, sendTestNotification, notificationDiagnostics, onNotificationRoute, consumeLaunchUrlRoute } from './notifications'
 import { logActivity } from './activityLog'
 import { AnimatedSplash } from './AnimatedSplash'
+import { MediaPlayerProvider, useMediaPlayer } from './MediaPlayer'
+import { ImageLightbox } from './ImageLightbox'
 import { MessagesTab } from './Messages'
-import { attachMediaSession, updateMediaSessionState } from './mediaSession'
 import type { Post, Comment, AppUser, ActivityLog } from './types'
 import { LanguageProvider, useLanguage, type Language } from './i18n'
 
@@ -784,7 +785,19 @@ function AppInner() {
         }
       }
     })()
-    return () => { cancelled = true }
+    // Re-check whenever the app regains focus: someone can revoke or grant
+    // notification permission in system settings while the app sits in the
+    // background, and nothing tells the app that happened.
+    const onVisible = () => {
+      if (document.visibilityState === 'visible' && user) {
+        reconcileNotificationState(user.uid, !!user.notificationsEnabled)
+          .then(actual => setUser(prev => prev && prev.notificationsEnabled !== actual
+            ? { ...prev, notificationsEnabled: actual } : prev))
+          .catch(() => {})
+      }
+    }
+    document.addEventListener('visibilitychange', onVisible)
+    return () => { cancelled = true; document.removeEventListener('visibilitychange', onVisible) }
   }, [user?.uid])
 
   // Auth listener
@@ -1846,6 +1859,8 @@ function PostCard({ post, onLike, onOpenComments, currentUserUid, isLiked, onEdi
   const [confirmingDelete, setConfirmingDelete] = useState(false)
   const [likeError, setLikeError] = useState(false)
   const [shareCopied, setShareCopied] = useState(false)
+  const [lightbox, setLightbox] = useState<string | null>(null)
+  const player = useMediaPlayer()
 
   const handleShare = async () => {
     const shareUrl = `https://ccelim.com/?post=${post.id}`
@@ -1988,26 +2003,32 @@ function PostCard({ post, onLike, onOpenComments, currentUserUid, isLiked, onEdi
           {post.coverUrl && (
             <img src={post.coverUrl} alt="" className="w-full h-40 object-cover rounded-2xl mb-3" />
           )}
-          <div className="flex items-center gap-3 bg-slate-50 rounded-2xl px-4 py-3">
-            <div className="w-9 h-9 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-600 shrink-0">
-              <Mic size={16} />
+          <button
+            onClick={() => {
+              // Hands off to the app-wide player, which lives above the tab
+              // switcher - so changing tabs no longer destroys the element
+              // and restarts the sermon from zero.
+              if (player.isCurrent(post.id)) player.toggle()
+              else player.play({
+                id: post.id,
+                url: post.mediaUrl!,
+                title: post.content?.slice(0, 60) || 'Audio',
+                artist: post.churchName || 'ELIM',
+                artwork: post.coverUrl || undefined
+              })
+            }}
+            className="w-full flex items-center gap-3 bg-slate-50 hover:bg-slate-100 rounded-2xl px-4 py-3 transition text-left">
+            <div className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 ${
+              player.isCurrent(post.id) ? 'bg-emerald-600 text-white' : 'bg-emerald-100 text-emerald-600'}`}>
+              {player.isCurrent(post.id) && player.playing ? <Pause size={17} /> : <Play size={17} />}
             </div>
-            <audio
-              src={post.mediaUrl}
-              controls
-              preload="metadata"
-              className="w-full h-9"
-              onPlay={e => {
-                attachMediaSession(e.currentTarget, {
-                  title: post.content?.slice(0, 60) || 'Audio',
-                  artist: post.churchName || 'ELIM',
-                  artwork: post.coverUrl || undefined
-                })
-                updateMediaSessionState(true)
-              }}
-              onPause={() => updateMediaSessionState(false)}
-            />
-          </div>
+            <div className="min-w-0">
+              <p className="text-sm font-semibold text-slate-800 truncate">
+                {player.isCurrent(post.id) ? t('player.nowPlaying') : t('player.listen')}
+              </p>
+              <p className="text-[11px] text-slate-400">{post.churchName || 'ELIM'}</p>
+            </div>
+          </button>
         </div>
       )}
 
@@ -2054,6 +2075,7 @@ function PostCard({ post, onLike, onOpenComments, currentUserUid, isLiked, onEdi
           )}
         </button>
       </div>
+      {lightbox && <ImageLightbox src={lightbox} onClose={() => setLightbox(null)} />}
     </article>
   )
 }
@@ -2318,7 +2340,9 @@ function CommentsSheet({ postId, comments, onClose, onAdd }: {
 export default function App() {
   return (
     <LanguageProvider>
-      <AppInner />
+      <MediaPlayerProvider>
+        <AppInner />
+      </MediaPlayerProvider>
     </LanguageProvider>
   )
 }

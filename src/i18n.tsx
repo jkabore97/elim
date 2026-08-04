@@ -218,6 +218,8 @@ const translations = {
   'post.pasteDocUrl': { en: 'Paste a document URL...', fr: 'Collez l\'URL du document...' },
   'post.pasteImageVideoUrl': { en: 'Paste image or video URL...', fr: 'Collez l\'URL de l\'image ou de la vidéo...' },
   'post.pasteCoverUrl': { en: 'Paste cover image URL (optional)', fr: 'Collez l\'URL de l\'image de couverture (facultatif)' },
+  'player.listen': { en: 'Listen', fr: 'Écouter' },
+  'player.nowPlaying': { en: 'Now playing', fr: 'En cours de lecture' },
   'post.watchOnFacebook': { en: 'Watch on Facebook', fr: 'Regarder sur Facebook' },
   'post.tapToOpen': { en: 'Tap to open', fr: 'Appuyez pour ouvrir' },
   'post.document.fallback': { en: 'Document', fr: 'Document' },

@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useMemo } from 'react'
 import {
   collection, doc, setDoc, addDoc, onSnapshot,
-  query, where, limit, serverTimestamp, getDoc, getDocs
+  query, where, limit, serverTimestamp, getDocs
 } from 'firebase/firestore'
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
 import {
@@ -593,15 +593,14 @@ function ConversationList({ user, onOpen }: {
       participantNames: { [user.uid]: user.displayName, [target.uid]: target.displayName },
       ownerRole: target.role
     }
-    try {
-      const existing = await getDoc(doc(db, 'conversations', id))
-      onOpen(existing.exists() ? ({ id, ...existing.data() } as Conversation) : base)
-    } catch (err: any) {
-      // This previously threw silently and the picker just closed with nothing
-      // happening - exactly the "I can see contacts but can't message them"
-      // symptom. Now the real reason is shown.
-      setError(err?.message || String(err))
-    }
+    // Deliberately NOT doing a getDoc() first. Reading a conversation that
+    // doesn't exist yet makes the security rule dereference a null resource,
+    // which Firestore reports as permission-denied - so starting a brand new
+    // thread always failed, and staff could only ever reply to people who
+    // wrote first. Opening the constructed thread directly works whether or
+    // not it already exists: ChatView subscribes to the real messages, and
+    // the conversation document is upserted on first send.
+    onOpen(base)
   }
 
   const titleFor = (c: Conversation) => {
