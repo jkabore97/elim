@@ -109,6 +109,7 @@ export interface Message {
   mediaUrl?: string;
   mediaType?: 'image' | 'audio';
   mediaDuration?: number;
+  editedAt?: any;
   // Denormalized from the parent conversation so security rules can check
   // access on the message itself, without an expensive get() on every single
   // message read.

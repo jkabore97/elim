@@ -87,6 +87,18 @@ No payment data, no precise geolocation, no health data, and — as of v4.1 — 
 
 ---
 
+## 6b. Messaging — edit & delete
+
+Messages were originally immutable. That was relaxed on request, with the following boundaries enforced in `firestore.rules` (not merely hidden in the UI):
+
+- **Editing:** sender only, and only the `text` field. `senderId`, `conversationId`, and `participantIds` are locked, so an edited message can't be re-pointed at a different thread or attributed to someone else. Edited messages are marked as such in the UI.
+- **Deleting a message:** sender, or staff (pastor / technical admin) for moderation.
+- **Deleting a conversation:** either side. This removes the thread and its messages **for everyone** — there is no per-user hiding, and no soft-delete or recovery. Done as a batched write so it cannot half-succeed and leave orphaned messages behind.
+
+Worth stating plainly: this means the message history is no longer an audit trail. If a tamper-evident record is ever needed (e.g. for a safeguarding concern), that would have to be a separate, append-only log — the `activityLogs` collection is the existing model for that.
+
+---
+
 ## 6a. Push Notifications (server-side component)
 
 This is the one piece of ELIM that isn't purely client-side. A Cloud Function (`functions/notifyOnNewPost`) listens for new documents in `/posts` and sends a notification to every user with `notificationsEnabled: true`, excluding the poster themselves. It:

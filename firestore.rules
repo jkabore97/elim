@@ -86,7 +86,13 @@ service cloud.firestore {
                       request.auth.uid in resource.data.participantIds
                       || ownsChannel(resource.data.type)
                     );
-      allow delete: if false;
+
+      // Either side may delete the whole thread. Note this deletes it for
+      // EVERYONE, not just the person doing it - there is no per-user hiding.
+      allow delete: if isSignedIn() && (
+                      request.auth.uid in resource.data.participantIds
+                      || ownsChannel(resource.data.type)
+                    );
     }
 
     match /messages/{msgId} {
@@ -105,8 +111,21 @@ service cloud.firestore {
                       || isPastor() || isTechAdmin()
                     );
 
-      // Immutable once sent - no edit, no delete, by anyone.
-      allow update, delete: if false;
+      // Editing is restricted to the SENDER, and to the text only: rewriting
+      // someone else's words would leave them attributed to a person who
+      // never wrote them. senderId, participantIds and conversationId can
+      // never be altered, so a message can't be re-pointed at another thread
+      // or another author.
+      allow update: if isSignedIn()
+                    && resource.data.senderId == request.auth.uid
+                    && request.resource.data.diff(resource.data)
+                         .affectedKeys().hasOnly(['text', 'editedAt']);
+
+      // Deleting is available to the sender, and to staff for moderation.
+      allow delete: if isSignedIn() && (
+                      resource.data.senderId == request.auth.uid
+                      || isPastor() || isTechAdmin()
+                    );
     }
 
     // ---- Activity logs ----

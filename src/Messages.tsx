@@ -1,12 +1,12 @@
 import { useState, useEffect, useRef, useMemo } from 'react'
 import {
-  collection, doc, setDoc, addDoc, onSnapshot,
+  collection, doc, setDoc, addDoc, onSnapshot, updateDoc, deleteDoc, writeBatch,
   query, where, limit, serverTimestamp, getDocs
 } from 'firebase/firestore'
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
 import {
   ArrowLeft, Send, Search, MessageCircle, Plus, X, LifeBuoy,
-  ShieldCheck, HeartHandshake, Image as ImageIcon, Mic, Trash2, Play, Pause
+  ShieldCheck, HeartHandshake, Image as ImageIcon, Mic, Trash2, Play, Pause, Pencil, Check
 } from 'lucide-react'
 import { db, storage } from './firebase'
 import { useLanguage } from './i18n'
@@ -107,6 +107,10 @@ function ChatView({ conversation, user, onBack }: {
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(true)
   const [lightbox, setLightbox] = useState<string | null>(null)
+  const [openActions, setOpenActions] = useState<string | null>(null)
+  const [editingId, setEditingId] = useState<string | null>(null)
+  const [editText, setEditText] = useState('')
+  const [confirmDeleteThread, setConfirmDeleteThread] = useState(false)
 
   const [recording, setRecording] = useState(false)
   const [elapsed, setElapsed] = useState(0)
@@ -276,6 +280,49 @@ function ChatView({ conversation, user, onBack }: {
     }
   }
 
+  const saveEdit = async (id: string) => {
+    const body = editText.trim()
+    if (!body) return
+    try {
+      await updateDoc(doc(db, 'messages', id), { text: body, editedAt: serverTimestamp() })
+      setEditingId(null)
+      setOpenActions(null)
+    } catch (err: any) {
+      setError(err?.message || t('msg.editFailed'))
+    }
+  }
+
+  const deleteMessage = async (id: string) => {
+    try {
+      await deleteDoc(doc(db, 'messages', id))
+      setOpenActions(null)
+    } catch (err: any) {
+      setError(err?.message || t('msg.deleteFailed'))
+    }
+  }
+
+  // Removes the thread AND its messages. Done as a batch so it can't half-
+  // succeed and leave orphaned messages pointing at a conversation that no
+  // longer exists.
+  const deleteThread = async () => {
+    try {
+      const snap = await getDocs(query(
+        collection(db, 'messages'),
+        where('conversationId', '==', conversation.id),
+        limit(500)
+      ))
+      const batch = writeBatch(db)
+      snap.docs.forEach(d => batch.delete(d.ref))
+      batch.delete(doc(db, 'conversations', conversation.id))
+      await batch.commit()
+      setConfirmDeleteThread(false)
+      onBack?.()
+    } catch (err: any) {
+      setError(err?.message || t('msg.deleteFailed'))
+      setConfirmDeleteThread(false)
+    }
+  }
+
   const staff = isStaff(user)
   const channelMeta = conversation.type === 'pastor'
     ? { label: t('msg.pastorChannel'), Icon: HeartHandshake, tone: 'bg-indigo-500/15 text-indigo-400' }
@@ -303,7 +350,7 @@ function ChatView({ conversation, user, onBack }: {
         <div className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 ${channelMeta.tone}`}>
           <ChannelIcon size={18} />
         </div>
-        <div className="min-w-0">
+        <div className="min-w-0 flex-1">
           <h2 className="font-bold text-white truncate">{title}</h2>
           <p className="text-[11px] text-slate-400 truncate">
             {conversation.type === 'direct'
@@ -311,6 +358,25 @@ function ChatView({ conversation, user, onBack }: {
               : staff ? channelMeta.label : t('msg.usuallyReplies')}
           </p>
         </div>
+
+        {confirmDeleteThread ? (
+          <div className="flex items-center gap-2 shrink-0">
+            <button onClick={deleteThread}
+              className="px-3 py-1.5 rounded-full bg-red-500 hover:bg-red-600 text-white text-xs font-semibold">
+              {t('msg.deleteConfirm')}
+            </button>
+            <button onClick={() => setConfirmDeleteThread(false)}
+              className="text-xs font-semibold text-slate-400 hover:text-slate-200 px-1">
+              {t('post.cancel')}
+            </button>
+          </div>
+        ) : (
+          <button onClick={() => setConfirmDeleteThread(true)}
+            aria-label={t('msg.deleteThread')}
+            className="p-2 rounded-full hover:bg-white/5 text-slate-400 hover:text-red-400 shrink-0 transition">
+            <Trash2 size={17} />
+          </button>
+        )}
       </div>
 
       <div className="flex-1 overflow-y-auto py-4 space-y-3">
@@ -360,17 +426,65 @@ function ChatView({ conversation, user, onBack }: {
                 )}
 
                 {m.mediaType === 'audio' && m.mediaUrl && (
-                  <AudioBubble url={m.mediaUrl} mine={mine} />
+                  <div onClick={() => setOpenActions(openActions === m.id ? null : m.id)}>
+                    <AudioBubble url={m.mediaUrl} mine={mine} />
+                  </div>
                 )}
 
-                {m.text && (
-                  <p className="text-[15px] leading-relaxed whitespace-pre-wrap break-words">{m.text}</p>
-                )}
+                {editingId === m.id ? (
+                  <div className="flex items-end gap-2">
+                    <textarea value={editText} onChange={e => setEditText(e.target.value)}
+                      rows={2}
+                      className="flex-1 min-w-0 rounded-xl bg-black/20 border border-white/20 px-3 py-2 text-[15px] text-white resize-none focus:outline-none" />
+                    <button onClick={() => saveEdit(m.id)}
+                      aria-label={t('post.save')}
+                      className="w-8 h-8 rounded-full bg-white/20 text-white flex items-center justify-center shrink-0">
+                      <Check size={15} />
+                    </button>
+                    <button onClick={() => setEditingId(null)}
+                      aria-label={t('post.cancel')}
+                      className="w-8 h-8 rounded-full bg-white/10 text-white flex items-center justify-center shrink-0">
+                      <X size={15} />
+                    </button>
+                  </div>
+                ) : m.text ? (
+                  <p onClick={() => setOpenActions(openActions === m.id ? null : m.id)}
+                    className="text-[15px] leading-relaxed whitespace-pre-wrap break-words cursor-pointer">
+                    {m.text}
+                  </p>
+                ) : null}
 
                 <p className={`text-[10px] mt-1 ${mine ? 'text-emerald-100/70' : 'text-slate-500'}`}>
                   {m.mediaType === 'audio' && m.mediaDuration ? `${fmtDuration(m.mediaDuration)} · ` : ''}
                   {timeShort(m.createdAt)}
+                  {m.editedAt ? ` · ${t('msg.edited')}` : ''}
                 </p>
+
+                {/* Actions revealed by tapping a message. Editing is limited to
+                    the sender - rewriting someone else's words would leave
+                    them attributed to a person who never wrote them. Deleting
+                    is available to the sender, and to staff for moderation. */}
+                {openActions === m.id && editingId !== m.id && (mine || staff) && (
+                  <div className={`flex items-center gap-3 mt-2 pt-2 border-t ${
+                    mine ? 'border-white/20' : 'border-white/10'}`}>
+                    {mine && m.text && !m.mediaType && (
+                      <button onClick={() => { setEditingId(m.id); setEditText(m.text); }}
+                        className={`flex items-center gap-1 text-[11px] font-semibold ${
+                          mine ? 'text-emerald-100' : 'text-slate-300'}`}>
+                        <Pencil size={12} /> {t('post.edit')}
+                      </button>
+                    )}
+                    <button onClick={() => deleteMessage(m.id)}
+                      className={`flex items-center gap-1 text-[11px] font-semibold ${
+                        mine ? 'text-red-100' : 'text-red-400'}`}>
+                      <Trash2 size={12} /> {t('post.delete')}
+                    </button>
+                    <button onClick={() => setOpenActions(null)}
+                      className={`ml-auto text-[11px] ${mine ? 'text-emerald-100/70' : 'text-slate-500'}`}>
+                      {t('post.cancel')}
+                    </button>
+                  </div>
+                )}
               </div>
             </div>
           )
