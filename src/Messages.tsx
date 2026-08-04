@@ -841,6 +841,7 @@ function ChannelChooser({ user, onOpen }: {
 }) {
   const { t } = useLanguage()
   const [existing, setExisting] = useState<Record<string, Conversation>>({})
+  const [directs, setDirects] = useState<Conversation[]>([])
 
   // Subscribe to this person's own threads so the chooser can show a preview
   // and an unread dot - without this a member had no way to know the pastor
@@ -850,11 +851,23 @@ function ChannelChooser({ user, onOpen }: {
       query(collection(db, 'conversations'), where('participantIds', 'array-contains', user.uid), limit(20)),
       snap => {
         const map: Record<string, Conversation> = {}
+        const direct: Conversation[] = []
         snap.docs.forEach(d => {
           const row = { id: d.id, ...d.data() } as Conversation
-          map[row.type] = row
+          // Direct threads were previously collapsed into map['direct'], which
+          // the chooser never rendered - so a conversation started BY staff was
+          // invisible to the member. The notification arrived and opened
+          // Messages, and there was simply nothing there.
+          if (row.type === 'direct') direct.push(row)
+          else map[row.type] = row
+        })
+        direct.sort((a, b) => {
+          const ta = a.lastMessageAt?.toMillis ? a.lastMessageAt.toMillis() : 0
+          const tb = b.lastMessageAt?.toMillis ? b.lastMessageAt.toMillis() : 0
+          return tb - ta
         })
         setExisting(map)
+        setDirects(direct)
       },
       () => {}
     )
@@ -875,8 +888,7 @@ function ChannelChooser({ user, onOpen }: {
     })
   }
 
-  const unreadFor = (type: string) => {
-    const conv = existing[type]
+  const isUnread = (conv?: Conversation) => {
     if (!conv || !conv.lastMessageAt || conv.lastSenderId === user.uid) return false
     const readAt = conv.readBy?.[user.uid]
     if (!readAt) return true
@@ -884,6 +896,7 @@ function ChannelChooser({ user, onOpen }: {
     const l = conv.lastMessageAt.toDate ? conv.lastMessageAt.toDate() : new Date(conv.lastMessageAt)
     return l > r
   }
+  const unreadFor = (type: string) => isUnread(existing[type])
 
   const channels = [
     {
@@ -929,6 +942,41 @@ function ChannelChooser({ user, onOpen }: {
           </button>
         )
       })}
+
+      {directs.length > 0 && (
+        <>
+          <p className="text-sm text-slate-400 px-1 pt-3">{t('msg.directThreads')}</p>
+          <div className="bg-white rounded-3xl shadow-sm border border-slate-100 overflow-hidden">
+            {directs.map((conv, i) => {
+              const other = conv.participantIds.find(id => id !== user.uid) || ''
+              const name = conv.participantNames?.[other] || t('msg.conversation')
+              const unread = isUnread(conv)
+              return (
+                <button key={conv.id} onClick={() => onOpen(conv)}
+                  className={`w-full flex items-center gap-3 px-4 py-3.5 text-left hover:bg-slate-50 transition ${
+                    i !== directs.length - 1 ? 'border-b border-slate-50' : ''}`}>
+                  <div className="w-11 h-11 rounded-full bg-gradient-to-br from-emerald-400 to-teal-500 flex items-center justify-center text-white font-bold shrink-0">
+                    {name.charAt(0).toUpperCase()}
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <p className={`text-sm truncate ${unread ? 'font-bold text-slate-900' : 'font-semibold text-slate-800'}`}>
+                      {name}
+                    </p>
+                    <p className={`text-xs truncate mt-0.5 ${unread ? 'text-slate-700 font-medium' : 'text-slate-400'}`}>
+                      {conv.lastMessage || t('msg.noMessagesYet')}
+                    </p>
+                  </div>
+                  {unread && (
+                    <span className="shrink-0 px-2.5 py-1 rounded-full bg-emerald-500 text-white text-[10px] font-bold uppercase tracking-wide">
+                      {t('msg.newBadge')}
+                    </span>
+                  )}
+                </button>
+              )
+            })}
+          </div>
+        </>
+      )}
     </div>
   )
 }
