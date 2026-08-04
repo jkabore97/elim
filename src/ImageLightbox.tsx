@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react'
+import { useBackHandler } from './backButton'
 import { X } from 'lucide-react'
 
 // Fullscreen image viewer with pinch-to-zoom, double-tap-to-zoom, and pan.
@@ -11,6 +12,13 @@ export function ImageLightbox({ src, onClose }: { src: string; onClose: () => vo
   const pinchStart = useRef<{ dist: number; scale: number } | null>(null)
   const panStart = useRef<{ x: number; y: number; ox: number; oy: number } | null>(null)
   const lastTap = useRef(0)
+
+  // Back zooms out first if zoomed in, then closes - so a zoomed photo takes
+  // two presses rather than dumping the person straight out.
+  useBackHandler(true, () => {
+    if (scale > 1) { setScale(1); setOffset({ x: 0, y: 0 }) }
+    else onClose()
+  })
 
   // Escape closes, matching what people expect from a fullscreen overlay.
   useEffect(() => {

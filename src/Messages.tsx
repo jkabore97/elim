@@ -11,6 +11,7 @@ import {
 import { db, storage } from './firebase'
 import { useLanguage } from './i18n'
 import { useMediaPlayer } from './MediaPlayer'
+import { useBackHandler } from './backButton'
 import { ImageLightbox } from './ImageLightbox'
 import type { AppUser, Conversation, Message } from './types'
 
@@ -985,6 +986,9 @@ function ChannelChooser({ user, onOpen }: {
 
 export function MessagesTab({ user }: { user: AppUser }) {
   const [open, setOpen] = useState<Conversation | null>(null)
+
+  // Back returns to the inbox / channel list rather than leaving the app.
+  useBackHandler(!!open, () => setOpen(null))
 
   if (open) {
     return <ChatView conversation={open} user={user} onBack={() => setOpen(null)} />

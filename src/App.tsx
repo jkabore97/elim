@@ -24,6 +24,7 @@ import { logActivity } from './activityLog'
 import { AnimatedSplash } from './AnimatedSplash'
 import { MediaPlayerProvider, useMediaPlayer } from './MediaPlayer'
 import { ImageLightbox } from './ImageLightbox'
+import { initBackButton, useBackHandler } from './backButton'
 import { MessagesTab } from './Messages'
 import type { Post, Comment, AppUser, ActivityLog } from './types'
 import { LanguageProvider, useLanguage, type Language } from './i18n'
@@ -758,6 +759,8 @@ function AppInner() {
     })
     // Web: read any target off the launch URL the service worker opened.
     consumeLaunchUrlRoute()
+    // Hardware/browser back closes what's open instead of leaving the app.
+    initBackButton()
     return () => off()
   }, [])
 
@@ -1010,6 +1013,13 @@ function AppInner() {
   }
 
   if (user.role === 'pending_church') return <PendingScreen user={user} onLogout={handleLogout} />
+
+  // Each overlay closes on back, most recent first.
+  useBackHandler(!!activeCommentsPost, () => setActiveCommentsPost(null))
+  useBackHandler(showCreate, () => setShowCreate(false))
+  useBackHandler(!!editingPost, () => setEditingPost(null))
+  // Leaving a non-default tab returns to the feed before leaving the app.
+  useBackHandler(activeTab !== 'feed', () => setActiveTab('feed'))
 
   const navItems = [
     { id: 'feed', icon: Home, label: t('nav.feed') },
