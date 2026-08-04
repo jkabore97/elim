@@ -154,8 +154,13 @@ function ChatView({ conversation, user, onBack }: {
     // doesn't exist yet, which is exactly the case the first time someone
     // opens a channel they've never written in.
     if (messages.length > 0) {
+      // NOTE the nested-object form. Dotted keys ('readBy.uid') are only
+      // interpreted as a field PATH by updateDoc; setDoc+merge treats them as
+      // a literal field name containing a dot, which silently wrote junk to
+      // the top level and left readBy empty - so every thread stayed marked
+      // unread forever no matter how many times it was opened.
       setDoc(doc(db, 'conversations', conversation.id), {
-        [`readBy.${user.uid}`]: serverTimestamp()
+        readBy: { [user.uid]: serverTimestamp() }
       }, { merge: true }).catch(() => {})
     }
   }, [conversation.id, messages.length, user.uid])
@@ -172,7 +177,7 @@ function ChatView({ conversation, user, onBack }: {
       lastMessage: preview.slice(0, 120),
       lastMessageAt: serverTimestamp(),
       lastSenderId: user.uid,
-      [`readBy.${user.uid}`]: serverTimestamp()
+      readBy: { [user.uid]: serverTimestamp() }
     }
     // createdAt and ownerRole describe the thread's origin, so they're only
     // written when the thread is genuinely new. Previously createdAt was
