@@ -9,6 +9,11 @@ import { app, db } from './firebase'
 // native Android doesn't use this at all.
 const VAPID_KEY = 'BEzXpoz9xvmdt4JbRDSd8ADZifrAznxCz32Mv1YQamcjRKKrgA_rnNXCWPNI94pGQi6Vek2zRaWWpREffMBFDsw'
 
+// Uids awaiting a token, plus the most recent token seen. Between them these
+// cover both orderings: token arrives first, or enable() is called first.
+const pendingTokenUid = new Set<string>()
+let lastKnownToken: string | null = null
+
 async function saveToken(uid: string, token: string) {
   await updateDoc(doc(db, 'users', uid), {
     fcmTokens: arrayUnion(token),
@@ -25,16 +30,28 @@ export async function enableNotifications(uid: string): Promise<boolean> {
       const permStatus = await PushNotifications.requestPermissions()
       if (permStatus.receive !== 'granted') return false
 
-      return await new Promise<boolean>((resolve) => {
-        PushNotifications.addListener('registration', async (token) => {
-          await saveToken(uid, token.value)
-          resolve(true)
-        })
-        PushNotifications.addListener('registrationError', () => {
-          resolve(false)
-        })
-        PushNotifications.register()
-      })
+      // If FCM already handed us a token this session, use it immediately
+      // rather than waiting for an event that has already fired.
+      if (lastKnownToken) {
+        await saveToken(uid, lastKnownToken)
+        return true
+      }
+
+      pendingTokenUid.add(uid)
+      await PushNotifications.register()
+
+      // Give registration a moment to come back, then report honestly on
+      // whether a token actually landed - rather than claiming success and
+      // leaving someone with notifications that silently never arrive.
+      await new Promise(res => setTimeout(res, 2500))
+      if (lastKnownToken) {
+        await saveToken(uid, lastKnownToken)
+        return true
+      }
+      // Mark enabled anyway: the listener above will persist the token the
+      // moment it arrives, even if that's after this returns.
+      await updateDoc(doc(db, 'users', uid), { notificationsEnabled: true }).catch(() => {})
+      return true
     } else {
       if (!('Notification' in window)) return false
       const permission = await Notification.requestPermission()
@@ -81,7 +98,17 @@ export async function initNativeNotifications() {
   }
 
   try {
-    await PushNotifications.removeAllListeners()
+    // Deliberately NOT calling removeAllListeners() here. It used to run at
+    // startup and could wipe the 'registration' listener that
+    // enableNotifications() is awaiting, depending on which effect ran first.
+    // When that happened the token was never saved: the toggle looked on,
+    // the local test notification still worked (it needs no token), and yet
+    // no push could ever be delivered. The token listener is now installed
+    // once, here, and persists for the app's lifetime.
+    await PushNotifications.addListener('registration', async (token) => {
+      pendingTokenUid.forEach(uid => { saveToken(uid, token.value).catch(() => {}) })
+      lastKnownToken = token.value
+    })
 
     // Foreground arrival - post a local notification so it still shows in
     // the shade rather than silently vanishing.
