@@ -1952,7 +1952,8 @@ function PostCard({ post, onLike, onOpenComments, currentUserUid, isLiked, onEdi
 
       {/* Media */}
       {post.type === 'text-image' && post.mediaUrl && (
-        <img src={post.mediaUrl} alt="" className="w-full max-h-80 object-cover" />
+        <img src={post.mediaUrl} alt="" onClick={() => setLightbox(post.mediaUrl!)}
+          className="w-full max-h-80 object-cover cursor-zoom-in" />
       )}
 
       {post.type === 'youtube' && ytId && (
@@ -2001,7 +2002,8 @@ function PostCard({ post, onLike, onOpenComments, currentUserUid, isLiked, onEdi
       {post.type === 'audio' && post.mediaUrl && (
         <div className="px-4 pb-4">
           {post.coverUrl && (
-            <img src={post.coverUrl} alt="" className="w-full h-40 object-cover rounded-2xl mb-3" />
+            <img src={post.coverUrl} alt="" onClick={() => setLightbox(post.coverUrl!)}
+              className="w-full h-40 object-cover rounded-2xl mb-3 cursor-zoom-in" />
           )}
           <button
             onClick={() => {

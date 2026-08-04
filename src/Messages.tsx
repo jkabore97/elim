@@ -10,6 +10,7 @@ import {
 } from 'lucide-react'
 import { db, storage } from './firebase'
 import { useLanguage } from './i18n'
+import { ImageLightbox } from './ImageLightbox'
 import type { AppUser, Conversation, Message } from './types'
 
 // Staff = the two accounts that receive and answer messages. Church accounts
@@ -105,6 +106,7 @@ function ChatView({ conversation, user, onBack }: {
   const [sending, setSending] = useState(false)
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(true)
+  const [lightbox, setLightbox] = useState<string | null>(null)
 
   const [recording, setRecording] = useState(false)
   const [elapsed, setElapsed] = useState(0)
@@ -353,9 +355,8 @@ function ChatView({ conversation, user, onBack }: {
                 )}
 
                 {m.mediaType === 'image' && m.mediaUrl && (
-                  <a href={m.mediaUrl} target="_blank" rel="noreferrer">
-                    <img src={m.mediaUrl} alt="" className="rounded-xl max-h-64 w-auto mb-1" />
-                  </a>
+                  <img src={m.mediaUrl} alt="" onClick={() => setLightbox(m.mediaUrl!)}
+                    className="rounded-xl max-h-64 w-auto mb-1 cursor-zoom-in" />
                 )}
 
                 {m.mediaType === 'audio' && m.mediaUrl && (
@@ -417,6 +418,8 @@ function ChatView({ conversation, user, onBack }: {
         )}
         {sending && <p className="text-[11px] text-slate-500 mt-2 text-center">{t('msg.sending')}</p>}
       </div>
+
+      {lightbox && <ImageLightbox src={lightbox} onClose={() => setLightbox(null)} />}
     </div>
   )
 }

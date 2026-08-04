@@ -1,77 +1,134 @@
 import { useEffect, useState } from 'react'
 
-// Animated intro shown once per app launch, before the welcome/auth screen.
-// Deliberately built as an in-app React animation rather than a second
-// native splash image: Capacitor's native splash already covers the cold-
-// start gap, and layering another static image on top of it produces a
-// visible double-flash. This picks up exactly where the native one leaves
-// off, so it reads as one continuous motion.
+// Animated intro shown once per launch, before the welcome screen.
+// Built as an in-app React animation rather than a second native splash
+// image: Capacitor's native splash already covers the cold-start gap, and
+// layering a static image on top produces a visible double-flash. This picks
+// up where the native one leaves off so it reads as one continuous motion.
 export function AnimatedSplash({ onDone }: { onDone: () => void }) {
   const [phase, setPhase] = useState<'enter' | 'hold' | 'exit'>('enter')
 
   useEffect(() => {
-    const t1 = setTimeout(() => setPhase('hold'), 1100)
-    const t2 = setTimeout(() => setPhase('exit'), 2100)
-    const t3 = setTimeout(onDone, 2700)
+    const t1 = setTimeout(() => setPhase('hold'), 1300)
+    const t2 = setTimeout(() => setPhase('exit'), 2600)
+    const t3 = setTimeout(onDone, 3200)
     return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3) }
   }, [onDone])
 
+  const shown = phase !== 'enter'
+
   return (
     <div
-      className={`fixed inset-0 z-[100] bg-[#0a0e1a] flex flex-col items-center justify-center overflow-hidden transition-opacity duration-500 ${
+      className={`fixed inset-0 z-[100] overflow-hidden flex flex-col items-center justify-center transition-opacity duration-600 ${
         phase === 'exit' ? 'opacity-0' : 'opacity-100'
       }`}
+      style={{
+        // Deep pre-dawn sky warming toward the horizon — the light arrives
+        // from below rather than sitting flat behind everything.
+        background:
+          'radial-gradient(ellipse 90% 60% at 50% 105%, #1c3a4f 0%, #12253a 38%, #0a0e1a 72%, #060911 100%)'
+      }}
     >
-      {/* Ambient glows, matching the rest of the app's dark theme */}
-      <div className="absolute top-1/4 left-1/4 w-[400px] h-[400px] bg-emerald-500/20 rounded-full blur-3xl animate-pulse" />
-      <div className="absolute bottom-1/4 right-1/4 w-[350px] h-[350px] bg-amber-500/15 rounded-full blur-3xl animate-pulse" />
+      {/* Warm horizon glow rising under the mark */}
+      <div
+        className="absolute left-1/2 -translate-x-1/2 rounded-full blur-3xl transition-all duration-[2200ms] ease-out"
+        style={{
+          bottom: shown ? '-14%' : '-30%',
+          width: 620, height: 380,
+          background: 'radial-gradient(circle, rgba(251,191,36,0.30) 0%, rgba(16,185,129,0.14) 45%, transparent 72%)',
+          opacity: shown ? 1 : 0
+        }}
+      />
+      {/* Cool counter-light from above, so the mark sits between two sources */}
+      <div className="absolute top-[-10%] left-1/4 w-[460px] h-[460px] rounded-full blur-3xl pointer-events-none"
+        style={{ background: 'radial-gradient(circle, rgba(56,189,248,0.14) 0%, transparent 70%)' }} />
 
-      <div className="relative flex flex-col items-center">
-        {/* Expanding rings behind the logo */}
+      {/* Drifting motes of light */}
+      {[
+        { l: '18%', d: 0, s: 3, dur: 7 }, { l: '31%', d: 1.4, s: 2, dur: 9 },
+        { l: '47%', d: 0.6, s: 2.5, dur: 8 }, { l: '63%', d: 2.1, s: 3, dur: 10 },
+        { l: '78%', d: 1.1, s: 2, dur: 8.5 }, { l: '88%', d: 2.6, s: 2.5, dur: 9.5 }
+      ].map((p, i) => (
+        <span key={i}
+          className="absolute rounded-full bg-amber-200/50"
+          style={{
+            left: p.l, width: p.s, height: p.s,
+            animation: `rise ${p.dur}s ease-in-out ${p.d}s infinite`,
+            opacity: 0
+          }} />
+      ))}
+
+      <div className="relative flex flex-col items-center px-8">
+        {/* Halo rings breathing outward behind the mark */}
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-          <span className="absolute w-40 h-40 rounded-full border border-emerald-400/30 animate-ping" style={{ animationDuration: '2s' }} />
-          <span className="absolute w-56 h-56 rounded-full border border-emerald-400/15 animate-ping" style={{ animationDuration: '2.4s', animationDelay: '0.3s' }} />
+          <span className="absolute w-44 h-44 rounded-full border border-emerald-300/25"
+            style={{ animation: 'halo 3.4s ease-out infinite' }} />
+          <span className="absolute w-44 h-44 rounded-full border border-amber-200/20"
+            style={{ animation: 'halo 3.4s ease-out 1.1s infinite' }} />
+          <span className="absolute w-44 h-44 rounded-full border border-sky-200/15"
+            style={{ animation: 'halo 3.4s ease-out 2.2s infinite' }} />
         </div>
 
         <img
           src="/elim-logo-mark.png"
           alt="ELIM"
-          className="relative w-28 h-28 object-contain transition-all duration-1000 ease-out"
+          className="relative w-32 h-32 object-contain transition-all duration-[1400ms] ease-out"
           style={{
-            transform: phase === 'enter' ? 'scale(0.6)' : 'scale(1)',
-            opacity: phase === 'enter' ? 0 : 1,
+            transform: shown ? 'scale(1) translateY(0)' : 'scale(0.72) translateY(10px)',
+            opacity: shown ? 1 : 0,
+            filter: 'drop-shadow(0 0 26px rgba(16,185,129,0.30)) drop-shadow(0 0 60px rgba(251,191,36,0.16))'
           }}
         />
 
-        <div
-          className="mt-7 text-center transition-all duration-700 ease-out"
+        <h1
+          className="mt-8 text-[2.6rem] leading-none font-extrabold tracking-[0.16em] transition-all duration-1000 ease-out"
           style={{
-            transform: phase === 'enter' ? 'translateY(14px)' : 'translateY(0)',
-            opacity: phase === 'enter' ? 0 : 1,
-            transitionDelay: '350ms',
+            transform: shown ? 'translateY(0)' : 'translateY(16px)',
+            opacity: shown ? 1 : 0,
+            transitionDelay: '280ms',
+            background: 'linear-gradient(180deg, #ffffff 0%, #d6f5e6 55%, #fde9b8 100%)',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+            backgroundClip: 'text'
           }}
         >
-          <h1 className="text-4xl font-extrabold text-white tracking-tight">ELIM</h1>
-          <p className="mt-2 text-[13px] text-slate-400 px-8 leading-relaxed max-w-xs">
-            Centre Chrétien d'Enseignement, de Libéralité,<br />d'Intercession et de Moisson
-          </p>
-        </div>
+          ELIM
+        </h1>
 
-        {/* Loading shimmer bar */}
-        <div
-          className="mt-10 h-0.5 w-32 rounded-full bg-white/10 overflow-hidden transition-opacity duration-500"
-          style={{ opacity: phase === 'enter' ? 0 : 1, transitionDelay: '600ms' }}
+        {/* Hairline divider that draws itself open */}
+        <div className="mt-5 h-px bg-gradient-to-r from-transparent via-emerald-300/50 to-transparent transition-all duration-1000 ease-out"
+          style={{ width: shown ? 200 : 0, opacity: shown ? 1 : 0, transitionDelay: '620ms' }} />
+
+        <p
+          className="mt-5 text-center text-[12.5px] leading-relaxed text-slate-300/85 max-w-[19rem] transition-all duration-1000 ease-out"
+          style={{
+            transform: shown ? 'translateY(0)' : 'translateY(12px)',
+            opacity: shown ? 1 : 0,
+            transitionDelay: '780ms'
+          }}
         >
-          <div className="h-full w-1/2 bg-gradient-to-r from-transparent via-emerald-400 to-transparent animate-[shimmer_1.4s_ease-in-out_infinite]" />
-        </div>
+          Centre Chrétien d'Enseignement, de Libéralité,<br />d'Intercession et de Moisson
+        </p>
       </div>
 
-      <p
-        className="absolute bottom-8 text-[10px] text-slate-600 transition-opacity duration-700"
-        style={{ opacity: phase === 'enter' ? 0 : 1, transitionDelay: '800ms' }}
-      >
+      <p className="absolute bottom-8 text-[10px] text-slate-600 transition-opacity duration-700"
+        style={{ opacity: shown ? 1 : 0, transitionDelay: '1000ms' }}>
         © {new Date().getFullYear()} Centre Chrétien E.L.I.M.
       </p>
+
+      <style>{`
+        @keyframes halo {
+          0%   { transform: scale(0.85); opacity: 0.55; }
+          70%  { opacity: 0.10; }
+          100% { transform: scale(1.9); opacity: 0; }
+        }
+        @keyframes rise {
+          0%   { transform: translateY(0) scale(1); opacity: 0; }
+          15%  { opacity: 0.7; }
+          85%  { opacity: 0.5; }
+          100% { transform: translateY(-58vh) scale(0.45); opacity: 0; }
+        }
+      `}</style>
     </div>
   )
 }
