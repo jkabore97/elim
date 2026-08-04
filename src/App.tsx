@@ -899,20 +899,27 @@ function AppInner() {
       createdAt: serverTimestamp()
     })
     await updateDoc(doc(db, 'posts', activeCommentsPost), { commentsCount: increment(1) })
+    const commented = posts.find(p => p.id === activeCommentsPost)
+    logActivity(user, 'comment_added',
+      `${commented?.churchName || ''}: "${text.slice(0, 60)}"`.trim())
   }
 
   const handleLike = async (postId: string) => {
     if (!user) return
     const likeDocId = `${postId}_${user.uid}`
     const alreadyLiked = likedPostIds.has(postId)
+    const liked = posts.find(p => p.id === postId)
+    const detail = (liked?.content || '').slice(0, 60)
     if (alreadyLiked) {
       await deleteDoc(doc(db, 'likes', likeDocId))
       await updateDoc(doc(db, 'posts', postId), { likes: increment(-1) })
+      logActivity(user, 'like_removed', detail)
     } else {
       await setDoc(doc(db, 'likes', likeDocId), {
         postId, userId: user.uid, createdAt: serverTimestamp()
       })
       await updateDoc(doc(db, 'posts', postId), { likes: increment(1) })
+      logActivity(user, 'like_added', detail)
     }
   }
 
@@ -1544,7 +1551,7 @@ function LogsPanel() {
   const [logs, setLogs] = useState<ActivityLog[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
-  const [filter, setFilter] = useState<'all' | 'auth' | 'posts' | 'admin'>('all')
+  const [filter, setFilter] = useState<'all' | 'auth' | 'posts' | 'engagement' | 'admin'>('all')
   const [search, setSearch] = useState('')
 
   useEffect(() => {
@@ -1586,12 +1593,16 @@ function LogsPanel() {
     church_approved: { label: t('logs.churchApproved'), color: 'bg-emerald-50 text-emerald-600', Icon: CheckCircle2 },
     church_denied: { label: t('logs.churchDenied'), color: 'bg-red-50 text-red-600', Icon: UserX },
     directory_synced: { label: t('logs.directorySynced'), color: 'bg-slate-100 text-slate-500', Icon: Church },
+    like_added: { label: t('logs.likeAdded'), color: 'bg-rose-50 text-rose-600', Icon: Heart },
+    like_removed: { label: t('logs.likeRemoved'), color: 'bg-slate-100 text-slate-500', Icon: Heart },
+    comment_added: { label: t('logs.commentAdded'), color: 'bg-sky-50 text-sky-600', Icon: MessageCircle },
   }
 
   const visible = useMemo(() => {
     let result = logs
     if (filter === 'auth') result = result.filter(l => ['signin', 'signup'].includes(l.action))
     else if (filter === 'posts') result = result.filter(l => l.action.startsWith('post_'))
+    else if (filter === 'engagement') result = result.filter(l => l.action.startsWith('like_') || l.action.startsWith('comment_'))
     else if (filter === 'admin') result = result.filter(l => l.action.startsWith('church_') || l.action === 'directory_synced')
 
     const q = search.trim().toLowerCase()
@@ -1636,6 +1647,7 @@ function LogsPanel() {
           { id: 'all', label: t('logs.all') },
           { id: 'auth', label: t('logs.authFilter') },
           { id: 'posts', label: t('logs.postsFilter') },
+          { id: 'engagement', label: t('logs.engagementFilter') },
           { id: 'admin', label: t('logs.adminFilter') },
         ] as const).map(tab => (
           <button key={tab.id} onClick={() => setFilter(tab.id)}

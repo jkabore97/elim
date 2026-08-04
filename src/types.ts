@@ -55,7 +55,8 @@ export type ActivityAction =
   | 'signin' | 'signup'
   | 'post_created' | 'post_edited' | 'post_deleted'
   | 'church_approved' | 'church_denied'
-  | 'directory_synced';
+  | 'directory_synced'
+  | 'like_added' | 'like_removed' | 'comment_added';
 
 export interface ActivityLog {
   id: string;
