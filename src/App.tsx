@@ -444,7 +444,7 @@ function AuthScreen({ onSuccess }: { onSuccess: (user: AppUser) => void }) {
             <Logo size={110} variant="full" />
             <h1 className="mt-8 text-3xl font-bold text-white tracking-tight">ELIM</h1>
             <p className="mt-2 text-[13px] text-emerald-400/90 font-medium leading-relaxed px-4">
-              Centre Chrétien d'Enseignement,<br />de Libéralité et de Moisson
+              Centre Chrétien d'Enseignement, de Libéralité,<br />d'Intercession et de Moisson
             </p>
             <p className="mt-4 text-slate-400 leading-relaxed">{t('auth.peacefulPlace')}</p>
 

@@ -53,7 +53,7 @@ export function AnimatedSplash({ onDone }: { onDone: () => void }) {
         >
           <h1 className="text-4xl font-extrabold text-white tracking-tight">ELIM</h1>
           <p className="mt-2 text-[13px] text-slate-400 px-8 leading-relaxed max-w-xs">
-            Centre Chrétien d'Enseignement,<br />de Libéralité et de Moisson
+            Centre Chrétien d'Enseignement, de Libéralité,<br />d'Intercession et de Moisson
           </p>
         </div>
 
