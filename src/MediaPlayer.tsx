@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, useRef, useEffect, type ReactNode } from 'react'
 import { Play, Pause, X, SkipBack, SkipForward, Mic } from 'lucide-react'
-import { attachMediaSession, updateMediaSessionState } from './mediaSession'
+import { attachMediaSession, updateMediaSessionState, updateMediaSessionPosition, clearMediaSession } from './mediaSession'
 
 interface Track {
   id: string
@@ -75,7 +75,7 @@ export function MediaPlayerProvider({ children }: { children: ReactNode }) {
     if (audio) { audio.pause(); audio.removeAttribute('src'); audio.load() }
     setTrack(null)
     setPlaying(false)
-    updateMediaSessionState(false)
+    clearMediaSession()
   }
 
   const seek = (seconds: number) => {
@@ -83,21 +83,17 @@ export function MediaPlayerProvider({ children }: { children: ReactNode }) {
     if (audio && isFinite(seconds)) audio.currentTime = seconds
   }
 
-  // Lock-screen / notification-shade scrub position, so the OS controls show
-  // real progress rather than a stuck bar.
+  // Drives the scrubber and timestamps in the OS notification. Throttled to
+  // whole seconds: timeupdate fires ~4x a second, and pushing every one of
+  // those across the native bridge is needless traffic for a display that
+  // only shows seconds anyway.
+  const lastReported = useRef(-1)
   useEffect(() => {
-    if (!track || !('mediaSession' in navigator)) return
-    try {
-      if (duration > 0 && (navigator.mediaSession as any).setPositionState) {
-        (navigator.mediaSession as any).setPositionState({
-          duration,
-          position: Math.min(current, duration),
-          playbackRate: 1
-        })
-      }
-    } catch {
-      // Not supported everywhere; never let it break playback.
-    }
+    if (!track || duration <= 0) return
+    const whole = Math.floor(current)
+    if (whole === lastReported.current) return
+    lastReported.current = whole
+    updateMediaSessionPosition(current, duration)
   }, [current, duration, track])
 
   return (

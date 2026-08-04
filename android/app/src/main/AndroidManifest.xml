@@ -52,4 +52,10 @@
 
     <!-- Lets audio keep playing while the app is backgrounded. -->
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <!-- Required for the media notification (artwork, scrubber, transport
+         controls) to appear in the shade and survive backgrounding. Android 14+
+         additionally requires the mediaPlayback service type to be declared. -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK" />
 </manifest>
