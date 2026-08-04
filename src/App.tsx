@@ -721,6 +721,7 @@ function AppInner() {
   const [likedPostIds, setLikedPostIds] = useState<Set<string>>(new Set())
   const [showNotifPrompt, setShowNotifPrompt] = useState(false)
   const [highlightPostId, setHighlightPostId] = useState<string | null>(null)
+  const { track: playerTrack } = useMediaPlayer()
   const [splashDone, setSplashDone] = useState(false)
   const [feedFilter, setFeedFilter] = useState<'all' | 'video' | 'audio' | 'posts'>('all')
   const [searchQuery, setSearchQuery] = useState('')
@@ -1086,7 +1087,7 @@ function AppInner() {
             </div>
           </header>
 
-          <main className="pb-28 lg:pb-16 px-4 lg:px-10 pt-4 lg:pt-10 lg:max-w-3xl xl:max-w-4xl lg:mx-auto">
+          <main className={`${playerTrack ? 'pb-48 lg:pb-32' : 'pb-28 lg:pb-16'} px-4 lg:px-10 pt-4 lg:pt-10 lg:max-w-3xl xl:max-w-4xl lg:mx-auto transition-[padding]`}>
             {activeTab === 'feed' && (
               <div className="space-y-4">
                 <div className="relative">

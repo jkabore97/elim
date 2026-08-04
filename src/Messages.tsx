@@ -10,6 +10,7 @@ import {
 } from 'lucide-react'
 import { db, storage } from './firebase'
 import { useLanguage } from './i18n'
+import { useMediaPlayer } from './MediaPlayer'
 import { ImageLightbox } from './ImageLightbox'
 import type { AppUser, Conversation, Message } from './types'
 
@@ -101,6 +102,7 @@ function ChatView({ conversation, user, onBack }: {
   onBack?: () => void
 }) {
   const { t } = useLanguage()
+  const { track } = useMediaPlayer()
   const [messages, setMessages] = useState<Message[]>([])
   const [text, setText] = useState('')
   const [sending, setSending] = useState(false)
@@ -345,7 +347,14 @@ function ChatView({ conversation, user, onBack }: {
   const ChannelIcon = channelMeta.Icon
 
   return (
-    <div className="flex flex-col h-[calc(100vh-13rem)] lg:h-[calc(100vh-10rem)]">
+    <div className={`flex flex-col ${
+      // The mini-player docks above the bottom nav, so the thread has to give
+      // up that height - otherwise the player sits on top of the message
+      // input and blocks typing entirely.
+      track
+        ? 'h-[calc(100vh-18rem)] lg:h-[calc(100vh-15rem)]'
+        : 'h-[calc(100vh-13rem)] lg:h-[calc(100vh-10rem)]'
+    }`}>
       <div className="flex items-center gap-3 pb-3 border-b border-white/10">
         {onBack && (
           <button onClick={onBack} className="p-1.5 -ml-1.5 rounded-full hover:bg-white/5 text-slate-300">
