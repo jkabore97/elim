@@ -689,7 +689,11 @@ function ConversationList({ user, onOpen }: {
                     {c.lastMessage || t('msg.noMessagesYet')}
                   </p>
                 </div>
-                {unread && <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 shrink-0" />}
+                {unread && (
+                  <span className="shrink-0 px-2.5 py-1 rounded-full bg-emerald-500 text-white text-[10px] font-bold uppercase tracking-wide">
+                    {t('msg.newBadge')}
+                  </span>
+                )}
               </button>
             )
           })}
@@ -789,7 +793,11 @@ function ChannelChooser({ user, onOpen }: {
                 {conv?.lastMessage || ch.desc}
               </p>
             </div>
-            {unread && <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 shrink-0" />}
+            {unread && (
+              <span className="shrink-0 px-2.5 py-1 rounded-full bg-emerald-500 text-white text-[10px] font-bold uppercase tracking-wide">
+                {t('msg.newBadge')}
+              </span>
+            )}
           </button>
         )
       })}

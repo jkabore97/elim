@@ -44,6 +44,7 @@ const translations = {
   'role.member': { en: 'Member', fr: 'Membre' },
 
   // ---- Messaging ----
+  'msg.newBadge': { en: 'New', fr: 'Nouveau' },
   'msg.chooseChannel': { en: 'Who would you like to reach?', fr: 'Qui souhaitez-vous contacter ?' },
   'msg.pastorChannel': { en: 'Message the Pastor', fr: 'Écrire au Pasteur' },
   'msg.pastorChannelDesc': { en: 'Prayer, guidance, or anything personal', fr: 'Prière, accompagnement ou toute demande personnelle' },
