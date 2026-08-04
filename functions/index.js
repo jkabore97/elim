@@ -46,9 +46,12 @@ exports.notifyOnNewPost = onDocumentCreated('posts/{postId}', async (event) => {
       messaging.sendEachForMulticast({
         tokens: batchTokens,
         notification: { title, body },
+        // Read by the app when the notification is tapped, to route straight
+        // to the post rather than dumping the person on the feed.
+        data: { kind: 'post', postId: event.params.postId },
         webpush: {
           notification: { icon: 'https://ccelim.com/elim-logo-mark.png' },
-          fcmOptions: { link: 'https://ccelim.com' }
+          fcmOptions: { link: `https://ccelim.com/?post=${event.params.postId}` }
         },
         android: {
           priority: 'high',
@@ -91,4 +94,83 @@ exports.notifyOnNewPost = onDocumentCreated('posts/{postId}', async (event) => {
         )
     );
   }
+});
+
+
+// ==================== NEW MESSAGE NOTIFICATIONS ====================
+
+exports.notifyOnNewMessage = onDocumentCreated('messages/{messageId}', async (event) => {
+  const snapshot = event.data;
+  if (!snapshot) return;
+  const message = snapshot.data();
+
+  const db = getFirestore();
+
+  const convSnap = await db.collection('conversations').doc(message.conversationId).get();
+  if (!convSnap.exists) return;
+  const conv = convSnap.data();
+
+  // Work out who should hear about this.
+  //  - A member/church writing into a channel  -> the staff who answer it
+  //  - Staff replying in a channel             -> the thread's owner
+  //  - Direct thread                           -> the other participant
+  const senderIsStaff = message.senderRole === 'pastor' || message.senderRole === 'admin';
+  let recipientIds = [];
+
+  if (conv.type === 'direct') {
+    recipientIds = (conv.participantIds || []).filter((id) => id !== message.senderId);
+  } else if (senderIsStaff) {
+    recipientIds = (conv.participantIds || []).filter((id) => id !== message.senderId);
+  } else {
+    const answeringRole = conv.type === 'pastor' ? 'pastor' : 'admin';
+    const staffSnap = await db.collection('users').where('role', '==', answeringRole).get();
+    recipientIds = staffSnap.docs.map((d) => d.id).filter((id) => id !== message.senderId);
+  }
+
+  if (recipientIds.length === 0) return;
+
+  // Firestore 'in' queries cap at 30 values, and the recipient list here is
+  // realistically 1-2 people, but chunking keeps this correct if that changes.
+  const tokens = [];
+  for (const group of chunk(recipientIds, 30)) {
+    const usersSnap = await db.collection('users').where('__name__', 'in', group).get();
+    usersSnap.forEach((doc) => {
+      const data = doc.data();
+      if (data.notificationsEnabled && Array.isArray(data.fcmTokens)) {
+        tokens.push(...data.fcmTokens);
+      }
+    });
+  }
+
+  if (tokens.length === 0) return;
+
+  const preview = message.mediaType === 'image' ? '📷 Photo'
+    : message.mediaType === 'audio' ? '🎤 Message vocal'
+    : (message.text || '').slice(0, 120);
+
+  const messaging = getMessaging();
+  const batches = chunk(tokens, 500);
+
+  await Promise.allSettled(
+    batches.map((batchTokens) =>
+      messaging.sendEachForMulticast({
+        tokens: batchTokens,
+        notification: { title: message.senderName || 'ELIM', body: preview },
+        data: { kind: 'message', conversationId: message.conversationId },
+        webpush: {
+          notification: { icon: 'https://ccelim.com/elim-logo-mark.png' },
+          fcmOptions: { link: 'https://ccelim.com/?tab=messages' }
+        },
+        android: {
+          priority: 'high',
+          notification: {
+            color: '#10b981',
+            channelId: 'elim-default',
+            icon: 'ic_stat_notify',
+            defaultSound: true
+          }
+        }
+      })
+    )
+  );
 });

@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, useMemo } from 'react'
 import {
-  collection, doc, setDoc, addDoc, updateDoc, onSnapshot,
+  collection, doc, setDoc, addDoc, onSnapshot,
   query, where, limit, serverTimestamp, getDoc, getDocs
 } from 'firebase/firestore'
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
@@ -144,9 +144,14 @@ function ChatView({ conversation, user, onBack }: {
   }, [conversation.id, user.uid, user.role])
 
   useEffect(() => {
-    updateDoc(doc(db, 'conversations', conversation.id), {
-      [`readBy.${user.uid}`]: serverTimestamp()
-    }).catch(() => {})
+    // setDoc+merge rather than updateDoc: updateDoc throws if the document
+    // doesn't exist yet, which is exactly the case the first time someone
+    // opens a channel they've never written in.
+    if (messages.length > 0) {
+      setDoc(doc(db, 'conversations', conversation.id), {
+        [`readBy.${user.uid}`]: serverTimestamp()
+      }, { merge: true }).catch(() => {})
+    }
   }, [conversation.id, messages.length, user.uid])
 
   useEffect(() => { bottomRef.current?.scrollIntoView({ behavior: 'smooth' }) }, [messages.length])
@@ -154,17 +159,26 @@ function ChatView({ conversation, user, onBack }: {
   // The parent conversation doc may not exist yet (someone opening a channel
   // for the very first time), so this upserts it before the message lands.
   const upsertConversation = async (preview: string) => {
-    await setDoc(doc(db, 'conversations', conversation.id), {
+    const payload: any = {
       type: conversation.type,
       participantIds: conversation.participantIds,
       participantNames: conversation.participantNames,
-      ownerRole: conversation.ownerRole || user.role,
       lastMessage: preview.slice(0, 120),
       lastMessageAt: serverTimestamp(),
       lastSenderId: user.uid,
-      [`readBy.${user.uid}`]: serverTimestamp(),
-      createdAt: conversation.createdAt || serverTimestamp()
-    }, { merge: true })
+      [`readBy.${user.uid}`]: serverTimestamp()
+    }
+    // createdAt and ownerRole describe the thread's origin, so they're only
+    // written when the thread is genuinely new. Previously createdAt was
+    // rewritten on every single send (members always build a fresh in-memory
+    // conversation with no createdAt), and ownerRole was overwritten with the
+    // replier's role whenever staff answered a member - so a member's thread
+    // started reporting itself as owned by an admin.
+    if (!conversation.createdAt) {
+      payload.createdAt = serverTimestamp()
+      payload.ownerRole = conversation.ownerRole || user.role
+    }
+    await setDoc(doc(db, 'conversations', conversation.id), payload, { merge: true })
   }
 
   const pushMessage = async (payload: Partial<Message>, preview: string) => {
@@ -692,8 +706,32 @@ function ChannelChooser({ user, onOpen }: {
   onOpen: (c: Conversation) => void
 }) {
   const { t } = useLanguage()
+  const [existing, setExisting] = useState<Record<string, Conversation>>({})
+
+  // Subscribe to this person's own threads so the chooser can show a preview
+  // and an unread dot - without this a member had no way to know the pastor
+  // had replied except by opening each channel and checking.
+  useEffect(() => {
+    const unsub = onSnapshot(
+      query(collection(db, 'conversations'), where('participantIds', 'array-contains', user.uid), limit(20)),
+      snap => {
+        const map: Record<string, Conversation> = {}
+        snap.docs.forEach(d => {
+          const row = { id: d.id, ...d.data() } as Conversation
+          map[row.type] = row
+        })
+        setExisting(map)
+      },
+      () => {}
+    )
+    return () => unsub()
+  }, [user.uid])
 
   const open = (type: 'pastor' | 'tech') => {
+    // Prefer the stored document so createdAt, read state, and names come
+    // with it rather than being rebuilt (and overwritten) from scratch.
+    const stored = existing[type]
+    if (stored) { onOpen(stored); return }
     onOpen({
       id: type === 'pastor' ? pastorConversationId(user.uid) : techConversationId(user.uid),
       type,
@@ -701,6 +739,16 @@ function ChannelChooser({ user, onOpen }: {
       participantNames: { [user.uid]: user.displayName },
       ownerRole: user.role
     })
+  }
+
+  const unreadFor = (type: string) => {
+    const conv = existing[type]
+    if (!conv || !conv.lastMessageAt || conv.lastSenderId === user.uid) return false
+    const readAt = conv.readBy?.[user.uid]
+    if (!readAt) return true
+    const r = readAt.toDate ? readAt.toDate() : new Date(readAt)
+    const l = conv.lastMessageAt.toDate ? conv.lastMessageAt.toDate() : new Date(conv.lastMessageAt)
+    return l > r
   }
 
   const channels = [
@@ -723,18 +771,26 @@ function ChannelChooser({ user, onOpen }: {
   return (
     <div className="space-y-3">
       <p className="text-sm text-slate-400 px-1">{t('msg.chooseChannel')}</p>
-      {channels.map(ch => (
-        <button key={ch.type} onClick={() => open(ch.type)}
-          className="w-full flex items-center gap-4 p-5 rounded-3xl bg-white shadow-sm border border-slate-100 hover:border-emerald-200 hover:shadow-md transition text-left">
-          <div className={`w-12 h-12 rounded-2xl flex items-center justify-center shrink-0 ${ch.tone}`}>
-            <ch.Icon size={22} />
-          </div>
-          <div className="min-w-0">
-            <h3 className="font-bold text-slate-900">{ch.title}</h3>
-            <p className="text-xs text-slate-400 mt-0.5 leading-relaxed">{ch.desc}</p>
-          </div>
-        </button>
-      ))}
+      {channels.map(ch => {
+        const conv = existing[ch.type]
+        const unread = unreadFor(ch.type)
+        return (
+          <button key={ch.type} onClick={() => open(ch.type)}
+            className="w-full flex items-center gap-4 p-5 rounded-3xl bg-white shadow-sm border border-slate-100 hover:border-emerald-200 hover:shadow-md transition text-left">
+            <div className={`w-12 h-12 rounded-2xl flex items-center justify-center shrink-0 ${ch.tone}`}>
+              <ch.Icon size={22} />
+            </div>
+            <div className="min-w-0 flex-1">
+              <h3 className={`text-slate-900 ${unread ? 'font-extrabold' : 'font-bold'}`}>{ch.title}</h3>
+              <p className={`text-xs mt-0.5 leading-relaxed truncate ${
+                unread ? 'text-slate-700 font-medium' : 'text-slate-400'}`}>
+                {conv?.lastMessage || ch.desc}
+              </p>
+            </div>
+            {unread && <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 shrink-0" />}
+          </button>
+        )
+      })}
     </div>
   )
 }

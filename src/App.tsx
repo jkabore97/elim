@@ -19,7 +19,7 @@ import { Capacitor, SystemBars, SystemBarsStyle } from '@capacitor/core'
 import { Share } from '@capacitor/share'
 import { EdgeToEdge } from '@capawesome/capacitor-android-edge-to-edge-support'
 import { auth, db, storage } from './firebase'
-import { enableNotifications, disableNotifications, listenForForegroundMessages, checkNotificationPermission, reconcileNotificationState, initNativeNotifications, sendTestNotification, notificationDiagnostics } from './notifications'
+import { enableNotifications, disableNotifications, listenForForegroundMessages, checkNotificationPermission, reconcileNotificationState, initNativeNotifications, sendTestNotification, notificationDiagnostics, onNotificationRoute, consumeLaunchUrlRoute } from './notifications'
 import { logActivity } from './activityLog'
 import { AnimatedSplash } from './AnimatedSplash'
 import { MessagesTab } from './Messages'
@@ -719,6 +719,7 @@ function AppInner() {
   const [pendingChurches, setPendingChurches] = useState<AppUser[]>([])
   const [likedPostIds, setLikedPostIds] = useState<Set<string>>(new Set())
   const [showNotifPrompt, setShowNotifPrompt] = useState(false)
+  const [highlightPostId, setHighlightPostId] = useState<string | null>(null)
   const [splashDone, setSplashDone] = useState(false)
   const [feedFilter, setFeedFilter] = useState<'all' | 'video' | 'audio' | 'posts'>('all')
   const [searchQuery, setSearchQuery] = useState('')
@@ -738,6 +739,24 @@ function AppInner() {
     // Native only - creates the Android notification channel (required on
     // Android 8+) and handles foreground pushes, which FCM won't display.
     initNativeNotifications()
+
+    // A tapped notification should land on what it was about.
+    const off = onNotificationRoute(route => {
+      if (route.kind === 'message') {
+        setActiveTab('messages')
+      } else {
+        setActiveTab('feed')
+        if (route.postId) {
+          setHighlightPostId(route.postId)
+          // Clear the highlight after a moment so it reads as "here it is"
+          // rather than leaving a post permanently marked.
+          setTimeout(() => setHighlightPostId(null), 4000)
+        }
+      }
+    })
+    // Web: read any target off the launch URL the service worker opened.
+    consumeLaunchUrlRoute()
+    return () => off()
   }, [])
 
   // Reconcile our stored notificationsEnabled flag against what the OS
@@ -1095,8 +1114,16 @@ function AppInner() {
                   </div>
                 )}
                 {visiblePosts.map(post => (
-                  <PostCard key={post.id} post={post} onLike={handleLike} onOpenComments={setActiveCommentsPost}
-                    currentUserUid={user.uid} isLiked={likedPostIds.has(post.id)} onEdit={setEditingPost} onDelete={handleDeletePost} />
+                  <div key={post.id}
+                    ref={post.id === highlightPostId
+                      ? (el) => el?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+                      : undefined}
+                    className={post.id === highlightPostId
+                      ? 'rounded-3xl ring-2 ring-emerald-400 ring-offset-2 ring-offset-[#0f172a] transition'
+                      : ''}>
+                    <PostCard post={post} onLike={handleLike} onOpenComments={setActiveCommentsPost}
+                      currentUserUid={user.uid} isLiked={likedPostIds.has(post.id)} onEdit={setEditingPost} onDelete={handleDeletePost} />
+                  </div>
                 ))}
               </div>
             )}

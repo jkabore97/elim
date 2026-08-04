@@ -85,6 +85,17 @@ export async function initNativeNotifications() {
 
     // Foreground arrival - post a local notification so it still shows in
     // the shade rather than silently vanishing.
+    // Tapping a notification (app closed OR backgrounded) routes to the
+    // thing it was about.
+    await PushNotifications.addListener('pushNotificationActionPerformed', (action) => {
+      const data: any = action?.notification?.data || {}
+      if (data.kind === 'message') {
+        emitNotificationRoute({ kind: 'message', conversationId: data.conversationId })
+      } else if (data.kind === 'post') {
+        emitNotificationRoute({ kind: 'post', postId: data.postId })
+      }
+    })
+
     await PushNotifications.addListener('pushNotificationReceived', async (notification) => {
       try {
         const { LocalNotifications } = await import('@capacitor/local-notifications')
@@ -233,5 +244,48 @@ export async function notificationDiagnostics(user: { uid: string; notifications
     osPermission: perm,
     enabledInApp: !!user.notificationsEnabled,
     tokensStored: user.fcmTokens?.length || 0
+  }
+}
+
+
+// ==================== DEEP LINKING ====================
+
+// A tapped notification should land the person where the notification was
+// about - the post, or the conversation - not just "somewhere in the app".
+// Both the native tap listener and the web URL path funnel into this one
+// event so App.tsx has a single place to react.
+export type NotificationRoute =
+  | { kind: 'post'; postId?: string }
+  | { kind: 'message'; conversationId?: string }
+
+export function emitNotificationRoute(route: NotificationRoute) {
+  window.dispatchEvent(new CustomEvent('elim:route', { detail: route }))
+}
+
+export function onNotificationRoute(handler: (route: NotificationRoute) => void) {
+  const listener = (e: Event) => handler((e as CustomEvent).detail as NotificationRoute)
+  window.addEventListener('elim:route', listener)
+  return () => window.removeEventListener('elim:route', listener)
+}
+
+// Web: the service worker opens the app at a URL carrying the target, so on
+// startup we read it back off the query string and clear it, leaving a clean
+// address bar behind.
+export function consumeLaunchUrlRoute() {
+  try {
+    const params = new URLSearchParams(window.location.search)
+    const postId = params.get('post')
+    const tab = params.get('tab')
+    if (!postId && !tab) return
+
+    if (postId) emitNotificationRoute({ kind: 'post', postId })
+    else if (tab === 'messages') emitNotificationRoute({ kind: 'message' })
+
+    params.delete('post')
+    params.delete('tab')
+    const rest = params.toString()
+    window.history.replaceState({}, '', window.location.pathname + (rest ? `?${rest}` : ''))
+  } catch {
+    // A malformed URL should never stop the app from starting.
   }
 }

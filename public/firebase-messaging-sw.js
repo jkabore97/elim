@@ -22,3 +22,25 @@ messaging.onBackgroundMessage((payload) => {
     icon: '/elim-logo-mark.png'
   });
 });
+
+// Route a clicked notification to the right screen. Focuses an already-open
+// tab where possible rather than piling up new ones.
+self.addEventListener('notificationclick', (event) => {
+  event.notification.close();
+  const data = event.notification.data?.FCM_MSG?.data || event.notification.data || {};
+  const target = data.kind === 'message'
+    ? '/?tab=messages'
+    : data.postId ? `/?post=${data.postId}` : '/';
+
+  event.waitUntil(
+    clients.matchAll({ type: 'window', includeUncontrolled: true }).then((list) => {
+      for (const client of list) {
+        if ('focus' in client) {
+          client.navigate(target);
+          return client.focus();
+        }
+      }
+      return clients.openWindow(target);
+    })
+  );
+});
