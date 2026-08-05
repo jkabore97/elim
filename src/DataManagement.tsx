@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo } from 'react'
 import { collection, onSnapshot, query, limit, doc, updateDoc, deleteDoc } from 'firebase/firestore'
-import { Search, Download, Database, FileText, Users, X, Table, Trash2, Save, AlertTriangle } from 'lucide-react'
+import { Search, Download, Database, FileText, Users, X, Table, Trash2, Save, AlertTriangle, Eye } from 'lucide-react'
 import { db } from './firebase'
 import { useLanguage } from './i18n'
 import type { AppUser } from './types'
@@ -250,20 +250,37 @@ function BrowseCollections({ isAdmin }: { isAdmin: boolean }) {
                 </div>
               )}
 
+              {!isAdmin && (
+                <div className="flex gap-2 bg-slate-50 rounded-xl p-3">
+                  <Eye size={14} className="text-slate-400 shrink-0 mt-0.5" />
+                  <p className="text-[11px] text-slate-500 leading-relaxed">{t('data.readOnlyNote')}</p>
+                </div>
+              )}
+
               {Object.entries(draft).map(([k, v]) => (
                 <div key={k}>
                   <label className="text-[11px] font-semibold text-slate-400">{k}</label>
-                  <input value={v} onChange={e => setDraft(p => ({ ...p, [k]: e.target.value }))}
-                    className="w-full mt-1 px-3 py-2 rounded-xl border border-slate-200 text-[13px] focus:outline-none focus:ring-2 focus:ring-emerald-400" />
+                  <input value={v} readOnly={!isAdmin}
+                    onChange={e => setDraft(p => ({ ...p, [k]: e.target.value }))}
+                    className={`w-full mt-1 px-3 py-2 rounded-xl border text-[13px] focus:outline-none ${
+                      isAdmin
+                        ? 'border-slate-200 focus:ring-2 focus:ring-emerald-400'
+                        : 'border-slate-100 bg-slate-50 text-slate-500 cursor-default'}`} />
                 </div>
               ))}
 
               {notice && <p className="text-xs text-slate-600 bg-slate-50 rounded-xl px-3 py-2">{notice}</p>}
 
-              <button onClick={save} disabled={saving}
-                className="w-full flex items-center justify-center gap-2 py-3 rounded-2xl bg-emerald-600 hover:bg-emerald-700 disabled:opacity-50 text-white font-semibold text-sm transition">
-                <Save size={16} /> {saving ? t('data.saving') : t('data.saveChanges')}
-              </button>
+              {/* Save is admin/pastor only. Leads keep full visibility - they
+                  can browse, search and export - but not alter records. The
+                  security rules enforce the same thing server-side, so this is
+                  the honest UI rather than the actual barrier. */}
+              {isAdmin && (
+                <button onClick={save} disabled={saving}
+                  className="w-full flex items-center justify-center gap-2 py-3 rounded-2xl bg-emerald-600 hover:bg-emerald-700 disabled:opacity-50 text-white font-semibold text-sm transition">
+                  <Save size={16} /> {saving ? t('data.saving') : t('data.saveChanges')}
+                </button>
+              )}
 
               {isAdmin && (
                 confirmDelete ? (

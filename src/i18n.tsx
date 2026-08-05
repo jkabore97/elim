@@ -60,6 +60,7 @@ const translations = {
   'data.noChanges': { en: 'Nothing changed.', fr: 'Aucune modification.' },
   'data.deleteRecord': { en: 'Delete this record', fr: 'Supprimer cet enregistrement' },
   'data.confirmDelete': { en: 'Delete permanently', fr: 'Supprimer définitivement' },
+  'data.readOnlyNote': { en: 'You can view and export these records. Only an administrator or the pastor can change them.', fr: "Vous pouvez consulter et exporter ces enregistrements. Seul un administrateur ou le pasteur peut les modifier." },
   'data.lockedNote': { en: 'Identifiers and dates are hidden from editing: changing them would break how this record links to others.', fr: "Les identifiants et dates ne sont pas modifiables : les changer romprait les liens entre cet enregistrement et les autres." },
   'data.registry': { en: 'Registry', fr: 'Registre' },
   'data.export': { en: 'Export', fr: 'Export' },
