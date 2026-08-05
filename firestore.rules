@@ -128,6 +128,22 @@ service cloud.firestore {
                     );
     }
 
+    // ---- Health tips (Santé) ----
+    // Readable by anyone signed in. Writable by leads/admins and by members
+    // whose declared profession is medical - enforced here, not just hidden
+    // in the UI, so the restriction actually means something.
+    match /healthTips/{tipId} {
+      allow read: if isSignedIn();
+      allow create: if isSignedIn()
+                    && request.resource.data.authorId == request.auth.uid
+                    && (
+                      canPublish()
+                      || userDoc().data.profession in ['Médecin', 'Infirmier / Sage-femme', 'Pharmacien']
+                    );
+      allow update: if isSignedIn() && resource.data.authorId == request.auth.uid;
+      allow delete: if isSignedIn() && (resource.data.authorId == request.auth.uid || isAdmin());
+    }
+
     // ---- Activity logs ----
     // Admin-only visibility. Any signed-in user can append entries about
     // their own actions (that's how sign-ins/posts get recorded at all),

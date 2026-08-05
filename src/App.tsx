@@ -3,7 +3,7 @@ import {
   Home, Church, PlusCircle, User, MessageCircle, Heart, Share2,
   Image as ImageIcon, Video, Mic, X, Send, LogOut,
   Youtube, Facebook, CheckCircle2, Clock, ArrowRight, ShieldCheck, UserX, Sparkles,
-  Trash2, Camera, FileText, Upload, Pencil, Globe, Eye, EyeOff, Search, Bell, ScrollText, Mail, Play, Pause
+  Trash2, Camera, FileText, Upload, Pencil, Globe, Eye, EyeOff, Search, Bell, ScrollText, Mail, Play, Pause, HeartPulse
 } from 'lucide-react'
 import {
   collection, addDoc, onSnapshot, query, orderBy, where,
@@ -29,6 +29,8 @@ import { MediaPlayerProvider, useMediaPlayer } from './MediaPlayer'
 import { ImageLightbox } from './ImageLightbox'
 import { initBackButton, useBackHandler } from './backButton'
 import { MessagesTab } from './Messages'
+import { DataManagementTab } from './DataManagement'
+import { SanteTab } from './Sante'
 import type { Post, Comment, AppUser, ActivityLog } from './types'
 import { LanguageProvider, useLanguage, type Language } from './i18n'
 
@@ -172,6 +174,9 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
   const [dateOfBirth, setDateOfBirth] = useState('')
   const [gender, setGender] = useState<'homme' | 'femme' | ''>('')
   const [profession, setProfession] = useState('')
+  const [signupCountry, setSignupCountry] = useState('Burkina Faso')
+  const [signupCity, setSignupCity] = useState('')
+  const [quartier, setQuartier] = useState('')
   const [interests, setInterests] = useState<string[]>([])
 
   // One-time SMS verification, signup only.
@@ -301,6 +306,9 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
         // place rather than being duplicated into each branch below.
         const commonProfile = {
           phoneVerified: true,
+          country: signupCountry,
+          city: signupCity.trim(),
+          quartier: quartier.trim(),
           dateOfBirth,
           gender: gender as 'homme' | 'femme',
           profession,
@@ -479,6 +487,18 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
               <option value="" disabled>{t('auth.selectProfession')}</option>
               {PROFESSIONS.map(p => <option key={p} value={p}>{p}</option>)}
             </select>
+
+            <select required value={signupCountry} onChange={e => setSignupCountry(e.target.value)} className={selectClass}>
+              <option value="" disabled>{t('auth.country')}</option>
+              {COUNTRIES.map(c => <option key={c} value={c}>{c}</option>)}
+            </select>
+
+            <div className="flex gap-3">
+              <input required value={signupCity} onChange={e => setSignupCity(e.target.value)}
+                placeholder={t('auth.city')} className={inputClass} />
+              <input required value={quartier} onChange={e => setQuartier(e.target.value)}
+                placeholder={t('auth.quartier')} className={inputClass} />
+            </div>
 
             <div>
               <label className="text-xs font-semibold text-slate-400 px-1 mb-1.5 block">
@@ -941,6 +961,9 @@ function AppInner() {
   const [likedPostIds, setLikedPostIds] = useState<Set<string>>(new Set())
   const [showNotifPrompt, setShowNotifPrompt] = useState(false)
   const [highlightPostId, setHighlightPostId] = useState<string | null>(null)
+  const [adminSection, setAdminSection] = useState<'approvals' | 'logs' | 'data'>(
+    user?.role === 'church' ? 'data' : 'approvals'
+  )
   const { track: playerTrack } = useMediaPlayer()
   const [splashDone, setSplashDone] = useState(false)
   const [feedFilter, setFeedFilter] = useState<'all' | 'video' | 'audio' | 'posts'>('all')
@@ -1240,14 +1263,17 @@ function AppInner() {
 
   if (user.role === 'pending_church') return <PendingScreen user={user} onLogout={handleLogout} />
 
+  const isStaffUser = user.role === 'admin' || user.role === 'pastor'
+  const isLeadOrStaff = isStaffUser || user.role === 'church'
+
   const navItems = [
     { id: 'feed', icon: Home, label: t('nav.feed') },
     { id: 'messages', icon: MessageCircle, label: t('nav.messages') },
+    { id: 'sante', icon: HeartPulse, label: t('nav.sante') },
     { id: 'profile', icon: User, label: t('nav.profile') },
-    ...((user.role === 'admin' || user.role === 'pastor') ? [
-      { id: 'admin', icon: ShieldCheck, label: t('nav.admin') },
-      { id: 'logs', icon: ScrollText, label: t('nav.logs') }
-    ] : [])
+    // Logs and Data live INSIDE Admin rather than as their own tabs - eight
+    // bottom-nav items is unusable on a phone.
+    ...(isLeadOrStaff ? [{ id: 'admin', icon: ShieldCheck, label: t('nav.admin') }] : [])
   ]
 
   return (
@@ -1386,12 +1412,32 @@ function AppInner() {
               <ProfileTab user={user} onProfileUpdated={(updates) => setUser(prev => prev ? { ...prev, ...updates } : prev)} />
             )}
 
-            {activeTab === 'admin' && (user.role === 'admin' || user.role === 'pastor') && (
-              <AdminPanel pendingChurches={pendingChurches} onApprove={handleApproveChurch} onDeny={handleDenyChurch} currentUser={user} />
-            )}
+            {activeTab === 'sante' && <SanteTab user={user} />}
 
-            {activeTab === 'logs' && (user.role === 'admin' || user.role === 'pastor') && (
-              <LogsPanel />
+            {activeTab === 'admin' && isLeadOrStaff && (
+              <div className="space-y-4">
+                <div className="flex gap-2 overflow-x-auto pb-1">
+                  {[
+                    ...(isStaffUser ? [{ id: 'approvals' as const, label: t('admin.subApprovals') }] : []),
+                    ...(isStaffUser ? [{ id: 'logs' as const, label: t('nav.logs') }] : []),
+                    { id: 'data' as const, label: t('nav.data') }
+                  ].map(sub => (
+                    <button key={sub.id} onClick={() => setAdminSection(sub.id)}
+                      className={`shrink-0 px-4 py-2 rounded-full text-sm font-semibold transition ${
+                        adminSection === sub.id
+                          ? 'bg-emerald-500/15 text-emerald-400 border border-emerald-400/40'
+                          : 'bg-white/5 text-slate-400 border border-white/10 hover:text-slate-200'}`}>
+                      {sub.label}
+                    </button>
+                  ))}
+                </div>
+
+                {adminSection === 'approvals' && isStaffUser && (
+                  <AdminPanel pendingChurches={pendingChurches} onApprove={handleApproveChurch} onDeny={handleDenyChurch} currentUser={user} />
+                )}
+                {adminSection === 'logs' && isStaffUser && <LogsPanel />}
+                {adminSection === 'data' && <DataManagementTab user={user} />}
+              </div>
             )}
           </main>
         </div>

@@ -28,6 +28,7 @@ export interface AppUser {
   dateOfBirth?: string;
   gender?: 'homme' | 'femme';
   profession?: string;
+  quartier?: string;
   // Church departments the person belongs to or wants to join. An array
   // because people commonly serve in more than one.
   interests?: string[];
