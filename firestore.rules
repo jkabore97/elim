@@ -25,6 +25,12 @@ service cloud.firestore {
       return isSignedIn() && (role() == 'admin' || role() == 'pastor');
     }
 
+    // Members whose declared profession is medical may publish to Santé
+    // without being made a lead.
+    function isMedical() {
+      return userDoc().data.profession in ['Médecin', 'Infirmier / Sage-femme', 'Pharmacien'];
+    }
+
     // ---- Users ----
     match /users/{userId} {
       allow read: if isSignedIn();
@@ -45,7 +51,12 @@ service cloud.firestore {
                         && resource.data.role == 'pending_church'
                         && request.resource.data.role in ['church', 'member']
                         && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['role']))
+                      ||
+                      // Admin/pastor editing via the Data explorer. Leads are
+                      // deliberately excluded - they get read-only access.
+                      isAdmin()
                     );
+      allow delete: if isAdmin();
     }
 
     // ---- Messaging ----
@@ -137,7 +148,10 @@ service cloud.firestore {
     match /activityLogs/{logId} {
       allow read: if isAdmin();
       allow create: if isSignedIn() && request.resource.data.userId == request.auth.uid;
-      allow update, delete: if false;
+      // Never editable, by anyone - the log is only useful if it can't be
+      // quietly rewritten. Admins may delete for retention housekeeping.
+      allow update: if false;
+      allow delete: if isAdmin();
     }
 
     // ---- Church directory ----
@@ -163,25 +177,25 @@ service cloud.firestore {
       allow create: if request.resource.data.churchId == request.auth.uid
                     && (
                       canPublish()
-                      || (request.resource.data.section == 'sante'
-                          && userDoc().data.profession in ['Médecin', 'Infirmier / Sage-femme', 'Pharmacien'])
+                      || (request.resource.data.section == 'sante' && isMedical())
                     );
       // The owning church/admin can edit or delete their own post (and only
       // their own — see SECURITY.md §4); any signed-in member can separately
       // bump likes or the comment counter.
       allow update: if isSignedIn() && (
                       (resource.data.churchId == request.auth.uid) ||
+                      isAdmin() ||
                       (request.resource.data.diff(resource.data).affectedKeys().hasOnly(['likes', 'commentsCount']))
                     );
-      allow delete: if isSignedIn() && resource.data.churchId == request.auth.uid;
+      allow delete: if isSignedIn() && (resource.data.churchId == request.auth.uid || isAdmin());
     }
 
     // ---- Comments ----
     match /comments/{commentId} {
       allow read: if isSignedIn();
       allow create: if isSignedIn() && request.resource.data.userId == request.auth.uid;
-      allow update: if false;
-      allow delete: if isSignedIn() && resource.data.userId == request.auth.uid;
+      allow update: if isAdmin();
+      allow delete: if isSignedIn() && (resource.data.userId == request.auth.uid || isAdmin());
     }
 
     // ---- Likes ----
@@ -194,7 +208,7 @@ service cloud.firestore {
       allow create: if isSignedIn()
                     && request.resource.data.userId == request.auth.uid
                     && likeId == (request.resource.data.postId + '_' + request.auth.uid);
-      allow delete: if isSignedIn() && resource.data.userId == request.auth.uid;
+      allow delete: if isSignedIn() && (resource.data.userId == request.auth.uid || isAdmin());
       allow update: if false;
     }
   }
