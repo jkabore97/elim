@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react'
+import { useState, useEffect, useMemo, useRef } from 'react'
 import {
   Home, Church, PlusCircle, User, MessageCircle, Heart, Share2,
   Image as ImageIcon, Video, Mic, X, Send, LogOut,
@@ -12,8 +12,10 @@ import {
 import {
   createUserWithEmailAndPassword, signInWithEmailAndPassword,
   signOut, onAuthStateChanged, updateProfile,
-  sendEmailVerification, sendPasswordResetEmail
+  sendEmailVerification, sendPasswordResetEmail,
+  EmailAuthProvider, linkWithCredential
 } from 'firebase/auth'
+import type { ConfirmationResult } from 'firebase/auth'
 import { ref, uploadBytes, uploadBytesResumable, getDownloadURL } from 'firebase/storage'
 import { Capacitor, SystemBars, SystemBarsStyle } from '@capacitor/core'
 import { Share } from '@capacitor/share'
@@ -21,6 +23,7 @@ import { EdgeToEdge } from '@capawesome/capacitor-android-edge-to-edge-support'
 import { auth, db, storage } from './firebase'
 import { enableNotifications, disableNotifications, listenForForegroundMessages, checkNotificationPermission, reconcileNotificationState, initNativeNotifications, sendTestNotification, notificationDiagnostics, onNotificationRoute, consumeLaunchUrlRoute } from './notifications'
 import { logActivity } from './activityLog'
+import { sendVerificationCode, confirmVerificationCode, resetVerifier } from './phoneVerify'
 import { AnimatedSplash } from './AnimatedSplash'
 import { MediaPlayerProvider, useMediaPlayer } from './MediaPlayer'
 import { ImageLightbox } from './ImageLightbox'
@@ -170,6 +173,51 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
   const [gender, setGender] = useState<'homme' | 'femme' | ''>('')
   const [profession, setProfession] = useState('')
   const [interests, setInterests] = useState<string[]>([])
+
+  // One-time SMS verification, signup only.
+  const [phoneVerified, setPhoneVerified] = useState(false)
+  const [smsSending, setSmsSending] = useState(false)
+  const [smsSent, setSmsSent] = useState(false)
+  const [smsCode, setSmsCode] = useState('')
+  const confirmationRef = useRef<ConfirmationResult | null>(null)
+
+  const handleSendCode = async () => {
+    if (!sanitizeDigits(phone)) { setError(t('auth.phoneInvalid')); return }
+    setError(''); setSmsSending(true)
+    const result = await sendVerificationCode(countryCode, phone)
+    setSmsSending(false)
+    if (result.ok) {
+      confirmationRef.current = result.confirmation
+      setSmsSent(true)
+    } else {
+      setError(
+        result.error === 'INVALID_NUMBER' ? t('auth.phoneInvalid')
+        : result.error === 'TOO_MANY' ? t('auth.smsTooMany')
+        : result.error === 'QUOTA' ? t('auth.smsQuota')
+        : result.error
+      )
+    }
+  }
+
+  const handleConfirmCode = async () => {
+    if (!confirmationRef.current) return
+    setError(''); setSmsSending(true)
+    const result = await confirmVerificationCode(confirmationRef.current, smsCode.trim())
+    setSmsSending(false)
+    if (result.ok) {
+      // At this point Firebase has signed them in as a phone-auth user. The
+      // email/password credential gets LINKED onto that same account below,
+      // which is what keeps PIN sign-in working afterwards.
+      setPhoneVerified(true)
+      setSmsSent(false)
+    } else {
+      setError(
+        result.error === 'BAD_CODE' ? t('auth.smsBadCode')
+        : result.error === 'EXPIRED' ? t('auth.smsExpired')
+        : result.error || t('auth.smsBadCode')
+      )
+    }
+  }
   const [pin, setPin] = useState('')
   const [confirmPin, setConfirmPin] = useState('')
   const [showPin, setShowPin] = useState(false)
@@ -220,6 +268,10 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
       if (!gender) { setError(t('auth.genderRequired')); return }
     }
 
+    if (mode === 'register' && !phoneVerified) {
+      setError(t('auth.verifyPhoneFirst')); return
+    }
+
     if (accountType === 'member') {
       if (!sanitizeDigits(phone)) { setError(t('auth.phoneInvalid')); return }
       if (!/^\d{6}$/.test(pin)) { setError(t('auth.pinMustBe6Digits')); return }
@@ -248,6 +300,7 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
         // Collected identically for both account types, so it lives in one
         // place rather than being duplicated into each branch below.
         const commonProfile = {
+          phoneVerified: true,
           dateOfBirth,
           gender: gender as 'homme' | 'femme',
           profession,
@@ -255,7 +308,14 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
         }
         if (accountType === 'member') {
           const authEmail = memberAuthEmail(countryCode, phone)
-          const cred = await createUserWithEmailAndPassword(auth, authEmail, pin)
+          // The SMS step already signed them in as a phone-auth user. Linking
+          // the email/PIN credential onto THAT account (rather than creating a
+          // second one) is what lets the existing phone+PIN sign-in keep
+          // working while the number is genuinely verified.
+          const current = auth.currentUser
+          const cred = current
+            ? await linkWithCredential(current, EmailAuthProvider.credential(authEmail, pin))
+            : await createUserWithEmailAndPassword(auth, authEmail, pin)
           await updateProfile(cred.user, { displayName: fullName })
           const selectedChurch = churches.find(c => c.id === selectedChurchId)
           const profile: AppUser = {
@@ -274,11 +334,16 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
           // match the entry's userId, which is only true while signed in.
           logActivity(profile, 'signup', selectedChurch ? `Member - ${selectedChurch.name}` : 'Member - no church')
           await signOut(auth)
+          resetVerifier()
+          setPhoneVerified(false)
           setMode('login')
           setPin(''); setConfirmPin('')
           setRegisterSuccess(true)
         } else {
-          const cred = await createUserWithEmailAndPassword(auth, email, password)
+          const current = auth.currentUser
+          const cred = current
+            ? await linkWithCredential(current, EmailAuthProvider.credential(email, password))
+            : await createUserWithEmailAndPassword(auth, email, password)
           await updateProfile(cred.user, { displayName: fullName })
           sendEmailVerification(cred.user).catch(() => {})
           const profile: AppUser = {
@@ -295,6 +360,8 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
           await setDoc(doc(db, 'users', cred.user.uid), profile)
           logActivity(profile, 'signup', `Church - ${churchName}`)
           await signOut(auth)
+          resetVerifier()
+          setPhoneVerified(false)
           setMode('login')
           setPassword(''); setConfirmPassword('')
           setRegisterSuccess(true)
@@ -455,13 +522,53 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
         )}
 
         {(accountType === 'member' || mode === 'register') && (
-          <div className="flex gap-2">
-            <select value={countryCode} onChange={e => setCountryCode(e.target.value)}
-              className="w-[92px] shrink-0 px-2 py-3.5 rounded-2xl bg-white/5 border border-white/10 text-white focus:outline-none focus:ring-2 focus:ring-emerald-400/60 focus:border-emerald-400/60 text-[15px] appearance-none">
-              {COUNTRY_CODES.map(c => <option key={c.name} value={c.code}>{c.code}</option>)}
-            </select>
-            <input required type="tel" value={phone} onChange={e => setPhone(e.target.value)} placeholder={t('auth.phoneNumber')}
-              className={inputClass} />
+          <div>
+            <div className="flex gap-2">
+              <select value={countryCode} onChange={e => setCountryCode(e.target.value)}
+                disabled={phoneVerified}
+                className="w-[92px] shrink-0 px-2 py-3.5 rounded-2xl bg-white/5 border border-white/10 text-white focus:outline-none focus:ring-2 focus:ring-emerald-400/60 focus:border-emerald-400/60 text-[15px] appearance-none disabled:opacity-60">
+                {COUNTRY_CODES.map(c => <option key={c.name} value={c.code}>{c.code}</option>)}
+              </select>
+              <input required type="tel" value={phone} onChange={e => setPhone(e.target.value)}
+                disabled={phoneVerified}
+                placeholder={t('auth.phoneNumber')}
+                className={inputClass + ' disabled:opacity-60'} />
+            </div>
+
+            {mode === 'register' && (
+              <div className="mt-2">
+                {phoneVerified ? (
+                  <p className="flex items-center gap-1.5 text-xs font-semibold text-emerald-400 px-1">
+                    <CheckCircle2 size={14} /> {t('auth.phoneVerified')}
+                  </p>
+                ) : smsSent ? (
+                  <div className="space-y-2">
+                    <p className="text-[11px] text-slate-400 px-1">{t('auth.smsSentTo')} {countryCode} {phone}</p>
+                    <div className="flex gap-2">
+                      <input type="tel" inputMode="numeric" maxLength={6}
+                        value={smsCode}
+                        onChange={e => setSmsCode(sanitizeDigits(e.target.value).slice(0, 6))}
+                        placeholder={t('auth.smsCodePlaceholder')}
+                        className={inputClass} />
+                      <button type="button" onClick={handleConfirmCode}
+                        disabled={smsCode.length !== 6 || smsSending}
+                        className="px-4 rounded-2xl bg-emerald-600 hover:bg-emerald-700 disabled:opacity-40 text-white text-sm font-semibold shrink-0 transition">
+                        {smsSending ? '...' : t('auth.smsConfirm')}
+                      </button>
+                    </div>
+                    <button type="button" onClick={handleSendCode} disabled={smsSending}
+                      className="text-[11px] font-semibold text-emerald-400 hover:text-emerald-300 px-1">
+                      {t('auth.smsResend')}
+                    </button>
+                  </div>
+                ) : (
+                  <button type="button" onClick={handleSendCode} disabled={smsSending || !phone.trim()}
+                    className="w-full py-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-slate-200 text-sm font-semibold disabled:opacity-40 transition">
+                    {smsSending ? t('auth.smsSending') : t('auth.smsVerifyButton')}
+                  </button>
+                )}
+              </div>
+            )}
           </div>
         )}
 
