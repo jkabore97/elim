@@ -1963,8 +1963,14 @@ function PostCard({ post, onLike, onOpenComments, currentUserUid, isLiked, onEdi
 
       {/* Media */}
       {post.type === 'text-image' && post.mediaUrl && (
-        <img src={post.mediaUrl} alt="" onClick={() => setLightbox(post.mediaUrl!)}
-          className="w-full max-h-80 object-cover cursor-zoom-in" />
+        // object-contain, not object-cover: posters and flyers are usually
+        // portrait, and cover cropped the top and bottom off them. The tinted
+        // backdrop means the letterboxing on very tall or very wide images
+        // reads as deliberate rather than as a gap.
+        <div className="w-full bg-slate-100 flex items-center justify-center">
+          <img src={post.mediaUrl} alt="" onClick={() => setLightbox(post.mediaUrl!)}
+            className="w-full max-h-[75vh] object-contain cursor-zoom-in" />
+        </div>
       )}
 
       {post.type === 'youtube' && ytId && (
@@ -2013,8 +2019,10 @@ function PostCard({ post, onLike, onOpenComments, currentUserUid, isLiked, onEdi
       {post.type === 'audio' && post.mediaUrl && (
         <div className="px-4 pb-4">
           {post.coverUrl && (
-            <img src={post.coverUrl} alt="" onClick={() => setLightbox(post.coverUrl!)}
-              className="w-full h-40 object-cover rounded-2xl mb-3 cursor-zoom-in" />
+            <div className="w-full bg-slate-100 rounded-2xl mb-3 flex items-center justify-center overflow-hidden">
+              <img src={post.coverUrl} alt="" onClick={() => setLightbox(post.coverUrl!)}
+                className="w-full max-h-56 object-contain cursor-zoom-in" />
+            </div>
           )}
           <button
             onClick={() => {
