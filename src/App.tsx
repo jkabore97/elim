@@ -1564,7 +1564,7 @@ export const CHURCH_NAME = 'Centre Chrétien E.L.I.M'
 // Categories for health posts.
 const SANTE_CATEGORIES = [
   'Prévention', 'Nutrition', 'Maternité & enfance', 'Hygiène',
-  'Paludisme', 'Santé mentale', 'Premiers secours', 'Général'
+  'Infections', 'Santé mentale', 'Premiers secours', 'Général'
 ]
 
 // Who may publish to Santé: leads/admins, plus members whose declared
