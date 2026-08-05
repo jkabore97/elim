@@ -3,7 +3,7 @@ import {
   Home, Church, PlusCircle, User, MessageCircle, Heart, Share2,
   Image as ImageIcon, Video, Mic, X, Send, LogOut,
   Youtube, Facebook, CheckCircle2, Clock, ArrowRight, ShieldCheck, UserX, Sparkles,
-  Trash2, Camera, FileText, Upload, Pencil, Globe, Eye, EyeOff, Search, Bell, ScrollText, Mail, Play, Pause, HeartPulse, Download
+  Trash2, Camera, FileText, Upload, Pencil, Globe, Eye, EyeOff, Search, Bell, ScrollText, Mail, Play, Pause, HeartPulse, Download, AlertTriangle
 } from 'lucide-react'
 import {
   collection, addDoc, onSnapshot, query, orderBy, where,
@@ -28,7 +28,6 @@ import { ImageLightbox } from './ImageLightbox'
 import { initBackButton, useBackHandler } from './backButton'
 import { MessagesTab } from './Messages'
 import { DataManagementTab } from './DataManagement'
-import { SanteTab } from './Sante'
 import type { Post, Comment, AppUser, ActivityLog } from './types'
 import { LanguageProvider, useLanguage, type Language } from './i18n'
 
@@ -913,6 +912,8 @@ function AppInner() {
   const [likedPostIds, setLikedPostIds] = useState<Set<string>>(new Set())
   const [showNotifPrompt, setShowNotifPrompt] = useState(false)
   const [highlightPostId, setHighlightPostId] = useState<string | null>(null)
+  const [santeCategory, setSanteCategory] = useState('all')
+  const [showCreateSante, setShowCreateSante] = useState(false)
   const [adminSection, setAdminSection] = useState<'approvals' | 'logs' | 'data'>(
     user?.role === 'church' ? 'data' : 'approvals'
   )
@@ -1076,7 +1077,7 @@ function AppInner() {
     logActivity(user, 'post_edited', content.slice(0, 80))
   }
 
-  const handleCreatePost = async (data: { type: Post['type']; content: string; mediaUrl?: string; coverUrl?: string; fileName?: string }) => {
+  const handleCreatePost = async (data: { type: Post['type']; content: string; mediaUrl?: string; coverUrl?: string; fileName?: string; section?: 'feed' | 'sante'; category?: string }) => {
     let finalType = data.type
     // Only auto-detect YouTube/Facebook links when the user didn't explicitly pick
     // a distinct media type (audio/document posts can otherwise get silently reclassified).
@@ -1095,9 +1096,12 @@ function AppInner() {
       fileName: data.fileName || null,
       likes: 0,
       commentsCount: 0,
+      section: data.section || 'feed',
+      ...(data.category ? { category: data.category } : {}),
       createdAt: serverTimestamp()
     })
-    logActivity(user, 'post_created', `${finalType} - ${data.content.slice(0, 60)}`)
+    logActivity(user, 'post_created',
+      `${data.section === 'sante' ? 'Santé' : 'Fil'} · ${finalType} - ${data.content.slice(0, 60)}`)
   }
 
   const handleAddComment = async (text: string) => {
@@ -1158,7 +1162,9 @@ function AppInner() {
   // composite indexes; if the post count ever grows large enough for this to
   // lag, it'd move to server-side queries with pagination.
   const visiblePosts = useMemo(() => {
-    let result = posts
+    // Posts without a section are pre-existing ones from before this split,
+    // and belong on the main feed.
+    let result = posts.filter(p => (p.section || 'feed') === 'feed')
 
     if (feedFilter === 'video') {
       result = result.filter(p => p.type === 'video' || p.type === 'youtube' || p.type === 'facebook')
@@ -1214,6 +1220,15 @@ function AppInner() {
   }
 
   if (user.role === 'pending_church') return <PendingScreen user={user} onLogout={handleLogout} />
+
+  // Leads and admins, plus members whose declared profession is medical.
+  const canPostSante = user.role === 'admin' || user.role === 'pastor'
+    || user.role === 'church'
+    || (!!user.profession && MEDICAL_PROFESSIONS.includes(user.profession))
+
+  const santePosts = posts
+    .filter(p => p.section === 'sante')
+    .filter(p => santeCategory === 'all' || p.category === santeCategory)
 
   const isStaffUser = user.role === 'admin' || user.role === 'pastor'
   const isLeadOrStaff = isStaffUser || user.role === 'church'
@@ -1364,7 +1379,46 @@ function AppInner() {
               <ProfileTab user={user} onProfileUpdated={(updates) => setUser(prev => prev ? { ...prev, ...updates } : prev)} />
             )}
 
-            {activeTab === 'sante' && <SanteTab user={user} />}
+            {activeTab === 'sante' && (
+              <div className="space-y-4">
+                <div className="flex gap-3 bg-amber-50 border border-amber-200 rounded-2xl p-4">
+                  <AlertTriangle size={17} className="text-amber-600 shrink-0 mt-0.5" />
+                  <p className="text-xs text-amber-800 leading-relaxed">{t('sante.disclaimer')}</p>
+                </div>
+
+                <div className="flex gap-2 overflow-x-auto pb-1">
+                  {['all', ...SANTE_CATEGORIES].map(cat => (
+                    <button key={cat} onClick={() => setSanteCategory(cat)}
+                      className={`shrink-0 px-3.5 py-1.5 rounded-full text-xs font-semibold transition ${
+                        santeCategory === cat
+                          ? 'bg-emerald-500/15 text-emerald-400 border border-emerald-400/40'
+                          : 'bg-white/5 text-slate-400 border border-white/10'}`}>
+                      {cat === 'all' ? t('sante.allCategories') : cat}
+                    </button>
+                  ))}
+                </div>
+
+                {canPostSante && (
+                  <button onClick={() => setShowCreateSante(true)}
+                    className="w-full flex items-center justify-center gap-2 py-3.5 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-sm transition shadow-lg shadow-emerald-500/20">
+                    <PlusCircle size={18} /> {t('sante.newTip')}
+                  </button>
+                )}
+
+                {santePosts.length === 0 ? (
+                  <div className="text-center py-20">
+                    <div className="w-16 h-16 rounded-full bg-emerald-500/10 flex items-center justify-center mx-auto mb-4">
+                      <HeartPulse size={28} className="text-emerald-400" />
+                    </div>
+                    <p className="text-slate-300 font-medium">{t('sante.empty')}</p>
+                    <p className="text-sm text-slate-500 mt-1">{t('sante.emptyHint')}</p>
+                  </div>
+                ) : santePosts.map(post => (
+                  <PostCard key={post.id} post={post} onLike={handleLike} onOpenComments={setActiveCommentsPost}
+                    currentUserUid={user.uid} isLiked={likedPostIds.has(post.id)} onEdit={setEditingPost} onDelete={handleDeletePost} />
+                ))}
+              </div>
+            )}
 
             {activeTab === 'admin' && isLeadOrStaff && (
               <div className="space-y-4">
@@ -1455,6 +1509,11 @@ function AppInner() {
         </div>
       )}
 
+      {showCreateSante && canPostSante && (
+        <CreatePostModal onClose={() => setShowCreateSante(false)} onSubmit={handleCreatePost}
+          uploaderUid={user.uid} section="sante" />
+      )}
+
       {showCreate && canPost && (
         <CreatePostModal onClose={() => setShowCreate(false)} onSubmit={handleCreatePost} uploaderUid={user.uid} />
       )}
@@ -1501,6 +1560,17 @@ const COUNTRIES = [
 // something each person picks or types. Held in one place so the name can be
 // changed without hunting through signup, profile and post code.
 export const CHURCH_NAME = 'Centre Chrétien E.L.I.M'
+
+// Categories for health posts.
+const SANTE_CATEGORIES = [
+  'Prévention', 'Nutrition', 'Maternité & enfance', 'Hygiène',
+  'Paludisme', 'Santé mentale', 'Premiers secours', 'Général'
+]
+
+// Who may publish to Santé: leads/admins, plus members whose declared
+// profession is medical. Mirrored in firestore.rules - the UI check is
+// convenience, the rule is the actual control.
+const MEDICAL_PROFESSIONS = ['Médecin', 'Infirmier / Sage-femme', 'Pharmacien']
 
 const PROFESSIONS = [
   'Agriculteur / Éleveur', 'Artisan', 'Commerçant', 'Chauffeur',
@@ -2305,10 +2375,11 @@ const UPLOAD_RULES: Record<string, { accept: string; maxMB: number; check: (f: F
   document: { accept: 'application/pdf', maxMB: 20, check: f => f.type === 'application/pdf', label: 'a PDF' },
 }
 
-function CreatePostModal({ onClose, onSubmit, uploaderUid }: {
+function CreatePostModal({ onClose, onSubmit, uploaderUid, section = 'feed' }: {
   onClose: () => void
-  onSubmit: (data: { type: Post['type']; content: string; mediaUrl?: string; coverUrl?: string; fileName?: string }) => void
+  onSubmit: (data: { type: Post['type']; content: string; mediaUrl?: string; coverUrl?: string; fileName?: string; section?: 'feed' | 'sante'; category?: string }) => void
   uploaderUid: string
+  section?: 'feed' | 'sante'
 }) {
   const { t } = useLanguage()
   const [type, setType] = useState<Post['type']>('text-image')
@@ -2319,6 +2390,7 @@ function CreatePostModal({ onClose, onSubmit, uploaderUid }: {
   const [uploading, setUploading] = useState(false)
   const [uploadProgress, setUploadProgress] = useState(0)
   const [uploadError, setUploadError] = useState('')
+  const [santeCategory, setSanteCategory] = useState(SANTE_CATEGORIES[0])
 
   const canUploadDirectly = type === 'text-image' || type === 'audio' || type === 'video' || type === 'document'
   const rule = UPLOAD_RULES[type]
@@ -2360,14 +2432,16 @@ function CreatePostModal({ onClose, onSubmit, uploaderUid }: {
       <div className="bg-white w-full max-w-lg rounded-t-3xl sm:rounded-3xl max-h-[90vh] overflow-y-auto shadow-2xl">
         <div className="sticky top-0 bg-white/90 backdrop-blur border-b border-slate-100 px-5 py-4 flex items-center justify-between">
           <button onClick={onClose} className="p-1.5 rounded-full hover:bg-slate-100"><X size={20} /></button>
-          <h2 className="font-bold text-lg">{t('post.new')}</h2>
+          <h2 className="font-bold text-lg">{section === 'sante' ? t('sante.newTip') : t('post.new')}</h2>
           <button onClick={() => {
             if (content.trim() && !uploading) {
               onSubmit({
                 type, content: content.trim(),
                 mediaUrl: mediaUrl || undefined,
                 coverUrl: (type === 'audio' && coverUrl) ? coverUrl : undefined,
-                fileName: (type === 'document' && fileName) ? fileName : undefined
+                fileName: (type === 'document' && fileName) ? fileName : undefined,
+                section,
+                ...(section === 'sante' ? { category: santeCategory } : {})
               })
               onClose()
             }
@@ -2377,6 +2451,13 @@ function CreatePostModal({ onClose, onSubmit, uploaderUid }: {
         </div>
 
         <div className="p-5 space-y-5">
+          {section === 'sante' && (
+            <select value={santeCategory} onChange={e => setSanteCategory(e.target.value)}
+              className="w-full px-4 py-3 rounded-2xl border border-slate-200 text-[15px] bg-white focus:outline-none focus:ring-2 focus:ring-emerald-400">
+              {SANTE_CATEGORIES.map(cat => <option key={cat} value={cat}>{cat}</option>)}
+            </select>
+          )}
+
           <div className="grid grid-cols-3 gap-2">
             {[{
               id: 'text-image', icon: ImageIcon, label: t('post.photo')

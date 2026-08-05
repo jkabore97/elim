@@ -48,6 +48,12 @@ export interface ChurchProfile {
 }
 
 export interface Post {
+  // Which surface this post belongs to. Health posts are ordinary posts with
+  // a marker rather than a separate collection, so they inherit the entire
+  // media pipeline - uploads, embeds, the global audio player, zoom,
+  // downloads, likes and comments - instead of duplicating it.
+  section?: 'feed' | 'sante';
+  category?: string;
   id: string;
   churchId: string;
   churchName?: string;

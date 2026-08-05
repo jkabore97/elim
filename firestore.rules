@@ -128,22 +128,6 @@ service cloud.firestore {
                     );
     }
 
-    // ---- Health tips (Santé) ----
-    // Readable by anyone signed in. Writable by leads/admins and by members
-    // whose declared profession is medical - enforced here, not just hidden
-    // in the UI, so the restriction actually means something.
-    match /healthTips/{tipId} {
-      allow read: if isSignedIn();
-      allow create: if isSignedIn()
-                    && request.resource.data.authorId == request.auth.uid
-                    && (
-                      canPublish()
-                      || userDoc().data.profession in ['Médecin', 'Infirmier / Sage-femme', 'Pharmacien']
-                    );
-      allow update: if isSignedIn() && resource.data.authorId == request.auth.uid;
-      allow delete: if isSignedIn() && (resource.data.authorId == request.auth.uid || isAdmin());
-    }
-
     // ---- Activity logs ----
     // Admin-only visibility. Any signed-in user can append entries about
     // their own actions (that's how sign-ins/posts get recorded at all),
@@ -173,8 +157,15 @@ service cloud.firestore {
       // Publishing requires the church/admin role. Email verification is
       // encouraged (see the in-app banner) but does not block publishing —
       // see SECURITY.md §3 for the reasoning.
-      allow create: if canPublish()
-                    && request.resource.data.churchId == request.auth.uid;
+      // Normal posts need the publishing role. Santé posts additionally
+      // accept members whose declared profession is medical - so a doctor in
+      // the congregation can share health guidance without being made a lead.
+      allow create: if request.resource.data.churchId == request.auth.uid
+                    && (
+                      canPublish()
+                      || (request.resource.data.section == 'sante'
+                          && userDoc().data.profession in ['Médecin', 'Infirmier / Sage-femme', 'Pharmacien'])
+                    );
       // The owning church/admin can edit or delete their own post (and only
       // their own — see SECURITY.md §4); any signed-in member can separately
       // bump likes or the comment counter.
