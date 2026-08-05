@@ -21,6 +21,15 @@ export interface AppUser {
   // directory), or undefined if they picked "Other".
   memberChurchId?: string;
   memberChurchName?: string;
+  // Stored as an ISO date string ('1990-04-23') rather than a Date object:
+  // Firestore would return a Timestamp we'd have to convert on every read,
+  // and we never do date arithmetic on this beyond the age check at signup.
+  dateOfBirth?: string;
+  gender?: 'homme' | 'femme';
+  profession?: string;
+  // Church departments the person belongs to or wants to join. An array
+  // because people commonly serve in more than one.
+  interests?: string[];
   // Push notifications
   notificationsEnabled?: boolean;
   fcmTokens?: string[];

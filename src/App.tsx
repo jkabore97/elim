@@ -124,6 +124,28 @@ function LanguageSwitcher({ dark = false }: { dark?: boolean }) {
 // ==================== SHARED AUTH FORM ====================
 // Used inside both the mobile/tablet full-screen AuthScreen and the
 // desktop AuthModal, so the login/register logic lives in one place.
+// Whole years between a date and today. Compares month/day rather than
+// dividing by 365.25 so someone whose birthday is later this month isn't
+// counted as already having had it.
+function ageFrom(isoDate: string): number {
+  const dob = new Date(isoDate)
+  if (isNaN(dob.getTime())) return -1
+  const today = new Date()
+  let age = today.getFullYear() - dob.getFullYear()
+  const monthDiff = today.getMonth() - dob.getMonth()
+  if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < dob.getDate())) age--
+  return age
+}
+
+// The latest date of birth that still satisfies the 13+ rule. Fed to the
+// date input's max attribute so the picker simply won't offer anything
+// younger - stopping the mistake rather than reporting it afterwards.
+function maxDobForAge(minAge: number): string {
+  const d = new Date()
+  d.setFullYear(d.getFullYear() - minAge)
+  return d.toISOString().split('T')[0]
+}
+
 function AuthForm({ onSuccess, initialMode = 'login' }: {
   onSuccess: (user: AppUser) => void
   initialMode?: 'login' | 'register'
@@ -141,7 +163,13 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
   const [phone, setPhone] = useState('')
 
   // Member-only
-  const [selectedChurchId, setSelectedChurchId] = useState('other')
+  // Empty, not 'other': with the "no church" option gone there is no valid
+  // default, so this starts blank and the field is required.
+  const [selectedChurchId, setSelectedChurchId] = useState('')
+  const [dateOfBirth, setDateOfBirth] = useState('')
+  const [gender, setGender] = useState<'homme' | 'femme' | ''>('')
+  const [profession, setProfession] = useState('')
+  const [interests, setInterests] = useState<string[]>([])
   const [pin, setPin] = useState('')
   const [confirmPin, setConfirmPin] = useState('')
   const [showPin, setShowPin] = useState(false)
@@ -185,6 +213,13 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
     setError('')
     setRegisterSuccess(false)
 
+    if (mode === 'register') {
+      // Belt and braces: the date input's max attribute already blocks this,
+      // but a typed-in date bypasses the picker entirely.
+      if (!dateOfBirth || ageFrom(dateOfBirth) < 13) { setError(t('auth.tooYoung')); return }
+      if (!gender) { setError(t('auth.genderRequired')); return }
+    }
+
     if (accountType === 'member') {
       if (!sanitizeDigits(phone)) { setError(t('auth.phoneInvalid')); return }
       if (!/^\d{6}$/.test(pin)) { setError(t('auth.pinMustBe6Digits')); return }
@@ -210,6 +245,14 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
         else throw new Error('User profile not found')
       } else {
         const fullName = `${firstName} ${lastName}`.trim()
+        // Collected identically for both account types, so it lives in one
+        // place rather than being duplicated into each branch below.
+        const commonProfile = {
+          dateOfBirth,
+          gender: gender as 'homme' | 'femme',
+          profession,
+          ...(interests.length > 0 ? { interests } : {})
+        }
         if (accountType === 'member') {
           const authEmail = memberAuthEmail(countryCode, phone)
           const cred = await createUserWithEmailAndPassword(auth, authEmail, pin)
@@ -223,6 +266,7 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
             role: 'member',
             phone: `${countryCode} ${phone.trim()}`,
             createdAt: serverTimestamp(),
+            ...commonProfile,
             ...(selectedChurch ? { memberChurchId: selectedChurch.id, memberChurchName: selectedChurch.name } : {})
           }
           await setDoc(doc(db, 'users', cred.user.uid), profile)
@@ -245,6 +289,7 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
             role: 'pending_church',
             phone: `${countryCode} ${phone.trim()}`,
             churchName,
+            ...commonProfile,
             createdAt: serverTimestamp()
           }
           await setDoc(doc(db, 'users', cred.user.uid), profile)
@@ -330,9 +375,76 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
           </div>
         )}
 
+        {mode === 'register' && (
+          <>
+            <div>
+              <label className="text-xs font-semibold text-slate-400 px-1 mb-1.5 block">
+                {t('auth.dateOfBirth')}
+              </label>
+              <input required type="date" value={dateOfBirth}
+                onChange={e => setDateOfBirth(e.target.value)}
+                max={maxDobForAge(13)}
+                min="1900-01-01"
+                className={inputClass} />
+              <p className="text-[11px] text-slate-500 mt-1.5 px-1 leading-relaxed">
+                {t('auth.ageNotice')}
+              </p>
+            </div>
+
+            <div>
+              <label className="text-xs font-semibold text-slate-400 px-1 mb-1.5 block">
+                {t('auth.gender')}
+              </label>
+              <div className="flex gap-3">
+                {(['homme', 'femme'] as const).map(g => (
+                  <button key={g} type="button" onClick={() => setGender(g)}
+                    className={`flex-1 py-3 rounded-2xl border-2 text-sm font-medium transition ${
+                      gender === g
+                        ? 'border-emerald-400 bg-emerald-500/10 text-emerald-300'
+                        : 'border-white/10 text-slate-400'}`}>
+                    {t(g === 'homme' ? 'auth.male' : 'auth.female')}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <select required value={profession} onChange={e => setProfession(e.target.value)} className={selectClass}>
+              <option value="" disabled>{t('auth.selectProfession')}</option>
+              {PROFESSIONS.map(p => <option key={p} value={p}>{p}</option>)}
+            </select>
+
+            <div>
+              <label className="text-xs font-semibold text-slate-400 px-1 mb-1.5 block">
+                {t('auth.interests')}
+              </label>
+              {/* Multi-select as chips rather than a <select multiple>, which is
+                  close to unusable on a phone. */}
+              <div className="flex flex-wrap gap-2">
+                {INTERESTS.map(item => {
+                  const on = interests.includes(item)
+                  return (
+                    <button key={item} type="button"
+                      onClick={() => setInterests(prev =>
+                        on ? prev.filter(i => i !== item) : [...prev, item])}
+                      className={`px-3 py-1.5 rounded-full text-xs font-medium border transition ${
+                        on
+                          ? 'border-emerald-400 bg-emerald-500/15 text-emerald-300'
+                          : 'border-white/10 text-slate-400 hover:text-slate-200'}`}>
+                      {item}
+                    </button>
+                  )
+                })}
+              </div>
+              <p className="text-[11px] text-slate-500 mt-2 px-1">{t('auth.interestsHint')}</p>
+            </div>
+          </>
+        )}
+
         {mode === 'register' && accountType === 'member' && (
           <select required value={selectedChurchId} onChange={e => setSelectedChurchId(e.target.value)} className={selectClass}>
-            <option value="other">{t('auth.otherNoChurch')}</option>
+            {/* Disabled placeholder rather than a real option, so the browser's
+                own `required` check fires if it's left untouched. */}
+            <option value="" disabled>{t('auth.selectYourChurch')}</option>
             {churches.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
           </select>
         )}
@@ -1276,6 +1388,25 @@ const COUNTRIES = [
   'Thailand', 'Timor-Leste', 'Togo', 'Tonga', 'Trinidad and Tobago', 'Tunisia', 'Turkey', 'Turkmenistan',
   'Tuvalu', 'Uganda', 'Ukraine', 'United Arab Emirates', 'United Kingdom', 'United States', 'Uruguay',
   'Uzbekistan', 'Vanuatu', 'Vatican City', 'Venezuela', 'Vietnam', 'Yemen', 'Zambia', 'Zimbabwe'
+]
+
+// Profession options for signup. Kept broad rather than exhaustive - a huge
+// list is worse to scroll on a phone than a short one plus 'Autre'.
+const PROFESSIONS = [
+  'Agriculteur / Éleveur', 'Artisan', 'Commerçant', 'Chauffeur',
+  'Enseignant', 'Étudiant', 'Fonctionnaire', 'Infirmier / Sage-femme',
+  'Informaticien', 'Ingénieur', 'Journaliste', 'Juriste / Avocat',
+  'Médecin', 'Militaire / Sécurité', 'Ménagère / Au foyer',
+  'Ouvrier', 'Pasteur / Ministre', 'Pharmacien', 'Retraité',
+  'Sans emploi', 'Secrétaire', 'Technicien', 'Autre'
+]
+
+// Church departments a member can belong to or wish to join.
+const INTERESTS = [
+  'Chorale / Louange', 'Musique / Instruments', 'Intercession / Prière',
+  'Évangélisation', 'École du dimanche', 'Jeunesse', 'Femmes', 'Hommes',
+  'Accueil / Protocole', 'Sonorisation / Technique', 'Média / Communication',
+  'Action sociale', 'Santé', 'Finances', 'Logistique', 'Enseignement'
 ]
 
 // Calling codes for the phone input's country picker. Not exhaustive (that's

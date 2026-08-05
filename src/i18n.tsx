@@ -39,7 +39,7 @@ const translations = {
   // ---- Roles ----
   'role.pastor': { en: 'Pastor', fr: 'Pasteur' },
   'role.admin': { en: 'Technical Support', fr: 'Support technique' },
-  'role.church': { en: 'Church', fr: 'Église' },
+  'role.church': { en: 'Lead', fr: 'Lead' },
   'role.pendingChurch': { en: 'Pending', fr: 'En attente' },
   'role.member': { en: 'Member', fr: 'Membre' },
 
@@ -130,6 +130,16 @@ const translations = {
   'auth.finishSetup': { en: 'Finish Setup', fr: "Terminer l'inscription" },
   'auth.welcomeTo': { en: 'Welcome to ELIM', fr: 'Bienvenue sur ELIM' },
   'auth.peacefulPlace': { en: 'A peaceful place for the church community', fr: 'Un espace paisible pour la communauté de l\'église' },
+  'auth.dateOfBirth': { en: 'Date of birth', fr: 'Date de naissance' },
+  'auth.ageNotice': { en: 'You must be at least 13 years old to create an account.', fr: 'Vous devez avoir au moins 13 ans pour créer un compte.' },
+  'auth.tooYoung': { en: 'You must be at least 13 years old to create an account.', fr: 'Vous devez avoir au moins 13 ans pour créer un compte.' },
+  'auth.gender': { en: 'Gender', fr: 'Sexe' },
+  'auth.male': { en: 'Male', fr: 'Homme' },
+  'auth.female': { en: 'Female', fr: 'Femme' },
+  'auth.genderRequired': { en: 'Please select Homme or Femme.', fr: 'Veuillez sélectionner Homme ou Femme.' },
+  'auth.selectProfession': { en: 'Profession', fr: 'Profession' },
+  'auth.interests': { en: 'Centre of interest', fr: "Centre d'intérêt" },
+  'auth.interestsHint': { en: 'Which department do you serve in, or would like to join? Choose as many as you like.', fr: "Dans quel département servez-vous, ou aimeriez-vous servir ? Choisissez-en autant que vous voulez." },
   'auth.firstName': { en: 'First name', fr: 'Prénom' },
   'auth.lastName': { en: 'Last name', fr: 'Nom' },
   'auth.pin': { en: '6-digit PIN', fr: 'Code à 6 chiffres' },
@@ -147,7 +157,7 @@ const translations = {
   'auth.wrongPhoneOrPin': { en: 'Phone number or PIN is incorrect.', fr: 'Numéro de téléphone ou code incorrect.' },
   'auth.iAmA': { en: 'I am a...', fr: 'Je suis...' },
   'auth.memberSignIn': { en: 'Member', fr: 'Membre' },
-  'auth.churchSignIn': { en: 'Church', fr: 'Église' },
+  'auth.churchSignIn': { en: 'Lead', fr: 'Lead' },
 
   // ---- Landing page ----
   'landing.badge': { en: 'A MODERN HOME FOR YOUR CHURCH COMMUNITY', fr: 'UN FOYER MODERNE POUR VOTRE COMMUNAUTÉ D\'ÉGLISE' },
