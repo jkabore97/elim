@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { Capacitor } from '@capacitor/core'
 import { App as CapApp } from '@capacitor/app'
 
@@ -23,11 +23,20 @@ export function pushBackHandler(handler: Handler) {
 }
 
 // Convenience hook: registers for as long as `active` is true.
+//
+// The handler is held in a ref and deliberately kept OUT of the dependency
+// list. Callers pass inline arrow functions, which are a new identity every
+// render - depending on them would unregister and re-register on every single
+// render, constantly reordering the stack so "most recent first" stopped
+// meaning anything. The ref keeps the latest handler without that churn.
 export function useBackHandler(active: boolean, handler: Handler) {
+  const ref = useRef(handler)
+  ref.current = handler
+
   useEffect(() => {
     if (!active) return
-    return pushBackHandler(handler)
-  }, [active, handler])
+    return pushBackHandler(() => ref.current())
+  }, [active])
 }
 
 function handleBack(): boolean {

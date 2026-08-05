@@ -985,6 +985,13 @@ function AppInner() {
     return result
   }, [posts, feedFilter, searchQuery])
 
+  // Each overlay closes on back, most recent first.
+  useBackHandler(!!activeCommentsPost, () => setActiveCommentsPost(null))
+  useBackHandler(showCreate, () => setShowCreate(false))
+  useBackHandler(!!editingPost, () => setEditingPost(null))
+  // Leaving a non-default tab returns to the feed before leaving the app.
+  useBackHandler(activeTab !== 'feed', () => setActiveTab('feed'))
+
   // The animated intro runs ahead of everything, including the auth check -
   // so the app feels like it's presenting itself rather than making the
   // person watch a loading spinner. Auth resolves in the background during
@@ -1013,13 +1020,6 @@ function AppInner() {
   }
 
   if (user.role === 'pending_church') return <PendingScreen user={user} onLogout={handleLogout} />
-
-  // Each overlay closes on back, most recent first.
-  useBackHandler(!!activeCommentsPost, () => setActiveCommentsPost(null))
-  useBackHandler(showCreate, () => setShowCreate(false))
-  useBackHandler(!!editingPost, () => setEditingPost(null))
-  // Leaving a non-default tab returns to the feed before leaving the app.
-  useBackHandler(activeTab !== 'feed', () => setActiveTab('feed'))
 
   const navItems = [
     { id: 'feed', icon: Home, label: t('nav.feed') },
