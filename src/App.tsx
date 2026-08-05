@@ -3,7 +3,7 @@ import {
   Home, Church, PlusCircle, User, MessageCircle, Heart, Share2,
   Image as ImageIcon, Video, Mic, X, Send, LogOut,
   Youtube, Facebook, CheckCircle2, Clock, ArrowRight, ShieldCheck, UserX, Sparkles,
-  Trash2, Camera, FileText, Upload, Pencil, Globe, Eye, EyeOff, Search, Bell, ScrollText, Mail, Play, Pause, HeartPulse
+  Trash2, Camera, FileText, Upload, Pencil, Globe, Eye, EyeOff, Search, Bell, ScrollText, Mail, Play, Pause, HeartPulse, Download
 } from 'lucide-react'
 import {
   collection, addDoc, onSnapshot, query, orderBy, where,
@@ -87,6 +87,44 @@ function clockTime(date: any): string {
   if (!date) return ''
   const d = date.toDate ? date.toDate() : new Date(date)
   return d.toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit' })
+}
+
+
+async function downloadMedia(url: string, suggestedName: string) {
+  try {
+    if (Capacitor.isNativePlatform()) {
+      // In the app, hand off to the system browser/downloader rather than
+      // trying to write to the filesystem ourselves - it lands in Downloads
+      // where people expect it, with no extra permission prompt.
+      window.open(url, '_blank')
+      return
+    }
+    const res = await fetch(url)
+    if (!res.ok) throw new Error(String(res.status))
+    const blob = await res.blob()
+    const objectUrl = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = objectUrl
+    a.download = suggestedName
+    document.body.appendChild(a)
+    a.click()
+    a.remove()
+    setTimeout(() => URL.revokeObjectURL(objectUrl), 2000)
+  } catch {
+    // If the fetch is blocked (CORS, offline), opening the file directly is
+    // still better than the button appearing to do nothing.
+    window.open(url, '_blank')
+  }
+}
+
+// Storage URLs carry query tokens, so the extension has to be recovered from
+// the path portion rather than the whole string.
+function fileNameFor(post: Post): string {
+  if (post.fileName) return post.fileName
+  const path = (post.mediaUrl || '').split('?')[0]
+  const ext = path.includes('.') ? path.split('.').pop()!.slice(0, 5) : 'file'
+  const base = (post.content || 'elim').slice(0, 40).replace(/[^\w\s-]/g, '').trim().replace(/\s+/g, '-')
+  return `${base || 'elim'}.${ext}`
 }
 
 function Logo({ size = 36, variant = 'mark' }: { size?: number; variant?: 'mark' | 'full' }) {
@@ -2239,6 +2277,13 @@ function PostCard({ post, onLike, onOpenComments, currentUserUid, isLiked, onEdi
             {post.commentsCount || 0}
           </button>
         </div>
+        {post.mediaUrl && ['text-image', 'audio', 'video', 'document'].includes(post.type) && (
+          <button onClick={() => downloadMedia(post.mediaUrl!, fileNameFor(post))}
+            aria-label={t('post.download')}
+            className="text-slate-300 hover:text-emerald-600 mr-1">
+            <Download size={18} />
+          </button>
+        )}
         <button onClick={handleShare} className="relative text-slate-300 hover:text-emerald-600">
           <Share2 size={18} />
           {shareCopied && (

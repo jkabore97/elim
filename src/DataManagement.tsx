@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo } from 'react'
-import { collection, onSnapshot, query, limit } from 'firebase/firestore'
-import { Search, Download, Database, FileText, Users, X } from 'lucide-react'
+import { collection, onSnapshot, query, limit, doc, updateDoc, deleteDoc } from 'firebase/firestore'
+import { Search, Download, Database, FileText, Users, X, Table, Trash2, Save, AlertTriangle } from 'lucide-react'
 import { db } from './firebase'
 import { useLanguage } from './i18n'
 import type { AppUser } from './types'
@@ -94,9 +94,207 @@ function download(filename: string, content: string, mime: string) {
   setTimeout(() => URL.revokeObjectURL(url), 1000)
 }
 
+// Every collection the app writes, so the browser can reach all of them rather
+// than only users. Ordered by how often you'd actually want to look.
+const BROWSABLE = [
+  'users', 'posts', 'healthTips', 'comments', 'likes',
+  'conversations', 'messages', 'activityLogs', 'churchDirectory'
+]
+
+// Fields that must never be hand-edited, because changing them breaks the
+// record's relationships or its security posture rather than just its content.
+const LOCKED_FIELDS = ['uid', 'id', 'createdAt', 'senderId', 'authorId', 'userId', 'participantIds', 'conversationId', 'postId', 'churchId']
+
+function BrowseCollections({ isAdmin }: { isAdmin: boolean }) {
+  const { t } = useLanguage()
+  const [name, setName] = useState('users')
+  const [rows, setRows] = useState<any[]>([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState('')
+  const [search, setSearch] = useState('')
+  const [open, setOpen] = useState<any | null>(null)
+  const [draft, setDraft] = useState<Record<string, string>>({})
+  const [saving, setSaving] = useState(false)
+  const [confirmDelete, setConfirmDelete] = useState(false)
+  const [notice, setNotice] = useState('')
+
+  useEffect(() => {
+    setLoading(true)
+    const unsub = onSnapshot(
+      query(collection(db, name), limit(500)),
+      snap => { setRows(snap.docs.map(d => ({ id: d.id, ...d.data() }))); setError(''); setLoading(false) },
+      err => { setError(err?.message || String(err)); setLoading(false) }
+    )
+    return () => unsub()
+  }, [name])
+
+  const visible = useMemo(() => {
+    const q = search.trim().toLowerCase()
+    if (!q) return rows
+    // Search across the whole record rather than named fields, since each
+    // collection has a different shape.
+    return rows.filter(r => JSON.stringify(r).toLowerCase().includes(q))
+  }, [rows, search])
+
+  const openRecord = (row: any) => {
+    setOpen(row)
+    setConfirmDelete(false)
+    setNotice('')
+    const d: Record<string, string> = {}
+    Object.entries(row).forEach(([k, v]) => {
+      if (LOCKED_FIELDS.includes(k)) return
+      if (v === null || v === undefined) { d[k] = ''; return }
+      if (typeof v === 'object' && (v as any).toDate) return   // timestamps
+      d[k] = Array.isArray(v) ? v.join(', ') : typeof v === 'object' ? JSON.stringify(v) : String(v)
+    })
+    setDraft(d)
+  }
+
+  const save = async () => {
+    if (!open) return
+    setSaving(true); setNotice('')
+    try {
+      const updates: Record<string, any> = {}
+      Object.entries(draft).forEach(([k, v]) => {
+        const original = open[k]
+        const asString = Array.isArray(original) ? original.join(', ')
+          : original === null || original === undefined ? '' : String(original)
+        if (v === asString) return                       // unchanged
+        if (Array.isArray(original)) updates[k] = v.split(',').map(s => s.trim()).filter(Boolean)
+        else if (typeof original === 'boolean') updates[k] = v === 'true'
+        else if (typeof original === 'number') updates[k] = Number(v)
+        else updates[k] = v
+      })
+      if (Object.keys(updates).length === 0) { setNotice(t('data.noChanges')); setSaving(false); return }
+      await updateDoc(doc(db, name, open.id), updates)
+      setNotice(t('data.saved'))
+    } catch (err: any) {
+      setNotice(err?.message || String(err))
+    } finally { setSaving(false) }
+  }
+
+  const remove = async () => {
+    if (!open) return
+    setSaving(true)
+    try {
+      await deleteDoc(doc(db, name, open.id))
+      setOpen(null)
+    } catch (err: any) {
+      setNotice(err?.message || String(err))
+    } finally { setSaving(false) }
+  }
+
+  const label = (row: any) =>
+    row.displayName || row.title || row.content || row.text || row.name || row.action || row.id
+
+  return (
+    <div className="space-y-4">
+      <div className="flex gap-2 overflow-x-auto pb-1">
+        {BROWSABLE.map(cname => (
+          <button key={cname} onClick={() => { setName(cname); setOpen(null); setSearch('') }}
+            className={`shrink-0 px-3.5 py-1.5 rounded-full text-xs font-semibold transition ${
+              name === cname
+                ? 'bg-emerald-500/15 text-emerald-400 border border-emerald-400/40'
+                : 'bg-white/5 text-slate-400 border border-white/10'}`}>
+            {cname}
+          </button>
+        ))}
+      </div>
+
+      <div className="relative">
+        <Search size={17} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 pointer-events-none" />
+        <input value={search} onChange={e => setSearch(e.target.value)} placeholder={t('data.searchRecords')}
+          className="w-full pl-11 pr-4 py-3 rounded-2xl bg-white/5 border border-white/10 text-white placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-emerald-400/60 text-[15px]" />
+      </div>
+
+      <p className="text-xs text-slate-400 px-1">{visible.length} {t('data.records')}</p>
+
+      {loading && <p className="text-center text-slate-400 py-12">{t('app.loading')}</p>}
+      {!loading && error && (
+        <div className="bg-red-500/10 border border-red-500/20 rounded-2xl p-4">
+          <p className="text-xs text-red-300 break-words">{error}</p>
+        </div>
+      )}
+
+      {!loading && !error && (
+        <div className="bg-white rounded-3xl shadow-sm border border-slate-100 overflow-hidden">
+          {visible.slice(0, 150).map((row, i) => (
+            <button key={row.id} onClick={() => openRecord(row)}
+              className={`w-full px-4 py-3 text-left hover:bg-slate-50 transition ${
+                i !== Math.min(visible.length, 150) - 1 ? 'border-b border-slate-50' : ''}`}>
+              <p className="text-sm font-semibold text-slate-900 truncate">{String(label(row)).slice(0, 70)}</p>
+              <p className="text-[10px] text-slate-400 truncate font-mono">{row.id}</p>
+            </button>
+          ))}
+        </div>
+      )}
+
+      {open && (
+        <div className="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-sm flex items-end sm:items-center justify-center">
+          <div className="bg-white w-full max-w-md rounded-t-3xl sm:rounded-3xl max-h-[88vh] overflow-y-auto">
+            <div className="sticky top-0 bg-white border-b border-slate-100 px-5 py-4 flex items-center justify-between">
+              <div className="min-w-0">
+                <h2 className="font-bold text-slate-900 truncate">{name}</h2>
+                <p className="text-[10px] text-slate-400 font-mono truncate">{open.id}</p>
+              </div>
+              <button onClick={() => setOpen(null)} className="p-1.5 rounded-full hover:bg-slate-100 text-slate-400 shrink-0">
+                <X size={20} />
+              </button>
+            </div>
+
+            <div className="p-5 space-y-3">
+              {LOCKED_FIELDS.some(f => f in open) && (
+                <div className="flex gap-2 bg-slate-50 rounded-xl p-3">
+                  <AlertTriangle size={14} className="text-slate-400 shrink-0 mt-0.5" />
+                  <p className="text-[11px] text-slate-500 leading-relaxed">{t('data.lockedNote')}</p>
+                </div>
+              )}
+
+              {Object.entries(draft).map(([k, v]) => (
+                <div key={k}>
+                  <label className="text-[11px] font-semibold text-slate-400">{k}</label>
+                  <input value={v} onChange={e => setDraft(p => ({ ...p, [k]: e.target.value }))}
+                    className="w-full mt-1 px-3 py-2 rounded-xl border border-slate-200 text-[13px] focus:outline-none focus:ring-2 focus:ring-emerald-400" />
+                </div>
+              ))}
+
+              {notice && <p className="text-xs text-slate-600 bg-slate-50 rounded-xl px-3 py-2">{notice}</p>}
+
+              <button onClick={save} disabled={saving}
+                className="w-full flex items-center justify-center gap-2 py-3 rounded-2xl bg-emerald-600 hover:bg-emerald-700 disabled:opacity-50 text-white font-semibold text-sm transition">
+                <Save size={16} /> {saving ? t('data.saving') : t('data.saveChanges')}
+              </button>
+
+              {isAdmin && (
+                confirmDelete ? (
+                  <div className="flex gap-2">
+                    <button onClick={remove} disabled={saving}
+                      className="flex-1 py-3 rounded-2xl bg-red-500 hover:bg-red-600 text-white font-semibold text-sm">
+                      {t('data.confirmDelete')}
+                    </button>
+                    <button onClick={() => setConfirmDelete(false)}
+                      className="px-4 py-3 rounded-2xl bg-slate-100 text-slate-600 font-semibold text-sm">
+                      {t('post.cancel')}
+                    </button>
+                  </div>
+                ) : (
+                  <button onClick={() => setConfirmDelete(true)}
+                    className="w-full flex items-center justify-center gap-2 py-3 rounded-2xl bg-red-50 hover:bg-red-100 text-red-600 font-semibold text-sm transition">
+                    <Trash2 size={16} /> {t('data.deleteRecord')}
+                  </button>
+                )
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  )
+}
+
 export function DataManagementTab({ user }: { user: AppUser }) {
   const { t } = useLanguage()
-  const [view, setView] = useState<'people' | 'registry' | 'export'>('people')
+  const [view, setView] = useState<'people' | 'browse' | 'registry' | 'export'>('people')
   const [people, setPeople] = useState<AppUser[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
@@ -192,6 +390,7 @@ export function DataManagementTab({ user }: { user: AppUser }) {
 
   const tabs = [
     { id: 'people' as const, label: t('data.people'), Icon: Users },
+    { id: 'browse' as const, label: t('data.browse'), Icon: Table },
     { id: 'registry' as const, label: t('data.registry'), Icon: FileText },
     { id: 'export' as const, label: t('data.export'), Icon: Download }
   ]
@@ -289,6 +488,8 @@ export function DataManagementTab({ user }: { user: AppUser }) {
           )}
         </>
       )}
+
+      {!loading && !error && view === 'browse' && <BrowseCollections isAdmin={isAdmin} />}
 
       {/* ---------- REGISTRY ---------- */}
       {!loading && !error && view === 'registry' && (

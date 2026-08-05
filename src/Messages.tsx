@@ -6,7 +6,7 @@ import {
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
 import {
   ArrowLeft, Send, Search, MessageCircle, Plus, X, LifeBuoy,
-  ShieldCheck, HeartHandshake, Image as ImageIcon, Mic, Trash2, Play, Pause, Pencil, Check
+  ShieldCheck, HeartHandshake, Image as ImageIcon, Mic, Trash2, Play, Pause, Pencil, Check, Download
 } from 'lucide-react'
 import { db, storage } from './firebase'
 import { useLanguage } from './i18n'
@@ -42,6 +42,23 @@ export function roleMeta(role: string, t: (k: any) => string) {
       return { label: t('role.pendingChurch'), chip: 'bg-amber-100 text-amber-700', Icon: ShieldCheck }
     default:
       return { label: t('role.member'), chip: 'bg-slate-100 text-slate-600', Icon: MessageCircle }
+  }
+}
+
+// Same reasoning as the feed: cross-origin Storage URLs need fetching into a
+// local blob before a filename and a real save will take effect.
+async function downloadMessageMedia(url: string, name: string) {
+  try {
+    const res = await fetch(url)
+    const blob = await res.blob()
+    const objectUrl = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = objectUrl
+    a.download = name
+    a.click()
+    setTimeout(() => URL.revokeObjectURL(objectUrl), 2000)
+  } catch {
+    window.open(url, '_blank')
   }
 }
 
@@ -436,13 +453,28 @@ function ChatView({ conversation, user, onBack }: {
                 )}
 
                 {m.mediaType === 'image' && m.mediaUrl && (
-                  <img src={m.mediaUrl} alt="" onClick={() => setLightbox(m.mediaUrl!)}
-                    className="rounded-xl max-h-64 w-auto mb-1 cursor-zoom-in" />
+                  <div className="relative mb-1">
+                    <img src={m.mediaUrl} alt="" onClick={() => setLightbox(m.mediaUrl!)}
+                      className="rounded-xl max-h-64 w-auto cursor-zoom-in" />
+                    <button onClick={() => downloadMessageMedia(m.mediaUrl!, `elim-photo-${m.id}.jpg`)}
+                      aria-label="Download"
+                      className="absolute top-2 right-2 w-8 h-8 rounded-full bg-black/50 hover:bg-black/70 text-white flex items-center justify-center">
+                      <Download size={14} />
+                    </button>
+                  </div>
                 )}
 
                 {m.mediaType === 'audio' && m.mediaUrl && (
-                  <div onClick={() => setOpenActions(openActions === m.id ? null : m.id)}>
-                    <AudioBubble url={m.mediaUrl} mine={mine} />
+                  <div className="flex items-center gap-1">
+                    <div className="flex-1" onClick={() => setOpenActions(openActions === m.id ? null : m.id)}>
+                      <AudioBubble url={m.mediaUrl} mine={mine} />
+                    </div>
+                    <button onClick={() => downloadMessageMedia(m.mediaUrl!, `elim-audio-${m.id}.webm`)}
+                      aria-label="Download"
+                      className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${
+                        mine ? 'hover:bg-white/20 text-white/80' : 'hover:bg-white/10 text-slate-400'}`}>
+                      <Download size={14} />
+                    </button>
                   </div>
                 )}
 
