@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo, useRef } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import {
   Home, Church, PlusCircle, User, MessageCircle, Heart, Share2,
   Image as ImageIcon, Video, Mic, X, Send, LogOut,
@@ -15,7 +15,6 @@ import {
   sendEmailVerification, sendPasswordResetEmail,
   EmailAuthProvider, linkWithCredential
 } from 'firebase/auth'
-import type { ConfirmationResult } from 'firebase/auth'
 import { ref, uploadBytes, uploadBytesResumable, getDownloadURL } from 'firebase/storage'
 import { Capacitor, SystemBars, SystemBarsStyle } from '@capacitor/core'
 import { Share } from '@capacitor/share'
@@ -23,7 +22,6 @@ import { EdgeToEdge } from '@capawesome/capacitor-android-edge-to-edge-support'
 import { auth, db, storage } from './firebase'
 import { enableNotifications, disableNotifications, listenForForegroundMessages, checkNotificationPermission, reconcileNotificationState, initNativeNotifications, sendTestNotification, notificationDiagnostics, onNotificationRoute, consumeLaunchUrlRoute } from './notifications'
 import { logActivity } from './activityLog'
-import { sendVerificationCode, confirmVerificationCode, resetVerifier } from './phoneVerify'
 import { AnimatedSplash } from './AnimatedSplash'
 import { MediaPlayerProvider, useMediaPlayer } from './MediaPlayer'
 import { ImageLightbox } from './ImageLightbox'
@@ -170,7 +168,6 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
   // Member-only
   // Empty, not 'other': with the "no church" option gone there is no valid
   // default, so this starts blank and the field is required.
-  const [selectedChurchId, setSelectedChurchId] = useState('')
   const [dateOfBirth, setDateOfBirth] = useState('')
   const [gender, setGender] = useState<'homme' | 'femme' | ''>('')
   const [profession, setProfession] = useState('')
@@ -179,57 +176,14 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
   const [quartier, setQuartier] = useState('')
   const [interests, setInterests] = useState<string[]>([])
 
-  // One-time SMS verification, signup only.
-  const [phoneVerified, setPhoneVerified] = useState(false)
-  const [smsSending, setSmsSending] = useState(false)
-  const [smsSent, setSmsSent] = useState(false)
-  const [smsCode, setSmsCode] = useState('')
-  const confirmationRef = useRef<ConfirmationResult | null>(null)
+  const [confirmPhone, setConfirmPhone] = useState('')
 
-  const handleSendCode = async () => {
-    if (!sanitizeDigits(phone)) { setError(t('auth.phoneInvalid')); return }
-    setError(''); setSmsSending(true)
-    const result = await sendVerificationCode(countryCode, phone)
-    setSmsSending(false)
-    if (result.ok) {
-      confirmationRef.current = result.confirmation
-      setSmsSent(true)
-    } else {
-      setError(
-        result.error === 'INVALID_NUMBER' ? t('auth.phoneInvalid')
-        : result.error === 'TOO_MANY' ? t('auth.smsTooMany')
-        : result.error === 'QUOTA' ? t('auth.smsQuota')
-        : result.error
-      )
-    }
-  }
-
-  const handleConfirmCode = async () => {
-    if (!confirmationRef.current) return
-    setError(''); setSmsSending(true)
-    const result = await confirmVerificationCode(confirmationRef.current, smsCode.trim())
-    setSmsSending(false)
-    if (result.ok) {
-      // At this point Firebase has signed them in as a phone-auth user. The
-      // email/password credential gets LINKED onto that same account below,
-      // which is what keeps PIN sign-in working afterwards.
-      setPhoneVerified(true)
-      setSmsSent(false)
-    } else {
-      setError(
-        result.error === 'BAD_CODE' ? t('auth.smsBadCode')
-        : result.error === 'EXPIRED' ? t('auth.smsExpired')
-        : result.error || t('auth.smsBadCode')
-      )
-    }
-  }
   const [pin, setPin] = useState('')
   const [confirmPin, setConfirmPin] = useState('')
   const [showPin, setShowPin] = useState(false)
   const [churches, setChurches] = useState<{ id: string; name: string }[]>([])
 
   // Church-only
-  const [churchName, setChurchName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
@@ -273,8 +227,8 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
       if (!gender) { setError(t('auth.genderRequired')); return }
     }
 
-    if (mode === 'register' && !phoneVerified) {
-      setError(t('auth.verifyPhoneFirst')); return
+    if (mode === 'register' && sanitizeDigits(phone) !== sanitizeDigits(confirmPhone)) {
+      setError(t('auth.phonesDontMatch')); return
     }
 
     if (accountType === 'member') {
@@ -305,7 +259,6 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
         // Collected identically for both account types, so it lives in one
         // place rather than being duplicated into each branch below.
         const commonProfile = {
-          phoneVerified: true,
           country: signupCountry,
           city: signupCity.trim(),
           quartier: quartier.trim(),
@@ -325,7 +278,6 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
             ? await linkWithCredential(current, EmailAuthProvider.credential(authEmail, pin))
             : await createUserWithEmailAndPassword(auth, authEmail, pin)
           await updateProfile(cred.user, { displayName: fullName })
-          const selectedChurch = churches.find(c => c.id === selectedChurchId)
           const profile: AppUser = {
             uid: cred.user.uid,
             email: authEmail,
@@ -335,15 +287,13 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
             phone: `${countryCode} ${phone.trim()}`,
             createdAt: serverTimestamp(),
             ...commonProfile,
-            ...(selectedChurch ? { memberChurchId: selectedChurch.id, memberChurchName: selectedChurch.name } : {})
+            memberChurchName: CHURCH_NAME
           }
           await setDoc(doc(db, 'users', cred.user.uid), profile)
           // Must log before signOut - the rules require request.auth.uid to
           // match the entry's userId, which is only true while signed in.
-          logActivity(profile, 'signup', selectedChurch ? `Member - ${selectedChurch.name}` : 'Member - no church')
+          logActivity(profile, 'signup', 'Member')
           await signOut(auth)
-          resetVerifier()
-          setPhoneVerified(false)
           setMode('login')
           setPin(''); setConfirmPin('')
           setRegisterSuccess(true)
@@ -361,15 +311,13 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
             firstName, lastName,
             role: 'pending_church',
             phone: `${countryCode} ${phone.trim()}`,
-            churchName,
+            churchName: CHURCH_NAME,
             ...commonProfile,
             createdAt: serverTimestamp()
           }
           await setDoc(doc(db, 'users', cred.user.uid), profile)
-          logActivity(profile, 'signup', `Church - ${churchName}`)
+          logActivity(profile, 'signup', 'Lead')
           await signOut(auth)
-          resetVerifier()
-          setPhoneVerified(false)
           setMode('login')
           setPassword(''); setConfirmPassword('')
           setRegisterSuccess(true)
@@ -527,67 +475,33 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
           </>
         )}
 
-        {mode === 'register' && accountType === 'member' && (
-          <select required value={selectedChurchId} onChange={e => setSelectedChurchId(e.target.value)} className={selectClass}>
-            {/* Disabled placeholder rather than a real option, so the browser's
-                own `required` check fires if it's left untouched. */}
-            <option value="" disabled>{t('auth.selectYourChurch')}</option>
-            {churches.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
-          </select>
-        )}
 
-        {mode === 'register' && accountType === 'church' && (
-          <input required value={churchName} onChange={e => setChurchName(e.target.value)} placeholder={t('auth.newChurchName')}
-            className={inputClass} />
-        )}
 
         {(accountType === 'member' || mode === 'register') && (
-          <div>
+          <div className="space-y-2">
             <div className="flex gap-2">
               <select value={countryCode} onChange={e => setCountryCode(e.target.value)}
-                disabled={phoneVerified}
-                className="w-[92px] shrink-0 px-2 py-3.5 rounded-2xl bg-white/5 border border-white/10 text-white focus:outline-none focus:ring-2 focus:ring-emerald-400/60 focus:border-emerald-400/60 text-[15px] appearance-none disabled:opacity-60">
+                className="w-[92px] shrink-0 px-2 py-3.5 rounded-2xl bg-white/5 border border-white/10 text-white focus:outline-none focus:ring-2 focus:ring-emerald-400/60 focus:border-emerald-400/60 text-[15px] appearance-none">
                 {COUNTRY_CODES.map(c => <option key={c.name} value={c.code}>{c.code}</option>)}
               </select>
               <input required type="tel" value={phone} onChange={e => setPhone(e.target.value)}
-                disabled={phoneVerified}
-                placeholder={t('auth.phoneNumber')}
-                className={inputClass + ' disabled:opacity-60'} />
+                placeholder={t('auth.phoneNumber')} className={inputClass} />
             </div>
 
             {mode === 'register' && (
-              <div className="mt-2">
-                {phoneVerified ? (
-                  <p className="flex items-center gap-1.5 text-xs font-semibold text-emerald-400 px-1">
-                    <CheckCircle2 size={14} /> {t('auth.phoneVerified')}
-                  </p>
-                ) : smsSent ? (
-                  <div className="space-y-2">
-                    <p className="text-[11px] text-slate-400 px-1">{t('auth.smsSentTo')} {countryCode} {phone}</p>
-                    <div className="flex gap-2">
-                      <input type="tel" inputMode="numeric" maxLength={6}
-                        value={smsCode}
-                        onChange={e => setSmsCode(sanitizeDigits(e.target.value).slice(0, 6))}
-                        placeholder={t('auth.smsCodePlaceholder')}
-                        className={inputClass} />
-                      <button type="button" onClick={handleConfirmCode}
-                        disabled={smsCode.length !== 6 || smsSending}
-                        className="px-4 rounded-2xl bg-emerald-600 hover:bg-emerald-700 disabled:opacity-40 text-white text-sm font-semibold shrink-0 transition">
-                        {smsSending ? '...' : t('auth.smsConfirm')}
-                      </button>
-                    </div>
-                    <button type="button" onClick={handleSendCode} disabled={smsSending}
-                      className="text-[11px] font-semibold text-emerald-400 hover:text-emerald-300 px-1">
-                      {t('auth.smsResend')}
-                    </button>
-                  </div>
-                ) : (
-                  <button type="button" onClick={handleSendCode} disabled={smsSending || !phone.trim()}
-                    className="w-full py-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-slate-200 text-sm font-semibold disabled:opacity-40 transition">
-                    {smsSending ? t('auth.smsSending') : t('auth.smsVerifyButton')}
-                  </button>
+              <>
+                {/* Typed twice on purpose, and paste is blocked. For a member
+                    the phone number IS the login, so one typo locks them out of
+                    the account they just made with no email to recover it. */}
+                <input required type="tel" value={confirmPhone}
+                  onChange={e => setConfirmPhone(e.target.value)}
+                  onPaste={e => e.preventDefault()}
+                  placeholder={t('auth.confirmPhone')}
+                  className={inputClass} />
+                {confirmPhone.trim() !== '' && sanitizeDigits(phone) !== sanitizeDigits(confirmPhone) && (
+                  <p className="text-[11px] text-amber-400 px-1">{t('auth.phonesDontMatch')}</p>
                 )}
-              </div>
+              </>
             )}
           </div>
         )}
@@ -1433,7 +1347,7 @@ function AppInner() {
                 </div>
 
                 {adminSection === 'approvals' && isStaffUser && (
-                  <AdminPanel pendingChurches={pendingChurches} onApprove={handleApproveChurch} onDeny={handleDenyChurch} currentUser={user} />
+                  <AdminPanel pendingChurches={pendingChurches} onApprove={handleApproveChurch} onDeny={handleDenyChurch} />
                 )}
                 {adminSection === 'logs' && isStaffUser && <LogsPanel />}
                 {adminSection === 'data' && <DataManagementTab user={user} />}
@@ -1545,6 +1459,11 @@ const COUNTRIES = [
 
 // Profession options for signup. Kept broad rather than exhaustive - a huge
 // list is worse to scroll on a phone than a short one plus 'Autre'.
+// One church, and everyone belongs to it - so this is a constant rather than
+// something each person picks or types. Held in one place so the name can be
+// changed without hunting through signup, profile and post code.
+export const CHURCH_NAME = 'Centre Chrétien E.L.I.M'
+
 const PROFESSIONS = [
   'Agriculteur / Éleveur', 'Artisan', 'Commerçant', 'Chauffeur',
   'Enseignant', 'Étudiant', 'Fonctionnaire', 'Infirmier / Sage-femme',
@@ -2024,16 +1943,13 @@ function LogsPanel() {
   )
 }
 
-function AdminPanel({ pendingChurches, onApprove, onDeny, currentUser }: {
+function AdminPanel({ pendingChurches, onApprove, onDeny }: {
   pendingChurches: AppUser[]
   onApprove: (uid: string) => void
   onDeny: (uid: string) => void
-  currentUser: AppUser
 }) {
   const { t } = useLanguage()
   const [busyUid, setBusyUid] = useState<string | null>(null)
-  const [syncing, setSyncing] = useState(false)
-  const [syncResult, setSyncResult] = useState<{ ok: boolean; count?: number; total?: number; error?: string } | null>(null)
 
   const handle = async (uid: string, action: 'approve' | 'deny') => {
     setBusyUid(uid)
@@ -2045,53 +1961,7 @@ function AdminPanel({ pendingChurches, onApprove, onDeny, currentUser }: {
     }
   }
 
-  const handleSyncDirectory = async () => {
-    setSyncing(true)
-    setSyncResult(null)
-    try {
-      const snap = await getDocs(query(collection(db, 'users'), where('role', '==', 'church')))
-      const results = await Promise.allSettled(snap.docs.map(d => {
-        const data = d.data() as AppUser
-        // Firestore rejects `undefined` field values outright, so this needs
-        // an actual fallback string, not just `a || b` with both possibly
-        // undefined (this was the likely cause of the previous failure).
-        const name = data.churchName || data.displayName || 'Church'
-        return setDoc(doc(db, 'churchDirectory', d.id), { name })
-      }))
-      const succeeded = results.filter(r => r.status === 'fulfilled').length
-      const firstFailure = results.find(r => r.status === 'rejected') as PromiseRejectedResult | undefined
-      if (firstFailure) {
-        setSyncResult({
-          ok: succeeded > 0, count: succeeded, total: results.length,
-          error: firstFailure.reason?.message || firstFailure.reason?.code || String(firstFailure.reason)
-        })
-      } else {
-        setSyncResult({ ok: true, count: succeeded, total: results.length })
-        logActivity(currentUser, 'directory_synced', `${succeeded} church(es)`)
-      }
-    } catch (err: any) {
-      setSyncResult({ ok: false, error: err.message || err.code || String(err) })
-    } finally {
-      setSyncing(false)
-    }
-  }
 
-  const syncSection = (
-    <div className="bg-white rounded-3xl p-5 shadow-sm border border-slate-100">
-      <button onClick={handleSyncDirectory} disabled={syncing}
-        className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-sm font-semibold transition disabled:opacity-50">
-        {syncing ? t('admin.syncing') : t('admin.syncDirectory')}
-      </button>
-      <p className="text-xs text-slate-400 mt-2 text-center">{t('admin.syncDirectoryNote')}</p>
-      {syncResult && (
-        <p className={`text-xs mt-2 text-center font-medium ${syncResult.ok ? 'text-emerald-600' : 'text-red-500'}`}>
-          {syncResult.ok
-            ? `${t('admin.synced')} ${syncResult.count}${syncResult.total ? `/${syncResult.total}` : ''} ${t('admin.churchesSelectable')}`
-            : `${t('admin.syncFailed')}${syncResult.error ? ': ' + syncResult.error : ''}`}
-        </p>
-      )}
-    </div>
-  )
 
   if (pendingChurches.length === 0) {
     return (
@@ -2103,7 +1973,6 @@ function AdminPanel({ pendingChurches, onApprove, onDeny, currentUser }: {
           <p className="text-slate-500 font-medium">{t('admin.noPending')}</p>
           <p className="text-sm text-slate-400 mt-1">{t('admin.noPendingNote')}</p>
         </div>
-        {syncSection}
       </div>
     )
   }
@@ -2135,7 +2004,6 @@ function AdminPanel({ pendingChurches, onApprove, onDeny, currentUser }: {
           </div>
         </div>
       ))}
-      {syncSection}
     </div>
   )
 }

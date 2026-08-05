@@ -207,6 +207,8 @@ const translations = {
   'auth.smsQuota': { en: 'SMS limit reached. Please contact support.', fr: 'Limite de SMS atteinte. Contactez le support.' },
   'auth.phoneVerified': { en: 'Number verified', fr: 'Numéro vérifié' },
   'auth.verifyPhoneFirst': { en: 'Please verify your phone number first.', fr: "Veuillez d'abord vérifier votre numéro de téléphone." },
+  'auth.confirmPhone': { en: 'Re-type your phone number', fr: 'Retapez votre numéro de téléphone' },
+  'auth.phonesDontMatch': { en: "The two phone numbers don't match.", fr: 'Les deux numéros ne correspondent pas.' },
   'auth.country': { en: 'Country', fr: 'Pays' },
   'auth.city': { en: 'City', fr: 'Ville' },
   'auth.quartier': { en: 'Neighbourhood', fr: 'Quartier' },
