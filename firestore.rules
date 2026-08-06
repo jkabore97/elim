@@ -25,11 +25,6 @@ service cloud.firestore {
       return isSignedIn() && (role() == 'admin' || role() == 'pastor');
     }
 
-    // Members whose declared profession is medical may publish to Santé
-    // without being made a lead.
-    function isMedical() {
-      return userDoc().data.profession in ['Médecin', 'Infirmier / Sage-femme', 'Pharmacien'];
-    }
 
     // ---- Users ----
     match /users/{userId} {
@@ -171,14 +166,12 @@ service cloud.firestore {
       // Publishing requires the church/admin role. Email verification is
       // encouraged (see the in-app banner) but does not block publishing —
       // see SECURITY.md §3 for the reasoning.
-      // Normal posts need the publishing role. Santé posts additionally
-      // accept members whose declared profession is medical - so a doctor in
-      // the congregation can share health guidance without being made a lead.
-      allow create: if request.resource.data.churchId == request.auth.uid
-                    && (
-                      canPublish()
-                      || (request.resource.data.section == 'sante' && isMedical())
-                    );
+      // One rule for both surfaces: publishing needs the lead/admin/pastor
+      // role. Doctors are given a lead account rather than being granted
+      // rights by profession, so there is a single permission to reason about
+      // and revoking access is one role change.
+      allow create: if canPublish()
+                    && request.resource.data.churchId == request.auth.uid;
       // The owning church/admin can edit or delete their own post (and only
       // their own — see SECURITY.md §4); any signed-in member can separately
       // bump likes or the comment counter.

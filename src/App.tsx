@@ -1087,7 +1087,9 @@ function AppInner() {
     }
     await addDoc(collection(db, 'posts'), {
       churchId: user!.uid,
-      churchName: user!.churchName || user!.displayName,
+      churchName: user!.churchName || CHURCH_NAME,
+      authorId: user!.uid,
+      authorName: user!.displayName,
       churchAvatar: user!.avatar || null,
       type: finalType,
       content: data.content,
@@ -1221,10 +1223,10 @@ function AppInner() {
 
   if (user.role === 'pending_church') return <PendingScreen user={user} onLogout={handleLogout} />
 
-  // Leads and admins, plus members whose declared profession is medical.
-  const canPostSante = user.role === 'admin' || user.role === 'pastor'
-    || user.role === 'church'
-    || (!!user.profession && MEDICAL_PROFESSIONS.includes(user.profession))
+  // Same permission as the main feed: leads, admin and pastor. Doctors are
+  // given a lead account rather than being granted publishing rights by
+  // profession - one rule to reason about instead of two.
+  const canPostSante = canPost
 
   const santePosts = posts
     .filter(p => p.section === 'sante')
@@ -1566,11 +1568,6 @@ const SANTE_CATEGORIES = [
   'Prévention', 'Nutrition', 'Maternité & enfance', 'Hygiène',
   'Infections', 'Santé mentale', 'Premiers secours', 'Général'
 ]
-
-// Who may publish to Santé: leads/admins, plus members whose declared
-// profession is medical. Mirrored in firestore.rules - the UI check is
-// convenience, the rule is the actual control.
-const MEDICAL_PROFESSIONS = ['Médecin', 'Infirmier / Sage-femme', 'Pharmacien']
 
 const PROFESSIONS = [
   'Agriculteur / Éleveur', 'Artisan', 'Commerçant', 'Chauffeur',
@@ -2135,7 +2132,7 @@ function PostCard({ post, onLike, onOpenComments, currentUserUid, isLiked, onEdi
 
   const handleShare = async () => {
     const shareUrl = `https://ccelim.com/?post=${post.id}`
-    const shareTitle = post.churchName || 'ELIM'
+    const shareTitle = post.authorName || post.churchName || 'ELIM'
     const shareText = (post.content || '').slice(0, 160)
 
     try {
@@ -2181,12 +2178,18 @@ function PostCard({ post, onLike, onOpenComments, currentUserUid, isLiked, onEdi
           <img src={post.churchAvatar} alt="" className="w-11 h-11 rounded-full object-cover shrink-0" />
         ) : (
           <div className="w-11 h-11 rounded-full bg-gradient-to-br from-emerald-400 to-teal-500 flex items-center justify-center text-white font-bold text-sm shrink-0">
-            {(post.churchName || 'C').charAt(0)}
+            {(post.authorName || post.churchName || 'C').charAt(0)}
           </div>
         )}
         <div className="flex-1 min-w-0">
-          <h3 className="font-semibold text-slate-900 truncate">{post.churchName || t('common.church')}</h3>
-          <p className="text-xs text-slate-400">{timeAgo(post.createdAt)}</p>
+          {/* Older posts predate authorName, so churchName is the fallback
+              rather than showing nothing. */}
+          <h3 className="font-semibold text-slate-900 truncate">
+            {post.authorName || post.churchName || t('common.church')}
+          </h3>
+          <p className="text-xs text-slate-400 truncate">
+            {post.authorName ? `${post.churchName || CHURCH_NAME} · ` : ''}{timeAgo(post.createdAt)}
+          </p>
         </div>
         {isOwner && (
           confirmingDelete ? (
@@ -2294,7 +2297,7 @@ function PostCard({ post, onLike, onOpenComments, currentUserUid, isLiked, onEdi
                 id: post.id,
                 url: post.mediaUrl!,
                 title: post.content?.slice(0, 60) || 'Audio',
-                artist: post.churchName || 'ELIM',
+                artist: post.authorName || post.churchName || 'ELIM',
                 artwork: post.coverUrl || undefined
               })
             }}
@@ -2307,7 +2310,7 @@ function PostCard({ post, onLike, onOpenComments, currentUserUid, isLiked, onEdi
               <p className="text-sm font-semibold text-slate-800 truncate">
                 {player.isCurrent(post.id) ? t('player.nowPlaying') : t('player.listen')}
               </p>
-              <p className="text-[11px] text-slate-400">{post.churchName || 'ELIM'}</p>
+              <p className="text-[11px] text-slate-400">{post.authorName || post.churchName || 'ELIM'}</p>
             </div>
           </button>
         </div>

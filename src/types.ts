@@ -48,6 +48,11 @@ export interface ChurchProfile {
 }
 
 export interface Post {
+  // The individual who published, kept alongside churchName. With one church
+  // every post would otherwise carry an identical name, so nothing on screen
+  // would say who actually wrote it.
+  authorName?: string;
+  authorId?: string;
   // Which surface this post belongs to. Health posts are ordinary posts with
   // a marker rather than a separate collection, so they inherit the entire
   // media pipeline - uploads, embeds, the global audio player, zoom,
