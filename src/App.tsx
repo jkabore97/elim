@@ -26,7 +26,7 @@ import { AnimatedSplash } from './AnimatedSplash'
 import { MediaPlayerProvider, useMediaPlayer } from './MediaPlayer'
 import { ImageLightbox } from './ImageLightbox'
 import { initBackButton, useBackHandler } from './backButton'
-import { MessagesTab } from './Messages'
+import { MessagesTab, useUnreadCount } from './Messages'
 import { DataManagementTab } from './DataManagement'
 import type { Post, Comment, AppUser, ActivityLog } from './types'
 import { LanguageProvider, useLanguage, type Language } from './i18n'
@@ -928,6 +928,7 @@ function AppInner() {
     user?.role === 'church' ? 'data' : 'approvals'
   )
   const { track: playerTrack } = useMediaPlayer()
+  const unreadMessages = useUnreadCount(user as AppUser)
   const [splashDone, setSplashDone] = useState(false)
   const [feedFilter, setFeedFilter] = useState<'all' | 'video' | 'audio' | 'posts'>('all')
   const [searchQuery, setSearchQuery] = useState('')
@@ -1287,6 +1288,11 @@ function AppInner() {
                       {pendingChurches.length}
                     </span>
                   )}
+                  {item.id === 'messages' && unreadMessages > 0 && (
+                    <span className="ml-auto min-w-[20px] h-5 px-1.5 rounded-full bg-red-500 text-white text-[10px] font-bold flex items-center justify-center">
+                      {unreadMessages}
+                    </span>
+                  )}
                 </button>
               )
             })}
@@ -1474,6 +1480,11 @@ function AppInner() {
                   {item.id === 'admin' && pendingChurches.length > 0 && (
                     <span className="absolute top-1.5 right-2 w-4 h-4 rounded-full bg-red-500 text-white text-[9px] font-bold flex items-center justify-center">
                       {pendingChurches.length}
+                    </span>
+                  )}
+                  {item.id === 'messages' && unreadMessages > 0 && (
+                    <span className="absolute top-1 right-1.5 min-w-[16px] h-4 px-1 rounded-full bg-red-500 text-white text-[9px] font-bold flex items-center justify-center ring-2 ring-[#0f172a]">
+                      {unreadMessages > 9 ? '9+' : unreadMessages}
                     </span>
                   )}
                   <span className="text-[10px] mt-1 font-medium truncate max-w-full px-0.5">{item.label}</span>

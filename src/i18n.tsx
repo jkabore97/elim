@@ -116,6 +116,7 @@ const translations = {
   'msg.editFailed': { en: "Couldn't edit - try again", fr: 'Échec de la modification - réessayez' },
   'msg.deleteFailed': { en: "Couldn't delete - try again", fr: 'Échec de la suppression - réessayez' },
   'msg.directThreads': { en: 'Your conversations', fr: 'Vos conversations' },
+  'msg.scrollToLatest': { en: 'Jump to latest', fr: 'Aller au plus récent' },
   'msg.newBadge': { en: 'New', fr: 'Nouveau' },
   'msg.chooseChannel': { en: 'Who would you like to reach?', fr: 'Qui souhaitez-vous contacter ?' },
   'msg.pastorChannel': { en: 'Message the Pastor', fr: 'Écrire au Pasteur' },

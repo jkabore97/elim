@@ -62,6 +62,54 @@ async function downloadMessageMedia(url: string, name: string) {
   }
 }
 
+export function conversationIsUnread(conv: Conversation, uid: string): boolean {
+  if (!conv.lastMessageAt || conv.lastSenderId === uid) return false
+  const readAt = conv.readBy?.[uid]
+  if (!readAt) return true
+  const r = readAt.toDate ? readAt.toDate() : new Date(readAt)
+  const l = conv.lastMessageAt.toDate ? conv.lastMessageAt.toDate() : new Date(conv.lastMessageAt)
+  return l > r
+}
+
+// Live count of threads with something unread, for the nav badge. Subscribes
+// to the same queries the inbox uses, so the number and the list always agree.
+export function useUnreadCount(user: AppUser): number {
+  const [count, setCount] = useState(0)
+
+  useEffect(() => {
+    if (!user?.uid) return
+    let mine: Conversation[] = []
+    let channel: Conversation[] = []
+
+    const publish = () => {
+      const byId = new Map<string, Conversation>()
+      for (const row of [...mine, ...channel]) byId.set(row.id, row)
+      setCount(Array.from(byId.values()).filter(cv => conversationIsUnread(cv, user.uid)).length)
+    }
+
+    const unsubMine = onSnapshot(
+      query(collection(db, 'conversations'), where('participantIds', 'array-contains', user.uid), limit(200)),
+      snap => { mine = snap.docs.map(d => ({ id: d.id, ...d.data() } as Conversation)); publish() },
+      () => {}
+    )
+
+    // Staff also answer a shared channel they are not a participant of.
+    let unsubChannel = () => {}
+    if (isStaff(user)) {
+      const myChannel = user.role === 'pastor' ? 'pastor' : 'tech'
+      unsubChannel = onSnapshot(
+        query(collection(db, 'conversations'), where('type', '==', myChannel), limit(200)),
+        snap => { channel = snap.docs.map(d => ({ id: d.id, ...d.data() } as Conversation)); publish() },
+        () => {}
+      )
+    }
+
+    return () => { unsubMine(); unsubChannel() }
+  }, [user?.uid, user?.role])
+
+  return count
+}
+
 function timeShort(date: any): string {
   if (!date) return ''
   const d = date.toDate ? date.toDate() : new Date(date)
@@ -70,6 +118,22 @@ function timeShort(date: any): string {
     return d.toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit' })
   }
   return d.toLocaleDateString(undefined, { day: 'numeric', month: 'short' })
+}
+
+function dayKey(date: any): string {
+  if (!date) return ''
+  const d = date.toDate ? date.toDate() : new Date(date)
+  return d.toDateString()
+}
+
+function daySeparatorLabel(date: any, t: (k: any) => string): string {
+  if (!date) return ''
+  const d = date.toDate ? date.toDate() : new Date(date)
+  const now = new Date()
+  if (d.toDateString() === now.toDateString()) return t('logs.today')
+  const y = new Date(now); y.setDate(now.getDate() - 1)
+  if (d.toDateString() === y.toDateString()) return t('logs.yesterday')
+  return d.toLocaleDateString(undefined, { day: 'numeric', month: 'long', year: 'numeric' })
 }
 
 function fmtDuration(secs: number) {
@@ -127,6 +191,8 @@ function ChatView({ conversation, user, onBack }: {
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(true)
   const [lightbox, setLightbox] = useState<string | null>(null)
+  const [atBottom, setAtBottom] = useState(true)
+  const scrollRef = useRef<HTMLDivElement>(null)
   const [openActions, setOpenActions] = useState<string | null>(null)
   const [editingId, setEditingId] = useState<string | null>(null)
   const [editText, setEditText] = useState('')
@@ -185,7 +251,9 @@ function ChatView({ conversation, user, onBack }: {
     }
   }, [conversation.id, messages.length, user.uid])
 
-  useEffect(() => { bottomRef.current?.scrollIntoView({ behavior: 'smooth' }) }, [messages.length])
+  useEffect(() => {
+    if (atBottom) bottomRef.current?.scrollIntoView({ behavior: 'smooth' })
+  }, [messages.length, atBottom])
 
   // The parent conversation doc may not exist yet (someone opening a channel
   // for the very first time), so this upserts it before the message lands.
@@ -411,7 +479,12 @@ function ChatView({ conversation, user, onBack }: {
         )}
       </div>
 
-      <div className="flex-1 overflow-y-auto py-4 space-y-3">
+      <div ref={scrollRef}
+        onScroll={e => {
+          const el = e.currentTarget
+          setAtBottom(el.scrollHeight - el.scrollTop - el.clientHeight < 80)
+        }}
+        className="flex-1 overflow-y-auto py-4 space-y-3 relative">
         {loading && <p className="text-center text-slate-400 py-10 text-sm">{t('app.loading')}</p>}
 
         {!loading && error && (
@@ -434,11 +507,20 @@ function ChatView({ conversation, user, onBack }: {
           </div>
         )}
 
-        {messages.map(m => {
+        {messages.map((m, idx) => {
           const mine = m.senderId === user.uid
           const meta = roleMeta(m.senderRole, t)
+          const showDay = idx === 0 || dayKey(m.createdAt) !== dayKey(messages[idx - 1]?.createdAt)
           return (
-            <div key={m.id} className={`flex ${mine ? 'justify-end' : 'justify-start'}`}>
+            <div key={m.id}>
+            {showDay && m.createdAt && (
+              <div className="flex justify-center my-3">
+                <span className="text-[10px] font-semibold text-slate-400 bg-white/5 border border-white/10 px-3 py-1 rounded-full">
+                  {daySeparatorLabel(m.createdAt, t)}
+                </span>
+              </div>
+            )}
+            <div className={`flex ${mine ? 'justify-end' : 'justify-start'}`}>
               <div className={`max-w-[78%] rounded-2xl px-3.5 py-2.5 ${
                 mine ? 'bg-emerald-600 text-white' : 'bg-white/[0.06] border border-white/10 text-slate-100'}`}>
                 {!mine && (
@@ -501,10 +583,14 @@ function ChatView({ conversation, user, onBack }: {
                   </p>
                 ) : null}
 
-                <p className={`text-[10px] mt-1 ${mine ? 'text-emerald-100/70' : 'text-slate-500'}`}>
+                <p className={`text-[10px] mt-1 flex items-center gap-1 ${mine ? 'text-emerald-100/70' : 'text-slate-500'}`}>
                   {m.mediaType === 'audio' && m.mediaDuration ? `${fmtDuration(m.mediaDuration)} · ` : ''}
-                  {timeShort(m.createdAt)}
+                  {/* A pending server timestamp means it hasn't landed yet -
+                      showing a clock instead of a blank time tells the sender
+                      the message is in flight rather than lost. */}
+                  {m.createdAt ? timeShort(m.createdAt) : t('msg.sending')}
                   {m.editedAt ? ` · ${t('msg.edited')}` : ''}
+                  {mine && m.createdAt && <Check size={11} className="opacity-70" />}
                 </p>
 
                 {/* Actions revealed by tapping a message. Editing is limited to
@@ -534,10 +620,19 @@ function ChatView({ conversation, user, onBack }: {
                 )}
               </div>
             </div>
+            </div>
           )
         })}
         <div ref={bottomRef} />
       </div>
+
+      {!atBottom && messages.length > 0 && (
+        <button onClick={() => bottomRef.current?.scrollIntoView({ behavior: 'smooth' })}
+          aria-label={t('msg.scrollToLatest')}
+          className="absolute bottom-24 right-6 w-10 h-10 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white shadow-lg flex items-center justify-center z-10">
+          <ArrowLeft size={17} className="-rotate-90" />
+        </button>
+      )}
 
       <div className="pt-3 border-t border-white/10">
         {recording ? (
@@ -775,14 +870,7 @@ function ConversationList({ user, onOpen }: {
     return c.participantNames?.[c.participantIds[0]] || t('msg.conversation')
   }
 
-  const isUnread = (c: Conversation) => {
-    if (!c.lastMessageAt || c.lastSenderId === user.uid) return false
-    const readAt = c.readBy?.[user.uid]
-    if (!readAt) return true
-    const r = readAt.toDate ? readAt.toDate() : new Date(readAt)
-    const l = c.lastMessageAt.toDate ? c.lastMessageAt.toDate() : new Date(c.lastMessageAt)
-    return l > r
-  }
+  const isUnread = (c: Conversation) => conversationIsUnread(c, user.uid)
 
   return (
     <div className="space-y-4">
@@ -921,14 +1009,7 @@ function ChannelChooser({ user, onOpen }: {
     })
   }
 
-  const isUnread = (conv?: Conversation) => {
-    if (!conv || !conv.lastMessageAt || conv.lastSenderId === user.uid) return false
-    const readAt = conv.readBy?.[user.uid]
-    if (!readAt) return true
-    const r = readAt.toDate ? readAt.toDate() : new Date(readAt)
-    const l = conv.lastMessageAt.toDate ? conv.lastMessageAt.toDate() : new Date(conv.lastMessageAt)
-    return l > r
-  }
+  const isUnread = (conv?: Conversation) => !!conv && conversationIsUnread(conv, user.uid)
   const unreadFor = (type: string) => isUnread(existing[type])
 
   const channels = [
