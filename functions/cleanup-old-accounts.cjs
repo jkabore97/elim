@@ -95,7 +95,7 @@ async function main() {
   }
 
   console.log('\nDeleting...\n');
-  let okAuth = 0, okDoc = 0, failed = 0;
+  let okAuth = 0, okDoc = 0, failed = 0, authInternalErrors = 0;
 
   for (const u of doomed) {
     // Auth first: if this fails we still have the Firestore document, so the
@@ -108,7 +108,12 @@ async function main() {
       // auth/user-not-found just means the login was already gone.
       if (err.code !== 'auth/user-not-found') {
         console.log(`  ! auth delete failed for ${u.name}: ${err.code || err.message}`);
+        if (err.code === 'auth/internal-error') authInternalErrors++;
         failed++;
+        // Deliberately NOT falling through to delete the profile. Removing the
+        // document while the login survives leaves someone able to sign in with
+        // no profile behind them, which breaks the app for them rather than
+        // simply forgetting them.
         continue;
       }
     }
@@ -123,6 +128,32 @@ async function main() {
   }
 
   console.log(`\nDone. Auth logins removed: ${okAuth}. Profile documents removed: ${okDoc}. Failures: ${failed}\n`);
+
+  if (authInternalErrors > 0) {
+    console.log('-----------------------------------------------------------');
+    console.log('Every deletion failed with auth/internal-error.');
+    console.log('');
+    console.log('This is a CREDENTIALS problem, not a data problem - nothing');
+    console.log('was changed. Cloud Shell signs you in with your personal');
+    console.log('Google account, which can read Firestore (the listing above');
+    console.log('worked) but cannot delete Firebase Auth users. That requires');
+    console.log('a service account key.');
+    console.log('');
+    console.log('To fix:');
+    console.log('  1. Firebase console > Project settings (gear icon)');
+    console.log('  2. "Service accounts" tab > Generate new private key');
+    console.log('  3. Upload the downloaded .json into Cloud Shell');
+    console.log('     (three-dot menu > Upload)');
+    console.log('  4. Then run:');
+    console.log('       export GOOGLE_APPLICATION_CREDENTIALS=~/<that-file>.json');
+    console.log('       node cleanup-old-accounts.cjs --confirm');
+    console.log('');
+    console.log('Treat that key like a password: it grants full access to the');
+    console.log('project. Delete it from Cloud Shell when you are done:');
+    console.log('       rm ~/<that-file>.json');
+    console.log('-----------------------------------------------------------\n');
+    return;
+  }
   console.log('Note: posts, comments, likes and messages made by these people are');
   console.log('NOT removed - deleting them would tear holes in threads other');
   console.log('people are still reading. Remove any specific ones by hand from');
