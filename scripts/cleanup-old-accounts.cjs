@@ -4,8 +4,13 @@
  * Run it in Google Cloud Shell, from the repo root:
  *
  *     cd functions && npm install
- *     node ../scripts/cleanup-old-accounts.js            # DRY RUN - lists only
- *     node ../scripts/cleanup-old-accounts.js --confirm  # actually deletes
+ *     node ../scripts/cleanup-old-accounts.cjs            # DRY RUN - lists only
+ *     node ../scripts/cleanup-old-accounts.cjs --confirm  # actually deletes
+ *
+ * The .cjs extension is deliberate. The repo's package.json sets
+ * "type": "module", so Node treats every .js file as an ES module and the
+ * CommonJS require() calls below would fail outright. .cjs opts this one file
+ * back into CommonJS, which is what firebase-admin expects here.
  *
  * It defaults to a DRY RUN and prints exactly what it would remove. Nothing is
  * touched until --confirm is passed, so you can check the list first.
