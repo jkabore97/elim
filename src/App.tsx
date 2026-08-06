@@ -262,6 +262,9 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
       // but a typed-in date bypasses the picker entirely.
       if (!dateOfBirth || ageFrom(dateOfBirth) < 13) { setError(t('auth.tooYoung')); return }
       if (!gender) { setError(t('auth.genderRequired')); return }
+      // Chips can't carry the browser's `required`, so this is checked here
+      // for the same reason gender is.
+      if (interests.length === 0) { setError(t('auth.interestsRequired')); return }
     }
 
     if (mode === 'register' && sanitizeDigits(phone) !== sanitizeDigits(confirmPhone)) {
@@ -427,6 +430,10 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
 
       <form onSubmit={handleSubmit} className="space-y-4">
         {mode === 'register' && (
+          <p className="text-[11px] text-slate-500 px-1 -mb-1">{t('auth.allRequired')}</p>
+        )}
+
+        {mode === 'register' && (
           <div className="flex gap-3">
             <input required value={firstName} onChange={e => setFirstName(e.target.value)} placeholder={t('auth.firstName')}
               className={inputClass} />
@@ -453,7 +460,7 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
 
             <div>
               <label className="text-xs font-semibold text-slate-400 px-1 mb-1.5 block">
-                {t('auth.gender')}
+                {t('auth.gender')} <span className="text-emerald-400">*</span>
               </label>
               <div className="flex gap-3">
                 {(['homme', 'femme'] as const).map(g => (
@@ -487,7 +494,7 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
 
             <div>
               <label className="text-xs font-semibold text-slate-400 px-1 mb-1.5 block">
-                {t('auth.interests')}
+                {t('auth.interests')} <span className="text-emerald-400">*</span>
               </label>
               {/* Multi-select as chips rather than a <select multiple>, which is
                   close to unusable on a phone. */}
@@ -507,7 +514,10 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
                   )
                 })}
               </div>
-              <p className="text-[11px] text-slate-500 mt-2 px-1">{t('auth.interestsHint')}</p>
+              <p className={`text-[11px] mt-2 px-1 ${
+                interests.length === 0 ? 'text-amber-400' : 'text-slate-500'}`}>
+                {interests.length === 0 ? t('auth.interestsRequired') : t('auth.interestsHint')}
+              </p>
             </div>
           </>
         )}

@@ -205,6 +205,8 @@ const translations = {
   'auth.genderRequired': { en: 'Please select Homme or Femme.', fr: 'Veuillez sélectionner Homme ou Femme.' },
   'auth.selectProfession': { en: 'Profession', fr: 'Profession' },
   'auth.interests': { en: 'Centre of interest', fr: "Centre d'intérêt" },
+  'auth.interestsRequired': { en: 'Please choose at least one centre of interest.', fr: "Veuillez choisir au moins un centre d'intérêt." },
+  'auth.allRequired': { en: 'All fields are required.', fr: 'Tous les champs sont obligatoires.' },
   'auth.interestsHint': { en: 'Which department do you serve in, or would like to join? Choose as many as you like.', fr: "Dans quel département servez-vous, ou aimeriez-vous servir ? Choisissez-en autant que vous voulez." },
   'auth.smsVerifyButton': { en: 'Verify this number', fr: 'Vérifier ce numéro' },
   'auth.smsSending': { en: 'Sending...', fr: 'Envoi...' },
