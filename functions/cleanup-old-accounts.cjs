@@ -1,16 +1,20 @@
 /**
  * Deletes member accounts created before a cutoff date.
  *
- * Run it in Google Cloud Shell, from the repo root:
+ * Run it in Google Cloud Shell:
  *
- *     cd functions && npm install
- *     node ../scripts/cleanup-old-accounts.cjs            # DRY RUN - lists only
- *     node ../scripts/cleanup-old-accounts.cjs --confirm  # actually deletes
+ *     cd ~/elim/functions && npm install
+ *     node cleanup-old-accounts.cjs            # DRY RUN - lists only
+ *     node cleanup-old-accounts.cjs --confirm  # actually deletes
  *
- * The .cjs extension is deliberate. The repo's package.json sets
- * "type": "module", so Node treats every .js file as an ES module and the
- * CommonJS require() calls below would fail outright. .cjs opts this one file
- * back into CommonJS, which is what firebase-admin expects here.
+ * It lives in functions/ rather than a scripts/ folder because Node resolves
+ * packages by walking up from the SCRIPT's own directory, not from where you
+ * happen to be standing. firebase-admin is installed in functions/node_modules,
+ * so anywhere else the require() simply doesn't find it.
+ *
+ * The .cjs extension is deliberate too: the repo's root package.json sets
+ * "type": "module", so a .js file would be treated as an ES module and the
+ * CommonJS require() calls below would fail outright.
  *
  * It defaults to a DRY RUN and prints exactly what it would remove. Nothing is
  * touched until --confirm is passed, so you can check the list first.
