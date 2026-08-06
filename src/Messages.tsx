@@ -6,7 +6,7 @@ import {
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
 import {
   ArrowLeft, Send, Search, MessageCircle, Plus, X, LifeBuoy,
-  ShieldCheck, HeartHandshake, Image as ImageIcon, Mic, Trash2, Play, Pause, Pencil, Check, Download
+  ShieldCheck, HeartHandshake, Image as ImageIcon, Mic, Trash2, Play, Pause, Pencil, Check, CheckCheck, Download
 } from 'lucide-react'
 import { db, storage } from './firebase'
 import { useLanguage } from './i18n'
@@ -193,6 +193,53 @@ function ChatView({ conversation, user, onBack }: {
   const [lightbox, setLightbox] = useState<string | null>(null)
   const [atBottom, setAtBottom] = useState(true)
   const scrollRef = useRef<HTMLDivElement>(null)
+  const [othersTyping, setOthersTyping] = useState<string[]>([])
+  const lastTypingWrite = useRef(0)
+  const [liveConv, setLiveConv] = useState<Conversation | null>(null)
+
+  // Heartbeat rather than start/stop events: a 'stopped typing' write can be
+  // lost if someone closes the app mid-sentence, leaving the indicator stuck
+  // on forever. A timestamp that simply goes stale can't get stuck.
+  const signalTyping = () => {
+    const now = Date.now()
+    if (now - lastTypingWrite.current < 3000) return   // at most one write per 3s
+    lastTypingWrite.current = now
+    setDoc(doc(db, 'conversations', conversation.id), {
+      typing: { [user.uid]: serverTimestamp() }
+    }, { merge: true }).catch(() => {})
+  }
+
+  // Watch the conversation document for the other side's typing heartbeat and
+  // read receipts.
+  useEffect(() => {
+    const unsub = onSnapshot(doc(db, 'conversations', conversation.id),
+      snap => {
+        if (!snap.exists()) { setLiveConv(null); return }
+        const data = { id: snap.id, ...snap.data() } as Conversation
+        setLiveConv(data)
+        const typing = (data as any).typing || {}
+        const active: string[] = []
+        Object.entries(typing).forEach(([uid, ts]: [string, any]) => {
+          if (uid === user.uid || !ts?.toDate) return
+          // Anything older than 8 seconds is treated as stopped.
+          if (Date.now() - ts.toDate().getTime() < 8000) {
+            active.push(data.participantNames?.[uid] || t('msg.someone'))
+          }
+        })
+        setOthersTyping(active)
+      },
+      () => {}
+    )
+    return () => unsub()
+  }, [conversation.id, user.uid])
+
+  // The heartbeat only refreshes on keystrokes, so a stale one has to expire
+  // on a timer too - otherwise the indicator lingers after someone stops.
+  useEffect(() => {
+    if (othersTyping.length === 0) return
+    const timer = setTimeout(() => setOthersTyping([]), 8000)
+    return () => clearTimeout(timer)
+  }, [othersTyping])
   const [openActions, setOpenActions] = useState<string | null>(null)
   const [editingId, setEditingId] = useState<string | null>(null)
   const [editText, setEditText] = useState('')
@@ -416,6 +463,25 @@ function ChatView({ conversation, user, onBack }: {
     }
   }
 
+  // A message counts as read when someone other than the sender has a readBy
+  // timestamp later than it. Derived from the readBy map that already drives
+  // unread state, rather than storing per-message receipts - which would mean
+  // a write for every message every time a thread is opened.
+  const readByOthersAt = (() => {
+    const map = (liveConv?.readBy || conversation.readBy || {}) as Record<string, any>
+    let latest = 0
+    Object.entries(map).forEach(([uid, ts]: [string, any]) => {
+      if (uid === user.uid || !ts?.toDate) return
+      latest = Math.max(latest, ts.toDate().getTime())
+    })
+    return latest
+  })()
+
+  const isSeen = (m: Message) => {
+    if (!m.createdAt?.toDate || readByOthersAt === 0) return false
+    return readByOthersAt >= m.createdAt.toDate().getTime()
+  }
+
   const staff = isStaff(user)
   const channelMeta = conversation.type === 'pastor'
     ? { label: t('msg.pastorChannel'), Icon: HeartHandshake, tone: 'bg-indigo-500/15 text-indigo-400' }
@@ -590,7 +656,11 @@ function ChatView({ conversation, user, onBack }: {
                       the message is in flight rather than lost. */}
                   {m.createdAt ? timeShort(m.createdAt) : t('msg.sending')}
                   {m.editedAt ? ` · ${t('msg.edited')}` : ''}
-                  {mine && m.createdAt && <Check size={11} className="opacity-70" />}
+                  {mine && m.createdAt && (
+                    isSeen(m)
+                      ? <CheckCheck size={12} className="text-sky-300" />
+                      : <Check size={11} className="opacity-70" />
+                  )}
                 </p>
 
                 {/* Actions revealed by tapping a message. Editing is limited to
@@ -634,6 +704,20 @@ function ChatView({ conversation, user, onBack }: {
         </button>
       )}
 
+      {othersTyping.length > 0 && (
+        <div className="flex items-center gap-2 px-1 pb-1.5">
+          <div className="flex gap-1">
+            {[0, 1, 2].map(i => (
+              <span key={i} className="w-1.5 h-1.5 rounded-full bg-emerald-400"
+                style={{ animation: `typingDot 1.2s ease-in-out ${i * 0.18}s infinite` }} />
+            ))}
+          </div>
+          <span className="text-[11px] text-slate-400">
+            {othersTyping[0]} {t('msg.isTyping')}
+          </span>
+        </div>
+      )}
+
       <div className="pt-3 border-t border-white/10">
         {recording ? (
           <div className="flex items-center gap-3 px-4 py-3 rounded-2xl bg-red-500/10 border border-red-500/30">
@@ -661,7 +745,7 @@ function ChatView({ conversation, user, onBack }: {
             </button>
             <input
               value={text}
-              onChange={e => setText(e.target.value)}
+              onChange={e => { setText(e.target.value); signalTyping() }}
               onKeyDown={e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); handleSend() } }}
               placeholder={t('msg.writePlaceholder')}
               className="flex-1 min-w-0 px-4 py-3 rounded-2xl bg-white/5 border border-white/10 text-white placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-emerald-400/60 text-[15px]"

@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react'
+import { useState, useEffect, useMemo, useRef } from 'react'
 import {
   Home, Church, PlusCircle, User, MessageCircle, Heart, Share2,
   Image as ImageIcon, Video, Mic, X, Send, LogOut,
@@ -27,6 +27,7 @@ import { MediaPlayerProvider, useMediaPlayer } from './MediaPlayer'
 import { ImageLightbox } from './ImageLightbox'
 import { initBackButton, useBackHandler } from './backButton'
 import { MessagesTab, useUnreadCount } from './Messages'
+import { playMessageAlert, isAlertMuted, setAlertMuted } from './messageAlert'
 import { DataManagementTab } from './DataManagement'
 import type { Post, Comment, AppUser, ActivityLog } from './types'
 import { LanguageProvider, useLanguage, type Language } from './i18n'
@@ -929,6 +930,26 @@ function AppInner() {
   )
   const { track: playerTrack } = useMediaPlayer()
   const unreadMessages = useUnreadCount(user as AppUser)
+  const [messageToast, setMessageToast] = useState(false)
+  const prevUnread = useRef<number | null>(null)
+
+  // Alert only when the count RISES. Firing on any change would sound again
+  // every time someone reads a thread and the number drops.
+  useEffect(() => {
+    const previous = prevUnread.current
+    prevUnread.current = unreadMessages
+    // The first value after mount is the existing backlog, not new arrivals.
+    if (previous === null) return
+    if (unreadMessages <= previous) return
+
+    if (!isAlertMuted()) playMessageAlert()
+    // No banner while the person is already looking at Messages - they can
+    // see it arrive.
+    if (activeTab !== 'messages') {
+      setMessageToast(true)
+      setTimeout(() => setMessageToast(false), 5000)
+    }
+  }, [unreadMessages, activeTab])
   const [splashDone, setSplashDone] = useState(false)
   const [feedFilter, setFeedFilter] = useState<'all' | 'video' | 'audio' | 'posts'>('all')
   const [searchQuery, setSearchQuery] = useState('')
@@ -1504,6 +1525,22 @@ function AppInner() {
         </nav>
       </div>
 
+      {messageToast && (
+        <button onClick={() => { setActiveTab('messages'); setMessageToast(false) }}
+          className="fixed top-4 left-4 right-4 lg:left-auto lg:right-6 lg:w-80 z-[60] flex items-center gap-3 bg-[#1e293b] border border-emerald-400/30 rounded-2xl shadow-2xl px-4 py-3 text-left animate-[toastIn_0.25s_ease-out]">
+          <div className="w-9 h-9 rounded-full bg-emerald-500/15 text-emerald-400 flex items-center justify-center shrink-0">
+            <MessageCircle size={17} />
+          </div>
+          <div className="min-w-0 flex-1">
+            <p className="text-sm font-semibold text-white">{t('msg.newMessageToast')}</p>
+            <p className="text-[11px] text-slate-400">{t('msg.tapToOpen')}</p>
+          </div>
+          <span className="min-w-[20px] h-5 px-1.5 rounded-full bg-red-500 text-white text-[10px] font-bold flex items-center justify-center shrink-0">
+            {unreadMessages}
+          </span>
+        </button>
+      )}
+
       {showNotifPrompt && (
         <div className="fixed bottom-20 lg:bottom-6 left-4 right-4 lg:left-auto lg:right-6 lg:w-96 z-50 bg-[#1e293b] border border-white/10 rounded-3xl shadow-2xl p-5">
           <div className="flex items-start gap-3">
@@ -1666,6 +1703,7 @@ function ProfileTab({ user, onProfileUpdated }: {
   const [notifLoading, setNotifLoading] = useState(false)
   const [notifError, setNotifError] = useState('')
   const [testResult, setTestResult] = useState<{ ok: boolean; detail: string } | null>(null)
+  const [soundOn, setSoundOn] = useState(!isAlertMuted())
   const [diag, setDiag] = useState<any>(null)
 
   useEffect(() => {
@@ -1821,6 +1859,19 @@ function ProfileTab({ user, onProfileUpdated }: {
           </button>
         </div>
         {notifError && <p className="mt-3 text-xs text-red-500 bg-red-50 rounded-xl px-3 py-2">{notifError}</p>}
+
+        <div className="flex items-center justify-between gap-4 mt-4 pt-4 border-t border-slate-50">
+          <div>
+            <h3 className="font-bold text-slate-900 text-sm">{t('profile.messageSound')}</h3>
+            <p className="text-xs text-slate-400 mt-0.5">{t('profile.messageSoundNote')}</p>
+          </div>
+          <button onClick={() => { const next = !soundOn; setSoundOn(next); setAlertMuted(!next) }}
+            role="switch" aria-checked={soundOn}
+            className={`relative shrink-0 w-12 h-7 rounded-full transition ${soundOn ? 'bg-emerald-600' : 'bg-slate-200'}`}>
+            <span className={`absolute top-1 left-1 w-5 h-5 rounded-full bg-white shadow transition-transform ${
+              soundOn ? 'translate-x-5' : ''}`} />
+          </button>
+        </div>
 
         <button onClick={handleTestNotification}
           className="mt-4 w-full py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-sm font-semibold transition">
