@@ -49,6 +49,19 @@ function getYoutubeId(url: string) {
   return match ? match[1] : null
 }
 
+// A playlist link carries a list= parameter. Supporting these turns one post
+// into an entire album or choir collection: YouTube's own player handles
+// next/previous, and every title comes from YouTube rather than being typed
+// in by hand.
+function getYoutubePlaylistId(url: string): string | null {
+  const match = url.match(/[?&]list=([a-zA-Z0-9_-]+)/)
+  if (!match) return null
+  // 'RD' and 'LL' prefixes are auto-generated mixes and personal Liked lists -
+  // neither is a real shared playlist and neither embeds for other people.
+  if (/^(RD|LL|WL)/.test(match[1])) return null
+  return match[1]
+}
+
 function isFacebookVideo(url: string) {
   return url.includes('facebook.com') || url.includes('fb.watch')
 }
@@ -2299,6 +2312,7 @@ function PostCard({ post, onLike, onOpenComments, currentUserUid, isLiked, onEdi
 }) {
   const { t } = useLanguage()
   const ytId = post.mediaUrl ? getYoutubeId(post.mediaUrl) : null
+  const ytList = post.mediaUrl ? getYoutubePlaylistId(post.mediaUrl) : null
   const [confirmingDelete, setConfirmingDelete] = useState(false)
   const [likeError, setLikeError] = useState(false)
   const [shareCopied, setShareCopied] = useState(false)
@@ -2411,10 +2425,14 @@ function PostCard({ post, onLike, onOpenComments, currentUserUid, isLiked, onEdi
         </div>
       )}
 
-      {post.type === 'youtube' && ytId && (
+      {post.type === 'youtube' && (ytId || ytList) && (
         <div className="relative aspect-video bg-black">
           <iframe
-            src={`https://www.youtube.com/embed/${ytId}`}
+            src={
+              ytId
+                ? `https://www.youtube.com/embed/${ytId}${ytList ? `?list=${ytList}` : ''}`
+                : `https://www.youtube.com/embed/videoseries?list=${ytList}`
+            }
             className="absolute inset-0 w-full h-full"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
@@ -2422,7 +2440,7 @@ function PostCard({ post, onLike, onOpenComments, currentUserUid, isLiked, onEdi
         </div>
       )}
 
-      {post.type === 'youtube' && post.mediaUrl && !ytId && (
+      {post.type === 'youtube' && post.mediaUrl && !ytId && !ytList && (
         <div className="bg-slate-50 p-4">
           <div className="flex items-center gap-2 text-red-600 mb-2">
             <Youtube size={18} />
