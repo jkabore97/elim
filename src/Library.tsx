@@ -115,6 +115,9 @@ function PdfReader({ book, onClose }: { book: Book; onClose: () => void }) {
           <div className="text-center px-8 pt-16">
             <p className="text-sm text-red-400">{t('lib.readFailed')}</p>
             <p className="text-xs text-slate-400 mt-2 break-words">{error}</p>
+            {/^Failed to fetch/i.test(error) && (
+              <p className="text-[11px] text-amber-400 mt-3 leading-relaxed">{t('lib.corsHint')}</p>
+            )}
             <a href={book.fileUrl} target="_blank" rel="noreferrer"
               className="inline-block mt-4 px-4 py-2.5 rounded-xl bg-emerald-600 text-white text-sm font-semibold">
               {t('lib.openExternally')}

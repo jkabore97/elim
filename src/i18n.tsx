@@ -64,6 +64,7 @@ const translations = {
   'lib.zoomOut': { en: 'Zoom out', fr: 'Réduire' },
   'lib.loadingBook': { en: 'Opening the book...', fr: 'Ouverture du livre...' },
   'lib.readFailed': { en: "This book couldn't be opened", fr: "Ce livre n'a pas pu être ouvert" },
+  'lib.corsHint': { en: 'The storage bucket is not yet allowing the app to read files directly. An administrator needs to apply the CORS configuration.', fr: "Le stockage n'autorise pas encore l'application à lire les fichiers directement. Un administrateur doit appliquer la configuration CORS." },
   'lib.openExternally': { en: 'Open outside the app', fr: "Ouvrir hors de l'application" },
   'nav.sante': { en: 'Health', fr: 'Santé' },
   'nav.data': { en: 'Data', fr: 'Données' },
