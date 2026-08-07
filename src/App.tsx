@@ -940,6 +940,7 @@ function AppInner() {
   const [santeCategory, setSanteCategory] = useState('all')
   const [showCreateSante, setShowCreateSante] = useState(false)
   const [musiqueCategory, setMusiqueCategory] = useState('all')
+  const [musiqueSearch, setMusiqueSearch] = useState('')
   const [showCreateMusique, setShowCreateMusique] = useState(false)
   const [showBulkMusique, setShowBulkMusique] = useState(false)
   const [adminSection, setAdminSection] = useState<'approvals' | 'logs' | 'data'>(
@@ -1280,6 +1281,13 @@ function AppInner() {
   const musiquePosts = posts
     .filter(p => p.section === 'musique')
     .filter(p => musiqueCategory === 'all' || p.category === musiqueCategory)
+    .filter(p => {
+      const q = musiqueSearch.trim().toLowerCase()
+      if (!q) return true
+      return (p.content || '').toLowerCase().includes(q)
+        || (p.category || '').toLowerCase().includes(q)
+        || (p.authorName || '').toLowerCase().includes(q)
+    })
 
   const santePosts = posts
     .filter(p => p.section === 'sante')
@@ -1445,6 +1453,19 @@ function AppInner() {
 
             {activeTab === 'musique' && (
               <div className="space-y-4">
+                <div className="relative">
+                  <Search size={17} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 pointer-events-none" />
+                  <input value={musiqueSearch} onChange={e => setMusiqueSearch(e.target.value)}
+                    placeholder={t('musique.search')}
+                    className="w-full pl-11 pr-10 py-3 rounded-2xl bg-white/5 border border-white/10 text-white placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-emerald-400/60 text-[15px]" />
+                  {musiqueSearch && (
+                    <button onClick={() => setMusiqueSearch('')}
+                      className="absolute right-3 top-1/2 -translate-y-1/2 p-1 rounded-full text-slate-400 hover:text-white hover:bg-white/10">
+                      <X size={15} />
+                    </button>
+                  )}
+                </div>
+
                 <div className="flex gap-2 overflow-x-auto pb-1">
                   {['all', ...MUSIQUE_CATEGORIES].map(cat => (
                     <button key={cat} onClick={() => setMusiqueCategory(cat)}
@@ -1475,8 +1496,12 @@ function AppInner() {
                     <div className="w-16 h-16 rounded-full bg-emerald-500/10 flex items-center justify-center mx-auto mb-4">
                       <Music size={28} className="text-emerald-400" />
                     </div>
-                    <p className="text-slate-300 font-medium">{t('musique.empty')}</p>
-                    <p className="text-sm text-slate-500 mt-1">{t('musique.emptyHint')}</p>
+                    <p className="text-slate-300 font-medium">
+                      {musiqueSearch || musiqueCategory !== 'all' ? t('musique.noMatches') : t('musique.empty')}
+                    </p>
+                    <p className="text-sm text-slate-500 mt-1">
+                      {musiqueSearch || musiqueCategory !== 'all' ? t('musique.tryDifferent') : t('musique.emptyHint')}
+                    </p>
                   </div>
                 ) : musiquePosts.map(post => (
                   <PostCard key={post.id} post={post} onLike={handleLike} onOpenComments={setActiveCommentsPost}
@@ -1699,8 +1724,8 @@ export const CHURCH_NAME = 'Centre Chrétien E.L.I.M'
 
 // Music genres for the Musique tab.
 const MUSIQUE_CATEGORIES = [
-  'Louange', 'Adoration', 'Chorale', 'Gospel', 'Cantiques classiques',
-  'Afro-gospel', 'Jeunesse', 'Instrumental', 'Autre'
+  'Louange', 'Adoration', 'Chorales', 'Burkina Classic',
+  'Exo Eclat', 'Special', 'AG'
 ]
 
 // Categories for health posts.
