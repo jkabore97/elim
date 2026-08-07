@@ -1,12 +1,6 @@
 [
   {
-    "origin": [
-      "https://ccelim.com",
-      "https://www.ccelim.com",
-      "http://localhost:5173",
-      "capacitor://localhost",
-      "http://localhost"
-    ],
+    "origin": ["*"],
     "method": ["GET", "HEAD"],
     "maxAgeSeconds": 3600,
     "responseHeader": [
