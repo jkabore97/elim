@@ -46,7 +46,7 @@ const translations = {
   'musique.adding': { en: 'Adding...', fr: 'Ajout...' },
   'musique.empty': { en: 'No music yet', fr: 'Aucune musique' },
   'musique.emptyHint': { en: 'Songs shared by the church will appear here', fr: "Les chants partagés par l'église apparaîtront ici" },
-  'nav.library': { en: 'Library', fr: 'Bibliothèque' },
+  'nav.library': { en: 'Read', fr: 'Lire' },
   'lib.search': { en: 'Search books...', fr: 'Rechercher un livre...' },
   'lib.allBooks': { en: 'All', fr: 'Tout' },
   'lib.addBook': { en: 'Add a book', fr: 'Ajouter un livre' },
