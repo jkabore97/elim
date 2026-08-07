@@ -134,6 +134,15 @@ service cloud.firestore {
                     );
     }
 
+    // ---- Library (PDF books) ----
+    match /books/{bookId} {
+      allow read: if isSignedIn();
+      allow create: if canPublish()
+                    && request.resource.data.uploadedById == request.auth.uid;
+      allow update: if isSignedIn() && (resource.data.uploadedById == request.auth.uid || isAdmin());
+      allow delete: if isSignedIn() && (resource.data.uploadedById == request.auth.uid || isAdmin());
+    }
+
     // ---- Activity logs ----
     // Admin-only visibility. Any signed-in user can append entries about
     // their own actions (that's how sign-ins/posts get recorded at all),

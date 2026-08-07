@@ -3,7 +3,7 @@ import {
   Home, Church, PlusCircle, User, MessageCircle, Heart, Share2,
   Image as ImageIcon, Video, Mic, X, Send, LogOut,
   Youtube, Facebook, CheckCircle2, Clock, ArrowRight, ShieldCheck, UserX, Sparkles,
-  Trash2, Camera, FileText, Upload, Pencil, Globe, Eye, EyeOff, Search, Bell, ScrollText, Mail, Play, Pause, HeartPulse, Download, AlertTriangle
+  Trash2, Camera, FileText, Upload, Pencil, Globe, Eye, EyeOff, Search, Bell, ScrollText, Mail, Play, Pause, HeartPulse, Download, AlertTriangle, BookOpen
 } from 'lucide-react'
 import {
   collection, addDoc, onSnapshot, query, orderBy, where,
@@ -29,6 +29,7 @@ import { initBackButton, useBackHandler } from './backButton'
 import { MessagesTab, useUnreadCount } from './Messages'
 import { playMessageAlert, isAlertMuted, setAlertMuted } from './messageAlert'
 import { DataManagementTab } from './DataManagement'
+import { LibraryTab } from './Library'
 import type { Post, Comment, AppUser, ActivityLog } from './types'
 import { LanguageProvider, useLanguage, type Language } from './i18n'
 
@@ -1271,6 +1272,7 @@ function AppInner() {
     { id: 'feed', icon: Home, label: t('nav.feed') },
     { id: 'messages', icon: MessageCircle, label: t('nav.messages') },
     { id: 'sante', icon: HeartPulse, label: t('nav.sante') },
+    { id: 'library', icon: BookOpen, label: t('nav.library') },
     { id: 'profile', icon: User, label: t('nav.profile') },
     // Logs and Data live INSIDE Admin rather than as their own tabs - eight
     // bottom-nav items is unusable on a phone.
@@ -1417,6 +1419,8 @@ function AppInner() {
             {activeTab === 'profile' && (
               <ProfileTab user={user} onProfileUpdated={(updates) => setUser(prev => prev ? { ...prev, ...updates } : prev)} />
             )}
+
+            {activeTab === 'library' && <LibraryTab user={user} canUpload={canPost} />}
 
             {activeTab === 'sante' && (
               <div className="space-y-4">

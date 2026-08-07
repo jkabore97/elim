@@ -148,3 +148,19 @@ export interface Comment {
   createdAt: any;
   userId?: string;
 }
+
+
+export interface Book {
+  id: string;
+  title: string;
+  author?: string;
+  category: string;
+  description?: string;
+  fileUrl: string;
+  fileName: string;
+  sizeBytes?: number;
+  pageCount?: number;
+  uploadedById: string;
+  uploadedByName: string;
+  createdAt?: any;
+}
