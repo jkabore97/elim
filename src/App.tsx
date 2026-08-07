@@ -1725,7 +1725,7 @@ export const CHURCH_NAME = 'Centre Chrétien E.L.I.M'
 // Music genres for the Musique tab.
 const MUSIQUE_CATEGORIES = [
   'Louange', 'Adoration', 'Chorales', 'Burkina Classic',
-  'Exo Eclat', 'Special', 'AG'
+  'Exo Eclat', 'Special', 'Agape'
 ]
 
 // Categories for health posts.
