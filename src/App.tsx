@@ -20,7 +20,7 @@ import { Capacitor, SystemBars, SystemBarsStyle } from '@capacitor/core'
 import { Share } from '@capacitor/share'
 import { EdgeToEdge } from '@capawesome/capacitor-android-edge-to-edge-support'
 import { auth, db, storage } from './firebase'
-import { enableNotifications, disableNotifications, listenForForegroundMessages, checkNotificationPermission, reconcileNotificationState, initNativeNotifications, sendTestNotification, notificationDiagnostics, onNotificationRoute, consumeLaunchUrlRoute } from './notifications'
+import { enableNotifications, disableNotifications, listenForForegroundMessages, checkNotificationPermission, reconcileNotificationState, initNativeNotifications, sendTestNotification, notificationDiagnostics, onNotificationRoute, consumeLaunchUrlRoute, openNotificationSettings } from './notifications'
 import { logActivity } from './activityLog'
 import { AnimatedSplash } from './AnimatedSplash'
 import { MediaPlayerProvider, useMediaPlayer } from './MediaPlayer'
@@ -1703,6 +1703,7 @@ function ProfileTab({ user, onProfileUpdated }: {
   const [notifLoading, setNotifLoading] = useState(false)
   const [notifError, setNotifError] = useState('')
   const [testResult, setTestResult] = useState<{ ok: boolean; detail: string } | null>(null)
+  const [needsSettings, setNeedsSettings] = useState(false)
   const [soundOn, setSoundOn] = useState(!isAlertMuted())
   const [diag, setDiag] = useState<any>(null)
 
@@ -1719,16 +1720,37 @@ function ProfileTab({ user, onProfileUpdated }: {
 
   const handleToggleNotifications = async () => {
     setNotifError('')
+    setNeedsSettings(false)
+
     if (user.notificationsEnabled) {
+      // Turning OFF only stops US sending. The OS permission stays granted -
+      // no app is allowed to revoke its own. The note below says so rather
+      // than letting people wonder why the phone still lists us as allowed.
       await disableNotifications(user.uid)
       onProfileUpdated({ notificationsEnabled: false })
       return
     }
+
     setNotifLoading(true)
+    const permission = await checkNotificationPermission()
+
+    // Once denied, the OS will not show the prompt again - asking would
+    // silently fail. Settings is the only remaining route.
+    if (permission === 'denied') {
+      setNotifLoading(false)
+      setNeedsSettings(true)
+      setNotifError(t('profile.blockedBySystem'))
+      return
+    }
+
     const ok = await enableNotifications(user.uid)
     setNotifLoading(false)
-    if (ok) onProfileUpdated({ notificationsEnabled: true })
-    else setNotifError(t('profile.notificationsPermissionDenied'))
+    if (ok) {
+      onProfileUpdated({ notificationsEnabled: true })
+    } else {
+      setNeedsSettings(true)
+      setNotifError(t('profile.notificationsPermissionDenied'))
+    }
   }
 
   const handleAvatarChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -1859,6 +1881,18 @@ function ProfileTab({ user, onProfileUpdated }: {
           </button>
         </div>
         {notifError && <p className="mt-3 text-xs text-red-500 bg-red-50 rounded-xl px-3 py-2">{notifError}</p>}
+
+        {needsSettings && (
+          <button onClick={async () => {
+            const opened = await openNotificationSettings()
+            if (!opened) setNotifError(t('profile.openSettingsManually'))
+          }}
+            className="mt-3 w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-semibold transition">
+            <Bell size={15} /> {t('profile.openPhoneSettings')}
+          </button>
+        )}
+
+        <p className="mt-3 text-[11px] text-slate-400 leading-relaxed">{t('profile.systemLinkNote')}</p>
 
         <div className="flex items-center justify-between gap-4 mt-4 pt-4 border-t border-slate-50">
           <div>

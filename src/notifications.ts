@@ -316,3 +316,36 @@ export function consumeLaunchUrlRoute() {
     // A malformed URL should never stop the app from starting.
   }
 }
+
+
+// ==================== SYSTEM SETTINGS LINK ====================
+
+// Opens the OS notification settings for this app.
+//
+// This exists because the link between the in-app toggle and the phone's
+// setting can only ever go one way. An app may REQUEST notification
+// permission, but it cannot revoke or re-grant its own - Android and iOS both
+// forbid it. And once permission is denied, the OS refuses to show the prompt
+// again at all, so requestPermissions() silently returns 'denied' forever.
+// The only remaining route is to send the person to the settings screen.
+export async function openNotificationSettings(): Promise<boolean> {
+  try {
+    if (Capacitor.isNativePlatform()) {
+      const { NativeSettings, AndroidSettings, IOSSettings } = await import('capacitor-native-settings')
+      await NativeSettings.open({
+        optionAndroid: AndroidSettings.AppNotification,
+        optionIOS: IOSSettings.App
+      })
+      return true
+    }
+    return false
+  } catch {
+    return false
+  }
+}
+
+// True when the OS has refused and will not prompt again - the case where the
+// in-app toggle alone can achieve nothing and settings is the only way.
+export async function needsSystemSettings(): Promise<boolean> {
+  return (await checkNotificationPermission()) === 'denied'
+}

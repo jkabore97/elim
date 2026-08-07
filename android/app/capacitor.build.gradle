@@ -15,6 +15,7 @@ dependencies {
     implementation project(':capacitor-share')
     implementation project(':capawesome-capacitor-android-edge-to-edge-support')
     implementation project(':capgo-capacitor-media-session')
+    implementation project(':capacitor-native-settings')
 
 }
 
