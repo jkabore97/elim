@@ -2597,7 +2597,7 @@ function BulkMusicModal({ user, onClose }: { user: AppUser; onClose: () => void 
       const sep = trimmed.lastIndexOf('|')
       const title = sep > -1 ? trimmed.slice(0, sep).trim() : ''
       const url = sep > -1 ? trimmed.slice(sep + 1).trim() : trimmed
-      if (!getYoutubeId(url)) { bad.push(trimmed.slice(0, 60)); return }
+      if (!getYoutubeId(url) && !getYoutubePlaylistId(url)) { bad.push(trimmed.slice(0, 60)); return }
       rows.push({ title: title || url, url })
     })
     return { rows, bad }
