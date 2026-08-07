@@ -3,7 +3,7 @@ import {
   Home, Church, PlusCircle, User, MessageCircle, Heart, Share2,
   Image as ImageIcon, Video, Mic, X, Send, LogOut,
   Youtube, Facebook, CheckCircle2, Clock, ArrowRight, ShieldCheck, UserX, Sparkles,
-  Trash2, Camera, FileText, Upload, Pencil, Globe, Eye, EyeOff, Search, Bell, ScrollText, Mail, Play, Pause, HeartPulse, Download, AlertTriangle, BookOpen
+  Trash2, Camera, FileText, Upload, Pencil, Globe, Eye, EyeOff, Search, Bell, ScrollText, Mail, Play, Pause, HeartPulse, Download, AlertTriangle, BookOpen, Music
 } from 'lucide-react'
 import {
   collection, addDoc, onSnapshot, query, orderBy, where,
@@ -926,6 +926,9 @@ function AppInner() {
   const [highlightPostId, setHighlightPostId] = useState<string | null>(null)
   const [santeCategory, setSanteCategory] = useState('all')
   const [showCreateSante, setShowCreateSante] = useState(false)
+  const [musiqueCategory, setMusiqueCategory] = useState('all')
+  const [showCreateMusique, setShowCreateMusique] = useState(false)
+  const [showBulkMusique, setShowBulkMusique] = useState(false)
   const [adminSection, setAdminSection] = useState<'approvals' | 'logs' | 'data'>(
     user?.role === 'church' ? 'data' : 'approvals'
   )
@@ -1110,7 +1113,7 @@ function AppInner() {
     logActivity(user, 'post_edited', content.slice(0, 80))
   }
 
-  const handleCreatePost = async (data: { type: Post['type']; content: string; mediaUrl?: string; coverUrl?: string; fileName?: string; section?: 'feed' | 'sante'; category?: string }) => {
+  const handleCreatePost = async (data: { type: Post['type']; content: string; mediaUrl?: string; coverUrl?: string; fileName?: string; section?: 'feed' | 'sante' | 'musique'; category?: string }) => {
     let finalType = data.type
     // Only auto-detect YouTube/Facebook links when the user didn't explicitly pick
     // a distinct media type (audio/document posts can otherwise get silently reclassified).
@@ -1261,6 +1264,10 @@ function AppInner() {
   // profession - one rule to reason about instead of two.
   const canPostSante = canPost
 
+  const musiquePosts = posts
+    .filter(p => p.section === 'musique')
+    .filter(p => musiqueCategory === 'all' || p.category === musiqueCategory)
+
   const santePosts = posts
     .filter(p => p.section === 'sante')
     .filter(p => santeCategory === 'all' || p.category === santeCategory)
@@ -1273,6 +1280,7 @@ function AppInner() {
     { id: 'messages', icon: MessageCircle, label: t('nav.messages') },
     { id: 'sante', icon: HeartPulse, label: t('nav.sante') },
     { id: 'library', icon: BookOpen, label: t('nav.library') },
+    { id: 'musique', icon: Music, label: t('nav.musique') },
     { id: 'profile', icon: User, label: t('nav.profile') },
     // Logs and Data live INSIDE Admin rather than as their own tabs - eight
     // bottom-nav items is unusable on a phone.
@@ -1421,6 +1429,48 @@ function AppInner() {
             )}
 
             {activeTab === 'library' && <LibraryTab user={user} canUpload={canPost} />}
+
+            {activeTab === 'musique' && (
+              <div className="space-y-4">
+                <div className="flex gap-2 overflow-x-auto pb-1">
+                  {['all', ...MUSIQUE_CATEGORIES].map(cat => (
+                    <button key={cat} onClick={() => setMusiqueCategory(cat)}
+                      className={`shrink-0 px-3.5 py-1.5 rounded-full text-xs font-semibold transition ${
+                        musiqueCategory === cat
+                          ? 'bg-emerald-500/15 text-emerald-400 border border-emerald-400/40'
+                          : 'bg-white/5 text-slate-400 border border-white/10'}`}>
+                      {cat === 'all' ? t('musique.all') : cat}
+                    </button>
+                  ))}
+                </div>
+
+                {canPost && (
+                  <div className="flex gap-2">
+                    <button onClick={() => setShowCreateMusique(true)}
+                      className="flex-1 flex items-center justify-center gap-2 py-3.5 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-sm transition shadow-lg shadow-emerald-500/20">
+                      <PlusCircle size={18} /> {t('musique.addOne')}
+                    </button>
+                    <button onClick={() => setShowBulkMusique(true)}
+                      className="px-4 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 text-slate-200 font-semibold text-sm transition">
+                      {t('musique.addMany')}
+                    </button>
+                  </div>
+                )}
+
+                {musiquePosts.length === 0 ? (
+                  <div className="text-center py-20">
+                    <div className="w-16 h-16 rounded-full bg-emerald-500/10 flex items-center justify-center mx-auto mb-4">
+                      <Music size={28} className="text-emerald-400" />
+                    </div>
+                    <p className="text-slate-300 font-medium">{t('musique.empty')}</p>
+                    <p className="text-sm text-slate-500 mt-1">{t('musique.emptyHint')}</p>
+                  </div>
+                ) : musiquePosts.map(post => (
+                  <PostCard key={post.id} post={post} onLike={handleLike} onOpenComments={setActiveCommentsPost}
+                    currentUserUid={user.uid} isLiked={likedPostIds.has(post.id)} onEdit={setEditingPost} onDelete={handleDeletePost} />
+                ))}
+              </div>
+            )}
 
             {activeTab === 'sante' && (
               <div className="space-y-4">
@@ -1573,6 +1623,15 @@ function AppInner() {
         </div>
       )}
 
+      {showCreateMusique && canPost && (
+        <CreatePostModal onClose={() => setShowCreateMusique(false)} onSubmit={handleCreatePost}
+          uploaderUid={user.uid} section="musique" />
+      )}
+
+      {showBulkMusique && canPost && (
+        <BulkMusicModal user={user} onClose={() => setShowBulkMusique(false)} />
+      )}
+
       {showCreateSante && canPostSante && (
         <CreatePostModal onClose={() => setShowCreateSante(false)} onSubmit={handleCreatePost}
           uploaderUid={user.uid} section="sante" />
@@ -1624,6 +1683,12 @@ const COUNTRIES = [
 // something each person picks or types. Held in one place so the name can be
 // changed without hunting through signup, profile and post code.
 export const CHURCH_NAME = 'Centre Chrétien E.L.I.M'
+
+// Music genres for the Musique tab.
+const MUSIQUE_CATEGORIES = [
+  'Louange', 'Adoration', 'Chorale', 'Gospel', 'Cantiques classiques',
+  'Afro-gospel', 'Jeunesse', 'Instrumental', 'Autre'
+]
 
 // Categories for health posts.
 const SANTE_CATEGORIES = [
@@ -2488,11 +2553,117 @@ const UPLOAD_RULES: Record<string, { accept: string; maxMB: number; check: (f: F
   document: { accept: 'application/pdf', maxMB: 20, check: f => f.type === 'application/pdf', label: 'a PDF' },
 }
 
+
+// Bulk add for music. Tapping through a modal 200 times is not a workflow, so
+// this takes many lines at once in the form:
+//     Song title | https://youtube.com/watch?v=...
+// The title is kept as the post's text, which is what makes each entry
+// searchable and readable rather than a bare embed.
+function BulkMusicModal({ user, onClose }: { user: AppUser; onClose: () => void }) {
+  const { t } = useLanguage()
+  const [raw, setRaw] = useState('')
+  const [category, setCategory] = useState(MUSIQUE_CATEGORIES[0])
+  const [busy, setBusy] = useState(false)
+  const [done, setDone] = useState(0)
+  const [error, setError] = useState('')
+
+  // Parsed up front so the count and any bad lines are visible BEFORE
+  // anything is written - 200 posts is not something to discover was wrong
+  // afterwards.
+  const parsed = useMemo(() => {
+    const rows: { title: string; url: string }[] = []
+    const bad: string[] = []
+    raw.split(/\r?\n/).forEach(line => {
+      const trimmed = line.trim()
+      if (!trimmed) return
+      const sep = trimmed.lastIndexOf('|')
+      const title = sep > -1 ? trimmed.slice(0, sep).trim() : ''
+      const url = sep > -1 ? trimmed.slice(sep + 1).trim() : trimmed
+      if (!getYoutubeId(url)) { bad.push(trimmed.slice(0, 60)); return }
+      rows.push({ title: title || url, url })
+    })
+    return { rows, bad }
+  }, [raw])
+
+  const submit = async () => {
+    if (parsed.rows.length === 0 || busy) return
+    setBusy(true); setError(''); setDone(0)
+    try {
+      for (const row of parsed.rows) {
+        await addDoc(collection(db, 'posts'), {
+          churchId: user.uid,
+          churchName: user.churchName || CHURCH_NAME,
+          authorId: user.uid,
+          authorName: user.displayName,
+          churchAvatar: user.avatar || null,
+          type: 'youtube',
+          content: row.title,
+          mediaUrl: row.url,
+          coverUrl: null,
+          fileName: null,
+          likes: 0,
+          commentsCount: 0,
+          section: 'musique',
+          category,
+          createdAt: serverTimestamp()
+        })
+        setDone(d => d + 1)
+      }
+      logActivity(user, 'post_created', `Musique: ${parsed.rows.length} titres`)
+      onClose()
+    } catch (err: any) {
+      setError(err?.message || String(err))
+    } finally { setBusy(false) }
+  }
+
+  return (
+    <div className="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-sm flex items-end sm:items-center justify-center">
+      <div className="bg-white w-full max-w-lg rounded-t-3xl sm:rounded-3xl max-h-[88vh] overflow-y-auto">
+        <div className="sticky top-0 bg-white border-b border-slate-100 px-5 py-4 flex items-center justify-between">
+          <h2 className="font-bold text-lg text-slate-900">{t('musique.bulkTitle')}</h2>
+          <button onClick={onClose} className="p-1.5 rounded-full hover:bg-slate-100 text-slate-400"><X size={20} /></button>
+        </div>
+
+        <div className="p-5 space-y-3">
+          <p className="text-xs text-slate-500 leading-relaxed">{t('musique.bulkHint')}</p>
+
+          <select value={category} onChange={e => setCategory(e.target.value)}
+            className="w-full px-4 py-3 rounded-2xl border border-slate-200 text-[15px] bg-white focus:outline-none focus:ring-2 focus:ring-emerald-400">
+            {MUSIQUE_CATEGORIES.map(cat => <option key={cat} value={cat}>{cat}</option>)}
+          </select>
+
+          <textarea value={raw} onChange={e => setRaw(e.target.value)} rows={10}
+            placeholder={"Titre du chant | https://www.youtube.com/watch?v=..."}
+            className="w-full px-4 py-3 rounded-2xl border border-slate-200 text-[13px] font-mono resize-none focus:outline-none focus:ring-2 focus:ring-emerald-400" />
+
+          {parsed.rows.length > 0 && (
+            <p className="text-xs text-emerald-700 bg-emerald-50 rounded-xl px-3 py-2">
+              {parsed.rows.length} {t('musique.readyToAdd')}
+            </p>
+          )}
+          {parsed.bad.length > 0 && (
+            <div className="text-xs text-amber-700 bg-amber-50 rounded-xl px-3 py-2">
+              <p className="font-semibold">{parsed.bad.length} {t('musique.skipped')}</p>
+              {parsed.bad.slice(0, 3).map((b, i) => <p key={i} className="truncate opacity-80">{b}</p>)}
+            </div>
+          )}
+          {error && <p className="text-xs text-red-500 bg-red-50 rounded-xl px-3 py-2 break-words">{error}</p>}
+
+          <button onClick={submit} disabled={parsed.rows.length === 0 || busy}
+            className="w-full py-3.5 rounded-2xl bg-emerald-600 hover:bg-emerald-700 disabled:opacity-40 text-white font-semibold text-sm transition">
+            {busy ? `${t('musique.adding')} ${done}/${parsed.rows.length}` : `${t('musique.addAll')} (${parsed.rows.length})`}
+          </button>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 function CreatePostModal({ onClose, onSubmit, uploaderUid, section = 'feed' }: {
   onClose: () => void
-  onSubmit: (data: { type: Post['type']; content: string; mediaUrl?: string; coverUrl?: string; fileName?: string; section?: 'feed' | 'sante'; category?: string }) => void
+  onSubmit: (data: { type: Post['type']; content: string; mediaUrl?: string; coverUrl?: string; fileName?: string; section?: 'feed' | 'sante' | 'musique'; category?: string }) => void
   uploaderUid: string
-  section?: 'feed' | 'sante'
+  section?: 'feed' | 'sante' | 'musique'
 }) {
   const { t } = useLanguage()
   const [type, setType] = useState<Post['type']>('text-image')

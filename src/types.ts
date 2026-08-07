@@ -57,7 +57,7 @@ export interface Post {
   // a marker rather than a separate collection, so they inherit the entire
   // media pipeline - uploads, embeds, the global audio player, zoom,
   // downloads, likes and comments - instead of duplicating it.
-  section?: 'feed' | 'sante';
+  section?: 'feed' | 'sante' | 'musique';
   category?: string;
   id: string;
   churchId: string;
