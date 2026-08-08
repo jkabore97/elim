@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useRef, useEffect, type ReactNode } from 'react'
+import { createContext, useContext, useState, useRef, useEffect, useMemo, useCallback, type ReactNode } from 'react'
 import { Play, Pause, X, SkipBack, SkipForward, Mic } from 'lucide-react'
 import { attachMediaSession, updateMediaSessionState, updateMediaSessionPosition, clearMediaSession } from './mediaSession'
 
@@ -46,7 +46,7 @@ export function MediaPlayerProvider({ children }: { children: ReactNode }) {
   const [scrubbing, setScrubbing] = useState(false)
   const audioRef = useRef<HTMLAudioElement>(null)
 
-  const play = (next: Track) => {
+  const play = useCallback((next: Track) => {
     const audio = audioRef.current
     if (!audio) return
     if (track?.id === next.id) {
@@ -61,22 +61,22 @@ export function MediaPlayerProvider({ children }: { children: ReactNode }) {
     audio.src = next.url
     audio.play().catch(() => {})
     attachMediaSession(audio, { title: next.title, artist: next.artist, artwork: next.artwork })
-  }
+  }, [track?.id])
 
-  const toggle = () => {
+  const toggle = useCallback(() => {
     const audio = audioRef.current
     if (!audio || !track) return
     if (audio.paused) audio.play().catch(() => {})
     else audio.pause()
-  }
+  }, [track])
 
-  const stop = () => {
+  const stop = useCallback(() => {
     const audio = audioRef.current
     if (audio) { audio.pause(); audio.removeAttribute('src'); audio.load() }
     setTrack(null)
     setPlaying(false)
     clearMediaSession()
-  }
+  }, [])
 
   const seek = (seconds: number) => {
     const audio = audioRef.current
@@ -96,11 +96,13 @@ export function MediaPlayerProvider({ children }: { children: ReactNode }) {
     updateMediaSessionPosition(current, duration)
   }, [current, duration, track])
 
+  const contextValue = useMemo(() => ({
+    track, playing, play, toggle, stop,
+    isCurrent: (id: string) => track?.id === id
+  }), [track, playing, play, toggle, stop])
+
   return (
-    <PlayerContext.Provider value={{
-      track, playing, play, toggle, stop,
-      isCurrent: (id: string) => track?.id === id
-    }}>
+    <PlayerContext.Provider value={contextValue}>
       {children}
 
       <audio

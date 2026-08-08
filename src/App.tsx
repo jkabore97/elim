@@ -1278,7 +1278,11 @@ function AppInner() {
   // profession - one rule to reason about instead of two.
   const canPostSante = canPost
 
-  const musiquePosts = posts
+  // Memoised so these keep the SAME array identity between renders. Rebuilt
+  // fresh each time, every list below re-rendered on any parent render at all -
+  // which meant images and YouTube embeds were being torn down and recreated
+  // constantly. That was the visible flicker.
+  const musiquePosts = useMemo(() => posts
     .filter(p => p.section === 'musique')
     .filter(p => musiqueCategory === 'all' || p.category === musiqueCategory)
     .filter(p => {
@@ -1287,11 +1291,12 @@ function AppInner() {
       return (p.content || '').toLowerCase().includes(q)
         || (p.category || '').toLowerCase().includes(q)
         || (p.authorName || '').toLowerCase().includes(q)
-    })
+    }), [posts, musiqueCategory, musiqueSearch])
 
-  const santePosts = posts
+  const santePosts = useMemo(() => posts
     .filter(p => p.section === 'sante')
-    .filter(p => santeCategory === 'all' || p.category === santeCategory)
+    .filter(p => santeCategory === 'all' || p.category === santeCategory),
+    [posts, santeCategory])
 
   const isStaffUser = user.role === 'admin' || user.role === 'pastor'
   const isLeadOrStaff = isStaffUser || user.role === 'church'
