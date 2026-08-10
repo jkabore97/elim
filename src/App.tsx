@@ -1237,6 +1237,12 @@ function AppInner() {
     return result
   }, [posts, feedFilter, searchQuery])
 
+  // Anyone left on the music tab when it was switched off would otherwise be
+  // stranded on a blank screen with no way back.
+  useEffect(() => {
+    if (!MUSIQUE_ENABLED && activeTab === 'musique') setActiveTab('feed')
+  }, [activeTab])
+
   // Each overlay closes on back, most recent first.
   useBackHandler(!!activeCommentsPost, () => setActiveCommentsPost(null))
   useBackHandler(showCreate, () => setShowCreate(false))
@@ -1309,7 +1315,7 @@ function AppInner() {
     { id: 'messages', icon: MessageCircle, label: t('nav.messages') },
     { id: 'sante', icon: HeartPulse, label: t('nav.sante') },
     { id: 'library', icon: BookOpen, label: t('nav.library') },
-    { id: 'musique', icon: Music, label: t('nav.musique') },
+    ...(MUSIQUE_ENABLED ? [{ id: 'musique', icon: Music, label: t('nav.musique') }] : []),
     { id: 'profile', icon: User, label: t('nav.profile') },
     // Logs and Data live INSIDE Admin rather than as their own tabs - eight
     // bottom-nav items is unusable on a phone.
@@ -1459,7 +1465,7 @@ function AppInner() {
 
             {activeTab === 'library' && <LibraryTab user={user} canUpload={canPost} />}
 
-            {activeTab === 'musique' && (
+            {MUSIQUE_ENABLED && activeTab === 'musique' && (
               <div className="space-y-4">
                 <div className="relative">
                   <Search size={17} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 pointer-events-none" />
@@ -1669,12 +1675,12 @@ function AppInner() {
         </div>
       )}
 
-      {showCreateMusique && canPost && (
+      {MUSIQUE_ENABLED && showCreateMusique && canPost && (
         <CreatePostModal onClose={() => setShowCreateMusique(false)} onSubmit={handleCreatePost}
           uploaderUid={user.uid} section="musique" />
       )}
 
-      {showBulkMusique && canPost && (
+      {MUSIQUE_ENABLED && showBulkMusique && canPost && (
         <BulkMusicModal user={user} onClose={() => setShowBulkMusique(false)} />
       )}
 
@@ -1731,6 +1737,13 @@ const COUNTRIES = [
 export const CHURCH_NAME = 'Centre Chrétien E.L.I.M'
 
 // Music genres for the Musique tab.
+// Music is switched off for now: every YouTube post loads YouTube's player
+// into an iframe, and a feed of them pulls a lot of data before anyone has
+// pressed play. Flipping this back to true restores the tab, its categories
+// and the bulk import exactly as they were - nothing has been deleted, and
+// posts already published keep their data.
+const MUSIQUE_ENABLED = false
+
 const MUSIQUE_CATEGORIES = [
   'Louange', 'Adoration', 'Chorales', 'Jeunesse', 'Burkina Classic',
   'Exo Eclat', 'Special', 'Agape'
