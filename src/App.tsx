@@ -1614,7 +1614,9 @@ function AppInner() {
                       {unreadMessages > 9 ? '9+' : unreadMessages}
                     </span>
                   )}
-                  <span className="text-[10px] mt-1 font-medium truncate max-w-full px-0.5">{item.label}</span>
+                  <span className="text-[9px] mt-1 font-medium leading-[1.1] text-center px-0.5 max-w-full break-words">
+                    {item.label}
+                  </span>
                 </button>
               )
             })}
@@ -1624,7 +1626,9 @@ function AppInner() {
                 <div className="w-10 h-10 rounded-full bg-emerald-600 text-white flex items-center justify-center shadow-lg shadow-emerald-500/40 -mt-4">
                   <PlusCircle size={22} />
                 </div>
-                <span className="text-[10px] mt-1 font-medium">{t('nav.post')}</span>
+                <span className="text-[9px] mt-1 font-medium leading-[1.1] text-center px-0.5 max-w-full break-words">
+                  {t('nav.post')}
+                </span>
               </button>
             )}
           </div>
