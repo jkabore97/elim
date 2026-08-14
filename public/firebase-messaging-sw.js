@@ -15,13 +15,22 @@ firebase.initializeApp({
 
 const messaging = firebase.messaging();
 
-messaging.onBackgroundMessage((payload) => {
-  const title = payload.notification?.title || 'ELIM';
-  self.registration.showNotification(title, {
-    body: payload.notification?.body,
-    icon: '/elim-logo-mark.png'
-  });
-});
+// NOTE: there is deliberately no onBackgroundMessage handler here.
+//
+// Our Cloud Functions send a payload containing a `notification` block, and
+// when one is present the browser displays it AUTOMATICALLY. Calling
+// showNotification() from onBackgroundMessage as well produced a second,
+// identical notification - which is why every post arrived twice.
+//
+// Letting the automatic display do the work gives exactly one. Its icon and
+// click target come from the webpush block in functions/index.js. Foreground
+// messages are unaffected: onMessage in src/notifications.ts handles those,
+// and the browser does NOT auto-display while the tab is focused, so that
+// path stays at one as well.
+//
+// If a data-only payload is ever needed, the handler has to come back - but
+// then the `notification` block must be dropped from the function payload at
+// the same time, or the duplicate returns.
 
 // Route a clicked notification to the right screen. Focuses an already-open
 // tab where possible rather than piling up new ones.
