@@ -230,6 +230,41 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
 
   const [confirmPhone, setConfirmPhone] = useState('')
 
+  // Password reset lives in its own dialog rather than acting on the login
+  // field. Previously the link required an email to already be typed above,
+  // and if it wasn't, the only response was a small line of text further down
+  // the form - which reads as the button doing nothing at all.
+  const [showReset, setShowReset] = useState(false)
+  const [resetEmail, setResetEmail] = useState('')
+  const [resetBusy, setResetBusy] = useState(false)
+  const [resetDone, setResetDone] = useState(false)
+  const [resetError, setResetError] = useState('')
+
+  const openReset = () => {
+    setResetEmail(email)      // carry over whatever they already typed
+    setResetDone(false)
+    setResetError('')
+    setShowReset(true)
+  }
+
+  const submitReset = async () => {
+    const target = resetEmail.trim()
+    if (!target) { setResetError(t('auth.enterEmailFirst')); return }
+    setResetBusy(true); setResetError('')
+    try {
+      await sendPasswordResetEmail(auth, target)
+      setResetDone(true)
+    } catch (err: any) {
+      const code = err?.code || ''
+      setResetError(
+        code === 'auth/invalid-email' ? t('auth.resetInvalidEmail')
+        : code === 'auth/user-not-found' ? t('auth.resetNoAccount')
+        : code === 'auth/too-many-requests' ? t('auth.resetTooMany')
+        : err?.message?.replace('Firebase: ', '') || t('auth.somethingWrong')
+      )
+    } finally { setResetBusy(false) }
+  }
+
   const [pin, setPin] = useState('')
   const [confirmPin, setConfirmPin] = useState('')
   const [showPin, setShowPin] = useState(false)
@@ -387,24 +422,6 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
       } else {
         setError(err.message?.replace('Firebase: ', '') || t('auth.somethingWrong'))
       }
-    } finally {
-      setLoading(false)
-    }
-  }
-
-  const handleForgotPassword = async () => {
-    if (!email) {
-      setError(t('auth.enterEmailFirst'))
-      return
-    }
-    setError('')
-    setResetSent(false)
-    setLoading(true)
-    try {
-      await sendPasswordResetEmail(auth, email)
-      setResetSent(true)
-    } catch (err: any) {
-      setError(err.message?.replace('Firebase: ', '') || t('auth.somethingWrong'))
     } finally {
       setLoading(false)
     }
@@ -610,7 +627,7 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
 
         {mode === 'login' && accountType === 'church' && (
           <div className="text-right -mt-2">
-            <button type="button" onClick={handleForgotPassword}
+            <button type="button" onClick={openReset}
               className="text-xs font-semibold text-emerald-400 hover:text-emerald-300">
               {t('auth.forgotPassword')}
             </button>
@@ -635,6 +652,62 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
         <p className="mt-5 text-xs text-center text-slate-500 leading-relaxed">
           {t('auth.churchApprovalNote')}
         </p>
+      )}
+
+      {showReset && (
+        <div className="fixed inset-0 z-[80] bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className="bg-[#0d1424] w-full max-w-sm rounded-3xl border border-white/10 shadow-2xl p-6">
+            <div className="flex items-start justify-between gap-3">
+              <h2 className="font-bold text-white">{t('auth.resetTitle')}</h2>
+              <button onClick={() => setShowReset(false)}
+                className="p-1 -mr-1 rounded-full hover:bg-white/5 text-slate-400 shrink-0">
+                <X size={18} />
+              </button>
+            </div>
+
+            {resetDone ? (
+              <>
+                <div className="mt-4 flex items-start gap-2.5 bg-emerald-500/10 border border-emerald-500/20 rounded-2xl p-4">
+                  <CheckCircle2 size={17} className="text-emerald-400 shrink-0 mt-0.5" />
+                  <div className="min-w-0">
+                    <p className="text-sm text-emerald-300 leading-relaxed">{t('auth.resetSent')}</p>
+                    <p className="text-[11px] text-slate-400 mt-1.5 break-words">{resetEmail.trim()}</p>
+                  </div>
+                </div>
+                {/* Firebase sends from a no-reply address, which very often
+                    lands in spam. Saying so up front saves the "nothing
+                    arrived" round trip. */}
+                <p className="text-[11px] text-slate-400 mt-3 leading-relaxed">{t('auth.resetSpamHint')}</p>
+                <button onClick={() => setShowReset(false)}
+                  className="mt-5 w-full py-3 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-sm transition">
+                  {t('auth.resetClose')}
+                </button>
+              </>
+            ) : (
+              <>
+                <p className="text-xs text-slate-400 mt-2 leading-relaxed">{t('auth.resetIntro')}</p>
+
+                <input type="email" value={resetEmail}
+                  onChange={e => setResetEmail(e.target.value)}
+                  onKeyDown={e => { if (e.key === 'Enter') submitReset() }}
+                  placeholder={t('auth.email')}
+                  autoFocus
+                  className="w-full mt-4 px-4 py-3.5 rounded-2xl bg-white/5 border border-white/10 text-white placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-emerald-400/60 text-[15px]" />
+
+                {resetError && (
+                  <p className="mt-3 text-xs text-red-400 bg-red-500/10 border border-red-500/20 rounded-xl px-3 py-2.5 break-words">
+                    {resetError}
+                  </p>
+                )}
+
+                <button onClick={submitReset} disabled={resetBusy || !resetEmail.trim()}
+                  className="mt-4 w-full py-3.5 rounded-2xl bg-emerald-600 hover:bg-emerald-700 disabled:opacity-40 text-white font-semibold text-sm transition">
+                  {resetBusy ? t('auth.resetSending') : t('auth.resetSend')}
+                </button>
+              </>
+            )}
+          </div>
+        </div>
       )}
     </div>
   )
