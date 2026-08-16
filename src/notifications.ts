@@ -1,7 +1,7 @@
 import { Capacitor } from '@capacitor/core'
 import { PushNotifications } from '@capacitor/push-notifications'
-import { getMessaging, getToken, onMessage } from 'firebase/messaging'
-import { doc, updateDoc, arrayUnion } from 'firebase/firestore'
+import { getMessaging, getToken, onMessage, deleteToken } from 'firebase/messaging'
+import { doc, updateDoc, arrayUnion, arrayRemove } from 'firebase/firestore'
 import { app, db } from './firebase'
 
 // From Firebase console -> Project settings -> Cloud Messaging -> Web
@@ -15,10 +15,38 @@ const pendingTokenUid = new Set<string>()
 let lastKnownToken: string | null = null
 
 async function saveToken(uid: string, token: string) {
+  lastKnownToken = token
   await updateDoc(doc(db, 'users', uid), {
     fcmTokens: arrayUnion(token),
     notificationsEnabled: true
   })
+}
+
+// Detach THIS device's push token from a user's account. Must run BEFORE
+// signOut(), while the user is still authenticated - the users/{uid} write is
+// only permitted for the signed-in owner.
+//
+// Without this, on a shared phone the previous user's token stays in their
+// fcmTokens and the device keeps receiving their private-message pushes after
+// someone else logs in. Best-effort: a failed cleanup must never block logout.
+export async function cleanupPushForLogout(uid: string) {
+  try {
+    if (lastKnownToken) {
+      await updateDoc(doc(db, 'users', uid), {
+        fcmTokens: arrayRemove(lastKnownToken)
+      }).catch(() => {})
+    }
+    if (!Capacitor.isNativePlatform()) {
+      try {
+        await deleteToken(getMessaging(app))
+      } catch {
+        // deleteToken can throw if messaging was never initialised - ignore.
+      }
+    }
+  } finally {
+    pendingTokenUid.clear()
+    lastKnownToken = null
+  }
 }
 
 // Call this when the user turns the notifications toggle on. Returns true on
@@ -106,8 +134,13 @@ export async function initNativeNotifications() {
     // no push could ever be delivered. The token listener is now installed
     // once, here, and persists for the app's lifetime.
     await PushNotifications.addListener('registration', async (token) => {
-      pendingTokenUid.forEach(uid => { saveToken(uid, token.value).catch(() => {}) })
       lastKnownToken = token.value
+      // Persist to whoever is currently waiting, then drop them from the set.
+      // Leaving uids in here permanently meant a later token rotation would
+      // re-save the new token onto every account seen this session.
+      const waiting = Array.from(pendingTokenUid)
+      pendingTokenUid.clear()
+      waiting.forEach(uid => { saveToken(uid, token.value).catch(() => {}) })
     })
 
     // Foreground arrival - post a local notification so it still shows in

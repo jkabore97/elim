@@ -103,7 +103,10 @@ const BROWSABLE = [
 
 // Fields that must never be hand-edited, because changing them breaks the
 // record's relationships or its security posture rather than just its content.
-const LOCKED_FIELDS = ['uid', 'id', 'createdAt', 'senderId', 'authorId', 'userId', 'participantIds', 'conversationId', 'postId', 'churchId']
+// 'role' is deliberately locked: changing a role is a privileged action that
+// belongs to the approval flow / Firebase console, not free-text editing here
+// (the security rules reject a role change through this path anyway).
+const LOCKED_FIELDS = ['uid', 'id', 'createdAt', 'senderId', 'authorId', 'userId', 'participantIds', 'conversationId', 'postId', 'churchId', 'role']
 
 function BrowseCollections({ isAdmin }: { isAdmin: boolean }) {
   const { t } = useLanguage()
@@ -144,8 +147,12 @@ function BrowseCollections({ isAdmin }: { isAdmin: boolean }) {
     Object.entries(row).forEach(([k, v]) => {
       if (LOCKED_FIELDS.includes(k)) return
       if (v === null || v === undefined) { d[k] = ''; return }
-      if (typeof v === 'object' && (v as any).toDate) return   // timestamps
-      d[k] = Array.isArray(v) ? v.join(', ') : typeof v === 'object' ? JSON.stringify(v) : String(v)
+      // Skip timestamps AND any nested map. Editing a map as its JSON string
+      // here silently rewrote the field into a string on save (the change
+      // detector compared against "[object Object]", so it always looked
+      // "changed"). Maps are shown read-only instead of corruptibly editable.
+      if (typeof v === 'object' && !Array.isArray(v)) return
+      d[k] = Array.isArray(v) ? v.join(', ') : String(v)
     })
     setDraft(d)
   }
@@ -161,8 +168,14 @@ function BrowseCollections({ isAdmin }: { isAdmin: boolean }) {
           : original === null || original === undefined ? '' : String(original)
         if (v === asString) return                       // unchanged
         if (Array.isArray(original)) updates[k] = v.split(',').map(s => s.trim()).filter(Boolean)
-        else if (typeof original === 'boolean') updates[k] = v === 'true'
-        else if (typeof original === 'number') updates[k] = Number(v)
+        else if (typeof original === 'boolean') updates[k] = v.trim().toLowerCase() === 'true'
+        else if (typeof original === 'number') {
+          // Number("12x") is NaN, which Firestore stores silently and corrupts
+          // the field (e.g. a counter). Reject non-numeric input instead.
+          const n = Number(v)
+          if (!Number.isFinite(n)) throw new Error(`${k}: ${t('data.invalidNumber')}`)
+          updates[k] = n
+        }
         else updates[k] = v
       })
       if (Object.keys(updates).length === 0) { setNotice(t('data.noChanges')); setSaving(false); return }

@@ -3,7 +3,7 @@ import {
   collection, addDoc, deleteDoc, doc, onSnapshot,
   query, orderBy, limit, serverTimestamp
 } from 'firebase/firestore'
-import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage'
+import { ref, uploadBytesResumable, getDownloadURL, deleteObject } from 'firebase/storage'
 import { Document, Page, pdfjs } from 'react-pdf'
 import {
   BookOpen, Plus, X, Search, Trash2, Download, ArrowLeft,
@@ -285,6 +285,7 @@ export function LibraryTab({ user, canUpload }: { user: AppUser; canUpload: bool
   const [category, setCategory] = useState('all')
   const [reading, setReading] = useState<Book | null>(null)
   const [uploading, setUploading] = useState(false)
+  const [confirmRemoveId, setConfirmRemoveId] = useState<string | null>(null)
 
   useEffect(() => {
     const unsub = onSnapshot(
@@ -300,13 +301,14 @@ export function LibraryTab({ user, canUpload }: { user: AppUser; canUpload: bool
     const q = search.trim().toLowerCase()
     if (q) {
       rows = rows.filter(b =>
-        b.title.toLowerCase().includes(q) ||
+        (b.title || '').toLowerCase().includes(q) ||
         (b.author || '').toLowerCase().includes(q) ||
-        b.category.toLowerCase().includes(q)
+        (b.category || '').toLowerCase().includes(q)
       )
     }
-    // Bible entries float to the top within whatever is being shown.
-    return rows.sort((a, b) => {
+    // Bible entries float to the top within whatever is being shown. Copy the
+    // array first - sorting in place would mutate the books state.
+    return [...rows].sort((a, b) => {
       const aB = a.category === 'Bible' ? 0 : 1
       const bB = b.category === 'Bible' ? 0 : 1
       return aB - bB
@@ -314,7 +316,16 @@ export function LibraryTab({ user, canUpload }: { user: AppUser; canUpload: bool
   }, [books, search, category])
 
   const remove = async (b: Book) => {
-    try { await deleteDoc(doc(db, 'books', b.id)) }
+    try {
+      await deleteDoc(doc(db, 'books', b.id))
+      // Also remove the uploaded PDF so it doesn't linger in Storage forever
+      // (files can be up to 100 MB). Best-effort - a missing/renamed object
+      // shouldn't turn a successful delete into an error.
+      if (b.fileUrl) {
+        try { await deleteObject(ref(storage, b.fileUrl)) } catch { /* already gone */ }
+      }
+      setConfirmRemoveId(null)
+    }
     catch (err: any) { setError(err?.message || String(err)) }
   }
 
@@ -394,10 +405,23 @@ export function LibraryTab({ user, canUpload }: { user: AppUser; canUpload: bool
                 <Download size={16} />
               </a>
               {(b.uploadedById === user.uid || user.role === 'admin' || user.role === 'pastor') && (
-                <button onClick={() => remove(b)}
-                  className="p-2 rounded-full hover:bg-red-50 text-slate-300 hover:text-red-500">
-                  <Trash2 size={16} />
-                </button>
+                confirmRemoveId === b.id ? (
+                  <div className="flex items-center gap-1">
+                    <button onClick={() => remove(b)}
+                      className="text-[11px] font-semibold text-white bg-red-500 hover:bg-red-600 px-2 py-1 rounded-full">
+                      {t('post.delete')}
+                    </button>
+                    <button onClick={() => setConfirmRemoveId(null)}
+                      className="text-[11px] font-semibold text-slate-400 hover:text-slate-200 px-1">
+                      {t('post.cancel')}
+                    </button>
+                  </div>
+                ) : (
+                  <button onClick={() => setConfirmRemoveId(b.id)} aria-label={t('post.delete')}
+                    className="p-2 rounded-full hover:bg-red-50 text-slate-300 hover:text-red-500">
+                    <Trash2 size={16} />
+                  </button>
+                )
               )}
             </div>
           </div>

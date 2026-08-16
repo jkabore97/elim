@@ -252,6 +252,17 @@ function ChatView({ conversation, user, onBack }: {
   const timerRef = useRef<any>(null)
   const bottomRef = useRef<HTMLDivElement>(null)
 
+  // If the chat unmounts mid-recording (tab switch, back), stop the recorder
+  // and clear the tick timer. Without this the interval leaks and the mic
+  // stream stays live - the OS "microphone in use" indicator stays on with no
+  // way to turn it off short of killing the app. recorder.onstop releases the
+  // tracks.
+  useEffect(() => () => {
+    clearInterval(timerRef.current)
+    const r = recorderRef.current
+    if (r && r.state !== 'inactive') { try { r.stop() } catch { /* already stopped */ } }
+  }, [])
+
   useEffect(() => {
     // Firestore rejects a whole query unless it can prove UP FRONT that every
     // result is readable - rules filter nothing. A member's read rule depends
@@ -441,20 +452,27 @@ function ChatView({ conversation, user, onBack }: {
     }
   }
 
-  // Removes the thread AND its messages. Done as a batch so it can't half-
-  // succeed and leave orphaned messages pointing at a conversation that no
-  // longer exists.
+  // Removes the thread AND its messages. Messages are deleted in chunks of
+  // 400: a single batch caps at 500 operations, so a thread with 500+ messages
+  // (the busy pastor channels will get there) would either exceed the limit
+  // and throw - deleting nothing - or silently orphan the remainder. We drain
+  // the messages first, then delete the conversation doc last so a failure
+  // partway through can be safely retried.
   const deleteThread = async () => {
     try {
-      const snap = await getDocs(query(
-        collection(db, 'messages'),
-        where('conversationId', '==', conversation.id),
-        limit(500)
-      ))
-      const batch = writeBatch(db)
-      snap.docs.forEach(d => batch.delete(d.ref))
-      batch.delete(doc(db, 'conversations', conversation.id))
-      await batch.commit()
+      for (;;) {
+        const snap = await getDocs(query(
+          collection(db, 'messages'),
+          where('conversationId', '==', conversation.id),
+          limit(400)
+        ))
+        if (snap.empty) break
+        const batch = writeBatch(db)
+        snap.docs.forEach(d => batch.delete(d.ref))
+        await batch.commit()
+        if (snap.size < 400) break
+      }
+      await deleteDoc(doc(db, 'conversations', conversation.id))
       setConfirmDeleteThread(false)
       onBack?.()
     } catch (err: any) {

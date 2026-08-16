@@ -93,6 +93,7 @@ const translations = {
   'data.saving': { en: 'Saving...', fr: 'Enregistrement...' },
   'data.saved': { en: 'Saved.', fr: 'Enregistré.' },
   'data.noChanges': { en: 'Nothing changed.', fr: 'Aucune modification.' },
+  'data.invalidNumber': { en: 'must be a number', fr: 'doit être un nombre' },
   'data.deleteRecord': { en: 'Delete this record', fr: 'Supprimer cet enregistrement' },
   'data.confirmDelete': { en: 'Delete permanently', fr: 'Supprimer définitivement' },
   'data.readOnlyNote': { en: 'You can view and export these records. Only an administrator or the pastor can change them.', fr: "Vous pouvez consulter et exporter ces enregistrements. Seul un administrateur ou le pasteur peut les modifier." },
@@ -381,6 +382,7 @@ const translations = {
   'post.edit': { en: 'Edit Post', fr: 'Modifier la publication' },
   'post.save': { en: 'Save', fr: 'Enregistrer' },
   'post.saving': { en: 'Saving...', fr: 'Enregistrement...' },
+  'post.publishFailed': { en: 'Could not publish. Check your connection and try again.', fr: 'Publication impossible. Vérifiez votre connexion et réessayez.' },
   'post.editNote': { en: 'Only the text can be edited here. To change the attached photo, audio, or video, delete this post and share a new one.', fr: 'Seul le texte peut être modifié ici. Pour changer la photo, l\'audio ou la vidéo, supprimez cette publication et partagez-en une nouvelle.' },
 
   // ---- Comments ----

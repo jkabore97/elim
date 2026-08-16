@@ -49,7 +49,11 @@ service cloud.firestore {
                       ||
                       // Admin/pastor editing via the Data explorer. Leads are
                       // deliberately excluded - they get read-only access.
-                      isAdmin()
+                      // Role is frozen on this path: promoting or demoting an
+                      // account must go through the pending_church approval
+                      // clause above or a direct console action - never
+                      // free-text field editing (SECURITY.md §3).
+                      (isAdmin() && request.resource.data.role == resource.data.role)
                     );
       allow delete: if isAdmin();
     }
@@ -151,7 +155,17 @@ service cloud.firestore {
     // updates or deletes, by anyone, including admins.
     match /activityLogs/{logId} {
       allow read: if isAdmin();
-      allow create: if isSignedIn() && request.resource.data.userId == request.auth.uid;
+      // The creator must be the acting user, the recorded role must match
+      // their REAL role (so a member can't forge an entry that reads as an
+      // admin action), the timestamp must be server-stamped, and the detail
+      // string is bounded. Matches what the client already writes.
+      allow create: if isSignedIn()
+                    && request.resource.data.userId == request.auth.uid
+                    && request.resource.data.userRole == role()
+                    && request.resource.data.createdAt == request.time
+                    && (!('detail' in request.resource.data)
+                        || (request.resource.data.detail is string
+                            && request.resource.data.detail.size() <= 200));
       // Never editable, by anyone - the log is only useful if it can't be
       // quietly rewritten. Admins may delete for retention housekeeping.
       allow update: if false;

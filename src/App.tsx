@@ -20,7 +20,7 @@ import { Capacitor, SystemBars, SystemBarsStyle } from '@capacitor/core'
 import { Share } from '@capacitor/share'
 import { EdgeToEdge } from '@capawesome/capacitor-android-edge-to-edge-support'
 import { auth, db, storage } from './firebase'
-import { enableNotifications, disableNotifications, listenForForegroundMessages, checkNotificationPermission, reconcileNotificationState, initNativeNotifications, sendTestNotification, notificationDiagnostics, onNotificationRoute, consumeLaunchUrlRoute, openNotificationSettings } from './notifications'
+import { enableNotifications, disableNotifications, listenForForegroundMessages, checkNotificationPermission, reconcileNotificationState, initNativeNotifications, sendTestNotification, notificationDiagnostics, onNotificationRoute, consumeLaunchUrlRoute, openNotificationSettings, cleanupPushForLogout } from './notifications'
 import { logActivity } from './activityLog'
 import { AnimatedSplash } from './AnimatedSplash'
 import { MediaPlayerProvider, useMediaPlayer } from './MediaPlayer'
@@ -1019,10 +1019,18 @@ function AppInner() {
   const [adminSection, setAdminSection] = useState<'approvals' | 'logs' | 'data'>(
     user?.role === 'church' ? 'data' : 'approvals'
   )
+  // user is null at mount, so the initializer above always resolves to
+  // 'approvals'. A church lead only has the "Données" section, so once their
+  // profile loads move them onto it - otherwise their Admin panel is blank
+  // until they tap the chip.
+  useEffect(() => {
+    if (user?.role === 'church') setAdminSection('data')
+  }, [user?.role])
   const { track: playerTrack } = useMediaPlayer()
   const unreadMessages = useUnreadCount(user as AppUser)
   const [messageToast, setMessageToast] = useState(false)
   const prevUnread = useRef<number | null>(null)
+  const likeInFlight = useRef<Set<string>>(new Set())
 
   // Alert only when the count RISES. Firing on any change would sound again
   // every time someone reads a thread and the number drops.
@@ -1125,14 +1133,23 @@ function AppInner() {
   // Auth listener
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, async (firebaseUser) => {
-      if (firebaseUser) {
+      try {
+        if (!firebaseUser) { setUser(null); return }
         const snap = await getDoc(doc(db, 'users', firebaseUser.uid))
-        if (snap.exists()) setUser(snap.data() as AppUser)
-        else setUser(null)
-      } else {
+        // Guard against a sign-out (or account switch) that lands while this
+        // profile read is still in flight: if the current user is no longer
+        // the one we fetched for, drop the stale result rather than
+        // resurrecting a signed-out session.
+        if (auth.currentUser?.uid !== firebaseUser.uid) return
+        setUser(snap.exists() ? (snap.data() as AppUser) : null)
+      } catch {
+        // A failed profile read (offline launch, expired token, transient
+        // Firestore error) must never leave the app stuck on the splash
+        // spinner. Fall back to signed-out and let the person retry.
         setUser(null)
+      } finally {
+        setAuthLoading(false)
       }
-      setAuthLoading(false)
     })
     return unsub
   }, [])
@@ -1185,6 +1202,10 @@ function AppInner() {
   const canPost = user?.role === 'church' || user?.role === 'admin' || user?.role === 'pastor'
 
   const handleLogout = async () => {
+    // Detach this device's push token BEFORE signing out (the write needs the
+    // still-authenticated session), so the next person to log in on a shared
+    // phone doesn't inherit this user's notifications.
+    if (user) await cleanupPushForLogout(user.uid)
     await signOut(auth)
     setUser(null)
   }
@@ -1246,20 +1267,32 @@ function AppInner() {
 
   const handleLike = async (postId: string) => {
     if (!user) return
+    // Guard against a double-tap racing two writes: both would read the same
+    // "not yet liked" state and each fire increment(1), permanently inflating
+    // the counter against a single like doc.
+    if (likeInFlight.current.has(postId)) return
+    likeInFlight.current.add(postId)
     const likeDocId = `${postId}_${user.uid}`
     const alreadyLiked = likedPostIds.has(postId)
     const liked = posts.find(p => p.id === postId)
     const detail = (liked?.content || '').slice(0, 60)
-    if (alreadyLiked) {
-      await deleteDoc(doc(db, 'likes', likeDocId))
-      await updateDoc(doc(db, 'posts', postId), { likes: increment(-1) })
-      logActivity(user, 'like_removed', detail)
-    } else {
-      await setDoc(doc(db, 'likes', likeDocId), {
-        postId, userId: user.uid, createdAt: serverTimestamp()
-      })
-      await updateDoc(doc(db, 'posts', postId), { likes: increment(1) })
-      logActivity(user, 'like_added', detail)
+    try {
+      if (alreadyLiked) {
+        await deleteDoc(doc(db, 'likes', likeDocId))
+        await updateDoc(doc(db, 'posts', postId), { likes: increment(-1) })
+        logActivity(user, 'like_removed', detail)
+      } else {
+        await setDoc(doc(db, 'likes', likeDocId), {
+          postId, userId: user.uid, createdAt: serverTimestamp()
+        })
+        await updateDoc(doc(db, 'posts', postId), { likes: increment(1) })
+        logActivity(user, 'like_added', detail)
+      }
+    } catch {
+      // A failed like is not worth interrupting the person over; the snapshot
+      // listener will reconcile the UI to the true state on the next tick.
+    } finally {
+      likeInFlight.current.delete(postId)
     }
   }
 
@@ -2431,12 +2464,13 @@ function PostCard({ post, onLike, onOpenComments, currentUserUid, isLiked, onEdi
   currentUserUid: string
   isLiked: boolean
   onEdit: (post: Post) => void
-  onDelete: (id: string) => void
+  onDelete: (id: string) => void | Promise<void>
 }) {
   const { t } = useLanguage()
   const ytId = post.mediaUrl ? getYoutubeId(post.mediaUrl) : null
   const ytList = post.mediaUrl ? getYoutubePlaylistId(post.mediaUrl) : null
   const [confirmingDelete, setConfirmingDelete] = useState(false)
+  const [deleting, setDeleting] = useState(false)
   const [likeError, setLikeError] = useState(false)
   const [shareCopied, setShareCopied] = useState(false)
   const [lightbox, setLightbox] = useState<string | null>(null)
@@ -2506,8 +2540,19 @@ function PostCard({ post, onLike, onOpenComments, currentUserUid, isLiked, onEdi
         {isOwner && (
           confirmingDelete ? (
             <div className="flex items-center gap-1.5 shrink-0">
-              <button onClick={() => onDelete(post.id)}
-                className="text-xs font-semibold text-white bg-red-500 hover:bg-red-600 px-3 py-1.5 rounded-full transition">
+              <button disabled={deleting} onClick={async () => {
+                setDeleting(true)
+                try {
+                  // Await before collapsing the confirm UI: a failed delete
+                  // used to look successful because the button vanished
+                  // regardless of the write's outcome.
+                  await onDelete(post.id)
+                } catch {
+                  setDeleting(false)
+                  setConfirmingDelete(false)
+                }
+              }}
+                className="text-xs font-semibold text-white bg-red-500 hover:bg-red-600 px-3 py-1.5 rounded-full transition disabled:opacity-50">
                 {t('post.delete')}
               </button>
               <button onClick={() => setConfirmingDelete(false)}
@@ -2802,7 +2847,7 @@ function BulkMusicModal({ user, onClose }: { user: AppUser; onClose: () => void 
 
 function CreatePostModal({ onClose, onSubmit, uploaderUid, section = 'feed' }: {
   onClose: () => void
-  onSubmit: (data: { type: Post['type']; content: string; mediaUrl?: string; coverUrl?: string; fileName?: string; section?: 'feed' | 'sante' | 'musique'; category?: string }) => void
+  onSubmit: (data: { type: Post['type']; content: string; mediaUrl?: string; coverUrl?: string; fileName?: string; section?: 'feed' | 'sante' | 'musique'; category?: string }) => void | Promise<void>
   uploaderUid: string
   section?: 'feed' | 'sante' | 'musique'
 }) {
@@ -2815,6 +2860,7 @@ function CreatePostModal({ onClose, onSubmit, uploaderUid, section = 'feed' }: {
   const [uploading, setUploading] = useState(false)
   const [uploadProgress, setUploadProgress] = useState(0)
   const [uploadError, setUploadError] = useState('')
+  const [publishing, setPublishing] = useState(false)
   const [santeCategory, setSanteCategory] = useState(SANTE_CATEGORIES[0])
 
   const canUploadDirectly = type === 'text-image' || type === 'audio' || type === 'video' || type === 'document'
@@ -2858,20 +2904,29 @@ function CreatePostModal({ onClose, onSubmit, uploaderUid, section = 'feed' }: {
         <div className="sticky top-0 bg-white/90 backdrop-blur border-b border-slate-100 px-5 py-4 flex items-center justify-between">
           <button onClick={onClose} className="p-1.5 rounded-full hover:bg-slate-100"><X size={20} /></button>
           <h2 className="font-bold text-lg">{section === 'sante' ? t('sante.newTip') : t('post.new')}</h2>
-          <button onClick={() => {
-            if (content.trim() && !uploading) {
-              onSubmit({
-                type, content: content.trim(),
-                mediaUrl: mediaUrl || undefined,
-                coverUrl: (type === 'audio' && coverUrl) ? coverUrl : undefined,
-                fileName: (type === 'document' && fileName) ? fileName : undefined,
-                section,
-                ...(section === 'sante' ? { category: santeCategory } : {})
-              })
-              onClose()
+          <button onClick={async () => {
+            if (content.trim() && !uploading && !publishing) {
+              setPublishing(true)
+              setUploadError('')
+              try {
+                // Await the write and only close on success - closing first
+                // meant a failed publish silently discarded the typed post.
+                await onSubmit({
+                  type, content: content.trim(),
+                  mediaUrl: mediaUrl || undefined,
+                  coverUrl: (type === 'audio' && coverUrl) ? coverUrl : undefined,
+                  fileName: (type === 'document' && fileName) ? fileName : undefined,
+                  section,
+                  ...(section === 'sante' ? { category: santeCategory } : {})
+                })
+                onClose()
+              } catch (err: any) {
+                setUploadError(err?.message || t('post.publishFailed'))
+                setPublishing(false)
+              }
             }
           }}
-            disabled={!content.trim() || uploading}
+            disabled={!content.trim() || uploading || publishing}
             className="text-emerald-600 font-semibold disabled:opacity-40">{t('post.publish')}</button>
         </div>
 
@@ -3013,11 +3068,26 @@ function EditPostModal({ post, onClose, onSave }: {
 }
 
 function CommentsSheet({ postId, comments, onClose, onAdd }: {
-  postId: string; comments: Comment[]; onClose: () => void; onAdd: (text: string) => void
+  postId: string; comments: Comment[]; onClose: () => void; onAdd: (text: string) => void | Promise<void>
 }) {
   const { t } = useLanguage()
   const [text, setText] = useState('')
+  const [sending, setSending] = useState(false)
   const list = comments.filter(c => c.postId === postId)
+
+  const submitComment = async () => {
+    const value = text.trim()
+    if (!value || sending) return
+    setText('')            // optimistic clear
+    setSending(true)
+    try {
+      await onAdd(value)
+    } catch {
+      setText(value)       // restore so a failed send doesn't lose the comment
+    } finally {
+      setSending(false)
+    }
+  }
 
   return (
     <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-end">
@@ -3046,9 +3116,9 @@ function CommentsSheet({ postId, comments, onClose, onAdd }: {
         <div className="p-4 border-t border-slate-100 flex gap-2">
           <input value={text} onChange={e => setText(e.target.value)} placeholder={t('comments.writePlaceholder')}
             className="flex-1 bg-slate-100 rounded-full px-5 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-400"
-            onKeyDown={e => { if (e.key === 'Enter' && text.trim()) { onAdd(text.trim()); setText('') } }} />
-          <button onClick={() => { if (text.trim()) { onAdd(text.trim()); setText('') } }}
-            className="w-11 h-11 rounded-full bg-emerald-600 text-white flex items-center justify-center shadow-lg shadow-emerald-200">
+            onKeyDown={e => { if (e.key === 'Enter') submitComment() }} />
+          <button onClick={submitComment} disabled={!text.trim() || sending}
+            className="w-11 h-11 rounded-full bg-emerald-600 text-white flex items-center justify-center shadow-lg shadow-emerald-200 disabled:opacity-40">
             <Send size={16} />
           </button>
         </div>
