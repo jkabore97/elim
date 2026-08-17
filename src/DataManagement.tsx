@@ -208,7 +208,7 @@ function BrowseCollections({ isAdmin }: { isAdmin: boolean }) {
             className={`shrink-0 px-3.5 py-1.5 rounded-full text-xs font-semibold transition ${
               name === cname
                 ? 'bg-emerald-500/15 text-emerald-400 border border-emerald-400/40'
-                : 'bg-white/5 text-slate-400 border border-white/10'}`}>
+                : 'glass-soft text-slate-600 border border-white/40'}`}>
             {cname}
           </button>
         ))}
@@ -217,7 +217,7 @@ function BrowseCollections({ isAdmin }: { isAdmin: boolean }) {
       <div className="relative">
         <Search size={17} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 pointer-events-none" />
         <input value={search} onChange={e => setSearch(e.target.value)} placeholder={t('data.searchRecords')}
-          className="w-full pl-11 pr-4 py-3 rounded-2xl bg-white/5 border border-white/10 text-white placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-emerald-400/60 text-[15px]" />
+          className="w-full pl-11 pr-4 py-3 rounded-2xl glass-input text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-400/60 text-[15px]" />
       </div>
 
       <p className="text-xs text-slate-400 px-1">{visible.length} {t('data.records')}</p>
@@ -433,7 +433,7 @@ export function DataManagementTab({ user }: { user: AppUser }) {
             className={`shrink-0 flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-semibold transition ${
               view === tab.id
                 ? 'bg-emerald-500/15 text-emerald-400 border border-emerald-400/40'
-                : 'bg-white/5 text-slate-400 border border-white/10 hover:text-slate-200'}`}>
+                : 'glass-soft text-slate-600 border border-white/40 hover:text-slate-200'}`}>
             <tab.Icon size={15} /> {tab.label}
           </button>
         ))}
@@ -470,7 +470,7 @@ export function DataManagementTab({ user }: { user: AppUser }) {
           <div className="relative">
             <Search size={17} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 pointer-events-none" />
             <input value={search} onChange={e => setSearch(e.target.value)} placeholder={t('data.searchPeople')}
-              className="w-full pl-11 pr-4 py-3 rounded-2xl bg-white/5 border border-white/10 text-white placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-emerald-400/60 text-[15px]" />
+              className="w-full pl-11 pr-4 py-3 rounded-2xl glass-input text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-400/60 text-[15px]" />
           </div>
 
           <div className="flex gap-2 overflow-x-auto pb-1">
@@ -485,7 +485,7 @@ export function DataManagementTab({ user }: { user: AppUser }) {
                 className={`shrink-0 px-3.5 py-1.5 rounded-full text-xs font-semibold transition ${
                   roleFilter === f.id
                     ? 'bg-emerald-500/15 text-emerald-400 border border-emerald-400/40'
-                    : 'bg-white/5 text-slate-400 border border-white/10'}`}>
+                    : 'glass-soft text-slate-600 border border-white/40'}`}>
                 {f.label}
               </button>
             ))}

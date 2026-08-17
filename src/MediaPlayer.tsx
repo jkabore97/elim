@@ -117,7 +117,7 @@ export function MediaPlayerProvider({ children }: { children: ReactNode }) {
 
       {track && (
         <div className="fixed bottom-16 lg:bottom-0 left-0 right-0 z-40 px-3 pb-2 lg:px-0 lg:pb-0 pointer-events-none">
-          <div className="max-w-lg lg:max-w-none mx-auto pointer-events-auto bg-[#1e293b]/95 backdrop-blur-xl border border-white/10 lg:border-x-0 lg:border-b-0 rounded-2xl lg:rounded-none shadow-2xl overflow-hidden">
+          <div className="glass-dark max-w-lg lg:max-w-none mx-auto pointer-events-auto lg:border-x-0 lg:border-b-0 rounded-2xl lg:rounded-none shadow-2xl overflow-hidden">
             {/* Scrubber — tap or drag anywhere to jump to that point */}
             <input
               type="range"

@@ -282,7 +282,7 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
   const [resetSent, setResetSent] = useState(false)
   const [registerSuccess, setRegisterSuccess] = useState(false)
 
-  const inputClass = "w-full px-4 py-3.5 rounded-2xl bg-white/5 border border-white/10 text-white placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-emerald-400/60 focus:border-emerald-400/60 text-[15px]"
+  const inputClass = "w-full px-4 py-3.5 rounded-2xl glass-input text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-400/60 focus:border-emerald-400/60 text-[15px]"
   const selectClass = inputClass + " appearance-none"
 
   // The church picker needs to be readable before anyone is signed in —
@@ -693,7 +693,7 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
                   onKeyDown={e => { if (e.key === 'Enter') submitReset() }}
                   placeholder={t('auth.email')}
                   autoFocus
-                  className="w-full mt-4 px-4 py-3.5 rounded-2xl bg-white/5 border border-white/10 text-white placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-emerald-400/60 text-[15px]" />
+                  className="w-full mt-4 px-4 py-3.5 rounded-2xl glass-input text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-400/60 text-[15px]" />
 
                 {resetError && (
                   <p className="mt-3 text-xs text-red-400 bg-red-500/10 border border-red-500/20 rounded-xl px-3 py-2.5 break-words">
@@ -1480,7 +1480,7 @@ function AppInner() {
 
   if (authLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#0f172a]">
+      <div className="min-h-screen flex items-center justify-center">
         <div className="w-10 h-10 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin" />
       </div>
     )
@@ -1543,7 +1543,7 @@ function AppInner() {
   ]
 
   return (
-    <div className="min-h-screen bg-[#0f172a] max-w-lg mx-auto lg:max-w-none lg:mx-0 relative">
+    <div className="min-h-screen max-w-lg mx-auto lg:max-w-none lg:mx-0 relative">
       <div
         className="fixed top-0 left-1/4 w-[500px] h-[500px] bg-emerald-500/10 rounded-full blur-2xl lg:blur-3xl pointer-events-none"
         style={{ transform: 'translateZ(0)', willChange: 'transform' }}
@@ -1554,11 +1554,11 @@ function AppInner() {
       />
       <div className="lg:flex">
         {/* Sidebar — desktop only */}
-        <aside className="hidden lg:flex lg:flex-col lg:w-64 lg:shrink-0 lg:h-screen lg:sticky lg:top-0 border-r border-white/10 bg-[#1e293b] px-6 py-8">
+        <aside className="glass-bar hidden lg:flex lg:flex-col lg:w-64 lg:shrink-0 lg:h-screen lg:sticky lg:top-0 border-r border-white/50 px-6 py-8">
           <div className="flex items-center justify-between">
             <Logo size={34} />
           </div>
-          <div className="mt-4"><LanguageSwitcher dark /></div>
+          <div className="mt-4"><LanguageSwitcher /></div>
           <nav className="mt-6 flex-1 space-y-1">
             {navItems.map(item => {
               const Icon = item.icon
@@ -1566,7 +1566,7 @@ function AppInner() {
               return (
                 <button key={item.id} onClick={() => setActiveTab(item.id)}
                   className={`w-full flex items-center gap-3 px-4 py-3 rounded-2xl text-sm font-semibold transition ${
-                    active ? 'bg-emerald-500/15 text-emerald-400' : 'text-slate-400 hover:bg-white/5 hover:text-slate-200'}`}>
+                    active ? 'bg-emerald-500/15 text-emerald-700 shadow-sm' : 'text-slate-500 hover:bg-white/60 hover:text-slate-800'}`}>
                   <Icon size={19} />
                   {item.label}
                   {item.id === 'admin' && pendingChurches.length > 0 && (
@@ -1584,19 +1584,19 @@ function AppInner() {
             })}
           </nav>
           <button onClick={() => setShowDonation(true)}
-            className="w-full flex items-center justify-center gap-2 py-3 rounded-2xl bg-amber-500 hover:bg-amber-600 text-white font-semibold text-sm transition shadow-lg shadow-amber-500/30 mb-3">
+            className="btn-glass-amber w-full flex items-center justify-center gap-2 py-3 rounded-2xl font-semibold text-sm mb-3">
             <HandCoins size={18} /> {t('donate.button')}
           </button>
           {canPost && (
             <button onClick={() => setShowCreate(true)}
-              className="w-full flex items-center justify-center gap-2 py-3.5 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-sm transition shadow-lg shadow-emerald-500/30 mb-4">
+              className="btn-glass-primary w-full flex items-center justify-center gap-2 py-3.5 rounded-2xl font-semibold text-sm mb-4">
               <PlusCircle size={18} /> {t('nav.newPost')}
             </button>
           )}
-          <div className="pt-4 border-t border-white/10 flex items-center justify-between">
-            <span className="text-xs font-medium text-slate-400 truncate">{user.displayName}</span>
+          <div className="pt-4 border-t border-slate-900/10 flex items-center justify-between">
+            <span className="text-xs font-medium text-slate-500 truncate">{user.displayName}</span>
             <button onClick={openNotifications} aria-label={t('notif.title')}
-              className="relative p-2 rounded-full hover:bg-white/5 text-slate-300">
+              className="relative p-2 rounded-full hover:bg-white/60 text-slate-500">
               <Bell size={18} />
               {bellCount > 0 && (
                 <span className="absolute -top-0.5 -right-0.5 min-w-[16px] h-4 px-1 rounded-full bg-red-500 text-white text-[9px] font-bold flex items-center justify-center">
@@ -1610,13 +1610,13 @@ function AppInner() {
 
         <div className="flex-1 min-w-0">
           {/* Header — mobile & tablet only */}
-          <header className="lg:hidden sticky top-0 z-40 bg-[#0f172a] border-b border-white/10">
+          <header className="glass-bar lg:hidden sticky top-0 z-40 border-b border-white/40">
             <div className="px-5 h-14 flex items-center justify-between">
               <Logo size={32} />
               <div className="flex items-center gap-3">
-                <LanguageSwitcher dark />
+                <LanguageSwitcher />
                 <button onClick={openNotifications} aria-label={t('notif.title')}
-                  className="relative p-2 rounded-full hover:bg-white/10 text-slate-200 transition">
+                  className="relative p-2 rounded-full hover:bg-slate-900/5 text-slate-600 transition">
                   <Bell size={20} />
                   {bellCount > 0 && (
                     <span className="absolute -top-0.5 -right-0.5 min-w-[16px] h-4 px-1 rounded-full bg-red-500 text-white text-[9px] font-bold flex items-center justify-center">
@@ -1625,7 +1625,7 @@ function AppInner() {
                   )}
                 </button>
                 <button onClick={() => setShowDonation(true)}
-                  className="flex items-center gap-1.5 pl-2.5 pr-3 py-1.5 rounded-full bg-amber-500 hover:bg-amber-600 text-white text-xs font-semibold transition shadow-sm">
+                  className="btn-glass-amber flex items-center gap-1.5 pl-2.5 pr-3 py-1.5 rounded-full text-xs font-semibold">
                   <HandCoins size={15} /> {t('donate.button')}
                 </button>
               </div>
@@ -1639,7 +1639,7 @@ function AppInner() {
                   <Search size={17} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 pointer-events-none" />
                   <input value={searchQuery} onChange={e => setSearchQuery(e.target.value)}
                     placeholder={t('feed.searchPlaceholder')}
-                    className="w-full pl-11 pr-10 py-3 rounded-2xl bg-white/5 border border-white/10 text-white placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-emerald-400/60 text-[15px]" />
+                    className="w-full pl-11 pr-10 py-3 rounded-2xl glass-input text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-400/60 text-[15px]" />
                   {searchQuery && (
                     <button onClick={() => setSearchQuery('')}
                       className="absolute right-3 top-1/2 -translate-y-1/2 p-1 rounded-full text-slate-400 hover:text-white hover:bg-white/10">
@@ -1658,8 +1658,8 @@ function AppInner() {
                     <button key={tab.id} onClick={() => setFeedFilter(tab.id)}
                       className={`shrink-0 px-4 py-2 rounded-full text-sm font-semibold transition ${
                         feedFilter === tab.id
-                          ? 'bg-emerald-500/15 text-emerald-400 border border-emerald-400/40'
-                          : 'bg-white/5 text-slate-400 border border-white/10 hover:text-slate-200'}`}>
+                          ? 'bg-emerald-500/15 text-emerald-700 border border-emerald-400/50'
+                          : 'glass-soft text-slate-600 hover:text-slate-900'}`}>
                       {tab.label}
                     </button>
                   ))}
@@ -1671,7 +1671,7 @@ function AppInner() {
                     <div className="w-16 h-16 rounded-full bg-emerald-500/10 flex items-center justify-center mx-auto mb-4">
                       <Church size={28} className="text-emerald-400" />
                     </div>
-                    <p className="text-slate-300 font-medium">
+                    <p className="text-slate-500 font-medium">
                       {searchQuery || feedFilter !== 'all' ? t('feed.noMatches') : t('app.noPostsYet')}
                     </p>
                     <p className="text-sm text-slate-500 mt-1">
@@ -1695,14 +1695,20 @@ function AppInner() {
             )}
 
             {activeTab === 'messages' && (
-              <MessagesTab user={user} />
+              <div className="glass-dark rounded-3xl overflow-hidden animate-rise min-h-[calc(100vh-11rem)] lg:min-h-[calc(100vh-8rem)]">
+                <MessagesTab user={user} />
+              </div>
             )}
 
             {activeTab === 'profile' && (
               <ProfileTab user={user} onLogout={handleLogout} onProfileUpdated={(updates) => setUser(prev => prev ? { ...prev, ...updates } : prev)} />
             )}
 
-            {activeTab === 'library' && <LibraryTab user={user} canUpload={canPost} />}
+            {activeTab === 'library' && (
+              <div className="glass-dark rounded-3xl p-4 sm:p-5 animate-rise min-h-[calc(100vh-11rem)]">
+                <LibraryTab user={user} canUpload={canPost} />
+              </div>
+            )}
 
             {MUSIQUE_ENABLED && activeTab === 'musique' && (
               <div className="space-y-4">
@@ -1710,7 +1716,7 @@ function AppInner() {
                   <Search size={17} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 pointer-events-none" />
                   <input value={musiqueSearch} onChange={e => setMusiqueSearch(e.target.value)}
                     placeholder={t('musique.search')}
-                    className="w-full pl-11 pr-10 py-3 rounded-2xl bg-white/5 border border-white/10 text-white placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-emerald-400/60 text-[15px]" />
+                    className="w-full pl-11 pr-10 py-3 rounded-2xl glass-input text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-400/60 text-[15px]" />
                   {musiqueSearch && (
                     <button onClick={() => setMusiqueSearch('')}
                       className="absolute right-3 top-1/2 -translate-y-1/2 p-1 rounded-full text-slate-400 hover:text-white hover:bg-white/10">
@@ -1724,8 +1730,8 @@ function AppInner() {
                     <button key={cat} onClick={() => setMusiqueCategory(cat)}
                       className={`shrink-0 px-3.5 py-1.5 rounded-full text-xs font-semibold transition ${
                         musiqueCategory === cat
-                          ? 'bg-emerald-500/15 text-emerald-400 border border-emerald-400/40'
-                          : 'bg-white/5 text-slate-400 border border-white/10'}`}>
+                          ? 'bg-emerald-500/15 text-emerald-700 border border-emerald-400/50'
+                          : 'glass-soft text-slate-600'}`}>
                       {cat === 'all' ? t('musique.all') : cat}
                     </button>
                   ))}
@@ -1749,7 +1755,7 @@ function AppInner() {
                     <div className="w-16 h-16 rounded-full bg-emerald-500/10 flex items-center justify-center mx-auto mb-4">
                       <Music size={28} className="text-emerald-400" />
                     </div>
-                    <p className="text-slate-300 font-medium">
+                    <p className="text-slate-500 font-medium">
                       {musiqueSearch || musiqueCategory !== 'all' ? t('musique.noMatches') : t('musique.empty')}
                     </p>
                     <p className="text-sm text-slate-500 mt-1">
@@ -1775,8 +1781,8 @@ function AppInner() {
                     <button key={cat} onClick={() => setSanteCategory(cat)}
                       className={`shrink-0 px-3.5 py-1.5 rounded-full text-xs font-semibold transition ${
                         santeCategory === cat
-                          ? 'bg-emerald-500/15 text-emerald-400 border border-emerald-400/40'
-                          : 'bg-white/5 text-slate-400 border border-white/10'}`}>
+                          ? 'bg-emerald-500/15 text-emerald-700 border border-emerald-400/50'
+                          : 'glass-soft text-slate-600'}`}>
                       {cat === 'all' ? t('sante.allCategories') : cat}
                     </button>
                   ))}
@@ -1794,7 +1800,7 @@ function AppInner() {
                     <div className="w-16 h-16 rounded-full bg-emerald-500/10 flex items-center justify-center mx-auto mb-4">
                       <HeartPulse size={28} className="text-emerald-400" />
                     </div>
-                    <p className="text-slate-300 font-medium">{t('sante.empty')}</p>
+                    <p className="text-slate-500 font-medium">{t('sante.empty')}</p>
                     <p className="text-sm text-slate-500 mt-1">{t('sante.emptyHint')}</p>
                   </div>
                 ) : santePosts.map(post => (
@@ -1815,8 +1821,8 @@ function AppInner() {
                     <button key={sub.id} onClick={() => setAdminSection(sub.id)}
                       className={`shrink-0 px-4 py-2 rounded-full text-sm font-semibold transition ${
                         adminSection === sub.id
-                          ? 'bg-emerald-500/15 text-emerald-400 border border-emerald-400/40'
-                          : 'bg-white/5 text-slate-400 border border-white/10 hover:text-slate-200'}`}>
+                          ? 'bg-emerald-500/15 text-emerald-700 border border-emerald-400/50'
+                          : 'glass-soft text-slate-600 hover:text-slate-900'}`}>
                       {sub.label}
                     </button>
                   ))}
@@ -1833,7 +1839,7 @@ function AppInner() {
         </div>
 
         {/* Bottom Nav — mobile & tablet only */}
-        <nav className="lg:hidden fixed bottom-0 left-0 right-0 bg-[#0f172a] border-t border-white/10 safe-bottom z-50">
+        <nav className="glass-bar lg:hidden fixed bottom-0 left-0 right-0 border-t border-white/50 safe-bottom z-50">
           <div className="max-w-lg mx-auto flex items-center h-16 px-1">
             {navItems.map(item => {
               const Icon = item.icon
@@ -1841,7 +1847,7 @@ function AppInner() {
               return (
                 <button key={item.id} onClick={() => setActiveTab(item.id)}
                   className={`relative flex flex-col items-center justify-center flex-1 min-w-0 h-full transition ${
-                    active ? 'text-emerald-400' : 'text-slate-400'}`}>
+                    active ? 'text-emerald-600' : 'text-slate-400'}`}>
                   <Icon size={21} strokeWidth={active ? 2.5 : 2} />
                   {item.id === 'admin' && pendingChurches.length > 0 && (
                     <span className="absolute top-1.5 right-2 w-4 h-4 rounded-full bg-red-500 text-white text-[9px] font-bold flex items-center justify-center">
@@ -1849,7 +1855,7 @@ function AppInner() {
                     </span>
                   )}
                   {item.id === 'messages' && unreadMessages > 0 && (
-                    <span className="absolute top-1 right-1.5 min-w-[16px] h-4 px-1 rounded-full bg-red-500 text-white text-[9px] font-bold flex items-center justify-center ring-2 ring-[#0f172a]">
+                    <span className="absolute top-1 right-1.5 min-w-[16px] h-4 px-1 rounded-full bg-red-500 text-white text-[9px] font-bold flex items-center justify-center ring-2 ring-white">
                       {unreadMessages > 9 ? '9+' : unreadMessages}
                     </span>
                   )}
@@ -2186,7 +2192,7 @@ function ProfileTab({ user, onProfileUpdated, onLogout }: {
 
   return (
     <div className="space-y-4">
-      <div className="bg-white rounded-3xl p-8 shadow-sm border border-slate-100 text-center">
+      <div className="glass rounded-3xl p-8 shadow-sm border border-slate-100 text-center">
         <div className="relative w-24 h-24 mx-auto mb-4">
           {user.avatar ? (
             <img src={user.avatar} alt="" className="w-24 h-24 rounded-full object-cover shadow-lg shadow-emerald-200" />
@@ -2212,7 +2218,7 @@ function ProfileTab({ user, onProfileUpdated, onLogout }: {
         {avatarError && <p className="mt-4 text-xs text-red-500 bg-red-50 rounded-xl px-3 py-2 inline-block">{avatarError}</p>}
       </div>
 
-      <form onSubmit={handleSaveProfile} className="bg-white rounded-3xl p-6 shadow-sm border border-slate-100 space-y-4">
+      <form onSubmit={handleSaveProfile} className="glass rounded-3xl p-6 shadow-sm border border-slate-100 space-y-4">
         <h3 className="font-bold text-slate-900 px-1">{t('profile.details')}</h3>
 
         <div>
@@ -2252,7 +2258,7 @@ function ProfileTab({ user, onProfileUpdated, onLogout }: {
         </button>
       </form>
 
-      <div className="bg-white rounded-3xl p-6 shadow-sm border border-slate-100">
+      <div className="glass rounded-3xl p-6 shadow-sm border border-slate-100">
         <div className="flex items-center justify-between gap-4">
           <div>
             <h3 className="font-bold text-slate-900">{t('profile.notifications')}</h3>
@@ -2322,7 +2328,7 @@ function ProfileTab({ user, onProfileUpdated, onLogout }: {
         )}
       </div>
 
-      <div className="bg-white rounded-3xl p-6 shadow-sm border border-slate-100">
+      <div className="glass rounded-3xl p-6 shadow-sm border border-slate-100">
         <h3 className="font-bold text-slate-900">{t('support.title')}</h3>
         <p className="text-xs text-slate-400 mt-0.5 leading-relaxed">{t('support.note')}</p>
 
@@ -2460,7 +2466,7 @@ function LogsPanel() {
       <div className="relative">
         <Search size={17} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 pointer-events-none" />
         <input value={search} onChange={e => setSearch(e.target.value)} placeholder={t('logs.searchPlaceholder')}
-          className="w-full pl-11 pr-10 py-3 rounded-2xl bg-white/5 border border-white/10 text-white placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-emerald-400/60 text-[15px]" />
+          className="w-full pl-11 pr-10 py-3 rounded-2xl glass-input text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-400/60 text-[15px]" />
         {search && (
           <button onClick={() => setSearch('')}
             className="absolute right-3 top-1/2 -translate-y-1/2 p-1 rounded-full text-slate-400 hover:text-white hover:bg-white/10">
@@ -2480,8 +2486,8 @@ function LogsPanel() {
           <button key={tab.id} onClick={() => setFilter(tab.id)}
             className={`shrink-0 px-4 py-2 rounded-full text-sm font-semibold transition ${
               filter === tab.id
-                ? 'bg-emerald-500/15 text-emerald-400 border border-emerald-400/40'
-                : 'bg-white/5 text-slate-400 border border-white/10 hover:text-slate-200'}`}>
+                ? 'bg-emerald-500/15 text-emerald-700 border border-emerald-400/50'
+                : 'glass-soft text-slate-600 hover:text-slate-900'}`}>
             {tab.label}
           </button>
         ))}
@@ -2502,7 +2508,7 @@ function LogsPanel() {
           <div className="w-16 h-16 rounded-full bg-emerald-500/10 flex items-center justify-center mx-auto mb-4">
             <ScrollText size={28} className="text-emerald-400" />
           </div>
-          <p className="text-slate-300 font-medium">{t('logs.empty')}</p>
+          <p className="text-slate-500 font-medium">{t('logs.empty')}</p>
         </div>
       )}
 
@@ -2511,7 +2517,7 @@ function LogsPanel() {
           {Object.entries(grouped).map(([dayLabel, dayLogs]) => (
             <div key={dayLabel}>
               <h3 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2 px-1">{dayLabel}</h3>
-              <div className="bg-white rounded-3xl shadow-sm border border-slate-100 overflow-hidden">
+              <div className="glass rounded-3xl shadow-sm border border-slate-100 overflow-hidden">
                 {dayLogs.map((log, i) => {
                   const meta = ACTION_META[log.action] || { label: log.action, color: 'bg-slate-100 text-slate-600', Icon: ScrollText }
                   const LogIcon = meta.Icon
@@ -2581,7 +2587,7 @@ function AdminPanel({ pendingChurches, onApprove, onDeny }: {
     <div className="space-y-4">
       <h2 className="text-lg font-bold text-slate-900 px-1">{t('admin.pendingChurches')} ({pendingChurches.length})</h2>
       {pendingChurches.map(church => (
-        <div key={church.uid} className="bg-white rounded-3xl p-5 shadow-sm border border-slate-100">
+        <div key={church.uid} className="glass rounded-3xl p-5 shadow-sm border border-slate-100">
           <div className="flex items-center gap-3 mb-4">
             <div className="w-12 h-12 rounded-full bg-gradient-to-br from-amber-300 to-orange-400 flex items-center justify-center text-white font-bold shrink-0">
               {(church.churchName || church.displayName).charAt(0).toUpperCase()}
@@ -2669,7 +2675,7 @@ function PostCard({ post, onLike, onOpenComments, currentUserUid, isLiked, onEdi
   }
 
   return (
-    <article className="bg-white rounded-3xl shadow-sm border border-slate-100/80 overflow-hidden">
+    <article className="glass rounded-3xl shadow-sm border border-slate-100/80 overflow-hidden">
       <div className="flex items-center gap-3 p-4">
         {post.churchAvatar ? (
           <img src={post.churchAvatar} alt="" className="w-11 h-11 rounded-full object-cover shrink-0" />
@@ -2955,7 +2961,7 @@ function BulkMusicModal({ user, onClose }: { user: AppUser; onClose: () => void 
 
   return (
     <div className="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-sm flex items-end sm:items-center justify-center">
-      <div className="bg-white w-full max-w-lg rounded-t-3xl sm:rounded-3xl max-h-[88vh] overflow-y-auto">
+      <div className="glass-bar w-full max-w-lg rounded-t-3xl sm:rounded-3xl max-h-[88vh] overflow-y-auto">
         <div className="sticky top-0 bg-white border-b border-slate-100 px-5 py-4 flex items-center justify-between">
           <h2 className="font-bold text-lg text-slate-900">{t('musique.bulkTitle')}</h2>
           <button onClick={onClose} className="p-1.5 rounded-full hover:bg-slate-100 text-slate-400"><X size={20} /></button>
@@ -3051,7 +3057,7 @@ function CreatePostModal({ onClose, onSubmit, uploaderUid, section = 'feed' }: {
 
   return (
     <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-end sm:items-center justify-center">
-      <div className="bg-white w-full max-w-lg rounded-t-3xl sm:rounded-3xl max-h-[90vh] overflow-y-auto shadow-2xl">
+      <div className="glass-bar w-full max-w-lg rounded-t-3xl sm:rounded-3xl max-h-[90vh] overflow-y-auto shadow-2xl">
         <div className="sticky top-0 bg-white/90 backdrop-blur border-b border-slate-100 px-5 py-4 flex items-center justify-between">
           <button onClick={onClose} className="p-1.5 rounded-full hover:bg-slate-100"><X size={20} /></button>
           <h2 className="font-bold text-lg">{section === 'sante' ? t('sante.newTip') : t('post.new')}</h2>
@@ -3195,7 +3201,7 @@ function EditPostModal({ post, onClose, onSave }: {
 
   return (
     <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-end sm:items-center justify-center">
-      <div className="bg-white w-full max-w-lg rounded-t-3xl sm:rounded-3xl shadow-2xl">
+      <div className="glass-bar w-full max-w-lg rounded-t-3xl sm:rounded-3xl shadow-2xl">
         <div className="px-5 py-4 border-b border-slate-100 flex items-center justify-between">
           <button onClick={onClose} className="p-1.5 rounded-full hover:bg-slate-100"><X size={20} /></button>
           <h2 className="font-bold text-lg">{t('post.edit')}</h2>
@@ -3322,7 +3328,7 @@ function CommentsSheet({ postId, comments, onClose, onAdd, onLikeComment, likedC
 
   return (
     <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-end">
-      <div className="bg-white w-full max-w-lg mx-auto rounded-t-3xl max-h-[75vh] flex flex-col shadow-2xl">
+      <div className="glass-bar w-full max-w-lg mx-auto rounded-t-3xl max-h-[75vh] flex flex-col shadow-2xl">
         <div className="px-5 py-4 border-b border-slate-100 flex items-center justify-between">
           <h3 className="font-bold">{t('comments.title')}</h3>
           <button onClick={onClose} className="p-1.5 rounded-full hover:bg-slate-100"><X size={18} /></button>
@@ -3385,7 +3391,7 @@ function NotificationsPanel({ notifications, newPostCount, onClose, onTap, onDis
 
   return (
     <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-end sm:items-center justify-center" onClick={onClose}>
-      <div className="bg-white w-full max-w-lg mx-auto rounded-t-3xl sm:rounded-3xl max-h-[80vh] flex flex-col shadow-2xl" onClick={e => e.stopPropagation()}>
+      <div className="glass-bar w-full max-w-lg mx-auto rounded-t-3xl sm:rounded-3xl max-h-[80vh] flex flex-col shadow-2xl" onClick={e => e.stopPropagation()}>
         <div className="px-5 py-4 border-b border-slate-100 flex items-center justify-between">
           <h3 className="font-bold flex items-center gap-2"><Bell size={18} /> {t('notif.title')}</h3>
           <button onClick={onClose} className="p-1.5 rounded-full hover:bg-slate-100"><X size={18} /></button>
@@ -3509,7 +3515,7 @@ function DonationSheet({ config, canEdit, onClose }: {
 
   return (
     <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-end sm:items-center justify-center" onClick={onClose}>
-      <div className="bg-white w-full max-w-lg mx-auto rounded-t-3xl sm:rounded-3xl max-h-[85vh] flex flex-col shadow-2xl" onClick={e => e.stopPropagation()}>
+      <div className="glass-bar w-full max-w-lg mx-auto rounded-t-3xl sm:rounded-3xl max-h-[85vh] flex flex-col shadow-2xl" onClick={e => e.stopPropagation()}>
         <div className="px-5 py-4 border-b border-slate-100 flex items-center justify-between">
           <h3 className="font-bold flex items-center gap-2"><HandCoins size={18} className="text-amber-500" /> {t('donate.title')}</h3>
           <div className="flex items-center gap-1">
