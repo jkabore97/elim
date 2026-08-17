@@ -16,6 +16,7 @@ import type { AppUser, Book } from './types'
 
 import 'react-pdf/dist/Page/AnnotationLayer.css'
 import 'react-pdf/dist/Page/TextLayer.css'
+import { storageGet, storageSet } from './safeStorage'
 
 // pdf.js does its parsing in a web worker. Pointing at the copy inside our own
 // bundle rather than a CDN means the reader still works offline and doesn't
@@ -72,14 +73,12 @@ function PdfReader({ book, onClose }: { book: Book; onClose: () => void }) {
   // page 1 every time is unusable.
   const progressKey = `elim-book-progress-${book.id}`
   useEffect(() => {
-    try {
-      const saved = localStorage.getItem(progressKey)
-      if (saved) setPage(Math.max(1, parseInt(saved, 10) || 1))
-    } catch { /* ignore */ }
+    const saved = storageGet(progressKey)
+    if (saved) setPage(Math.max(1, parseInt(saved, 10) || 1))
   }, [progressKey])
 
   useEffect(() => {
-    try { localStorage.setItem(progressKey, String(page)) } catch { /* ignore */ }
+    storageSet(progressKey, String(page))
   }, [page, progressKey])
 
   const go = (delta: number) => {

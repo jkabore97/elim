@@ -1,3 +1,4 @@
+import { storageGet, storageSet } from './safeStorage'
 // Audible/haptic alert for an incoming message.
 //
 // The tone is synthesised rather than loaded from an audio file: no asset to
@@ -61,9 +62,9 @@ export function playMessageAlert() {
 const MUTE_KEY = 'elim-mute-message-sound'
 
 export function isAlertMuted(): boolean {
-  try { return localStorage.getItem(MUTE_KEY) === '1' } catch { return false }
+  return storageGet(MUTE_KEY) === '1'
 }
 
 export function setAlertMuted(muted: boolean) {
-  try { localStorage.setItem(MUTE_KEY, muted ? '1' : '0') } catch { /* ignore */ }
+  storageSet(MUTE_KEY, muted ? '1' : '0')
 }

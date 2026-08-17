@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useEffect, type ReactNode } from 'react'
+import { storageGet, storageSet } from './safeStorage'
 
 export type Language = 'en' | 'fr'
 
@@ -479,12 +480,10 @@ interface LanguageContextValue {
 const LanguageContext = createContext<LanguageContextValue | null>(null)
 
 function detectDefaultLanguage(): Language {
-  try {
-    const stored = localStorage.getItem('elim-language')
-    if (stored === 'en' || stored === 'fr') return stored
-  } catch {
-    // localStorage unavailable (e.g. some webview contexts) - fall through to browser detection
-  }
+  // storageGet never throws: a bare read here would take down the whole app
+  // at boot in browsers that block site data.
+  const stored = storageGet('elim-language')
+  if (stored === 'en' || stored === 'fr') return stored
   // Most ELIM users are French speakers - default to French unless the
   // device is clearly set to English, rather than the more usual "default
   // to English" assumption.
@@ -496,11 +495,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
   const [language, setLanguageState] = useState<Language>(detectDefaultLanguage)
 
   useEffect(() => {
-    try {
-      localStorage.setItem('elim-language', language)
-    } catch {
-      // ignore if storage isn't available
-    }
+    storageSet('elim-language', language)
   }, [language])
 
   const setLanguage = (lang: Language) => setLanguageState(lang)

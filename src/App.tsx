@@ -22,6 +22,7 @@ import { Share } from '@capacitor/share'
 import { EdgeToEdge } from '@capawesome/capacitor-android-edge-to-edge-support'
 import { auth, db, storage } from './firebase'
 import { enableNotifications, disableNotifications, listenForForegroundMessages, checkNotificationPermission, reconcileNotificationState, initNativeNotifications, sendTestNotification, notificationDiagnostics, onNotificationRoute, consumeLaunchUrlRoute, openNotificationSettings, cleanupPushForLogout } from './notifications'
+import { storageGet, storageSet } from './safeStorage'
 import { logActivity } from './activityLog'
 import { AnimatedSplash } from './AnimatedSplash'
 import { MediaPlayerProvider, useMediaPlayer } from './MediaPlayer'
@@ -1054,8 +1055,12 @@ function AppInner() {
   // localStorage; defaults to now so a first-time user isn't shown the entire
   // back catalogue as "new".
   const [lastSeenFeed, setLastSeenFeed] = useState<number>(() => {
-    const v = typeof localStorage !== 'undefined' ? localStorage.getItem('elim_lastSeenFeed') : null
-    return v ? parseInt(v, 10) : Date.now()
+    // Via storageGet: a bare read here throws SecurityError when the browser
+    // blocks site data, and a throw in a useState initializer kills the whole
+    // app at boot rather than just losing this one preference.
+    const v = storageGet('elim_lastSeenFeed')
+    const parsed = v ? parseInt(v, 10) : NaN
+    return Number.isFinite(parsed) ? parsed : Date.now()
   })
   const [showNotifPrompt, setShowNotifPrompt] = useState(false)
   const [highlightPostId, setHighlightPostId] = useState<string | null>(null)
@@ -1160,8 +1165,8 @@ function AppInner() {
       // be nagging, and the OS won't re-prompt after a denial anyway).
       if (!actuallyEnabled) {
         const perm = await checkNotificationPermission()
-        if (!cancelled && perm === 'prompt' && !sessionStorage.getItem('elim-notif-prompted')) {
-          sessionStorage.setItem('elim-notif-prompted', '1')
+        if (!cancelled && perm === 'prompt' && !storageGet('elim-notif-prompted', true)) {
+          storageSet('elim-notif-prompted', '1', true)
           setShowNotifPrompt(true)
         }
       }
@@ -1397,7 +1402,7 @@ function AppInner() {
     unread.forEach(n => { updateDoc(doc(db, 'notifications', n.id), { read: true }).catch(() => {}) })
     const now = Date.now()
     setLastSeenFeed(now)
-    try { localStorage.setItem('elim_lastSeenFeed', String(now)) } catch { /* private mode */ }
+    storageSet('elim_lastSeenFeed', String(now))
   }
 
   // Tapping a notification lands the person on the relevant post - opening its
