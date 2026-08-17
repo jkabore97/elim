@@ -357,7 +357,7 @@ export function LibraryTab({ user, canUpload }: { user: AppUser; canUpload: bool
         ))}
       </div>
 
-      {loading && <p className="text-center py-16"><span className="scrim inline-block px-4 py-2 text-sm text-slate-200">{t('app.loading')}</span></p>}
+      {loading && <p className="text-center py-16"><span className="scrim inline-block px-4 py-2 text-sm text-slate-600">{t('app.loading')}</span></p>}
 
       {!loading && error && (
         <div className="bg-red-500/10 border border-red-500/20 rounded-2xl p-5">
@@ -370,7 +370,7 @@ export function LibraryTab({ user, canUpload }: { user: AppUser; canUpload: bool
           <div className="w-16 h-16 rounded-full bg-affirm-500/10 flex items-center justify-center mx-auto mb-4">
             <BookOpen size={28} className="text-affirm-400" />
           </div>
-          <p className="text-slate-100 font-medium">{t('lib.empty')}</p>
+          <p className="text-slate-800 font-medium">{t('lib.empty')}</p>
           <p className="text-sm text-slate-400 mt-1">{t('lib.emptyHint')}</p>
         </div>
       )}

@@ -539,7 +539,7 @@ function ChatView({ conversation, user, onBack }: {
           <ChannelIcon size={18} />
         </div>
         <div className="min-w-0 flex-1">
-          <h2 className="font-bold text-white truncate">{title}</h2>
+          <h2 className="font-bold text-slate-800 truncate">{title}</h2>
           <p className="text-[11px] text-slate-400 truncate">
             {conversation.type === 'direct'
               ? roleMeta(conversation.ownerRole || 'member', t).label
@@ -573,7 +573,7 @@ function ChatView({ conversation, user, onBack }: {
           setAtBottom(el.scrollHeight - el.scrollTop - el.clientHeight < 80)
         }}
         className="flex-1 overflow-y-auto py-4 space-y-3 relative">
-        {loading && <p className="text-center py-10"><span className="scrim inline-block px-4 py-2 text-sm text-slate-200">{t('app.loading')}</span></p>}
+        {loading && <p className="text-center py-10"><span className="scrim inline-block px-4 py-2 text-sm text-slate-600">{t('app.loading')}</span></p>}
 
         {!loading && error && (
           <div className="bg-red-500/10 border border-red-500/20 rounded-2xl p-4">
@@ -835,12 +835,12 @@ function NewMessagePicker({ user, onPick, onClose }: {
         </div>
 
         <div className="flex-1 overflow-y-auto px-4 pb-5">
-          {loading && <p className="text-center py-10"><span className="scrim inline-block px-4 py-2 text-sm text-slate-200">{t('app.loading')}</span></p>}
+          {loading && <p className="text-center py-10"><span className="scrim inline-block px-4 py-2 text-sm text-slate-600">{t('app.loading')}</span></p>}
           {!loading && error && (
             <p className="text-sm text-red-400 bg-red-500/10 border border-red-500/20 rounded-xl px-4 py-3 break-words">{error}</p>
           )}
           {!loading && !error && visible.length === 0 && (
-            <p className="text-center py-10"><span className="scrim inline-block px-4 py-2 text-sm text-slate-200">{t('msg.noPeople')}</span></p>
+            <p className="text-center py-10"><span className="scrim inline-block px-4 py-2 text-sm text-slate-600">{t('msg.noPeople')}</span></p>
           )}
           <div className="space-y-1">
             {visible.map(p => {
@@ -992,7 +992,7 @@ function ConversationList({ user, onOpen }: {
         </button>
       </div>
 
-      {loading && <p className="text-center py-16"><span className="scrim inline-block px-4 py-2 text-sm text-slate-200">{t('app.loading')}</span></p>}
+      {loading && <p className="text-center py-16"><span className="scrim inline-block px-4 py-2 text-sm text-slate-600">{t('app.loading')}</span></p>}
 
       {!loading && error && (
         <div className="bg-red-500/10 border border-red-500/20 rounded-2xl p-5">
@@ -1006,7 +1006,7 @@ function ConversationList({ user, onOpen }: {
           <div className="w-16 h-16 rounded-full bg-affirm-500/10 flex items-center justify-center mx-auto mb-4">
             <MessageCircle size={28} className="text-affirm-400" />
           </div>
-          <p className="text-slate-100 font-medium">{t('msg.noConversations')}</p>
+          <p className="text-slate-800 font-medium">{t('msg.noConversations')}</p>
           <p className="text-sm text-slate-500 mt-1">{t('msg.noConversationsHint')}</p>
         </div>
       )}

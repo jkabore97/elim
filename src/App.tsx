@@ -1555,11 +1555,11 @@ function AppInner() {
       </div>
       <div className="relative z-10 lg:flex">
         {/* Sidebar — desktop only */}
-        <aside className="glass-dark hidden lg:flex lg:flex-col lg:w-64 lg:shrink-0 lg:h-screen lg:sticky lg:top-0 border-r border-white/10 px-6 py-8">
+        <aside className="glass-bar hidden lg:flex lg:flex-col lg:w-64 lg:shrink-0 lg:h-screen lg:sticky lg:top-0 border-r border-slate-200/70 px-6 py-8">
           <div className="flex items-center justify-between">
             <Logo size={34} />
           </div>
-          <div className="mt-4"><LanguageSwitcher dark /></div>
+          <div className="mt-4"><LanguageSwitcher /></div>
           <nav className="mt-6 flex-1 space-y-1">
             {navItems.map(item => {
               const Icon = item.icon
@@ -1567,7 +1567,7 @@ function AppInner() {
               return (
                 <button key={item.id} onClick={() => setActiveTab(item.id)}
                   className={`w-full flex items-center gap-3 px-4 py-3 rounded-2xl text-sm font-semibold transition ${
-                    active ? 'bg-affirm-500/20 text-affirm-300 shadow-sm' : 'text-slate-400 hover:bg-white/10 hover:text-white'}`}>
+                    active ? 'bg-affirm-500/10 text-affirm-700 shadow-sm' : 'text-slate-500 hover:bg-slate-100 hover:text-slate-800'}`}>
                   <Icon size={19} />
                   {item.label}
                   {item.id === 'admin' && pendingChurches.length > 0 && (
@@ -1594,10 +1594,10 @@ function AppInner() {
               <PlusCircle size={18} /> {t('nav.newPost')}
             </button>
           )}
-          <div className="pt-4 border-t border-white/10 flex items-center justify-between">
-            <span className="text-xs font-medium text-slate-400 truncate">{user.displayName}</span>
+          <div className="pt-4 border-t border-slate-200 flex items-center justify-between">
+            <span className="text-xs font-medium text-slate-500 truncate">{user.displayName}</span>
             <button onClick={openNotifications} aria-label={t('notif.title')}
-              className="relative p-2 rounded-full hover:bg-white/10 text-slate-300">
+              className="relative p-2 rounded-full hover:bg-slate-100 text-slate-500">
               <Bell size={18} />
               {bellCount > 0 && (
                 <span className="absolute -top-0.5 -right-0.5 min-w-[16px] h-4 px-1 rounded-full bg-red-500 text-white text-[9px] font-bold flex items-center justify-center">
@@ -1611,13 +1611,13 @@ function AppInner() {
 
         <div className="flex-1 min-w-0">
           {/* Header — mobile & tablet only */}
-          <header className="glass-dark lg:hidden sticky top-0 z-40 border-b border-white/10">
+          <header className="glass-bar lg:hidden sticky top-0 z-40 border-b border-slate-200/70">
             <div className="px-5 h-14 flex items-center justify-between">
               <Logo size={32} />
               <div className="flex items-center gap-3">
-                <LanguageSwitcher dark />
+                <LanguageSwitcher />
                 <button onClick={openNotifications} aria-label={t('notif.title')}
-                  className="relative p-2 rounded-full hover:bg-white/10 text-slate-200 transition">
+                  className="relative p-2 rounded-full hover:bg-slate-900/5 text-slate-600 transition">
                   <Bell size={20} />
                   {bellCount > 0 && (
                     <span className="absolute -top-0.5 -right-0.5 min-w-[16px] h-4 px-1 rounded-full bg-red-500 text-white text-[9px] font-bold flex items-center justify-center">
@@ -1666,13 +1666,13 @@ function AppInner() {
                   ))}
                 </div>
 
-                {loading && <p className="text-center py-16"><span className="scrim inline-block px-4 py-2 text-sm text-slate-200">{t('app.loading')}</span></p>}
+                {loading && <p className="text-center py-16"><span className="scrim inline-block px-4 py-2 text-sm text-slate-600">{t('app.loading')}</span></p>}
                 {!loading && visiblePosts.length === 0 && (
                   <div className="text-center py-12 px-6 my-6 scrim">
                     <div className="w-16 h-16 rounded-full bg-affirm-500/10 flex items-center justify-center mx-auto mb-4">
                       <Church size={28} className="text-affirm-400" />
                     </div>
-                    <p className="text-slate-100 font-medium">
+                    <p className="text-slate-800 font-medium">
                       {searchQuery || feedFilter !== 'all' ? t('feed.noMatches') : t('app.noPostsYet')}
                     </p>
                     <p className="text-sm text-slate-500 mt-1">
@@ -1756,7 +1756,7 @@ function AppInner() {
                     <div className="w-16 h-16 rounded-full bg-affirm-500/10 flex items-center justify-center mx-auto mb-4">
                       <Music size={28} className="text-affirm-400" />
                     </div>
-                    <p className="text-slate-100 font-medium">
+                    <p className="text-slate-800 font-medium">
                       {musiqueSearch || musiqueCategory !== 'all' ? t('musique.noMatches') : t('musique.empty')}
                     </p>
                     <p className="text-sm text-slate-500 mt-1">
@@ -1801,7 +1801,7 @@ function AppInner() {
                     <div className="w-16 h-16 rounded-full bg-affirm-500/10 flex items-center justify-center mx-auto mb-4">
                       <HeartPulse size={28} className="text-affirm-400" />
                     </div>
-                    <p className="text-slate-100 font-medium">{t('sante.empty')}</p>
+                    <p className="text-slate-800 font-medium">{t('sante.empty')}</p>
                     <p className="text-sm text-slate-400 mt-1">{t('sante.emptyHint')}</p>
                   </div>
                 ) : santePosts.map(post => (
@@ -1840,7 +1840,7 @@ function AppInner() {
         </div>
 
         {/* Bottom Nav — mobile & tablet only */}
-        <nav className="glass-dark lg:hidden fixed bottom-0 left-0 right-0 border-t border-white/10 safe-bottom z-50">
+        <nav className="glass-bar lg:hidden fixed bottom-0 left-0 right-0 border-t border-slate-200/70 safe-bottom z-50">
           <div className="max-w-lg mx-auto flex items-center h-16 px-1">
             {navItems.map(item => {
               const Icon = item.icon
@@ -1848,7 +1848,7 @@ function AppInner() {
               return (
                 <button key={item.id} onClick={() => setActiveTab(item.id)}
                   className={`relative flex flex-col items-center justify-center flex-1 min-w-0 h-full transition ${
-                    active ? 'text-affirm-400' : 'text-slate-400'}`}>
+                    active ? 'text-affirm-600' : 'text-slate-400'}`}>
                   <Icon size={21} strokeWidth={active ? 2.5 : 2} />
                   {item.id === 'admin' && pendingChurches.length > 0 && (
                     <span className="absolute top-1.5 right-2 w-4 h-4 rounded-full bg-red-500 text-white text-[9px] font-bold flex items-center justify-center">
@@ -1856,7 +1856,7 @@ function AppInner() {
                     </span>
                   )}
                   {item.id === 'messages' && unreadMessages > 0 && (
-                    <span className="absolute top-1 right-1.5 min-w-[16px] h-4 px-1 rounded-full bg-red-500 text-white text-[9px] font-bold flex items-center justify-center ring-2 ring-[#0b1020]">
+                    <span className="absolute top-1 right-1.5 min-w-[16px] h-4 px-1 rounded-full bg-red-500 text-white text-[9px] font-bold flex items-center justify-center ring-2 ring-white">
                       {unreadMessages > 9 ? '9+' : unreadMessages}
                     </span>
                   )}
@@ -2494,7 +2494,7 @@ function LogsPanel() {
         ))}
       </div>
 
-      {loading && <p className="text-center py-16"><span className="scrim inline-block px-4 py-2 text-sm text-slate-200">{t('app.loading')}</span></p>}
+      {loading && <p className="text-center py-16"><span className="scrim inline-block px-4 py-2 text-sm text-slate-600">{t('app.loading')}</span></p>}
 
       {!loading && error && (
         <div className="bg-red-50 border border-red-200 rounded-2xl p-5">
@@ -2509,7 +2509,7 @@ function LogsPanel() {
           <div className="w-16 h-16 rounded-full bg-affirm-500/10 flex items-center justify-center mx-auto mb-4">
             <ScrollText size={28} className="text-affirm-400" />
           </div>
-          <p className="text-slate-100 font-medium">{t('logs.empty')}</p>
+          <p className="text-slate-800 font-medium">{t('logs.empty')}</p>
         </div>
       )}
 
@@ -2577,7 +2577,7 @@ function AdminPanel({ pendingChurches, onApprove, onDeny }: {
           <div className="w-16 h-16 rounded-full bg-affirm-50 flex items-center justify-center mx-auto mb-4">
             <ShieldCheck size={28} className="text-affirm-500" />
           </div>
-          <p className="text-slate-100 font-medium">{t('admin.noPending')}</p>
+          <p className="text-slate-800 font-medium">{t('admin.noPending')}</p>
           <p className="text-sm text-slate-400 mt-1">{t('admin.noPendingNote')}</p>
         </div>
       </div>
@@ -2735,7 +2735,7 @@ function PostCard({ post, onLike, onOpenComments, currentUserUid, isLiked, onEdi
 
       {post.content && (
         <div className="px-4 pb-3">
-          <p className="text-slate-800 text-[15px] leading-relaxed whitespace-pre-wrap">{post.content}</p>
+          <p className="text-slate-800 text-base leading-relaxed whitespace-pre-wrap">{post.content}</p>
         </div>
       )}
 

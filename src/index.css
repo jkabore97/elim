@@ -1,30 +1,30 @@
 @import "tailwindcss";
 
 @theme {
-  /* Affirm "Governor Bay" indigo as the primary accent, replacing emerald. */
-  --color-affirm-50: #eef0ff;
-  --color-affirm-100: #e1e3fe;
-  --color-affirm-200: #c8cbfc;
-  --color-affirm-300: #a5a8f9;
-  --color-affirm-400: #8482f6;
-  --color-affirm-500: #4a4af4;
-  --color-affirm-600: #3a34e6;
-  --color-affirm-700: #2f28c2;
-  --color-affirm-800: #29259c;
-  --color-affirm-900: #26257b;
-  --color-affirm-950: #171647;
-  /* Kept for any legacy elim-* usage, remapped onto the indigo. */
-  --color-elim-50: #eef0ff;
-  --color-elim-100: #e1e3fe;
-  --color-elim-200: #c8cbfc;
-  --color-elim-300: #a5a8f9;
-  --color-elim-400: #8482f6;
-  --color-elim-500: #4a4af4;
-  --color-elim-600: #3a34e6;
-  --color-elim-700: #2f28c2;
-  --color-elim-800: #29259c;
-  --color-elim-900: #26257b;
-  --color-elim-950: #171647;
+  /* Emerald as the primary accent (the church's own colour). The palette is
+     still referenced through affirm-* class names for continuity. */
+  --color-affirm-50: #ecfdf5;
+  --color-affirm-100: #d1fae5;
+  --color-affirm-200: #a7f3d0;
+  --color-affirm-300: #6ee7b7;
+  --color-affirm-400: #34d399;
+  --color-affirm-500: #10b981;
+  --color-affirm-600: #059669;
+  --color-affirm-700: #047857;
+  --color-affirm-800: #065f46;
+  --color-affirm-900: #064e3b;
+  --color-affirm-950: #022c22;
+  --color-elim-50: #ecfdf5;
+  --color-elim-100: #d1fae5;
+  --color-elim-200: #a7f3d0;
+  --color-elim-300: #6ee7b7;
+  --color-elim-400: #34d399;
+  --color-elim-500: #10b981;
+  --color-elim-600: #059669;
+  --color-elim-700: #047857;
+  --color-elim-800: #065f46;
+  --color-elim-900: #064e3b;
+  --color-elim-950: #022c22;
   --color-navy-900: #0f172a;
   --color-navy-800: #1e293b;
   --color-navy-700: #334155;
@@ -49,16 +49,16 @@ html, body, #root {
    ========================================================================== */
 body {
   font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  color: #1a2233;
+  color: #1a2230;
   overscroll-behavior: none;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  color: #e8ecf4;
+  font-size: 16px;
+  line-height: 1.6;
   background:
-    radial-gradient(60rem 60rem at 8% -10%, rgba(74, 74, 244, 0.22), transparent 62%),
-    radial-gradient(52rem 52rem at 100% 4%, rgba(255, 138, 122, 0.15), transparent 58%),
-    radial-gradient(48rem 48rem at 55% 122%, rgba(124, 232, 200, 0.13), transparent 62%),
-    linear-gradient(180deg, #0a0e1c 0%, #0c1122 48%, #090e1c 100%);
+    radial-gradient(46rem 46rem at 6% -12%, rgba(16, 185, 129, 0.07), transparent 60%),
+    radial-gradient(40rem 40rem at 100% 0%, rgba(245, 200, 120, 0.06), transparent 58%),
+    linear-gradient(180deg, #fbfaf6 0%, #f6f8f6 55%, #f4f7f4 100%);
   background-attachment: fixed;
 }
 
@@ -73,56 +73,29 @@ body {
   --glass-shadow-lg: 0 24px 60px -18px rgba(23, 37, 55, 0.32);
 }
 
-/* Ambient floating colour — the soft, slowly-drifting blobs behind everything
-   that give the frosted glass something rich to blur. This is what makes the
-   glass actually read as glass. */
-.aurora-field {
-  position: fixed;
-  inset: 0;
-  overflow: hidden;
-  pointer-events: none;
-  z-index: 0;
-}
-.aurora {
-  position: absolute;
-  border-radius: 9999px;
-  filter: blur(72px);
-  opacity: 0.42;
-  will-change: transform;
-  mix-blend-mode: screen;
-}
-@keyframes auroraA {
-  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
-  33%      { transform: translate3d(6%, 9%, 0) scale(1.14); }
-  66%      { transform: translate3d(-5%, 4%, 0) scale(0.94); }
-}
-@keyframes auroraB {
-  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
-  50%      { transform: translate3d(-8%, -7%, 0) scale(1.12); }
-}
-@media (prefers-reduced-motion: reduce) {
-  .aurora { animation: none !important; }
-}
+/* The animated aurora is retired in the calm light theme. These stay defined
+   (harmless) but render nothing meaningful; the field is removed from the DOM. */
+.aurora-field { display: none; }
+.aurora { display: none; }
 
-/* Content cards (posts, profile, library). Clean, near-solid white so text is
-   comfortable to read, with a faint frosted edge. Sits bright over the dark
-   glowing background. */
+/* Content cards (posts, profile, library): solid white with a soft shadow.
+   No translucency - maximum reading comfort and cheap to render on low-end
+   phones. This is the workhorse surface. */
 .glass {
-  background: rgba(255, 255, 255, 0.94);
-  backdrop-filter: blur(14px) saturate(150%);
-  -webkit-backdrop-filter: blur(14px) saturate(150%);
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  box-shadow: 0 16px 40px -18px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  background: #ffffff;
+  border: 1px solid #e9edea;
+  box-shadow: 0 1px 2px rgba(16, 24, 40, 0.04), 0 10px 26px -14px rgba(16, 24, 40, 0.14);
 }
 
-/* Light glass for modals/sheets that hold readable content (comments, forms).
-   Kept bright so dark text on them stays comfortable. */
+/* The one tasteful glass touch: the sticky bars (header / bottom nav / sidebar)
+   and modals get a light frosted panel. Bright enough that dark text/icons on
+   them stay perfectly legible. */
 .glass-bar {
-  background: rgba(255, 255, 255, 0.92);
-  backdrop-filter: blur(24px) saturate(160%);
-  -webkit-backdrop-filter: blur(24px) saturate(160%);
-  border-color: rgba(255, 255, 255, 0.5);
-  box-shadow: 0 24px 60px -18px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(16px) saturate(135%);
+  -webkit-backdrop-filter: blur(16px) saturate(135%);
+  border-color: #e9edea;
+  box-shadow: 0 1px 3px rgba(16, 24, 40, 0.06);
 }
 
 /* Frosted DARK glass, for surfaces that keep light text (messaging, reader,
@@ -135,49 +108,42 @@ body {
   box-shadow: 0 8px 30px -8px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
 
-/* Lighter, barely-there glass for nested chips / secondary surfaces. */
+/* Secondary pill surface (inactive filter chips). Soft neutral. */
 .glass-soft {
-  background: var(--glass-bg-soft);
-  backdrop-filter: blur(12px) saturate(140%);
-  -webkit-backdrop-filter: blur(12px) saturate(140%);
-  border: 1px solid rgba(255, 255, 255, 0.55);
+  background: #f1f4f2;
+  border: 1px solid #e6eae7;
 }
 
-/* A contained backdrop for text that would otherwise float directly on the
-   multicolour aurora (empty states, loading/status text, standalone labels).
-   Giving the text its own controlled dark panel guarantees contrast no matter
-   what colour the aurora is beneath it. */
+/* Gentle contained panel for empty states / status text, so a block of text
+   reads as its own calm card rather than floating on the page. */
 .scrim {
-  background: rgba(10, 14, 28, 0.5);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.07);
+  background: #ffffff;
+  border: 1px solid #eceeec;
   border-radius: 1.5rem;
+  box-shadow: 0 1px 2px rgba(16, 24, 40, 0.04);
 }
 
-/* Translucent form field. */
+/* Form field. */
 .glass-input {
-  background: rgba(255, 255, 255, 0.55);
-  border: 1px solid rgba(15, 23, 42, 0.1);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  transition: border-color 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+  background: #ffffff;
+  border: 1px solid #dfe4e1;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease;
 }
 .glass-input:focus, .glass-input:focus-visible {
   outline: none;
   background: rgba(255, 255, 255, 0.9);
-  border-color: rgba(74, 74, 244, 0.55);
-  box-shadow: 0 0 0 3px rgba(74, 74, 244, 0.18);
+  border-color: rgba(16, 185, 129, 0.55);
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.18);
 }
 
 /* Primary emerald button with a soft gradient + glow. */
 .btn-glass-primary {
-  background: linear-gradient(135deg, #4a4af4 0%, #3a34e6 100%);
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
   color: #fff;
-  box-shadow: 0 12px 26px -10px rgba(74, 74, 244, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  box-shadow: 0 12px 26px -10px rgba(16, 185, 129, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.25);
   transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
 }
-.btn-glass-primary:hover { filter: brightness(1.06); box-shadow: 0 16px 30px -10px rgba(74, 74, 244, 0.72); }
+.btn-glass-primary:hover { filter: brightness(1.06); box-shadow: 0 16px 30px -10px rgba(16, 185, 129, 0.72); }
 .btn-glass-primary:active { transform: translateY(1px) scale(0.99); }
 
 /* Amber donation button variant. */
@@ -239,7 +205,7 @@ video, audio {
 /* Auth / landing backdrop now shares the global glass gradient. */
 .heavenly-bg {
   background:
-    radial-gradient(50rem 50rem at 10% -10%, rgba(74, 74, 244, 0.18), transparent 60%),
+    radial-gradient(50rem 50rem at 10% -10%, rgba(16, 185, 129, 0.18), transparent 60%),
     radial-gradient(46rem 46rem at 100% 0%, rgba(255, 138, 122, 0.16), transparent 55%),
     radial-gradient(40rem 40rem at 50% 120%, rgba(124, 232, 200, 0.16), transparent 60%),
     linear-gradient(180deg, #fbfbfe 0%, #ffffff 45%, #f4f5fc 100%);
