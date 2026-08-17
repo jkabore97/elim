@@ -2272,17 +2272,15 @@ function LogsPanel() {
   const [search, setSearch] = useState('')
 
   useEffect(() => {
-    // Capped at 300 - enough to troubleshoot recent issues without pulling
-    // an unbounded collection into memory as the log grows over time.
-    // Last 48 hours only - this page is for troubleshooting what just
-    // happened, so an unbounded history mostly gets in the way. The limit()
-    // stays as a hard ceiling in case of a very busy two days.
-    const cutoff = new Date(Date.now() - 48 * 60 * 60 * 1000)
+    // Last 30 days of activity. The limit() stays as a hard ceiling so a very
+    // busy month can't pull an unbounded collection into memory - raised to
+    // 2000 so a normal month of history isn't silently truncated.
+    const cutoff = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000)
     const q = query(
       collection(db, 'activityLogs'),
       where('createdAt', '>=', cutoff),
       orderBy('createdAt', 'desc'),
-      limit(300)
+      limit(2000)
     )
     const unsub = onSnapshot(q, snap => {
       setLogs(snap.docs.map(d => ({ id: d.id, ...d.data() } as ActivityLog)))
