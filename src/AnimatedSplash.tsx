@@ -14,11 +14,12 @@ export function AnimatedSplash({ onDone }: { onDone: () => void }) {
   const [phase, setPhase] = useState<'enter' | 'hold' | 'exit'>('enter')
 
   useEffect(() => {
-    // Timed around the logo assembly (globe -> trees -> dove -> rays settles
-    // by ~2s), so the finished mark holds a beat before the splash fades out.
-    const t1 = setTimeout(() => setPhase('hold'), 1400)
-    const t2 = setTimeout(() => setPhase('exit'), 3100)
-    const t3 = setTimeout(onDone, 3700)
+    // Timed around the logo assembly (globe -> dove -> light touches the globe
+    // -> palms grow, settling by ~3.6s), so the finished mark holds a beat
+    // before the splash fades out.
+    const t1 = setTimeout(() => setPhase('hold'), 1600)
+    const t2 = setTimeout(() => setPhase('exit'), 4100)
+    const t3 = setTimeout(onDone, 4700)
     return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3) }
   }, [onDone])
 
