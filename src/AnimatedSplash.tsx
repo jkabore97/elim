@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import { AnimatedLogo } from './AnimatedLogo'
 
 // Animated intro shown once per launch, before the welcome screen.
 // Built as an in-app React animation rather than a second native splash
@@ -14,12 +13,9 @@ export function AnimatedSplash({ onDone }: { onDone: () => void }) {
   const [phase, setPhase] = useState<'enter' | 'hold' | 'exit'>('enter')
 
   useEffect(() => {
-    // Timed around the logo assembly (globe -> dove -> light touches the globe
-    // -> palms grow, settling by ~3.6s), so the finished mark holds a beat
-    // before the splash fades out.
-    const t1 = setTimeout(() => setPhase('hold'), 1600)
-    const t2 = setTimeout(() => setPhase('exit'), 4100)
-    const t3 = setTimeout(onDone, 4700)
+    const t1 = setTimeout(() => setPhase('hold'), 1300)
+    const t2 = setTimeout(() => setPhase('exit'), 2600)
+    const t3 = setTimeout(onDone, 3200)
     return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3) }
   }, [onDone])
 
@@ -78,12 +74,16 @@ export function AnimatedSplash({ onDone }: { onDone: () => void }) {
             style={{ animation: 'halo 3.4s ease-out 2.2s infinite' }} />
         </div>
 
-        <div
-          className="relative"
-          style={{ filter: 'drop-shadow(0 6px 20px rgba(4,120,87,0.20)) drop-shadow(0 0 42px rgba(16,185,129,0.20))' }}
-        >
-          <AnimatedLogo size={168} />
-        </div>
+        <img
+          src="/elim-logo-mark.png"
+          alt="ELIM"
+          className="relative w-32 h-32 object-contain transition-all duration-[1400ms] ease-out"
+          style={{
+            transform: shown ? 'scale(1) translateY(0)' : 'scale(0.72) translateY(10px)',
+            opacity: shown ? 1 : 0,
+            filter: 'drop-shadow(0 6px 20px rgba(4,120,87,0.22)) drop-shadow(0 0 42px rgba(16,185,129,0.24))'
+          }}
+        />
 
         <h1
           className="mt-8 text-[2.6rem] leading-none font-extrabold tracking-[0.16em] transition-all duration-1000 ease-out"
