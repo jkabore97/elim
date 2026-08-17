@@ -222,7 +222,7 @@ function BrowseCollections({ isAdmin }: { isAdmin: boolean }) {
 
       <p className="text-xs text-slate-400 px-1">{visible.length} {t('data.records')}</p>
 
-      {loading && <p className="text-center text-slate-400 py-12">{t('app.loading')}</p>}
+      {loading && <p className="text-center py-12"><span className="scrim inline-block px-4 py-2 text-sm text-slate-200">{t('app.loading')}</span></p>}
       {!loading && error && (
         <div className="bg-red-500/10 border border-red-500/20 rounded-2xl p-4">
           <p className="text-xs text-red-300 break-words">{error}</p>
@@ -439,7 +439,7 @@ export function DataManagementTab({ user }: { user: AppUser }) {
         ))}
       </div>
 
-      {loading && <p className="text-center text-slate-400 py-16">{t('app.loading')}</p>}
+      {loading && <p className="text-center py-16"><span className="scrim inline-block px-4 py-2 text-sm text-slate-200">{t('app.loading')}</span></p>}
 
       {!loading && error && (
         <div className="bg-red-500/10 border border-red-500/20 rounded-2xl p-5">

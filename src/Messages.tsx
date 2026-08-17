@@ -573,7 +573,7 @@ function ChatView({ conversation, user, onBack }: {
           setAtBottom(el.scrollHeight - el.scrollTop - el.clientHeight < 80)
         }}
         className="flex-1 overflow-y-auto py-4 space-y-3 relative">
-        {loading && <p className="text-center text-slate-400 py-10 text-sm">{t('app.loading')}</p>}
+        {loading && <p className="text-center py-10"><span className="scrim inline-block px-4 py-2 text-sm text-slate-200">{t('app.loading')}</span></p>}
 
         {!loading && error && (
           <div className="bg-red-500/10 border border-red-500/20 rounded-2xl p-4">
@@ -582,7 +582,7 @@ function ChatView({ conversation, user, onBack }: {
         )}
 
         {!loading && !error && messages.length === 0 && (
-          <div className="text-center py-12">
+          <div className="text-center py-10 px-6 my-4 scrim">
             <div className={`w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-3 ${channelMeta.tone}`}>
               <ChannelIcon size={24} />
             </div>
@@ -835,12 +835,12 @@ function NewMessagePicker({ user, onPick, onClose }: {
         </div>
 
         <div className="flex-1 overflow-y-auto px-4 pb-5">
-          {loading && <p className="text-center text-slate-400 py-10 text-sm">{t('app.loading')}</p>}
+          {loading && <p className="text-center py-10"><span className="scrim inline-block px-4 py-2 text-sm text-slate-200">{t('app.loading')}</span></p>}
           {!loading && error && (
             <p className="text-sm text-red-400 bg-red-500/10 border border-red-500/20 rounded-xl px-4 py-3 break-words">{error}</p>
           )}
           {!loading && !error && visible.length === 0 && (
-            <p className="text-center text-slate-400 py-10 text-sm">{t('msg.noPeople')}</p>
+            <p className="text-center py-10"><span className="scrim inline-block px-4 py-2 text-sm text-slate-200">{t('msg.noPeople')}</span></p>
           )}
           <div className="space-y-1">
             {visible.map(p => {
@@ -992,7 +992,7 @@ function ConversationList({ user, onOpen }: {
         </button>
       </div>
 
-      {loading && <p className="text-center text-slate-400 py-16">{t('app.loading')}</p>}
+      {loading && <p className="text-center py-16"><span className="scrim inline-block px-4 py-2 text-sm text-slate-200">{t('app.loading')}</span></p>}
 
       {!loading && error && (
         <div className="bg-red-500/10 border border-red-500/20 rounded-2xl p-5">
@@ -1002,7 +1002,7 @@ function ConversationList({ user, onOpen }: {
       )}
 
       {!loading && !error && visible.length === 0 && (
-        <div className="text-center py-20">
+        <div className="text-center py-12 px-6 my-6 scrim">
           <div className="w-16 h-16 rounded-full bg-affirm-500/10 flex items-center justify-center mx-auto mb-4">
             <MessageCircle size={28} className="text-affirm-400" />
           </div>

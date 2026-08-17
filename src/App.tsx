@@ -1666,9 +1666,9 @@ function AppInner() {
                   ))}
                 </div>
 
-                {loading && <p className="text-center text-slate-400 py-16">{t('app.loading')}</p>}
+                {loading && <p className="text-center py-16"><span className="scrim inline-block px-4 py-2 text-sm text-slate-200">{t('app.loading')}</span></p>}
                 {!loading && visiblePosts.length === 0 && (
-                  <div className="text-center py-20">
+                  <div className="text-center py-12 px-6 my-6 scrim">
                     <div className="w-16 h-16 rounded-full bg-affirm-500/10 flex items-center justify-center mx-auto mb-4">
                       <Church size={28} className="text-affirm-400" />
                     </div>
@@ -1752,7 +1752,7 @@ function AppInner() {
                 )}
 
                 {musiquePosts.length === 0 ? (
-                  <div className="text-center py-20">
+                  <div className="text-center py-12 px-6 my-6 scrim">
                     <div className="w-16 h-16 rounded-full bg-affirm-500/10 flex items-center justify-center mx-auto mb-4">
                       <Music size={28} className="text-affirm-400" />
                     </div>
@@ -1797,7 +1797,7 @@ function AppInner() {
                 )}
 
                 {santePosts.length === 0 ? (
-                  <div className="text-center py-20">
+                  <div className="text-center py-12 px-6 my-6 scrim">
                     <div className="w-16 h-16 rounded-full bg-affirm-500/10 flex items-center justify-center mx-auto mb-4">
                       <HeartPulse size={28} className="text-affirm-400" />
                     </div>
@@ -2494,7 +2494,7 @@ function LogsPanel() {
         ))}
       </div>
 
-      {loading && <p className="text-center text-slate-400 py-16">{t('app.loading')}</p>}
+      {loading && <p className="text-center py-16"><span className="scrim inline-block px-4 py-2 text-sm text-slate-200">{t('app.loading')}</span></p>}
 
       {!loading && error && (
         <div className="bg-red-50 border border-red-200 rounded-2xl p-5">
@@ -2505,7 +2505,7 @@ function LogsPanel() {
       )}
 
       {!loading && !error && visible.length === 0 && (
-        <div className="text-center py-20">
+        <div className="text-center py-12 px-6 my-6 scrim">
           <div className="w-16 h-16 rounded-full bg-affirm-500/10 flex items-center justify-center mx-auto mb-4">
             <ScrollText size={28} className="text-affirm-400" />
           </div>
@@ -2573,7 +2573,7 @@ function AdminPanel({ pendingChurches, onApprove, onDeny }: {
   if (pendingChurches.length === 0) {
     return (
       <div className="space-y-4">
-        <div className="text-center py-16">
+        <div className="text-center py-12 px-6 my-6 scrim">
           <div className="w-16 h-16 rounded-full bg-affirm-50 flex items-center justify-center mx-auto mb-4">
             <ShieldCheck size={28} className="text-affirm-500" />
           </div>
