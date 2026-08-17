@@ -6,9 +6,10 @@ const config: CapacitorConfig = {
   webDir: 'dist',
   plugins: {
     EdgeToEdge: {
-      // Matches the light app background so the system-bar areas and the
-      // cold-start splash don't flash dark before the light UI appears.
-      backgroundColor: '#fbfaf6'
+      // Cold-start colour, before any JS runs and can read the system theme.
+      // Matches the light page background; App.tsx re-applies the correct
+      // light/dark colour as soon as it mounts.
+      backgroundColor: '#fffaf4'
     }
   }
 };

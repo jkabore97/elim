@@ -349,7 +349,7 @@ export function LibraryTab({ user, canUpload }: { user: AppUser; canUpload: bool
           <button key={cat} onClick={() => setCategory(cat)}
             className={`shrink-0 px-3.5 py-1.5 rounded-full text-xs font-semibold transition ${
               category === cat
-                ? 'bg-affirm-500 text-white border border-affirm-400/60'
+                ? 'bg-affirm-600 text-white border border-affirm-400/60'
                 : 'glass-soft text-slate-600'}`}>
             {cat === 'all' ? t('lib.allBooks') : cat}
           </button>

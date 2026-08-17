@@ -1045,7 +1045,7 @@ function ConversationList({ user, onOpen }: {
                   </p>
                 </div>
                 {unread && (
-                  <span className="shrink-0 px-2.5 py-1 rounded-full bg-affirm-500 text-white text-[10px] font-bold uppercase tracking-wide">
+                  <span className="shrink-0 px-2.5 py-1 rounded-full bg-affirm-600 text-white text-[10px] font-bold uppercase tracking-wide">
                     {t('msg.newBadge')}
                   </span>
                 )}
@@ -1155,7 +1155,7 @@ function ChannelChooser({ user, onOpen }: {
               </p>
             </div>
             {unread && (
-              <span className="shrink-0 px-2.5 py-1 rounded-full bg-affirm-500 text-white text-[10px] font-bold uppercase tracking-wide">
+              <span className="shrink-0 px-2.5 py-1 rounded-full bg-affirm-600 text-white text-[10px] font-bold uppercase tracking-wide">
                 {t('msg.newBadge')}
               </span>
             )}
@@ -1187,7 +1187,7 @@ function ChannelChooser({ user, onOpen }: {
                     </p>
                   </div>
                   {unread && (
-                    <span className="shrink-0 px-2.5 py-1 rounded-full bg-affirm-500 text-white text-[10px] font-bold uppercase tracking-wide">
+                    <span className="shrink-0 px-2.5 py-1 rounded-full bg-affirm-600 text-white text-[10px] font-bold uppercase tracking-wide">
                       {t('msg.newBadge')}
                     </span>
                   )}

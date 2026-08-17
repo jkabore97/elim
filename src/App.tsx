@@ -23,6 +23,7 @@ import { EdgeToEdge } from '@capawesome/capacitor-android-edge-to-edge-support'
 import { auth, db, storage } from './firebase'
 import { enableNotifications, disableNotifications, listenForForegroundMessages, checkNotificationPermission, reconcileNotificationState, initNativeNotifications, sendTestNotification, notificationDiagnostics, onNotificationRoute, consumeLaunchUrlRoute, openNotificationSettings, cleanupPushForLogout } from './notifications'
 import { storageGet, storageSet } from './safeStorage'
+import { StarField } from './StarField'
 import { logActivity } from './activityLog'
 import { AnimatedSplash } from './AnimatedSplash'
 import { MediaPlayerProvider, useMediaPlayer } from './MediaPlayer'
@@ -756,11 +757,7 @@ function AuthScreen({ onSuccess }: { onSuccess: (user: AppUser) => void }) {
 
   return (
     <div className="min-h-screen heavenly-bg flex flex-col relative overflow-hidden">
-      <div className="aurora-field" aria-hidden="true">
-        <div className="aurora" style={{ top: '-8rem', left: '-6rem', width: '32rem', height: '32rem', background: '#4a4af4', animation: 'auroraA 26s ease-in-out infinite' }} />
-        <div className="aurora" style={{ top: '20%', right: '-8rem', width: '28rem', height: '28rem', background: '#ff8a7a', animation: 'auroraB 30s ease-in-out infinite' }} />
-        <div className="aurora" style={{ bottom: '-8rem', left: '10%', width: '30rem', height: '30rem', background: '#7ce8c8', animation: 'auroraA 34s ease-in-out infinite reverse' }} />
-      </div>
+      <StarField />
       <div className="relative flex justify-end px-6 pt-6">
         <LanguageSwitcher />
       </div>
@@ -1108,16 +1105,28 @@ function AppInner() {
   const [feedFilter, setFeedFilter] = useState<'all' | 'video' | 'audio' | 'posts'>('all')
   const [searchQuery, setSearchQuery] = useState('')
 
-  // The whole app is light-themed on native (both the auth screens and the
-  // main shell), so this is applied once, unconditionally, rather than
-  // switching per-screen: dark status-bar icons over a light system-bar
-  // background. Native-only: these APIs don't exist on web, where the
-  // browser's own chrome is what's visible instead of a device status bar.
+  // Keep the native system bars in step with the phone's own light/dark
+  // setting, the same signal the CSS theme follows. Without this the status
+  // bar would stay a light strip with dark icons while the app itself goes
+  // dark. Re-applied whenever the system flips, so turning on dark/bedtime
+  // mode changes the bars live rather than only on next launch.
+  // Native-only: these APIs don't exist on web, where the browser's own
+  // chrome is what's visible instead of a device status bar.
   useEffect(() => {
-    if (Capacitor.isNativePlatform()) {
-      SystemBars.setStyle({ style: SystemBarsStyle.Light }).catch(() => {})
-      EdgeToEdge.setBackgroundColor({ color: '#fbfaf6' }).catch(() => {})
+    if (!Capacitor.isNativePlatform()) return
+    const mq = window.matchMedia('(prefers-color-scheme: dark)')
+    const apply = () => {
+      // SystemBarsStyle.Dark means light icons (for a dark background) and
+      // .Light means dark icons - named for the content, not the backdrop.
+      SystemBars.setStyle({ style: mq.matches ? SystemBarsStyle.Dark : SystemBarsStyle.Light }).catch(() => {})
+      EdgeToEdge.setBackgroundColor({ color: mq.matches ? '#14110e' : '#fffaf4' }).catch(() => {})
     }
+    apply()
+    mq.addEventListener('change', apply)
+    return () => mq.removeEventListener('change', apply)
+  }, [])
+
+  useEffect(() => {
     // Web only (no-ops on native) - lets an already-open browser tab show a
     // notification for a new post without needing to reload.
     listenForForegroundMessages()
@@ -1584,12 +1593,7 @@ function AppInner() {
 
   return (
     <div className="min-h-screen max-w-lg mx-auto lg:max-w-none lg:mx-0 relative">
-      <div className="aurora-field" aria-hidden="true">
-        <div className="aurora" style={{ top: '-8rem', left: '-6rem', width: '34rem', height: '34rem', background: '#4a4af4', animation: 'auroraA 26s ease-in-out infinite' }} />
-        <div className="aurora" style={{ top: '16%', right: '-8rem', width: '30rem', height: '30rem', background: '#ff8a7a', animation: 'auroraB 30s ease-in-out infinite' }} />
-        <div className="aurora" style={{ bottom: '-10rem', left: '6%', width: '32rem', height: '32rem', background: '#7ce8c8', animation: 'auroraA 34s ease-in-out infinite reverse' }} />
-        <div className="aurora" style={{ top: '46%', left: '34%', width: '26rem', height: '26rem', background: '#a78bfa', animation: 'auroraB 28s ease-in-out infinite' }} />
-      </div>
+      <StarField />
       <div className="relative z-10 lg:flex">
         {/* Sidebar — desktop only */}
         <aside className="glass-bar hidden lg:flex lg:flex-col lg:w-64 lg:shrink-0 lg:h-screen lg:sticky lg:top-0 border-r border-slate-200/70 px-6 py-8">
@@ -1696,7 +1700,7 @@ function AppInner() {
                     <button key={tab.id} onClick={() => setFeedFilter(tab.id)}
                       className={`shrink-0 px-4 py-2 rounded-full text-sm font-semibold transition ${
                         feedFilter === tab.id
-                          ? 'bg-affirm-500 text-white border border-affirm-400/60'
+                          ? 'bg-affirm-600 text-white border border-affirm-400/60'
                           : 'glass-soft text-slate-600 hover:text-slate-900'}`}>
                       {tab.label}
                     </button>
@@ -1768,7 +1772,7 @@ function AppInner() {
                     <button key={cat} onClick={() => setMusiqueCategory(cat)}
                       className={`shrink-0 px-3.5 py-1.5 rounded-full text-xs font-semibold transition ${
                         musiqueCategory === cat
-                          ? 'bg-affirm-500 text-white border border-affirm-400/60'
+                          ? 'bg-affirm-600 text-white border border-affirm-400/60'
                           : 'glass-soft text-slate-600'}`}>
                       {cat === 'all' ? t('musique.all') : cat}
                     </button>
@@ -1819,7 +1823,7 @@ function AppInner() {
                     <button key={cat} onClick={() => setSanteCategory(cat)}
                       className={`shrink-0 px-3.5 py-1.5 rounded-full text-xs font-semibold transition ${
                         santeCategory === cat
-                          ? 'bg-affirm-500 text-white border border-affirm-400/60'
+                          ? 'bg-affirm-600 text-white border border-affirm-400/60'
                           : 'glass-soft text-slate-600'}`}>
                       {cat === 'all' ? t('sante.allCategories') : cat}
                     </button>
@@ -1859,7 +1863,7 @@ function AppInner() {
                     <button key={sub.id} onClick={() => setAdminSection(sub.id)}
                       className={`shrink-0 px-4 py-2 rounded-full text-sm font-semibold transition ${
                         adminSection === sub.id
-                          ? 'bg-affirm-500 text-white border border-affirm-400/60'
+                          ? 'bg-affirm-600 text-white border border-affirm-400/60'
                           : 'glass-soft text-slate-600 hover:text-slate-900'}`}>
                       {sub.label}
                     </button>
@@ -2524,7 +2528,7 @@ function LogsPanel() {
           <button key={tab.id} onClick={() => setFilter(tab.id)}
             className={`shrink-0 px-4 py-2 rounded-full text-sm font-semibold transition ${
               filter === tab.id
-                ? 'bg-affirm-500 text-white border border-affirm-400/60'
+                ? 'bg-affirm-600 text-white border border-affirm-400/60'
                 : 'glass-soft text-slate-600 hover:text-slate-900'}`}>
             {tab.label}
           </button>

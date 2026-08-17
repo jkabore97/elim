@@ -6,9 +6,9 @@ import { useEffect, useState } from 'react'
 // layering a static image on top produces a visible double-flash. This picks
 // up where the native one leaves off so it reads as one continuous motion.
 //
-// Calm light-emerald theme to match the rest of the app: a soft emerald dawn
-// rising from below on a warm near-white sky, the mark floating in breathing
-// emerald halos, an emerald-gradient wordmark, and drifting motes of light.
+// Warm orange theme to match the rest of the app: an orange dawn rising from
+// below, the mark floating in breathing orange halos, an orange-gradient
+// wordmark and drifting motes. Follows the phone into dark mode via .splash-bg.
 export function AnimatedSplash({ onDone }: { onDone: () => void }) {
   const [phase, setPhase] = useState<'enter' | 'hold' | 'exit'>('enter')
 
@@ -23,29 +23,23 @@ export function AnimatedSplash({ onDone }: { onDone: () => void }) {
 
   return (
     <div
-      className={`fixed inset-0 z-[100] overflow-hidden flex flex-col items-center justify-center transition-opacity duration-600 ${
+      className={`splash-bg fixed inset-0 z-[100] overflow-hidden flex flex-col items-center justify-center transition-opacity duration-600 ${
         phase === 'exit' ? 'opacity-0' : 'opacity-100'
       }`}
-      style={{
-        // Warm near-white sky with a soft emerald light rising from the
-        // horizon, so the glow arrives from below rather than sitting flat.
-        background:
-          'radial-gradient(ellipse 92% 62% at 50% 108%, #a7f3d0 0%, #d1fae5 30%, #eef7f1 64%, #fbfaf6 100%)'
-      }}
     >
-      {/* Emerald horizon glow rising under the mark */}
+      {/* Orange horizon glow rising under the mark */}
       <div
         className="absolute left-1/2 -translate-x-1/2 rounded-full blur-3xl transition-all duration-[2200ms] ease-out"
         style={{
           bottom: shown ? '-14%' : '-30%',
           width: 620, height: 380,
-          background: 'radial-gradient(circle, rgba(16,185,129,0.34) 0%, rgba(245,200,120,0.16) 45%, transparent 72%)',
+          background: 'radial-gradient(circle, rgba(249,115,22,0.38) 0%, rgba(245,200,120,0.16) 45%, transparent 72%)',
           opacity: shown ? 1 : 0
         }}
       />
       {/* Soft counter-light from above, so the mark sits between two sources */}
       <div className="absolute top-[-10%] left-1/4 w-[460px] h-[460px] rounded-full blur-3xl pointer-events-none"
-        style={{ background: 'radial-gradient(circle, rgba(52,211,153,0.22) 0%, transparent 70%)' }} />
+        style={{ background: 'radial-gradient(circle, rgba(251,146,60,0.24) 0%, transparent 70%)' }} />
 
       {/* Drifting motes of light */}
       {[
@@ -57,7 +51,7 @@ export function AnimatedSplash({ onDone }: { onDone: () => void }) {
           className="absolute rounded-full"
           style={{
             left: p.l, width: p.s, height: p.s,
-            background: 'rgba(16,185,129,0.5)',
+            background: 'rgba(249,115,22,0.55)',
             animation: `rise ${p.dur}s ease-in-out ${p.d}s infinite`,
             opacity: 0
           }} />
@@ -81,7 +75,7 @@ export function AnimatedSplash({ onDone }: { onDone: () => void }) {
           style={{
             transform: shown ? 'scale(1) translateY(0)' : 'scale(0.72) translateY(10px)',
             opacity: shown ? 1 : 0,
-            filter: 'drop-shadow(0 6px 20px rgba(4,120,87,0.22)) drop-shadow(0 0 42px rgba(16,185,129,0.24))'
+            filter: 'drop-shadow(0 6px 20px rgba(124,45,18,0.24)) drop-shadow(0 0 42px rgba(249,115,22,0.28))'
           }}
         />
 
@@ -91,7 +85,7 @@ export function AnimatedSplash({ onDone }: { onDone: () => void }) {
             transform: shown ? 'translateY(0)' : 'translateY(16px)',
             opacity: shown ? 1 : 0,
             transitionDelay: '280ms',
-            background: 'linear-gradient(180deg, #047857 0%, #10b981 55%, #059669 100%)',
+            background: 'linear-gradient(180deg, #c2410c 0%, #f97316 55%, #ea580c 100%)',
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent',
             backgroundClip: 'text'
