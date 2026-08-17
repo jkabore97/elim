@@ -217,6 +217,116 @@ video, audio {
   100% { transform: translateX(300%); }
 }
 
+/* ==========================================================================
+   Animated sign-in banner
+   A calm emerald-glass hero above the auth card. The logo gently floats inside
+   a soft pulsing halo, two emerald aura blobs drift behind it, the title has a
+   slow emerald shine, and a few sparks rise. Every motion is slow and subtle,
+   and fully disabled under prefers-reduced-motion.
+   ========================================================================== */
+.banner-hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border-radius: 1.75rem;
+  background:
+    radial-gradient(130% 120% at 50% -25%, rgba(16, 185, 129, 0.12), transparent 60%),
+    #ffffff;
+  border: 1px solid #e4ece7;
+  box-shadow: 0 1px 2px rgba(16, 24, 40, 0.04), 0 18px 44px -24px rgba(4, 120, 87, 0.38);
+}
+
+.banner-aura {
+  position: absolute;
+  width: 17rem;
+  height: 17rem;
+  border-radius: 9999px;
+  filter: blur(46px);
+  opacity: 0.5;
+  z-index: -1;
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.5), transparent 68%);
+  animation: bannerDriftA 17s ease-in-out infinite;
+}
+.banner-aura-2 {
+  background: radial-gradient(circle, rgba(52, 211, 153, 0.42), transparent 68%);
+  animation: bannerDriftB 23s ease-in-out infinite;
+}
+@keyframes bannerDriftA {
+  0%, 100% { transform: translate(-32%, -38%) scale(1); }
+  50%      { transform: translate(-18%, -24%) scale(1.16); }
+}
+@keyframes bannerDriftB {
+  0%, 100% { transform: translate(62%, 34%) scale(1.05); }
+  50%      { transform: translate(74%, 20%) scale(0.9); }
+}
+
+.banner-logo-wrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  animation: bannerFloat 5.5s ease-in-out infinite;
+}
+@keyframes bannerFloat {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-7px); }
+}
+
+.banner-halo {
+  position: absolute;
+  inset: -16px;
+  border-radius: 9999px;
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.2), transparent 70%);
+  z-index: -1;
+  animation: bannerPulse 4s ease-in-out infinite;
+}
+@keyframes bannerPulse {
+  0%, 100% { transform: scale(0.9); opacity: 0.5; }
+  50%      { transform: scale(1.12); opacity: 0.9; }
+}
+
+.banner-title {
+  background: linear-gradient(100deg, #047857 0%, #10b981 45%, #047857 90%);
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: bannerShine 6s linear infinite;
+}
+@keyframes bannerShine {
+  0%   { background-position: 0% 0; }
+  100% { background-position: 220% 0; }
+}
+
+.banner-spark {
+  position: absolute;
+  bottom: 16%;
+  width: 5px;
+  height: 5px;
+  border-radius: 9999px;
+  background: rgba(16, 185, 129, 0.55);
+  z-index: -1;
+  opacity: 0;
+  animation: bannerRise 7s ease-in infinite;
+}
+@keyframes bannerRise {
+  0%   { transform: translateY(0) scale(0.5); opacity: 0; }
+  18%  { opacity: 0.85; }
+  100% { transform: translateY(-104px) scale(1); opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .banner-aura,
+  .banner-aura-2,
+  .banner-logo-wrap,
+  .banner-halo,
+  .banner-title,
+  .banner-spark {
+    animation: none;
+  }
+  .banner-title { background-position: 0 0; }
+}
+
 /* Scroll performance on mobile. NOTE: do NOT use `contain: paint` here - it
    isolates the element's paint and voids the backdrop, which silently kills
    backdrop-filter (the frosted-glass blur) on the cards. `contain: layout`

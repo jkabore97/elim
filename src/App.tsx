@@ -153,6 +153,38 @@ function Logo({ size = 36, variant = 'mark' }: { size?: number; variant?: 'mark'
   )
 }
 
+// Animated emerald-glass hero shown above the sign-in card. Pure CSS motion
+// (see index.css .banner-*): a floating logo in a pulsing halo, drifting aura
+// blobs, a shining title and rising sparks. Respects prefers-reduced-motion.
+function AuthBanner({ subtitle }: { subtitle?: string }) {
+  // Fixed spark positions/delays so the animation is deterministic (no random).
+  const sparks = [
+    { left: '20%', delay: '0s', dur: '7s' },
+    { left: '38%', delay: '2.4s', dur: '8s' },
+    { left: '54%', delay: '4.1s', dur: '6.5s' },
+    { left: '72%', delay: '1.2s', dur: '7.6s' },
+    { left: '84%', delay: '3.3s', dur: '8.4s' },
+  ]
+  return (
+    <div className="banner-hero px-6 py-8 mb-8">
+      <div className="banner-aura" aria-hidden="true" />
+      <div className="banner-aura banner-aura-2" aria-hidden="true" />
+      {sparks.map((s, i) => (
+        <span key={i} className="banner-spark" aria-hidden="true"
+          style={{ left: s.left, animationDelay: s.delay, animationDuration: s.dur }} />
+      ))}
+      <div className="relative flex flex-col items-center text-center">
+        <div className="banner-logo-wrap">
+          <div className="banner-halo" aria-hidden="true" />
+          <Logo size={76} variant="mark" />
+        </div>
+        <h1 className="banner-title mt-4 text-3xl font-extrabold tracking-tight">ELIM</h1>
+        {subtitle && <p className="mt-1 text-[13px] font-semibold text-affirm-700">{subtitle}</p>}
+      </div>
+    </div>
+  )
+}
+
 // Small EN/FR toggle. `dark` picks the variant meant to sit on dark
 // surfaces (auth screens, sidebar) vs. light ones (landing page nav).
 function LanguageSwitcher({ dark = false }: { dark?: boolean }) {
@@ -541,14 +573,14 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
                       className={`px-3 py-1.5 rounded-full text-xs font-medium border transition ${
                         on
                           ? 'border-affirm-400 bg-affirm-500/15 text-affirm-700'
-                          : 'border-white/10 text-slate-400 hover:text-slate-200'}`}>
+                          : 'border-slate-200 text-slate-500 hover:text-slate-700 hover:border-slate-300'}`}>
                       {item}
                     </button>
                   )
                 })}
               </div>
               <p className={`text-[11px] mt-2 px-1 ${
-                interests.length === 0 ? 'text-amber-400' : 'text-slate-500'}`}>
+                interests.length === 0 ? 'text-amber-600' : 'text-slate-500'}`}>
                 {interests.length === 0 ? t('auth.interestsRequired') : t('auth.interestsHint')}
               </p>
             </div>
@@ -561,7 +593,8 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
           <div className="space-y-2">
             <div className="flex gap-2">
               <select value={countryCode} onChange={e => setCountryCode(e.target.value)}
-                className="w-[92px] shrink-0 px-2 py-3.5 rounded-2xl bg-white/5 border border-white/10 text-white focus:outline-none focus:ring-2 focus:ring-affirm-400/60 focus:border-affirm-400/60 text-[15px] appearance-none">
+                aria-label={t('auth.country')}
+                className="w-[104px] shrink-0 px-3 py-3.5 rounded-2xl glass-input text-slate-800 font-medium focus:outline-none focus:ring-2 focus:ring-affirm-400/60 focus:border-affirm-400/60 text-[15px] appearance-none text-center">
                 {COUNTRY_CODES.map(c => <option key={c.name} value={c.code}>{c.code}</option>)}
               </select>
               <input required type="tel" value={phone} onChange={e => setPhone(e.target.value)}
@@ -579,7 +612,7 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
                   placeholder={t('auth.confirmPhone')}
                   className={inputClass} />
                 {confirmPhone.trim() !== '' && sanitizeDigits(phone) !== sanitizeDigits(confirmPhone) && (
-                  <p className="text-[11px] text-amber-400 px-1">{t('auth.phonesDontMatch')}</p>
+                  <p className="text-[11px] text-amber-600 px-1">{t('auth.phonesDontMatch')}</p>
                 )}
               </>
             )}
@@ -594,7 +627,7 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
                 className={inputClass + " pr-12"} />
               <button type="button" onClick={() => setShowPin(s => !s)}
                 aria-label={showPin ? t('auth.hidePassword') : t('auth.showPassword')}
-                className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-200">
+                className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600">
                 {showPin ? <EyeOff size={18} /> : <Eye size={18} />}
               </button>
             </div>
@@ -614,7 +647,7 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
                 className={inputClass + " pr-12"} />
               <button type="button" onClick={() => setShowPassword(s => !s)}
                 aria-label={showPassword ? t('auth.hidePassword') : t('auth.showPassword')}
-                className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-200">
+                className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600">
                 {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
               </button>
             </div>
@@ -629,7 +662,7 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
         {mode === 'login' && accountType === 'church' && (
           <div className="text-right -mt-2">
             <button type="button" onClick={openReset}
-              className="text-xs font-semibold text-affirm-400 hover:text-affirm-700">
+              className="text-xs font-semibold text-affirm-600 hover:text-affirm-700">
               {t('auth.forgotPassword')}
             </button>
           </div>
@@ -640,7 +673,7 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
             {t('auth.resetSent')}
           </p>
         )}
-        {error && <p className="text-sm text-red-400 bg-red-500/10 border border-red-500/20 rounded-xl px-4 py-3">{error}</p>}
+        {error && <p className="text-sm text-red-600 bg-red-500/10 border border-red-500/20 rounded-xl px-4 py-3">{error}</p>}
 
         <button type="submit" disabled={loading}
           className="w-full py-4 rounded-2xl bg-affirm-600 hover:bg-affirm-700 text-white font-semibold text-[15px] transition flex items-center justify-center gap-2 disabled:opacity-60 shadow-lg shadow-affirm-500/20">
@@ -766,9 +799,7 @@ function AuthScreen({ onSuccess }: { onSuccess: (user: AppUser) => void }) {
       ) : (
         <div className="relative flex-1 flex flex-col items-center justify-center px-6 py-12">
           <div className="w-full max-w-md">
-            <div className="text-center mb-8">
-              <Logo size={64} />
-            </div>
+            <AuthBanner subtitle="Centre Chrétien E.L.I.M." />
             <div className="glass rounded-3xl shadow-2xl p-8">
               <AuthForm onSuccess={onSuccess} />
             </div>
