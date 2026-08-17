@@ -722,8 +722,11 @@ function AuthScreen({ onSuccess }: { onSuccess: (user: AppUser) => void }) {
 
   return (
     <div className="min-h-screen heavenly-bg flex flex-col relative overflow-hidden">
-      <div className="fixed top-0 left-1/4 w-[500px] h-[500px] bg-affirm-500/10 rounded-full blur-3xl pointer-events-none" />
-      <div className="fixed bottom-0 right-0 w-[400px] h-[400px] bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="aurora-field" aria-hidden="true">
+        <div className="aurora" style={{ top: '-8rem', left: '-6rem', width: '32rem', height: '32rem', background: '#4a4af4', animation: 'auroraA 26s ease-in-out infinite' }} />
+        <div className="aurora" style={{ top: '20%', right: '-8rem', width: '28rem', height: '28rem', background: '#ff8a7a', animation: 'auroraB 30s ease-in-out infinite' }} />
+        <div className="aurora" style={{ bottom: '-8rem', left: '10%', width: '30rem', height: '30rem', background: '#7ce8c8', animation: 'auroraA 34s ease-in-out infinite reverse' }} />
+      </div>
       <div className="relative flex justify-end px-6 pt-6">
         <LanguageSwitcher />
       </div>
@@ -1544,15 +1547,13 @@ function AppInner() {
 
   return (
     <div className="min-h-screen max-w-lg mx-auto lg:max-w-none lg:mx-0 relative">
-      <div
-        className="fixed top-0 left-1/4 w-[500px] h-[500px] bg-affirm-500/10 rounded-full blur-2xl lg:blur-3xl pointer-events-none"
-        style={{ transform: 'translateZ(0)', willChange: 'transform' }}
-      />
-      <div
-        className="fixed bottom-0 right-0 lg:right-1/4 w-[400px] h-[400px] bg-amber-500/10 rounded-full blur-2xl lg:blur-3xl pointer-events-none"
-        style={{ transform: 'translateZ(0)', willChange: 'transform' }}
-      />
-      <div className="lg:flex">
+      <div className="aurora-field" aria-hidden="true">
+        <div className="aurora" style={{ top: '-8rem', left: '-6rem', width: '34rem', height: '34rem', background: '#4a4af4', animation: 'auroraA 26s ease-in-out infinite' }} />
+        <div className="aurora" style={{ top: '16%', right: '-8rem', width: '30rem', height: '30rem', background: '#ff8a7a', animation: 'auroraB 30s ease-in-out infinite' }} />
+        <div className="aurora" style={{ bottom: '-10rem', left: '6%', width: '32rem', height: '32rem', background: '#7ce8c8', animation: 'auroraA 34s ease-in-out infinite reverse' }} />
+        <div className="aurora" style={{ top: '46%', left: '34%', width: '26rem', height: '26rem', background: '#a78bfa', animation: 'auroraB 28s ease-in-out infinite' }} />
+      </div>
+      <div className="relative z-10 lg:flex">
         {/* Sidebar — desktop only */}
         <aside className="glass-bar hidden lg:flex lg:flex-col lg:w-64 lg:shrink-0 lg:h-screen lg:sticky lg:top-0 border-r border-white/50 px-6 py-8">
           <div className="flex items-center justify-between">

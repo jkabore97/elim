@@ -72,23 +72,55 @@ body {
   --glass-shadow-lg: 0 24px 60px -18px rgba(23, 37, 55, 0.32);
 }
 
-/* Core frosted panel. */
+/* Ambient floating colour — the soft, slowly-drifting blobs behind everything
+   that give the frosted glass something rich to blur. This is what makes the
+   glass actually read as glass. */
+.aurora-field {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+.aurora {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(64px);
+  opacity: 0.55;
+  will-change: transform;
+  mix-blend-mode: multiply;
+}
+@keyframes auroraA {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  33%      { transform: translate3d(6%, 9%, 0) scale(1.14); }
+  66%      { transform: translate3d(-5%, 4%, 0) scale(0.94); }
+}
+@keyframes auroraB {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50%      { transform: translate3d(-8%, -7%, 0) scale(1.12); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .aurora { animation: none !important; }
+}
+
+/* Core frosted panel. Quite translucent so the aurora shows through as a
+   blurred colour wash — that is what makes it read as glass. */
 .glass {
-  background: var(--glass-bg);
-  backdrop-filter: blur(20px) saturate(150%);
-  -webkit-backdrop-filter: blur(20px) saturate(150%);
-  border: 1px solid var(--glass-border);
-  box-shadow: var(--glass-shadow), inset 0 1px 0 rgba(255, 255, 255, 0.55);
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(26px) saturate(185%);
+  -webkit-backdrop-filter: blur(26px) saturate(185%);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  box-shadow: var(--glass-shadow), inset 0 1px 0 rgba(255, 255, 255, 0.7), inset 0 -1px 0 rgba(255, 255, 255, 0.2);
 }
 
 /* Stronger, more opaque glass for sticky bars (header / bottom nav / sidebar)
    where legibility over scrolling content matters. */
 .glass-bar {
-  background: var(--glass-bg-strong);
-  backdrop-filter: blur(24px) saturate(160%);
-  -webkit-backdrop-filter: blur(24px) saturate(160%);
+  background: rgba(255, 255, 255, 0.66);
+  backdrop-filter: blur(30px) saturate(190%);
+  -webkit-backdrop-filter: blur(30px) saturate(190%);
   border-color: rgba(255, 255, 255, 0.6);
-  box-shadow: var(--glass-shadow), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  box-shadow: var(--glass-shadow), inset 0 1px 0 rgba(255, 255, 255, 0.7);
 }
 
 /* Frosted DARK glass, for surfaces that keep light text (messaging, reader,
