@@ -17,6 +17,7 @@ import type { AppUser, Book } from './types'
 import 'react-pdf/dist/Page/AnnotationLayer.css'
 import 'react-pdf/dist/Page/TextLayer.css'
 import { storageGet, storageSet } from './safeStorage'
+import { Portal } from './Portal'
 
 // pdf.js does its parsing in a web worker. Pointing at the copy inside our own
 // bundle rather than a CDN means the reader still works offline and doesn't
@@ -87,6 +88,7 @@ function PdfReader({ book, onClose }: { book: Book; onClose: () => void }) {
   }
 
   return (
+    <Portal>
     <div className="fixed inset-0 z-[70] bg-[#0f172a] flex flex-col">
       <div className="flex items-center gap-3 px-4 py-3 border-b border-white/10 shrink-0">
         <button onClick={onClose} className="p-1.5 -ml-1.5 rounded-full hover:bg-white/5 text-slate-300">
@@ -164,6 +166,7 @@ function PdfReader({ book, onClose }: { book: Book; onClose: () => void }) {
         </div>
       )}
     </div>
+    </Portal>
   )
 }
 

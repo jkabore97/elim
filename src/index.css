@@ -230,8 +230,15 @@ body {
   from { opacity: 0; transform: scale(0.96); }
   to   { opacity: 1; transform: scale(1); }
 }
-.animate-rise { animation: glassRise 0.4s cubic-bezier(0.22, 1, 0.36, 1) both; }
-.animate-pop { animation: glassPop 0.28s cubic-bezier(0.22, 1, 0.36, 1) both; }
+/* fill-mode is `backwards`, NOT `both`, and that matters. With `both` the
+   element keeps the last keyframe's `transform: translateY(0)` forever, and a
+   transform other than `none` makes the element a containing block for
+   position:fixed descendants - which silently traps any fullscreen overlay
+   rendered inside (the PDF reader and the modals in these tabs). `backwards`
+   still hides the pre-animation flash, and because the end keyframe is
+   identical to the element's natural state the animation looks the same. */
+.animate-rise { animation: glassRise 0.4s cubic-bezier(0.22, 1, 0.36, 1) backwards; }
+.animate-pop { animation: glassPop 0.28s cubic-bezier(0.22, 1, 0.36, 1) backwards; }
 
 @media (prefers-reduced-motion: reduce) {
   .animate-rise, .animate-pop { animation: none; }
@@ -383,13 +390,17 @@ video, audio {
   .banner-title { background-position: 0 0; }
 }
 
-/* Scroll performance on mobile. NOTE: do NOT use `contain: paint` here - it
-   isolates the element's paint and voids the backdrop, which silently kills
-   backdrop-filter (the frosted-glass blur) on the cards. `contain: layout`
-   keeps a perf benefit without breaking the glass. */
+/* Scroll performance on mobile.
+   Two containment values are deliberately NOT used here:
+   - `paint`  isolates the element's paint and voids the backdrop, silently
+     killing backdrop-filter (the frosted glass) on the cards.
+   - `layout` makes the article a containing block for position:fixed
+     descendants, which trapped the image lightbox inside the post card on
+     phones instead of letting it cover the screen.
+   `style` alone is safe and keeps counter/quote scoping contained. */
 @media (max-width: 1023px) {
   article {
-    contain: layout style;
+    contain: style;
   }
   main {
     -webkit-overflow-scrolling: touch;
