@@ -1298,11 +1298,11 @@ function AppInner() {
         })
         await updateDoc(doc(db, 'comments', commentId), { likes: increment(1) })
       }
-    } catch {
-      // The snapshot listener reconciles the UI to the true state.
     } finally {
       commentLikeInFlight.current.delete(commentId)
     }
+    // Errors propagate to the caller so the UI can revert its optimistic state
+    // and show a message (e.g. if the commentLikes rules aren't deployed yet).
   }
 
   const handleLike = async (postId: string) => {
@@ -3108,15 +3108,15 @@ function EditPostModal({ post, onClose, onSave }: {
   )
 }
 
-function CommentRow({ c, isReply, liked, onLike, onReply, t }: {
+function CommentRow({ c, isReply, liked, likeCount, onLike, onReply, t }: {
   c: Comment
   isReply: boolean
   liked: boolean
-  onLike: (id: string) => void
+  likeCount: number
+  onLike: () => void
   onReply: (c: Comment) => void
   t: (k: any) => string
 }) {
-  const likeCount = c.likes || 0
   return (
     <div className={`flex gap-3 ${isReply ? 'ml-11' : ''}`}>
       {c.userAvatar
@@ -3131,12 +3131,12 @@ function CommentRow({ c, isReply, liked, onLike, onReply, t }: {
         </div>
         <div className="flex items-center gap-4 mt-1 ml-1">
           <span className="text-[11px] text-slate-400">{timeAgo(c.createdAt)}</span>
-          <button onClick={() => onLike(c.id)} aria-label={t('comments.like')}
-            className={`flex items-center gap-1 text-[11px] font-semibold transition ${liked ? 'text-rose-500' : 'text-slate-400 hover:text-slate-600'}`}>
+          <button type="button" onClick={onLike} aria-label={t('comments.like')}
+            className={`flex items-center gap-1 text-[11px] font-semibold transition active:scale-95 ${liked ? 'text-rose-500' : 'text-slate-400 hover:text-slate-600'}`}>
             <Heart size={13} fill={liked ? 'currentColor' : 'none'} />
             {likeCount > 0 && <span>{likeCount}</span>}
           </button>
-          <button onClick={() => onReply(c)}
+          <button type="button" onClick={() => onReply(c)}
             className="text-[11px] font-semibold text-slate-400 hover:text-slate-600 transition">
             {t('comments.reply')}
           </button>
@@ -3158,6 +3158,30 @@ function CommentsSheet({ postId, comments, onClose, onAdd, onLikeComment, likedC
   const [text, setText] = useState('')
   const [sending, setSending] = useState(false)
   const [replyTo, setReplyTo] = useState<{ id: string; name: string } | null>(null)
+  // Optimistic like overrides keyed by commentId, so the heart responds on tap
+  // instead of waiting for the server round-trip. Reverted if the write fails.
+  const [likeOverride, setLikeOverride] = useState<Record<string, boolean>>({})
+  const [likeError, setLikeError] = useState('')
+
+  const isLiked = (c: Comment) => likeOverride[c.id] ?? likedCommentIds.has(c.id)
+  const likeCount = (c: Comment) => {
+    const base = c.likes || 0
+    const wasLiked = likedCommentIds.has(c.id)
+    const nowLiked = likeOverride[c.id]
+    if (nowLiked === undefined || nowLiked === wasLiked) return base
+    return Math.max(0, base + (nowLiked ? 1 : -1))
+  }
+  const toggleLike = async (c: Comment) => {
+    const next = !isLiked(c)
+    setLikeError('')
+    setLikeOverride(o => ({ ...o, [c.id]: next }))
+    try {
+      await onLikeComment(c.id)
+    } catch {
+      setLikeOverride(o => { const n = { ...o }; delete n[c.id]; return n })
+      setLikeError(t('comments.likeFailed'))
+    }
+  }
 
   const all = comments.filter(c => c.postId === postId)
   const topLevel = all.filter(c => !c.parentId)
@@ -3197,16 +3221,19 @@ function CommentsSheet({ postId, comments, onClose, onAdd, onLikeComment, likedC
           {topLevel.length === 0 && <p className="text-center text-slate-400 text-sm py-10">{t('comments.none')}</p>}
           {topLevel.map(c => (
             <div key={c.id} className="space-y-3">
-              <CommentRow c={c} isReply={false} liked={likedCommentIds.has(c.id)}
-                onLike={onLikeComment} onReply={startReply} t={t} />
+              <CommentRow c={c} isReply={false} liked={isLiked(c)} likeCount={likeCount(c)}
+                onLike={() => toggleLike(c)} onReply={startReply} t={t} />
               {(repliesByParent[c.id] || []).map(r => (
-                <CommentRow key={r.id} c={r} isReply liked={likedCommentIds.has(r.id)}
-                  onLike={onLikeComment} onReply={startReply} t={t} />
+                <CommentRow key={r.id} c={r} isReply liked={isLiked(r)} likeCount={likeCount(r)}
+                  onLike={() => toggleLike(r)} onReply={startReply} t={t} />
               ))}
             </div>
           ))}
         </div>
         <div className="p-4 border-t border-slate-100">
+          {likeError && (
+            <p className="text-[11px] text-red-500 bg-red-50 rounded-lg px-3 py-1.5 mb-2">{likeError}</p>
+          )}
           {replyTo && (
             <div className="flex items-center justify-between px-3 pb-2 text-xs text-slate-500">
               <span className="truncate">{t('comments.replyingTo')} <b className="text-slate-700">{replyTo.name}</b></span>

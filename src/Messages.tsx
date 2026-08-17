@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useMemo } from 'react'
 import {
   collection, doc, setDoc, addDoc, onSnapshot, updateDoc, deleteDoc, writeBatch,
-  query, where, limit, serverTimestamp, getDocs
+  query, where, orderBy, limit, serverTimestamp, getDocs
 } from 'firebase/firestore'
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
 import {
@@ -275,11 +275,15 @@ function ChatView({ conversation, user, onBack }: {
     if (!isStaff(user)) {
       constraints.push(where('participantIds', 'array-contains', user.uid))
     }
-    const q = query(collection(db, 'messages'), ...constraints, limit(500))
+    // orderBy createdAt DESC + limit(500) fetches the 500 MOST RECENT messages.
+    // Without the orderBy, limit(500) returned an arbitrary 500 (ordered by
+    // document id), so once a thread passed 500 messages the newest ones could
+    // silently drop out. Needs the composite indexes in firestore.indexes.json
+    // (one for the staff filter, one for the member participantIds filter).
+    const q = query(collection(db, 'messages'), ...constraints, orderBy('createdAt', 'desc'), limit(500))
 
     const unsub = onSnapshot(q, snap => {
-      // Sorted client-side rather than with orderBy() so this needs no
-      // composite index on top of the filters above.
+      // Server returns newest-first; flip to chronological for display.
       const rows = snap.docs.map(d => ({ id: d.id, ...d.data() } as Message))
       rows.sort((a, b) => {
         const ta = a.createdAt?.toMillis ? a.createdAt.toMillis() : 0

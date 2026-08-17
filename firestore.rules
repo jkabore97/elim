@@ -28,7 +28,19 @@ service cloud.firestore {
 
     // ---- Users ----
     match /users/{userId} {
-      allow read: if isSignedIn();
+      // A user may read their OWN doc; staff (admin/pastor) and church leads
+      // read others because the New-message picker and the Data explorer need
+      // the directory. Plain members can no longer pull the whole users
+      // collection (names, phones, emails, DOB, fcmTokens) - the feed and
+      // messaging already carry denormalised author names/avatars, so members
+      // never need another person's user doc. (Verified: the picker and Data
+      // explorer are shown only to staff/church; members use ChannelChooser,
+      // which reads only their own conversations.)
+      allow read: if isSignedIn() && (
+                    request.auth.uid == userId
+                    || isAdmin()
+                    || role() == 'church'
+                  );
       allow create: if isSignedIn() && request.auth.uid == userId
                     // Users can only self-assign 'member' or 'pending_church' on signup —
                     // never 'church' or 'admin' directly.
@@ -114,8 +126,17 @@ service cloud.firestore {
                     || isPastor() || isTechAdmin()
                   );
 
+      // The message's participantIds must EQUAL the parent conversation's.
+      // Without this, a member could inject a message into a private thread
+      // they aren't in by hand-listing themselves in the denormalised array
+      // (the array is what read/create are checked against). The client always
+      // upserts the conversation - with these same participantIds - before the
+      // message, so the parent exists and matches; the one extra read is the
+      // correct price for closing the injection.
       allow create: if isSignedIn()
                     && request.resource.data.senderId == request.auth.uid
+                    && request.resource.data.participantIds ==
+                         get(/databases/$(database)/documents/conversations/$(request.resource.data.conversationId)).data.participantIds
                     && (
                       request.auth.uid in request.resource.data.participantIds
                       || isPastor() || isTechAdmin()
@@ -198,10 +219,28 @@ service cloud.firestore {
       // The owning church/admin can edit or delete their own post (and only
       // their own — see SECURITY.md §4); any signed-in member can separately
       // bump likes or the comment counter.
+      // The owner/admin may edit their post; anyone signed in may nudge ONE
+      // counter by one in either direction. The client only ever changes a
+      // single counter per write (a like touches 'likes', a comment touches
+      // 'commentsCount'), so bounding each on its own closes the "set likes to
+      // 999999" vandalism without blocking either action. The '!in resource'
+      // arm lets the first like/comment land on a post created before the
+      // field existed.
       allow update: if isSignedIn() && (
                       (resource.data.churchId == request.auth.uid) ||
                       isAdmin() ||
-                      (request.resource.data.diff(resource.data).affectedKeys().hasOnly(['likes', 'commentsCount']))
+                      (request.resource.data.diff(resource.data).affectedKeys().hasOnly(['likes'])
+                        && request.resource.data.likes is int
+                        && request.resource.data.likes >= 0
+                        && (!('likes' in resource.data)
+                            || (request.resource.data.likes >= resource.data.likes - 1
+                                && request.resource.data.likes <= resource.data.likes + 1))) ||
+                      (request.resource.data.diff(resource.data).affectedKeys().hasOnly(['commentsCount'])
+                        && request.resource.data.commentsCount is int
+                        && request.resource.data.commentsCount >= 0
+                        && (!('commentsCount' in resource.data)
+                            || (request.resource.data.commentsCount >= resource.data.commentsCount - 1
+                                && request.resource.data.commentsCount <= resource.data.commentsCount + 1)))
                     );
       allow delete: if isSignedIn() && (resource.data.churchId == request.auth.uid || isAdmin());
     }

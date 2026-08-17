@@ -393,6 +393,7 @@ const translations = {
   'comments.reply': { en: 'Reply', fr: 'Répondre' },
   'comments.replyingTo': { en: 'Replying to', fr: 'En réponse à' },
   'comments.like': { en: 'Like', fr: "J'aime" },
+  'comments.likeFailed': { en: "Couldn't register your like. Please try again.", fr: "Impossible d'enregistrer votre j'aime. Réessayez." },
 
   // ---- Profile tab ----
   'profile.details': { en: 'Profile details', fr: 'Détails du profil' },
