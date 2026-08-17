@@ -4,7 +4,7 @@ This project is wrapped with [Capacitor](https://capacitorjs.com), which takes t
 
 ## What's already done (in this repo)
 
-- `capacitor.config.ts` — app ID `com.ccelim.app`, app name "ELIM"
+- `capacitor.config.ts` — app ID `com.elim.app`, app name "ELIM"
 - `ios/` and `android/` — full native project scaffolding (Xcode project + Gradle project)
 - App icons and splash screens generated from the real logo, at every required resolution for both platforms (`ios/App/App/Assets.xcassets`, `android/app/src/main/res/mipmap-*` and `drawable-*`)
 - Source images for regenerating icons/splash later live in `/assets` (`icon.png`, `splash.png`) — if the logo ever changes, drop a new 1024×1024 icon and 2732×2732 splash in there and re-run `npx capacitor-assets generate`
@@ -37,6 +37,27 @@ I have no access to macOS (Xcode is Mac-only) or a way to reach the Android SDK'
    Run this **every time** you change the web code and want the native apps to pick it up — Capacitor bundles a snapshot, it doesn't live-load from ccelim.com.
 3. **iOS** (on a Mac): `npx cap open ios` — opens Xcode. Set your Apple Developer team under Signing & Capabilities, then Product → Archive to submit via App Store Connect.
 4. **Android**: `npm run cap:android` — opens Android Studio. First run does a Gradle sync (10–30 min, downloads SDK components). Use Device Manager to create an emulator, or enable USB debugging on a real phone (Settings → About phone → tap Build number ×7 → Developer options → USB debugging), then hit ▶ Run to test it as a real app.
+
+### Package identity: `com.elim.app` (v1.04)
+
+The app ships under the package name **`com.elim.app`** at **versionName `1.04` / versionCode `104`**. This is a *different application identity* from the earlier `com.ccelim.app` build, so on Play Console it is a **brand-new app listing** with its own reviews, install base and version history — not an update of the old one. The old listing is unaffected by anything here; leave it alone or unpublish it separately.
+
+Consequences worth knowing before you upload:
+
+- **A new keystore is fine, but be deliberate.** You may reuse the existing keystore or make a fresh one — Play ties signing to the listing, and this is a new listing either way. Whichever you pick, back it up permanently; losing it means never being able to update this app again.
+- **Existing users do not migrate.** Anyone with the old app installed keeps it; the new one installs alongside as a separate app. There is no upgrade path between different package names.
+- **versionCode must only ever increase** for this listing. `104` is the starting point; use `105`, `106`, … for later uploads.
+
+#### Required before the build will work: register `com.elim.app` in Firebase
+
+`android/app/google-services.json` still describes the **old** package (`com.ccelim.app`). FCM issues push tokens per *(Firebase app, package name)* pair, so this file must be regenerated — this is the one step that cannot be done from the repo:
+
+1. Firebase Console → project **elim-b1fff** → **Project settings** → **Your apps** → **Add app** → **Android**.
+2. Android package name: `com.elim.app`. (Register it in the *same* Firebase project so the new app reads the same Firestore data, Storage and Cloud Functions as the old one.)
+3. Download the regenerated **`google-services.json`** — it will now contain client entries for *both* packages — and replace `android/app/google-services.json` with it.
+4. Add the release signing certificate's **SHA-1/SHA-256** fingerprints to that new Android app in Firebase if you use any service that needs them.
+
+Until step 3 is done, expect the Gradle build to stop with `No matching client found for package name 'com.elim.app'` — and, more importantly, **push notifications cannot work under the new package without it**, because the tokens are bound to a Firebase app that doesn't yet exist.
 
 ### Android: signing and Play Store submission
 

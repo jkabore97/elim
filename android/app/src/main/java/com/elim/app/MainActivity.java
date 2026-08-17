@@ -1,4 +1,4 @@
-package com.ccelim.app;
+package com.elim.app;
 
 import android.os.Bundle;
 import com.getcapacitor.BridgeActivity;
