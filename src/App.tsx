@@ -4,7 +4,7 @@ import {
   Image as ImageIcon, Video, Mic, X, Send, LogOut,
   Youtube, Facebook, CheckCircle2, Clock, ArrowRight, ShieldCheck, UserX, Sparkles,
   Trash2, Camera, FileText, Upload, Pencil, Globe, Eye, EyeOff, Search, Bell, ScrollText, Mail, Play, Pause, HeartPulse, Download, AlertTriangle, BookOpen, Music,
-  HandCoins, Copy, Check, Plus
+  HandCoins, Copy, Check, Plus, Flag
 } from 'lucide-react'
 import {
   collection, addDoc, onSnapshot, query, orderBy, where,
@@ -24,6 +24,7 @@ import { auth, db, storage } from './firebase'
 import { enableNotifications, disableNotifications, listenForForegroundMessages, checkNotificationPermission, reconcileNotificationState, initNativeNotifications, sendTestNotification, notificationDiagnostics, onNotificationRoute, consumeLaunchUrlRoute, openNotificationSettings, cleanupPushForLogout } from './notifications'
 import { storageGet, storageSet } from './safeStorage'
 import { StarField } from './StarField'
+import { ReportSheet } from './ReportSheet'
 import { logActivity } from './activityLog'
 import { AnimatedSplash } from './AnimatedSplash'
 import { MediaPlayerProvider, useMediaPlayer } from './MediaPlayer'
@@ -33,7 +34,7 @@ import { MessagesTab, useUnreadCount } from './Messages'
 import { playMessageAlert, isAlertMuted, setAlertMuted } from './messageAlert'
 import { DataManagementTab } from './DataManagement'
 import { LibraryTab } from './Library'
-import type { Post, Comment, AppUser, ActivityLog, AppNotification, DonationConfig, DonationProvider } from './types'
+import type { Post, Comment, AppUser, ActivityLog, AppNotification, DonationConfig, DonationProvider, Report } from './types'
 import { LanguageProvider, useLanguage, type Language } from './i18n'
 
 function timeAgo(date: any) {
@@ -991,6 +992,9 @@ function LandingPage({ onSuccess }: { onSuccess: (user: AppUser) => void }) {
           <div className="mt-6 pt-6 border-t border-slate-50 flex flex-wrap items-center justify-between gap-3">
             <p className="text-xs text-slate-400">{COPYRIGHT}</p>
             <div className="flex items-center gap-4">
+              <a href="/child-safety.html" className="text-xs text-slate-400 hover:text-affirm-600 underline mr-3">
+                {t('footer.childSafety')}
+              </a>
               <a href="/privacy.html" className="text-xs text-slate-400 hover:text-affirm-600 underline">
                 {t('footer.privacy')}
               </a>
@@ -1067,7 +1071,7 @@ function AppInner() {
   const [musiqueSearch, setMusiqueSearch] = useState('')
   const [showCreateMusique, setShowCreateMusique] = useState(false)
   const [showBulkMusique, setShowBulkMusique] = useState(false)
-  const [adminSection, setAdminSection] = useState<'approvals' | 'logs' | 'data'>(
+  const [adminSection, setAdminSection] = useState<'approvals' | 'reports' | 'logs' | 'data'>(
     user?.role === 'church' ? 'data' : 'approvals'
   )
   // user is null at mount, so the initializer above always resolves to
@@ -1730,7 +1734,7 @@ function AppInner() {
                       ? 'rounded-3xl ring-2 ring-affirm-400 ring-offset-2 ring-offset-[#0f172a] transition'
                       : ''}>
                     <PostCard post={post} onLike={handleLike} onOpenComments={setActiveCommentsPost}
-                      currentUserUid={user.uid} isLiked={likedPostIds.has(post.id)} onEdit={setEditingPost} onDelete={handleDeletePost} />
+                      currentUser={user} isLiked={likedPostIds.has(post.id)} onEdit={setEditingPost} onDelete={handleDeletePost} />
                   </div>
                 ))}
               </div>
@@ -1806,7 +1810,7 @@ function AppInner() {
                   </div>
                 ) : musiquePosts.map(post => (
                   <PostCard key={post.id} post={post} onLike={handleLike} onOpenComments={setActiveCommentsPost}
-                    currentUserUid={user.uid} isLiked={likedPostIds.has(post.id)} onEdit={setEditingPost} onDelete={handleDeletePost} />
+                    currentUser={user} isLiked={likedPostIds.has(post.id)} onEdit={setEditingPost} onDelete={handleDeletePost} />
                 ))}
               </div>
             )}
@@ -1847,7 +1851,7 @@ function AppInner() {
                   </div>
                 ) : santePosts.map(post => (
                   <PostCard key={post.id} post={post} onLike={handleLike} onOpenComments={setActiveCommentsPost}
-                    currentUserUid={user.uid} isLiked={likedPostIds.has(post.id)} onEdit={setEditingPost} onDelete={handleDeletePost} />
+                    currentUser={user} isLiked={likedPostIds.has(post.id)} onEdit={setEditingPost} onDelete={handleDeletePost} />
                 ))}
               </div>
             )}
@@ -1857,6 +1861,7 @@ function AppInner() {
                 <div className="flex gap-2 overflow-x-auto pb-1">
                   {[
                     ...(isStaffUser ? [{ id: 'approvals' as const, label: t('admin.subApprovals') }] : []),
+                    ...(isStaffUser ? [{ id: 'reports' as const, label: t('reports.tab') }] : []),
                     ...(isStaffUser ? [{ id: 'logs' as const, label: t('nav.logs') }] : []),
                     { id: 'data' as const, label: t('nav.data') }
                   ].map(sub => (
@@ -1873,6 +1878,7 @@ function AppInner() {
                 {adminSection === 'approvals' && isStaffUser && (
                   <AdminPanel pendingChurches={pendingChurches} onApprove={handleApproveChurch} onDeny={handleDenyChurch} />
                 )}
+                {adminSection === 'reports' && isStaffUser && <ReportsPanel user={user} />}
                 {adminSection === 'logs' && isStaffUser && <LogsPanel />}
                 {adminSection === 'data' && <DataManagementTab user={user} />}
               </div>
@@ -1989,7 +1995,7 @@ function AppInner() {
       {activeCommentsPost && (
         <CommentsSheet postId={activeCommentsPost} comments={comments}
           onClose={() => setActiveCommentsPost(null)} onAdd={handleAddComment}
-          onLikeComment={handleLikeComment} likedCommentIds={likedCommentIds} />
+          onLikeComment={handleLikeComment} likedCommentIds={likedCommentIds} currentUser={user} />
       )}
       {showNotifications && (
         <NotificationsPanel
@@ -2414,10 +2420,17 @@ function ProfileTab({ user, onProfileUpdated, onLogout }: {
 
       <div className="text-center py-4">
         <p className="text-[11px] text-slate-500">{COPYRIGHT}</p>
-        <a href="/privacy.html" target="_blank" rel="noreferrer"
-          className="text-[11px] text-slate-500 hover:text-affirm-400 underline mt-1 inline-block">
-          {t('footer.privacy')}
-        </a>
+        <div className="mt-1 flex items-center justify-center gap-3">
+          <a href="/privacy.html" target="_blank" rel="noreferrer"
+            className="text-[11px] text-slate-500 hover:text-affirm-600 underline">
+            {t('footer.privacy')}
+          </a>
+          <span className="text-[11px] text-slate-300">·</span>
+          <a href="/child-safety.html" target="_blank" rel="noreferrer"
+            className="text-[11px] text-slate-500 hover:text-affirm-600 underline">
+            {t('footer.childSafety')}
+          </a>
+        </div>
       </div>
     </div>
   )
@@ -2656,16 +2669,18 @@ function AdminPanel({ pendingChurches, onApprove, onDeny }: {
   )
 }
 
-function PostCard({ post, onLike, onOpenComments, currentUserUid, isLiked, onEdit, onDelete }: {
+function PostCard({ post, onLike, onOpenComments, currentUser, isLiked, onEdit, onDelete }: {
   post: Post
   onLike: (id: string) => Promise<void>
   onOpenComments: (id: string) => void
-  currentUserUid: string
+  currentUser: AppUser
   isLiked: boolean
   onEdit: (post: Post) => void
   onDelete: (id: string) => void | Promise<void>
 }) {
   const { t } = useLanguage()
+  const currentUserUid = currentUser.uid
+  const [reporting, setReporting] = useState(false)
   const ytId = post.mediaUrl ? getYoutubeId(post.mediaUrl) : null
   const ytList = post.mediaUrl ? getYoutubePlaylistId(post.mediaUrl) : null
   const [confirmingDelete, setConfirmingDelete] = useState(false)
@@ -2917,6 +2932,12 @@ function PostCard({ post, onLike, onOpenComments, currentUserUid, isLiked, onEdi
             <Download size={18} />
           </button>
         )}
+        {post.churchId !== currentUserUid && (
+          <button onClick={() => setReporting(true)} aria-label={t('report.action')} title={t('report.action')}
+            className="text-slate-300 hover:text-affirm-600 mr-3">
+            <Flag size={17} />
+          </button>
+        )}
         <button onClick={handleShare} className="relative text-slate-300 hover:text-affirm-600">
           <Share2 size={18} />
           {shareCopied && (
@@ -2927,6 +2948,11 @@ function PostCard({ post, onLike, onOpenComments, currentUserUid, isLiked, onEdi
         </button>
       </div>
       {lightbox && <ImageLightbox src={lightbox} onClose={() => setLightbox(null)} />}
+      {reporting && (
+        <ReportSheet user={currentUser} targetType="post" targetId={post.id}
+          targetOwnerId={post.churchId} targetOwnerName={post.authorName || post.churchName}
+          preview={post.content} onClose={() => setReporting(false)} />
+      )}
     </article>
   )
 }
@@ -3266,13 +3292,15 @@ function EditPostModal({ post, onClose, onSave }: {
   )
 }
 
-function CommentRow({ c, isReply, liked, likeCount, onLike, onReply, t }: {
+function CommentRow({ c, isReply, liked, likeCount, onLike, onReply, onReport, canReport, t }: {
   c: Comment
   isReply: boolean
   liked: boolean
   likeCount: number
   onLike: () => void
   onReply: (c: Comment) => void
+  onReport: (c: Comment) => void
+  canReport: boolean
   t: (k: any) => string
 }) {
   return (
@@ -3298,21 +3326,29 @@ function CommentRow({ c, isReply, liked, likeCount, onLike, onReply, t }: {
             className="text-[11px] font-semibold text-slate-400 hover:text-slate-600 transition">
             {t('comments.reply')}
           </button>
+          {canReport && (
+            <button type="button" onClick={() => onReport(c)}
+              className="text-[11px] font-semibold text-slate-400 hover:text-affirm-600 transition">
+              {t('report.action')}
+            </button>
+          )}
         </div>
       </div>
     </div>
   )
 }
 
-function CommentsSheet({ postId, comments, onClose, onAdd, onLikeComment, likedCommentIds }: {
+function CommentsSheet({ postId, comments, onClose, onAdd, onLikeComment, likedCommentIds, currentUser }: {
   postId: string
   comments: Comment[]
   onClose: () => void
   onAdd: (text: string, parentId?: string) => void | Promise<void>
   onLikeComment: (commentId: string) => void
   likedCommentIds: Set<string>
+  currentUser: AppUser
 }) {
   const { t } = useLanguage()
+  const [reportingComment, setReportingComment] = useState<Comment | null>(null)
   const [text, setText] = useState('')
   const [sending, setSending] = useState(false)
   const [replyTo, setReplyTo] = useState<{ id: string; name: string } | null>(null)
@@ -3380,10 +3416,12 @@ function CommentsSheet({ postId, comments, onClose, onAdd, onLikeComment, likedC
           {topLevel.map(c => (
             <div key={c.id} className="space-y-3">
               <CommentRow c={c} isReply={false} liked={isLiked(c)} likeCount={likeCount(c)}
-                onLike={() => toggleLike(c)} onReply={startReply} t={t} />
+                onLike={() => toggleLike(c)} onReply={startReply}
+                onReport={setReportingComment} canReport={c.userId !== currentUser.uid} t={t} />
               {(repliesByParent[c.id] || []).map(r => (
                 <CommentRow key={r.id} c={r} isReply liked={isLiked(r)} likeCount={likeCount(r)}
-                  onLike={() => toggleLike(r)} onReply={startReply} t={t} />
+                  onLike={() => toggleLike(r)} onReply={startReply}
+                  onReport={setReportingComment} canReport={r.userId !== currentUser.uid} t={t} />
               ))}
             </div>
           ))}
@@ -3412,6 +3450,130 @@ function CommentsSheet({ postId, comments, onClose, onAdd, onLikeComment, likedC
           </div>
         </div>
       </div>
+      {reportingComment && (
+        <ReportSheet user={currentUser} targetType="comment" targetId={reportingComment.id}
+          targetOwnerId={reportingComment.userId} targetOwnerName={reportingComment.userName}
+          preview={reportingComment.text} onClose={() => setReportingComment(null)} />
+      )}
+    </div>
+  )
+}
+
+// Staff-only queue of user reports. Reads are restricted to staff in
+// firestore.rules, so this is the only place reports are visible; a reporter
+// cannot read back other people's reports.
+function ReportsPanel({ user }: { user: AppUser }) {
+  const { t } = useLanguage()
+  const [reports, setReports] = useState<Report[]>([])
+  const [loading, setLoading] = useState(true)
+  const [showHandled, setShowHandled] = useState(false)
+  const [busyId, setBusyId] = useState<string | null>(null)
+
+  useEffect(() => {
+    const q = query(collection(db, 'reports'), orderBy('createdAt', 'desc'), limit(200))
+    const unsub = onSnapshot(q,
+      snap => { setReports(snap.docs.map(d => ({ id: d.id, ...d.data() })) as Report[]); setLoading(false) },
+      () => setLoading(false))
+    return unsub
+  }, [])
+
+  const resolve = async (r: Report, status: 'actioned' | 'dismissed') => {
+    if (busyId) return
+    setBusyId(r.id)
+    try {
+      await updateDoc(doc(db, 'reports', r.id), {
+        status,
+        reviewedById: user.uid,
+        reviewedByName: user.displayName || '',
+        reviewedAt: serverTimestamp(),
+      })
+    } catch (_e) { /* rules will reject a non-staff writer */ }
+    finally { setBusyId(null) }
+  }
+
+  const reasonLabel = (r: Report) => t((
+    r.reason === 'child_safety' ? 'report.reason.childSafety'
+    : r.reason === 'sexual' ? 'report.reason.sexual'
+    : r.reason === 'violence' ? 'report.reason.violence'
+    : r.reason === 'harassment' ? 'report.reason.harassment'
+    : r.reason === 'spam' ? 'report.reason.spam'
+    : 'report.reason.other') as never)
+
+  const targetLabel = (r: Report) => t((
+    r.targetType === 'post' ? 'reports.target.post'
+    : r.targetType === 'comment' ? 'reports.target.comment'
+    : r.targetType === 'message' ? 'reports.target.message'
+    : 'reports.target.user') as never)
+
+  const shown = reports.filter(r => showHandled ? r.status !== 'open' : r.status === 'open')
+
+  return (
+    <div className="space-y-4">
+      <div className="flex gap-2">
+        {[{ id: false, label: t('reports.open') }, { id: true, label: t('reports.handled') }].map(o => (
+          <button key={String(o.id)} onClick={() => setShowHandled(o.id)}
+            className={`px-4 py-2 rounded-full text-sm font-semibold transition ${
+              showHandled === o.id ? 'bg-affirm-600 text-white' : 'glass-soft text-slate-600'}`}>
+            {o.label}
+          </button>
+        ))}
+      </div>
+
+      {loading && <p className="text-center py-16"><span className="scrim inline-block px-4 py-2 text-sm text-slate-600">{t('app.loading')}</span></p>}
+      {!loading && shown.length === 0 && (
+        <div className="text-center py-12 px-6 my-6 scrim">
+          <p className="text-slate-800 font-medium">{t('reports.empty')}</p>
+        </div>
+      )}
+
+      {shown.map(r => (
+        <div key={r.id} className="glass rounded-2xl p-4">
+          <div className="flex items-start justify-between gap-3">
+            <div className="min-w-0">
+              <div className="flex items-center gap-2 flex-wrap">
+                {r.reason === 'child_safety' && (
+                  <span className="px-2 py-0.5 rounded-full bg-red-100 text-red-700 text-[10px] font-bold uppercase tracking-wide">
+                    {t('report.reason.childSafety')}
+                  </span>
+                )}
+                <span className="text-sm font-bold text-slate-800">{reasonLabel(r)}</span>
+                <span className="text-[11px] text-slate-400">· {targetLabel(r)}</span>
+              </div>
+              <p className="text-[11px] text-slate-400 mt-0.5">{timeAgo(r.createdAt)}</p>
+            </div>
+            {r.status !== 'open' && (
+              <span className="shrink-0 text-[10px] font-bold px-2 py-1 rounded-full glass-soft text-slate-600">
+                {r.status === 'actioned' ? t('reports.actioned') : t('reports.dismissed')}
+              </span>
+            )}
+          </div>
+
+          {r.preview && (
+            <p className="mt-3 text-sm text-slate-600 bg-slate-50 rounded-xl px-3 py-2 break-words whitespace-pre-wrap line-clamp-4">
+              {r.preview}
+            </p>
+          )}
+          {r.details && <p className="mt-2 text-sm text-slate-700 break-words whitespace-pre-wrap">{r.details}</p>}
+
+          <p className="mt-3 text-[11px] text-slate-400">
+            {t('reports.reportedBy')} {r.reporterName || r.reporterId}
+            {r.targetOwnerName ? ` · ${t('reports.about')} ${r.targetOwnerName}` : ''}
+          </p>
+
+          {r.status === 'open' && (
+            <div className="mt-3 flex gap-2">
+              <button onClick={() => resolve(r, 'actioned')} disabled={busyId === r.id}
+                className="flex-1 py-2.5 rounded-xl bg-affirm-600 text-white text-sm font-semibold disabled:opacity-50">
+                {t('reports.markActioned')}
+              </button>
+              <button onClick={() => resolve(r, 'dismissed')} disabled={busyId === r.id}
+                className="flex-1 py-2.5 rounded-xl glass-soft text-slate-700 text-sm font-semibold disabled:opacity-50">
+                {t('reports.dismiss')}
+              </button>
+            </div>
+          )}
+        </div>
+      ))}
     </div>
   )
 }

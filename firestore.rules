@@ -301,6 +301,45 @@ service cloud.firestore {
       allow delete: if isSignedIn() && resource.data.recipientId == request.auth.uid;
     }
 
+    // ---- Safety reports ----
+    // In-app reporting, required by Google Play's child safety standards
+    // policy. Write-only for ordinary users: anyone signed in may file a
+    // report about content, but only staff can READ the queue. That matters -
+    // if reports were world-readable they would become a way to enumerate
+    // other people's content and to see who reported whom.
+    //
+    // Reports are immutable to their author once filed (no update, no delete),
+    // so a reporter cannot retract or rewrite a child-safety report after
+    // staff have seen it; only staff may resolve one, and only by moving the
+    // status and stamping who reviewed it.
+    match /reports/{reportId} {
+      allow read: if isAdmin();
+
+      allow create: if isSignedIn()
+                    && request.resource.data.reporterId == request.auth.uid
+                    && request.resource.data.status == 'open'
+                    && request.resource.data.targetType in ['post', 'comment', 'message', 'user']
+                    && request.resource.data.reason in
+                         ['child_safety', 'sexual', 'violence', 'harassment', 'spam', 'other']
+                    && request.resource.data.targetId is string
+                    && request.resource.data.targetId.size() > 0
+                    // Bound the free-text fields so a report can't be used as
+                    // cheap storage or to blow up the review screen.
+                    && (!('details' in request.resource.data)
+                        || request.resource.data.details.size() <= 1000)
+                    && (!('preview' in request.resource.data)
+                        || request.resource.data.preview.size() <= 300);
+
+      // Staff resolve a report; they may only move it out of 'open' and record
+      // who did it. The original report content stays exactly as filed.
+      allow update: if isAdmin()
+                    && request.resource.data.diff(resource.data).affectedKeys()
+                         .hasOnly(['status', 'reviewedById', 'reviewedByName', 'reviewedAt'])
+                    && request.resource.data.status in ['actioned', 'dismissed'];
+
+      allow delete: if false;
+    }
+
     // ---- Comment likes ----
     // Same shape as post likes: one doc per commentId+userId, doc ID
     // "{commentId}_{userId}", so "has this user liked this comment" is a plain

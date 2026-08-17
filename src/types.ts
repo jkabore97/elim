@@ -206,3 +206,44 @@ export interface Book {
   uploadedByName: string;
   createdAt?: any;
 }
+
+
+// ==================== SAFETY REPORTS ====================
+//
+// User reports of harmful content. Required by Google Play's child safety
+// standards policy for social apps: people must be able to report child
+// safety concerns from inside the app, not only by email.
+//
+// 'child_safety' is deliberately the first reason offered, and is what the
+// published standards page at /child-safety.html points people to.
+export type ReportReason =
+  | 'child_safety'
+  | 'sexual'
+  | 'violence'
+  | 'harassment'
+  | 'spam'
+  | 'other';
+
+export type ReportTargetType = 'post' | 'comment' | 'message' | 'user';
+
+export interface Report {
+  id: string;
+  targetType: ReportTargetType;
+  targetId: string;
+  // Who authored the reported content, so staff can act on the account.
+  targetOwnerId?: string;
+  targetOwnerName?: string;
+  reason: ReportReason;
+  // Optional free text from the reporter.
+  details?: string;
+  // Snapshot of the reported content, so a report stays reviewable even if
+  // the original is deleted before staff get to it.
+  preview?: string;
+  reporterId: string;
+  reporterName: string;
+  status: 'open' | 'actioned' | 'dismissed';
+  reviewedById?: string;
+  reviewedByName?: string;
+  reviewedAt?: any;
+  createdAt: any;
+}

@@ -7,7 +7,7 @@
 // break the live app).
 import { initializeTestEnvironment, assertFails, assertSucceeds } from '@firebase/rules-unit-testing'
 import { readFileSync } from 'fs'
-import { doc, getDoc, setDoc, updateDoc, addDoc, collection, serverTimestamp } from 'firebase/firestore'
+import { doc, getDoc, setDoc, updateDoc, addDoc, collection, serverTimestamp, deleteDoc } from 'firebase/firestore'
 
 let pass = 0, fail = 0
 const check = async (name, p) => {
@@ -28,6 +28,7 @@ await env.withSecurityRulesDisabled(async (ctx) => {
   await setDoc(doc(db, 'users/pastor1'), { role: 'pastor', displayName: 'P1' })
   await setDoc(doc(db, 'users/church1'), { role: 'church', displayName: 'C1' })
   await setDoc(doc(db, 'comments/c1'), { postId: 'p1', userId: 'member2', text: 'hi', likes: 0 })
+  await setDoc(doc(db, 'reports/r1'), { targetType: 'post', targetId: 'p1', reason: 'child_safety', reporterId: 'member2', reporterName: 'M2', status: 'open' })
   await setDoc(doc(db, 'comments/cOld'), { postId: 'p1', userId: 'member2', text: 'old' }) // no likes field
   await setDoc(doc(db, 'posts/p1'), { churchId: 'church1', likes: 0, commentsCount: 0 })
   await setDoc(doc(db, 'conversations/convDirect'), { type: 'direct', participantIds: ['pastor1', 'member1'] })
@@ -81,6 +82,30 @@ console.log('Donation config:')
 await check('member reads donation config', assertSucceeds(getDoc(doc(m1, 'config/donation'))))
 await check('member CANNOT edit donation config', assertFails(updateDoc(doc(m1, 'config/donation'), { title: 'hacked' })))
 await check('admin/pastor edits donation config', assertSucceeds(setDoc(doc(pastor, 'config/donation'), { title: 'Soutenez', providers: [{ id: 'wave', label: 'Wave', number: '+225 07...' }] })))
+
+console.log('Safety reports (in-app reporting):')
+await check('member files a report',
+  assertSucceeds(addDoc(collection(m1, 'reports'), { targetType: 'post', targetId: 'p1', reason: 'child_safety', details: 'x', preview: 'y', reporterId: 'member1', reporterName: 'M1', status: 'open', createdAt: serverTimestamp() })))
+await check('member CANNOT file a report as someone else',
+  assertFails(addDoc(collection(m1, 'reports'), { targetType: 'post', targetId: 'p1', reason: 'spam', reporterId: 'member2', reporterName: 'M2', status: 'open', createdAt: serverTimestamp() })))
+await check('member CANNOT file a pre-resolved report',
+  assertFails(addDoc(collection(m1, 'reports'), { targetType: 'post', targetId: 'p1', reason: 'spam', reporterId: 'member1', reporterName: 'M1', status: 'dismissed', createdAt: serverTimestamp() })))
+await check('member CANNOT use an unknown reason',
+  assertFails(addDoc(collection(m1, 'reports'), { targetType: 'post', targetId: 'p1', reason: 'whatever', reporterId: 'member1', reporterName: 'M1', status: 'open', createdAt: serverTimestamp() })))
+await check('member CANNOT stuff oversized details',
+  assertFails(addDoc(collection(m1, 'reports'), { targetType: 'post', targetId: 'p1', reason: 'spam', details: 'z'.repeat(1001), reporterId: 'member1', reporterName: 'M1', status: 'open', createdAt: serverTimestamp() })))
+await check('member CANNOT read the report queue',
+  assertFails(getDoc(doc(m1, 'reports/r1'))))
+await check('staff reads the report queue',
+  assertSucceeds(getDoc(doc(pastor, 'reports/r1'))))
+await check('staff resolves a report',
+  assertSucceeds(updateDoc(doc(pastor, 'reports/r1'), { status: 'actioned', reviewedById: 'pastor1', reviewedByName: 'P', reviewedAt: serverTimestamp() })))
+await check('staff CANNOT rewrite the report content',
+  assertFails(updateDoc(doc(pastor, 'reports/r1'), { status: 'actioned', reason: 'spam' })))
+await check('member CANNOT resolve a report',
+  assertFails(updateDoc(doc(m1, 'reports/r1'), { status: 'dismissed' })))
+await check('nobody can delete a report',
+  assertFails(deleteDoc(doc(pastor, 'reports/r1'))))
 
 await env.cleanup()
 console.log(`\n${pass} passed, ${fail} failed`)
