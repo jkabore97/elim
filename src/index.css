@@ -63,9 +63,9 @@ body {
   font-size: 16px;
   line-height: 1.6;
   background:
-    radial-gradient(48rem 48rem at 8% -12%, rgba(249, 115, 22, 0.10), transparent 62%),
-    radial-gradient(42rem 42rem at 100% 4%, rgba(251, 146, 60, 0.09), transparent 58%),
-    linear-gradient(180deg, #fffaf4 0%, #fff6ee 55%, #fdf3e9 100%);
+    radial-gradient(48rem 48rem at 8% -12%, rgba(249, 115, 22, 0.22), transparent 62%),
+    radial-gradient(42rem 42rem at 100% 4%, rgba(234, 88, 12, 0.18), transparent 58%),
+    linear-gradient(180deg, #fff2e0 0%, #ffe7cd 52%, #ffdcbb 100%);
   background-attachment: fixed;
 }
 
@@ -99,7 +99,11 @@ body {
 .star {
   position: absolute;
   border-radius: 9999px;
-  background: #f97316;
+  /* White in both themes. On the warm day background the tiny dark rim below
+     is what keeps them from dissolving into the orange; at night the glow
+     does the work instead. */
+  background: #ffffff;
+  box-shadow: 0 0 4px rgba(255, 255, 255, 0.9), 0 0 0 0.5px rgba(154, 52, 18, 0.28);
   opacity: 0;
   will-change: transform, opacity;
   animation-name: starFly;
@@ -257,10 +261,10 @@ video, audio {
 /* Auth / landing backdrop now shares the global glass gradient. */
 .heavenly-bg {
   background:
-    radial-gradient(50rem 50rem at 10% -10%, rgba(249, 115, 22, 0.16), transparent 60%),
-    radial-gradient(46rem 46rem at 100% 0%, rgba(251, 146, 60, 0.15), transparent 55%),
-    radial-gradient(40rem 40rem at 50% 120%, rgba(253, 186, 116, 0.16), transparent 60%),
-    linear-gradient(180deg, #fffaf4 0%, #fffdfa 45%, #fdf3e9 100%);
+    radial-gradient(50rem 50rem at 10% -10%, rgba(249, 115, 22, 0.26), transparent 60%),
+    radial-gradient(46rem 46rem at 100% 0%, rgba(234, 88, 12, 0.20), transparent 55%),
+    radial-gradient(40rem 40rem at 50% 120%, rgba(251, 146, 60, 0.22), transparent 60%),
+    linear-gradient(180deg, #fff2e0 0%, #fff7ec 45%, #ffdcbb 100%);
 }
 
 /* Shimmer sweep used by the animated splash loading bar */
@@ -483,8 +487,11 @@ video, audio {
       linear-gradient(180deg, #14110e 0%, #17130f 45%, #191410 100%);
   }
 
-  /* Stars read brighter against the dark page. */
-  .star { background: #fdba74; }
+  /* At night the stars need no dark rim - just a soft glow. */
+  .star {
+    background: #ffffff;
+    box-shadow: 0 0 6px rgba(255, 255, 255, 0.75);
+  }
 
   /* The sign-in banner panel follows the cards. */
   .banner-hero {
@@ -525,7 +532,7 @@ video, audio {
 /* Opening splash backdrop. A class rather than an inline style so the dark
    variant below can take over when the phone is in dark mode. */
 .splash-bg {
-  background: radial-gradient(ellipse 92% 62% at 50% 108%, #fed7aa 0%, #ffedd5 30%, #fff6ee 64%, #fffaf4 100%);
+  background: radial-gradient(ellipse 92% 62% at 50% 108%, #fdba74 0%, #fed7aa 30%, #ffe7cd 64%, #fff2e0 100%);
 }
 @media (prefers-color-scheme: dark) {
   .splash-bg {

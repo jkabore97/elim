@@ -1119,7 +1119,7 @@ function AppInner() {
       // SystemBarsStyle.Dark means light icons (for a dark background) and
       // .Light means dark icons - named for the content, not the backdrop.
       SystemBars.setStyle({ style: mq.matches ? SystemBarsStyle.Dark : SystemBarsStyle.Light }).catch(() => {})
-      EdgeToEdge.setBackgroundColor({ color: mq.matches ? '#14110e' : '#fffaf4' }).catch(() => {})
+      EdgeToEdge.setBackgroundColor({ color: mq.matches ? '#14110e' : '#fff2e0' }).catch(() => {})
     }
     apply()
     mq.addEventListener('change', apply)
