@@ -405,6 +405,22 @@ const translations = {
   'notif.postComment': { en: 'commented on your post', fr: 'a commenté votre publication' },
   'notif.commentReply': { en: 'replied to your comment', fr: 'a répondu à votre commentaire' },
 
+  // ---- Donation ----
+  'donate.button': { en: 'Donate', fr: 'Faire un don' },
+  'donate.title': { en: 'Make a donation', fr: 'Faire un don' },
+  'donate.edit': { en: 'Edit', fr: 'Modifier' },
+  'donate.copy': { en: 'Copy', fr: 'Copier' },
+  'donate.copied': { en: 'Copied!', fr: 'Copié !' },
+  'donate.empty': { en: 'Donation details are not available yet.', fr: 'Les informations de don ne sont pas encore disponibles.' },
+  'donate.emptyAdmin': { en: 'Add your mobile-money numbers so people can give.', fr: 'Ajoutez vos numéros mobile money pour permettre les dons.' },
+  'donate.addProvider': { en: 'Add a payment method', fr: 'Ajouter un moyen de paiement' },
+  'donate.fieldTitle': { en: 'Title', fr: 'Titre' },
+  'donate.fieldMessage': { en: 'Message', fr: 'Message' },
+  'donate.fieldLabel': { en: 'Service name (e.g. Wave)', fr: 'Nom du service (ex : Wave)' },
+  'donate.fieldNumber': { en: 'Number', fr: 'Numéro' },
+  'donate.fieldHolder': { en: 'Account holder name', fr: 'Nom du bénéficiaire' },
+  'donate.fieldNote': { en: 'Instructions (optional)', fr: 'Instructions (optionnel)' },
+
   // ---- Profile tab ----
   'profile.details': { en: 'Profile details', fr: 'Détails du profil' },
   'profile.church': { en: 'Church', fr: 'Église' },

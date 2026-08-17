@@ -34,6 +34,7 @@ await env.withSecurityRulesDisabled(async (ctx) => {
   await setDoc(doc(db, 'conversations/convPastor2'), { type: 'pastor', participantIds: ['member2'] })
   await setDoc(doc(db, 'notifications/n1'), { recipientId: 'member1', type: 'post_like', actorId: 'member2', actorName: 'M2', postId: 'p1', read: false })
   await setDoc(doc(db, 'notifications/n2'), { recipientId: 'member2', type: 'post_like', actorId: 'member1', actorName: 'M1', postId: 'p1', read: false })
+  await setDoc(doc(db, 'config/donation'), { title: 'Give', providers: [] })
 })
 
 const m1 = env.authenticatedContext('member1').firestore()
@@ -75,6 +76,11 @@ await check('member CANNOT read another user notification', assertFails(getDoc(d
 await check('recipient marks own notification read', assertSucceeds(updateDoc(doc(m1, 'notifications/n1'), { read: true })))
 await check('client CANNOT forge a notification', assertFails(setDoc(doc(m1, 'notifications/forged'), { recipientId: 'member2', type: 'post_like', actorId: 'member1', actorName: 'M1', postId: 'p1', read: false })))
 await check('recipient CANNOT change more than read', assertFails(updateDoc(doc(m1, 'notifications/n1'), { read: true, actorName: 'HACKED' })))
+
+console.log('Donation config:')
+await check('member reads donation config', assertSucceeds(getDoc(doc(m1, 'config/donation'))))
+await check('member CANNOT edit donation config', assertFails(updateDoc(doc(m1, 'config/donation'), { title: 'hacked' })))
+await check('admin/pastor edits donation config', assertSucceeds(setDoc(doc(pastor, 'config/donation'), { title: 'Soutenez', providers: [{ id: 'wave', label: 'Wave', number: '+225 07...' }] })))
 
 await env.cleanup()
 console.log(`\n${pass} passed, ${fail} failed`)

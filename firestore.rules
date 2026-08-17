@@ -280,6 +280,14 @@ service cloud.firestore {
       allow update: if false;
     }
 
+    // ---- App config (donation details, etc.) ----
+    // Readable by any signed-in user (everyone sees how to give); only
+    // admins/pastors can edit.
+    match /config/{docId} {
+      allow read: if isSignedIn();
+      allow write: if isAdmin();
+    }
+
     // ---- Notifications ----
     // Created ONLY by Cloud Functions (the Admin SDK bypasses these rules), so
     // no client can forge a notification for someone else. A recipient may read

@@ -3,7 +3,8 @@ import {
   Home, Church, PlusCircle, User, MessageCircle, Heart, Share2,
   Image as ImageIcon, Video, Mic, X, Send, LogOut,
   Youtube, Facebook, CheckCircle2, Clock, ArrowRight, ShieldCheck, UserX, Sparkles,
-  Trash2, Camera, FileText, Upload, Pencil, Globe, Eye, EyeOff, Search, Bell, ScrollText, Mail, Play, Pause, HeartPulse, Download, AlertTriangle, BookOpen, Music
+  Trash2, Camera, FileText, Upload, Pencil, Globe, Eye, EyeOff, Search, Bell, ScrollText, Mail, Play, Pause, HeartPulse, Download, AlertTriangle, BookOpen, Music,
+  HandCoins, Copy, Check, Plus
 } from 'lucide-react'
 import {
   collection, addDoc, onSnapshot, query, orderBy, where,
@@ -30,7 +31,7 @@ import { MessagesTab, useUnreadCount } from './Messages'
 import { playMessageAlert, isAlertMuted, setAlertMuted } from './messageAlert'
 import { DataManagementTab } from './DataManagement'
 import { LibraryTab } from './Library'
-import type { Post, Comment, AppUser, ActivityLog, AppNotification } from './types'
+import type { Post, Comment, AppUser, ActivityLog, AppNotification, DonationConfig, DonationProvider } from './types'
 import { LanguageProvider, useLanguage, type Language } from './i18n'
 
 function timeAgo(date: any) {
@@ -1011,6 +1012,8 @@ function AppInner() {
   const [likedCommentIds, setLikedCommentIds] = useState<Set<string>>(new Set())
   const [notifications, setNotifications] = useState<AppNotification[]>([])
   const [showNotifications, setShowNotifications] = useState(false)
+  const [donation, setDonation] = useState<DonationConfig | null>(null)
+  const [showDonation, setShowDonation] = useState(false)
   const [seenNewPosts, setSeenNewPosts] = useState<Post[]>([])
   // "New posts since you last looked" is derived from this timestamp rather
   // than stored server-side, so a new post costs zero writes. Per-device via
@@ -1216,6 +1219,15 @@ function AppInner() {
     const unsub = onSnapshot(q, (snap) => {
       setNotifications(snap.docs.map(d => ({ id: d.id, ...d.data() } as AppNotification)))
     }, () => { /* index still building or offline - the bell just stays empty */ })
+    return unsub
+  }, [user])
+
+  // Donation details (mobile-money numbers), maintained by an admin.
+  useEffect(() => {
+    if (!user || user.role === 'pending_church') return
+    const unsub = onSnapshot(doc(db, 'config', 'donation'), (snap) => {
+      setDonation(snap.exists() ? (snap.data() as DonationConfig) : { providers: [] })
+    }, () => setDonation({ providers: [] }))
     return unsub
   }, [user])
 
@@ -1571,6 +1583,10 @@ function AppInner() {
               )
             })}
           </nav>
+          <button onClick={() => setShowDonation(true)}
+            className="w-full flex items-center justify-center gap-2 py-3 rounded-2xl bg-amber-500 hover:bg-amber-600 text-white font-semibold text-sm transition shadow-lg shadow-amber-500/30 mb-3">
+            <HandCoins size={18} /> {t('donate.button')}
+          </button>
           {canPost && (
             <button onClick={() => setShowCreate(true)}
               className="w-full flex items-center justify-center gap-2 py-3.5 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-sm transition shadow-lg shadow-emerald-500/30 mb-4">
@@ -1603,6 +1619,10 @@ function AppInner() {
             <div className="px-5 h-14 flex items-center justify-between">
               <Logo size={32} />
               <div className="flex items-center gap-2.5">
+                <button onClick={() => setShowDonation(true)} aria-label={t('donate.button')}
+                  className="p-2 rounded-full bg-amber-500 hover:bg-amber-600 text-white transition shadow-sm">
+                  <HandCoins size={16} />
+                </button>
                 <LanguageSwitcher dark />
                 <button onClick={openNotifications} aria-label={t('notif.title')}
                   className="relative p-2 rounded-full hover:bg-white/5 text-slate-300">
@@ -1940,6 +1960,10 @@ function AppInner() {
           onTap={handleNotificationTap}
           onDismiss={dismissNotification}
           onViewNewPosts={() => { setShowNotifications(false); setActiveTab('feed') }} />
+      )}
+      {showDonation && (
+        <DonationSheet config={donation} canEdit={isStaffUser}
+          onClose={() => setShowDonation(false)} />
       )}
     </div>
   )
@@ -3410,6 +3434,171 @@ function NotificationsPanel({ notifications, newPostCount, onClose, onTap, onDis
               </div>
             )
           })}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+const DONATION_SEED: DonationProvider[] = [
+  { id: 'wave', label: 'Wave', number: '', holder: '', note: '' },
+  { id: 'orange', label: 'Orange Money', number: '', holder: '', note: '' },
+  { id: 'moov', label: 'Moov Money', number: '', holder: '', note: '' },
+]
+
+function donationAccent(label: string) {
+  const l = (label || '').toLowerCase()
+  if (l.includes('wave')) return 'bg-sky-100 text-sky-700'
+  if (l.includes('orange')) return 'bg-orange-100 text-orange-700'
+  if (l.includes('moov')) return 'bg-indigo-100 text-indigo-700'
+  return 'bg-emerald-100 text-emerald-700'
+}
+
+function DonationSheet({ config, canEdit, onClose }: {
+  config: DonationConfig | null
+  canEdit: boolean
+  onClose: () => void
+}) {
+  const { t } = useLanguage()
+  const [editing, setEditing] = useState(false)
+  const [draft, setDraft] = useState<DonationConfig>(
+    config && config.providers?.length ? config : { title: '', message: '', providers: DONATION_SEED })
+  const [saving, setSaving] = useState(false)
+  const [error, setError] = useState('')
+  const [copied, setCopied] = useState<string | null>(null)
+
+  // Refresh the draft from the live config while not actively editing.
+  useEffect(() => {
+    if (!editing) setDraft(config && config.providers?.length ? config : { title: '', message: '', providers: DONATION_SEED })
+  }, [config, editing])
+
+  const providers = (config?.providers || []).filter(p => (p.number || '').trim())
+
+  const copy = async (id: string, text: string) => {
+    try {
+      await navigator.clipboard.writeText(text)
+      setCopied(id)
+      setTimeout(() => setCopied(c => (c === id ? null : c)), 1500)
+    } catch { /* clipboard unavailable in this context */ }
+  }
+
+  const setField = (field: 'title' | 'message', value: string) => setDraft(d => ({ ...d, [field]: value }))
+  const setProvider = (id: string, field: keyof DonationProvider, value: string) =>
+    setDraft(d => ({ ...d, providers: d.providers.map(p => (p.id === id ? { ...p, [field]: value } : p)) }))
+  const addProvider = () =>
+    setDraft(d => ({ ...d, providers: [...d.providers, { id: 'p' + Date.now(), label: '', number: '', holder: '', note: '' }] }))
+  const removeProvider = (id: string) =>
+    setDraft(d => ({ ...d, providers: d.providers.filter(p => p.id !== id) }))
+
+  const save = async () => {
+    setSaving(true); setError('')
+    try {
+      const clean: DonationConfig = {
+        title: (draft.title || '').trim(),
+        message: (draft.message || '').trim(),
+        providers: draft.providers
+          .filter(p => (p.label || '').trim() || (p.number || '').trim())
+          .map(p => ({
+            id: p.id, label: (p.label || '').trim(), number: (p.number || '').trim(),
+            holder: (p.holder || '').trim(), note: (p.note || '').trim()
+          }))
+      }
+      await setDoc(doc(db, 'config', 'donation'), clean)
+      setEditing(false)
+    } catch (e: any) {
+      setError(e?.message || String(e))
+    } finally { setSaving(false) }
+  }
+
+  return (
+    <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-end sm:items-center justify-center" onClick={onClose}>
+      <div className="bg-white w-full max-w-lg mx-auto rounded-t-3xl sm:rounded-3xl max-h-[85vh] flex flex-col shadow-2xl" onClick={e => e.stopPropagation()}>
+        <div className="px-5 py-4 border-b border-slate-100 flex items-center justify-between">
+          <h3 className="font-bold flex items-center gap-2"><HandCoins size={18} className="text-amber-500" /> {t('donate.title')}</h3>
+          <div className="flex items-center gap-1">
+            {canEdit && !editing && (
+              <button onClick={() => setEditing(true)} aria-label={t('donate.edit')}
+                className="p-1.5 rounded-full hover:bg-slate-100 text-slate-500"><Pencil size={16} /></button>
+            )}
+            <button onClick={onClose} className="p-1.5 rounded-full hover:bg-slate-100"><X size={18} /></button>
+          </div>
+        </div>
+
+        <div className="flex-1 overflow-y-auto p-5">
+          {editing ? (
+            <div className="space-y-4">
+              <div>
+                <label className="text-xs font-semibold text-slate-500">{t('donate.fieldTitle')}</label>
+                <input value={draft.title || ''} onChange={e => setField('title', e.target.value)} placeholder={t('donate.title')}
+                  className="w-full mt-1 px-3 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-amber-400 text-sm" />
+              </div>
+              <div>
+                <label className="text-xs font-semibold text-slate-500">{t('donate.fieldMessage')}</label>
+                <textarea value={draft.message || ''} onChange={e => setField('message', e.target.value)} rows={2}
+                  className="w-full mt-1 px-3 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-amber-400 text-sm resize-none" />
+              </div>
+              <div className="space-y-3">
+                {draft.providers.map(p => (
+                  <div key={p.id} className="rounded-2xl border border-slate-200 p-3 space-y-2">
+                    <div className="flex items-center gap-2">
+                      <input value={p.label} onChange={e => setProvider(p.id, 'label', e.target.value)} placeholder={t('donate.fieldLabel')}
+                        className="flex-1 px-3 py-2 rounded-lg border border-slate-200 text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-amber-400" />
+                      <button onClick={() => removeProvider(p.id)} aria-label={t('post.delete')}
+                        className="p-2 text-slate-300 hover:text-red-500"><Trash2 size={16} /></button>
+                    </div>
+                    <input value={p.number} onChange={e => setProvider(p.id, 'number', e.target.value)} placeholder={t('donate.fieldNumber')} inputMode="tel"
+                      className="w-full px-3 py-2 rounded-lg border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400" />
+                    <input value={p.holder || ''} onChange={e => setProvider(p.id, 'holder', e.target.value)} placeholder={t('donate.fieldHolder')}
+                      className="w-full px-3 py-2 rounded-lg border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400" />
+                    <textarea value={p.note || ''} onChange={e => setProvider(p.id, 'note', e.target.value)} rows={2} placeholder={t('donate.fieldNote')}
+                      className="w-full px-3 py-2 rounded-lg border border-slate-200 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-amber-400" />
+                  </div>
+                ))}
+                <button onClick={addProvider}
+                  className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl border border-dashed border-slate-300 text-slate-500 text-sm hover:bg-slate-50">
+                  <Plus size={16} /> {t('donate.addProvider')}
+                </button>
+              </div>
+              {error && <p className="text-xs text-red-500 bg-red-50 rounded-lg px-3 py-2">{error}</p>}
+              <div className="flex gap-2 pt-1">
+                <button onClick={() => { setEditing(false); setError('') }}
+                  className="flex-1 py-2.5 rounded-xl bg-slate-100 text-slate-600 font-semibold text-sm">{t('post.cancel')}</button>
+                <button onClick={save} disabled={saving}
+                  className="flex-1 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-white font-semibold text-sm disabled:opacity-50">
+                  {saving ? t('post.saving') : t('post.save')}
+                </button>
+              </div>
+            </div>
+          ) : (
+            <div className="space-y-4">
+              {(config?.title || config?.message) && (
+                <div className="text-center">
+                  {config?.title && <h4 className="font-bold text-lg text-slate-800">{config.title}</h4>}
+                  {config?.message && <p className="text-sm text-slate-500 mt-1 whitespace-pre-wrap">{config.message}</p>}
+                </div>
+              )}
+              {providers.length === 0 ? (
+                <p className="text-center text-slate-400 text-sm py-10">
+                  {canEdit ? t('donate.emptyAdmin') : t('donate.empty')}
+                </p>
+              ) : providers.map(p => (
+                <div key={p.id} className="rounded-2xl border border-slate-200 p-4">
+                  <div className="mb-2">
+                    <span className={`px-2.5 py-1 rounded-full text-xs font-bold ${donationAccent(p.label)}`}>{p.label}</span>
+                  </div>
+                  {p.holder && <p className="text-xs text-slate-500 mb-1.5">{p.holder}</p>}
+                  <div className="flex items-center justify-between gap-2 bg-slate-50 rounded-xl px-3 py-2.5">
+                    <span className="font-mono font-semibold text-slate-800 text-[15px] tracking-wide break-all">{p.number}</span>
+                    <button onClick={() => copy(p.id, p.number)}
+                      className="flex items-center gap-1 text-xs font-semibold text-amber-600 hover:text-amber-700 shrink-0">
+                      {copied === p.id ? <><Check size={14} /> {t('donate.copied')}</> : <><Copy size={14} /> {t('donate.copy')}</>}
+                    </button>
+                  </div>
+                  {p.note && <p className="text-xs text-slate-500 mt-2 whitespace-pre-wrap">{p.note}</p>}
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </div>

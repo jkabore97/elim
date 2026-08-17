@@ -176,6 +176,22 @@ export interface AppNotification {
 }
 
 
+// Mobile-money donation details, editable by an admin and shown to everyone
+// in the donation sheet. Stored as a single doc at config/donation.
+export interface DonationProvider {
+  id: string;
+  label: string;      // e.g. "Wave", "Orange Money", "Moov Money"
+  number: string;     // the phone number money is sent to
+  holder?: string;    // account holder name
+  note?: string;      // free-text instructions
+}
+export interface DonationConfig {
+  title?: string;
+  message?: string;
+  providers: DonationProvider[];
+}
+
+
 export interface Book {
   id: string;
   title: string;
