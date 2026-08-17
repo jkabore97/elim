@@ -15,7 +15,15 @@ previous `assets/icon.png` ran the art to the edges and sat low-left.
 
 Do not add your own rounded corners or drop shadow; Play applies its own.
 
+## Feature graphic (required: PNG/JPEG, exactly 1024x500, max 15 MB)
+
+`feature-graphic-1024x500.png` - the mark on the app's orange gradient with the
+same drifting white stars used in the app, the ELIM wordmark, the full church
+name and a short feature line.
+
+Play can crop this graphic on some surfaces, so all text is kept inside a ~7%
+right margin and nothing important sits near an edge.
+
 ## Still needed for the listing
 
-- Feature graphic: 1024x500 PNG/JPEG
 - Phone screenshots: at least 2, 16:9 or 9:16, each 320-3840 px per side
