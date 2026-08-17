@@ -237,10 +237,13 @@ video, audio {
   100% { transform: translateX(300%); }
 }
 
-/* Scroll performance on mobile. */
+/* Scroll performance on mobile. NOTE: do NOT use `contain: paint` here - it
+   isolates the element's paint and voids the backdrop, which silently kills
+   backdrop-filter (the frosted-glass blur) on the cards. `contain: layout`
+   keeps a perf benefit without breaking the glass. */
 @media (max-width: 1023px) {
   article {
-    contain: paint;
+    contain: layout style;
   }
   main {
     -webkit-overflow-scrolling: touch;
