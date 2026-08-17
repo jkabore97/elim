@@ -395,6 +395,16 @@ const translations = {
   'comments.like': { en: 'Like', fr: "J'aime" },
   'comments.likeFailed': { en: "Couldn't register your like. Please try again.", fr: "Impossible d'enregistrer votre j'aime. Réessayez." },
 
+  // ---- Notifications (bell) ----
+  'notif.title': { en: 'Notifications', fr: 'Notifications' },
+  'notif.none': { en: 'Nothing new for now', fr: 'Rien de nouveau pour l’instant' },
+  'notif.newPosts': { en: 'new posts', fr: 'nouvelles publications' },
+  'notif.tapToView': { en: 'Tap to open the feed', fr: 'Appuyez pour ouvrir le fil' },
+  'notif.postLike': { en: 'liked your post', fr: 'a aimé votre publication' },
+  'notif.commentLike': { en: 'liked your comment', fr: 'a aimé votre commentaire' },
+  'notif.postComment': { en: 'commented on your post', fr: 'a commenté votre publication' },
+  'notif.commentReply': { en: 'replied to your comment', fr: 'a répondu à votre commentaire' },
+
   // ---- Profile tab ----
   'profile.details': { en: 'Profile details', fr: 'Détails du profil' },
   'profile.church': { en: 'Church', fr: 'Église' },

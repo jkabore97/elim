@@ -280,6 +280,19 @@ service cloud.firestore {
       allow update: if false;
     }
 
+    // ---- Notifications ----
+    // Created ONLY by Cloud Functions (the Admin SDK bypasses these rules), so
+    // no client can forge a notification for someone else. A recipient may read
+    // their own, mark them read, or delete them - nothing more.
+    match /notifications/{notifId} {
+      allow read: if isSignedIn() && resource.data.recipientId == request.auth.uid;
+      allow create: if false;
+      allow update: if isSignedIn()
+                    && resource.data.recipientId == request.auth.uid
+                    && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['read']);
+      allow delete: if isSignedIn() && resource.data.recipientId == request.auth.uid;
+    }
+
     // ---- Comment likes ----
     // Same shape as post likes: one doc per commentId+userId, doc ID
     // "{commentId}_{userId}", so "has this user liked this comment" is a plain

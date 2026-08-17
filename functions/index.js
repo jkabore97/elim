@@ -1,6 +1,6 @@
 const { onDocumentCreated } = require('firebase-functions/v2/firestore');
 const { initializeApp } = require('firebase-admin/app');
-const { getFirestore } = require('firebase-admin/firestore');
+const { getFirestore, FieldValue } = require('firebase-admin/firestore');
 const { getMessaging } = require('firebase-admin/messaging');
 
 initializeApp();
@@ -173,4 +173,112 @@ exports.notifyOnNewMessage = onDocumentCreated('messages/{messageId}', async (ev
       })
     )
   );
+});
+
+
+// ==================== IN-APP NOTIFICATIONS (the bell) ====================
+//
+// These create documents in the `notifications` collection, read by the bell
+// in the app. They run server-side precisely so a notification can't be
+// forged: the client has no create access to the collection (see
+// firestore.rules). "New post" alerts are handled client-side from a
+// last-seen timestamp, so there is deliberately no per-user fan-out here.
+
+// Look up an actor's display name + avatar for the notification label.
+async function resolveActor(db, uid) {
+  try {
+    const snap = await db.collection('users').doc(uid).get();
+    const d = snap.exists ? snap.data() : {};
+    return { name: d.displayName || 'Quelqu\'un', avatar: d.avatar || null };
+  } catch (_e) {
+    return { name: 'Quelqu\'un', avatar: null };
+  }
+}
+
+async function addNotification(db, notif) {
+  await db.collection('notifications').add({
+    read: false,
+    createdAt: FieldValue.serverTimestamp(),
+    ...notif,
+    ...(notif.actorAvatar ? {} : { actorAvatar: null })
+  });
+}
+
+// Someone liked a post -> tell the post's author.
+exports.notifyOnPostLike = onDocumentCreated('likes/{likeId}', async (event) => {
+  const like = event.data && event.data.data();
+  if (!like || !like.postId || !like.userId) return;
+  const db = getFirestore();
+  const postSnap = await db.collection('posts').doc(like.postId).get();
+  if (!postSnap.exists) return;
+  const post = postSnap.data();
+  const recipientId = post.churchId; // the account that published the post
+  if (!recipientId || recipientId === like.userId) return; // no self-notify
+  const actor = await resolveActor(db, like.userId);
+  await addNotification(db, {
+    recipientId, type: 'post_like',
+    actorId: like.userId, actorName: actor.name, actorAvatar: actor.avatar,
+    postId: like.postId, preview: (post.content || '').slice(0, 80)
+  });
+});
+
+// Someone liked a comment -> tell the comment's author.
+exports.notifyOnCommentLike = onDocumentCreated('commentLikes/{likeId}', async (event) => {
+  const like = event.data && event.data.data();
+  if (!like || !like.commentId || !like.userId) return;
+  const db = getFirestore();
+  const commentSnap = await db.collection('comments').doc(like.commentId).get();
+  if (!commentSnap.exists) return;
+  const comment = commentSnap.data();
+  const recipientId = comment.userId;
+  if (!recipientId || recipientId === like.userId) return;
+  const actor = await resolveActor(db, like.userId);
+  await addNotification(db, {
+    recipientId, type: 'comment_like',
+    actorId: like.userId, actorName: actor.name, actorAvatar: actor.avatar,
+    postId: comment.postId, commentId: like.commentId,
+    preview: (comment.text || '').slice(0, 80)
+  });
+});
+
+// Someone commented -> tell the post's author, and (if it's a reply) the
+// parent comment's author. A single person is never notified twice for the
+// same comment.
+exports.notifyOnComment = onDocumentCreated('comments/{commentId}', async (event) => {
+  const comment = event.data && event.data.data();
+  if (!comment || !comment.postId || !comment.userId) return;
+  const commentId = event.params.commentId;
+  const db = getFirestore();
+  const actor = await resolveActor(db, comment.userId);
+  const notified = new Set([comment.userId]); // never the commenter themselves
+
+  // Reply -> the parent comment's author.
+  if (comment.parentId) {
+    const parentSnap = await db.collection('comments').doc(comment.parentId).get();
+    if (parentSnap.exists) {
+      const parentAuthor = parentSnap.data().userId;
+      if (parentAuthor && !notified.has(parentAuthor)) {
+        notified.add(parentAuthor);
+        await addNotification(db, {
+          recipientId: parentAuthor, type: 'comment_reply',
+          actorId: comment.userId, actorName: actor.name, actorAvatar: actor.avatar,
+          postId: comment.postId, commentId, preview: (comment.text || '').slice(0, 80)
+        });
+      }
+    }
+  }
+
+  // Comment on a post -> the post's author.
+  const postSnap = await db.collection('posts').doc(comment.postId).get();
+  if (postSnap.exists) {
+    const postAuthor = postSnap.data().churchId;
+    if (postAuthor && !notified.has(postAuthor)) {
+      notified.add(postAuthor);
+      await addNotification(db, {
+        recipientId: postAuthor, type: 'post_comment',
+        actorId: comment.userId, actorName: actor.name, actorAvatar: actor.avatar,
+        postId: comment.postId, commentId, preview: (comment.text || '').slice(0, 80)
+      });
+    }
+  }
 });

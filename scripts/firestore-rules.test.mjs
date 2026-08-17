@@ -32,6 +32,8 @@ await env.withSecurityRulesDisabled(async (ctx) => {
   await setDoc(doc(db, 'posts/p1'), { churchId: 'church1', likes: 0, commentsCount: 0 })
   await setDoc(doc(db, 'conversations/convDirect'), { type: 'direct', participantIds: ['pastor1', 'member1'] })
   await setDoc(doc(db, 'conversations/convPastor2'), { type: 'pastor', participantIds: ['member2'] })
+  await setDoc(doc(db, 'notifications/n1'), { recipientId: 'member1', type: 'post_like', actorId: 'member2', actorName: 'M2', postId: 'p1', read: false })
+  await setDoc(doc(db, 'notifications/n2'), { recipientId: 'member2', type: 'post_like', actorId: 'member1', actorName: 'M1', postId: 'p1', read: false })
 })
 
 const m1 = env.authenticatedContext('member1').firestore()
@@ -66,6 +68,13 @@ console.log('SEC-3 / SEC-5:')
 await check('member CANNOT change their own role', assertFails(updateDoc(doc(m1, 'users/member1'), { role: 'admin' })))
 await check('member writes a valid activity log', assertSucceeds(addDoc(collection(m1, 'activityLogs'), { userId: 'member1', userRole: 'member', action: 'like_added', createdAt: serverTimestamp() })))
 await check('member CANNOT forge an admin-role log', assertFails(addDoc(collection(m1, 'activityLogs'), { userId: 'member1', userRole: 'admin', action: 'x', createdAt: serverTimestamp() })))
+
+console.log('Notifications:')
+await check('recipient reads own notification', assertSucceeds(getDoc(doc(m1, 'notifications/n1'))))
+await check('member CANNOT read another user notification', assertFails(getDoc(doc(m1, 'notifications/n2'))))
+await check('recipient marks own notification read', assertSucceeds(updateDoc(doc(m1, 'notifications/n1'), { read: true })))
+await check('client CANNOT forge a notification', assertFails(setDoc(doc(m1, 'notifications/forged'), { recipientId: 'member2', type: 'post_like', actorId: 'member1', actorName: 'M1', postId: 'p1', read: false })))
+await check('recipient CANNOT change more than read', assertFails(updateDoc(doc(m1, 'notifications/n1'), { read: true, actorName: 'HACKED' })))
 
 await env.cleanup()
 console.log(`\n${pass} passed, ${fail} failed`)

@@ -30,7 +30,7 @@ import { MessagesTab, useUnreadCount } from './Messages'
 import { playMessageAlert, isAlertMuted, setAlertMuted } from './messageAlert'
 import { DataManagementTab } from './DataManagement'
 import { LibraryTab } from './Library'
-import type { Post, Comment, AppUser, ActivityLog } from './types'
+import type { Post, Comment, AppUser, ActivityLog, AppNotification } from './types'
 import { LanguageProvider, useLanguage, type Language } from './i18n'
 
 function timeAgo(date: any) {
@@ -1009,6 +1009,17 @@ function AppInner() {
   const [pendingChurches, setPendingChurches] = useState<AppUser[]>([])
   const [likedPostIds, setLikedPostIds] = useState<Set<string>>(new Set())
   const [likedCommentIds, setLikedCommentIds] = useState<Set<string>>(new Set())
+  const [notifications, setNotifications] = useState<AppNotification[]>([])
+  const [showNotifications, setShowNotifications] = useState(false)
+  const [seenNewPosts, setSeenNewPosts] = useState<Post[]>([])
+  // "New posts since you last looked" is derived from this timestamp rather
+  // than stored server-side, so a new post costs zero writes. Per-device via
+  // localStorage; defaults to now so a first-time user isn't shown the entire
+  // back catalogue as "new".
+  const [lastSeenFeed, setLastSeenFeed] = useState<number>(() => {
+    const v = typeof localStorage !== 'undefined' ? localStorage.getItem('elim_lastSeenFeed') : null
+    return v ? parseInt(v, 10) : Date.now()
+  })
   const [showNotifPrompt, setShowNotifPrompt] = useState(false)
   const [highlightPostId, setHighlightPostId] = useState<string | null>(null)
   const [santeCategory, setSanteCategory] = useState('all')
@@ -1192,6 +1203,22 @@ function AppInner() {
     return unsub
   }, [user])
 
+  // Bell notifications addressed to this user (likes/comments/replies on their
+  // own posts and comments). Newest first, capped so the list stays bounded.
+  useEffect(() => {
+    if (!user || user.role === 'pending_church') return
+    const q = query(
+      collection(db, 'notifications'),
+      where('recipientId', '==', user.uid),
+      orderBy('createdAt', 'desc'),
+      limit(50)
+    )
+    const unsub = onSnapshot(q, (snap) => {
+      setNotifications(snap.docs.map(d => ({ id: d.id, ...d.data() } as AppNotification)))
+    }, () => { /* index still building or offline - the bell just stays empty */ })
+    return unsub
+  }, [user])
+
   // Comments
   useEffect(() => {
     if (!user || user.role === 'pending_church') return
@@ -1303,6 +1330,41 @@ function AppInner() {
     }
     // Errors propagate to the caller so the UI can revert its optimistic state
     // and show a message (e.g. if the commentLikes rules aren't deployed yet).
+  }
+
+  // Posts published since the user last opened the bell - excluding their own
+  // and the hidden Musique imports. Derived, not stored (see lastSeenFeed).
+  const toMs = (ts: any) => (ts?.toMillis ? ts.toMillis() : 0)
+  const newPosts = posts.filter(p =>
+    p.section !== 'musique' && p.churchId !== user?.uid && toMs(p.createdAt) > lastSeenFeed)
+  const unreadNotifs = notifications.filter(n => !n.read).length
+  const bellCount = unreadNotifs + newPosts.length
+
+  // Opening the bell clears both signals: notifications are marked read, and
+  // the feed "last seen" marker moves to now. The new-post list is snapshotted
+  // first so the panel can still show it after the marker has moved.
+  const openNotifications = () => {
+    setSeenNewPosts(newPosts)
+    setShowNotifications(true)
+    const unread = notifications.filter(n => !n.read)
+    unread.forEach(n => { updateDoc(doc(db, 'notifications', n.id), { read: true }).catch(() => {}) })
+    const now = Date.now()
+    setLastSeenFeed(now)
+    try { localStorage.setItem('elim_lastSeenFeed', String(now)) } catch { /* private mode */ }
+  }
+
+  // Tapping a notification lands the person on the relevant post - opening its
+  // comments when the notification is about a comment/reply/comment-like.
+  const handleNotificationTap = (n: AppNotification) => {
+    setShowNotifications(false)
+    setActiveTab('feed')
+    setHighlightPostId(n.postId)
+    if (n.type !== 'post_like') setActiveCommentsPost(n.postId)
+  }
+
+  const dismissNotification = (id: string) => {
+    setNotifications(prev => prev.filter(n => n.id !== id))
+    deleteDoc(doc(db, 'notifications', id)).catch(() => {})
   }
 
   const handleLike = async (postId: string) => {
@@ -1517,9 +1579,20 @@ function AppInner() {
           )}
           <div className="pt-4 border-t border-white/10 flex items-center justify-between">
             <span className="text-xs font-medium text-slate-400 truncate">{user.displayName}</span>
-            <button onClick={handleLogout} className="p-2 rounded-full hover:bg-white/5 text-slate-400">
-              <LogOut size={16} />
-            </button>
+            <div className="flex items-center gap-1">
+              <button onClick={openNotifications} aria-label={t('notif.title')}
+                className="relative p-2 rounded-full hover:bg-white/5 text-slate-300">
+                <Bell size={16} />
+                {bellCount > 0 && (
+                  <span className="absolute -top-0.5 -right-0.5 min-w-[16px] h-4 px-1 rounded-full bg-red-500 text-white text-[9px] font-bold flex items-center justify-center">
+                    {bellCount > 99 ? '99+' : bellCount}
+                  </span>
+                )}
+              </button>
+              <button onClick={handleLogout} className="p-2 rounded-full hover:bg-white/5 text-slate-400">
+                <LogOut size={16} />
+              </button>
+            </div>
           </div>
           <p className="mt-3 text-[10px] text-slate-600 leading-relaxed">{COPYRIGHT}</p>
         </aside>
@@ -1531,6 +1604,15 @@ function AppInner() {
               <Logo size={32} />
               <div className="flex items-center gap-2.5">
                 <LanguageSwitcher dark />
+                <button onClick={openNotifications} aria-label={t('notif.title')}
+                  className="relative p-2 rounded-full hover:bg-white/5 text-slate-300">
+                  <Bell size={18} />
+                  {bellCount > 0 && (
+                    <span className="absolute -top-0.5 -right-0.5 min-w-[16px] h-4 px-1 rounded-full bg-red-500 text-white text-[9px] font-bold flex items-center justify-center">
+                      {bellCount > 99 ? '99+' : bellCount}
+                    </span>
+                  )}
+                </button>
                 <span className="text-xs font-medium text-slate-400 truncate max-w-[80px]">{user.displayName}</span>
                 <button onClick={handleLogout} className="p-2 rounded-full hover:bg-white/5 text-slate-400">
                   <LogOut size={18} />
@@ -1849,6 +1931,15 @@ function AppInner() {
         <CommentsSheet postId={activeCommentsPost} comments={comments}
           onClose={() => setActiveCommentsPost(null)} onAdd={handleAddComment}
           onLikeComment={handleLikeComment} likedCommentIds={likedCommentIds} />
+      )}
+      {showNotifications && (
+        <NotificationsPanel
+          notifications={notifications}
+          newPostCount={seenNewPosts.length}
+          onClose={() => setShowNotifications(false)}
+          onTap={handleNotificationTap}
+          onDismiss={dismissNotification}
+          onViewNewPosts={() => { setShowNotifications(false); setActiveTab('feed') }} />
       )}
     </div>
   )
@@ -3250,6 +3341,75 @@ function CommentsSheet({ postId, comments, onClose, onAdd, onLikeComment, likedC
               <Send size={16} />
             </button>
           </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function NotificationsPanel({ notifications, newPostCount, onClose, onTap, onDismiss, onViewNewPosts }: {
+  notifications: AppNotification[]
+  newPostCount: number
+  onClose: () => void
+  onTap: (n: AppNotification) => void
+  onDismiss: (id: string) => void
+  onViewNewPosts: () => void
+}) {
+  const { t } = useLanguage()
+  const label = (type: AppNotification['type']) =>
+    type === 'post_like' ? t('notif.postLike')
+      : type === 'comment_like' ? t('notif.commentLike')
+      : type === 'post_comment' ? t('notif.postComment')
+      : t('notif.commentReply')
+
+  return (
+    <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-end sm:items-center justify-center" onClick={onClose}>
+      <div className="bg-white w-full max-w-lg mx-auto rounded-t-3xl sm:rounded-3xl max-h-[80vh] flex flex-col shadow-2xl" onClick={e => e.stopPropagation()}>
+        <div className="px-5 py-4 border-b border-slate-100 flex items-center justify-between">
+          <h3 className="font-bold flex items-center gap-2"><Bell size={18} /> {t('notif.title')}</h3>
+          <button onClick={onClose} className="p-1.5 rounded-full hover:bg-slate-100"><X size={18} /></button>
+        </div>
+        <div className="flex-1 overflow-y-auto">
+          {newPostCount > 0 && (
+            <button onClick={onViewNewPosts}
+              className="w-full flex items-center gap-3 px-5 py-4 border-b border-slate-100 hover:bg-slate-50 text-left">
+              <div className="w-9 h-9 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-600 shrink-0"><Home size={16} /></div>
+              <div className="flex-1 min-w-0">
+                <p className="text-sm font-semibold text-slate-800">{newPostCount} {t('notif.newPosts')}</p>
+                <p className="text-xs text-slate-400">{t('notif.tapToView')}</p>
+              </div>
+            </button>
+          )}
+          {notifications.length === 0 && newPostCount === 0 && (
+            <p className="text-center text-slate-400 text-sm py-14">{t('notif.none')}</p>
+          )}
+          {notifications.map(n => {
+            const RowIcon = n.type.includes('like') ? Heart : MessageCircle
+            const isLike = n.type.includes('like')
+            return (
+              <div key={n.id} className={`flex items-start gap-3 px-5 py-3.5 border-b border-slate-50 ${!n.read ? 'bg-emerald-50/40' : ''}`}>
+                <button onClick={() => onTap(n)} className="flex items-start gap-3 flex-1 text-left min-w-0">
+                  <div className="relative shrink-0">
+                    {n.actorAvatar
+                      ? <img src={n.actorAvatar} alt="" className="w-9 h-9 rounded-full object-cover" />
+                      : <div className="w-9 h-9 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 font-semibold text-sm">{n.actorName.charAt(0)}</div>}
+                    <span className={`absolute -bottom-0.5 -right-0.5 w-4 h-4 rounded-full flex items-center justify-center text-white ${isLike ? 'bg-rose-500' : 'bg-sky-500'}`}>
+                      <RowIcon size={9} fill={isLike ? 'currentColor' : 'none'} />
+                    </span>
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm text-slate-700 leading-snug">
+                      <span className="font-semibold">{n.actorName}</span> {label(n.type)}
+                    </p>
+                    {n.preview && <p className="text-xs text-slate-400 truncate mt-0.5">“{n.preview}”</p>}
+                    <p className="text-[11px] text-slate-400 mt-0.5">{timeAgo(n.createdAt)}</p>
+                  </div>
+                </button>
+                <button onClick={() => onDismiss(n.id)} aria-label={t('post.delete')}
+                  className="p-1 text-slate-300 hover:text-slate-500 shrink-0"><X size={15} /></button>
+              </div>
+            )
+          })}
         </div>
       </div>
     </div>

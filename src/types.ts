@@ -156,6 +156,26 @@ export interface Comment {
 }
 
 
+// An in-app notification shown in the bell. Created ONLY by Cloud Functions
+// (so it can't be forged by a client) whenever someone likes or comments on
+// something the recipient authored. "New post" alerts are NOT stored here -
+// they're derived client-side from a last-seen timestamp to avoid a per-user
+// write for every post.
+export interface AppNotification {
+  id: string;
+  recipientId: string;
+  type: 'post_like' | 'comment_like' | 'post_comment' | 'comment_reply';
+  actorId: string;
+  actorName: string;
+  actorAvatar?: string;
+  postId: string;
+  commentId?: string;
+  preview?: string;
+  read: boolean;
+  createdAt: any;
+}
+
+
 export interface Book {
   id: string;
   title: string;
