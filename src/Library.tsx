@@ -350,7 +350,7 @@ export function LibraryTab({ user, canUpload }: { user: AppUser; canUpload: bool
           <button key={cat} onClick={() => setCategory(cat)}
             className={`shrink-0 px-3.5 py-1.5 rounded-full text-xs font-semibold transition ${
               category === cat
-                ? 'bg-affirm-500/15 text-affirm-700 border border-affirm-400/50'
+                ? 'bg-affirm-500 text-white border border-affirm-400/60'
                 : 'glass-soft text-slate-600'}`}>
             {cat === 'all' ? t('lib.allBooks') : cat}
           </button>
@@ -370,7 +370,7 @@ export function LibraryTab({ user, canUpload }: { user: AppUser; canUpload: bool
           <div className="w-16 h-16 rounded-full bg-affirm-500/10 flex items-center justify-center mx-auto mb-4">
             <BookOpen size={28} className="text-affirm-400" />
           </div>
-          <p className="text-slate-500 font-medium">{t('lib.empty')}</p>
+          <p className="text-slate-300 font-medium">{t('lib.empty')}</p>
           <p className="text-sm text-slate-500 mt-1">{t('lib.emptyHint')}</p>
         </div>
       )}
