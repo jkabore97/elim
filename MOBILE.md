@@ -48,16 +48,18 @@ Consequences worth knowing before you upload:
 - **Existing users do not migrate.** Anyone with the old app installed keeps it; the new one installs alongside as a separate app. There is no upgrade path between different package names.
 - **versionCode must only ever increase** for this listing. `104` is the starting point; use `105`, `106`, … for later uploads.
 
-#### Required before the build will work: register `com.elim.app` in Firebase
+#### Firebase registration — done
 
-`android/app/google-services.json` still describes the **old** package (`com.ccelim.app`). FCM issues push tokens per *(Firebase app, package name)* pair, so this file must be regenerated — this is the one step that cannot be done from the repo:
+`com.elim.app` is registered as an Android app in the **same** Firebase project (`elim-b1fff`, project number `81584374169`), and `android/app/google-services.json` now carries client entries for **both** packages:
 
-1. Firebase Console → project **elim-b1fff** → **Project settings** → **Your apps** → **Add app** → **Android**.
-2. Android package name: `com.elim.app`. (Register it in the *same* Firebase project so the new app reads the same Firestore data, Storage and Cloud Functions as the old one.)
-3. Download the regenerated **`google-services.json`** — it will now contain client entries for *both* packages — and replace `android/app/google-services.json` with it.
-4. Add the release signing certificate's **SHA-1/SHA-256** fingerprints to that new Android app in Firebase if you use any service that needs them.
+| Package | Firebase app id |
+|---|---|
+| `com.ccelim.app` (old listing) | `1:81584374169:android:a9fd2c2543b0b982389308` |
+| `com.elim.app` (this listing) | `1:81584374169:android:d98c8dc45839b894389308` |
 
-Until step 3 is done, expect the Gradle build to stop with `No matching client found for package name 'com.elim.app'` — and, more importantly, **push notifications cannot work under the new package without it**, because the tokens are bound to a Firebase app that doesn't yet exist.
+Because both apps live in one project they read the same Firestore data, Storage and Cloud Functions — so the new listing sees the existing posts, users and library, and the old app keeps working off its own unchanged client entry. FCM issues push tokens per *(Firebase app, package name)* pair, which is why this file has to list both.
+
+Remaining Firebase task, only if you use a service that needs it: add the release signing certificate's **SHA-1/SHA-256** fingerprints to the `com.elim.app` app in Firebase. Plain FCM push does not require them.
 
 ### Android: signing and Play Store submission
 
