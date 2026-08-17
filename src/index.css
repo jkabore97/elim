@@ -136,6 +136,19 @@ body {
   box-shadow: 0 1px 3px rgba(16, 24, 40, 0.06);
 }
 
+/* Bottom navigation bar. Deliberately a dark, solid, weighty bar in BOTH
+   light and dark mode: it anchors the screen, separates itself clearly from
+   the page behind it, and the bold labels stay legible at 10px on a cheap
+   screen. Because it is dark in both modes it needs no dark-mode override,
+   and the badge ring below can hardcode the bar colour. */
+.nav-bar {
+  background: linear-gradient(180deg, #241d18 0%, #191411 100%);
+  border-top: 1px solid rgba(255, 255, 255, 0.09);
+  box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.3);
+}
+.nav-item { color: #c3b7ac; }
+.nav-item.is-active { color: #fdba74; }
+
 /* Frosted DARK glass, for surfaces that keep light text (messaging, reader,
    media bar). Lets those screens stay legible while matching the glass world. */
 .glass-dark {

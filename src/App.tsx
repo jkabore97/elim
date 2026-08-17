@@ -1881,27 +1881,27 @@ function AppInner() {
         </div>
 
         {/* Bottom Nav — mobile & tablet only */}
-        <nav className="glass-bar lg:hidden fixed bottom-0 left-0 right-0 border-t border-slate-200/70 safe-bottom z-50">
+        <nav className="nav-bar lg:hidden fixed bottom-0 left-0 right-0 safe-bottom z-50">
           <div className="max-w-lg mx-auto flex items-center h-16 px-1">
             {navItems.map(item => {
               const Icon = item.icon
               const active = activeTab === item.id
               return (
                 <button key={item.id} onClick={() => setActiveTab(item.id)}
-                  className={`relative flex flex-col items-center justify-center flex-1 min-w-0 h-full transition ${
-                    active ? 'text-affirm-600' : 'text-slate-400'}`}>
-                  <Icon size={21} strokeWidth={active ? 2.5 : 2} />
+                  className={`nav-item relative flex flex-col items-center justify-center flex-1 min-w-0 h-full transition ${
+                    active ? 'is-active' : ''}`}>
+                  <Icon size={21} strokeWidth={active ? 2.75 : 2.25} />
                   {item.id === 'admin' && pendingChurches.length > 0 && (
                     <span className="absolute top-1.5 right-2 w-4 h-4 rounded-full bg-red-500 text-white text-[9px] font-bold flex items-center justify-center">
                       {pendingChurches.length}
                     </span>
                   )}
                   {item.id === 'messages' && unreadMessages > 0 && (
-                    <span className="absolute top-1 right-1.5 min-w-[16px] h-4 px-1 rounded-full bg-red-500 text-white text-[9px] font-bold flex items-center justify-center ring-2 ring-white">
+                    <span className="absolute top-1 right-1.5 min-w-[16px] h-4 px-1 rounded-full bg-red-500 text-white text-[9px] font-bold flex items-center justify-center ring-2 ring-[#201a16]">
                       {unreadMessages > 9 ? '9+' : unreadMessages}
                     </span>
                   )}
-                  <span className="text-[9px] mt-1 font-medium leading-[1.1] text-center px-0.5 max-w-full break-words">
+                  <span className="text-[10px] mt-1 font-bold leading-[1.1] text-center px-0.5 max-w-full break-words">
                     {item.label}
                   </span>
                 </button>
@@ -1909,7 +1909,7 @@ function AppInner() {
             })}
             {canPost && (
               <button onClick={() => setShowCreate(true)}
-                className="flex flex-col items-center justify-center flex-1 min-w-0 h-full text-affirm-400">
+                className="nav-item flex flex-col items-center justify-center flex-1 min-w-0 h-full">
                 <div className="w-10 h-10 rounded-full bg-affirm-600 text-white flex items-center justify-center shadow-lg shadow-affirm-500/40 -mt-4">
                   <PlusCircle size={22} />
                 </div>
