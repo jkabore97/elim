@@ -282,7 +282,7 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
   const [resetSent, setResetSent] = useState(false)
   const [registerSuccess, setRegisterSuccess] = useState(false)
 
-  const inputClass = "w-full px-4 py-3.5 rounded-2xl glass-input text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-400/60 focus:border-emerald-400/60 text-[15px]"
+  const inputClass = "w-full px-4 py-3.5 rounded-2xl glass-input text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-affirm-400/60 focus:border-affirm-400/60 text-[15px]"
   const selectClass = inputClass + " appearance-none"
 
   // The church picker needs to be readable before anyone is signed in —
@@ -432,11 +432,11 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
     <div>
       <div className="flex bg-white/5 border border-white/10 rounded-2xl p-1 mb-5">
         <button onClick={() => switchMode('login')}
-          className={`flex-1 py-2.5 rounded-xl text-sm font-semibold transition ${mode === 'login' ? 'bg-white/10 text-white' : 'text-slate-400'}`}>
+          className={`flex-1 py-2.5 rounded-xl text-sm font-semibold transition ${mode === 'login' ? 'bg-white text-slate-800 shadow-sm' : 'text-slate-500'}`}>
           {t('auth.signIn')}
         </button>
         <button onClick={() => switchMode('register')}
-          className={`flex-1 py-2.5 rounded-xl text-sm font-semibold transition ${mode === 'register' ? 'bg-white/10 text-white' : 'text-slate-400'}`}>
+          className={`flex-1 py-2.5 rounded-xl text-sm font-semibold transition ${mode === 'register' ? 'bg-white text-slate-800 shadow-sm' : 'text-slate-500'}`}>
           {t('auth.createAccount')}
         </button>
       </div>
@@ -445,18 +445,18 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
       <div className="flex gap-3 mb-6">
         <button onClick={() => { setAccountType('member'); setError('') }}
           className={`flex-1 py-3 rounded-2xl border-2 text-sm font-medium transition ${
-            accountType === 'member' ? 'border-emerald-400 bg-emerald-500/10 text-emerald-300' : 'border-white/10 text-slate-400'}`}>
+            accountType === 'member' ? 'border-affirm-500 bg-affirm-500/10 text-affirm-700' : 'border-white/10 text-slate-400'}`}>
           {t('auth.memberSignIn')}
         </button>
         <button onClick={() => { setAccountType('church'); setError('') }}
           className={`flex-1 py-3 rounded-2xl border-2 text-sm font-medium transition ${
-            accountType === 'church' ? 'border-emerald-400 bg-emerald-500/10 text-emerald-300' : 'border-white/10 text-slate-400'}`}>
+            accountType === 'church' ? 'border-affirm-500 bg-affirm-500/10 text-affirm-700' : 'border-white/10 text-slate-400'}`}>
           {t('auth.churchSignIn')}
         </button>
       </div>
 
       {registerSuccess && (
-        <p className="mb-4 text-sm text-emerald-300 bg-emerald-500/10 border border-emerald-500/20 rounded-xl px-4 py-3">
+        <p className="mb-4 text-sm text-affirm-700 bg-affirm-500/10 border border-affirm-500/20 rounded-xl px-4 py-3">
           {t('auth.accountCreated')}
         </p>
       )}
@@ -493,14 +493,14 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
 
             <div>
               <label className="text-xs font-semibold text-slate-400 px-1 mb-1.5 block">
-                {t('auth.gender')} <span className="text-emerald-400">*</span>
+                {t('auth.gender')} <span className="text-affirm-400">*</span>
               </label>
               <div className="flex gap-3">
                 {(['homme', 'femme'] as const).map(g => (
                   <button key={g} type="button" onClick={() => setGender(g)}
                     className={`flex-1 py-3 rounded-2xl border-2 text-sm font-medium transition ${
                       gender === g
-                        ? 'border-emerald-400 bg-emerald-500/10 text-emerald-300'
+                        ? 'border-affirm-500 bg-affirm-500/10 text-affirm-700'
                         : 'border-white/10 text-slate-400'}`}>
                     {t(g === 'homme' ? 'auth.male' : 'auth.female')}
                   </button>
@@ -527,7 +527,7 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
 
             <div>
               <label className="text-xs font-semibold text-slate-400 px-1 mb-1.5 block">
-                {t('auth.interests')} <span className="text-emerald-400">*</span>
+                {t('auth.interests')} <span className="text-affirm-400">*</span>
               </label>
               {/* Multi-select as chips rather than a <select multiple>, which is
                   close to unusable on a phone. */}
@@ -540,7 +540,7 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
                         on ? prev.filter(i => i !== item) : [...prev, item])}
                       className={`px-3 py-1.5 rounded-full text-xs font-medium border transition ${
                         on
-                          ? 'border-emerald-400 bg-emerald-500/15 text-emerald-300'
+                          ? 'border-affirm-400 bg-affirm-500/15 text-affirm-700'
                           : 'border-white/10 text-slate-400 hover:text-slate-200'}`}>
                       {item}
                     </button>
@@ -561,7 +561,7 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
           <div className="space-y-2">
             <div className="flex gap-2">
               <select value={countryCode} onChange={e => setCountryCode(e.target.value)}
-                className="w-[92px] shrink-0 px-2 py-3.5 rounded-2xl bg-white/5 border border-white/10 text-white focus:outline-none focus:ring-2 focus:ring-emerald-400/60 focus:border-emerald-400/60 text-[15px] appearance-none">
+                className="w-[92px] shrink-0 px-2 py-3.5 rounded-2xl bg-white/5 border border-white/10 text-white focus:outline-none focus:ring-2 focus:ring-affirm-400/60 focus:border-affirm-400/60 text-[15px] appearance-none">
                 {COUNTRY_CODES.map(c => <option key={c.name} value={c.code}>{c.code}</option>)}
               </select>
               <input required type="tel" value={phone} onChange={e => setPhone(e.target.value)}
@@ -629,21 +629,21 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
         {mode === 'login' && accountType === 'church' && (
           <div className="text-right -mt-2">
             <button type="button" onClick={openReset}
-              className="text-xs font-semibold text-emerald-400 hover:text-emerald-300">
+              className="text-xs font-semibold text-affirm-400 hover:text-affirm-700">
               {t('auth.forgotPassword')}
             </button>
           </div>
         )}
 
         {resetSent && (
-          <p className="text-sm text-emerald-300 bg-emerald-500/10 border border-emerald-500/20 rounded-xl px-4 py-3">
+          <p className="text-sm text-affirm-700 bg-affirm-500/10 border border-affirm-500/20 rounded-xl px-4 py-3">
             {t('auth.resetSent')}
           </p>
         )}
         {error && <p className="text-sm text-red-400 bg-red-500/10 border border-red-500/20 rounded-xl px-4 py-3">{error}</p>}
 
         <button type="submit" disabled={loading}
-          className="w-full py-4 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-[15px] transition flex items-center justify-center gap-2 disabled:opacity-60 shadow-lg shadow-emerald-500/20">
+          className="w-full py-4 rounded-2xl bg-affirm-600 hover:bg-affirm-700 text-white font-semibold text-[15px] transition flex items-center justify-center gap-2 disabled:opacity-60 shadow-lg shadow-affirm-500/20">
           {loading ? t('auth.pleaseWait') : mode === 'login' ? t('auth.signIn') : t('auth.createAccount')}
           {!loading && <ArrowRight size={18} />}
         </button>
@@ -668,10 +668,10 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
 
             {resetDone ? (
               <>
-                <div className="mt-4 flex items-start gap-2.5 bg-emerald-500/10 border border-emerald-500/20 rounded-2xl p-4">
-                  <CheckCircle2 size={17} className="text-emerald-400 shrink-0 mt-0.5" />
+                <div className="mt-4 flex items-start gap-2.5 bg-affirm-500/10 border border-affirm-500/20 rounded-2xl p-4">
+                  <CheckCircle2 size={17} className="text-affirm-400 shrink-0 mt-0.5" />
                   <div className="min-w-0">
-                    <p className="text-sm text-emerald-300 leading-relaxed">{t('auth.resetSent')}</p>
+                    <p className="text-sm text-affirm-700 leading-relaxed">{t('auth.resetSent')}</p>
                     <p className="text-[11px] text-slate-400 mt-1.5 break-words">{resetEmail.trim()}</p>
                   </div>
                 </div>
@@ -680,7 +680,7 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
                     arrived" round trip. */}
                 <p className="text-[11px] text-slate-400 mt-3 leading-relaxed">{t('auth.resetSpamHint')}</p>
                 <button onClick={() => setShowReset(false)}
-                  className="mt-5 w-full py-3 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-sm transition">
+                  className="mt-5 w-full py-3 rounded-2xl bg-affirm-600 hover:bg-affirm-700 text-white font-semibold text-sm transition">
                   {t('auth.resetClose')}
                 </button>
               </>
@@ -693,7 +693,7 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
                   onKeyDown={e => { if (e.key === 'Enter') submitReset() }}
                   placeholder={t('auth.email')}
                   autoFocus
-                  className="w-full mt-4 px-4 py-3.5 rounded-2xl glass-input text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-400/60 text-[15px]" />
+                  className="w-full mt-4 px-4 py-3.5 rounded-2xl glass-input text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-affirm-400/60 text-[15px]" />
 
                 {resetError && (
                   <p className="mt-3 text-xs text-red-400 bg-red-500/10 border border-red-500/20 rounded-xl px-3 py-2.5 break-words">
@@ -702,7 +702,7 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
                 )}
 
                 <button onClick={submitReset} disabled={resetBusy || !resetEmail.trim()}
-                  className="mt-4 w-full py-3.5 rounded-2xl bg-emerald-600 hover:bg-emerald-700 disabled:opacity-40 text-white font-semibold text-sm transition">
+                  className="mt-4 w-full py-3.5 rounded-2xl bg-affirm-600 hover:bg-affirm-700 disabled:opacity-40 text-white font-semibold text-sm transition">
                   {resetBusy ? t('auth.resetSending') : t('auth.resetSend')}
                 </button>
               </>
@@ -721,19 +721,19 @@ function AuthScreen({ onSuccess }: { onSuccess: (user: AppUser) => void }) {
   const [showWelcome, setShowWelcome] = useState(true)
 
   return (
-    <div className="min-h-screen bg-[#0a0e1a] flex flex-col relative overflow-hidden">
-      <div className="fixed top-0 left-1/4 w-[500px] h-[500px] bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
+    <div className="min-h-screen heavenly-bg flex flex-col relative overflow-hidden">
+      <div className="fixed top-0 left-1/4 w-[500px] h-[500px] bg-affirm-500/10 rounded-full blur-3xl pointer-events-none" />
       <div className="fixed bottom-0 right-0 w-[400px] h-[400px] bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
       <div className="relative flex justify-end px-6 pt-6">
-        <LanguageSwitcher dark />
+        <LanguageSwitcher />
       </div>
 
       {showWelcome ? (
         <div className="relative flex-1 flex flex-col items-center justify-center px-6 py-12">
           <div className="w-full max-w-md text-center">
             <Logo size={110} variant="full" />
-            <h1 className="mt-8 text-3xl font-bold text-white tracking-tight">ELIM</h1>
-            <p className="mt-2 text-[13px] text-emerald-400/90 font-medium leading-relaxed px-4">
+            <h1 className="mt-8 text-3xl font-bold text-slate-900 tracking-tight">ELIM</h1>
+            <p className="mt-2 text-[13px] text-affirm-600 font-medium leading-relaxed px-4">
               Centre Chrétien d'Enseignement, de Libéralité,<br />d'Intercession et de Moisson
             </p>
             <p className="mt-4 text-slate-400 leading-relaxed">{t('auth.peacefulPlace')}</p>
@@ -745,17 +745,17 @@ function AuthScreen({ onSuccess }: { onSuccess: (user: AppUser) => void }) {
                 { icon: Video, label: t('landing.valueProp.video') },
                 { icon: ShieldCheck, label: t('landing.valueProp.verified') },
               ].map((item, i) => (
-                <div key={i} className="flex flex-col items-center gap-2 py-4 rounded-2xl bg-white/[0.03] border border-white/10">
-                  <div className="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-400">
+                <div key={i} className="flex flex-col items-center gap-2 py-4 rounded-2xl glass">
+                  <div className="w-10 h-10 rounded-xl bg-affirm-500/10 flex items-center justify-center text-affirm-400">
                     <item.icon size={18} />
                   </div>
-                  <span className="text-xs font-medium text-slate-300 text-center px-1">{item.label}</span>
+                  <span className="text-xs font-medium text-slate-600 text-center px-1">{item.label}</span>
                 </div>
               ))}
             </div>
 
             <button onClick={() => setShowWelcome(false)}
-              className="mt-10 w-full py-4 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-[15px] transition flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/20">
+              className="mt-10 w-full py-4 rounded-2xl bg-affirm-600 hover:bg-affirm-700 text-white font-semibold text-[15px] transition flex items-center justify-center gap-2 shadow-lg shadow-affirm-500/20">
               {t('landing.getStarted')} <ArrowRight size={18} />
             </button>
           </div>
@@ -766,7 +766,7 @@ function AuthScreen({ onSuccess }: { onSuccess: (user: AppUser) => void }) {
             <div className="text-center mb-8">
               <Logo size={64} />
             </div>
-            <div className="bg-white/[0.03] backdrop-blur-xl rounded-3xl shadow-2xl border border-white/10 p-8">
+            <div className="glass rounded-3xl shadow-2xl p-8">
               <AuthForm onSuccess={onSuccess} />
             </div>
           </div>
@@ -788,12 +788,12 @@ function AuthModal({ onClose, onSuccess, initialMode }: {
 }) {
   return (
     <div className="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-sm flex items-center justify-center p-4">
-      <div className="bg-[#0d1424] w-full max-w-md rounded-3xl shadow-2xl border border-white/10 p-8 relative max-h-[90vh] overflow-y-auto">
+      <div className="glass-bar w-full max-w-md rounded-3xl shadow-2xl p-8 relative max-h-[90vh] overflow-y-auto">
         <button onClick={onClose} className="absolute top-5 right-5 p-1.5 rounded-full hover:bg-white/5 text-slate-400">
           <X size={20} />
         </button>
         <div className="flex justify-center mb-2">
-          <LanguageSwitcher dark />
+          <LanguageSwitcher />
         </div>
         <div className="text-center mb-6 mt-4">
           <Logo size={40} />
@@ -822,7 +822,7 @@ function LandingPage({ onSuccess }: { onSuccess: (user: AppUser) => void }) {
               {t('auth.signIn')}
             </button>
             <button onClick={() => setAuthMode('register')}
-              className="px-5 py-2.5 rounded-full text-sm font-semibold bg-emerald-600 hover:bg-emerald-700 text-white transition shadow-lg shadow-emerald-200">
+              className="px-5 py-2.5 rounded-full text-sm font-semibold bg-affirm-600 hover:bg-affirm-700 text-white transition shadow-lg shadow-affirm-200">
               {t('landing.getStarted')}
             </button>
           </div>
@@ -833,16 +833,16 @@ function LandingPage({ onSuccess }: { onSuccess: (user: AppUser) => void }) {
       <section className="relative overflow-hidden">
         <div className="absolute inset-0 heavenly-bg" />
         <div className="absolute -top-20 left-1/4 w-[500px] h-[500px] bg-amber-200/30 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute top-10 right-1/4 w-[400px] h-[400px] bg-emerald-200/40 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute top-10 right-1/4 w-[400px] h-[400px] bg-affirm-200/40 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute top-40 left-1/3 w-[350px] h-[350px] bg-blue-200/30 rounded-full blur-3xl pointer-events-none" />
         <div className="relative max-w-5xl mx-auto px-8 pt-20 pb-28 text-center">
           <Logo size={128} variant="full" />
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/80 border border-emerald-100 text-xs font-semibold text-emerald-700 tracking-wide mt-8 mb-8">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/80 border border-affirm-100 text-xs font-semibold text-affirm-700 tracking-wide mt-8 mb-8">
             <Sparkles size={14} /> {t('landing.badge')}
           </div>
           <h1 className="text-5xl lg:text-6xl xl:text-7xl font-extrabold text-slate-900 tracking-tight leading-[1.05]">
             {t('landing.heroLine1')}<br />
-            <span className="bg-gradient-to-r from-emerald-600 via-emerald-500 to-amber-500 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-affirm-600 via-affirm-500 to-amber-500 bg-clip-text text-transparent">
               {t('landing.heroLine2')}
             </span>
           </h1>
@@ -851,7 +851,7 @@ function LandingPage({ onSuccess }: { onSuccess: (user: AppUser) => void }) {
           </p>
           <div className="mt-10 flex items-center justify-center gap-4">
             <button onClick={() => setAuthMode('register')}
-              className="px-8 py-4 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-[15px] transition shadow-xl shadow-emerald-200 flex items-center gap-2">
+              className="px-8 py-4 rounded-full bg-affirm-600 hover:bg-affirm-700 text-white font-semibold text-[15px] transition shadow-xl shadow-affirm-200 flex items-center gap-2">
               {t('landing.getStarted')} <ArrowRight size={18} />
             </button>
             <button onClick={() => setAuthMode('login')}
@@ -872,7 +872,7 @@ function LandingPage({ onSuccess }: { onSuccess: (user: AppUser) => void }) {
             { icon: ShieldCheck, label: t('landing.valueProp.verified') },
           ].map((item, i) => (
             <div key={i} className="flex flex-col items-center text-center gap-2.5">
-              <div className="w-11 h-11 rounded-2xl bg-white border border-slate-100 flex items-center justify-center text-emerald-600 shadow-sm">
+              <div className="w-11 h-11 rounded-2xl bg-white border border-slate-100 flex items-center justify-center text-affirm-600 shadow-sm">
                 <item.icon size={20} />
               </div>
               <span className="text-sm font-semibold text-slate-600">{item.label}</span>
@@ -888,15 +888,15 @@ function LandingPage({ onSuccess }: { onSuccess: (user: AppUser) => void }) {
           <h2 className="text-3xl xl:text-4xl font-bold text-slate-900 tracking-tight">{t('landing.builtForBoth')}</h2>
         </div>
         <div className="grid grid-cols-2 gap-6">
-          <div className="rounded-3xl p-8 bg-gradient-to-br from-emerald-50 to-white border border-emerald-100">
-            <div className="w-12 h-12 rounded-2xl bg-emerald-600 text-white flex items-center justify-center mb-6 shadow-lg shadow-emerald-200">
+          <div className="rounded-3xl p-8 bg-gradient-to-br from-affirm-50 to-white border border-affirm-100">
+            <div className="w-12 h-12 rounded-2xl bg-affirm-600 text-white flex items-center justify-center mb-6 shadow-lg shadow-affirm-200">
               <Church size={22} />
             </div>
             <h3 className="text-xl font-bold text-slate-900 mb-3">{t('landing.forChurches')}</h3>
             <ul className="space-y-3 text-slate-500 text-[15px]">
-              <li className="flex gap-2.5"><CheckCircle2 size={18} className="text-emerald-500 shrink-0 mt-0.5" /> {t('landing.forChurches.1')}</li>
-              <li className="flex gap-2.5"><CheckCircle2 size={18} className="text-emerald-500 shrink-0 mt-0.5" /> {t('landing.forChurches.2')}</li>
-              <li className="flex gap-2.5"><CheckCircle2 size={18} className="text-emerald-500 shrink-0 mt-0.5" /> {t('landing.forChurches.3')}</li>
+              <li className="flex gap-2.5"><CheckCircle2 size={18} className="text-affirm-500 shrink-0 mt-0.5" /> {t('landing.forChurches.1')}</li>
+              <li className="flex gap-2.5"><CheckCircle2 size={18} className="text-affirm-500 shrink-0 mt-0.5" /> {t('landing.forChurches.2')}</li>
+              <li className="flex gap-2.5"><CheckCircle2 size={18} className="text-affirm-500 shrink-0 mt-0.5" /> {t('landing.forChurches.3')}</li>
             </ul>
           </div>
           <div className="rounded-3xl p-8 bg-gradient-to-br from-blue-50 to-white border border-blue-100">
@@ -917,12 +917,12 @@ function LandingPage({ onSuccess }: { onSuccess: (user: AppUser) => void }) {
       <section className="bg-slate-50/50 border-y border-slate-100">
         <div className="max-w-5xl mx-auto px-8 py-24">
           <div className="text-center mb-14">
-            <p className="text-xs font-bold tracking-widest text-emerald-600 mb-3">{t('landing.gettingStarted')}</p>
+            <p className="text-xs font-bold tracking-widest text-affirm-600 mb-3">{t('landing.gettingStarted')}</p>
             <h2 className="text-3xl xl:text-4xl font-bold text-slate-900 tracking-tight">{t('landing.threeSteps')}</h2>
           </div>
           <div className="grid grid-cols-3 gap-8">
             {[
-              { n: '1', title: t('landing.step1.title'), desc: t('landing.step1.desc'), color: 'border-emerald-500 text-emerald-600' },
+              { n: '1', title: t('landing.step1.title'), desc: t('landing.step1.desc'), color: 'border-affirm-500 text-affirm-600' },
               { n: '2', title: t('landing.step2.title'), desc: t('landing.step2.desc'), color: 'border-blue-600 text-blue-700' },
               { n: '3', title: t('landing.step3.title'), desc: t('landing.step3.desc'), color: 'border-amber-500 text-amber-600' },
             ].map(step => (
@@ -942,10 +942,10 @@ function LandingPage({ onSuccess }: { onSuccess: (user: AppUser) => void }) {
       <section className="max-w-4xl mx-auto px-8 py-24 text-center">
         <h2 className="text-3xl xl:text-5xl font-bold text-slate-900 tracking-tight mb-6">
           {t('landing.finalCta1')}{' '}
-          <span className="bg-gradient-to-r from-emerald-600 to-amber-500 bg-clip-text text-transparent">{t('landing.finalCta2')}</span>
+          <span className="bg-gradient-to-r from-affirm-600 to-amber-500 bg-clip-text text-transparent">{t('landing.finalCta2')}</span>
         </h2>
         <button onClick={() => setAuthMode('register')}
-          className="mt-4 px-10 py-4 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-base transition shadow-xl shadow-emerald-200 inline-flex items-center gap-2">
+          className="mt-4 px-10 py-4 rounded-full bg-affirm-600 hover:bg-affirm-700 text-white font-semibold text-base transition shadow-xl shadow-affirm-200 inline-flex items-center gap-2">
           {t('landing.getStartedFree')} <ArrowRight size={18} />
         </button>
       </section>
@@ -959,11 +959,11 @@ function LandingPage({ onSuccess }: { onSuccess: (user: AppUser) => void }) {
           <div className="mt-6 pt-6 border-t border-slate-50 flex flex-wrap items-center justify-between gap-3">
             <p className="text-xs text-slate-400">{COPYRIGHT}</p>
             <div className="flex items-center gap-4">
-              <a href="/privacy.html" className="text-xs text-slate-400 hover:text-emerald-600 underline">
+              <a href="/privacy.html" className="text-xs text-slate-400 hover:text-affirm-600 underline">
                 {t('footer.privacy')}
               </a>
               <a href="mailto:hello@kaj-consulting.com?subject=ELIM%20App%20Support"
-                className="text-xs text-slate-400 hover:text-emerald-600 underline">
+                className="text-xs text-slate-400 hover:text-affirm-600 underline">
                 {t('support.title')}
               </a>
             </div>
@@ -1481,7 +1481,7 @@ function AppInner() {
   if (authLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="w-10 h-10 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin" />
+        <div className="w-10 h-10 border-4 border-affirm-500 border-t-transparent rounded-full animate-spin" />
       </div>
     )
   }
@@ -1545,7 +1545,7 @@ function AppInner() {
   return (
     <div className="min-h-screen max-w-lg mx-auto lg:max-w-none lg:mx-0 relative">
       <div
-        className="fixed top-0 left-1/4 w-[500px] h-[500px] bg-emerald-500/10 rounded-full blur-2xl lg:blur-3xl pointer-events-none"
+        className="fixed top-0 left-1/4 w-[500px] h-[500px] bg-affirm-500/10 rounded-full blur-2xl lg:blur-3xl pointer-events-none"
         style={{ transform: 'translateZ(0)', willChange: 'transform' }}
       />
       <div
@@ -1566,7 +1566,7 @@ function AppInner() {
               return (
                 <button key={item.id} onClick={() => setActiveTab(item.id)}
                   className={`w-full flex items-center gap-3 px-4 py-3 rounded-2xl text-sm font-semibold transition ${
-                    active ? 'bg-emerald-500/15 text-emerald-700 shadow-sm' : 'text-slate-500 hover:bg-white/60 hover:text-slate-800'}`}>
+                    active ? 'bg-affirm-500/15 text-affirm-700 shadow-sm' : 'text-slate-500 hover:bg-white/60 hover:text-slate-800'}`}>
                   <Icon size={19} />
                   {item.label}
                   {item.id === 'admin' && pendingChurches.length > 0 && (
@@ -1639,7 +1639,7 @@ function AppInner() {
                   <Search size={17} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 pointer-events-none" />
                   <input value={searchQuery} onChange={e => setSearchQuery(e.target.value)}
                     placeholder={t('feed.searchPlaceholder')}
-                    className="w-full pl-11 pr-10 py-3 rounded-2xl glass-input text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-400/60 text-[15px]" />
+                    className="w-full pl-11 pr-10 py-3 rounded-2xl glass-input text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-affirm-400/60 text-[15px]" />
                   {searchQuery && (
                     <button onClick={() => setSearchQuery('')}
                       className="absolute right-3 top-1/2 -translate-y-1/2 p-1 rounded-full text-slate-400 hover:text-white hover:bg-white/10">
@@ -1658,7 +1658,7 @@ function AppInner() {
                     <button key={tab.id} onClick={() => setFeedFilter(tab.id)}
                       className={`shrink-0 px-4 py-2 rounded-full text-sm font-semibold transition ${
                         feedFilter === tab.id
-                          ? 'bg-emerald-500/15 text-emerald-700 border border-emerald-400/50'
+                          ? 'bg-affirm-500/15 text-affirm-700 border border-affirm-400/50'
                           : 'glass-soft text-slate-600 hover:text-slate-900'}`}>
                       {tab.label}
                     </button>
@@ -1668,8 +1668,8 @@ function AppInner() {
                 {loading && <p className="text-center text-slate-400 py-16">{t('app.loading')}</p>}
                 {!loading && visiblePosts.length === 0 && (
                   <div className="text-center py-20">
-                    <div className="w-16 h-16 rounded-full bg-emerald-500/10 flex items-center justify-center mx-auto mb-4">
-                      <Church size={28} className="text-emerald-400" />
+                    <div className="w-16 h-16 rounded-full bg-affirm-500/10 flex items-center justify-center mx-auto mb-4">
+                      <Church size={28} className="text-affirm-400" />
                     </div>
                     <p className="text-slate-500 font-medium">
                       {searchQuery || feedFilter !== 'all' ? t('feed.noMatches') : t('app.noPostsYet')}
@@ -1685,7 +1685,7 @@ function AppInner() {
                       ? (el) => el?.scrollIntoView({ behavior: 'smooth', block: 'center' })
                       : undefined}
                     className={post.id === highlightPostId
-                      ? 'rounded-3xl ring-2 ring-emerald-400 ring-offset-2 ring-offset-[#0f172a] transition'
+                      ? 'rounded-3xl ring-2 ring-affirm-400 ring-offset-2 ring-offset-[#0f172a] transition'
                       : ''}>
                     <PostCard post={post} onLike={handleLike} onOpenComments={setActiveCommentsPost}
                       currentUserUid={user.uid} isLiked={likedPostIds.has(post.id)} onEdit={setEditingPost} onDelete={handleDeletePost} />
@@ -1695,7 +1695,7 @@ function AppInner() {
             )}
 
             {activeTab === 'messages' && (
-              <div className="glass-dark rounded-3xl overflow-hidden animate-rise min-h-[calc(100vh-11rem)] lg:min-h-[calc(100vh-8rem)]">
+              <div className="animate-rise">
                 <MessagesTab user={user} />
               </div>
             )}
@@ -1705,7 +1705,7 @@ function AppInner() {
             )}
 
             {activeTab === 'library' && (
-              <div className="glass-dark rounded-3xl p-4 sm:p-5 animate-rise min-h-[calc(100vh-11rem)]">
+              <div className="animate-rise">
                 <LibraryTab user={user} canUpload={canPost} />
               </div>
             )}
@@ -1716,7 +1716,7 @@ function AppInner() {
                   <Search size={17} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 pointer-events-none" />
                   <input value={musiqueSearch} onChange={e => setMusiqueSearch(e.target.value)}
                     placeholder={t('musique.search')}
-                    className="w-full pl-11 pr-10 py-3 rounded-2xl glass-input text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-400/60 text-[15px]" />
+                    className="w-full pl-11 pr-10 py-3 rounded-2xl glass-input text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-affirm-400/60 text-[15px]" />
                   {musiqueSearch && (
                     <button onClick={() => setMusiqueSearch('')}
                       className="absolute right-3 top-1/2 -translate-y-1/2 p-1 rounded-full text-slate-400 hover:text-white hover:bg-white/10">
@@ -1730,7 +1730,7 @@ function AppInner() {
                     <button key={cat} onClick={() => setMusiqueCategory(cat)}
                       className={`shrink-0 px-3.5 py-1.5 rounded-full text-xs font-semibold transition ${
                         musiqueCategory === cat
-                          ? 'bg-emerald-500/15 text-emerald-700 border border-emerald-400/50'
+                          ? 'bg-affirm-500/15 text-affirm-700 border border-affirm-400/50'
                           : 'glass-soft text-slate-600'}`}>
                       {cat === 'all' ? t('musique.all') : cat}
                     </button>
@@ -1740,7 +1740,7 @@ function AppInner() {
                 {canPost && (
                   <div className="flex gap-2">
                     <button onClick={() => setShowCreateMusique(true)}
-                      className="flex-1 flex items-center justify-center gap-2 py-3.5 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-sm transition shadow-lg shadow-emerald-500/20">
+                      className="flex-1 flex items-center justify-center gap-2 py-3.5 rounded-2xl bg-affirm-600 hover:bg-affirm-700 text-white font-semibold text-sm transition shadow-lg shadow-affirm-500/20">
                       <PlusCircle size={18} /> {t('musique.addOne')}
                     </button>
                     <button onClick={() => setShowBulkMusique(true)}
@@ -1752,8 +1752,8 @@ function AppInner() {
 
                 {musiquePosts.length === 0 ? (
                   <div className="text-center py-20">
-                    <div className="w-16 h-16 rounded-full bg-emerald-500/10 flex items-center justify-center mx-auto mb-4">
-                      <Music size={28} className="text-emerald-400" />
+                    <div className="w-16 h-16 rounded-full bg-affirm-500/10 flex items-center justify-center mx-auto mb-4">
+                      <Music size={28} className="text-affirm-400" />
                     </div>
                     <p className="text-slate-500 font-medium">
                       {musiqueSearch || musiqueCategory !== 'all' ? t('musique.noMatches') : t('musique.empty')}
@@ -1781,7 +1781,7 @@ function AppInner() {
                     <button key={cat} onClick={() => setSanteCategory(cat)}
                       className={`shrink-0 px-3.5 py-1.5 rounded-full text-xs font-semibold transition ${
                         santeCategory === cat
-                          ? 'bg-emerald-500/15 text-emerald-700 border border-emerald-400/50'
+                          ? 'bg-affirm-500/15 text-affirm-700 border border-affirm-400/50'
                           : 'glass-soft text-slate-600'}`}>
                       {cat === 'all' ? t('sante.allCategories') : cat}
                     </button>
@@ -1790,15 +1790,15 @@ function AppInner() {
 
                 {canPostSante && (
                   <button onClick={() => setShowCreateSante(true)}
-                    className="w-full flex items-center justify-center gap-2 py-3.5 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-sm transition shadow-lg shadow-emerald-500/20">
+                    className="w-full flex items-center justify-center gap-2 py-3.5 rounded-2xl bg-affirm-600 hover:bg-affirm-700 text-white font-semibold text-sm transition shadow-lg shadow-affirm-500/20">
                     <PlusCircle size={18} /> {t('sante.newTip')}
                   </button>
                 )}
 
                 {santePosts.length === 0 ? (
                   <div className="text-center py-20">
-                    <div className="w-16 h-16 rounded-full bg-emerald-500/10 flex items-center justify-center mx-auto mb-4">
-                      <HeartPulse size={28} className="text-emerald-400" />
+                    <div className="w-16 h-16 rounded-full bg-affirm-500/10 flex items-center justify-center mx-auto mb-4">
+                      <HeartPulse size={28} className="text-affirm-400" />
                     </div>
                     <p className="text-slate-500 font-medium">{t('sante.empty')}</p>
                     <p className="text-sm text-slate-500 mt-1">{t('sante.emptyHint')}</p>
@@ -1821,7 +1821,7 @@ function AppInner() {
                     <button key={sub.id} onClick={() => setAdminSection(sub.id)}
                       className={`shrink-0 px-4 py-2 rounded-full text-sm font-semibold transition ${
                         adminSection === sub.id
-                          ? 'bg-emerald-500/15 text-emerald-700 border border-emerald-400/50'
+                          ? 'bg-affirm-500/15 text-affirm-700 border border-affirm-400/50'
                           : 'glass-soft text-slate-600 hover:text-slate-900'}`}>
                       {sub.label}
                     </button>
@@ -1847,7 +1847,7 @@ function AppInner() {
               return (
                 <button key={item.id} onClick={() => setActiveTab(item.id)}
                   className={`relative flex flex-col items-center justify-center flex-1 min-w-0 h-full transition ${
-                    active ? 'text-emerald-600' : 'text-slate-400'}`}>
+                    active ? 'text-affirm-600' : 'text-slate-400'}`}>
                   <Icon size={21} strokeWidth={active ? 2.5 : 2} />
                   {item.id === 'admin' && pendingChurches.length > 0 && (
                     <span className="absolute top-1.5 right-2 w-4 h-4 rounded-full bg-red-500 text-white text-[9px] font-bold flex items-center justify-center">
@@ -1867,8 +1867,8 @@ function AppInner() {
             })}
             {canPost && (
               <button onClick={() => setShowCreate(true)}
-                className="flex flex-col items-center justify-center flex-1 min-w-0 h-full text-emerald-400">
-                <div className="w-10 h-10 rounded-full bg-emerald-600 text-white flex items-center justify-center shadow-lg shadow-emerald-500/40 -mt-4">
+                className="flex flex-col items-center justify-center flex-1 min-w-0 h-full text-affirm-400">
+                <div className="w-10 h-10 rounded-full bg-affirm-600 text-white flex items-center justify-center shadow-lg shadow-affirm-500/40 -mt-4">
                   <PlusCircle size={22} />
                 </div>
                 <span className="text-[9px] mt-1 font-medium leading-[1.1] text-center px-0.5 max-w-full break-words">
@@ -1882,8 +1882,8 @@ function AppInner() {
 
       {messageToast && (
         <button onClick={() => { setActiveTab('messages'); setMessageToast(false) }}
-          className="fixed top-4 left-4 right-4 lg:left-auto lg:right-6 lg:w-80 z-[60] flex items-center gap-3 bg-[#1e293b] border border-emerald-400/30 rounded-2xl shadow-2xl px-4 py-3 text-left animate-[toastIn_0.25s_ease-out]">
-          <div className="w-9 h-9 rounded-full bg-emerald-500/15 text-emerald-400 flex items-center justify-center shrink-0">
+          className="fixed top-4 left-4 right-4 lg:left-auto lg:right-6 lg:w-80 z-[60] flex items-center gap-3 bg-[#1e293b] border border-affirm-400/30 rounded-2xl shadow-2xl px-4 py-3 text-left animate-[toastIn_0.25s_ease-out]">
+          <div className="w-9 h-9 rounded-full bg-affirm-500/15 text-affirm-400 flex items-center justify-center shrink-0">
             <MessageCircle size={17} />
           </div>
           <div className="min-w-0 flex-1">
@@ -1899,7 +1899,7 @@ function AppInner() {
       {showNotifPrompt && (
         <div className="fixed bottom-20 lg:bottom-6 left-4 right-4 lg:left-auto lg:right-6 lg:w-96 z-50 bg-[#1e293b] border border-white/10 rounded-3xl shadow-2xl p-5">
           <div className="flex items-start gap-3">
-            <div className="w-10 h-10 rounded-2xl bg-emerald-500/15 flex items-center justify-center text-emerald-400 shrink-0">
+            <div className="w-10 h-10 rounded-2xl bg-affirm-500/15 flex items-center justify-center text-affirm-400 shrink-0">
               <Bell size={19} />
             </div>
             <div className="min-w-0">
@@ -1913,7 +1913,7 @@ function AppInner() {
               const ok = await enableNotifications(user.uid)
               if (ok) setUser(prev => prev ? { ...prev, notificationsEnabled: true } : prev)
             }}
-              className="flex-1 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-semibold transition">
+              className="flex-1 py-2.5 rounded-xl bg-affirm-600 hover:bg-affirm-700 text-white text-sm font-semibold transition">
               {t('notifPrompt.enable')}
             </button>
             <button onClick={() => setShowNotifPrompt(false)}
@@ -2195,15 +2195,15 @@ function ProfileTab({ user, onProfileUpdated, onLogout }: {
       <div className="glass rounded-3xl p-8 shadow-sm border border-slate-100 text-center">
         <div className="relative w-24 h-24 mx-auto mb-4">
           {user.avatar ? (
-            <img src={user.avatar} alt="" className="w-24 h-24 rounded-full object-cover shadow-lg shadow-emerald-200" />
+            <img src={user.avatar} alt="" className="w-24 h-24 rounded-full object-cover shadow-lg shadow-affirm-200" />
           ) : (
-            <div className="w-24 h-24 rounded-full bg-gradient-to-br from-emerald-400 to-teal-500 flex items-center justify-center text-3xl font-bold text-white shadow-lg shadow-emerald-200">
+            <div className="w-24 h-24 rounded-full bg-gradient-to-br from-affirm-400 to-teal-500 flex items-center justify-center text-3xl font-bold text-white shadow-lg shadow-affirm-200">
               {user.displayName.charAt(0).toUpperCase()}
             </div>
           )}
-          <label className="absolute bottom-0 right-0 w-8 h-8 rounded-full bg-white border-2 border-emerald-500 text-emerald-600 flex items-center justify-center cursor-pointer shadow-md hover:bg-emerald-50 transition">
+          <label className="absolute bottom-0 right-0 w-8 h-8 rounded-full bg-white border-2 border-affirm-500 text-affirm-600 flex items-center justify-center cursor-pointer shadow-md hover:bg-affirm-50 transition">
             {uploading ? (
-              <div className="w-3.5 h-3.5 border-2 border-emerald-500 border-t-transparent rounded-full animate-spin" />
+              <div className="w-3.5 h-3.5 border-2 border-affirm-500 border-t-transparent rounded-full animate-spin" />
             ) : (
               <Camera size={14} />
             )}
@@ -2212,7 +2212,7 @@ function ProfileTab({ user, onProfileUpdated, onLogout }: {
         </div>
         <h2 className="text-xl font-bold text-slate-900">{user.displayName}</h2>
         <p className="text-slate-400 text-sm mt-1">{user.email}</p>
-        <div className="mt-4 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 text-xs font-semibold">
+        <div className="mt-4 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-affirm-50 text-affirm-700 text-xs font-semibold">
           {user.role === 'church' ? <><CheckCircle2 size={14} /> {t('app.verifiedChurch')}</> : user.role === 'admin' ? <><ShieldCheck size={14} /> {t('app.admin')}</> : t('app.member')}
         </div>
         {avatarError && <p className="mt-4 text-xs text-red-500 bg-red-50 rounded-xl px-3 py-2 inline-block">{avatarError}</p>}
@@ -2224,14 +2224,14 @@ function ProfileTab({ user, onProfileUpdated, onLogout }: {
         <div>
           <label className="text-xs font-semibold text-slate-500 px-1">{t('profile.church')}</label>
           <input value={churchName} onChange={e => setChurchName(e.target.value)} placeholder={t('profile.churchPlaceholder')}
-            className="w-full mt-1.5 px-4 py-3 rounded-2xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-400 text-[15px]" />
+            className="w-full mt-1.5 px-4 py-3 rounded-2xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-affirm-400 text-[15px]" />
         </div>
 
         <div className="grid grid-cols-2 gap-3">
           <div>
             <label className="text-xs font-semibold text-slate-500 px-1">{t('profile.country')}</label>
             <select value={country} onChange={e => setCountry(e.target.value)}
-              className="w-full mt-1.5 px-4 py-3 rounded-2xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-400 text-[15px] bg-white">
+              className="w-full mt-1.5 px-4 py-3 rounded-2xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-affirm-400 text-[15px] bg-white">
               <option value="">{t('profile.selectCountry')}</option>
               {COUNTRIES.map(c => <option key={c} value={c}>{c}</option>)}
             </select>
@@ -2239,21 +2239,21 @@ function ProfileTab({ user, onProfileUpdated, onLogout }: {
           <div>
             <label className="text-xs font-semibold text-slate-500 px-1">{t('profile.city')}</label>
             <input value={city} onChange={e => setCity(e.target.value)} placeholder="e.g. Ouagadougou"
-              className="w-full mt-1.5 px-4 py-3 rounded-2xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-400 text-[15px]" />
+              className="w-full mt-1.5 px-4 py-3 rounded-2xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-affirm-400 text-[15px]" />
           </div>
         </div>
 
         <div>
           <label className="text-xs font-semibold text-slate-500 px-1">{t('profile.phoneNumber')}</label>
           <input type="tel" value={phone} onChange={e => setPhone(e.target.value)} placeholder="e.g. +226 70 00 00 00"
-            className="w-full mt-1.5 px-4 py-3 rounded-2xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-400 text-[15px]" />
+            className="w-full mt-1.5 px-4 py-3 rounded-2xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-affirm-400 text-[15px]" />
         </div>
 
         {saveError && <p className="text-sm text-red-500 bg-red-50 rounded-xl px-4 py-3">{saveError}</p>}
-        {saved && <p className="text-sm text-emerald-700 bg-emerald-50 rounded-xl px-4 py-3">{t('profile.updated')}</p>}
+        {saved && <p className="text-sm text-affirm-700 bg-affirm-50 rounded-xl px-4 py-3">{t('profile.updated')}</p>}
 
         <button type="submit" disabled={saving}
-          className="w-full py-3.5 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-[15px] transition disabled:opacity-60">
+          className="w-full py-3.5 rounded-2xl bg-affirm-600 hover:bg-affirm-700 text-white font-semibold text-[15px] transition disabled:opacity-60">
           {saving ? t('profile.saving') : t('profile.saveChanges')}
         </button>
       </form>
@@ -2267,7 +2267,7 @@ function ProfileTab({ user, onProfileUpdated, onLogout }: {
           <button onClick={handleToggleNotifications} disabled={notifLoading}
             role="switch" aria-checked={!!user.notificationsEnabled}
             className={`relative shrink-0 w-12 h-7 rounded-full transition disabled:opacity-60 ${
-              user.notificationsEnabled ? 'bg-emerald-600' : 'bg-slate-200'}`}>
+              user.notificationsEnabled ? 'bg-affirm-600' : 'bg-slate-200'}`}>
             <span className={`absolute top-1 left-1 w-5 h-5 rounded-full bg-white shadow transition-transform ${
               user.notificationsEnabled ? 'translate-x-5' : ''}`} />
           </button>
@@ -2279,7 +2279,7 @@ function ProfileTab({ user, onProfileUpdated, onLogout }: {
             const opened = await openNotificationSettings()
             if (!opened) setNotifError(t('profile.openSettingsManually'))
           }}
-            className="mt-3 w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-semibold transition">
+            className="mt-3 w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-affirm-600 hover:bg-affirm-700 text-white text-sm font-semibold transition">
             <Bell size={15} /> {t('profile.openPhoneSettings')}
           </button>
         )}
@@ -2293,7 +2293,7 @@ function ProfileTab({ user, onProfileUpdated, onLogout }: {
           </div>
           <button onClick={() => { const next = !soundOn; setSoundOn(next); setAlertMuted(!next) }}
             role="switch" aria-checked={soundOn}
-            className={`relative shrink-0 w-12 h-7 rounded-full transition ${soundOn ? 'bg-emerald-600' : 'bg-slate-200'}`}>
+            className={`relative shrink-0 w-12 h-7 rounded-full transition ${soundOn ? 'bg-affirm-600' : 'bg-slate-200'}`}>
             <span className={`absolute top-1 left-1 w-5 h-5 rounded-full bg-white shadow transition-transform ${
               soundOn ? 'translate-x-5' : ''}`} />
           </button>
@@ -2306,7 +2306,7 @@ function ProfileTab({ user, onProfileUpdated, onLogout }: {
 
         {testResult && (
           <p className={`mt-2 text-xs rounded-xl px-3 py-2 ${
-            testResult.ok ? 'text-emerald-700 bg-emerald-50' : 'text-red-600 bg-red-50'}`}>
+            testResult.ok ? 'text-affirm-700 bg-affirm-50' : 'text-red-600 bg-red-50'}`}>
             {testResult.ok ? t('profile.testSent') : t('profile.testFailed')} — {testResult.detail}
           </p>
         )}
@@ -2339,7 +2339,7 @@ function ProfileTab({ user, onProfileUpdated, onLogout }: {
             )}`}
             className="flex items-center gap-3 w-full px-4 py-3 rounded-2xl bg-slate-50 hover:bg-slate-100 transition"
           >
-            <div className="w-9 h-9 rounded-xl bg-emerald-100 flex items-center justify-center text-emerald-600 shrink-0">
+            <div className="w-9 h-9 rounded-xl bg-affirm-100 flex items-center justify-center text-affirm-600 shrink-0">
               <Mail size={16} />
             </div>
             <div className="min-w-0 text-left">
@@ -2373,7 +2373,7 @@ function ProfileTab({ user, onProfileUpdated, onLogout }: {
       <div className="text-center py-4">
         <p className="text-[11px] text-slate-500">{COPYRIGHT}</p>
         <a href="/privacy.html" target="_blank" rel="noreferrer"
-          className="text-[11px] text-slate-500 hover:text-emerald-400 underline mt-1 inline-block">
+          className="text-[11px] text-slate-500 hover:text-affirm-400 underline mt-1 inline-block">
           {t('footer.privacy')}
         </a>
       </div>
@@ -2419,11 +2419,11 @@ function LogsPanel() {
   // happened, not a database dump.
   const ACTION_META: Record<string, { label: string; color: string; Icon: any }> = {
     signin: { label: t('logs.signin'), color: 'bg-blue-50 text-blue-600', Icon: LogOut },
-    signup: { label: t('logs.signup'), color: 'bg-emerald-50 text-emerald-600', Icon: User },
-    post_created: { label: t('logs.postCreated'), color: 'bg-emerald-50 text-emerald-600', Icon: PlusCircle },
+    signup: { label: t('logs.signup'), color: 'bg-affirm-50 text-affirm-600', Icon: User },
+    post_created: { label: t('logs.postCreated'), color: 'bg-affirm-50 text-affirm-600', Icon: PlusCircle },
     post_edited: { label: t('logs.postEdited'), color: 'bg-amber-50 text-amber-600', Icon: Pencil },
     post_deleted: { label: t('logs.postDeleted'), color: 'bg-red-50 text-red-600', Icon: Trash2 },
-    church_approved: { label: t('logs.churchApproved'), color: 'bg-emerald-50 text-emerald-600', Icon: CheckCircle2 },
+    church_approved: { label: t('logs.churchApproved'), color: 'bg-affirm-50 text-affirm-600', Icon: CheckCircle2 },
     church_denied: { label: t('logs.churchDenied'), color: 'bg-red-50 text-red-600', Icon: UserX },
     directory_synced: { label: t('logs.directorySynced'), color: 'bg-slate-100 text-slate-500', Icon: Church },
     like_added: { label: t('logs.likeAdded'), color: 'bg-rose-50 text-rose-600', Icon: Heart },
@@ -2466,7 +2466,7 @@ function LogsPanel() {
       <div className="relative">
         <Search size={17} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 pointer-events-none" />
         <input value={search} onChange={e => setSearch(e.target.value)} placeholder={t('logs.searchPlaceholder')}
-          className="w-full pl-11 pr-10 py-3 rounded-2xl glass-input text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-400/60 text-[15px]" />
+          className="w-full pl-11 pr-10 py-3 rounded-2xl glass-input text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-affirm-400/60 text-[15px]" />
         {search && (
           <button onClick={() => setSearch('')}
             className="absolute right-3 top-1/2 -translate-y-1/2 p-1 rounded-full text-slate-400 hover:text-white hover:bg-white/10">
@@ -2486,7 +2486,7 @@ function LogsPanel() {
           <button key={tab.id} onClick={() => setFilter(tab.id)}
             className={`shrink-0 px-4 py-2 rounded-full text-sm font-semibold transition ${
               filter === tab.id
-                ? 'bg-emerald-500/15 text-emerald-700 border border-emerald-400/50'
+                ? 'bg-affirm-500/15 text-affirm-700 border border-affirm-400/50'
                 : 'glass-soft text-slate-600 hover:text-slate-900'}`}>
             {tab.label}
           </button>
@@ -2505,8 +2505,8 @@ function LogsPanel() {
 
       {!loading && !error && visible.length === 0 && (
         <div className="text-center py-20">
-          <div className="w-16 h-16 rounded-full bg-emerald-500/10 flex items-center justify-center mx-auto mb-4">
-            <ScrollText size={28} className="text-emerald-400" />
+          <div className="w-16 h-16 rounded-full bg-affirm-500/10 flex items-center justify-center mx-auto mb-4">
+            <ScrollText size={28} className="text-affirm-400" />
           </div>
           <p className="text-slate-500 font-medium">{t('logs.empty')}</p>
         </div>
@@ -2573,8 +2573,8 @@ function AdminPanel({ pendingChurches, onApprove, onDeny }: {
     return (
       <div className="space-y-4">
         <div className="text-center py-16">
-          <div className="w-16 h-16 rounded-full bg-emerald-50 flex items-center justify-center mx-auto mb-4">
-            <ShieldCheck size={28} className="text-emerald-500" />
+          <div className="w-16 h-16 rounded-full bg-affirm-50 flex items-center justify-center mx-auto mb-4">
+            <ShieldCheck size={28} className="text-affirm-500" />
           </div>
           <p className="text-slate-500 font-medium">{t('admin.noPending')}</p>
           <p className="text-sm text-slate-400 mt-1">{t('admin.noPendingNote')}</p>
@@ -2600,7 +2600,7 @@ function AdminPanel({ pendingChurches, onApprove, onDeny }: {
           </div>
           <div className="flex gap-2">
             <button onClick={() => handle(church.uid, 'approve')} disabled={busyUid === church.uid}
-              className="flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-semibold transition disabled:opacity-50">
+              className="flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-xl bg-affirm-600 hover:bg-affirm-700 text-white text-sm font-semibold transition disabled:opacity-50">
               <CheckCircle2 size={16} /> {t('admin.approve')}
             </button>
             <button onClick={() => handle(church.uid, 'deny')} disabled={busyUid === church.uid}
@@ -2680,7 +2680,7 @@ function PostCard({ post, onLike, onOpenComments, currentUserUid, isLiked, onEdi
         {post.churchAvatar ? (
           <img src={post.churchAvatar} alt="" className="w-11 h-11 rounded-full object-cover shrink-0" />
         ) : (
-          <div className="w-11 h-11 rounded-full bg-gradient-to-br from-emerald-400 to-teal-500 flex items-center justify-center text-white font-bold text-sm shrink-0">
+          <div className="w-11 h-11 rounded-full bg-gradient-to-br from-affirm-400 to-teal-500 flex items-center justify-center text-white font-bold text-sm shrink-0">
             {(post.authorName || post.churchName || 'C').charAt(0)}
           </div>
         )}
@@ -2720,7 +2720,7 @@ function PostCard({ post, onLike, onOpenComments, currentUserUid, isLiked, onEdi
           ) : (
             <div className="flex items-center gap-0.5 shrink-0">
               <button onClick={() => onEdit(post)}
-                className="p-2 rounded-full text-slate-300 hover:text-emerald-600 hover:bg-emerald-50 transition">
+                className="p-2 rounded-full text-slate-300 hover:text-affirm-600 hover:bg-affirm-50 transition">
                 <Pencil size={16} />
               </button>
               <button onClick={() => setConfirmingDelete(true)}
@@ -2772,7 +2772,7 @@ function PostCard({ post, onLike, onOpenComments, currentUserUid, isLiked, onEdi
             <span className="text-sm font-medium">YouTube Video</span>
           </div>
           <a href={post.mediaUrl} target="_blank" rel="noreferrer"
-            className="text-sm text-emerald-600 underline break-all">{post.mediaUrl}</a>
+            className="text-sm text-affirm-600 underline break-all">{post.mediaUrl}</a>
         </div>
       )}
 
@@ -2821,7 +2821,7 @@ function PostCard({ post, onLike, onOpenComments, currentUserUid, isLiked, onEdi
             }}
             className="w-full flex items-center gap-3 bg-slate-50 hover:bg-slate-100 rounded-2xl px-4 py-3 transition text-left">
             <div className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 ${
-              player.isCurrent(post.id) ? 'bg-emerald-600 text-white' : 'bg-emerald-100 text-emerald-600'}`}>
+              player.isCurrent(post.id) ? 'bg-affirm-600 text-white' : 'bg-affirm-100 text-affirm-600'}`}>
               {player.isCurrent(post.id) && player.playing ? <Pause size={17} /> : <Play size={17} />}
             </div>
             <div className="min-w-0">
@@ -2863,7 +2863,7 @@ function PostCard({ post, onLike, onOpenComments, currentUserUid, isLiked, onEdi
             </span>
           )}
           <button onClick={() => onOpenComments(post.id)}
-            className="flex items-center gap-1.5 text-sm font-medium text-slate-400 hover:text-emerald-600">
+            className="flex items-center gap-1.5 text-sm font-medium text-slate-400 hover:text-affirm-600">
             <MessageCircle size={18} />
             {post.commentsCount || 0}
           </button>
@@ -2871,14 +2871,14 @@ function PostCard({ post, onLike, onOpenComments, currentUserUid, isLiked, onEdi
         {post.mediaUrl && ['text-image', 'audio', 'video', 'document'].includes(post.type) && (
           <button onClick={() => downloadMedia(post.mediaUrl!, fileNameFor(post))}
             aria-label={t('post.download')}
-            className="text-slate-300 hover:text-emerald-600 mr-1">
+            className="text-slate-300 hover:text-affirm-600 mr-1">
             <Download size={18} />
           </button>
         )}
-        <button onClick={handleShare} className="relative text-slate-300 hover:text-emerald-600">
+        <button onClick={handleShare} className="relative text-slate-300 hover:text-affirm-600">
           <Share2 size={18} />
           {shareCopied && (
-            <span className="absolute -top-8 right-0 text-[11px] font-medium text-emerald-700 bg-emerald-50 rounded-full px-2.5 py-1 whitespace-nowrap">
+            <span className="absolute -top-8 right-0 text-[11px] font-medium text-affirm-700 bg-affirm-50 rounded-full px-2.5 py-1 whitespace-nowrap">
               {t('post.linkCopied')}
             </span>
           )}
@@ -2971,16 +2971,16 @@ function BulkMusicModal({ user, onClose }: { user: AppUser; onClose: () => void 
           <p className="text-xs text-slate-500 leading-relaxed">{t('musique.bulkHint')}</p>
 
           <select value={category} onChange={e => setCategory(e.target.value)}
-            className="w-full px-4 py-3 rounded-2xl border border-slate-200 text-[15px] bg-white focus:outline-none focus:ring-2 focus:ring-emerald-400">
+            className="w-full px-4 py-3 rounded-2xl border border-slate-200 text-[15px] bg-white focus:outline-none focus:ring-2 focus:ring-affirm-400">
             {MUSIQUE_CATEGORIES.map(cat => <option key={cat} value={cat}>{cat}</option>)}
           </select>
 
           <textarea value={raw} onChange={e => setRaw(e.target.value)} rows={10}
             placeholder={"Titre du chant | https://www.youtube.com/watch?v=..."}
-            className="w-full px-4 py-3 rounded-2xl border border-slate-200 text-[13px] font-mono resize-none focus:outline-none focus:ring-2 focus:ring-emerald-400" />
+            className="w-full px-4 py-3 rounded-2xl border border-slate-200 text-[13px] font-mono resize-none focus:outline-none focus:ring-2 focus:ring-affirm-400" />
 
           {parsed.rows.length > 0 && (
-            <p className="text-xs text-emerald-700 bg-emerald-50 rounded-xl px-3 py-2">
+            <p className="text-xs text-affirm-700 bg-affirm-50 rounded-xl px-3 py-2">
               {parsed.rows.length} {t('musique.readyToAdd')}
             </p>
           )}
@@ -2993,7 +2993,7 @@ function BulkMusicModal({ user, onClose }: { user: AppUser; onClose: () => void 
           {error && <p className="text-xs text-red-500 bg-red-50 rounded-xl px-3 py-2 break-words">{error}</p>}
 
           <button onClick={submit} disabled={parsed.rows.length === 0 || busy}
-            className="w-full py-3.5 rounded-2xl bg-emerald-600 hover:bg-emerald-700 disabled:opacity-40 text-white font-semibold text-sm transition">
+            className="w-full py-3.5 rounded-2xl bg-affirm-600 hover:bg-affirm-700 disabled:opacity-40 text-white font-semibold text-sm transition">
             {busy ? `${t('musique.adding')} ${done}/${parsed.rows.length}` : `${t('musique.addAll')} (${parsed.rows.length})`}
           </button>
         </div>
@@ -3084,13 +3084,13 @@ function CreatePostModal({ onClose, onSubmit, uploaderUid, section = 'feed' }: {
             }
           }}
             disabled={!content.trim() || uploading || publishing}
-            className="text-emerald-600 font-semibold disabled:opacity-40">{t('post.publish')}</button>
+            className="text-affirm-600 font-semibold disabled:opacity-40">{t('post.publish')}</button>
         </div>
 
         <div className="p-5 space-y-5">
           {section === 'sante' && (
             <select value={santeCategory} onChange={e => setSanteCategory(e.target.value)}
-              className="w-full px-4 py-3 rounded-2xl border border-slate-200 text-[15px] bg-white focus:outline-none focus:ring-2 focus:ring-emerald-400">
+              className="w-full px-4 py-3 rounded-2xl border border-slate-200 text-[15px] bg-white focus:outline-none focus:ring-2 focus:ring-affirm-400">
               {SANTE_CATEGORIES.map(cat => <option key={cat} value={cat}>{cat}</option>)}
             </select>
           )}
@@ -3111,7 +3111,7 @@ function CreatePostModal({ onClose, onSubmit, uploaderUid, section = 'feed' }: {
             }].map(opt => (
               <button key={opt.id} onClick={() => { setType(opt.id as Post['type']); setMediaUrl(''); setFileName(''); setUploadError('') }}
                 className={`flex flex-col items-center gap-1.5 py-3 rounded-2xl border-2 transition ${
-                  type === opt.id ? 'border-emerald-500 bg-emerald-50 text-emerald-700' : 'border-slate-100 text-slate-400'}`}>
+                  type === opt.id ? 'border-affirm-500 bg-affirm-50 text-affirm-700' : 'border-slate-100 text-slate-400'}`}>
                 <opt.icon size={20} />
                 <span className="text-[11px] font-medium">{opt.label}</span>
               </button>
@@ -3120,22 +3120,22 @@ function CreatePostModal({ onClose, onSubmit, uploaderUid, section = 'feed' }: {
 
           <textarea value={content} onChange={e => setContent(e.target.value)}
             placeholder={t('post.contentPlaceholder')}
-            className="w-full min-h-[130px] p-4 rounded-2xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-400 resize-none text-[15px]" />
+            className="w-full min-h-[130px] p-4 rounded-2xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-affirm-400 resize-none text-[15px]" />
 
           {canUploadDirectly && rule && (
             <div>
               <label className={`flex flex-col items-center justify-center gap-2 py-6 rounded-2xl border-2 border-dashed transition cursor-pointer ${
-                mediaUrl && fileName ? 'border-emerald-300 bg-emerald-50' : 'border-slate-200 hover:border-emerald-300 hover:bg-slate-50'}`}>
+                mediaUrl && fileName ? 'border-affirm-300 bg-affirm-50' : 'border-slate-200 hover:border-affirm-300 hover:bg-slate-50'}`}>
                 {uploading ? (
                   <>
-                    <div className="w-6 h-6 border-2 border-emerald-500 border-t-transparent rounded-full animate-spin" />
+                    <div className="w-6 h-6 border-2 border-affirm-500 border-t-transparent rounded-full animate-spin" />
                     <span className="text-xs text-slate-500">{t('post.uploading')} {uploadProgress}%</span>
                   </>
                 ) : mediaUrl && fileName ? (
                   <>
-                    <CheckCircle2 size={22} className="text-emerald-500" />
+                    <CheckCircle2 size={22} className="text-affirm-500" />
                     <span className="text-xs text-slate-600 font-medium px-4 text-center break-all">{fileName}</span>
-                    <span className="text-[11px] text-emerald-600">{t('post.tapToReplace')}</span>
+                    <span className="text-[11px] text-affirm-600">{t('post.tapToReplace')}</span>
                   </>
                 ) : (
                   <>
@@ -3166,12 +3166,12 @@ function CreatePostModal({ onClose, onSubmit, uploaderUid, section = 'feed' }: {
               type === 'document' ? t('post.pasteDocUrl') :
               t('post.pasteImageVideoUrl')
             }
-            className="w-full px-4 py-3.5 rounded-2xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-400" />
+            className="w-full px-4 py-3.5 rounded-2xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-affirm-400" />
 
           {type === 'audio' && (
             <input value={coverUrl} onChange={e => setCoverUrl(e.target.value)}
               placeholder={t('post.pasteCoverUrl')}
-              className="w-full px-4 py-3.5 rounded-2xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-400" />
+              className="w-full px-4 py-3.5 rounded-2xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-affirm-400" />
           )}
         </div>
       </div>
@@ -3206,13 +3206,13 @@ function EditPostModal({ post, onClose, onSave }: {
           <button onClick={onClose} className="p-1.5 rounded-full hover:bg-slate-100"><X size={20} /></button>
           <h2 className="font-bold text-lg">{t('post.edit')}</h2>
           <button onClick={handleSave} disabled={!content.trim() || saving}
-            className="text-emerald-600 font-semibold disabled:opacity-40">
+            className="text-affirm-600 font-semibold disabled:opacity-40">
             {saving ? t('post.saving') : t('post.save')}
           </button>
         </div>
         <div className="p-5">
           <textarea value={content} onChange={e => setContent(e.target.value)}
-            className="w-full min-h-[130px] p-4 rounded-2xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-400 resize-none text-[15px]" />
+            className="w-full min-h-[130px] p-4 rounded-2xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-affirm-400 resize-none text-[15px]" />
           {post.mediaUrl && (
             <p className="mt-3 text-xs text-slate-400">
               {t('post.editNote')}
@@ -3237,7 +3237,7 @@ function CommentRow({ c, isReply, liked, likeCount, onLike, onReply, t }: {
     <div className={`flex gap-3 ${isReply ? 'ml-11' : ''}`}>
       {c.userAvatar
         ? <img src={c.userAvatar} alt="" className="w-9 h-9 rounded-full object-cover shrink-0" />
-        : <div className="w-9 h-9 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-700 font-semibold text-sm shrink-0">
+        : <div className="w-9 h-9 rounded-full bg-affirm-100 flex items-center justify-center text-affirm-700 font-semibold text-sm shrink-0">
             {c.userName.charAt(0)}
           </div>}
       <div className="flex-1 min-w-0">
@@ -3361,10 +3361,10 @@ function CommentsSheet({ postId, comments, onClose, onAdd, onLikeComment, likedC
           <div className="flex gap-2">
             <input value={text} onChange={e => setText(e.target.value)}
               placeholder={replyTo ? t('comments.replyPlaceholder') : t('comments.writePlaceholder')}
-              className="flex-1 bg-slate-100 rounded-full px-5 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-400"
+              className="flex-1 bg-slate-100 rounded-full px-5 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-affirm-400"
               onKeyDown={e => { if (e.key === 'Enter') submit() }} />
             <button onClick={submit} disabled={!text.trim() || sending}
-              className="w-11 h-11 rounded-full bg-emerald-600 text-white flex items-center justify-center shadow-lg shadow-emerald-200 disabled:opacity-40 shrink-0">
+              className="w-11 h-11 rounded-full bg-affirm-600 text-white flex items-center justify-center shadow-lg shadow-affirm-200 disabled:opacity-40 shrink-0">
               <Send size={16} />
             </button>
           </div>
@@ -3400,7 +3400,7 @@ function NotificationsPanel({ notifications, newPostCount, onClose, onTap, onDis
           {newPostCount > 0 && (
             <button onClick={onViewNewPosts}
               className="w-full flex items-center gap-3 px-5 py-4 border-b border-slate-100 hover:bg-slate-50 text-left">
-              <div className="w-9 h-9 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-600 shrink-0"><Home size={16} /></div>
+              <div className="w-9 h-9 rounded-full bg-affirm-100 flex items-center justify-center text-affirm-600 shrink-0"><Home size={16} /></div>
               <div className="flex-1 min-w-0">
                 <p className="text-sm font-semibold text-slate-800">{newPostCount} {t('notif.newPosts')}</p>
                 <p className="text-xs text-slate-400">{t('notif.tapToView')}</p>
@@ -3414,7 +3414,7 @@ function NotificationsPanel({ notifications, newPostCount, onClose, onTap, onDis
             const RowIcon = n.type.includes('like') ? Heart : MessageCircle
             const isLike = n.type.includes('like')
             return (
-              <div key={n.id} className={`flex items-start gap-3 px-5 py-3.5 border-b border-slate-50 ${!n.read ? 'bg-emerald-50/40' : ''}`}>
+              <div key={n.id} className={`flex items-start gap-3 px-5 py-3.5 border-b border-slate-50 ${!n.read ? 'bg-affirm-50/40' : ''}`}>
                 <button onClick={() => onTap(n)} className="flex items-start gap-3 flex-1 text-left min-w-0">
                   <div className="relative shrink-0">
                     {n.actorAvatar
@@ -3454,7 +3454,7 @@ function donationAccent(label: string) {
   if (l.includes('wave')) return 'bg-sky-100 text-sky-700'
   if (l.includes('orange')) return 'bg-orange-100 text-orange-700'
   if (l.includes('moov')) return 'bg-indigo-100 text-indigo-700'
-  return 'bg-emerald-100 text-emerald-700'
+  return 'bg-affirm-100 text-affirm-700'
 }
 
 function DonationSheet({ config, canEdit, onClose }: {

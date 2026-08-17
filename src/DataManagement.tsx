@@ -207,7 +207,7 @@ function BrowseCollections({ isAdmin }: { isAdmin: boolean }) {
           <button key={cname} onClick={() => { setName(cname); setOpen(null); setSearch('') }}
             className={`shrink-0 px-3.5 py-1.5 rounded-full text-xs font-semibold transition ${
               name === cname
-                ? 'bg-emerald-500/15 text-emerald-400 border border-emerald-400/40'
+                ? 'bg-affirm-500/15 text-affirm-400 border border-affirm-400/40'
                 : 'glass-soft text-slate-600 border border-white/40'}`}>
             {cname}
           </button>
@@ -217,7 +217,7 @@ function BrowseCollections({ isAdmin }: { isAdmin: boolean }) {
       <div className="relative">
         <Search size={17} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 pointer-events-none" />
         <input value={search} onChange={e => setSearch(e.target.value)} placeholder={t('data.searchRecords')}
-          className="w-full pl-11 pr-4 py-3 rounded-2xl glass-input text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-400/60 text-[15px]" />
+          className="w-full pl-11 pr-4 py-3 rounded-2xl glass-input text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-affirm-400/60 text-[15px]" />
       </div>
 
       <p className="text-xs text-slate-400 px-1">{visible.length} {t('data.records')}</p>
@@ -277,7 +277,7 @@ function BrowseCollections({ isAdmin }: { isAdmin: boolean }) {
                     onChange={e => setDraft(p => ({ ...p, [k]: e.target.value }))}
                     className={`w-full mt-1 px-3 py-2 rounded-xl border text-[13px] focus:outline-none ${
                       isAdmin
-                        ? 'border-slate-200 focus:ring-2 focus:ring-emerald-400'
+                        ? 'border-slate-200 focus:ring-2 focus:ring-affirm-400'
                         : 'border-slate-100 bg-slate-50 text-slate-500 cursor-default'}`} />
                 </div>
               ))}
@@ -290,7 +290,7 @@ function BrowseCollections({ isAdmin }: { isAdmin: boolean }) {
                   the honest UI rather than the actual barrier. */}
               {isAdmin && (
                 <button onClick={save} disabled={saving}
-                  className="w-full flex items-center justify-center gap-2 py-3 rounded-2xl bg-emerald-600 hover:bg-emerald-700 disabled:opacity-50 text-white font-semibold text-sm transition">
+                  className="w-full flex items-center justify-center gap-2 py-3 rounded-2xl bg-affirm-600 hover:bg-affirm-700 disabled:opacity-50 text-white font-semibold text-sm transition">
                   <Save size={16} /> {saving ? t('data.saving') : t('data.saveChanges')}
                 </button>
               )}
@@ -432,7 +432,7 @@ export function DataManagementTab({ user }: { user: AppUser }) {
           <button key={tab.id} onClick={() => setView(tab.id)}
             className={`shrink-0 flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-semibold transition ${
               view === tab.id
-                ? 'bg-emerald-500/15 text-emerald-400 border border-emerald-400/40'
+                ? 'bg-affirm-500/15 text-affirm-400 border border-affirm-400/40'
                 : 'glass-soft text-slate-600 border border-white/40 hover:text-slate-200'}`}>
             <tab.Icon size={15} /> {tab.label}
           </button>
@@ -470,7 +470,7 @@ export function DataManagementTab({ user }: { user: AppUser }) {
           <div className="relative">
             <Search size={17} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 pointer-events-none" />
             <input value={search} onChange={e => setSearch(e.target.value)} placeholder={t('data.searchPeople')}
-              className="w-full pl-11 pr-4 py-3 rounded-2xl glass-input text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-400/60 text-[15px]" />
+              className="w-full pl-11 pr-4 py-3 rounded-2xl glass-input text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-affirm-400/60 text-[15px]" />
           </div>
 
           <div className="flex gap-2 overflow-x-auto pb-1">
@@ -484,7 +484,7 @@ export function DataManagementTab({ user }: { user: AppUser }) {
               <button key={f.id} onClick={() => setRoleFilter(f.id)}
                 className={`shrink-0 px-3.5 py-1.5 rounded-full text-xs font-semibold transition ${
                   roleFilter === f.id
-                    ? 'bg-emerald-500/15 text-emerald-400 border border-emerald-400/40'
+                    ? 'bg-affirm-500/15 text-affirm-400 border border-affirm-400/40'
                     : 'glass-soft text-slate-600 border border-white/40'}`}>
                 {f.label}
               </button>
@@ -498,7 +498,7 @@ export function DataManagementTab({ user }: { user: AppUser }) {
               <button key={p.uid} onClick={() => setSelected(p)}
                 className={`w-full flex items-center gap-3 px-4 py-3 text-left hover:bg-slate-50 transition ${
                   i !== Math.min(visible.length, 200) - 1 ? 'border-b border-slate-50' : ''}`}>
-                <div className="w-9 h-9 rounded-full bg-gradient-to-br from-emerald-400 to-teal-500 flex items-center justify-center text-white text-sm font-bold shrink-0">
+                <div className="w-9 h-9 rounded-full bg-gradient-to-br from-affirm-400 to-teal-500 flex items-center justify-center text-white text-sm font-bold shrink-0">
                   {(p.displayName || '?').charAt(0).toUpperCase()}
                 </div>
                 <div className="min-w-0 flex-1">
@@ -531,7 +531,7 @@ export function DataManagementTab({ user }: { user: AppUser }) {
           {DATA_REGISTRY.map(entry => (
             <div key={entry.collection} className="bg-white rounded-3xl p-5 shadow-sm border border-slate-100">
               <div className="flex items-center gap-2 flex-wrap">
-                <Database size={15} className="text-emerald-600 shrink-0" />
+                <Database size={15} className="text-affirm-600 shrink-0" />
                 <h3 className="font-bold text-slate-900">{entry.collection}</h3>
                 {entry.sensitive && (
                   <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-100 text-amber-700">
@@ -563,8 +563,8 @@ export function DataManagementTab({ user }: { user: AppUser }) {
             { label: t('data.exportRegistry'), desc: t('data.exportRegistryDesc'), fn: exportRegistry, adminOnly: false }
           ].filter(x => !x.adminOnly || isAdmin).map(x => (
             <button key={x.label} onClick={x.fn}
-              className="w-full flex items-center gap-4 p-5 rounded-3xl bg-white shadow-sm border border-slate-100 hover:border-emerald-200 transition text-left">
-              <div className="w-11 h-11 rounded-2xl bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0">
+              className="w-full flex items-center gap-4 p-5 rounded-3xl bg-white shadow-sm border border-slate-100 hover:border-affirm-200 transition text-left">
+              <div className="w-11 h-11 rounded-2xl bg-affirm-100 text-affirm-600 flex items-center justify-center shrink-0">
                 <Download size={19} />
               </div>
               <div className="min-w-0">

@@ -1,17 +1,30 @@
 @import "tailwindcss";
 
 @theme {
-  --color-elim-50: #f0fdf6;
-  --color-elim-100: #dcfce9;
-  --color-elim-200: #bbf7d4;
-  --color-elim-300: #86efb0;
-  --color-elim-400: #4ade80;
-  --color-elim-500: #22c55e;
-  --color-elim-600: #16a34a;
-  --color-elim-700: #15803d;
-  --color-elim-800: #166534;
-  --color-elim-900: #14532d;
-  --color-elim-950: #052e16;
+  /* Affirm "Governor Bay" indigo as the primary accent, replacing emerald. */
+  --color-affirm-50: #eef0ff;
+  --color-affirm-100: #e1e3fe;
+  --color-affirm-200: #c8cbfc;
+  --color-affirm-300: #a5a8f9;
+  --color-affirm-400: #8482f6;
+  --color-affirm-500: #4a4af4;
+  --color-affirm-600: #3a34e6;
+  --color-affirm-700: #2f28c2;
+  --color-affirm-800: #29259c;
+  --color-affirm-900: #26257b;
+  --color-affirm-950: #171647;
+  /* Kept for any legacy elim-* usage, remapped onto the indigo. */
+  --color-elim-50: #eef0ff;
+  --color-elim-100: #e1e3fe;
+  --color-elim-200: #c8cbfc;
+  --color-elim-300: #a5a8f9;
+  --color-elim-400: #8482f6;
+  --color-elim-500: #4a4af4;
+  --color-elim-600: #3a34e6;
+  --color-elim-700: #2f28c2;
+  --color-elim-800: #29259c;
+  --color-elim-900: #26257b;
+  --color-elim-950: #171647;
   --color-navy-900: #0f172a;
   --color-navy-800: #1e293b;
   --color-navy-700: #334155;
@@ -41,10 +54,10 @@ body {
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   background:
-    radial-gradient(60rem 60rem at 12% -8%, rgba(16, 185, 129, 0.16), transparent 60%),
-    radial-gradient(52rem 52rem at 100% 8%, rgba(139, 129, 246, 0.16), transparent 55%),
-    radial-gradient(48rem 48rem at 50% 118%, rgba(45, 212, 191, 0.14), transparent 60%),
-    linear-gradient(180deg, #fbfaf7 0%, #f6f8fb 45%, #f2f7f4 100%);
+    radial-gradient(58rem 58rem at 10% -8%, rgba(74, 74, 244, 0.14), transparent 60%),
+    radial-gradient(50rem 50rem at 100% 6%, rgba(255, 138, 122, 0.16), transparent 55%),
+    radial-gradient(46rem 46rem at 52% 120%, rgba(124, 232, 200, 0.16), transparent 60%),
+    linear-gradient(180deg, #fbfbfe 0%, #f5f5fc 45%, #f4f6fb 100%);
   background-attachment: fixed;
 }
 
@@ -106,19 +119,19 @@ body {
 }
 .glass-input:focus, .glass-input:focus-visible {
   outline: none;
-  background: rgba(255, 255, 255, 0.85);
-  border-color: rgba(16, 185, 129, 0.55);
-  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.18);
+  background: rgba(255, 255, 255, 0.9);
+  border-color: rgba(74, 74, 244, 0.55);
+  box-shadow: 0 0 0 3px rgba(74, 74, 244, 0.18);
 }
 
 /* Primary emerald button with a soft gradient + glow. */
 .btn-glass-primary {
-  background: linear-gradient(135deg, #16a34a 0%, #10b981 100%);
+  background: linear-gradient(135deg, #4a4af4 0%, #3a34e6 100%);
   color: #fff;
-  box-shadow: 0 12px 26px -10px rgba(16, 163, 74, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  box-shadow: 0 12px 26px -10px rgba(74, 74, 244, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.25);
   transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
 }
-.btn-glass-primary:hover { filter: brightness(1.04); box-shadow: 0 16px 30px -10px rgba(16, 163, 74, 0.7); }
+.btn-glass-primary:hover { filter: brightness(1.06); box-shadow: 0 16px 30px -10px rgba(74, 74, 244, 0.72); }
 .btn-glass-primary:active { transform: translateY(1px) scale(0.99); }
 
 /* Amber donation button variant. */
@@ -180,9 +193,10 @@ video, audio {
 /* Auth / landing backdrop now shares the global glass gradient. */
 .heavenly-bg {
   background:
-    radial-gradient(50rem 50rem at 10% -10%, rgba(16, 185, 129, 0.18), transparent 60%),
-    radial-gradient(46rem 46rem at 100% 0%, rgba(139, 129, 246, 0.16), transparent 55%),
-    linear-gradient(180deg, #fbfaf7 0%, #ffffff 45%, #f0fdf6 100%);
+    radial-gradient(50rem 50rem at 10% -10%, rgba(74, 74, 244, 0.18), transparent 60%),
+    radial-gradient(46rem 46rem at 100% 0%, rgba(255, 138, 122, 0.16), transparent 55%),
+    radial-gradient(40rem 40rem at 50% 120%, rgba(124, 232, 200, 0.16), transparent 60%),
+    linear-gradient(180deg, #fbfbfe 0%, #ffffff 45%, #f4f5fc 100%);
 }
 
 /* Shimmer sweep used by the animated splash loading bar */

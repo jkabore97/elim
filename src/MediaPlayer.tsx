@@ -130,7 +130,7 @@ export function MediaPlayerProvider({ children }: { children: ReactNode }) {
               onChange={e => setCurrent(Number(e.target.value))}
               onMouseUp={e => { seek(Number((e.target as HTMLInputElement).value)); setScrubbing(false) }}
               onTouchEnd={e => { seek(Number((e.target as HTMLInputElement).value)); setScrubbing(false) }}
-              className="w-full h-1 accent-emerald-400 bg-white/10 cursor-pointer"
+              className="w-full h-1 accent-affirm-400 bg-white/10 cursor-pointer"
               aria-label="Seek"
             />
 
@@ -138,7 +138,7 @@ export function MediaPlayerProvider({ children }: { children: ReactNode }) {
               {track.artwork ? (
                 <img src={track.artwork} alt="" className="w-10 h-10 rounded-xl object-cover shrink-0" />
               ) : (
-                <div className="w-10 h-10 rounded-xl bg-emerald-500/15 text-emerald-400 flex items-center justify-center shrink-0">
+                <div className="w-10 h-10 rounded-xl bg-affirm-500/15 text-affirm-400 flex items-center justify-center shrink-0">
                   <Mic size={17} />
                 </div>
               )}
@@ -158,7 +158,7 @@ export function MediaPlayerProvider({ children }: { children: ReactNode }) {
 
               <button onClick={toggle}
                 aria-label={playing ? 'Pause' : 'Play'}
-                className="w-10 h-10 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white flex items-center justify-center shrink-0">
+                className="w-10 h-10 rounded-full bg-affirm-600 hover:bg-affirm-700 text-white flex items-center justify-center shrink-0">
                 {playing ? <Pause size={17} /> : <Play size={17} />}
               </button>
 

@@ -35,7 +35,7 @@ export function AnimatedSplash({ onDone }: { onDone: () => void }) {
         style={{
           bottom: shown ? '-14%' : '-30%',
           width: 620, height: 380,
-          background: 'radial-gradient(circle, rgba(251,191,36,0.30) 0%, rgba(16,185,129,0.14) 45%, transparent 72%)',
+          background: 'radial-gradient(circle, rgba(251,191,36,0.30) 0%, rgba(74, 74, 244,0.14) 45%, transparent 72%)',
           opacity: shown ? 1 : 0
         }}
       />
@@ -61,7 +61,7 @@ export function AnimatedSplash({ onDone }: { onDone: () => void }) {
       <div className="relative flex flex-col items-center px-8">
         {/* Halo rings breathing outward behind the mark */}
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-          <span className="absolute w-44 h-44 rounded-full border border-emerald-300/25"
+          <span className="absolute w-44 h-44 rounded-full border border-affirm-300/25"
             style={{ animation: 'halo 3.4s ease-out infinite' }} />
           <span className="absolute w-44 h-44 rounded-full border border-amber-200/20"
             style={{ animation: 'halo 3.4s ease-out 1.1s infinite' }} />
@@ -76,7 +76,7 @@ export function AnimatedSplash({ onDone }: { onDone: () => void }) {
           style={{
             transform: shown ? 'scale(1) translateY(0)' : 'scale(0.72) translateY(10px)',
             opacity: shown ? 1 : 0,
-            filter: 'drop-shadow(0 0 26px rgba(16,185,129,0.30)) drop-shadow(0 0 60px rgba(251,191,36,0.16))'
+            filter: 'drop-shadow(0 0 26px rgba(74, 74, 244,0.30)) drop-shadow(0 0 60px rgba(251,191,36,0.16))'
           }}
         />
 
@@ -96,7 +96,7 @@ export function AnimatedSplash({ onDone }: { onDone: () => void }) {
         </h1>
 
         {/* Hairline divider that draws itself open */}
-        <div className="mt-5 h-px bg-gradient-to-r from-transparent via-emerald-300/50 to-transparent transition-all duration-1000 ease-out"
+        <div className="mt-5 h-px bg-gradient-to-r from-transparent via-affirm-300/50 to-transparent transition-all duration-1000 ease-out"
           style={{ width: shown ? 200 : 0, opacity: shown ? 1 : 0, transitionDelay: '620ms' }} />
 
         <p
