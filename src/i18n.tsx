@@ -389,6 +389,10 @@ const translations = {
   'comments.title': { en: 'Comments', fr: 'Commentaires' },
   'comments.none': { en: 'No comments yet', fr: 'Aucun commentaire' },
   'comments.writePlaceholder': { en: 'Write a comment...', fr: 'Écrivez un commentaire...' },
+  'comments.replyPlaceholder': { en: 'Write a reply...', fr: 'Écrivez une réponse...' },
+  'comments.reply': { en: 'Reply', fr: 'Répondre' },
+  'comments.replyingTo': { en: 'Replying to', fr: 'En réponse à' },
+  'comments.like': { en: 'Like', fr: "J'aime" },
 
   // ---- Profile tab ----
   'profile.details': { en: 'Profile details', fr: 'Détails du profil' },

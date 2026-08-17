@@ -1008,6 +1008,7 @@ function AppInner() {
   const [loading, setLoading] = useState(true)
   const [pendingChurches, setPendingChurches] = useState<AppUser[]>([])
   const [likedPostIds, setLikedPostIds] = useState<Set<string>>(new Set())
+  const [likedCommentIds, setLikedCommentIds] = useState<Set<string>>(new Set())
   const [showNotifPrompt, setShowNotifPrompt] = useState(false)
   const [highlightPostId, setHighlightPostId] = useState<string | null>(null)
   const [santeCategory, setSanteCategory] = useState('all')
@@ -1031,6 +1032,7 @@ function AppInner() {
   const [messageToast, setMessageToast] = useState(false)
   const prevUnread = useRef<number | null>(null)
   const likeInFlight = useRef<Set<string>>(new Set())
+  const commentLikeInFlight = useRef<Set<string>>(new Set())
 
   // Alert only when the count RISES. Firing on any change would sound again
   // every time someone reads a thread and the number drops.
@@ -1179,6 +1181,17 @@ function AppInner() {
     return unsub
   }, [user])
 
+  // The current user's comment likes — same one-doc-per-user pattern as post
+  // likes, so we can show which comments this person has already liked.
+  useEffect(() => {
+    if (!user || user.role === 'pending_church') return
+    const q = query(collection(db, 'commentLikes'), where('userId', '==', user.uid))
+    const unsub = onSnapshot(q, (snap) => {
+      setLikedCommentIds(new Set(snap.docs.map(d => d.data().commentId as string)))
+    })
+    return unsub
+  }, [user])
+
   // Comments
   useEffect(() => {
     if (!user || user.role === 'pending_church') return
@@ -1250,19 +1263,46 @@ function AppInner() {
       `${data.section === 'sante' ? 'Santé' : 'Fil'} · ${finalType} - ${data.content.slice(0, 60)}`)
   }
 
-  const handleAddComment = async (text: string) => {
+  const handleAddComment = async (text: string, parentId?: string) => {
     if (!activeCommentsPost || !user) return
     await addDoc(collection(db, 'comments'), {
       postId: activeCommentsPost,
       userName: user.displayName,
       userId: user.uid,
+      ...(user.avatar ? { userAvatar: user.avatar } : {}),
+      ...(parentId ? { parentId } : {}),
       text,
+      likes: 0,
       createdAt: serverTimestamp()
     })
     await updateDoc(doc(db, 'posts', activeCommentsPost), { commentsCount: increment(1) })
     const commented = posts.find(p => p.id === activeCommentsPost)
     logActivity(user, 'comment_added',
       `${commented?.churchName || ''}: "${text.slice(0, 60)}"`.trim())
+  }
+
+  const handleLikeComment = async (commentId: string) => {
+    if (!user) return
+    // Same in-flight guard and one-doc-per-user pattern as post likes.
+    if (commentLikeInFlight.current.has(commentId)) return
+    commentLikeInFlight.current.add(commentId)
+    const likeDocId = `${commentId}_${user.uid}`
+    const alreadyLiked = likedCommentIds.has(commentId)
+    try {
+      if (alreadyLiked) {
+        await deleteDoc(doc(db, 'commentLikes', likeDocId))
+        await updateDoc(doc(db, 'comments', commentId), { likes: increment(-1) })
+      } else {
+        await setDoc(doc(db, 'commentLikes', likeDocId), {
+          commentId, userId: user.uid, createdAt: serverTimestamp()
+        })
+        await updateDoc(doc(db, 'comments', commentId), { likes: increment(1) })
+      }
+    } catch {
+      // The snapshot listener reconciles the UI to the true state.
+    } finally {
+      commentLikeInFlight.current.delete(commentId)
+    }
   }
 
   const handleLike = async (postId: string) => {
@@ -1807,7 +1847,8 @@ function AppInner() {
       )}
       {activeCommentsPost && (
         <CommentsSheet postId={activeCommentsPost} comments={comments}
-          onClose={() => setActiveCommentsPost(null)} onAdd={handleAddComment} />
+          onClose={() => setActiveCommentsPost(null)} onAdd={handleAddComment}
+          onLikeComment={handleLikeComment} likedCommentIds={likedCommentIds} />
       )}
     </div>
   )
@@ -3067,27 +3108,83 @@ function EditPostModal({ post, onClose, onSave }: {
   )
 }
 
-function CommentsSheet({ postId, comments, onClose, onAdd }: {
-  postId: string; comments: Comment[]; onClose: () => void; onAdd: (text: string) => void | Promise<void>
+function CommentRow({ c, isReply, liked, onLike, onReply, t }: {
+  c: Comment
+  isReply: boolean
+  liked: boolean
+  onLike: (id: string) => void
+  onReply: (c: Comment) => void
+  t: (k: any) => string
+}) {
+  const likeCount = c.likes || 0
+  return (
+    <div className={`flex gap-3 ${isReply ? 'ml-11' : ''}`}>
+      {c.userAvatar
+        ? <img src={c.userAvatar} alt="" className="w-9 h-9 rounded-full object-cover shrink-0" />
+        : <div className="w-9 h-9 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-700 font-semibold text-sm shrink-0">
+            {c.userName.charAt(0)}
+          </div>}
+      <div className="flex-1 min-w-0">
+        <div className="bg-slate-50 rounded-2xl px-3.5 py-2.5">
+          <p className="text-sm font-semibold text-slate-800">{c.userName}</p>
+          <p className="text-sm text-slate-600 break-words whitespace-pre-wrap">{c.text}</p>
+        </div>
+        <div className="flex items-center gap-4 mt-1 ml-1">
+          <span className="text-[11px] text-slate-400">{timeAgo(c.createdAt)}</span>
+          <button onClick={() => onLike(c.id)} aria-label={t('comments.like')}
+            className={`flex items-center gap-1 text-[11px] font-semibold transition ${liked ? 'text-rose-500' : 'text-slate-400 hover:text-slate-600'}`}>
+            <Heart size={13} fill={liked ? 'currentColor' : 'none'} />
+            {likeCount > 0 && <span>{likeCount}</span>}
+          </button>
+          <button onClick={() => onReply(c)}
+            className="text-[11px] font-semibold text-slate-400 hover:text-slate-600 transition">
+            {t('comments.reply')}
+          </button>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function CommentsSheet({ postId, comments, onClose, onAdd, onLikeComment, likedCommentIds }: {
+  postId: string
+  comments: Comment[]
+  onClose: () => void
+  onAdd: (text: string, parentId?: string) => void | Promise<void>
+  onLikeComment: (commentId: string) => void
+  likedCommentIds: Set<string>
 }) {
   const { t } = useLanguage()
   const [text, setText] = useState('')
   const [sending, setSending] = useState(false)
-  const list = comments.filter(c => c.postId === postId)
+  const [replyTo, setReplyTo] = useState<{ id: string; name: string } | null>(null)
 
-  const submitComment = async () => {
+  const all = comments.filter(c => c.postId === postId)
+  const topLevel = all.filter(c => !c.parentId)
+  // Replies grouped under their top-level parent, preserving the createdAt-asc
+  // order the global comments subscription already delivers.
+  const repliesByParent: Record<string, Comment[]> = {}
+  all.forEach(c => { if (c.parentId) (repliesByParent[c.parentId] ||= []).push(c) })
+
+  const submit = async () => {
     const value = text.trim()
     if (!value || sending) return
-    setText('')            // optimistic clear
+    const parentId = replyTo?.id
+    setText('')
     setSending(true)
     try {
-      await onAdd(value)
+      await onAdd(value, parentId)
+      setReplyTo(null)
     } catch {
-      setText(value)       // restore so a failed send doesn't lose the comment
+      setText(value)       // restore so a failed send doesn't lose the text
     } finally {
       setSending(false)
     }
   }
+
+  // Replies stay one level deep: replying to a reply attaches to the same
+  // top-level parent, but the chip still names the person being answered.
+  const startReply = (c: Comment) => setReplyTo({ id: c.parentId || c.id, name: c.userName })
 
   return (
     <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-end">
@@ -3097,30 +3194,37 @@ function CommentsSheet({ postId, comments, onClose, onAdd }: {
           <button onClick={onClose} className="p-1.5 rounded-full hover:bg-slate-100"><X size={18} /></button>
         </div>
         <div className="flex-1 overflow-y-auto p-5 space-y-4">
-          {list.length === 0 && <p className="text-center text-slate-400 text-sm py-10">{t('comments.none')}</p>}
-          {list.map(c => (
-            <div key={c.id} className="flex gap-3">
-              <div className="w-9 h-9 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-700 font-semibold text-sm shrink-0">
-                {c.userName.charAt(0)}
-              </div>
-              <div className="flex-1">
-                <div className="bg-slate-50 rounded-2xl px-3.5 py-2.5">
-                  <p className="text-sm font-semibold text-slate-800">{c.userName}</p>
-                  <p className="text-sm text-slate-600">{c.text}</p>
-                </div>
-                <p className="text-[11px] text-slate-400 mt-1 ml-1">{timeAgo(c.createdAt)}</p>
-              </div>
+          {topLevel.length === 0 && <p className="text-center text-slate-400 text-sm py-10">{t('comments.none')}</p>}
+          {topLevel.map(c => (
+            <div key={c.id} className="space-y-3">
+              <CommentRow c={c} isReply={false} liked={likedCommentIds.has(c.id)}
+                onLike={onLikeComment} onReply={startReply} t={t} />
+              {(repliesByParent[c.id] || []).map(r => (
+                <CommentRow key={r.id} c={r} isReply liked={likedCommentIds.has(r.id)}
+                  onLike={onLikeComment} onReply={startReply} t={t} />
+              ))}
             </div>
           ))}
         </div>
-        <div className="p-4 border-t border-slate-100 flex gap-2">
-          <input value={text} onChange={e => setText(e.target.value)} placeholder={t('comments.writePlaceholder')}
-            className="flex-1 bg-slate-100 rounded-full px-5 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-400"
-            onKeyDown={e => { if (e.key === 'Enter') submitComment() }} />
-          <button onClick={submitComment} disabled={!text.trim() || sending}
-            className="w-11 h-11 rounded-full bg-emerald-600 text-white flex items-center justify-center shadow-lg shadow-emerald-200 disabled:opacity-40">
-            <Send size={16} />
-          </button>
+        <div className="p-4 border-t border-slate-100">
+          {replyTo && (
+            <div className="flex items-center justify-between px-3 pb-2 text-xs text-slate-500">
+              <span className="truncate">{t('comments.replyingTo')} <b className="text-slate-700">{replyTo.name}</b></span>
+              <button onClick={() => setReplyTo(null)} className="text-slate-400 hover:text-slate-600 shrink-0 ml-2">
+                {t('post.cancel')}
+              </button>
+            </div>
+          )}
+          <div className="flex gap-2">
+            <input value={text} onChange={e => setText(e.target.value)}
+              placeholder={replyTo ? t('comments.replyPlaceholder') : t('comments.writePlaceholder')}
+              className="flex-1 bg-slate-100 rounded-full px-5 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-400"
+              onKeyDown={e => { if (e.key === 'Enter') submit() }} />
+            <button onClick={submit} disabled={!text.trim() || sending}
+              className="w-11 h-11 rounded-full bg-emerald-600 text-white flex items-center justify-center shadow-lg shadow-emerald-200 disabled:opacity-40 shrink-0">
+              <Send size={16} />
+            </button>
+          </div>
         </div>
       </div>
     </div>

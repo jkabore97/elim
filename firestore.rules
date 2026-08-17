@@ -210,7 +210,20 @@ service cloud.firestore {
     match /comments/{commentId} {
       allow read: if isSignedIn();
       allow create: if isSignedIn() && request.resource.data.userId == request.auth.uid;
-      allow update: if isAdmin();
+      allow update: if isSignedIn() && (
+                      isAdmin() ||
+                      // Any signed-in member may nudge the like counter by one
+                      // in either direction. The authoritative per-user state
+                      // lives in commentLikes; this is only the shown count.
+                      // The first like on a pre-existing comment (no 'likes'
+                      // field yet) just has to land a non-negative integer.
+                      (request.resource.data.diff(resource.data).affectedKeys().hasOnly(['likes'])
+                        && request.resource.data.likes is int
+                        && request.resource.data.likes >= 0
+                        && (!('likes' in resource.data)
+                            || (request.resource.data.likes >= resource.data.likes - 1
+                                && request.resource.data.likes <= resource.data.likes + 1)))
+                    );
       allow delete: if isSignedIn() && (resource.data.userId == request.auth.uid || isAdmin());
     }
 
@@ -224,6 +237,19 @@ service cloud.firestore {
       allow create: if isSignedIn()
                     && request.resource.data.userId == request.auth.uid
                     && likeId == (request.resource.data.postId + '_' + request.auth.uid);
+      allow delete: if isSignedIn() && (resource.data.userId == request.auth.uid || isAdmin());
+      allow update: if false;
+    }
+
+    // ---- Comment likes ----
+    // Same shape as post likes: one doc per commentId+userId, doc ID
+    // "{commentId}_{userId}", so "has this user liked this comment" is a plain
+    // existence check and a user can't create two likes for one comment.
+    match /commentLikes/{likeId} {
+      allow read: if isSignedIn();
+      allow create: if isSignedIn()
+                    && request.resource.data.userId == request.auth.uid
+                    && likeId == (request.resource.data.commentId + '_' + request.auth.uid);
       allow delete: if isSignedIn() && (resource.data.userId == request.auth.uid || isAdmin());
       allow update: if false;
     }

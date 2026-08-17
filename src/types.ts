@@ -147,6 +147,12 @@ export interface Comment {
   text: string;
   createdAt: any;
   userId?: string;
+  // Set when this comment is a reply to another comment. Replies are kept one
+  // level deep: a reply to a reply points at the same top-level parent.
+  parentId?: string;
+  // Denormalised like counter (mirrors Post.likes). The authoritative per-user
+  // state lives in the commentLikes collection.
+  likes?: number;
 }
 
 
