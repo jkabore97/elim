@@ -1672,7 +1672,7 @@ function AppInner() {
                     <div className="w-16 h-16 rounded-full bg-affirm-500/10 flex items-center justify-center mx-auto mb-4">
                       <Church size={28} className="text-affirm-400" />
                     </div>
-                    <p className="text-slate-300 font-medium">
+                    <p className="text-slate-100 font-medium">
                       {searchQuery || feedFilter !== 'all' ? t('feed.noMatches') : t('app.noPostsYet')}
                     </p>
                     <p className="text-sm text-slate-500 mt-1">
@@ -1756,7 +1756,7 @@ function AppInner() {
                     <div className="w-16 h-16 rounded-full bg-affirm-500/10 flex items-center justify-center mx-auto mb-4">
                       <Music size={28} className="text-affirm-400" />
                     </div>
-                    <p className="text-slate-300 font-medium">
+                    <p className="text-slate-100 font-medium">
                       {musiqueSearch || musiqueCategory !== 'all' ? t('musique.noMatches') : t('musique.empty')}
                     </p>
                     <p className="text-sm text-slate-500 mt-1">
@@ -1801,8 +1801,8 @@ function AppInner() {
                     <div className="w-16 h-16 rounded-full bg-affirm-500/10 flex items-center justify-center mx-auto mb-4">
                       <HeartPulse size={28} className="text-affirm-400" />
                     </div>
-                    <p className="text-slate-300 font-medium">{t('sante.empty')}</p>
-                    <p className="text-sm text-slate-500 mt-1">{t('sante.emptyHint')}</p>
+                    <p className="text-slate-100 font-medium">{t('sante.empty')}</p>
+                    <p className="text-sm text-slate-400 mt-1">{t('sante.emptyHint')}</p>
                   </div>
                 ) : santePosts.map(post => (
                   <PostCard key={post.id} post={post} onLike={handleLike} onOpenComments={setActiveCommentsPost}
@@ -2509,7 +2509,7 @@ function LogsPanel() {
           <div className="w-16 h-16 rounded-full bg-affirm-500/10 flex items-center justify-center mx-auto mb-4">
             <ScrollText size={28} className="text-affirm-400" />
           </div>
-          <p className="text-slate-300 font-medium">{t('logs.empty')}</p>
+          <p className="text-slate-100 font-medium">{t('logs.empty')}</p>
         </div>
       )}
 
@@ -2577,7 +2577,7 @@ function AdminPanel({ pendingChurches, onApprove, onDeny }: {
           <div className="w-16 h-16 rounded-full bg-affirm-50 flex items-center justify-center mx-auto mb-4">
             <ShieldCheck size={28} className="text-affirm-500" />
           </div>
-          <p className="text-slate-300 font-medium">{t('admin.noPending')}</p>
+          <p className="text-slate-100 font-medium">{t('admin.noPending')}</p>
           <p className="text-sm text-slate-400 mt-1">{t('admin.noPendingNote')}</p>
         </div>
       </div>

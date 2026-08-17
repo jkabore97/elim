@@ -370,8 +370,8 @@ export function LibraryTab({ user, canUpload }: { user: AppUser; canUpload: bool
           <div className="w-16 h-16 rounded-full bg-affirm-500/10 flex items-center justify-center mx-auto mb-4">
             <BookOpen size={28} className="text-affirm-400" />
           </div>
-          <p className="text-slate-300 font-medium">{t('lib.empty')}</p>
-          <p className="text-sm text-slate-500 mt-1">{t('lib.emptyHint')}</p>
+          <p className="text-slate-100 font-medium">{t('lib.empty')}</p>
+          <p className="text-sm text-slate-400 mt-1">{t('lib.emptyHint')}</p>
         </div>
       )}
 

@@ -55,10 +55,10 @@ body {
   text-rendering: optimizeLegibility;
   color: #e8ecf4;
   background:
-    radial-gradient(60rem 60rem at 8% -10%, rgba(74, 74, 244, 0.30), transparent 60%),
-    radial-gradient(52rem 52rem at 100% 4%, rgba(255, 138, 122, 0.20), transparent 55%),
-    radial-gradient(48rem 48rem at 55% 122%, rgba(124, 232, 200, 0.18), transparent 60%),
-    linear-gradient(180deg, #0b1020 0%, #0e1426 48%, #0b1120 100%);
+    radial-gradient(60rem 60rem at 8% -10%, rgba(74, 74, 244, 0.22), transparent 62%),
+    radial-gradient(52rem 52rem at 100% 4%, rgba(255, 138, 122, 0.15), transparent 58%),
+    radial-gradient(48rem 48rem at 55% 122%, rgba(124, 232, 200, 0.13), transparent 62%),
+    linear-gradient(180deg, #0a0e1c 0%, #0c1122 48%, #090e1c 100%);
   background-attachment: fixed;
 }
 
@@ -86,8 +86,8 @@ body {
 .aurora {
   position: absolute;
   border-radius: 9999px;
-  filter: blur(70px);
-  opacity: 0.6;
+  filter: blur(72px);
+  opacity: 0.42;
   will-change: transform;
   mix-blend-mode: screen;
 }
@@ -128,11 +128,11 @@ body {
 /* Frosted DARK glass, for surfaces that keep light text (messaging, reader,
    media bar). Lets those screens stay legible while matching the glass world. */
 .glass-dark {
-  background: rgba(11, 16, 32, 0.55);
-  backdrop-filter: blur(28px) saturate(150%);
-  -webkit-backdrop-filter: blur(28px) saturate(150%);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: var(--glass-shadow-lg), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  background: rgba(10, 14, 28, 0.9);
+  backdrop-filter: blur(24px) saturate(140%);
+  -webkit-backdrop-filter: blur(24px) saturate(140%);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  box-shadow: 0 8px 30px -8px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
 
 /* Lighter, barely-there glass for nested chips / secondary surfaces. */

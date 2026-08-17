@@ -1006,7 +1006,7 @@ function ConversationList({ user, onOpen }: {
           <div className="w-16 h-16 rounded-full bg-affirm-500/10 flex items-center justify-center mx-auto mb-4">
             <MessageCircle size={28} className="text-affirm-400" />
           </div>
-          <p className="text-slate-300 font-medium">{t('msg.noConversations')}</p>
+          <p className="text-slate-100 font-medium">{t('msg.noConversations')}</p>
           <p className="text-sm text-slate-500 mt-1">{t('msg.noConversationsHint')}</p>
         </div>
       )}
