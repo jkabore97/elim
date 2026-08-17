@@ -5,6 +5,10 @@ import { useEffect, useState } from 'react'
 // image: Capacitor's native splash already covers the cold-start gap, and
 // layering a static image on top produces a visible double-flash. This picks
 // up where the native one leaves off so it reads as one continuous motion.
+//
+// Calm light-emerald theme to match the rest of the app: a soft emerald dawn
+// rising from below on a warm near-white sky, the mark floating in breathing
+// emerald halos, an emerald-gradient wordmark, and drifting motes of light.
 export function AnimatedSplash({ onDone }: { onDone: () => void }) {
   const [phase, setPhase] = useState<'enter' | 'hold' | 'exit'>('enter')
 
@@ -23,25 +27,25 @@ export function AnimatedSplash({ onDone }: { onDone: () => void }) {
         phase === 'exit' ? 'opacity-0' : 'opacity-100'
       }`}
       style={{
-        // Deep pre-dawn sky warming toward the horizon — the light arrives
-        // from below rather than sitting flat behind everything.
+        // Warm near-white sky with a soft emerald light rising from the
+        // horizon, so the glow arrives from below rather than sitting flat.
         background:
-          'radial-gradient(ellipse 90% 60% at 50% 105%, #1c3a4f 0%, #12253a 38%, #0a0e1a 72%, #060911 100%)'
+          'radial-gradient(ellipse 92% 62% at 50% 108%, #a7f3d0 0%, #d1fae5 30%, #eef7f1 64%, #fbfaf6 100%)'
       }}
     >
-      {/* Warm horizon glow rising under the mark */}
+      {/* Emerald horizon glow rising under the mark */}
       <div
         className="absolute left-1/2 -translate-x-1/2 rounded-full blur-3xl transition-all duration-[2200ms] ease-out"
         style={{
           bottom: shown ? '-14%' : '-30%',
           width: 620, height: 380,
-          background: 'radial-gradient(circle, rgba(251,191,36,0.30) 0%, rgba(74, 74, 244,0.14) 45%, transparent 72%)',
+          background: 'radial-gradient(circle, rgba(16,185,129,0.34) 0%, rgba(245,200,120,0.16) 45%, transparent 72%)',
           opacity: shown ? 1 : 0
         }}
       />
-      {/* Cool counter-light from above, so the mark sits between two sources */}
+      {/* Soft counter-light from above, so the mark sits between two sources */}
       <div className="absolute top-[-10%] left-1/4 w-[460px] h-[460px] rounded-full blur-3xl pointer-events-none"
-        style={{ background: 'radial-gradient(circle, rgba(56,189,248,0.14) 0%, transparent 70%)' }} />
+        style={{ background: 'radial-gradient(circle, rgba(52,211,153,0.22) 0%, transparent 70%)' }} />
 
       {/* Drifting motes of light */}
       {[
@@ -50,9 +54,10 @@ export function AnimatedSplash({ onDone }: { onDone: () => void }) {
         { l: '78%', d: 1.1, s: 2, dur: 8.5 }, { l: '88%', d: 2.6, s: 2.5, dur: 9.5 }
       ].map((p, i) => (
         <span key={i}
-          className="absolute rounded-full bg-amber-200/50"
+          className="absolute rounded-full"
           style={{
             left: p.l, width: p.s, height: p.s,
+            background: 'rgba(16,185,129,0.5)',
             animation: `rise ${p.dur}s ease-in-out ${p.d}s infinite`,
             opacity: 0
           }} />
@@ -61,11 +66,11 @@ export function AnimatedSplash({ onDone }: { onDone: () => void }) {
       <div className="relative flex flex-col items-center px-8">
         {/* Halo rings breathing outward behind the mark */}
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-          <span className="absolute w-44 h-44 rounded-full border border-affirm-300/25"
+          <span className="absolute w-44 h-44 rounded-full border border-affirm-400/35"
             style={{ animation: 'halo 3.4s ease-out infinite' }} />
-          <span className="absolute w-44 h-44 rounded-full border border-amber-200/20"
+          <span className="absolute w-44 h-44 rounded-full border border-affirm-300/30"
             style={{ animation: 'halo 3.4s ease-out 1.1s infinite' }} />
-          <span className="absolute w-44 h-44 rounded-full border border-sky-200/15"
+          <span className="absolute w-44 h-44 rounded-full border border-amber-300/25"
             style={{ animation: 'halo 3.4s ease-out 2.2s infinite' }} />
         </div>
 
@@ -76,7 +81,7 @@ export function AnimatedSplash({ onDone }: { onDone: () => void }) {
           style={{
             transform: shown ? 'scale(1) translateY(0)' : 'scale(0.72) translateY(10px)',
             opacity: shown ? 1 : 0,
-            filter: 'drop-shadow(0 0 26px rgba(74, 74, 244,0.30)) drop-shadow(0 0 60px rgba(251,191,36,0.16))'
+            filter: 'drop-shadow(0 6px 20px rgba(4,120,87,0.22)) drop-shadow(0 0 42px rgba(16,185,129,0.24))'
           }}
         />
 
@@ -86,7 +91,7 @@ export function AnimatedSplash({ onDone }: { onDone: () => void }) {
             transform: shown ? 'translateY(0)' : 'translateY(16px)',
             opacity: shown ? 1 : 0,
             transitionDelay: '280ms',
-            background: 'linear-gradient(180deg, #ffffff 0%, #d6f5e6 55%, #fde9b8 100%)',
+            background: 'linear-gradient(180deg, #047857 0%, #10b981 55%, #059669 100%)',
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent',
             backgroundClip: 'text'
@@ -96,11 +101,11 @@ export function AnimatedSplash({ onDone }: { onDone: () => void }) {
         </h1>
 
         {/* Hairline divider that draws itself open */}
-        <div className="mt-5 h-px bg-gradient-to-r from-transparent via-affirm-300/50 to-transparent transition-all duration-1000 ease-out"
+        <div className="mt-5 h-px bg-gradient-to-r from-transparent via-affirm-400/55 to-transparent transition-all duration-1000 ease-out"
           style={{ width: shown ? 200 : 0, opacity: shown ? 1 : 0, transitionDelay: '620ms' }} />
 
         <p
-          className="mt-5 text-center text-[12.5px] leading-relaxed text-slate-300/85 max-w-[19rem] transition-all duration-1000 ease-out"
+          className="mt-5 text-center text-[12.5px] leading-relaxed text-slate-600 max-w-[19rem] transition-all duration-1000 ease-out"
           style={{
             transform: shown ? 'translateY(0)' : 'translateY(12px)',
             opacity: shown ? 1 : 0,
@@ -111,15 +116,15 @@ export function AnimatedSplash({ onDone }: { onDone: () => void }) {
         </p>
       </div>
 
-      <p className="absolute bottom-8 text-[10px] text-slate-600 transition-opacity duration-700"
+      <p className="absolute bottom-8 text-[10px] text-slate-400 transition-opacity duration-700"
         style={{ opacity: shown ? 1 : 0, transitionDelay: '1000ms' }}>
         © {new Date().getFullYear()} Centre Chrétien E.L.I.M.
       </p>
 
       <style>{`
         @keyframes halo {
-          0%   { transform: scale(0.85); opacity: 0.55; }
-          70%  { opacity: 0.10; }
+          0%   { transform: scale(0.85); opacity: 0.6; }
+          70%  { opacity: 0.12; }
           100% { transform: scale(1.9); opacity: 0; }
         }
         @keyframes rise {

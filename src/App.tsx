@@ -1103,14 +1103,15 @@ function AppInner() {
   const [feedFilter, setFeedFilter] = useState<'all' | 'video' | 'audio' | 'posts'>('all')
   const [searchQuery, setSearchQuery] = useState('')
 
-  // The whole app is dark-themed on native (both the auth screens and the
+  // The whole app is light-themed on native (both the auth screens and the
   // main shell), so this is applied once, unconditionally, rather than
-  // switching per-screen. Native-only: these APIs don't exist on web, where
-  // the browser's own chrome is what's visible instead of a device status bar.
+  // switching per-screen: dark status-bar icons over a light system-bar
+  // background. Native-only: these APIs don't exist on web, where the
+  // browser's own chrome is what's visible instead of a device status bar.
   useEffect(() => {
     if (Capacitor.isNativePlatform()) {
-      SystemBars.setStyle({ style: SystemBarsStyle.Dark }).catch(() => {})
-      EdgeToEdge.setBackgroundColor({ color: '#0f172a' }).catch(() => {})
+      SystemBars.setStyle({ style: SystemBarsStyle.Light }).catch(() => {})
+      EdgeToEdge.setBackgroundColor({ color: '#fbfaf6' }).catch(() => {})
     }
     // Web only (no-ops on native) - lets an already-open browser tab show a
     // notification for a new post without needing to reload.
