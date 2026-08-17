@@ -1595,20 +1595,15 @@ function AppInner() {
           )}
           <div className="pt-4 border-t border-white/10 flex items-center justify-between">
             <span className="text-xs font-medium text-slate-400 truncate">{user.displayName}</span>
-            <div className="flex items-center gap-1">
-              <button onClick={openNotifications} aria-label={t('notif.title')}
-                className="relative p-2 rounded-full hover:bg-white/5 text-slate-300">
-                <Bell size={16} />
-                {bellCount > 0 && (
-                  <span className="absolute -top-0.5 -right-0.5 min-w-[16px] h-4 px-1 rounded-full bg-red-500 text-white text-[9px] font-bold flex items-center justify-center">
-                    {bellCount > 99 ? '99+' : bellCount}
-                  </span>
-                )}
-              </button>
-              <button onClick={handleLogout} className="p-2 rounded-full hover:bg-white/5 text-slate-400">
-                <LogOut size={16} />
-              </button>
-            </div>
+            <button onClick={openNotifications} aria-label={t('notif.title')}
+              className="relative p-2 rounded-full hover:bg-white/5 text-slate-300">
+              <Bell size={18} />
+              {bellCount > 0 && (
+                <span className="absolute -top-0.5 -right-0.5 min-w-[16px] h-4 px-1 rounded-full bg-red-500 text-white text-[9px] font-bold flex items-center justify-center">
+                  {bellCount > 99 ? '99+' : bellCount}
+                </span>
+              )}
+            </button>
           </div>
           <p className="mt-3 text-[10px] text-slate-600 leading-relaxed">{COPYRIGHT}</p>
         </aside>
@@ -1618,24 +1613,20 @@ function AppInner() {
           <header className="lg:hidden sticky top-0 z-40 bg-[#0f172a] border-b border-white/10">
             <div className="px-5 h-14 flex items-center justify-between">
               <Logo size={32} />
-              <div className="flex items-center gap-2.5">
-                <button onClick={() => setShowDonation(true)} aria-label={t('donate.button')}
-                  className="p-2 rounded-full bg-amber-500 hover:bg-amber-600 text-white transition shadow-sm">
-                  <HandCoins size={16} />
-                </button>
+              <div className="flex items-center gap-3">
                 <LanguageSwitcher dark />
                 <button onClick={openNotifications} aria-label={t('notif.title')}
-                  className="relative p-2 rounded-full hover:bg-white/5 text-slate-300">
-                  <Bell size={18} />
+                  className="relative p-2 rounded-full hover:bg-white/10 text-slate-200 transition">
+                  <Bell size={20} />
                   {bellCount > 0 && (
                     <span className="absolute -top-0.5 -right-0.5 min-w-[16px] h-4 px-1 rounded-full bg-red-500 text-white text-[9px] font-bold flex items-center justify-center">
                       {bellCount > 99 ? '99+' : bellCount}
                     </span>
                   )}
                 </button>
-                <span className="text-xs font-medium text-slate-400 truncate max-w-[80px]">{user.displayName}</span>
-                <button onClick={handleLogout} className="p-2 rounded-full hover:bg-white/5 text-slate-400">
-                  <LogOut size={18} />
+                <button onClick={() => setShowDonation(true)}
+                  className="flex items-center gap-1.5 pl-2.5 pr-3 py-1.5 rounded-full bg-amber-500 hover:bg-amber-600 text-white text-xs font-semibold transition shadow-sm">
+                  <HandCoins size={15} /> {t('donate.button')}
                 </button>
               </div>
             </div>
@@ -1708,7 +1699,7 @@ function AppInner() {
             )}
 
             {activeTab === 'profile' && (
-              <ProfileTab user={user} onProfileUpdated={(updates) => setUser(prev => prev ? { ...prev, ...updates } : prev)} />
+              <ProfileTab user={user} onLogout={handleLogout} onProfileUpdated={(updates) => setUser(prev => prev ? { ...prev, ...updates } : prev)} />
             )}
 
             {activeTab === 'library' && <LibraryTab user={user} canUpload={canPost} />}
@@ -2079,9 +2070,10 @@ const COUNTRY_CODES = [
 ]
 
 // ==================== COMPONENTS ====================
-function ProfileTab({ user, onProfileUpdated }: {
+function ProfileTab({ user, onProfileUpdated, onLogout }: {
   user: AppUser
   onProfileUpdated: (updates: Partial<AppUser>) => void
+  onLogout: () => void
 }) {
   const { t } = useLanguage()
   const [uploading, setUploading] = useState(false)
@@ -2366,6 +2358,11 @@ function ProfileTab({ user, onProfileUpdated }: {
           </a>
         </div>
       </div>
+
+      <button onClick={onLogout}
+        className="w-full flex items-center justify-center gap-2 py-3.5 rounded-2xl bg-white border border-red-100 text-red-600 font-semibold text-sm hover:bg-red-50 transition shadow-sm">
+        <LogOut size={18} /> {t('profile.logout')}
+      </button>
 
       <div className="text-center py-4">
         <p className="text-[11px] text-slate-500">{COPYRIGHT}</p>

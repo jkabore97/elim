@@ -423,6 +423,7 @@ const translations = {
 
   // ---- Profile tab ----
   'profile.details': { en: 'Profile details', fr: 'Détails du profil' },
+  'profile.logout': { en: 'Log out', fr: 'Se déconnecter' },
   'profile.church': { en: 'Church', fr: 'Église' },
   'profile.churchPlaceholder': { en: 'e.g. Grace Community Church', fr: 'ex. Église de la Grâce' },
   'profile.country': { en: 'Country', fr: 'Pays' },
