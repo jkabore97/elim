@@ -8,9 +8,14 @@ android {
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         // Fresh Play listing under com.elim.app - the version history starts
-        // over here, independent of the old com.ccelim.app app. versionCode
-        // encodes versionName (1.04 -> 104) and must increase on every upload.
-        versionCode 104
+        // over here, independent of the old com.ccelim.app app.
+        //
+        // versionName is what people see and stays "1.04" across these builds.
+        // versionCode is the internal upload counter: Play rejects an upload
+        // whose code it has already seen, so it must increase on EVERY build
+        // sent to the console, even when the visible version is unchanged.
+        // Started at 104 (encoding 1.04); bump this line for each new upload.
+        versionCode 105
         versionName "1.04"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         aaptOptions {
