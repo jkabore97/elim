@@ -1,12 +1,13 @@
 {
   "name": "elim-app",
   "private": true,
-  "version": "1.0.0",
+  "version": "1.0.4",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "oxlint",
+    "test:rules": "npx -y firebase-tools emulators:exec --only firestore --project demo-elim \"node scripts/firestore-rules.test.mjs\"",
     "preview": "vite preview",
     "cap:sync": "npm run build && npx cap sync",
     "cap:ios": "npm run cap:sync && npx cap open ios",
@@ -35,6 +36,7 @@
   },
   "devDependencies": {
     "@capacitor/assets": "^3.0.5",
+    "@firebase/rules-unit-testing": "^4.0.1",
     "@tailwindcss/vite": "^4.1.7",
     "@types/node": "^24.13.2",
     "@types/react": "^19.2.17",

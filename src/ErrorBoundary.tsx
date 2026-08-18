@@ -51,7 +51,7 @@ export class ErrorBoundary extends Component<
 
           <button
             onClick={() => { this.setState({ error: null, info: '' }); window.location.reload() }}
-            className="mt-6 w-full py-3.5 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold transition"
+            className="mt-6 w-full py-3.5 rounded-2xl bg-affirm-600 hover:bg-affirm-700 text-white font-semibold transition"
           >
             Reload the app
           </button>

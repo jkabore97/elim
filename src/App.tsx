@@ -3,7 +3,8 @@ import {
   Home, Church, PlusCircle, User, MessageCircle, Heart, Share2,
   Image as ImageIcon, Video, Mic, X, Send, LogOut,
   Youtube, Facebook, CheckCircle2, Clock, ArrowRight, ShieldCheck, UserX, Sparkles,
-  Trash2, Camera, FileText, Upload, Pencil, Globe, Eye, EyeOff, Search, Bell, ScrollText, Mail, Play, Pause, HeartPulse, Download, AlertTriangle, BookOpen, Music
+  Trash2, Camera, FileText, Upload, Pencil, Globe, Eye, EyeOff, Search, Bell, ScrollText, Mail, Play, Pause, HeartPulse, Download, AlertTriangle, BookOpen, Music,
+  HandCoins, Copy, Check, Plus, Flag
 } from 'lucide-react'
 import {
   collection, addDoc, onSnapshot, query, orderBy, where,
@@ -20,7 +21,10 @@ import { Capacitor, SystemBars, SystemBarsStyle } from '@capacitor/core'
 import { Share } from '@capacitor/share'
 import { EdgeToEdge } from '@capawesome/capacitor-android-edge-to-edge-support'
 import { auth, db, storage } from './firebase'
-import { enableNotifications, disableNotifications, listenForForegroundMessages, checkNotificationPermission, reconcileNotificationState, initNativeNotifications, sendTestNotification, notificationDiagnostics, onNotificationRoute, consumeLaunchUrlRoute, openNotificationSettings } from './notifications'
+import { enableNotifications, disableNotifications, listenForForegroundMessages, checkNotificationPermission, reconcileNotificationState, initNativeNotifications, sendTestNotification, notificationDiagnostics, onNotificationRoute, consumeLaunchUrlRoute, openNotificationSettings, cleanupPushForLogout } from './notifications'
+import { storageGet, storageSet } from './safeStorage'
+import { StarField } from './StarField'
+import { ReportSheet } from './ReportSheet'
 import { logActivity } from './activityLog'
 import { AnimatedSplash } from './AnimatedSplash'
 import { MediaPlayerProvider, useMediaPlayer } from './MediaPlayer'
@@ -30,7 +34,7 @@ import { MessagesTab, useUnreadCount } from './Messages'
 import { playMessageAlert, isAlertMuted, setAlertMuted } from './messageAlert'
 import { DataManagementTab } from './DataManagement'
 import { LibraryTab } from './Library'
-import type { Post, Comment, AppUser, ActivityLog } from './types'
+import type { Post, Comment, AppUser, ActivityLog, AppNotification, DonationConfig, DonationProvider, Report, DonationType, Donation } from './types'
 import { LanguageProvider, useLanguage, type Language } from './i18n'
 
 function timeAgo(date: any) {
@@ -149,6 +153,38 @@ function Logo({ size = 36, variant = 'mark' }: { size?: number; variant?: 'mark'
       style={{ height: size }}
       className="object-contain"
     />
+  )
+}
+
+// Animated emerald-glass hero shown above the sign-in card. Pure CSS motion
+// (see index.css .banner-*): a floating logo in a pulsing halo, drifting aura
+// blobs, a shining title and rising sparks. Respects prefers-reduced-motion.
+function AuthBanner({ subtitle }: { subtitle?: string }) {
+  // Fixed spark positions/delays so the animation is deterministic (no random).
+  const sparks = [
+    { left: '20%', delay: '0s', dur: '7s' },
+    { left: '38%', delay: '2.4s', dur: '8s' },
+    { left: '54%', delay: '4.1s', dur: '6.5s' },
+    { left: '72%', delay: '1.2s', dur: '7.6s' },
+    { left: '84%', delay: '3.3s', dur: '8.4s' },
+  ]
+  return (
+    <div className="banner-hero px-6 py-8 mb-8">
+      <div className="banner-aura" aria-hidden="true" />
+      <div className="banner-aura banner-aura-2" aria-hidden="true" />
+      {sparks.map((s, i) => (
+        <span key={i} className="banner-spark" aria-hidden="true"
+          style={{ left: s.left, animationDelay: s.delay, animationDuration: s.dur }} />
+      ))}
+      <div className="relative flex flex-col items-center text-center">
+        <div className="banner-logo-wrap">
+          <div className="banner-halo" aria-hidden="true" />
+          <Logo size={76} variant="mark" />
+        </div>
+        <h1 className="banner-title mt-4 text-3xl font-extrabold tracking-tight">ELIM</h1>
+        {subtitle && <p className="mt-1 text-[13px] font-semibold text-affirm-700">{subtitle}</p>}
+      </div>
+    </div>
   )
 }
 
@@ -281,7 +317,7 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
   const [resetSent, setResetSent] = useState(false)
   const [registerSuccess, setRegisterSuccess] = useState(false)
 
-  const inputClass = "w-full px-4 py-3.5 rounded-2xl bg-white/5 border border-white/10 text-white placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-emerald-400/60 focus:border-emerald-400/60 text-[15px]"
+  const inputClass = "w-full px-4 py-3.5 rounded-2xl glass-input text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-affirm-400/60 focus:border-affirm-400/60 text-[15px]"
   const selectClass = inputClass + " appearance-none"
 
   // The church picker needs to be readable before anyone is signed in —
@@ -431,11 +467,11 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
     <div>
       <div className="flex bg-white/5 border border-white/10 rounded-2xl p-1 mb-5">
         <button onClick={() => switchMode('login')}
-          className={`flex-1 py-2.5 rounded-xl text-sm font-semibold transition ${mode === 'login' ? 'bg-white/10 text-white' : 'text-slate-400'}`}>
+          className={`flex-1 py-2.5 rounded-xl text-sm font-semibold transition ${mode === 'login' ? 'bg-white text-slate-800 shadow-sm' : 'text-slate-500'}`}>
           {t('auth.signIn')}
         </button>
         <button onClick={() => switchMode('register')}
-          className={`flex-1 py-2.5 rounded-xl text-sm font-semibold transition ${mode === 'register' ? 'bg-white/10 text-white' : 'text-slate-400'}`}>
+          className={`flex-1 py-2.5 rounded-xl text-sm font-semibold transition ${mode === 'register' ? 'bg-white text-slate-800 shadow-sm' : 'text-slate-500'}`}>
           {t('auth.createAccount')}
         </button>
       </div>
@@ -444,18 +480,18 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
       <div className="flex gap-3 mb-6">
         <button onClick={() => { setAccountType('member'); setError('') }}
           className={`flex-1 py-3 rounded-2xl border-2 text-sm font-medium transition ${
-            accountType === 'member' ? 'border-emerald-400 bg-emerald-500/10 text-emerald-300' : 'border-white/10 text-slate-400'}`}>
+            accountType === 'member' ? 'border-affirm-500 bg-affirm-500/10 text-affirm-700' : 'border-white/10 text-slate-400'}`}>
           {t('auth.memberSignIn')}
         </button>
         <button onClick={() => { setAccountType('church'); setError('') }}
           className={`flex-1 py-3 rounded-2xl border-2 text-sm font-medium transition ${
-            accountType === 'church' ? 'border-emerald-400 bg-emerald-500/10 text-emerald-300' : 'border-white/10 text-slate-400'}`}>
+            accountType === 'church' ? 'border-affirm-500 bg-affirm-500/10 text-affirm-700' : 'border-white/10 text-slate-400'}`}>
           {t('auth.churchSignIn')}
         </button>
       </div>
 
       {registerSuccess && (
-        <p className="mb-4 text-sm text-emerald-300 bg-emerald-500/10 border border-emerald-500/20 rounded-xl px-4 py-3">
+        <p className="mb-4 text-sm text-affirm-700 bg-affirm-500/10 border border-affirm-500/20 rounded-xl px-4 py-3">
           {t('auth.accountCreated')}
         </p>
       )}
@@ -492,14 +528,14 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
 
             <div>
               <label className="text-xs font-semibold text-slate-400 px-1 mb-1.5 block">
-                {t('auth.gender')} <span className="text-emerald-400">*</span>
+                {t('auth.gender')} <span className="text-affirm-400">*</span>
               </label>
               <div className="flex gap-3">
                 {(['homme', 'femme'] as const).map(g => (
                   <button key={g} type="button" onClick={() => setGender(g)}
                     className={`flex-1 py-3 rounded-2xl border-2 text-sm font-medium transition ${
                       gender === g
-                        ? 'border-emerald-400 bg-emerald-500/10 text-emerald-300'
+                        ? 'border-affirm-500 bg-affirm-500/10 text-affirm-700'
                         : 'border-white/10 text-slate-400'}`}>
                     {t(g === 'homme' ? 'auth.male' : 'auth.female')}
                   </button>
@@ -526,7 +562,7 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
 
             <div>
               <label className="text-xs font-semibold text-slate-400 px-1 mb-1.5 block">
-                {t('auth.interests')} <span className="text-emerald-400">*</span>
+                {t('auth.interests')} <span className="text-affirm-400">*</span>
               </label>
               {/* Multi-select as chips rather than a <select multiple>, which is
                   close to unusable on a phone. */}
@@ -539,15 +575,15 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
                         on ? prev.filter(i => i !== item) : [...prev, item])}
                       className={`px-3 py-1.5 rounded-full text-xs font-medium border transition ${
                         on
-                          ? 'border-emerald-400 bg-emerald-500/15 text-emerald-300'
-                          : 'border-white/10 text-slate-400 hover:text-slate-200'}`}>
+                          ? 'border-affirm-400 bg-affirm-500/15 text-affirm-700'
+                          : 'border-slate-200 text-slate-500 hover:text-slate-700 hover:border-slate-300'}`}>
                       {item}
                     </button>
                   )
                 })}
               </div>
               <p className={`text-[11px] mt-2 px-1 ${
-                interests.length === 0 ? 'text-amber-400' : 'text-slate-500'}`}>
+                interests.length === 0 ? 'text-amber-600' : 'text-slate-500'}`}>
                 {interests.length === 0 ? t('auth.interestsRequired') : t('auth.interestsHint')}
               </p>
             </div>
@@ -560,7 +596,8 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
           <div className="space-y-2">
             <div className="flex gap-2">
               <select value={countryCode} onChange={e => setCountryCode(e.target.value)}
-                className="w-[92px] shrink-0 px-2 py-3.5 rounded-2xl bg-white/5 border border-white/10 text-white focus:outline-none focus:ring-2 focus:ring-emerald-400/60 focus:border-emerald-400/60 text-[15px] appearance-none">
+                aria-label={t('auth.country')}
+                className="w-[104px] shrink-0 px-3 py-3.5 rounded-2xl glass-input text-slate-800 font-medium focus:outline-none focus:ring-2 focus:ring-affirm-400/60 focus:border-affirm-400/60 text-[15px] appearance-none text-center">
                 {COUNTRY_CODES.map(c => <option key={c.name} value={c.code}>{c.code}</option>)}
               </select>
               <input required type="tel" value={phone} onChange={e => setPhone(e.target.value)}
@@ -578,7 +615,7 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
                   placeholder={t('auth.confirmPhone')}
                   className={inputClass} />
                 {confirmPhone.trim() !== '' && sanitizeDigits(phone) !== sanitizeDigits(confirmPhone) && (
-                  <p className="text-[11px] text-amber-400 px-1">{t('auth.phonesDontMatch')}</p>
+                  <p className="text-[11px] text-amber-600 px-1">{t('auth.phonesDontMatch')}</p>
                 )}
               </>
             )}
@@ -593,7 +630,7 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
                 className={inputClass + " pr-12"} />
               <button type="button" onClick={() => setShowPin(s => !s)}
                 aria-label={showPin ? t('auth.hidePassword') : t('auth.showPassword')}
-                className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-200">
+                className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600">
                 {showPin ? <EyeOff size={18} /> : <Eye size={18} />}
               </button>
             </div>
@@ -613,7 +650,7 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
                 className={inputClass + " pr-12"} />
               <button type="button" onClick={() => setShowPassword(s => !s)}
                 aria-label={showPassword ? t('auth.hidePassword') : t('auth.showPassword')}
-                className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-200">
+                className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600">
                 {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
               </button>
             </div>
@@ -628,21 +665,21 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
         {mode === 'login' && accountType === 'church' && (
           <div className="text-right -mt-2">
             <button type="button" onClick={openReset}
-              className="text-xs font-semibold text-emerald-400 hover:text-emerald-300">
+              className="text-xs font-semibold text-affirm-600 hover:text-affirm-700">
               {t('auth.forgotPassword')}
             </button>
           </div>
         )}
 
         {resetSent && (
-          <p className="text-sm text-emerald-300 bg-emerald-500/10 border border-emerald-500/20 rounded-xl px-4 py-3">
+          <p className="text-sm text-affirm-700 bg-affirm-500/10 border border-affirm-500/20 rounded-xl px-4 py-3">
             {t('auth.resetSent')}
           </p>
         )}
-        {error && <p className="text-sm text-red-400 bg-red-500/10 border border-red-500/20 rounded-xl px-4 py-3">{error}</p>}
+        {error && <p className="text-sm text-red-600 bg-red-500/10 border border-red-500/20 rounded-xl px-4 py-3">{error}</p>}
 
         <button type="submit" disabled={loading}
-          className="w-full py-4 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-[15px] transition flex items-center justify-center gap-2 disabled:opacity-60 shadow-lg shadow-emerald-500/20">
+          className="w-full py-4 rounded-2xl bg-affirm-600 hover:bg-affirm-700 text-white font-semibold text-[15px] transition flex items-center justify-center gap-2 disabled:opacity-60 shadow-lg shadow-affirm-500/20">
           {loading ? t('auth.pleaseWait') : mode === 'login' ? t('auth.signIn') : t('auth.createAccount')}
           {!loading && <ArrowRight size={18} />}
         </button>
@@ -667,10 +704,10 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
 
             {resetDone ? (
               <>
-                <div className="mt-4 flex items-start gap-2.5 bg-emerald-500/10 border border-emerald-500/20 rounded-2xl p-4">
-                  <CheckCircle2 size={17} className="text-emerald-400 shrink-0 mt-0.5" />
+                <div className="mt-4 flex items-start gap-2.5 bg-affirm-500/10 border border-affirm-500/20 rounded-2xl p-4">
+                  <CheckCircle2 size={17} className="text-affirm-400 shrink-0 mt-0.5" />
                   <div className="min-w-0">
-                    <p className="text-sm text-emerald-300 leading-relaxed">{t('auth.resetSent')}</p>
+                    <p className="text-sm text-affirm-700 leading-relaxed">{t('auth.resetSent')}</p>
                     <p className="text-[11px] text-slate-400 mt-1.5 break-words">{resetEmail.trim()}</p>
                   </div>
                 </div>
@@ -679,7 +716,7 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
                     arrived" round trip. */}
                 <p className="text-[11px] text-slate-400 mt-3 leading-relaxed">{t('auth.resetSpamHint')}</p>
                 <button onClick={() => setShowReset(false)}
-                  className="mt-5 w-full py-3 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-sm transition">
+                  className="mt-5 w-full py-3 rounded-2xl bg-affirm-600 hover:bg-affirm-700 text-white font-semibold text-sm transition">
                   {t('auth.resetClose')}
                 </button>
               </>
@@ -692,7 +729,7 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
                   onKeyDown={e => { if (e.key === 'Enter') submitReset() }}
                   placeholder={t('auth.email')}
                   autoFocus
-                  className="w-full mt-4 px-4 py-3.5 rounded-2xl bg-white/5 border border-white/10 text-white placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-emerald-400/60 text-[15px]" />
+                  className="w-full mt-4 px-4 py-3.5 rounded-2xl glass-input text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-affirm-400/60 text-[15px]" />
 
                 {resetError && (
                   <p className="mt-3 text-xs text-red-400 bg-red-500/10 border border-red-500/20 rounded-xl px-3 py-2.5 break-words">
@@ -701,7 +738,7 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
                 )}
 
                 <button onClick={submitReset} disabled={resetBusy || !resetEmail.trim()}
-                  className="mt-4 w-full py-3.5 rounded-2xl bg-emerald-600 hover:bg-emerald-700 disabled:opacity-40 text-white font-semibold text-sm transition">
+                  className="mt-4 w-full py-3.5 rounded-2xl bg-affirm-600 hover:bg-affirm-700 disabled:opacity-40 text-white font-semibold text-sm transition">
                   {resetBusy ? t('auth.resetSending') : t('auth.resetSend')}
                 </button>
               </>
@@ -720,19 +757,18 @@ function AuthScreen({ onSuccess }: { onSuccess: (user: AppUser) => void }) {
   const [showWelcome, setShowWelcome] = useState(true)
 
   return (
-    <div className="min-h-screen bg-[#0a0e1a] flex flex-col relative overflow-hidden">
-      <div className="fixed top-0 left-1/4 w-[500px] h-[500px] bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
-      <div className="fixed bottom-0 right-0 w-[400px] h-[400px] bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
+    <div className="min-h-screen heavenly-bg flex flex-col relative overflow-hidden">
+      <StarField />
       <div className="relative flex justify-end px-6 pt-6">
-        <LanguageSwitcher dark />
+        <LanguageSwitcher />
       </div>
 
       {showWelcome ? (
         <div className="relative flex-1 flex flex-col items-center justify-center px-6 py-12">
           <div className="w-full max-w-md text-center">
             <Logo size={110} variant="full" />
-            <h1 className="mt-8 text-3xl font-bold text-white tracking-tight">ELIM</h1>
-            <p className="mt-2 text-[13px] text-emerald-400/90 font-medium leading-relaxed px-4">
+            <h1 className="mt-8 text-3xl font-bold text-slate-900 tracking-tight">ELIM</h1>
+            <p className="mt-2 text-[13px] text-affirm-600 font-medium leading-relaxed px-4">
               Centre Chrétien d'Enseignement, de Libéralité,<br />d'Intercession et de Moisson
             </p>
             <p className="mt-4 text-slate-400 leading-relaxed">{t('auth.peacefulPlace')}</p>
@@ -744,17 +780,17 @@ function AuthScreen({ onSuccess }: { onSuccess: (user: AppUser) => void }) {
                 { icon: Video, label: t('landing.valueProp.video') },
                 { icon: ShieldCheck, label: t('landing.valueProp.verified') },
               ].map((item, i) => (
-                <div key={i} className="flex flex-col items-center gap-2 py-4 rounded-2xl bg-white/[0.03] border border-white/10">
-                  <div className="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-400">
+                <div key={i} className="flex flex-col items-center gap-2 py-4 rounded-2xl glass">
+                  <div className="w-10 h-10 rounded-xl bg-affirm-500/10 flex items-center justify-center text-affirm-400">
                     <item.icon size={18} />
                   </div>
-                  <span className="text-xs font-medium text-slate-300 text-center px-1">{item.label}</span>
+                  <span className="text-xs font-medium text-slate-600 text-center px-1">{item.label}</span>
                 </div>
               ))}
             </div>
 
             <button onClick={() => setShowWelcome(false)}
-              className="mt-10 w-full py-4 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-[15px] transition flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/20">
+              className="mt-10 w-full py-4 rounded-2xl bg-affirm-600 hover:bg-affirm-700 text-white font-semibold text-[15px] transition flex items-center justify-center gap-2 shadow-lg shadow-affirm-500/20">
               {t('landing.getStarted')} <ArrowRight size={18} />
             </button>
           </div>
@@ -762,10 +798,8 @@ function AuthScreen({ onSuccess }: { onSuccess: (user: AppUser) => void }) {
       ) : (
         <div className="relative flex-1 flex flex-col items-center justify-center px-6 py-12">
           <div className="w-full max-w-md">
-            <div className="text-center mb-8">
-              <Logo size={64} />
-            </div>
-            <div className="bg-white/[0.03] backdrop-blur-xl rounded-3xl shadow-2xl border border-white/10 p-8">
+            <AuthBanner subtitle="Centre Chrétien E.L.I.M." />
+            <div className="glass rounded-3xl shadow-2xl p-8">
               <AuthForm onSuccess={onSuccess} />
             </div>
           </div>
@@ -787,12 +821,12 @@ function AuthModal({ onClose, onSuccess, initialMode }: {
 }) {
   return (
     <div className="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-sm flex items-center justify-center p-4">
-      <div className="bg-[#0d1424] w-full max-w-md rounded-3xl shadow-2xl border border-white/10 p-8 relative max-h-[90vh] overflow-y-auto">
+      <div className="glass-bar w-full max-w-md rounded-3xl shadow-2xl p-8 relative max-h-[90vh] overflow-y-auto">
         <button onClick={onClose} className="absolute top-5 right-5 p-1.5 rounded-full hover:bg-white/5 text-slate-400">
           <X size={20} />
         </button>
         <div className="flex justify-center mb-2">
-          <LanguageSwitcher dark />
+          <LanguageSwitcher />
         </div>
         <div className="text-center mb-6 mt-4">
           <Logo size={40} />
@@ -821,7 +855,7 @@ function LandingPage({ onSuccess }: { onSuccess: (user: AppUser) => void }) {
               {t('auth.signIn')}
             </button>
             <button onClick={() => setAuthMode('register')}
-              className="px-5 py-2.5 rounded-full text-sm font-semibold bg-emerald-600 hover:bg-emerald-700 text-white transition shadow-lg shadow-emerald-200">
+              className="px-5 py-2.5 rounded-full text-sm font-semibold bg-affirm-600 hover:bg-affirm-700 text-white transition shadow-lg shadow-affirm-200">
               {t('landing.getStarted')}
             </button>
           </div>
@@ -832,16 +866,16 @@ function LandingPage({ onSuccess }: { onSuccess: (user: AppUser) => void }) {
       <section className="relative overflow-hidden">
         <div className="absolute inset-0 heavenly-bg" />
         <div className="absolute -top-20 left-1/4 w-[500px] h-[500px] bg-amber-200/30 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute top-10 right-1/4 w-[400px] h-[400px] bg-emerald-200/40 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute top-10 right-1/4 w-[400px] h-[400px] bg-affirm-200/40 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute top-40 left-1/3 w-[350px] h-[350px] bg-blue-200/30 rounded-full blur-3xl pointer-events-none" />
         <div className="relative max-w-5xl mx-auto px-8 pt-20 pb-28 text-center">
           <Logo size={128} variant="full" />
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/80 border border-emerald-100 text-xs font-semibold text-emerald-700 tracking-wide mt-8 mb-8">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/80 border border-affirm-100 text-xs font-semibold text-affirm-700 tracking-wide mt-8 mb-8">
             <Sparkles size={14} /> {t('landing.badge')}
           </div>
           <h1 className="text-5xl lg:text-6xl xl:text-7xl font-extrabold text-slate-900 tracking-tight leading-[1.05]">
             {t('landing.heroLine1')}<br />
-            <span className="bg-gradient-to-r from-emerald-600 via-emerald-500 to-amber-500 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-affirm-600 via-affirm-500 to-amber-500 bg-clip-text text-transparent">
               {t('landing.heroLine2')}
             </span>
           </h1>
@@ -850,7 +884,7 @@ function LandingPage({ onSuccess }: { onSuccess: (user: AppUser) => void }) {
           </p>
           <div className="mt-10 flex items-center justify-center gap-4">
             <button onClick={() => setAuthMode('register')}
-              className="px-8 py-4 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-[15px] transition shadow-xl shadow-emerald-200 flex items-center gap-2">
+              className="px-8 py-4 rounded-full bg-affirm-600 hover:bg-affirm-700 text-white font-semibold text-[15px] transition shadow-xl shadow-affirm-200 flex items-center gap-2">
               {t('landing.getStarted')} <ArrowRight size={18} />
             </button>
             <button onClick={() => setAuthMode('login')}
@@ -871,7 +905,7 @@ function LandingPage({ onSuccess }: { onSuccess: (user: AppUser) => void }) {
             { icon: ShieldCheck, label: t('landing.valueProp.verified') },
           ].map((item, i) => (
             <div key={i} className="flex flex-col items-center text-center gap-2.5">
-              <div className="w-11 h-11 rounded-2xl bg-white border border-slate-100 flex items-center justify-center text-emerald-600 shadow-sm">
+              <div className="w-11 h-11 rounded-2xl bg-white border border-slate-100 flex items-center justify-center text-affirm-600 shadow-sm">
                 <item.icon size={20} />
               </div>
               <span className="text-sm font-semibold text-slate-600">{item.label}</span>
@@ -887,15 +921,15 @@ function LandingPage({ onSuccess }: { onSuccess: (user: AppUser) => void }) {
           <h2 className="text-3xl xl:text-4xl font-bold text-slate-900 tracking-tight">{t('landing.builtForBoth')}</h2>
         </div>
         <div className="grid grid-cols-2 gap-6">
-          <div className="rounded-3xl p-8 bg-gradient-to-br from-emerald-50 to-white border border-emerald-100">
-            <div className="w-12 h-12 rounded-2xl bg-emerald-600 text-white flex items-center justify-center mb-6 shadow-lg shadow-emerald-200">
+          <div className="rounded-3xl p-8 bg-gradient-to-br from-affirm-50 to-white border border-affirm-100">
+            <div className="w-12 h-12 rounded-2xl bg-affirm-600 text-white flex items-center justify-center mb-6 shadow-lg shadow-affirm-200">
               <Church size={22} />
             </div>
             <h3 className="text-xl font-bold text-slate-900 mb-3">{t('landing.forChurches')}</h3>
             <ul className="space-y-3 text-slate-500 text-[15px]">
-              <li className="flex gap-2.5"><CheckCircle2 size={18} className="text-emerald-500 shrink-0 mt-0.5" /> {t('landing.forChurches.1')}</li>
-              <li className="flex gap-2.5"><CheckCircle2 size={18} className="text-emerald-500 shrink-0 mt-0.5" /> {t('landing.forChurches.2')}</li>
-              <li className="flex gap-2.5"><CheckCircle2 size={18} className="text-emerald-500 shrink-0 mt-0.5" /> {t('landing.forChurches.3')}</li>
+              <li className="flex gap-2.5"><CheckCircle2 size={18} className="text-affirm-500 shrink-0 mt-0.5" /> {t('landing.forChurches.1')}</li>
+              <li className="flex gap-2.5"><CheckCircle2 size={18} className="text-affirm-500 shrink-0 mt-0.5" /> {t('landing.forChurches.2')}</li>
+              <li className="flex gap-2.5"><CheckCircle2 size={18} className="text-affirm-500 shrink-0 mt-0.5" /> {t('landing.forChurches.3')}</li>
             </ul>
           </div>
           <div className="rounded-3xl p-8 bg-gradient-to-br from-blue-50 to-white border border-blue-100">
@@ -916,12 +950,12 @@ function LandingPage({ onSuccess }: { onSuccess: (user: AppUser) => void }) {
       <section className="bg-slate-50/50 border-y border-slate-100">
         <div className="max-w-5xl mx-auto px-8 py-24">
           <div className="text-center mb-14">
-            <p className="text-xs font-bold tracking-widest text-emerald-600 mb-3">{t('landing.gettingStarted')}</p>
+            <p className="text-xs font-bold tracking-widest text-affirm-600 mb-3">{t('landing.gettingStarted')}</p>
             <h2 className="text-3xl xl:text-4xl font-bold text-slate-900 tracking-tight">{t('landing.threeSteps')}</h2>
           </div>
           <div className="grid grid-cols-3 gap-8">
             {[
-              { n: '1', title: t('landing.step1.title'), desc: t('landing.step1.desc'), color: 'border-emerald-500 text-emerald-600' },
+              { n: '1', title: t('landing.step1.title'), desc: t('landing.step1.desc'), color: 'border-affirm-500 text-affirm-600' },
               { n: '2', title: t('landing.step2.title'), desc: t('landing.step2.desc'), color: 'border-blue-600 text-blue-700' },
               { n: '3', title: t('landing.step3.title'), desc: t('landing.step3.desc'), color: 'border-amber-500 text-amber-600' },
             ].map(step => (
@@ -941,10 +975,10 @@ function LandingPage({ onSuccess }: { onSuccess: (user: AppUser) => void }) {
       <section className="max-w-4xl mx-auto px-8 py-24 text-center">
         <h2 className="text-3xl xl:text-5xl font-bold text-slate-900 tracking-tight mb-6">
           {t('landing.finalCta1')}{' '}
-          <span className="bg-gradient-to-r from-emerald-600 to-amber-500 bg-clip-text text-transparent">{t('landing.finalCta2')}</span>
+          <span className="bg-gradient-to-r from-affirm-600 to-amber-500 bg-clip-text text-transparent">{t('landing.finalCta2')}</span>
         </h2>
         <button onClick={() => setAuthMode('register')}
-          className="mt-4 px-10 py-4 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-base transition shadow-xl shadow-emerald-200 inline-flex items-center gap-2">
+          className="mt-4 px-10 py-4 rounded-full bg-affirm-600 hover:bg-affirm-700 text-white font-semibold text-base transition shadow-xl shadow-affirm-200 inline-flex items-center gap-2">
           {t('landing.getStartedFree')} <ArrowRight size={18} />
         </button>
       </section>
@@ -958,11 +992,14 @@ function LandingPage({ onSuccess }: { onSuccess: (user: AppUser) => void }) {
           <div className="mt-6 pt-6 border-t border-slate-50 flex flex-wrap items-center justify-between gap-3">
             <p className="text-xs text-slate-400">{COPYRIGHT}</p>
             <div className="flex items-center gap-4">
-              <a href="/privacy.html" className="text-xs text-slate-400 hover:text-emerald-600 underline">
+              <a href="/child-safety.html" className="text-xs text-slate-400 hover:text-affirm-600 underline mr-3">
+                {t('footer.childSafety')}
+              </a>
+              <a href="/privacy.html" className="text-xs text-slate-400 hover:text-affirm-600 underline">
                 {t('footer.privacy')}
               </a>
               <a href="mailto:hello@kaj-consulting.com?subject=ELIM%20App%20Support"
-                className="text-xs text-slate-400 hover:text-emerald-600 underline">
+                className="text-xs text-slate-400 hover:text-affirm-600 underline">
                 {t('support.title')}
               </a>
             </div>
@@ -1008,6 +1045,24 @@ function AppInner() {
   const [loading, setLoading] = useState(true)
   const [pendingChurches, setPendingChurches] = useState<AppUser[]>([])
   const [likedPostIds, setLikedPostIds] = useState<Set<string>>(new Set())
+  const [likedCommentIds, setLikedCommentIds] = useState<Set<string>>(new Set())
+  const [notifications, setNotifications] = useState<AppNotification[]>([])
+  const [showNotifications, setShowNotifications] = useState(false)
+  const [donation, setDonation] = useState<DonationConfig | null>(null)
+  const [showDonation, setShowDonation] = useState(false)
+  const [seenNewPosts, setSeenNewPosts] = useState<Post[]>([])
+  // "New posts since you last looked" is derived from this timestamp rather
+  // than stored server-side, so a new post costs zero writes. Per-device via
+  // localStorage; defaults to now so a first-time user isn't shown the entire
+  // back catalogue as "new".
+  const [lastSeenFeed, setLastSeenFeed] = useState<number>(() => {
+    // Via storageGet: a bare read here throws SecurityError when the browser
+    // blocks site data, and a throw in a useState initializer kills the whole
+    // app at boot rather than just losing this one preference.
+    const v = storageGet('elim_lastSeenFeed')
+    const parsed = v ? parseInt(v, 10) : NaN
+    return Number.isFinite(parsed) ? parsed : Date.now()
+  })
   const [showNotifPrompt, setShowNotifPrompt] = useState(false)
   const [highlightPostId, setHighlightPostId] = useState<string | null>(null)
   const [santeCategory, setSanteCategory] = useState('all')
@@ -1016,13 +1071,22 @@ function AppInner() {
   const [musiqueSearch, setMusiqueSearch] = useState('')
   const [showCreateMusique, setShowCreateMusique] = useState(false)
   const [showBulkMusique, setShowBulkMusique] = useState(false)
-  const [adminSection, setAdminSection] = useState<'approvals' | 'logs' | 'data'>(
+  const [adminSection, setAdminSection] = useState<'approvals' | 'reports' | 'dons' | 'logs' | 'data'>(
     user?.role === 'church' ? 'data' : 'approvals'
   )
+  // user is null at mount, so the initializer above always resolves to
+  // 'approvals'. A church lead only has the "Données" section, so once their
+  // profile loads move them onto it - otherwise their Admin panel is blank
+  // until they tap the chip.
+  useEffect(() => {
+    if (user?.role === 'church') setAdminSection('data')
+  }, [user?.role])
   const { track: playerTrack } = useMediaPlayer()
   const unreadMessages = useUnreadCount(user as AppUser)
   const [messageToast, setMessageToast] = useState(false)
   const prevUnread = useRef<number | null>(null)
+  const likeInFlight = useRef<Set<string>>(new Set())
+  const commentLikeInFlight = useRef<Set<string>>(new Set())
 
   // Alert only when the count RISES. Firing on any change would sound again
   // every time someone reads a thread and the number drops.
@@ -1045,15 +1109,28 @@ function AppInner() {
   const [feedFilter, setFeedFilter] = useState<'all' | 'video' | 'audio' | 'posts'>('all')
   const [searchQuery, setSearchQuery] = useState('')
 
-  // The whole app is dark-themed on native (both the auth screens and the
-  // main shell), so this is applied once, unconditionally, rather than
-  // switching per-screen. Native-only: these APIs don't exist on web, where
-  // the browser's own chrome is what's visible instead of a device status bar.
+  // Keep the native system bars in step with the phone's own light/dark
+  // setting, the same signal the CSS theme follows. Without this the status
+  // bar would stay a light strip with dark icons while the app itself goes
+  // dark. Re-applied whenever the system flips, so turning on dark/bedtime
+  // mode changes the bars live rather than only on next launch.
+  // Native-only: these APIs don't exist on web, where the browser's own
+  // chrome is what's visible instead of a device status bar.
   useEffect(() => {
-    if (Capacitor.isNativePlatform()) {
-      SystemBars.setStyle({ style: SystemBarsStyle.Dark }).catch(() => {})
-      EdgeToEdge.setBackgroundColor({ color: '#0f172a' }).catch(() => {})
+    if (!Capacitor.isNativePlatform()) return
+    const mq = window.matchMedia('(prefers-color-scheme: dark)')
+    const apply = () => {
+      // SystemBarsStyle.Dark means light icons (for a dark background) and
+      // .Light means dark icons - named for the content, not the backdrop.
+      SystemBars.setStyle({ style: mq.matches ? SystemBarsStyle.Dark : SystemBarsStyle.Light }).catch(() => {})
+      EdgeToEdge.setBackgroundColor({ color: mq.matches ? '#14110e' : '#fff2e0' }).catch(() => {})
     }
+    apply()
+    mq.addEventListener('change', apply)
+    return () => mq.removeEventListener('change', apply)
+  }, [])
+
+  useEffect(() => {
     // Web only (no-ops on native) - lets an already-open browser tab show a
     // notification for a new post without needing to reload.
     listenForForegroundMessages()
@@ -1101,8 +1178,8 @@ function AppInner() {
       // be nagging, and the OS won't re-prompt after a denial anyway).
       if (!actuallyEnabled) {
         const perm = await checkNotificationPermission()
-        if (!cancelled && perm === 'prompt' && !sessionStorage.getItem('elim-notif-prompted')) {
-          sessionStorage.setItem('elim-notif-prompted', '1')
+        if (!cancelled && perm === 'prompt' && !storageGet('elim-notif-prompted', true)) {
+          storageSet('elim-notif-prompted', '1', true)
           setShowNotifPrompt(true)
         }
       }
@@ -1125,14 +1202,23 @@ function AppInner() {
   // Auth listener
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, async (firebaseUser) => {
-      if (firebaseUser) {
+      try {
+        if (!firebaseUser) { setUser(null); return }
         const snap = await getDoc(doc(db, 'users', firebaseUser.uid))
-        if (snap.exists()) setUser(snap.data() as AppUser)
-        else setUser(null)
-      } else {
+        // Guard against a sign-out (or account switch) that lands while this
+        // profile read is still in flight: if the current user is no longer
+        // the one we fetched for, drop the stale result rather than
+        // resurrecting a signed-out session.
+        if (auth.currentUser?.uid !== firebaseUser.uid) return
+        setUser(snap.exists() ? (snap.data() as AppUser) : null)
+      } catch {
+        // A failed profile read (offline launch, expired token, transient
+        // Firestore error) must never leave the app stuck on the splash
+        // spinner. Fall back to signed-out and let the person retry.
         setUser(null)
+      } finally {
+        setAuthLoading(false)
       }
-      setAuthLoading(false)
     })
     return unsub
   }, [])
@@ -1162,6 +1248,42 @@ function AppInner() {
     return unsub
   }, [user])
 
+  // The current user's comment likes — same one-doc-per-user pattern as post
+  // likes, so we can show which comments this person has already liked.
+  useEffect(() => {
+    if (!user || user.role === 'pending_church') return
+    const q = query(collection(db, 'commentLikes'), where('userId', '==', user.uid))
+    const unsub = onSnapshot(q, (snap) => {
+      setLikedCommentIds(new Set(snap.docs.map(d => d.data().commentId as string)))
+    })
+    return unsub
+  }, [user])
+
+  // Bell notifications addressed to this user (likes/comments/replies on their
+  // own posts and comments). Newest first, capped so the list stays bounded.
+  useEffect(() => {
+    if (!user || user.role === 'pending_church') return
+    const q = query(
+      collection(db, 'notifications'),
+      where('recipientId', '==', user.uid),
+      orderBy('createdAt', 'desc'),
+      limit(50)
+    )
+    const unsub = onSnapshot(q, (snap) => {
+      setNotifications(snap.docs.map(d => ({ id: d.id, ...d.data() } as AppNotification)))
+    }, () => { /* index still building or offline - the bell just stays empty */ })
+    return unsub
+  }, [user])
+
+  // Donation details (mobile-money numbers), maintained by an admin.
+  useEffect(() => {
+    if (!user || user.role === 'pending_church') return
+    const unsub = onSnapshot(doc(db, 'config', 'donation'), (snap) => {
+      setDonation(snap.exists() ? (snap.data() as DonationConfig) : { providers: [] })
+    }, () => setDonation({ providers: [] }))
+    return unsub
+  }, [user])
+
   // Comments
   useEffect(() => {
     if (!user || user.role === 'pending_church') return
@@ -1185,6 +1307,10 @@ function AppInner() {
   const canPost = user?.role === 'church' || user?.role === 'admin' || user?.role === 'pastor'
 
   const handleLogout = async () => {
+    // Detach this device's push token BEFORE signing out (the write needs the
+    // still-authenticated session), so the next person to log in on a shared
+    // phone doesn't inherit this user's notifications.
+    if (user) await cleanupPushForLogout(user.uid)
     await signOut(auth)
     setUser(null)
   }
@@ -1229,13 +1355,16 @@ function AppInner() {
       `${data.section === 'sante' ? 'Santé' : 'Fil'} · ${finalType} - ${data.content.slice(0, 60)}`)
   }
 
-  const handleAddComment = async (text: string) => {
+  const handleAddComment = async (text: string, parentId?: string) => {
     if (!activeCommentsPost || !user) return
     await addDoc(collection(db, 'comments'), {
       postId: activeCommentsPost,
       userName: user.displayName,
       userId: user.uid,
+      ...(user.avatar ? { userAvatar: user.avatar } : {}),
+      ...(parentId ? { parentId } : {}),
       text,
+      likes: 0,
       createdAt: serverTimestamp()
     })
     await updateDoc(doc(db, 'posts', activeCommentsPost), { commentsCount: increment(1) })
@@ -1244,22 +1373,93 @@ function AppInner() {
       `${commented?.churchName || ''}: "${text.slice(0, 60)}"`.trim())
   }
 
+  const handleLikeComment = async (commentId: string) => {
+    if (!user) return
+    // Same in-flight guard and one-doc-per-user pattern as post likes.
+    if (commentLikeInFlight.current.has(commentId)) return
+    commentLikeInFlight.current.add(commentId)
+    const likeDocId = `${commentId}_${user.uid}`
+    const alreadyLiked = likedCommentIds.has(commentId)
+    try {
+      if (alreadyLiked) {
+        await deleteDoc(doc(db, 'commentLikes', likeDocId))
+        await updateDoc(doc(db, 'comments', commentId), { likes: increment(-1) })
+      } else {
+        await setDoc(doc(db, 'commentLikes', likeDocId), {
+          commentId, userId: user.uid, createdAt: serverTimestamp()
+        })
+        await updateDoc(doc(db, 'comments', commentId), { likes: increment(1) })
+      }
+    } finally {
+      commentLikeInFlight.current.delete(commentId)
+    }
+    // Errors propagate to the caller so the UI can revert its optimistic state
+    // and show a message (e.g. if the commentLikes rules aren't deployed yet).
+  }
+
+  // Posts published since the user last opened the bell - excluding their own
+  // and the hidden Musique imports. Derived, not stored (see lastSeenFeed).
+  const toMs = (ts: any) => (ts?.toMillis ? ts.toMillis() : 0)
+  const newPosts = posts.filter(p =>
+    p.section !== 'musique' && p.churchId !== user?.uid && toMs(p.createdAt) > lastSeenFeed)
+  const unreadNotifs = notifications.filter(n => !n.read).length
+  const bellCount = unreadNotifs + newPosts.length
+
+  // Opening the bell clears both signals: notifications are marked read, and
+  // the feed "last seen" marker moves to now. The new-post list is snapshotted
+  // first so the panel can still show it after the marker has moved.
+  const openNotifications = () => {
+    setSeenNewPosts(newPosts)
+    setShowNotifications(true)
+    const unread = notifications.filter(n => !n.read)
+    unread.forEach(n => { updateDoc(doc(db, 'notifications', n.id), { read: true }).catch(() => {}) })
+    const now = Date.now()
+    setLastSeenFeed(now)
+    storageSet('elim_lastSeenFeed', String(now))
+  }
+
+  // Tapping a notification lands the person on the relevant post - opening its
+  // comments when the notification is about a comment/reply/comment-like.
+  const handleNotificationTap = (n: AppNotification) => {
+    setShowNotifications(false)
+    setActiveTab('feed')
+    setHighlightPostId(n.postId)
+    if (n.type !== 'post_like') setActiveCommentsPost(n.postId)
+  }
+
+  const dismissNotification = (id: string) => {
+    setNotifications(prev => prev.filter(n => n.id !== id))
+    deleteDoc(doc(db, 'notifications', id)).catch(() => {})
+  }
+
   const handleLike = async (postId: string) => {
     if (!user) return
+    // Guard against a double-tap racing two writes: both would read the same
+    // "not yet liked" state and each fire increment(1), permanently inflating
+    // the counter against a single like doc.
+    if (likeInFlight.current.has(postId)) return
+    likeInFlight.current.add(postId)
     const likeDocId = `${postId}_${user.uid}`
     const alreadyLiked = likedPostIds.has(postId)
     const liked = posts.find(p => p.id === postId)
     const detail = (liked?.content || '').slice(0, 60)
-    if (alreadyLiked) {
-      await deleteDoc(doc(db, 'likes', likeDocId))
-      await updateDoc(doc(db, 'posts', postId), { likes: increment(-1) })
-      logActivity(user, 'like_removed', detail)
-    } else {
-      await setDoc(doc(db, 'likes', likeDocId), {
-        postId, userId: user.uid, createdAt: serverTimestamp()
-      })
-      await updateDoc(doc(db, 'posts', postId), { likes: increment(1) })
-      logActivity(user, 'like_added', detail)
+    try {
+      if (alreadyLiked) {
+        await deleteDoc(doc(db, 'likes', likeDocId))
+        await updateDoc(doc(db, 'posts', postId), { likes: increment(-1) })
+        logActivity(user, 'like_removed', detail)
+      } else {
+        await setDoc(doc(db, 'likes', likeDocId), {
+          postId, userId: user.uid, createdAt: serverTimestamp()
+        })
+        await updateDoc(doc(db, 'posts', postId), { likes: increment(1) })
+        logActivity(user, 'like_added', detail)
+      }
+    } catch {
+      // A failed like is not worth interrupting the person over; the snapshot
+      // listener will reconcile the UI to the true state on the next tick.
+    } finally {
+      likeInFlight.current.delete(postId)
     }
   }
 
@@ -1333,8 +1533,8 @@ function AppInner() {
 
   if (authLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#0f172a]">
-        <div className="w-10 h-10 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin" />
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="w-10 h-10 border-4 border-affirm-500 border-t-transparent rounded-full animate-spin" />
       </div>
     )
   }
@@ -1396,22 +1596,15 @@ function AppInner() {
   ]
 
   return (
-    <div className="min-h-screen bg-[#0f172a] max-w-lg mx-auto lg:max-w-none lg:mx-0 relative">
-      <div
-        className="fixed top-0 left-1/4 w-[500px] h-[500px] bg-emerald-500/10 rounded-full blur-2xl lg:blur-3xl pointer-events-none"
-        style={{ transform: 'translateZ(0)', willChange: 'transform' }}
-      />
-      <div
-        className="fixed bottom-0 right-0 lg:right-1/4 w-[400px] h-[400px] bg-amber-500/10 rounded-full blur-2xl lg:blur-3xl pointer-events-none"
-        style={{ transform: 'translateZ(0)', willChange: 'transform' }}
-      />
-      <div className="lg:flex">
+    <div className="min-h-screen max-w-lg mx-auto lg:max-w-none lg:mx-0 relative">
+      <StarField />
+      <div className="relative z-10 lg:flex">
         {/* Sidebar — desktop only */}
-        <aside className="hidden lg:flex lg:flex-col lg:w-64 lg:shrink-0 lg:h-screen lg:sticky lg:top-0 border-r border-white/10 bg-[#1e293b] px-6 py-8">
+        <aside className="glass-bar hidden lg:flex lg:flex-col lg:w-64 lg:shrink-0 lg:h-screen lg:sticky lg:top-0 border-r border-slate-200/70 px-6 py-8">
           <div className="flex items-center justify-between">
             <Logo size={34} />
           </div>
-          <div className="mt-4"><LanguageSwitcher dark /></div>
+          <div className="mt-4"><LanguageSwitcher /></div>
           <nav className="mt-6 flex-1 space-y-1">
             {navItems.map(item => {
               const Icon = item.icon
@@ -1419,7 +1612,7 @@ function AppInner() {
               return (
                 <button key={item.id} onClick={() => setActiveTab(item.id)}
                   className={`w-full flex items-center gap-3 px-4 py-3 rounded-2xl text-sm font-semibold transition ${
-                    active ? 'bg-emerald-500/15 text-emerald-400' : 'text-slate-400 hover:bg-white/5 hover:text-slate-200'}`}>
+                    active ? 'bg-affirm-500/10 text-affirm-700 shadow-sm' : 'text-slate-500 hover:bg-slate-100 hover:text-slate-800'}`}>
                   <Icon size={19} />
                   {item.label}
                   {item.id === 'admin' && pendingChurches.length > 0 && (
@@ -1436,16 +1629,26 @@ function AppInner() {
               )
             })}
           </nav>
+          <button onClick={() => setShowDonation(true)}
+            className="btn-glass-amber w-full flex items-center justify-center gap-2 py-3 rounded-2xl font-semibold text-sm mb-3">
+            <HandCoins size={18} /> {t('donate.button')}
+          </button>
           {canPost && (
             <button onClick={() => setShowCreate(true)}
-              className="w-full flex items-center justify-center gap-2 py-3.5 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-sm transition shadow-lg shadow-emerald-500/30 mb-4">
+              className="btn-glass-primary w-full flex items-center justify-center gap-2 py-3.5 rounded-2xl font-semibold text-sm mb-4">
               <PlusCircle size={18} /> {t('nav.newPost')}
             </button>
           )}
-          <div className="pt-4 border-t border-white/10 flex items-center justify-between">
-            <span className="text-xs font-medium text-slate-400 truncate">{user.displayName}</span>
-            <button onClick={handleLogout} className="p-2 rounded-full hover:bg-white/5 text-slate-400">
-              <LogOut size={16} />
+          <div className="pt-4 border-t border-slate-200 flex items-center justify-between">
+            <span className="text-xs font-medium text-slate-500 truncate">{user.displayName}</span>
+            <button onClick={openNotifications} aria-label={t('notif.title')}
+              className="relative p-2 rounded-full hover:bg-slate-100 text-slate-500">
+              <Bell size={18} />
+              {bellCount > 0 && (
+                <span className="absolute -top-0.5 -right-0.5 min-w-[16px] h-4 px-1 rounded-full bg-red-500 text-white text-[9px] font-bold flex items-center justify-center">
+                  {bellCount > 99 ? '99+' : bellCount}
+                </span>
+              )}
             </button>
           </div>
           <p className="mt-3 text-[10px] text-slate-600 leading-relaxed">{COPYRIGHT}</p>
@@ -1453,14 +1656,23 @@ function AppInner() {
 
         <div className="flex-1 min-w-0">
           {/* Header — mobile & tablet only */}
-          <header className="lg:hidden sticky top-0 z-40 bg-[#0f172a] border-b border-white/10">
+          <header className="glass-bar lg:hidden sticky top-0 z-40 border-b border-slate-200/70">
             <div className="px-5 h-14 flex items-center justify-between">
               <Logo size={32} />
-              <div className="flex items-center gap-2.5">
-                <LanguageSwitcher dark />
-                <span className="text-xs font-medium text-slate-400 truncate max-w-[80px]">{user.displayName}</span>
-                <button onClick={handleLogout} className="p-2 rounded-full hover:bg-white/5 text-slate-400">
-                  <LogOut size={18} />
+              <div className="flex items-center gap-3">
+                <LanguageSwitcher />
+                <button onClick={openNotifications} aria-label={t('notif.title')}
+                  className="relative p-2 rounded-full hover:bg-slate-900/5 text-slate-600 transition">
+                  <Bell size={20} />
+                  {bellCount > 0 && (
+                    <span className="absolute -top-0.5 -right-0.5 min-w-[16px] h-4 px-1 rounded-full bg-red-500 text-white text-[9px] font-bold flex items-center justify-center">
+                      {bellCount > 99 ? '99+' : bellCount}
+                    </span>
+                  )}
+                </button>
+                <button onClick={() => setShowDonation(true)}
+                  className="btn-glass-amber flex items-center gap-1.5 pl-2.5 pr-3 py-1.5 rounded-full text-xs font-semibold">
+                  <HandCoins size={15} /> {t('donate.button')}
                 </button>
               </div>
             </div>
@@ -1473,7 +1685,7 @@ function AppInner() {
                   <Search size={17} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 pointer-events-none" />
                   <input value={searchQuery} onChange={e => setSearchQuery(e.target.value)}
                     placeholder={t('feed.searchPlaceholder')}
-                    className="w-full pl-11 pr-10 py-3 rounded-2xl bg-white/5 border border-white/10 text-white placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-emerald-400/60 text-[15px]" />
+                    className="w-full pl-11 pr-10 py-3 rounded-2xl glass-input text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-affirm-400/60 text-[15px]" />
                   {searchQuery && (
                     <button onClick={() => setSearchQuery('')}
                       className="absolute right-3 top-1/2 -translate-y-1/2 p-1 rounded-full text-slate-400 hover:text-white hover:bg-white/10">
@@ -1492,20 +1704,20 @@ function AppInner() {
                     <button key={tab.id} onClick={() => setFeedFilter(tab.id)}
                       className={`shrink-0 px-4 py-2 rounded-full text-sm font-semibold transition ${
                         feedFilter === tab.id
-                          ? 'bg-emerald-500/15 text-emerald-400 border border-emerald-400/40'
-                          : 'bg-white/5 text-slate-400 border border-white/10 hover:text-slate-200'}`}>
+                          ? 'bg-affirm-600 text-white border border-affirm-400/60'
+                          : 'glass-soft text-slate-600 hover:text-slate-900'}`}>
                       {tab.label}
                     </button>
                   ))}
                 </div>
 
-                {loading && <p className="text-center text-slate-400 py-16">{t('app.loading')}</p>}
+                {loading && <p className="text-center py-16"><span className="scrim inline-block px-4 py-2 text-sm text-slate-600">{t('app.loading')}</span></p>}
                 {!loading && visiblePosts.length === 0 && (
-                  <div className="text-center py-20">
-                    <div className="w-16 h-16 rounded-full bg-emerald-500/10 flex items-center justify-center mx-auto mb-4">
-                      <Church size={28} className="text-emerald-400" />
+                  <div className="text-center py-12 px-6 my-6 scrim">
+                    <div className="w-16 h-16 rounded-full bg-affirm-500/10 flex items-center justify-center mx-auto mb-4">
+                      <Church size={28} className="text-affirm-400" />
                     </div>
-                    <p className="text-slate-300 font-medium">
+                    <p className="text-slate-800 font-medium">
                       {searchQuery || feedFilter !== 'all' ? t('feed.noMatches') : t('app.noPostsYet')}
                     </p>
                     <p className="text-sm text-slate-500 mt-1">
@@ -1519,24 +1731,30 @@ function AppInner() {
                       ? (el) => el?.scrollIntoView({ behavior: 'smooth', block: 'center' })
                       : undefined}
                     className={post.id === highlightPostId
-                      ? 'rounded-3xl ring-2 ring-emerald-400 ring-offset-2 ring-offset-[#0f172a] transition'
+                      ? 'rounded-3xl ring-2 ring-affirm-400 ring-offset-2 ring-offset-[#0f172a] transition'
                       : ''}>
                     <PostCard post={post} onLike={handleLike} onOpenComments={setActiveCommentsPost}
-                      currentUserUid={user.uid} isLiked={likedPostIds.has(post.id)} onEdit={setEditingPost} onDelete={handleDeletePost} />
+                      currentUser={user} isLiked={likedPostIds.has(post.id)} onEdit={setEditingPost} onDelete={handleDeletePost} />
                   </div>
                 ))}
               </div>
             )}
 
             {activeTab === 'messages' && (
-              <MessagesTab user={user} />
+              <div className="animate-rise">
+                <MessagesTab user={user} />
+              </div>
             )}
 
             {activeTab === 'profile' && (
-              <ProfileTab user={user} onProfileUpdated={(updates) => setUser(prev => prev ? { ...prev, ...updates } : prev)} />
+              <ProfileTab user={user} onLogout={handleLogout} onProfileUpdated={(updates) => setUser(prev => prev ? { ...prev, ...updates } : prev)} />
             )}
 
-            {activeTab === 'library' && <LibraryTab user={user} canUpload={canPost} />}
+            {activeTab === 'library' && (
+              <div className="animate-rise">
+                <LibraryTab user={user} canUpload={canPost} />
+              </div>
+            )}
 
             {MUSIQUE_ENABLED && activeTab === 'musique' && (
               <div className="space-y-4">
@@ -1544,7 +1762,7 @@ function AppInner() {
                   <Search size={17} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 pointer-events-none" />
                   <input value={musiqueSearch} onChange={e => setMusiqueSearch(e.target.value)}
                     placeholder={t('musique.search')}
-                    className="w-full pl-11 pr-10 py-3 rounded-2xl bg-white/5 border border-white/10 text-white placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-emerald-400/60 text-[15px]" />
+                    className="w-full pl-11 pr-10 py-3 rounded-2xl glass-input text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-affirm-400/60 text-[15px]" />
                   {musiqueSearch && (
                     <button onClick={() => setMusiqueSearch('')}
                       className="absolute right-3 top-1/2 -translate-y-1/2 p-1 rounded-full text-slate-400 hover:text-white hover:bg-white/10">
@@ -1558,8 +1776,8 @@ function AppInner() {
                     <button key={cat} onClick={() => setMusiqueCategory(cat)}
                       className={`shrink-0 px-3.5 py-1.5 rounded-full text-xs font-semibold transition ${
                         musiqueCategory === cat
-                          ? 'bg-emerald-500/15 text-emerald-400 border border-emerald-400/40'
-                          : 'bg-white/5 text-slate-400 border border-white/10'}`}>
+                          ? 'bg-affirm-600 text-white border border-affirm-400/60'
+                          : 'glass-soft text-slate-600'}`}>
                       {cat === 'all' ? t('musique.all') : cat}
                     </button>
                   ))}
@@ -1568,7 +1786,7 @@ function AppInner() {
                 {canPost && (
                   <div className="flex gap-2">
                     <button onClick={() => setShowCreateMusique(true)}
-                      className="flex-1 flex items-center justify-center gap-2 py-3.5 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-sm transition shadow-lg shadow-emerald-500/20">
+                      className="flex-1 flex items-center justify-center gap-2 py-3.5 rounded-2xl bg-affirm-600 hover:bg-affirm-700 text-white font-semibold text-sm transition shadow-lg shadow-affirm-500/20">
                       <PlusCircle size={18} /> {t('musique.addOne')}
                     </button>
                     <button onClick={() => setShowBulkMusique(true)}
@@ -1579,11 +1797,11 @@ function AppInner() {
                 )}
 
                 {musiquePosts.length === 0 ? (
-                  <div className="text-center py-20">
-                    <div className="w-16 h-16 rounded-full bg-emerald-500/10 flex items-center justify-center mx-auto mb-4">
-                      <Music size={28} className="text-emerald-400" />
+                  <div className="text-center py-12 px-6 my-6 scrim">
+                    <div className="w-16 h-16 rounded-full bg-affirm-500/10 flex items-center justify-center mx-auto mb-4">
+                      <Music size={28} className="text-affirm-400" />
                     </div>
-                    <p className="text-slate-300 font-medium">
+                    <p className="text-slate-800 font-medium">
                       {musiqueSearch || musiqueCategory !== 'all' ? t('musique.noMatches') : t('musique.empty')}
                     </p>
                     <p className="text-sm text-slate-500 mt-1">
@@ -1592,7 +1810,7 @@ function AppInner() {
                   </div>
                 ) : musiquePosts.map(post => (
                   <PostCard key={post.id} post={post} onLike={handleLike} onOpenComments={setActiveCommentsPost}
-                    currentUserUid={user.uid} isLiked={likedPostIds.has(post.id)} onEdit={setEditingPost} onDelete={handleDeletePost} />
+                    currentUser={user} isLiked={likedPostIds.has(post.id)} onEdit={setEditingPost} onDelete={handleDeletePost} />
                 ))}
               </div>
             )}
@@ -1609,8 +1827,8 @@ function AppInner() {
                     <button key={cat} onClick={() => setSanteCategory(cat)}
                       className={`shrink-0 px-3.5 py-1.5 rounded-full text-xs font-semibold transition ${
                         santeCategory === cat
-                          ? 'bg-emerald-500/15 text-emerald-400 border border-emerald-400/40'
-                          : 'bg-white/5 text-slate-400 border border-white/10'}`}>
+                          ? 'bg-affirm-600 text-white border border-affirm-400/60'
+                          : 'glass-soft text-slate-600'}`}>
                       {cat === 'all' ? t('sante.allCategories') : cat}
                     </button>
                   ))}
@@ -1618,22 +1836,22 @@ function AppInner() {
 
                 {canPostSante && (
                   <button onClick={() => setShowCreateSante(true)}
-                    className="w-full flex items-center justify-center gap-2 py-3.5 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-sm transition shadow-lg shadow-emerald-500/20">
+                    className="w-full flex items-center justify-center gap-2 py-3.5 rounded-2xl bg-affirm-600 hover:bg-affirm-700 text-white font-semibold text-sm transition shadow-lg shadow-affirm-500/20">
                     <PlusCircle size={18} /> {t('sante.newTip')}
                   </button>
                 )}
 
                 {santePosts.length === 0 ? (
-                  <div className="text-center py-20">
-                    <div className="w-16 h-16 rounded-full bg-emerald-500/10 flex items-center justify-center mx-auto mb-4">
-                      <HeartPulse size={28} className="text-emerald-400" />
+                  <div className="text-center py-12 px-6 my-6 scrim">
+                    <div className="w-16 h-16 rounded-full bg-affirm-500/10 flex items-center justify-center mx-auto mb-4">
+                      <HeartPulse size={28} className="text-affirm-400" />
                     </div>
-                    <p className="text-slate-300 font-medium">{t('sante.empty')}</p>
-                    <p className="text-sm text-slate-500 mt-1">{t('sante.emptyHint')}</p>
+                    <p className="text-slate-800 font-medium">{t('sante.empty')}</p>
+                    <p className="text-sm text-slate-400 mt-1">{t('sante.emptyHint')}</p>
                   </div>
                 ) : santePosts.map(post => (
                   <PostCard key={post.id} post={post} onLike={handleLike} onOpenComments={setActiveCommentsPost}
-                    currentUserUid={user.uid} isLiked={likedPostIds.has(post.id)} onEdit={setEditingPost} onDelete={handleDeletePost} />
+                    currentUser={user} isLiked={likedPostIds.has(post.id)} onEdit={setEditingPost} onDelete={handleDeletePost} />
                 ))}
               </div>
             )}
@@ -1643,14 +1861,16 @@ function AppInner() {
                 <div className="flex gap-2 overflow-x-auto pb-1">
                   {[
                     ...(isStaffUser ? [{ id: 'approvals' as const, label: t('admin.subApprovals') }] : []),
+                    ...(isStaffUser ? [{ id: 'reports' as const, label: t('reports.tab') }] : []),
+                    ...(isStaffUser ? [{ id: 'dons' as const, label: t('dons.tab') }] : []),
                     ...(isStaffUser ? [{ id: 'logs' as const, label: t('nav.logs') }] : []),
                     { id: 'data' as const, label: t('nav.data') }
                   ].map(sub => (
                     <button key={sub.id} onClick={() => setAdminSection(sub.id)}
                       className={`shrink-0 px-4 py-2 rounded-full text-sm font-semibold transition ${
                         adminSection === sub.id
-                          ? 'bg-emerald-500/15 text-emerald-400 border border-emerald-400/40'
-                          : 'bg-white/5 text-slate-400 border border-white/10 hover:text-slate-200'}`}>
+                          ? 'bg-affirm-600 text-white border border-affirm-400/60'
+                          : 'glass-soft text-slate-600 hover:text-slate-900'}`}>
                       {sub.label}
                     </button>
                   ))}
@@ -1659,6 +1879,8 @@ function AppInner() {
                 {adminSection === 'approvals' && isStaffUser && (
                   <AdminPanel pendingChurches={pendingChurches} onApprove={handleApproveChurch} onDeny={handleDenyChurch} />
                 )}
+                {adminSection === 'reports' && isStaffUser && <ReportsPanel user={user} />}
+                {adminSection === 'dons' && isStaffUser && <DonationsPanel user={user} />}
                 {adminSection === 'logs' && isStaffUser && <LogsPanel />}
                 {adminSection === 'data' && <DataManagementTab user={user} />}
               </div>
@@ -1667,27 +1889,27 @@ function AppInner() {
         </div>
 
         {/* Bottom Nav — mobile & tablet only */}
-        <nav className="lg:hidden fixed bottom-0 left-0 right-0 bg-[#0f172a] border-t border-white/10 safe-bottom z-50">
+        <nav className="nav-bar lg:hidden fixed bottom-0 left-0 right-0 safe-bottom z-50">
           <div className="max-w-lg mx-auto flex items-center h-16 px-1">
             {navItems.map(item => {
               const Icon = item.icon
               const active = activeTab === item.id
               return (
                 <button key={item.id} onClick={() => setActiveTab(item.id)}
-                  className={`relative flex flex-col items-center justify-center flex-1 min-w-0 h-full transition ${
-                    active ? 'text-emerald-400' : 'text-slate-400'}`}>
-                  <Icon size={21} strokeWidth={active ? 2.5 : 2} />
+                  className={`nav-item relative flex flex-col items-center justify-center flex-1 min-w-0 h-full transition ${
+                    active ? 'is-active' : ''}`}>
+                  <Icon size={21} strokeWidth={active ? 2.75 : 2.25} />
                   {item.id === 'admin' && pendingChurches.length > 0 && (
                     <span className="absolute top-1.5 right-2 w-4 h-4 rounded-full bg-red-500 text-white text-[9px] font-bold flex items-center justify-center">
                       {pendingChurches.length}
                     </span>
                   )}
                   {item.id === 'messages' && unreadMessages > 0 && (
-                    <span className="absolute top-1 right-1.5 min-w-[16px] h-4 px-1 rounded-full bg-red-500 text-white text-[9px] font-bold flex items-center justify-center ring-2 ring-[#0f172a]">
+                    <span className="absolute top-1 right-1.5 min-w-[16px] h-4 px-1 rounded-full bg-red-500 text-white text-[9px] font-bold flex items-center justify-center ring-2 ring-[#201a16]">
                       {unreadMessages > 9 ? '9+' : unreadMessages}
                     </span>
                   )}
-                  <span className="text-[9px] mt-1 font-medium leading-[1.1] text-center px-0.5 max-w-full break-words">
+                  <span className="text-[10px] mt-1 font-bold leading-[1.1] text-center px-0.5 max-w-full break-words">
                     {item.label}
                   </span>
                 </button>
@@ -1695,8 +1917,8 @@ function AppInner() {
             })}
             {canPost && (
               <button onClick={() => setShowCreate(true)}
-                className="flex flex-col items-center justify-center flex-1 min-w-0 h-full text-emerald-400">
-                <div className="w-10 h-10 rounded-full bg-emerald-600 text-white flex items-center justify-center shadow-lg shadow-emerald-500/40 -mt-4">
+                className="nav-item flex flex-col items-center justify-center flex-1 min-w-0 h-full">
+                <div className="w-10 h-10 rounded-full bg-affirm-600 text-white flex items-center justify-center shadow-lg shadow-affirm-500/40 -mt-4">
                   <PlusCircle size={22} />
                 </div>
                 <span className="text-[9px] mt-1 font-medium leading-[1.1] text-center px-0.5 max-w-full break-words">
@@ -1710,8 +1932,8 @@ function AppInner() {
 
       {messageToast && (
         <button onClick={() => { setActiveTab('messages'); setMessageToast(false) }}
-          className="fixed top-4 left-4 right-4 lg:left-auto lg:right-6 lg:w-80 z-[60] flex items-center gap-3 bg-[#1e293b] border border-emerald-400/30 rounded-2xl shadow-2xl px-4 py-3 text-left animate-[toastIn_0.25s_ease-out]">
-          <div className="w-9 h-9 rounded-full bg-emerald-500/15 text-emerald-400 flex items-center justify-center shrink-0">
+          className="fixed top-4 left-4 right-4 lg:left-auto lg:right-6 lg:w-80 z-[60] flex items-center gap-3 bg-[#1e293b] border border-affirm-400/30 rounded-2xl shadow-2xl px-4 py-3 text-left animate-[toastIn_0.25s_ease-out]">
+          <div className="w-9 h-9 rounded-full bg-affirm-500/15 text-affirm-400 flex items-center justify-center shrink-0">
             <MessageCircle size={17} />
           </div>
           <div className="min-w-0 flex-1">
@@ -1727,7 +1949,7 @@ function AppInner() {
       {showNotifPrompt && (
         <div className="fixed bottom-20 lg:bottom-6 left-4 right-4 lg:left-auto lg:right-6 lg:w-96 z-50 bg-[#1e293b] border border-white/10 rounded-3xl shadow-2xl p-5">
           <div className="flex items-start gap-3">
-            <div className="w-10 h-10 rounded-2xl bg-emerald-500/15 flex items-center justify-center text-emerald-400 shrink-0">
+            <div className="w-10 h-10 rounded-2xl bg-affirm-500/15 flex items-center justify-center text-affirm-400 shrink-0">
               <Bell size={19} />
             </div>
             <div className="min-w-0">
@@ -1741,7 +1963,7 @@ function AppInner() {
               const ok = await enableNotifications(user.uid)
               if (ok) setUser(prev => prev ? { ...prev, notificationsEnabled: true } : prev)
             }}
-              className="flex-1 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-semibold transition">
+              className="flex-1 py-2.5 rounded-xl bg-affirm-600 hover:bg-affirm-700 text-white text-sm font-semibold transition">
               {t('notifPrompt.enable')}
             </button>
             <button onClick={() => setShowNotifPrompt(false)}
@@ -1774,7 +1996,21 @@ function AppInner() {
       )}
       {activeCommentsPost && (
         <CommentsSheet postId={activeCommentsPost} comments={comments}
-          onClose={() => setActiveCommentsPost(null)} onAdd={handleAddComment} />
+          onClose={() => setActiveCommentsPost(null)} onAdd={handleAddComment}
+          onLikeComment={handleLikeComment} likedCommentIds={likedCommentIds} currentUser={user} />
+      )}
+      {showNotifications && (
+        <NotificationsPanel
+          notifications={notifications}
+          newPostCount={seenNewPosts.length}
+          onClose={() => setShowNotifications(false)}
+          onTap={handleNotificationTap}
+          onDismiss={dismissNotification}
+          onViewNewPosts={() => { setShowNotifications(false); setActiveTab('feed') }} />
+      )}
+      {showDonation && (
+        <DonationSheet config={donation} canEdit={isStaffUser} user={user}
+          onClose={() => setShowDonation(false)} />
       )}
     </div>
   )
@@ -1890,9 +2126,10 @@ const COUNTRY_CODES = [
 ]
 
 // ==================== COMPONENTS ====================
-function ProfileTab({ user, onProfileUpdated }: {
+function ProfileTab({ user, onProfileUpdated, onLogout }: {
   user: AppUser
   onProfileUpdated: (updates: Partial<AppUser>) => void
+  onLogout: () => void
 }) {
   const { t } = useLanguage()
   const [uploading, setUploading] = useState(false)
@@ -2005,18 +2242,18 @@ function ProfileTab({ user, onProfileUpdated }: {
 
   return (
     <div className="space-y-4">
-      <div className="bg-white rounded-3xl p-8 shadow-sm border border-slate-100 text-center">
+      <div className="glass rounded-3xl p-8 shadow-sm border border-slate-100 text-center">
         <div className="relative w-24 h-24 mx-auto mb-4">
           {user.avatar ? (
-            <img src={user.avatar} alt="" className="w-24 h-24 rounded-full object-cover shadow-lg shadow-emerald-200" />
+            <img src={user.avatar} alt="" className="w-24 h-24 rounded-full object-cover shadow-lg shadow-affirm-200" />
           ) : (
-            <div className="w-24 h-24 rounded-full bg-gradient-to-br from-emerald-400 to-teal-500 flex items-center justify-center text-3xl font-bold text-white shadow-lg shadow-emerald-200">
+            <div className="w-24 h-24 rounded-full bg-gradient-to-br from-affirm-400 to-teal-500 flex items-center justify-center text-3xl font-bold text-white shadow-lg shadow-affirm-200">
               {user.displayName.charAt(0).toUpperCase()}
             </div>
           )}
-          <label className="absolute bottom-0 right-0 w-8 h-8 rounded-full bg-white border-2 border-emerald-500 text-emerald-600 flex items-center justify-center cursor-pointer shadow-md hover:bg-emerald-50 transition">
+          <label className="absolute bottom-0 right-0 w-8 h-8 rounded-full bg-white border-2 border-affirm-500 text-affirm-600 flex items-center justify-center cursor-pointer shadow-md hover:bg-affirm-50 transition">
             {uploading ? (
-              <div className="w-3.5 h-3.5 border-2 border-emerald-500 border-t-transparent rounded-full animate-spin" />
+              <div className="w-3.5 h-3.5 border-2 border-affirm-500 border-t-transparent rounded-full animate-spin" />
             ) : (
               <Camera size={14} />
             )}
@@ -2025,26 +2262,26 @@ function ProfileTab({ user, onProfileUpdated }: {
         </div>
         <h2 className="text-xl font-bold text-slate-900">{user.displayName}</h2>
         <p className="text-slate-400 text-sm mt-1">{user.email}</p>
-        <div className="mt-4 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 text-xs font-semibold">
+        <div className="mt-4 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-affirm-50 text-affirm-700 text-xs font-semibold">
           {user.role === 'church' ? <><CheckCircle2 size={14} /> {t('app.verifiedChurch')}</> : user.role === 'admin' ? <><ShieldCheck size={14} /> {t('app.admin')}</> : t('app.member')}
         </div>
         {avatarError && <p className="mt-4 text-xs text-red-500 bg-red-50 rounded-xl px-3 py-2 inline-block">{avatarError}</p>}
       </div>
 
-      <form onSubmit={handleSaveProfile} className="bg-white rounded-3xl p-6 shadow-sm border border-slate-100 space-y-4">
+      <form onSubmit={handleSaveProfile} className="glass rounded-3xl p-6 shadow-sm border border-slate-100 space-y-4">
         <h3 className="font-bold text-slate-900 px-1">{t('profile.details')}</h3>
 
         <div>
           <label className="text-xs font-semibold text-slate-500 px-1">{t('profile.church')}</label>
           <input value={churchName} onChange={e => setChurchName(e.target.value)} placeholder={t('profile.churchPlaceholder')}
-            className="w-full mt-1.5 px-4 py-3 rounded-2xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-400 text-[15px]" />
+            className="w-full mt-1.5 px-4 py-3 rounded-2xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-affirm-400 text-[15px]" />
         </div>
 
         <div className="grid grid-cols-2 gap-3">
           <div>
             <label className="text-xs font-semibold text-slate-500 px-1">{t('profile.country')}</label>
             <select value={country} onChange={e => setCountry(e.target.value)}
-              className="w-full mt-1.5 px-4 py-3 rounded-2xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-400 text-[15px] bg-white">
+              className="w-full mt-1.5 px-4 py-3 rounded-2xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-affirm-400 text-[15px] bg-white">
               <option value="">{t('profile.selectCountry')}</option>
               {COUNTRIES.map(c => <option key={c} value={c}>{c}</option>)}
             </select>
@@ -2052,26 +2289,26 @@ function ProfileTab({ user, onProfileUpdated }: {
           <div>
             <label className="text-xs font-semibold text-slate-500 px-1">{t('profile.city')}</label>
             <input value={city} onChange={e => setCity(e.target.value)} placeholder="e.g. Ouagadougou"
-              className="w-full mt-1.5 px-4 py-3 rounded-2xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-400 text-[15px]" />
+              className="w-full mt-1.5 px-4 py-3 rounded-2xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-affirm-400 text-[15px]" />
           </div>
         </div>
 
         <div>
           <label className="text-xs font-semibold text-slate-500 px-1">{t('profile.phoneNumber')}</label>
           <input type="tel" value={phone} onChange={e => setPhone(e.target.value)} placeholder="e.g. +226 70 00 00 00"
-            className="w-full mt-1.5 px-4 py-3 rounded-2xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-400 text-[15px]" />
+            className="w-full mt-1.5 px-4 py-3 rounded-2xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-affirm-400 text-[15px]" />
         </div>
 
         {saveError && <p className="text-sm text-red-500 bg-red-50 rounded-xl px-4 py-3">{saveError}</p>}
-        {saved && <p className="text-sm text-emerald-700 bg-emerald-50 rounded-xl px-4 py-3">{t('profile.updated')}</p>}
+        {saved && <p className="text-sm text-affirm-700 bg-affirm-50 rounded-xl px-4 py-3">{t('profile.updated')}</p>}
 
         <button type="submit" disabled={saving}
-          className="w-full py-3.5 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-[15px] transition disabled:opacity-60">
+          className="w-full py-3.5 rounded-2xl bg-affirm-600 hover:bg-affirm-700 text-white font-semibold text-[15px] transition disabled:opacity-60">
           {saving ? t('profile.saving') : t('profile.saveChanges')}
         </button>
       </form>
 
-      <div className="bg-white rounded-3xl p-6 shadow-sm border border-slate-100">
+      <div className="glass rounded-3xl p-6 shadow-sm border border-slate-100">
         <div className="flex items-center justify-between gap-4">
           <div>
             <h3 className="font-bold text-slate-900">{t('profile.notifications')}</h3>
@@ -2080,7 +2317,7 @@ function ProfileTab({ user, onProfileUpdated }: {
           <button onClick={handleToggleNotifications} disabled={notifLoading}
             role="switch" aria-checked={!!user.notificationsEnabled}
             className={`relative shrink-0 w-12 h-7 rounded-full transition disabled:opacity-60 ${
-              user.notificationsEnabled ? 'bg-emerald-600' : 'bg-slate-200'}`}>
+              user.notificationsEnabled ? 'bg-affirm-600' : 'bg-slate-200'}`}>
             <span className={`absolute top-1 left-1 w-5 h-5 rounded-full bg-white shadow transition-transform ${
               user.notificationsEnabled ? 'translate-x-5' : ''}`} />
           </button>
@@ -2092,7 +2329,7 @@ function ProfileTab({ user, onProfileUpdated }: {
             const opened = await openNotificationSettings()
             if (!opened) setNotifError(t('profile.openSettingsManually'))
           }}
-            className="mt-3 w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-semibold transition">
+            className="mt-3 w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-affirm-600 hover:bg-affirm-700 text-white text-sm font-semibold transition">
             <Bell size={15} /> {t('profile.openPhoneSettings')}
           </button>
         )}
@@ -2106,7 +2343,7 @@ function ProfileTab({ user, onProfileUpdated }: {
           </div>
           <button onClick={() => { const next = !soundOn; setSoundOn(next); setAlertMuted(!next) }}
             role="switch" aria-checked={soundOn}
-            className={`relative shrink-0 w-12 h-7 rounded-full transition ${soundOn ? 'bg-emerald-600' : 'bg-slate-200'}`}>
+            className={`relative shrink-0 w-12 h-7 rounded-full transition ${soundOn ? 'bg-affirm-600' : 'bg-slate-200'}`}>
             <span className={`absolute top-1 left-1 w-5 h-5 rounded-full bg-white shadow transition-transform ${
               soundOn ? 'translate-x-5' : ''}`} />
           </button>
@@ -2119,7 +2356,7 @@ function ProfileTab({ user, onProfileUpdated }: {
 
         {testResult && (
           <p className={`mt-2 text-xs rounded-xl px-3 py-2 ${
-            testResult.ok ? 'text-emerald-700 bg-emerald-50' : 'text-red-600 bg-red-50'}`}>
+            testResult.ok ? 'text-affirm-700 bg-affirm-50' : 'text-red-600 bg-red-50'}`}>
             {testResult.ok ? t('profile.testSent') : t('profile.testFailed')} — {testResult.detail}
           </p>
         )}
@@ -2141,7 +2378,7 @@ function ProfileTab({ user, onProfileUpdated }: {
         )}
       </div>
 
-      <div className="bg-white rounded-3xl p-6 shadow-sm border border-slate-100">
+      <div className="glass rounded-3xl p-6 shadow-sm border border-slate-100">
         <h3 className="font-bold text-slate-900">{t('support.title')}</h3>
         <p className="text-xs text-slate-400 mt-0.5 leading-relaxed">{t('support.note')}</p>
 
@@ -2152,7 +2389,7 @@ function ProfileTab({ user, onProfileUpdated }: {
             )}`}
             className="flex items-center gap-3 w-full px-4 py-3 rounded-2xl bg-slate-50 hover:bg-slate-100 transition"
           >
-            <div className="w-9 h-9 rounded-xl bg-emerald-100 flex items-center justify-center text-emerald-600 shrink-0">
+            <div className="w-9 h-9 rounded-xl bg-affirm-100 flex items-center justify-center text-affirm-600 shrink-0">
               <Mail size={16} />
             </div>
             <div className="min-w-0 text-left">
@@ -2178,12 +2415,24 @@ function ProfileTab({ user, onProfileUpdated }: {
         </div>
       </div>
 
+      <button onClick={onLogout}
+        className="w-full flex items-center justify-center gap-2 py-3.5 rounded-2xl bg-white border border-red-100 text-red-600 font-semibold text-sm hover:bg-red-50 transition shadow-sm">
+        <LogOut size={18} /> {t('profile.logout')}
+      </button>
+
       <div className="text-center py-4">
         <p className="text-[11px] text-slate-500">{COPYRIGHT}</p>
-        <a href="/privacy.html" target="_blank" rel="noreferrer"
-          className="text-[11px] text-slate-500 hover:text-emerald-400 underline mt-1 inline-block">
-          {t('footer.privacy')}
-        </a>
+        <div className="mt-1 flex items-center justify-center gap-3">
+          <a href="/privacy.html" target="_blank" rel="noreferrer"
+            className="text-[11px] text-slate-500 hover:text-affirm-600 underline">
+            {t('footer.privacy')}
+          </a>
+          <span className="text-[11px] text-slate-300">·</span>
+          <a href="/child-safety.html" target="_blank" rel="noreferrer"
+            className="text-[11px] text-slate-500 hover:text-affirm-600 underline">
+            {t('footer.childSafety')}
+          </a>
+        </div>
       </div>
     </div>
   )
@@ -2198,17 +2447,15 @@ function LogsPanel() {
   const [search, setSearch] = useState('')
 
   useEffect(() => {
-    // Capped at 300 - enough to troubleshoot recent issues without pulling
-    // an unbounded collection into memory as the log grows over time.
-    // Last 48 hours only - this page is for troubleshooting what just
-    // happened, so an unbounded history mostly gets in the way. The limit()
-    // stays as a hard ceiling in case of a very busy two days.
-    const cutoff = new Date(Date.now() - 48 * 60 * 60 * 1000)
+    // Last 30 days of activity. The limit() stays as a hard ceiling so a very
+    // busy month can't pull an unbounded collection into memory - raised to
+    // 2000 so a normal month of history isn't silently truncated.
+    const cutoff = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000)
     const q = query(
       collection(db, 'activityLogs'),
       where('createdAt', '>=', cutoff),
       orderBy('createdAt', 'desc'),
-      limit(300)
+      limit(2000)
     )
     const unsub = onSnapshot(q, snap => {
       setLogs(snap.docs.map(d => ({ id: d.id, ...d.data() } as ActivityLog)))
@@ -2229,11 +2476,11 @@ function LogsPanel() {
   // happened, not a database dump.
   const ACTION_META: Record<string, { label: string; color: string; Icon: any }> = {
     signin: { label: t('logs.signin'), color: 'bg-blue-50 text-blue-600', Icon: LogOut },
-    signup: { label: t('logs.signup'), color: 'bg-emerald-50 text-emerald-600', Icon: User },
-    post_created: { label: t('logs.postCreated'), color: 'bg-emerald-50 text-emerald-600', Icon: PlusCircle },
+    signup: { label: t('logs.signup'), color: 'bg-affirm-50 text-affirm-600', Icon: User },
+    post_created: { label: t('logs.postCreated'), color: 'bg-affirm-50 text-affirm-600', Icon: PlusCircle },
     post_edited: { label: t('logs.postEdited'), color: 'bg-amber-50 text-amber-600', Icon: Pencil },
     post_deleted: { label: t('logs.postDeleted'), color: 'bg-red-50 text-red-600', Icon: Trash2 },
-    church_approved: { label: t('logs.churchApproved'), color: 'bg-emerald-50 text-emerald-600', Icon: CheckCircle2 },
+    church_approved: { label: t('logs.churchApproved'), color: 'bg-affirm-50 text-affirm-600', Icon: CheckCircle2 },
     church_denied: { label: t('logs.churchDenied'), color: 'bg-red-50 text-red-600', Icon: UserX },
     directory_synced: { label: t('logs.directorySynced'), color: 'bg-slate-100 text-slate-500', Icon: Church },
     like_added: { label: t('logs.likeAdded'), color: 'bg-rose-50 text-rose-600', Icon: Heart },
@@ -2276,7 +2523,7 @@ function LogsPanel() {
       <div className="relative">
         <Search size={17} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 pointer-events-none" />
         <input value={search} onChange={e => setSearch(e.target.value)} placeholder={t('logs.searchPlaceholder')}
-          className="w-full pl-11 pr-10 py-3 rounded-2xl bg-white/5 border border-white/10 text-white placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-emerald-400/60 text-[15px]" />
+          className="w-full pl-11 pr-10 py-3 rounded-2xl glass-input text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-affirm-400/60 text-[15px]" />
         {search && (
           <button onClick={() => setSearch('')}
             className="absolute right-3 top-1/2 -translate-y-1/2 p-1 rounded-full text-slate-400 hover:text-white hover:bg-white/10">
@@ -2296,14 +2543,14 @@ function LogsPanel() {
           <button key={tab.id} onClick={() => setFilter(tab.id)}
             className={`shrink-0 px-4 py-2 rounded-full text-sm font-semibold transition ${
               filter === tab.id
-                ? 'bg-emerald-500/15 text-emerald-400 border border-emerald-400/40'
-                : 'bg-white/5 text-slate-400 border border-white/10 hover:text-slate-200'}`}>
+                ? 'bg-affirm-600 text-white border border-affirm-400/60'
+                : 'glass-soft text-slate-600 hover:text-slate-900'}`}>
             {tab.label}
           </button>
         ))}
       </div>
 
-      {loading && <p className="text-center text-slate-400 py-16">{t('app.loading')}</p>}
+      {loading && <p className="text-center py-16"><span className="scrim inline-block px-4 py-2 text-sm text-slate-600">{t('app.loading')}</span></p>}
 
       {!loading && error && (
         <div className="bg-red-50 border border-red-200 rounded-2xl p-5">
@@ -2314,11 +2561,11 @@ function LogsPanel() {
       )}
 
       {!loading && !error && visible.length === 0 && (
-        <div className="text-center py-20">
-          <div className="w-16 h-16 rounded-full bg-emerald-500/10 flex items-center justify-center mx-auto mb-4">
-            <ScrollText size={28} className="text-emerald-400" />
+        <div className="text-center py-12 px-6 my-6 scrim">
+          <div className="w-16 h-16 rounded-full bg-affirm-500/10 flex items-center justify-center mx-auto mb-4">
+            <ScrollText size={28} className="text-affirm-400" />
           </div>
-          <p className="text-slate-300 font-medium">{t('logs.empty')}</p>
+          <p className="text-slate-800 font-medium">{t('logs.empty')}</p>
         </div>
       )}
 
@@ -2327,7 +2574,7 @@ function LogsPanel() {
           {Object.entries(grouped).map(([dayLabel, dayLogs]) => (
             <div key={dayLabel}>
               <h3 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2 px-1">{dayLabel}</h3>
-              <div className="bg-white rounded-3xl shadow-sm border border-slate-100 overflow-hidden">
+              <div className="glass rounded-3xl shadow-sm border border-slate-100 overflow-hidden">
                 {dayLogs.map((log, i) => {
                   const meta = ACTION_META[log.action] || { label: log.action, color: 'bg-slate-100 text-slate-600', Icon: ScrollText }
                   const LogIcon = meta.Icon
@@ -2382,11 +2629,11 @@ function AdminPanel({ pendingChurches, onApprove, onDeny }: {
   if (pendingChurches.length === 0) {
     return (
       <div className="space-y-4">
-        <div className="text-center py-16">
-          <div className="w-16 h-16 rounded-full bg-emerald-50 flex items-center justify-center mx-auto mb-4">
-            <ShieldCheck size={28} className="text-emerald-500" />
+        <div className="text-center py-12 px-6 my-6 scrim">
+          <div className="w-16 h-16 rounded-full bg-affirm-50 flex items-center justify-center mx-auto mb-4">
+            <ShieldCheck size={28} className="text-affirm-500" />
           </div>
-          <p className="text-slate-500 font-medium">{t('admin.noPending')}</p>
+          <p className="text-slate-800 font-medium">{t('admin.noPending')}</p>
           <p className="text-sm text-slate-400 mt-1">{t('admin.noPendingNote')}</p>
         </div>
       </div>
@@ -2397,7 +2644,7 @@ function AdminPanel({ pendingChurches, onApprove, onDeny }: {
     <div className="space-y-4">
       <h2 className="text-lg font-bold text-slate-900 px-1">{t('admin.pendingChurches')} ({pendingChurches.length})</h2>
       {pendingChurches.map(church => (
-        <div key={church.uid} className="bg-white rounded-3xl p-5 shadow-sm border border-slate-100">
+        <div key={church.uid} className="glass rounded-3xl p-5 shadow-sm border border-slate-100">
           <div className="flex items-center gap-3 mb-4">
             <div className="w-12 h-12 rounded-full bg-gradient-to-br from-amber-300 to-orange-400 flex items-center justify-center text-white font-bold shrink-0">
               {(church.churchName || church.displayName).charAt(0).toUpperCase()}
@@ -2410,7 +2657,7 @@ function AdminPanel({ pendingChurches, onApprove, onDeny }: {
           </div>
           <div className="flex gap-2">
             <button onClick={() => handle(church.uid, 'approve')} disabled={busyUid === church.uid}
-              className="flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-semibold transition disabled:opacity-50">
+              className="flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-xl bg-affirm-600 hover:bg-affirm-700 text-white text-sm font-semibold transition disabled:opacity-50">
               <CheckCircle2 size={16} /> {t('admin.approve')}
             </button>
             <button onClick={() => handle(church.uid, 'deny')} disabled={busyUid === church.uid}
@@ -2424,19 +2671,22 @@ function AdminPanel({ pendingChurches, onApprove, onDeny }: {
   )
 }
 
-function PostCard({ post, onLike, onOpenComments, currentUserUid, isLiked, onEdit, onDelete }: {
+function PostCard({ post, onLike, onOpenComments, currentUser, isLiked, onEdit, onDelete }: {
   post: Post
   onLike: (id: string) => Promise<void>
   onOpenComments: (id: string) => void
-  currentUserUid: string
+  currentUser: AppUser
   isLiked: boolean
   onEdit: (post: Post) => void
-  onDelete: (id: string) => void
+  onDelete: (id: string) => void | Promise<void>
 }) {
   const { t } = useLanguage()
+  const currentUserUid = currentUser.uid
+  const [reporting, setReporting] = useState(false)
   const ytId = post.mediaUrl ? getYoutubeId(post.mediaUrl) : null
   const ytList = post.mediaUrl ? getYoutubePlaylistId(post.mediaUrl) : null
   const [confirmingDelete, setConfirmingDelete] = useState(false)
+  const [deleting, setDeleting] = useState(false)
   const [likeError, setLikeError] = useState(false)
   const [shareCopied, setShareCopied] = useState(false)
   const [lightbox, setLightbox] = useState<string | null>(null)
@@ -2484,12 +2734,12 @@ function PostCard({ post, onLike, onOpenComments, currentUserUid, isLiked, onEdi
   }
 
   return (
-    <article className="bg-white rounded-3xl shadow-sm border border-slate-100/80 overflow-hidden">
+    <article className="glass rounded-3xl shadow-sm border border-slate-100/80 overflow-hidden">
       <div className="flex items-center gap-3 p-4">
         {post.churchAvatar ? (
           <img src={post.churchAvatar} alt="" className="w-11 h-11 rounded-full object-cover shrink-0" />
         ) : (
-          <div className="w-11 h-11 rounded-full bg-gradient-to-br from-emerald-400 to-teal-500 flex items-center justify-center text-white font-bold text-sm shrink-0">
+          <div className="w-11 h-11 rounded-full bg-gradient-to-br from-affirm-400 to-teal-500 flex items-center justify-center text-white font-bold text-sm shrink-0">
             {(post.authorName || post.churchName || 'C').charAt(0)}
           </div>
         )}
@@ -2506,8 +2756,19 @@ function PostCard({ post, onLike, onOpenComments, currentUserUid, isLiked, onEdi
         {isOwner && (
           confirmingDelete ? (
             <div className="flex items-center gap-1.5 shrink-0">
-              <button onClick={() => onDelete(post.id)}
-                className="text-xs font-semibold text-white bg-red-500 hover:bg-red-600 px-3 py-1.5 rounded-full transition">
+              <button disabled={deleting} onClick={async () => {
+                setDeleting(true)
+                try {
+                  // Await before collapsing the confirm UI: a failed delete
+                  // used to look successful because the button vanished
+                  // regardless of the write's outcome.
+                  await onDelete(post.id)
+                } catch {
+                  setDeleting(false)
+                  setConfirmingDelete(false)
+                }
+              }}
+                className="text-xs font-semibold text-white bg-red-500 hover:bg-red-600 px-3 py-1.5 rounded-full transition disabled:opacity-50">
                 {t('post.delete')}
               </button>
               <button onClick={() => setConfirmingDelete(false)}
@@ -2518,7 +2779,7 @@ function PostCard({ post, onLike, onOpenComments, currentUserUid, isLiked, onEdi
           ) : (
             <div className="flex items-center gap-0.5 shrink-0">
               <button onClick={() => onEdit(post)}
-                className="p-2 rounded-full text-slate-300 hover:text-emerald-600 hover:bg-emerald-50 transition">
+                className="p-2 rounded-full text-slate-300 hover:text-affirm-600 hover:bg-affirm-50 transition">
                 <Pencil size={16} />
               </button>
               <button onClick={() => setConfirmingDelete(true)}
@@ -2532,7 +2793,7 @@ function PostCard({ post, onLike, onOpenComments, currentUserUid, isLiked, onEdi
 
       {post.content && (
         <div className="px-4 pb-3">
-          <p className="text-slate-800 text-[15px] leading-relaxed whitespace-pre-wrap">{post.content}</p>
+          <p className="text-slate-800 text-base leading-relaxed whitespace-pre-wrap">{post.content}</p>
         </div>
       )}
 
@@ -2570,7 +2831,7 @@ function PostCard({ post, onLike, onOpenComments, currentUserUid, isLiked, onEdi
             <span className="text-sm font-medium">YouTube Video</span>
           </div>
           <a href={post.mediaUrl} target="_blank" rel="noreferrer"
-            className="text-sm text-emerald-600 underline break-all">{post.mediaUrl}</a>
+            className="text-sm text-affirm-600 underline break-all">{post.mediaUrl}</a>
         </div>
       )}
 
@@ -2619,7 +2880,7 @@ function PostCard({ post, onLike, onOpenComments, currentUserUid, isLiked, onEdi
             }}
             className="w-full flex items-center gap-3 bg-slate-50 hover:bg-slate-100 rounded-2xl px-4 py-3 transition text-left">
             <div className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 ${
-              player.isCurrent(post.id) ? 'bg-emerald-600 text-white' : 'bg-emerald-100 text-emerald-600'}`}>
+              player.isCurrent(post.id) ? 'bg-affirm-600 text-white' : 'bg-affirm-100 text-affirm-600'}`}>
               {player.isCurrent(post.id) && player.playing ? <Pause size={17} /> : <Play size={17} />}
             </div>
             <div className="min-w-0">
@@ -2661,7 +2922,7 @@ function PostCard({ post, onLike, onOpenComments, currentUserUid, isLiked, onEdi
             </span>
           )}
           <button onClick={() => onOpenComments(post.id)}
-            className="flex items-center gap-1.5 text-sm font-medium text-slate-400 hover:text-emerald-600">
+            className="flex items-center gap-1.5 text-sm font-medium text-slate-400 hover:text-affirm-600">
             <MessageCircle size={18} />
             {post.commentsCount || 0}
           </button>
@@ -2669,20 +2930,31 @@ function PostCard({ post, onLike, onOpenComments, currentUserUid, isLiked, onEdi
         {post.mediaUrl && ['text-image', 'audio', 'video', 'document'].includes(post.type) && (
           <button onClick={() => downloadMedia(post.mediaUrl!, fileNameFor(post))}
             aria-label={t('post.download')}
-            className="text-slate-300 hover:text-emerald-600 mr-1">
+            className="text-slate-300 hover:text-affirm-600 mr-1">
             <Download size={18} />
           </button>
         )}
-        <button onClick={handleShare} className="relative text-slate-300 hover:text-emerald-600">
+        {post.churchId !== currentUserUid && (
+          <button onClick={() => setReporting(true)} aria-label={t('report.action')} title={t('report.action')}
+            className="text-slate-300 hover:text-affirm-600 mr-3">
+            <Flag size={17} />
+          </button>
+        )}
+        <button onClick={handleShare} className="relative text-slate-300 hover:text-affirm-600">
           <Share2 size={18} />
           {shareCopied && (
-            <span className="absolute -top-8 right-0 text-[11px] font-medium text-emerald-700 bg-emerald-50 rounded-full px-2.5 py-1 whitespace-nowrap">
+            <span className="absolute -top-8 right-0 text-[11px] font-medium text-affirm-700 bg-affirm-50 rounded-full px-2.5 py-1 whitespace-nowrap">
               {t('post.linkCopied')}
             </span>
           )}
         </button>
       </div>
       {lightbox && <ImageLightbox src={lightbox} onClose={() => setLightbox(null)} />}
+      {reporting && (
+        <ReportSheet user={currentUser} targetType="post" targetId={post.id}
+          targetOwnerId={post.churchId} targetOwnerName={post.authorName || post.churchName}
+          preview={post.content} onClose={() => setReporting(false)} />
+      )}
     </article>
   )
 }
@@ -2759,7 +3031,7 @@ function BulkMusicModal({ user, onClose }: { user: AppUser; onClose: () => void 
 
   return (
     <div className="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-sm flex items-end sm:items-center justify-center">
-      <div className="bg-white w-full max-w-lg rounded-t-3xl sm:rounded-3xl max-h-[88vh] overflow-y-auto">
+      <div className="glass-bar w-full max-w-lg rounded-t-3xl sm:rounded-3xl max-h-[88vh] overflow-y-auto">
         <div className="sticky top-0 bg-white border-b border-slate-100 px-5 py-4 flex items-center justify-between">
           <h2 className="font-bold text-lg text-slate-900">{t('musique.bulkTitle')}</h2>
           <button onClick={onClose} className="p-1.5 rounded-full hover:bg-slate-100 text-slate-400"><X size={20} /></button>
@@ -2769,16 +3041,16 @@ function BulkMusicModal({ user, onClose }: { user: AppUser; onClose: () => void 
           <p className="text-xs text-slate-500 leading-relaxed">{t('musique.bulkHint')}</p>
 
           <select value={category} onChange={e => setCategory(e.target.value)}
-            className="w-full px-4 py-3 rounded-2xl border border-slate-200 text-[15px] bg-white focus:outline-none focus:ring-2 focus:ring-emerald-400">
+            className="w-full px-4 py-3 rounded-2xl border border-slate-200 text-[15px] bg-white focus:outline-none focus:ring-2 focus:ring-affirm-400">
             {MUSIQUE_CATEGORIES.map(cat => <option key={cat} value={cat}>{cat}</option>)}
           </select>
 
           <textarea value={raw} onChange={e => setRaw(e.target.value)} rows={10}
             placeholder={"Titre du chant | https://www.youtube.com/watch?v=..."}
-            className="w-full px-4 py-3 rounded-2xl border border-slate-200 text-[13px] font-mono resize-none focus:outline-none focus:ring-2 focus:ring-emerald-400" />
+            className="w-full px-4 py-3 rounded-2xl border border-slate-200 text-[13px] font-mono resize-none focus:outline-none focus:ring-2 focus:ring-affirm-400" />
 
           {parsed.rows.length > 0 && (
-            <p className="text-xs text-emerald-700 bg-emerald-50 rounded-xl px-3 py-2">
+            <p className="text-xs text-affirm-700 bg-affirm-50 rounded-xl px-3 py-2">
               {parsed.rows.length} {t('musique.readyToAdd')}
             </p>
           )}
@@ -2791,7 +3063,7 @@ function BulkMusicModal({ user, onClose }: { user: AppUser; onClose: () => void 
           {error && <p className="text-xs text-red-500 bg-red-50 rounded-xl px-3 py-2 break-words">{error}</p>}
 
           <button onClick={submit} disabled={parsed.rows.length === 0 || busy}
-            className="w-full py-3.5 rounded-2xl bg-emerald-600 hover:bg-emerald-700 disabled:opacity-40 text-white font-semibold text-sm transition">
+            className="w-full py-3.5 rounded-2xl bg-affirm-600 hover:bg-affirm-700 disabled:opacity-40 text-white font-semibold text-sm transition">
             {busy ? `${t('musique.adding')} ${done}/${parsed.rows.length}` : `${t('musique.addAll')} (${parsed.rows.length})`}
           </button>
         </div>
@@ -2802,7 +3074,7 @@ function BulkMusicModal({ user, onClose }: { user: AppUser; onClose: () => void 
 
 function CreatePostModal({ onClose, onSubmit, uploaderUid, section = 'feed' }: {
   onClose: () => void
-  onSubmit: (data: { type: Post['type']; content: string; mediaUrl?: string; coverUrl?: string; fileName?: string; section?: 'feed' | 'sante' | 'musique'; category?: string }) => void
+  onSubmit: (data: { type: Post['type']; content: string; mediaUrl?: string; coverUrl?: string; fileName?: string; section?: 'feed' | 'sante' | 'musique'; category?: string }) => void | Promise<void>
   uploaderUid: string
   section?: 'feed' | 'sante' | 'musique'
 }) {
@@ -2815,6 +3087,7 @@ function CreatePostModal({ onClose, onSubmit, uploaderUid, section = 'feed' }: {
   const [uploading, setUploading] = useState(false)
   const [uploadProgress, setUploadProgress] = useState(0)
   const [uploadError, setUploadError] = useState('')
+  const [publishing, setPublishing] = useState(false)
   const [santeCategory, setSanteCategory] = useState(SANTE_CATEGORIES[0])
 
   const canUploadDirectly = type === 'text-image' || type === 'audio' || type === 'video' || type === 'document'
@@ -2854,31 +3127,40 @@ function CreatePostModal({ onClose, onSubmit, uploaderUid, section = 'feed' }: {
 
   return (
     <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-end sm:items-center justify-center">
-      <div className="bg-white w-full max-w-lg rounded-t-3xl sm:rounded-3xl max-h-[90vh] overflow-y-auto shadow-2xl">
+      <div className="glass-bar w-full max-w-lg rounded-t-3xl sm:rounded-3xl max-h-[90vh] overflow-y-auto shadow-2xl">
         <div className="sticky top-0 bg-white/90 backdrop-blur border-b border-slate-100 px-5 py-4 flex items-center justify-between">
           <button onClick={onClose} className="p-1.5 rounded-full hover:bg-slate-100"><X size={20} /></button>
           <h2 className="font-bold text-lg">{section === 'sante' ? t('sante.newTip') : t('post.new')}</h2>
-          <button onClick={() => {
-            if (content.trim() && !uploading) {
-              onSubmit({
-                type, content: content.trim(),
-                mediaUrl: mediaUrl || undefined,
-                coverUrl: (type === 'audio' && coverUrl) ? coverUrl : undefined,
-                fileName: (type === 'document' && fileName) ? fileName : undefined,
-                section,
-                ...(section === 'sante' ? { category: santeCategory } : {})
-              })
-              onClose()
+          <button onClick={async () => {
+            if (content.trim() && !uploading && !publishing) {
+              setPublishing(true)
+              setUploadError('')
+              try {
+                // Await the write and only close on success - closing first
+                // meant a failed publish silently discarded the typed post.
+                await onSubmit({
+                  type, content: content.trim(),
+                  mediaUrl: mediaUrl || undefined,
+                  coverUrl: (type === 'audio' && coverUrl) ? coverUrl : undefined,
+                  fileName: (type === 'document' && fileName) ? fileName : undefined,
+                  section,
+                  ...(section === 'sante' ? { category: santeCategory } : {})
+                })
+                onClose()
+              } catch (err: any) {
+                setUploadError(err?.message || t('post.publishFailed'))
+                setPublishing(false)
+              }
             }
           }}
-            disabled={!content.trim() || uploading}
-            className="text-emerald-600 font-semibold disabled:opacity-40">{t('post.publish')}</button>
+            disabled={!content.trim() || uploading || publishing}
+            className="text-affirm-600 font-semibold disabled:opacity-40">{t('post.publish')}</button>
         </div>
 
         <div className="p-5 space-y-5">
           {section === 'sante' && (
             <select value={santeCategory} onChange={e => setSanteCategory(e.target.value)}
-              className="w-full px-4 py-3 rounded-2xl border border-slate-200 text-[15px] bg-white focus:outline-none focus:ring-2 focus:ring-emerald-400">
+              className="w-full px-4 py-3 rounded-2xl border border-slate-200 text-[15px] bg-white focus:outline-none focus:ring-2 focus:ring-affirm-400">
               {SANTE_CATEGORIES.map(cat => <option key={cat} value={cat}>{cat}</option>)}
             </select>
           )}
@@ -2899,7 +3181,7 @@ function CreatePostModal({ onClose, onSubmit, uploaderUid, section = 'feed' }: {
             }].map(opt => (
               <button key={opt.id} onClick={() => { setType(opt.id as Post['type']); setMediaUrl(''); setFileName(''); setUploadError('') }}
                 className={`flex flex-col items-center gap-1.5 py-3 rounded-2xl border-2 transition ${
-                  type === opt.id ? 'border-emerald-500 bg-emerald-50 text-emerald-700' : 'border-slate-100 text-slate-400'}`}>
+                  type === opt.id ? 'border-affirm-500 bg-affirm-50 text-affirm-700' : 'border-slate-100 text-slate-400'}`}>
                 <opt.icon size={20} />
                 <span className="text-[11px] font-medium">{opt.label}</span>
               </button>
@@ -2908,27 +3190,27 @@ function CreatePostModal({ onClose, onSubmit, uploaderUid, section = 'feed' }: {
 
           <textarea value={content} onChange={e => setContent(e.target.value)}
             placeholder={t('post.contentPlaceholder')}
-            className="w-full min-h-[130px] p-4 rounded-2xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-400 resize-none text-[15px]" />
+            className="w-full min-h-[130px] p-4 rounded-2xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-affirm-400 resize-none text-[15px]" />
 
           {canUploadDirectly && rule && (
             <div>
               <label className={`flex flex-col items-center justify-center gap-2 py-6 rounded-2xl border-2 border-dashed transition cursor-pointer ${
-                mediaUrl && fileName ? 'border-emerald-300 bg-emerald-50' : 'border-slate-200 hover:border-emerald-300 hover:bg-slate-50'}`}>
+                mediaUrl && fileName ? 'border-affirm-300 bg-affirm-50' : 'border-slate-200 hover:border-affirm-300 hover:bg-slate-50'}`}>
                 {uploading ? (
                   <>
-                    <div className="w-6 h-6 border-2 border-emerald-500 border-t-transparent rounded-full animate-spin" />
+                    <div className="w-6 h-6 border-2 border-affirm-500 border-t-transparent rounded-full animate-spin" />
                     <span className="text-xs text-slate-500">{t('post.uploading')} {uploadProgress}%</span>
                   </>
                 ) : mediaUrl && fileName ? (
                   <>
-                    <CheckCircle2 size={22} className="text-emerald-500" />
+                    <CheckCircle2 size={22} className="text-affirm-500" />
                     <span className="text-xs text-slate-600 font-medium px-4 text-center break-all">{fileName}</span>
-                    <span className="text-[11px] text-emerald-600">{t('post.tapToReplace')}</span>
+                    <span className="text-[11px] text-affirm-600">{t('post.tapToReplace')}</span>
                   </>
                 ) : (
                   <>
                     <Upload size={22} className="text-slate-400" />
-                    <span className="text-xs text-slate-500 font-medium">
+                    <span className="text-xs text-slate-300 font-medium">
                       {t(`post.upload${type === 'text-image' ? 'Photo' : type === 'audio' ? 'Audio' : type === 'video' ? 'Video' : 'Pdf'}` as any)}
                     </span>
                     <span className="text-[11px] text-slate-400">{t('post.maxSize')} {rule.maxMB}MB</span>
@@ -2954,12 +3236,12 @@ function CreatePostModal({ onClose, onSubmit, uploaderUid, section = 'feed' }: {
               type === 'document' ? t('post.pasteDocUrl') :
               t('post.pasteImageVideoUrl')
             }
-            className="w-full px-4 py-3.5 rounded-2xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-400" />
+            className="w-full px-4 py-3.5 rounded-2xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-affirm-400" />
 
           {type === 'audio' && (
             <input value={coverUrl} onChange={e => setCoverUrl(e.target.value)}
               placeholder={t('post.pasteCoverUrl')}
-              className="w-full px-4 py-3.5 rounded-2xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-400" />
+              className="w-full px-4 py-3.5 rounded-2xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-affirm-400" />
           )}
         </div>
       </div>
@@ -2989,18 +3271,18 @@ function EditPostModal({ post, onClose, onSave }: {
 
   return (
     <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-end sm:items-center justify-center">
-      <div className="bg-white w-full max-w-lg rounded-t-3xl sm:rounded-3xl shadow-2xl">
+      <div className="glass-bar w-full max-w-lg rounded-t-3xl sm:rounded-3xl shadow-2xl">
         <div className="px-5 py-4 border-b border-slate-100 flex items-center justify-between">
           <button onClick={onClose} className="p-1.5 rounded-full hover:bg-slate-100"><X size={20} /></button>
           <h2 className="font-bold text-lg">{t('post.edit')}</h2>
           <button onClick={handleSave} disabled={!content.trim() || saving}
-            className="text-emerald-600 font-semibold disabled:opacity-40">
+            className="text-affirm-600 font-semibold disabled:opacity-40">
             {saving ? t('post.saving') : t('post.save')}
           </button>
         </div>
         <div className="p-5">
           <textarea value={content} onChange={e => setContent(e.target.value)}
-            className="w-full min-h-[130px] p-4 rounded-2xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-400 resize-none text-[15px]" />
+            className="w-full min-h-[130px] p-4 rounded-2xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-affirm-400 resize-none text-[15px]" />
           {post.mediaUrl && (
             <p className="mt-3 text-xs text-slate-400">
               {t('post.editNote')}
@@ -3012,45 +3294,753 @@ function EditPostModal({ post, onClose, onSave }: {
   )
 }
 
-function CommentsSheet({ postId, comments, onClose, onAdd }: {
-  postId: string; comments: Comment[]; onClose: () => void; onAdd: (text: string) => void
+function CommentRow({ c, isReply, liked, likeCount, onLike, onReply, onReport, canReport, t }: {
+  c: Comment
+  isReply: boolean
+  liked: boolean
+  likeCount: number
+  onLike: () => void
+  onReply: (c: Comment) => void
+  onReport: (c: Comment) => void
+  canReport: boolean
+  t: (k: any) => string
+}) {
+  return (
+    <div className={`flex gap-3 ${isReply ? 'ml-11' : ''}`}>
+      {c.userAvatar
+        ? <img src={c.userAvatar} alt="" className="w-9 h-9 rounded-full object-cover shrink-0" />
+        : <div className="w-9 h-9 rounded-full bg-affirm-100 flex items-center justify-center text-affirm-700 font-semibold text-sm shrink-0">
+            {c.userName.charAt(0)}
+          </div>}
+      <div className="flex-1 min-w-0">
+        <div className="bg-slate-50 rounded-2xl px-3.5 py-2.5">
+          <p className="text-sm font-semibold text-slate-800">{c.userName}</p>
+          <p className="text-sm text-slate-600 break-words whitespace-pre-wrap">{c.text}</p>
+        </div>
+        <div className="flex items-center gap-4 mt-1 ml-1">
+          <span className="text-[11px] text-slate-400">{timeAgo(c.createdAt)}</span>
+          <button type="button" onClick={onLike} aria-label={t('comments.like')}
+            className={`flex items-center gap-1 text-[11px] font-semibold transition active:scale-95 ${liked ? 'text-rose-500' : 'text-slate-400 hover:text-slate-600'}`}>
+            <Heart size={13} fill={liked ? 'currentColor' : 'none'} />
+            {likeCount > 0 && <span>{likeCount}</span>}
+          </button>
+          <button type="button" onClick={() => onReply(c)}
+            className="text-[11px] font-semibold text-slate-400 hover:text-slate-600 transition">
+            {t('comments.reply')}
+          </button>
+          {canReport && (
+            <button type="button" onClick={() => onReport(c)}
+              className="text-[11px] font-semibold text-slate-400 hover:text-affirm-600 transition">
+              {t('report.action')}
+            </button>
+          )}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function CommentsSheet({ postId, comments, onClose, onAdd, onLikeComment, likedCommentIds, currentUser }: {
+  postId: string
+  comments: Comment[]
+  onClose: () => void
+  onAdd: (text: string, parentId?: string) => void | Promise<void>
+  onLikeComment: (commentId: string) => void
+  likedCommentIds: Set<string>
+  currentUser: AppUser
 }) {
   const { t } = useLanguage()
+  const [reportingComment, setReportingComment] = useState<Comment | null>(null)
   const [text, setText] = useState('')
-  const list = comments.filter(c => c.postId === postId)
+  const [sending, setSending] = useState(false)
+  const [replyTo, setReplyTo] = useState<{ id: string; name: string } | null>(null)
+  // Optimistic like overrides keyed by commentId, so the heart responds on tap
+  // instead of waiting for the server round-trip. Reverted if the write fails.
+  const [likeOverride, setLikeOverride] = useState<Record<string, boolean>>({})
+  const [likeError, setLikeError] = useState('')
+
+  const isLiked = (c: Comment) => likeOverride[c.id] ?? likedCommentIds.has(c.id)
+  const likeCount = (c: Comment) => {
+    const base = c.likes || 0
+    const wasLiked = likedCommentIds.has(c.id)
+    const nowLiked = likeOverride[c.id]
+    if (nowLiked === undefined || nowLiked === wasLiked) return base
+    return Math.max(0, base + (nowLiked ? 1 : -1))
+  }
+  const toggleLike = async (c: Comment) => {
+    const next = !isLiked(c)
+    setLikeError('')
+    setLikeOverride(o => ({ ...o, [c.id]: next }))
+    try {
+      await onLikeComment(c.id)
+    } catch {
+      setLikeOverride(o => { const n = { ...o }; delete n[c.id]; return n })
+      setLikeError(t('comments.likeFailed'))
+    }
+  }
+
+  const all = comments.filter(c => c.postId === postId)
+  const topLevel = all.filter(c => !c.parentId)
+  // Replies grouped under their top-level parent, preserving the createdAt-asc
+  // order the global comments subscription already delivers.
+  const repliesByParent: Record<string, Comment[]> = {}
+  all.forEach(c => { if (c.parentId) (repliesByParent[c.parentId] ||= []).push(c) })
+
+  const submit = async () => {
+    const value = text.trim()
+    if (!value || sending) return
+    const parentId = replyTo?.id
+    setText('')
+    setSending(true)
+    try {
+      await onAdd(value, parentId)
+      setReplyTo(null)
+    } catch {
+      setText(value)       // restore so a failed send doesn't lose the text
+    } finally {
+      setSending(false)
+    }
+  }
+
+  // Replies stay one level deep: replying to a reply attaches to the same
+  // top-level parent, but the chip still names the person being answered.
+  const startReply = (c: Comment) => setReplyTo({ id: c.parentId || c.id, name: c.userName })
 
   return (
     <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-end">
-      <div className="bg-white w-full max-w-lg mx-auto rounded-t-3xl max-h-[75vh] flex flex-col shadow-2xl">
+      <div className="glass-bar w-full max-w-lg mx-auto rounded-t-3xl max-h-[75vh] flex flex-col shadow-2xl">
         <div className="px-5 py-4 border-b border-slate-100 flex items-center justify-between">
           <h3 className="font-bold">{t('comments.title')}</h3>
           <button onClick={onClose} className="p-1.5 rounded-full hover:bg-slate-100"><X size={18} /></button>
         </div>
         <div className="flex-1 overflow-y-auto p-5 space-y-4">
-          {list.length === 0 && <p className="text-center text-slate-400 text-sm py-10">{t('comments.none')}</p>}
-          {list.map(c => (
-            <div key={c.id} className="flex gap-3">
-              <div className="w-9 h-9 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-700 font-semibold text-sm shrink-0">
-                {c.userName.charAt(0)}
-              </div>
-              <div className="flex-1">
-                <div className="bg-slate-50 rounded-2xl px-3.5 py-2.5">
-                  <p className="text-sm font-semibold text-slate-800">{c.userName}</p>
-                  <p className="text-sm text-slate-600">{c.text}</p>
-                </div>
-                <p className="text-[11px] text-slate-400 mt-1 ml-1">{timeAgo(c.createdAt)}</p>
-              </div>
+          {topLevel.length === 0 && <p className="text-center text-slate-400 text-sm py-10">{t('comments.none')}</p>}
+          {topLevel.map(c => (
+            <div key={c.id} className="space-y-3">
+              <CommentRow c={c} isReply={false} liked={isLiked(c)} likeCount={likeCount(c)}
+                onLike={() => toggleLike(c)} onReply={startReply}
+                onReport={setReportingComment} canReport={c.userId !== currentUser.uid} t={t} />
+              {(repliesByParent[c.id] || []).map(r => (
+                <CommentRow key={r.id} c={r} isReply liked={isLiked(r)} likeCount={likeCount(r)}
+                  onLike={() => toggleLike(r)} onReply={startReply}
+                  onReport={setReportingComment} canReport={r.userId !== currentUser.uid} t={t} />
+              ))}
             </div>
           ))}
         </div>
-        <div className="p-4 border-t border-slate-100 flex gap-2">
-          <input value={text} onChange={e => setText(e.target.value)} placeholder={t('comments.writePlaceholder')}
-            className="flex-1 bg-slate-100 rounded-full px-5 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-400"
-            onKeyDown={e => { if (e.key === 'Enter' && text.trim()) { onAdd(text.trim()); setText('') } }} />
-          <button onClick={() => { if (text.trim()) { onAdd(text.trim()); setText('') } }}
-            className="w-11 h-11 rounded-full bg-emerald-600 text-white flex items-center justify-center shadow-lg shadow-emerald-200">
-            <Send size={16} />
+        <div className="p-4 border-t border-slate-100">
+          {likeError && (
+            <p className="text-[11px] text-red-500 bg-red-50 rounded-lg px-3 py-1.5 mb-2">{likeError}</p>
+          )}
+          {replyTo && (
+            <div className="flex items-center justify-between px-3 pb-2 text-xs text-slate-500">
+              <span className="truncate">{t('comments.replyingTo')} <b className="text-slate-700">{replyTo.name}</b></span>
+              <button onClick={() => setReplyTo(null)} className="text-slate-400 hover:text-slate-600 shrink-0 ml-2">
+                {t('post.cancel')}
+              </button>
+            </div>
+          )}
+          <div className="flex gap-2">
+            <input value={text} onChange={e => setText(e.target.value)}
+              placeholder={replyTo ? t('comments.replyPlaceholder') : t('comments.writePlaceholder')}
+              className="flex-1 bg-slate-100 rounded-full px-5 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-affirm-400"
+              onKeyDown={e => { if (e.key === 'Enter') submit() }} />
+            <button onClick={submit} disabled={!text.trim() || sending}
+              className="w-11 h-11 rounded-full bg-affirm-600 text-white flex items-center justify-center shadow-lg shadow-affirm-200 disabled:opacity-40 shrink-0">
+              <Send size={16} />
+            </button>
+          </div>
+        </div>
+      </div>
+      {reportingComment && (
+        <ReportSheet user={currentUser} targetType="comment" targetId={reportingComment.id}
+          targetOwnerId={reportingComment.userId} targetOwnerName={reportingComment.userName}
+          preview={reportingComment.text} onClose={() => setReportingComment(null)} />
+      )}
+    </div>
+  )
+}
+
+// Staff-only donations ledger. Members DECLARE donations after paying outside
+// the app; the treasurer matches each declaration against the mobile-money /
+// PayPal statements and marks it verified. Reads are staff-only in the rules
+// (a member can read back only their own declarations).
+function DonationsPanel({ user }: { user: AppUser }) {
+  const { t } = useLanguage()
+  const [donations, setDonations] = useState<Donation[]>([])
+  const [loading, setLoading] = useState(true)
+  const [showVerified, setShowVerified] = useState(false)
+  const [busyId, setBusyId] = useState<string | null>(null)
+
+  useEffect(() => {
+    const q = query(collection(db, 'donations'), orderBy('createdAt', 'desc'), limit(200))
+    const unsub = onSnapshot(q,
+      snap => { setDonations(snap.docs.map(d => ({ id: d.id, ...d.data() })) as Donation[]); setLoading(false) },
+      () => setLoading(false))
+    return unsub
+  }, [])
+
+  const verify = async (d: Donation) => {
+    if (busyId) return
+    setBusyId(d.id)
+    try {
+      await updateDoc(doc(db, 'donations', d.id), {
+        status: 'verified',
+        verifiedById: user.uid,
+        verifiedByName: user.displayName || '',
+        verifiedAt: serverTimestamp(),
+      })
+    } catch (_e) { /* rules reject non-staff writers */ }
+    finally { setBusyId(null) }
+  }
+
+  const typeLabel = (d: Donation) =>
+    d.type === 'dime' ? t('donate.typeDime') : d.type === 'offrande' ? t('donate.typeOffrande') : t('donate.typeAutre')
+  const typeAccent = (d: Donation) =>
+    d.type === 'dime' ? 'bg-amber-100 text-amber-700' : d.type === 'offrande' ? 'bg-affirm-100 text-affirm-700' : 'bg-slate-100 text-slate-600'
+
+  const shown = donations.filter(d => showVerified ? d.status === 'verified' : d.status !== 'verified')
+
+  return (
+    <div className="space-y-4">
+      <p className="text-xs text-slate-500 leading-relaxed">{t('dons.reconcileHint')}</p>
+      <div className="flex gap-2">
+        {[{ id: false, label: t('dons.declared') }, { id: true, label: t('dons.verified') }].map(o => (
+          <button key={String(o.id)} onClick={() => setShowVerified(o.id)}
+            className={`px-4 py-2 rounded-full text-sm font-semibold transition ${
+              showVerified === o.id ? 'bg-affirm-600 text-white' : 'glass-soft text-slate-600'}`}>
+            {o.label}
           </button>
+        ))}
+      </div>
+
+      {loading && <p className="text-center py-16"><span className="scrim inline-block px-4 py-2 text-sm text-slate-600">{t('app.loading')}</span></p>}
+      {!loading && shown.length === 0 && (
+        <div className="text-center py-12 px-6 my-6 scrim">
+          <p className="text-slate-800 font-medium">{t('dons.empty')}</p>
+        </div>
+      )}
+
+      {shown.map(d => (
+        <div key={d.id} className="glass rounded-2xl p-4">
+          <div className="flex items-start justify-between gap-3">
+            <div className="min-w-0">
+              <div className="flex items-center gap-2 flex-wrap">
+                <span className={`px-2.5 py-1 rounded-full text-xs font-bold ${typeAccent(d)}`}>{typeLabel(d)}</span>
+                {d.amount && <span className="text-sm font-bold text-slate-800">{d.amount}</span>}
+                {d.methodLabel && <span className="text-[11px] text-slate-400">{t('dons.via')} {d.methodLabel}</span>}
+              </div>
+              <p className="text-[11px] text-slate-400 mt-0.5">{timeAgo(d.createdAt)}</p>
+            </div>
+            {d.status === 'verified' && (
+              <span className="shrink-0 text-[10px] font-bold px-2 py-1 rounded-full bg-affirm-100 text-affirm-700">
+                {t('dons.verified')}
+              </span>
+            )}
+          </div>
+          {d.purpose && <p className="mt-2 text-sm text-slate-700 break-words whitespace-pre-wrap">{d.purpose}</p>}
+          <p className="mt-2 text-[11px] text-slate-400">
+            {t('dons.by')} {d.donorName || d.donorId}
+            {d.status === 'verified' && d.verifiedByName ? ` · ${t('dons.verifiedBy')} ${d.verifiedByName}` : ''}
+          </p>
+          {d.status !== 'verified' && (
+            <button onClick={() => verify(d)} disabled={busyId === d.id}
+              className="mt-3 w-full py-2.5 rounded-xl bg-affirm-600 text-white text-sm font-semibold disabled:opacity-50">
+              {t('dons.markVerified')}
+            </button>
+          )}
+        </div>
+      ))}
+    </div>
+  )
+}
+
+// Staff-only queue of user reports. Reads are restricted to staff in
+// firestore.rules, so this is the only place reports are visible; a reporter
+// cannot read back other people's reports.
+function ReportsPanel({ user }: { user: AppUser }) {
+  const { t } = useLanguage()
+  const [reports, setReports] = useState<Report[]>([])
+  const [loading, setLoading] = useState(true)
+  const [showHandled, setShowHandled] = useState(false)
+  const [busyId, setBusyId] = useState<string | null>(null)
+
+  useEffect(() => {
+    const q = query(collection(db, 'reports'), orderBy('createdAt', 'desc'), limit(200))
+    const unsub = onSnapshot(q,
+      snap => { setReports(snap.docs.map(d => ({ id: d.id, ...d.data() })) as Report[]); setLoading(false) },
+      () => setLoading(false))
+    return unsub
+  }, [])
+
+  const resolve = async (r: Report, status: 'actioned' | 'dismissed') => {
+    if (busyId) return
+    setBusyId(r.id)
+    try {
+      await updateDoc(doc(db, 'reports', r.id), {
+        status,
+        reviewedById: user.uid,
+        reviewedByName: user.displayName || '',
+        reviewedAt: serverTimestamp(),
+      })
+    } catch (_e) { /* rules will reject a non-staff writer */ }
+    finally { setBusyId(null) }
+  }
+
+  const reasonLabel = (r: Report) => t((
+    r.reason === 'child_safety' ? 'report.reason.childSafety'
+    : r.reason === 'sexual' ? 'report.reason.sexual'
+    : r.reason === 'violence' ? 'report.reason.violence'
+    : r.reason === 'harassment' ? 'report.reason.harassment'
+    : r.reason === 'spam' ? 'report.reason.spam'
+    : 'report.reason.other') as never)
+
+  const targetLabel = (r: Report) => t((
+    r.targetType === 'post' ? 'reports.target.post'
+    : r.targetType === 'comment' ? 'reports.target.comment'
+    : r.targetType === 'message' ? 'reports.target.message'
+    : 'reports.target.user') as never)
+
+  const shown = reports.filter(r => showHandled ? r.status !== 'open' : r.status === 'open')
+
+  return (
+    <div className="space-y-4">
+      <div className="flex gap-2">
+        {[{ id: false, label: t('reports.open') }, { id: true, label: t('reports.handled') }].map(o => (
+          <button key={String(o.id)} onClick={() => setShowHandled(o.id)}
+            className={`px-4 py-2 rounded-full text-sm font-semibold transition ${
+              showHandled === o.id ? 'bg-affirm-600 text-white' : 'glass-soft text-slate-600'}`}>
+            {o.label}
+          </button>
+        ))}
+      </div>
+
+      {loading && <p className="text-center py-16"><span className="scrim inline-block px-4 py-2 text-sm text-slate-600">{t('app.loading')}</span></p>}
+      {!loading && shown.length === 0 && (
+        <div className="text-center py-12 px-6 my-6 scrim">
+          <p className="text-slate-800 font-medium">{t('reports.empty')}</p>
+        </div>
+      )}
+
+      {shown.map(r => (
+        <div key={r.id} className="glass rounded-2xl p-4">
+          <div className="flex items-start justify-between gap-3">
+            <div className="min-w-0">
+              <div className="flex items-center gap-2 flex-wrap">
+                {r.reason === 'child_safety' && (
+                  <span className="px-2 py-0.5 rounded-full bg-red-100 text-red-700 text-[10px] font-bold uppercase tracking-wide">
+                    {t('report.reason.childSafety')}
+                  </span>
+                )}
+                <span className="text-sm font-bold text-slate-800">{reasonLabel(r)}</span>
+                <span className="text-[11px] text-slate-400">· {targetLabel(r)}</span>
+              </div>
+              <p className="text-[11px] text-slate-400 mt-0.5">{timeAgo(r.createdAt)}</p>
+            </div>
+            {r.status !== 'open' && (
+              <span className="shrink-0 text-[10px] font-bold px-2 py-1 rounded-full glass-soft text-slate-600">
+                {r.status === 'actioned' ? t('reports.actioned') : t('reports.dismissed')}
+              </span>
+            )}
+          </div>
+
+          {r.preview && (
+            <p className="mt-3 text-sm text-slate-600 bg-slate-50 rounded-xl px-3 py-2 break-words whitespace-pre-wrap line-clamp-4">
+              {r.preview}
+            </p>
+          )}
+          {r.details && <p className="mt-2 text-sm text-slate-700 break-words whitespace-pre-wrap">{r.details}</p>}
+
+          <p className="mt-3 text-[11px] text-slate-400">
+            {t('reports.reportedBy')} {r.reporterName || r.reporterId}
+            {r.targetOwnerName ? ` · ${t('reports.about')} ${r.targetOwnerName}` : ''}
+          </p>
+
+          {r.status === 'open' && (
+            <div className="mt-3 flex gap-2">
+              <button onClick={() => resolve(r, 'actioned')} disabled={busyId === r.id}
+                className="flex-1 py-2.5 rounded-xl bg-affirm-600 text-white text-sm font-semibold disabled:opacity-50">
+                {t('reports.markActioned')}
+              </button>
+              <button onClick={() => resolve(r, 'dismissed')} disabled={busyId === r.id}
+                className="flex-1 py-2.5 rounded-xl glass-soft text-slate-700 text-sm font-semibold disabled:opacity-50">
+                {t('reports.dismiss')}
+              </button>
+            </div>
+          )}
+        </div>
+      ))}
+    </div>
+  )
+}
+
+function NotificationsPanel({ notifications, newPostCount, onClose, onTap, onDismiss, onViewNewPosts }: {
+  notifications: AppNotification[]
+  newPostCount: number
+  onClose: () => void
+  onTap: (n: AppNotification) => void
+  onDismiss: (id: string) => void
+  onViewNewPosts: () => void
+}) {
+  const { t } = useLanguage()
+  const label = (type: AppNotification['type']) =>
+    type === 'post_like' ? t('notif.postLike')
+      : type === 'comment_like' ? t('notif.commentLike')
+      : type === 'post_comment' ? t('notif.postComment')
+      : t('notif.commentReply')
+
+  return (
+    <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-end sm:items-center justify-center" onClick={onClose}>
+      <div className="glass-bar w-full max-w-lg mx-auto rounded-t-3xl sm:rounded-3xl max-h-[80vh] flex flex-col shadow-2xl" onClick={e => e.stopPropagation()}>
+        <div className="px-5 py-4 border-b border-slate-100 flex items-center justify-between">
+          <h3 className="font-bold flex items-center gap-2"><Bell size={18} /> {t('notif.title')}</h3>
+          <button onClick={onClose} className="p-1.5 rounded-full hover:bg-slate-100"><X size={18} /></button>
+        </div>
+        <div className="flex-1 overflow-y-auto">
+          {newPostCount > 0 && (
+            <button onClick={onViewNewPosts}
+              className="w-full flex items-center gap-3 px-5 py-4 border-b border-slate-100 hover:bg-slate-50 text-left">
+              <div className="w-9 h-9 rounded-full bg-affirm-100 flex items-center justify-center text-affirm-600 shrink-0"><Home size={16} /></div>
+              <div className="flex-1 min-w-0">
+                <p className="text-sm font-semibold text-slate-800">{newPostCount} {t('notif.newPosts')}</p>
+                <p className="text-xs text-slate-400">{t('notif.tapToView')}</p>
+              </div>
+            </button>
+          )}
+          {notifications.length === 0 && newPostCount === 0 && (
+            <p className="text-center text-slate-400 text-sm py-14">{t('notif.none')}</p>
+          )}
+          {notifications.map(n => {
+            const RowIcon = n.type.includes('like') ? Heart : MessageCircle
+            const isLike = n.type.includes('like')
+            return (
+              <div key={n.id} className={`flex items-start gap-3 px-5 py-3.5 border-b border-slate-50 ${!n.read ? 'bg-affirm-50/40' : ''}`}>
+                <button onClick={() => onTap(n)} className="flex items-start gap-3 flex-1 text-left min-w-0">
+                  <div className="relative shrink-0">
+                    {n.actorAvatar
+                      ? <img src={n.actorAvatar} alt="" className="w-9 h-9 rounded-full object-cover" />
+                      : <div className="w-9 h-9 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 font-semibold text-sm">{n.actorName.charAt(0)}</div>}
+                    <span className={`absolute -bottom-0.5 -right-0.5 w-4 h-4 rounded-full flex items-center justify-center text-white ${isLike ? 'bg-rose-500' : 'bg-sky-500'}`}>
+                      <RowIcon size={9} fill={isLike ? 'currentColor' : 'none'} />
+                    </span>
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm text-slate-700 leading-snug">
+                      <span className="font-semibold">{n.actorName}</span> {label(n.type)}
+                    </p>
+                    {n.preview && <p className="text-xs text-slate-400 truncate mt-0.5">“{n.preview}”</p>}
+                    <p className="text-[11px] text-slate-400 mt-0.5">{timeAgo(n.createdAt)}</p>
+                  </div>
+                </button>
+                <button onClick={() => onDismiss(n.id)} aria-label={t('post.delete')}
+                  className="p-1 text-slate-300 hover:text-slate-500 shrink-0"><X size={15} /></button>
+              </div>
+            )
+          })}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+const DONATION_SEED: DonationProvider[] = [
+  { id: 'wave', label: 'Wave', kind: 'number', number: '', holder: '', note: '' },
+  { id: 'orange', label: 'Orange Money', kind: 'number', number: '', holder: '', note: '' },
+  { id: 'moov', label: 'Moov Money', kind: 'number', number: '', holder: '', note: '' },
+]
+
+function donationAccent(label: string) {
+  const l = (label || '').toLowerCase()
+  if (l.includes('wave')) return 'bg-sky-100 text-sky-700'
+  if (l.includes('orange')) return 'bg-orange-100 text-orange-700'
+  if (l.includes('moov')) return 'bg-indigo-100 text-indigo-700'
+  if (l.includes('paypal')) return 'bg-blue-100 text-blue-700'
+  if (l.includes('cash')) return 'bg-green-100 text-green-700'
+  if (l.includes('carte') || l.includes('card')) return 'bg-violet-100 text-violet-700'
+  return 'bg-affirm-100 text-affirm-700'
+}
+
+const providerKind = (p: DonationProvider): 'number' | 'link' => (p.kind === 'link' ? 'link' : 'number')
+
+function DonationSheet({ config, canEdit, user, onClose }: {
+  config: DonationConfig | null
+  canEdit: boolean
+  user: AppUser
+  onClose: () => void
+}) {
+  const { t } = useLanguage()
+  const [editing, setEditing] = useState(false)
+  const [draft, setDraft] = useState<DonationConfig>(
+    config && config.providers?.length ? config : { title: '', message: '', thanksMessage: '', providers: DONATION_SEED })
+  const [saving, setSaving] = useState(false)
+  const [error, setError] = useState('')
+  const [copied, setCopied] = useState<string | null>(null)
+
+  // The declaration flow: what kind of gift, what it is for, how it was paid.
+  const [donType, setDonType] = useState<DonationType | null>(null)
+  const [purpose, setPurpose] = useState('')
+  const [amount, setAmount] = useState('')
+  const [methodUsed, setMethodUsed] = useState<DonationProvider | null>(null)
+  const [declaring, setDeclaring] = useState(false)
+  const [declareError, setDeclareError] = useState('')
+  const [declared, setDeclared] = useState(false)
+
+  // Refresh the draft from the live config while not actively editing.
+  useEffect(() => {
+    if (!editing) setDraft(config && config.providers?.length ? config : { title: '', message: '', thanksMessage: '', providers: DONATION_SEED })
+  }, [config, editing])
+
+  const providers = (config?.providers || []).filter(p =>
+    providerKind(p) === 'link' ? (p.url || '').trim() : (p.number || '').trim())
+
+  const copy = async (p: DonationProvider) => {
+    try {
+      await navigator.clipboard.writeText(p.number)
+      setCopied(p.id)
+      setMethodUsed(p)
+      setTimeout(() => setCopied(c => (c === p.id ? null : c)), 1500)
+    } catch { /* clipboard unavailable in this context */ }
+  }
+
+  // External payment pages open in the system browser - never inside the
+  // WebView. That keeps card entry out of the app (PCI + Play policy).
+  const openLink = (p: DonationProvider) => {
+    setMethodUsed(p)
+    window.open(p.url!, '_blank', 'noopener,noreferrer')
+  }
+
+  const declare = async () => {
+    if (!donType || declaring) return
+    setDeclaring(true); setDeclareError('')
+    try {
+      await addDoc(collection(db, 'donations'), {
+        donorId: user.uid,
+        donorName: user.displayName || '',
+        type: donType,
+        purpose: purpose.trim().slice(0, 300),
+        amount: amount.trim().slice(0, 30),
+        ...(methodUsed ? { methodId: methodUsed.id, methodLabel: methodUsed.label } : {}),
+        status: 'declared',
+        createdAt: serverTimestamp(),
+      })
+      setDeclared(true)
+    } catch (_e) {
+      setDeclareError(t('donate.declareFailed'))
+    } finally { setDeclaring(false) }
+  }
+
+  const setField = (field: 'title' | 'message' | 'thanksMessage', value: string) => setDraft(d => ({ ...d, [field]: value }))
+  const setProvider = (id: string, field: keyof DonationProvider, value: string) =>
+    setDraft(d => ({ ...d, providers: d.providers.map(p => (p.id === id ? { ...p, [field]: value } : p)) }))
+  const addProvider = () =>
+    setDraft(d => ({ ...d, providers: [...d.providers, { id: 'p' + Date.now(), label: '', kind: 'number', number: '', url: '', holder: '', note: '' }] }))
+  const removeProvider = (id: string) =>
+    setDraft(d => ({ ...d, providers: d.providers.filter(p => p.id !== id) }))
+
+  const save = async () => {
+    setSaving(true); setError('')
+    try {
+      const clean: DonationConfig = {
+        title: (draft.title || '').trim(),
+        message: (draft.message || '').trim(),
+        thanksMessage: (draft.thanksMessage || '').trim(),
+        providers: draft.providers
+          .filter(p => (p.label || '').trim() && (providerKind(p) === 'link' ? (p.url || '').trim() : (p.number || '').trim()))
+          .map(p => ({
+            id: p.id, label: (p.label || '').trim(), kind: providerKind(p),
+            number: (p.number || '').trim(), url: (p.url || '').trim(),
+            holder: (p.holder || '').trim(), note: (p.note || '').trim()
+          }))
+      }
+      await setDoc(doc(db, 'config', 'donation'), clean)
+      setEditing(false)
+    } catch (e: any) {
+      setError(e?.message || String(e))
+    } finally { setSaving(false) }
+  }
+
+  const typeChip = (id: DonationType, label: string) => (
+    <button key={id} type="button" onClick={() => setDonType(id)}
+      className={`flex-1 py-2.5 rounded-xl text-sm font-semibold border transition ${
+        donType === id ? 'bg-affirm-600 text-white border-affirm-500' : 'border-slate-200 text-slate-600 hover:border-slate-300'}`}>
+      {label}
+    </button>
+  )
+
+  return (
+    <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-end sm:items-center justify-center" onClick={onClose}>
+      <div className="glass-bar w-full max-w-lg mx-auto rounded-t-3xl sm:rounded-3xl max-h-[85vh] flex flex-col shadow-2xl" onClick={e => e.stopPropagation()}>
+        <div className="px-5 py-4 border-b border-slate-100 flex items-center justify-between">
+          <h3 className="font-bold flex items-center gap-2"><HandCoins size={18} className="text-amber-500" /> {t('donate.title')}</h3>
+          <div className="flex items-center gap-1">
+            {canEdit && !editing && (
+              <button onClick={() => setEditing(true)} aria-label={t('donate.edit')}
+                className="p-1.5 rounded-full hover:bg-slate-100 text-slate-500"><Pencil size={16} /></button>
+            )}
+            <button onClick={onClose} className="p-1.5 rounded-full hover:bg-slate-100"><X size={18} /></button>
+          </div>
+        </div>
+
+        <div className="flex-1 overflow-y-auto p-5">
+          {editing ? (
+            <div className="space-y-4">
+              <div>
+                <label className="text-xs font-semibold text-slate-500">{t('donate.fieldTitle')}</label>
+                <input value={draft.title || ''} onChange={e => setField('title', e.target.value)} placeholder={t('donate.title')}
+                  className="w-full mt-1 px-3 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-amber-400 text-sm" />
+              </div>
+              <div>
+                <label className="text-xs font-semibold text-slate-500">{t('donate.fieldMessage')}</label>
+                <textarea value={draft.message || ''} onChange={e => setField('message', e.target.value)} rows={2}
+                  className="w-full mt-1 px-3 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-amber-400 text-sm resize-none" />
+              </div>
+              <div>
+                <label className="text-xs font-semibold text-slate-500">{t('donate.fieldThanks')}</label>
+                <textarea value={draft.thanksMessage || ''} onChange={e => setField('thanksMessage', e.target.value)} rows={3}
+                  placeholder={t('donate.thanksPlaceholder')}
+                  className="w-full mt-1 px-3 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-amber-400 text-sm resize-none" />
+              </div>
+              <div className="space-y-3">
+                {draft.providers.map(p => (
+                  <div key={p.id} className="rounded-2xl border border-slate-200 p-3 space-y-2">
+                    <div className="flex items-center gap-2">
+                      <input value={p.label} onChange={e => setProvider(p.id, 'label', e.target.value)} placeholder={t('donate.fieldLabel')}
+                        className="flex-1 px-3 py-2 rounded-lg border border-slate-200 text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-amber-400" />
+                      <button onClick={() => removeProvider(p.id)} aria-label={t('post.delete')}
+                        className="p-2 text-slate-300 hover:text-red-500"><Trash2 size={16} /></button>
+                    </div>
+                    <div className="flex gap-2">
+                      {(['number', 'link'] as const).map(k => (
+                        <button key={k} type="button" onClick={() => setProvider(p.id, 'kind', k)}
+                          className={`flex-1 py-2 rounded-lg text-xs font-semibold border transition ${
+                            providerKind(p) === k ? 'bg-amber-500 text-white border-amber-400' : 'border-slate-200 text-slate-500'}`}>
+                          {k === 'number' ? t('donate.kindNumber') : t('donate.kindLink')}
+                        </button>
+                      ))}
+                    </div>
+                    {providerKind(p) === 'link' ? (
+                      <input value={p.url || ''} onChange={e => setProvider(p.id, 'url', e.target.value)} placeholder={t('donate.fieldUrl')} inputMode="url"
+                        className="w-full px-3 py-2 rounded-lg border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400" />
+                    ) : (
+                      <input value={p.number} onChange={e => setProvider(p.id, 'number', e.target.value)} placeholder={t('donate.fieldNumber')} inputMode="tel"
+                        className="w-full px-3 py-2 rounded-lg border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400" />
+                    )}
+                    <input value={p.holder || ''} onChange={e => setProvider(p.id, 'holder', e.target.value)} placeholder={t('donate.fieldHolder')}
+                      className="w-full px-3 py-2 rounded-lg border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400" />
+                    <textarea value={p.note || ''} onChange={e => setProvider(p.id, 'note', e.target.value)} rows={2} placeholder={t('donate.fieldNote')}
+                      className="w-full px-3 py-2 rounded-lg border border-slate-200 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-amber-400" />
+                  </div>
+                ))}
+                <button onClick={addProvider}
+                  className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl border border-dashed border-slate-300 text-slate-500 text-sm hover:bg-slate-50">
+                  <Plus size={16} /> {t('donate.addProvider')}
+                </button>
+              </div>
+              {error && <p className="text-xs text-red-500 bg-red-50 rounded-lg px-3 py-2">{error}</p>}
+              <div className="flex gap-2 pt-1">
+                <button onClick={() => { setEditing(false); setError('') }}
+                  className="flex-1 py-2.5 rounded-xl bg-slate-100 text-slate-600 font-semibold text-sm">{t('post.cancel')}</button>
+                <button onClick={save} disabled={saving}
+                  className="flex-1 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-white font-semibold text-sm disabled:opacity-50">
+                  {saving ? t('post.saving') : t('post.save')}
+                </button>
+              </div>
+            </div>
+          ) : declared ? (
+            <div className="text-center py-8">
+              <div className="w-14 h-14 rounded-full bg-affirm-50 text-affirm-600 flex items-center justify-center mx-auto">
+                <Check size={26} />
+              </div>
+              <h4 className="mt-4 text-lg font-bold text-slate-800">{t('donate.thanksTitle')}</h4>
+              <p className="mt-2 text-sm text-slate-500 leading-relaxed max-w-xs mx-auto">{t('donate.thanksBody')}</p>
+              <button onClick={onClose}
+                className="mt-6 w-full py-3.5 rounded-2xl btn-glass-primary font-semibold text-[15px]">
+                {t('report.close')}
+              </button>
+            </div>
+          ) : (
+            <div className="space-y-5">
+              {(config?.title || config?.message) && (
+                <div className="text-center">
+                  {config?.title && <h4 className="font-bold text-lg text-slate-800">{config.title}</h4>}
+                  {config?.message && <p className="text-sm text-slate-500 mt-1 whitespace-pre-wrap">{config.message}</p>}
+                </div>
+              )}
+
+              <div>
+                <p className="text-xs font-semibold text-slate-500 mb-2">{t('donate.typeLabel')}</p>
+                <div className="flex gap-2">
+                  {typeChip('dime', t('donate.typeDime'))}
+                  {typeChip('offrande', t('donate.typeOffrande'))}
+                  {typeChip('autre', t('donate.typeAutre'))}
+                </div>
+              </div>
+
+              <div>
+                <label className="text-xs font-semibold text-slate-500">{t('donate.purposeLabel')}</label>
+                <input value={purpose} onChange={e => setPurpose(e.target.value)} maxLength={300}
+                  placeholder={t('donate.purposePlaceholder')}
+                  className="w-full mt-1 px-3 py-2.5 rounded-xl glass-input text-slate-800 placeholder:text-slate-400 text-sm focus:outline-none" />
+              </div>
+              <div>
+                <label className="text-xs font-semibold text-slate-500">{t('donate.amountLabel')}</label>
+                <input value={amount} onChange={e => setAmount(e.target.value)} maxLength={30}
+                  placeholder={t('donate.amountPlaceholder')} inputMode="text"
+                  className="w-full mt-1 px-3 py-2.5 rounded-xl glass-input text-slate-800 placeholder:text-slate-400 text-sm focus:outline-none" />
+              </div>
+
+              <div>
+                <p className="text-xs font-semibold text-slate-500 mb-2">{t('donate.methodsLabel')}</p>
+                {providers.length === 0 ? (
+                  <p className="text-center text-slate-400 text-sm py-8">
+                    {canEdit ? t('donate.emptyAdmin') : t('donate.empty')}
+                  </p>
+                ) : (
+                  <div className="space-y-3">
+                    {providers.map(p => (
+                      <div key={p.id} className={`rounded-2xl border p-4 transition ${
+                        methodUsed?.id === p.id ? 'border-affirm-400 bg-affirm-50/60' : 'border-slate-200'}`}>
+                        <div className="mb-2 flex items-center justify-between">
+                          <span className={`px-2.5 py-1 rounded-full text-xs font-bold ${donationAccent(p.label)}`}>{p.label}</span>
+                          {methodUsed?.id === p.id && <Check size={15} className="text-affirm-600" />}
+                        </div>
+                        {p.holder && <p className="text-xs text-slate-500 mb-1.5">{p.holder}</p>}
+                        {providerKind(p) === 'link' ? (
+                          <>
+                            <button onClick={() => openLink(p)}
+                              className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-slate-800 hover:bg-slate-900 text-white text-sm font-semibold">
+                              {t('donate.open')} {p.label} <ArrowRight size={15} />
+                            </button>
+                            <p className="text-[10px] text-slate-400 text-center mt-1.5">{t('donate.openExternalNote')}</p>
+                          </>
+                        ) : (
+                          <div className="flex items-center justify-between gap-2 bg-slate-50 rounded-xl px-3 py-2.5">
+                            <span className="font-mono font-semibold text-slate-800 text-[15px] tracking-wide break-all">{p.number}</span>
+                            <button onClick={() => copy(p)}
+                              className="flex items-center gap-1 text-xs font-semibold text-amber-600 hover:text-amber-700 shrink-0">
+                              {copied === p.id ? <><Check size={14} /> {t('donate.copied')}</> : <><Copy size={14} /> {t('donate.copy')}</>}
+                            </button>
+                          </div>
+                        )}
+                        {p.note && <p className="text-xs text-slate-500 mt-2 whitespace-pre-wrap">{p.note}</p>}
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              {providers.length > 0 && (
+                <div>
+                  {declareError && <p className="text-sm text-red-600 bg-red-500/10 border border-red-500/20 rounded-xl px-4 py-3 mb-3">{declareError}</p>}
+                  <button onClick={declare} disabled={!donType || declaring}
+                    className="w-full py-3.5 rounded-2xl btn-glass-primary font-semibold text-[15px] disabled:opacity-50">
+                    {declaring ? t('donate.declaring') : t('donate.declare')}
+                  </button>
+                  <p className="text-[11px] text-slate-400 text-center mt-2 leading-relaxed">{t('donate.declareHint')}</p>
+                </div>
+              )}
+            </div>
+          )}
         </div>
       </div>
     </div>

@@ -1,14 +1,22 @@
 apply plugin: 'com.android.application'
 
 android {
-    namespace = "com.ccelim.app"
+    namespace = "com.elim.app"
     compileSdk = rootProject.ext.compileSdkVersion
     defaultConfig {
-        applicationId "com.ccelim.app"
+        applicationId "com.elim.app"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 60
-        versionName "2.4"
+        // Fresh Play listing under com.elim.app - the version history starts
+        // over here, independent of the old com.ccelim.app app.
+        //
+        // versionName is what people see and stays "1.04" across these builds.
+        // versionCode is the internal upload counter: Play rejects an upload
+        // whose code it has already seen, so it must increase on EVERY build
+        // sent to the console, even when the visible version is unchanged.
+        // Started at 104 (encoding 1.04); bump this line for each new upload.
+        versionCode 106
+        versionName "1.04"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         aaptOptions {
              // Files and dirs to omit from the packaged assets dir, modified to accommodate modern web apps.

@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react'
 import { useBackHandler } from './backButton'
 import { X } from 'lucide-react'
+import { Portal } from './Portal'
 
 // Fullscreen image viewer with pinch-to-zoom, double-tap-to-zoom, and pan.
 // Implemented directly rather than relying on the browser's native page zoom,
@@ -75,7 +76,10 @@ export function ImageLightbox({ src, onClose }: { src: string; onClose: () => vo
     lastTap.current = now
   }
 
+  // Portalled to <body>: rendered in place it sits inside the post <article>,
+  // whose containment made it a containing block and pinned this to the card.
   return (
+    <Portal>
     <div className="fixed inset-0 z-[80] bg-black/95 flex items-center justify-center touch-none"
       onClick={e => { if (e.target === e.currentTarget && scale === 1) onClose() }}>
       <button onClick={onClose} aria-label="Close"
@@ -107,5 +111,6 @@ export function ImageLightbox({ src, onClose }: { src: string; onClose: () => vo
         }}
       />
     </div>
+    </Portal>
   )
 }

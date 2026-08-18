@@ -33,6 +33,35 @@
           ]
         }
       }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:81584374169:android:d98c8dc45839b894389308",
+        "android_client_info": {
+          "package_name": "com.elim.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "81584374169-0iioesg52csdgj6f3ii5mhest183d7u8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDrvYFBt4aQ4dMXhzeBdspxXuDu_-Umk3A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "81584374169-0iioesg52csdgj6f3ii5mhest183d7u8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
     }
   ],
   "configuration_version": "1"

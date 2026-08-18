@@ -3,7 +3,7 @@ import {
   collection, addDoc, deleteDoc, doc, onSnapshot,
   query, orderBy, limit, serverTimestamp
 } from 'firebase/firestore'
-import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage'
+import { ref, uploadBytesResumable, getDownloadURL, deleteObject } from 'firebase/storage'
 import { Document, Page, pdfjs } from 'react-pdf'
 import {
   BookOpen, Plus, X, Search, Trash2, Download, ArrowLeft,
@@ -16,6 +16,8 @@ import type { AppUser, Book } from './types'
 
 import 'react-pdf/dist/Page/AnnotationLayer.css'
 import 'react-pdf/dist/Page/TextLayer.css'
+import { storageGet, storageSet } from './safeStorage'
+import { Portal } from './Portal'
 
 // pdf.js does its parsing in a web worker. Pointing at the copy inside our own
 // bundle rather than a CDN means the reader still works offline and doesn't
@@ -72,14 +74,12 @@ function PdfReader({ book, onClose }: { book: Book; onClose: () => void }) {
   // page 1 every time is unusable.
   const progressKey = `elim-book-progress-${book.id}`
   useEffect(() => {
-    try {
-      const saved = localStorage.getItem(progressKey)
-      if (saved) setPage(Math.max(1, parseInt(saved, 10) || 1))
-    } catch { /* ignore */ }
+    const saved = storageGet(progressKey)
+    if (saved) setPage(Math.max(1, parseInt(saved, 10) || 1))
   }, [progressKey])
 
   useEffect(() => {
-    try { localStorage.setItem(progressKey, String(page)) } catch { /* ignore */ }
+    storageSet(progressKey, String(page))
   }, [page, progressKey])
 
   const go = (delta: number) => {
@@ -88,6 +88,7 @@ function PdfReader({ book, onClose }: { book: Book; onClose: () => void }) {
   }
 
   return (
+    <Portal>
     <div className="fixed inset-0 z-[70] bg-[#0f172a] flex flex-col">
       <div className="flex items-center gap-3 px-4 py-3 border-b border-white/10 shrink-0">
         <button onClick={onClose} className="p-1.5 -ml-1.5 rounded-full hover:bg-white/5 text-slate-300">
@@ -119,7 +120,7 @@ function PdfReader({ book, onClose }: { book: Book; onClose: () => void }) {
               <p className="text-[11px] text-amber-400 mt-3 leading-relaxed">{t('lib.corsHint')}</p>
             )}
             <a href={book.fileUrl} target="_blank" rel="noreferrer"
-              className="inline-block mt-4 px-4 py-2.5 rounded-xl bg-emerald-600 text-white text-sm font-semibold">
+              className="inline-block mt-4 px-4 py-2.5 rounded-xl bg-affirm-600 text-white text-sm font-semibold">
               {t('lib.openExternally')}
             </a>
           </div>
@@ -130,7 +131,7 @@ function PdfReader({ book, onClose }: { book: Book; onClose: () => void }) {
             onLoadError={e => setError(e?.message || String(e))}
             loading={
               <div className="flex flex-col items-center pt-20 gap-3">
-                <Loader size={26} className="text-emerald-400 animate-spin" />
+                <Loader size={26} className="text-affirm-400 animate-spin" />
                 <p className="text-xs text-slate-400">{t('lib.loadingBook')}</p>
               </div>
             }
@@ -156,7 +157,7 @@ function PdfReader({ book, onClose }: { book: Book; onClose: () => void }) {
               with hundreds of pages. */}
           <input type="range" min={1} max={numPages} value={page}
             onChange={e => setPage(Number(e.target.value))}
-            className="flex-1 h-1 accent-emerald-400 bg-white/10" />
+            className="flex-1 h-1 accent-affirm-400 bg-white/10" />
 
           <button onClick={() => go(1)} disabled={page >= numPages}
             className="w-10 h-10 rounded-full bg-white/5 hover:bg-white/10 disabled:opacity-30 text-slate-200 flex items-center justify-center">
@@ -165,6 +166,7 @@ function PdfReader({ book, onClose }: { book: Book; onClose: () => void }) {
         </div>
       )}
     </div>
+    </Portal>
   )
 }
 
@@ -229,7 +231,7 @@ function UploadBook({ user, onClose }: { user: AppUser; onClose: () => void }) {
 
   return (
     <div className="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-sm flex items-end sm:items-center justify-center">
-      <div className="bg-white w-full max-w-md rounded-t-3xl sm:rounded-3xl max-h-[88vh] overflow-y-auto">
+      <div className="glass-bar w-full max-w-md rounded-t-3xl sm:rounded-3xl max-h-[88vh] overflow-y-auto">
         <div className="sticky top-0 bg-white border-b border-slate-100 px-5 py-4 flex items-center justify-between">
           <h2 className="font-bold text-lg text-slate-900">{t('lib.addBook')}</h2>
           <button onClick={onClose} className="p-1.5 rounded-full hover:bg-slate-100 text-slate-400"><X size={20} /></button>
@@ -237,35 +239,35 @@ function UploadBook({ user, onClose }: { user: AppUser; onClose: () => void }) {
 
         <div className="p-5 space-y-3">
           <label className={`flex flex-col items-center justify-center gap-2 py-8 rounded-2xl border-2 border-dashed cursor-pointer transition ${
-            file ? 'border-emerald-300 bg-emerald-50' : 'border-slate-200 hover:border-emerald-300'}`}>
-            <Upload size={22} className={file ? 'text-emerald-500' : 'text-slate-400'} />
+            file ? 'border-affirm-300 bg-affirm-50' : 'border-slate-200 hover:border-affirm-300'}`}>
+            <Upload size={22} className={file ? 'text-affirm-500' : 'text-slate-400'} />
             <span className="text-xs font-medium text-slate-600 px-4 text-center break-all">
               {file ? file.name : t('lib.choosePdf')}
             </span>
-            {file && <span className="text-[11px] text-emerald-600">{humanSize(file.size)}</span>}
+            {file && <span className="text-[11px] text-affirm-600">{humanSize(file.size)}</span>}
             <input type="file" accept="application/pdf,.pdf" className="hidden" onChange={pick} disabled={busy} />
           </label>
 
           <input value={title} onChange={e => setTitle(e.target.value)} placeholder={t('lib.bookTitle')}
-            className="w-full px-4 py-3 rounded-2xl border border-slate-200 text-[15px] focus:outline-none focus:ring-2 focus:ring-emerald-400" />
+            className="w-full px-4 py-3 rounded-2xl border border-slate-200 text-[15px] focus:outline-none focus:ring-2 focus:ring-affirm-400" />
 
           <input value={author} onChange={e => setAuthor(e.target.value)} placeholder={t('lib.bookAuthor')}
-            className="w-full px-4 py-3 rounded-2xl border border-slate-200 text-[15px] focus:outline-none focus:ring-2 focus:ring-emerald-400" />
+            className="w-full px-4 py-3 rounded-2xl border border-slate-200 text-[15px] focus:outline-none focus:ring-2 focus:ring-affirm-400" />
 
           <select value={category} onChange={e => setCategory(e.target.value)}
-            className="w-full px-4 py-3 rounded-2xl border border-slate-200 text-[15px] bg-white focus:outline-none focus:ring-2 focus:ring-emerald-400">
+            className="w-full px-4 py-3 rounded-2xl border border-slate-200 text-[15px] bg-white focus:outline-none focus:ring-2 focus:ring-affirm-400">
             {BOOK_CATEGORIES.map(c => <option key={c} value={c}>{c}</option>)}
           </select>
 
           {busy && (
             <div className="h-1.5 rounded-full bg-slate-100 overflow-hidden">
-              <div className="h-full bg-emerald-500 transition-all" style={{ width: `${progress}%` }} />
+              <div className="h-full bg-affirm-500 transition-all" style={{ width: `${progress}%` }} />
             </div>
           )}
           {error && <p className="text-xs text-red-500 bg-red-50 rounded-xl px-3 py-2 break-words">{error}</p>}
 
           <button onClick={submit} disabled={!file || !title.trim() || busy}
-            className="w-full py-3.5 rounded-2xl bg-emerald-600 hover:bg-emerald-700 disabled:opacity-40 text-white font-semibold text-sm transition">
+            className="w-full py-3.5 rounded-2xl bg-affirm-600 hover:bg-affirm-700 disabled:opacity-40 text-white font-semibold text-sm transition">
             {busy ? `${t('lib.uploading')} ${progress}%` : t('lib.publishBook')}
           </button>
         </div>
@@ -285,6 +287,7 @@ export function LibraryTab({ user, canUpload }: { user: AppUser; canUpload: bool
   const [category, setCategory] = useState('all')
   const [reading, setReading] = useState<Book | null>(null)
   const [uploading, setUploading] = useState(false)
+  const [confirmRemoveId, setConfirmRemoveId] = useState<string | null>(null)
 
   useEffect(() => {
     const unsub = onSnapshot(
@@ -300,13 +303,14 @@ export function LibraryTab({ user, canUpload }: { user: AppUser; canUpload: bool
     const q = search.trim().toLowerCase()
     if (q) {
       rows = rows.filter(b =>
-        b.title.toLowerCase().includes(q) ||
+        (b.title || '').toLowerCase().includes(q) ||
         (b.author || '').toLowerCase().includes(q) ||
-        b.category.toLowerCase().includes(q)
+        (b.category || '').toLowerCase().includes(q)
       )
     }
-    // Bible entries float to the top within whatever is being shown.
-    return rows.sort((a, b) => {
+    // Bible entries float to the top within whatever is being shown. Copy the
+    // array first - sorting in place would mutate the books state.
+    return [...rows].sort((a, b) => {
       const aB = a.category === 'Bible' ? 0 : 1
       const bB = b.category === 'Bible' ? 0 : 1
       return aB - bB
@@ -314,7 +318,16 @@ export function LibraryTab({ user, canUpload }: { user: AppUser; canUpload: bool
   }, [books, search, category])
 
   const remove = async (b: Book) => {
-    try { await deleteDoc(doc(db, 'books', b.id)) }
+    try {
+      await deleteDoc(doc(db, 'books', b.id))
+      // Also remove the uploaded PDF so it doesn't linger in Storage forever
+      // (files can be up to 100 MB). Best-effort - a missing/renamed object
+      // shouldn't turn a successful delete into an error.
+      if (b.fileUrl) {
+        try { await deleteObject(ref(storage, b.fileUrl)) } catch { /* already gone */ }
+      }
+      setConfirmRemoveId(null)
+    }
     catch (err: any) { setError(err?.message || String(err)) }
   }
 
@@ -324,11 +337,11 @@ export function LibraryTab({ user, canUpload }: { user: AppUser; canUpload: bool
         <div className="relative flex-1">
           <Search size={17} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 pointer-events-none" />
           <input value={search} onChange={e => setSearch(e.target.value)} placeholder={t('lib.search')}
-            className="w-full pl-11 pr-4 py-3 rounded-2xl bg-white/5 border border-white/10 text-white placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-emerald-400/60 text-[15px]" />
+            className="w-full pl-11 pr-4 py-3 rounded-2xl glass-input text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-affirm-400/60 text-[15px]" />
         </div>
         {canUpload && (
           <button onClick={() => setUploading(true)}
-            className="w-12 h-12 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white flex items-center justify-center shrink-0 shadow-lg shadow-emerald-500/20">
+            className="w-12 h-12 rounded-2xl bg-affirm-600 hover:bg-affirm-700 text-white flex items-center justify-center shrink-0 shadow-lg shadow-affirm-500/20">
             <Plus size={20} />
           </button>
         )}
@@ -339,39 +352,39 @@ export function LibraryTab({ user, canUpload }: { user: AppUser; canUpload: bool
           <button key={cat} onClick={() => setCategory(cat)}
             className={`shrink-0 px-3.5 py-1.5 rounded-full text-xs font-semibold transition ${
               category === cat
-                ? 'bg-emerald-500/15 text-emerald-400 border border-emerald-400/40'
-                : 'bg-white/5 text-slate-400 border border-white/10'}`}>
+                ? 'bg-affirm-600 text-white border border-affirm-400/60'
+                : 'glass-soft text-slate-600'}`}>
             {cat === 'all' ? t('lib.allBooks') : cat}
           </button>
         ))}
       </div>
 
-      {loading && <p className="text-center text-slate-400 py-16">{t('app.loading')}</p>}
+      {loading && <p className="text-center py-16"><span className="scrim inline-block px-4 py-2 text-sm text-slate-600">{t('app.loading')}</span></p>}
 
       {!loading && error && (
         <div className="bg-red-500/10 border border-red-500/20 rounded-2xl p-5">
-          <p className="text-xs text-red-300 break-words">{error}</p>
+          <p className="text-xs text-red-600 break-words">{error}</p>
         </div>
       )}
 
       {!loading && !error && visible.length === 0 && (
-        <div className="text-center py-20">
-          <div className="w-16 h-16 rounded-full bg-emerald-500/10 flex items-center justify-center mx-auto mb-4">
-            <BookOpen size={28} className="text-emerald-400" />
+        <div className="text-center py-12 px-6 my-6 scrim">
+          <div className="w-16 h-16 rounded-full bg-affirm-500/10 flex items-center justify-center mx-auto mb-4">
+            <BookOpen size={28} className="text-affirm-400" />
           </div>
-          <p className="text-slate-300 font-medium">{t('lib.empty')}</p>
-          <p className="text-sm text-slate-500 mt-1">{t('lib.emptyHint')}</p>
+          <p className="text-slate-800 font-medium">{t('lib.empty')}</p>
+          <p className="text-sm text-slate-400 mt-1">{t('lib.emptyHint')}</p>
         </div>
       )}
 
       <div className="space-y-3">
         {visible.map(b => (
-          <div key={b.id} className="bg-white rounded-3xl p-4 shadow-sm border border-slate-100 flex items-center gap-4">
+          <div key={b.id} className="glass rounded-3xl p-4 shadow-sm border border-slate-100 flex items-center gap-4">
             <button onClick={() => setReading(b)}
               className={`w-14 h-16 rounded-xl flex items-center justify-center shrink-0 ${
                 b.category === 'Bible'
                   ? 'bg-gradient-to-br from-amber-400 to-amber-600 text-white'
-                  : 'bg-gradient-to-br from-emerald-400 to-teal-500 text-white'}`}>
+                  : 'bg-gradient-to-br from-affirm-400 to-teal-500 text-white'}`}>
               <BookOpen size={22} />
             </button>
 
@@ -380,7 +393,7 @@ export function LibraryTab({ user, canUpload }: { user: AppUser; canUpload: bool
               {b.author && <p className="text-xs text-slate-500 mt-0.5 truncate">{b.author}</p>}
               <div className="flex items-center gap-2 mt-1.5 flex-wrap">
                 <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
-                  b.category === 'Bible' ? 'bg-amber-50 text-amber-700' : 'bg-emerald-50 text-emerald-700'}`}>
+                  b.category === 'Bible' ? 'bg-amber-50 text-amber-700' : 'bg-affirm-50 text-affirm-700'}`}>
                   {b.category}
                 </span>
                 <span className="text-[10px] text-slate-400">{humanSize(b.sizeBytes)}</span>
@@ -390,14 +403,27 @@ export function LibraryTab({ user, canUpload }: { user: AppUser; canUpload: bool
             <div className="flex flex-col gap-1 shrink-0">
               <a href={b.fileUrl} target="_blank" rel="noreferrer"
                 aria-label={t('post.download')}
-                className="p-2 rounded-full hover:bg-slate-100 text-slate-400 hover:text-emerald-600">
+                className="p-2 rounded-full hover:bg-slate-100 text-slate-400 hover:text-affirm-600">
                 <Download size={16} />
               </a>
               {(b.uploadedById === user.uid || user.role === 'admin' || user.role === 'pastor') && (
-                <button onClick={() => remove(b)}
-                  className="p-2 rounded-full hover:bg-red-50 text-slate-300 hover:text-red-500">
-                  <Trash2 size={16} />
-                </button>
+                confirmRemoveId === b.id ? (
+                  <div className="flex items-center gap-1">
+                    <button onClick={() => remove(b)}
+                      className="text-[11px] font-semibold text-white bg-red-500 hover:bg-red-600 px-2 py-1 rounded-full">
+                      {t('post.delete')}
+                    </button>
+                    <button onClick={() => setConfirmRemoveId(null)}
+                      className="text-[11px] font-semibold text-slate-400 hover:text-slate-600 px-1">
+                      {t('post.cancel')}
+                    </button>
+                  </div>
+                ) : (
+                  <button onClick={() => setConfirmRemoveId(b.id)} aria-label={t('post.delete')}
+                    className="p-2 rounded-full hover:bg-red-50 text-slate-300 hover:text-red-500">
+                    <Trash2 size={16} />
+                  </button>
+                )
               )}
             </div>
           </div>

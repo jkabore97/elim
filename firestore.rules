@@ -28,7 +28,19 @@ service cloud.firestore {
 
     // ---- Users ----
     match /users/{userId} {
-      allow read: if isSignedIn();
+      // A user may read their OWN doc; staff (admin/pastor) and church leads
+      // read others because the New-message picker and the Data explorer need
+      // the directory. Plain members can no longer pull the whole users
+      // collection (names, phones, emails, DOB, fcmTokens) - the feed and
+      // messaging already carry denormalised author names/avatars, so members
+      // never need another person's user doc. (Verified: the picker and Data
+      // explorer are shown only to staff/church; members use ChannelChooser,
+      // which reads only their own conversations.)
+      allow read: if isSignedIn() && (
+                    request.auth.uid == userId
+                    || isAdmin()
+                    || role() == 'church'
+                  );
       allow create: if isSignedIn() && request.auth.uid == userId
                     // Users can only self-assign 'member' or 'pending_church' on signup —
                     // never 'church' or 'admin' directly.
@@ -49,7 +61,11 @@ service cloud.firestore {
                       ||
                       // Admin/pastor editing via the Data explorer. Leads are
                       // deliberately excluded - they get read-only access.
-                      isAdmin()
+                      // Role is frozen on this path: promoting or demoting an
+                      // account must go through the pending_church approval
+                      // clause above or a direct console action - never
+                      // free-text field editing (SECURITY.md §3).
+                      (isAdmin() && request.resource.data.role == resource.data.role)
                     );
       allow delete: if isAdmin();
     }
@@ -110,8 +126,17 @@ service cloud.firestore {
                     || isPastor() || isTechAdmin()
                   );
 
+      // The message's participantIds must EQUAL the parent conversation's.
+      // Without this, a member could inject a message into a private thread
+      // they aren't in by hand-listing themselves in the denormalised array
+      // (the array is what read/create are checked against). The client always
+      // upserts the conversation - with these same participantIds - before the
+      // message, so the parent exists and matches; the one extra read is the
+      // correct price for closing the injection.
       allow create: if isSignedIn()
                     && request.resource.data.senderId == request.auth.uid
+                    && request.resource.data.participantIds ==
+                         get(/databases/$(database)/documents/conversations/$(request.resource.data.conversationId)).data.participantIds
                     && (
                       request.auth.uid in request.resource.data.participantIds
                       || isPastor() || isTechAdmin()
@@ -151,7 +176,17 @@ service cloud.firestore {
     // updates or deletes, by anyone, including admins.
     match /activityLogs/{logId} {
       allow read: if isAdmin();
-      allow create: if isSignedIn() && request.resource.data.userId == request.auth.uid;
+      // The creator must be the acting user, the recorded role must match
+      // their REAL role (so a member can't forge an entry that reads as an
+      // admin action), the timestamp must be server-stamped, and the detail
+      // string is bounded. Matches what the client already writes.
+      allow create: if isSignedIn()
+                    && request.resource.data.userId == request.auth.uid
+                    && request.resource.data.userRole == role()
+                    && request.resource.data.createdAt == request.time
+                    && (!('detail' in request.resource.data)
+                        || (request.resource.data.detail is string
+                            && request.resource.data.detail.size() <= 200));
       // Never editable, by anyone - the log is only useful if it can't be
       // quietly rewritten. Admins may delete for retention housekeeping.
       allow update: if false;
@@ -184,10 +219,28 @@ service cloud.firestore {
       // The owning church/admin can edit or delete their own post (and only
       // their own — see SECURITY.md §4); any signed-in member can separately
       // bump likes or the comment counter.
+      // The owner/admin may edit their post; anyone signed in may nudge ONE
+      // counter by one in either direction. The client only ever changes a
+      // single counter per write (a like touches 'likes', a comment touches
+      // 'commentsCount'), so bounding each on its own closes the "set likes to
+      // 999999" vandalism without blocking either action. The '!in resource'
+      // arm lets the first like/comment land on a post created before the
+      // field existed.
       allow update: if isSignedIn() && (
                       (resource.data.churchId == request.auth.uid) ||
                       isAdmin() ||
-                      (request.resource.data.diff(resource.data).affectedKeys().hasOnly(['likes', 'commentsCount']))
+                      (request.resource.data.diff(resource.data).affectedKeys().hasOnly(['likes'])
+                        && request.resource.data.likes is int
+                        && request.resource.data.likes >= 0
+                        && (!('likes' in resource.data)
+                            || (request.resource.data.likes >= resource.data.likes - 1
+                                && request.resource.data.likes <= resource.data.likes + 1))) ||
+                      (request.resource.data.diff(resource.data).affectedKeys().hasOnly(['commentsCount'])
+                        && request.resource.data.commentsCount is int
+                        && request.resource.data.commentsCount >= 0
+                        && (!('commentsCount' in resource.data)
+                            || (request.resource.data.commentsCount >= resource.data.commentsCount - 1
+                                && request.resource.data.commentsCount <= resource.data.commentsCount + 1)))
                     );
       allow delete: if isSignedIn() && (resource.data.churchId == request.auth.uid || isAdmin());
     }
@@ -196,7 +249,20 @@ service cloud.firestore {
     match /comments/{commentId} {
       allow read: if isSignedIn();
       allow create: if isSignedIn() && request.resource.data.userId == request.auth.uid;
-      allow update: if isAdmin();
+      allow update: if isSignedIn() && (
+                      isAdmin() ||
+                      // Any signed-in member may nudge the like counter by one
+                      // in either direction. The authoritative per-user state
+                      // lives in commentLikes; this is only the shown count.
+                      // The first like on a pre-existing comment (no 'likes'
+                      // field yet) just has to land a non-negative integer.
+                      (request.resource.data.diff(resource.data).affectedKeys().hasOnly(['likes'])
+                        && request.resource.data.likes is int
+                        && request.resource.data.likes >= 0
+                        && (!('likes' in resource.data)
+                            || (request.resource.data.likes >= resource.data.likes - 1
+                                && request.resource.data.likes <= resource.data.likes + 1)))
+                    );
       allow delete: if isSignedIn() && (resource.data.userId == request.auth.uid || isAdmin());
     }
 
@@ -210,6 +276,113 @@ service cloud.firestore {
       allow create: if isSignedIn()
                     && request.resource.data.userId == request.auth.uid
                     && likeId == (request.resource.data.postId + '_' + request.auth.uid);
+      allow delete: if isSignedIn() && (resource.data.userId == request.auth.uid || isAdmin());
+      allow update: if false;
+    }
+
+    // ---- App config (donation details, etc.) ----
+    // Readable by any signed-in user (everyone sees how to give); only
+    // admins/pastors can edit.
+    match /config/{docId} {
+      allow read: if isSignedIn();
+      allow write: if isAdmin();
+    }
+
+    // ---- Notifications ----
+    // Created ONLY by Cloud Functions (the Admin SDK bypasses these rules), so
+    // no client can forge a notification for someone else. A recipient may read
+    // their own, mark them read, or delete them - nothing more.
+    match /notifications/{notifId} {
+      allow read: if isSignedIn() && resource.data.recipientId == request.auth.uid;
+      allow create: if false;
+      allow update: if isSignedIn()
+                    && resource.data.recipientId == request.auth.uid
+                    && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['read']);
+      allow delete: if isSignedIn() && resource.data.recipientId == request.auth.uid;
+    }
+
+    // ---- Donations (declarations) ----
+    // A member declares a donation AFTER paying outside the app (mobile
+    // money / PayPal / card link) - the app never touches the money itself.
+    // The declaration triggers the thank-you message (Cloud Function) and
+    // feeds the treasurer's ledger in the Admin tab.
+    //
+    // Reads: staff, or the donor reading their own declarations. Donation
+    // records (a dime is a tithe) are sensitive - they must never be
+    // readable across members.
+    match /donations/{donationId} {
+      allow read: if isSignedIn()
+                  && (isAdmin() || resource.data.donorId == request.auth.uid);
+
+      allow create: if isSignedIn()
+                    && request.resource.data.donorId == request.auth.uid
+                    && request.resource.data.status == 'declared'
+                    && request.resource.data.type in ['dime', 'offrande', 'autre']
+                    && (!('purpose' in request.resource.data)
+                        || request.resource.data.purpose.size() <= 300)
+                    && (!('amount' in request.resource.data)
+                        || request.resource.data.amount.size() <= 30)
+                    && (!('methodLabel' in request.resource.data)
+                        || request.resource.data.methodLabel.size() <= 60);
+
+      // Only staff may verify, and only by moving the status and stamping the
+      // reviewer - the declaration itself stays exactly as the donor filed it.
+      allow update: if isAdmin()
+                    && request.resource.data.diff(resource.data).affectedKeys()
+                         .hasOnly(['status', 'verifiedById', 'verifiedByName', 'verifiedAt'])
+                    && request.resource.data.status in ['declared', 'verified'];
+
+      allow delete: if false;
+    }
+
+    // ---- Safety reports ----
+    // In-app reporting, required by Google Play's child safety standards
+    // policy. Write-only for ordinary users: anyone signed in may file a
+    // report about content, but only staff can READ the queue. That matters -
+    // if reports were world-readable they would become a way to enumerate
+    // other people's content and to see who reported whom.
+    //
+    // Reports are immutable to their author once filed (no update, no delete),
+    // so a reporter cannot retract or rewrite a child-safety report after
+    // staff have seen it; only staff may resolve one, and only by moving the
+    // status and stamping who reviewed it.
+    match /reports/{reportId} {
+      allow read: if isAdmin();
+
+      allow create: if isSignedIn()
+                    && request.resource.data.reporterId == request.auth.uid
+                    && request.resource.data.status == 'open'
+                    && request.resource.data.targetType in ['post', 'comment', 'message', 'user']
+                    && request.resource.data.reason in
+                         ['child_safety', 'sexual', 'violence', 'harassment', 'spam', 'other']
+                    && request.resource.data.targetId is string
+                    && request.resource.data.targetId.size() > 0
+                    // Bound the free-text fields so a report can't be used as
+                    // cheap storage or to blow up the review screen.
+                    && (!('details' in request.resource.data)
+                        || request.resource.data.details.size() <= 1000)
+                    && (!('preview' in request.resource.data)
+                        || request.resource.data.preview.size() <= 300);
+
+      // Staff resolve a report; they may only move it out of 'open' and record
+      // who did it. The original report content stays exactly as filed.
+      allow update: if isAdmin()
+                    && request.resource.data.diff(resource.data).affectedKeys()
+                         .hasOnly(['status', 'reviewedById', 'reviewedByName', 'reviewedAt'])
+                    && request.resource.data.status in ['actioned', 'dismissed'];
+
+      allow delete: if false;
+    }
+
+    // ---- Comment likes ----
+    // Same shape as post likes: one doc per commentId+userId, doc ID
+    // "{commentId}_{userId}", so "has this user liked this comment" is a plain
+    // existence check and a user can't create two likes for one comment.
+    match /commentLikes/{likeId} {
+      allow read: if isSignedIn();
+      allow create: if isSignedIn()
+                    && request.resource.data.userId == request.auth.uid
+                    && likeId == (request.resource.data.commentId + '_' + request.auth.uid);
       allow delete: if isSignedIn() && (resource.data.userId == request.auth.uid || isAdmin());
       allow update: if false;
     }

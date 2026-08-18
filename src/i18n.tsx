@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useEffect, type ReactNode } from 'react'
+import { storageGet, storageSet } from './safeStorage'
 
 export type Language = 'en' | 'fr'
 
@@ -93,6 +94,7 @@ const translations = {
   'data.saving': { en: 'Saving...', fr: 'Enregistrement...' },
   'data.saved': { en: 'Saved.', fr: 'Enregistré.' },
   'data.noChanges': { en: 'Nothing changed.', fr: 'Aucune modification.' },
+  'data.invalidNumber': { en: 'must be a number', fr: 'doit être un nombre' },
   'data.deleteRecord': { en: 'Delete this record', fr: 'Supprimer cet enregistrement' },
   'data.confirmDelete': { en: 'Delete permanently', fr: 'Supprimer définitivement' },
   'data.readOnlyNote': { en: 'You can view and export these records. Only an administrator or the pastor can change them.', fr: "Vous pouvez consulter et exporter ces enregistrements. Seul un administrateur ou le pasteur peut les modifier." },
@@ -193,6 +195,48 @@ const translations = {
   'support.emailUs': { en: 'Email support', fr: 'Assistance par e-mail' },
   'support.visitSite': { en: 'Visit our website', fr: 'Visiter notre site web' },
   'footer.privacy': { en: 'Privacy Policy', fr: 'Politique de confidentialité' },
+  'footer.childSafety': { en: 'Child Safety', fr: 'Sécurité des enfants' },
+
+  // ---- In-app reporting (Google Play child safety standards) ----
+  'report.action': { en: 'Report', fr: 'Signaler' },
+  'report.title': { en: 'Report this content', fr: 'Signaler ce contenu' },
+  'report.subtitle': {
+    en: 'Tell us what is wrong. Reports go to the ELIM team and are reviewed confidentially - the person you report is not told who reported them.',
+    fr: "Dites-nous ce qui ne va pas. Les signalements sont transmis à l'équipe ELIM et examinés confidentiellement - la personne signalée ne sait pas qui l'a signalée." },
+  'report.reason.childSafety': { en: 'Child safety or abuse of a minor', fr: "Sécurité d'un enfant ou abus sur un mineur" },
+  'report.reason.sexual': { en: 'Sexual or inappropriate content', fr: 'Contenu sexuel ou inapproprié' },
+  'report.reason.violence': { en: 'Violence or threats', fr: 'Violence ou menaces' },
+  'report.reason.harassment': { en: 'Harassment or hate speech', fr: 'Harcèlement ou propos haineux' },
+  'report.reason.spam': { en: 'Spam or scam', fr: 'Spam ou arnaque' },
+  'report.reason.other': { en: 'Something else', fr: 'Autre chose' },
+  'report.detailsPlaceholder': { en: 'Add any detail that would help us (optional)', fr: 'Ajoutez tout détail qui pourrait nous aider (facultatif)' },
+  'report.submit': { en: 'Send report', fr: 'Envoyer le signalement' },
+  'report.sending': { en: 'Sending...', fr: 'Envoi...' },
+  'report.close': { en: 'Close', fr: 'Fermer' },
+  'report.failed': { en: "Couldn't send the report. Please try again.", fr: "Impossible d'envoyer le signalement. Réessayez." },
+  'report.sentTitle': { en: 'Report received', fr: 'Signalement reçu' },
+  'report.sentBody': {
+    en: 'Thank you. The ELIM team will review this. Child safety reports are treated as urgent and reported to the authorities where the law requires it.',
+    fr: "Merci. L'équipe ELIM va l'examiner. Les signalements concernant la sécurité des enfants sont traités en urgence et transmis aux autorités lorsque la loi l'exige." },
+  'report.urgentNote': {
+    en: 'If a child is in immediate danger, contact your local authorities first.',
+    fr: "Si un enfant est en danger immédiat, contactez d'abord les autorités locales." },
+
+  // ---- Admin report queue ----
+  'reports.tab': { en: 'Reports', fr: 'Signalements' },
+  'reports.empty': { en: 'No reports to review.', fr: 'Aucun signalement à examiner.' },
+  'reports.open': { en: 'Open', fr: 'À traiter' },
+  'reports.handled': { en: 'Handled', fr: 'Traités' },
+  'reports.reportedBy': { en: 'Reported by', fr: 'Signalé par' },
+  'reports.about': { en: 'Content by', fr: 'Contenu de' },
+  'reports.markActioned': { en: 'Action taken', fr: 'Mesure prise' },
+  'reports.dismiss': { en: 'Dismiss', fr: 'Rejeter' },
+  'reports.actioned': { en: 'Action taken', fr: 'Mesure prise' },
+  'reports.dismissed': { en: 'Dismissed', fr: 'Rejeté' },
+  'reports.target.post': { en: 'Post', fr: 'Publication' },
+  'reports.target.comment': { en: 'Comment', fr: 'Commentaire' },
+  'reports.target.message': { en: 'Message', fr: 'Message' },
+  'reports.target.user': { en: 'Member', fr: 'Membre' },
   'logs.loadFailed': { en: "Couldn't load logs", fr: 'Impossible de charger les journaux' },
   'logs.rulesHint': { en: "If this says 'Missing or insufficient permissions', the Firestore rules for activityLogs haven't been published yet in the Firebase console.", fr: "Si le message indique « Missing or insufficient permissions », les règles Firestore pour activityLogs n'ont pas encore été publiées dans la console Firebase." },
   'logs.likeAdded': { en: 'Liked a post', fr: 'A aimé une publication' },
@@ -381,15 +425,81 @@ const translations = {
   'post.edit': { en: 'Edit Post', fr: 'Modifier la publication' },
   'post.save': { en: 'Save', fr: 'Enregistrer' },
   'post.saving': { en: 'Saving...', fr: 'Enregistrement...' },
+  'post.publishFailed': { en: 'Could not publish. Check your connection and try again.', fr: 'Publication impossible. Vérifiez votre connexion et réessayez.' },
   'post.editNote': { en: 'Only the text can be edited here. To change the attached photo, audio, or video, delete this post and share a new one.', fr: 'Seul le texte peut être modifié ici. Pour changer la photo, l\'audio ou la vidéo, supprimez cette publication et partagez-en une nouvelle.' },
 
   // ---- Comments ----
   'comments.title': { en: 'Comments', fr: 'Commentaires' },
   'comments.none': { en: 'No comments yet', fr: 'Aucun commentaire' },
   'comments.writePlaceholder': { en: 'Write a comment...', fr: 'Écrivez un commentaire...' },
+  'comments.replyPlaceholder': { en: 'Write a reply...', fr: 'Écrivez une réponse...' },
+  'comments.reply': { en: 'Reply', fr: 'Répondre' },
+  'comments.replyingTo': { en: 'Replying to', fr: 'En réponse à' },
+  'comments.like': { en: 'Like', fr: "J'aime" },
+  'comments.likeFailed': { en: "Couldn't register your like. Please try again.", fr: "Impossible d'enregistrer votre j'aime. Réessayez." },
+
+  // ---- Notifications (bell) ----
+  'notif.title': { en: 'Notifications', fr: 'Notifications' },
+  'notif.none': { en: 'Nothing new for now', fr: 'Rien de nouveau pour l’instant' },
+  'notif.newPosts': { en: 'new posts', fr: 'nouvelles publications' },
+  'notif.tapToView': { en: 'Tap to open the feed', fr: 'Appuyez pour ouvrir le fil' },
+  'notif.postLike': { en: 'liked your post', fr: 'a aimé votre publication' },
+  'notif.commentLike': { en: 'liked your comment', fr: 'a aimé votre commentaire' },
+  'notif.postComment': { en: 'commented on your post', fr: 'a commenté votre publication' },
+  'notif.commentReply': { en: 'replied to your comment', fr: 'a répondu à votre commentaire' },
+
+  // ---- Donation ----
+  'donate.button': { en: 'Donate', fr: 'Faire un don' },
+  'donate.title': { en: 'Make a donation', fr: 'Faire un don' },
+  'donate.edit': { en: 'Edit', fr: 'Modifier' },
+  'donate.copy': { en: 'Copy', fr: 'Copier' },
+  'donate.copied': { en: 'Copied!', fr: 'Copié !' },
+  'donate.empty': { en: 'Donation details are not available yet.', fr: 'Les informations de don ne sont pas encore disponibles.' },
+  'donate.emptyAdmin': { en: 'Add your mobile-money numbers so people can give.', fr: 'Ajoutez vos numéros mobile money pour permettre les dons.' },
+  'donate.addProvider': { en: 'Add a payment method', fr: 'Ajouter un moyen de paiement' },
+  'donate.fieldTitle': { en: 'Title', fr: 'Titre' },
+  'donate.fieldMessage': { en: 'Message', fr: 'Message' },
+  'donate.fieldLabel': { en: 'Service name (e.g. Wave)', fr: 'Nom du service (ex : Wave)' },
+  'donate.fieldNumber': { en: 'Number', fr: 'Numéro' },
+  'donate.fieldHolder': { en: 'Account holder name', fr: 'Nom du bénéficiaire' },
+  'donate.fieldNote': { en: 'Instructions (optional)', fr: 'Instructions (optionnel)' },
+  'donate.kindNumber': { en: 'Number', fr: 'Numéro' },
+  'donate.kindLink': { en: 'Payment link', fr: 'Lien de paiement' },
+  'donate.fieldUrl': { en: 'Payment page link (https://...)', fr: 'Lien de la page de paiement (https://...)' },
+  'donate.fieldThanks': { en: 'Thank-you message (sent in Messages after a donation)', fr: 'Message de remerciement (envoyé dans Messages après un don)' },
+  'donate.thanksPlaceholder': { en: 'Thank you for your gift! May God bless you abundantly.', fr: 'Merci pour votre don ! Que Dieu vous bénisse abondamment.' },
+  'donate.open': { en: 'Open', fr: 'Ouvrir' },
+  'donate.openExternalNote': { en: 'Opens in your browser', fr: "S'ouvre dans votre navigateur" },
+  'donate.typeLabel': { en: 'What kind of gift?', fr: 'Quel type de don ?' },
+  'donate.typeDime': { en: 'Tithe', fr: 'Dîme' },
+  'donate.typeOffrande': { en: 'Offering', fr: 'Offrande' },
+  'donate.typeAutre': { en: 'Other gift', fr: 'Autre don' },
+  'donate.purposeLabel': { en: 'This gift is for... (optional)', fr: 'Ce don est pour... (optionnel)' },
+  'donate.purposePlaceholder': { en: 'e.g. construction, missions, supporting a family', fr: 'ex : construction, missions, soutien à une famille' },
+  'donate.amountLabel': { en: 'Amount (optional)', fr: 'Montant (optionnel)' },
+  'donate.amountPlaceholder': { en: 'e.g. 10 000 FCFA or $50', fr: 'ex : 10 000 FCFA ou 50 $' },
+  'donate.methodsLabel': { en: 'Choose how to give', fr: 'Choisissez comment donner' },
+  'donate.declare': { en: 'I have made this donation', fr: "J'ai effectué ce don" },
+  'donate.declaring': { en: 'Sending...', fr: 'Envoi...' },
+  'donate.declareHint': { en: 'After paying, tap here so the church can thank you and keep its records.', fr: "Après le paiement, appuyez ici pour que l'église puisse vous remercier et tenir ses registres." },
+  'donate.declareFailed': { en: "Couldn't record your donation. Please try again.", fr: "Impossible d'enregistrer votre don. Réessayez." },
+  'donate.thanksTitle': { en: 'Thank you!', fr: 'Merci !' },
+  'donate.thanksBody': { en: 'A thank-you from Centre Chrétien E.L.I.M. will appear in your Messages.', fr: 'Un message de remerciement du Centre Chrétien E.L.I.M. apparaîtra dans vos Messages.' },
+
+  // ---- Admin donations ledger ----
+  'dons.tab': { en: 'Donations', fr: 'Dons' },
+  'dons.empty': { en: 'No declared donations yet.', fr: 'Aucun don déclaré pour le moment.' },
+  'dons.declared': { en: 'Declared', fr: 'Déclarés' },
+  'dons.verified': { en: 'Verified', fr: 'Vérifiés' },
+  'dons.markVerified': { en: 'Mark as verified', fr: 'Marquer comme vérifié' },
+  'dons.by': { en: 'By', fr: 'Par' },
+  'dons.via': { en: 'via', fr: 'via' },
+  'dons.verifiedBy': { en: 'Verified by', fr: 'Vérifié par' },
+  'dons.reconcileHint': { en: 'Match these declarations against your mobile-money and PayPal statements, then mark them verified.', fr: 'Rapprochez ces déclarations de vos relevés mobile money et PayPal, puis marquez-les comme vérifiées.' },
 
   // ---- Profile tab ----
   'profile.details': { en: 'Profile details', fr: 'Détails du profil' },
+  'profile.logout': { en: 'Log out', fr: 'Se déconnecter' },
   'profile.church': { en: 'Church', fr: 'Église' },
   'profile.churchPlaceholder': { en: 'e.g. Grace Community Church', fr: 'ex. Église de la Grâce' },
   'profile.country': { en: 'Country', fr: 'Pays' },
@@ -445,12 +555,10 @@ interface LanguageContextValue {
 const LanguageContext = createContext<LanguageContextValue | null>(null)
 
 function detectDefaultLanguage(): Language {
-  try {
-    const stored = localStorage.getItem('elim-language')
-    if (stored === 'en' || stored === 'fr') return stored
-  } catch {
-    // localStorage unavailable (e.g. some webview contexts) - fall through to browser detection
-  }
+  // storageGet never throws: a bare read here would take down the whole app
+  // at boot in browsers that block site data.
+  const stored = storageGet('elim-language')
+  if (stored === 'en' || stored === 'fr') return stored
   // Most ELIM users are French speakers - default to French unless the
   // device is clearly set to English, rather than the more usual "default
   // to English" assumption.
@@ -462,11 +570,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
   const [language, setLanguageState] = useState<Language>(detectDefaultLanguage)
 
   useEffect(() => {
-    try {
-      localStorage.setItem('elim-language', language)
-    } catch {
-      // ignore if storage isn't available
-    }
+    storageSet('elim-language', language)
   }, [language])
 
   const setLanguage = (lang: Language) => setLanguageState(lang)

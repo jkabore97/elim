@@ -117,7 +117,7 @@ export function MediaPlayerProvider({ children }: { children: ReactNode }) {
 
       {track && (
         <div className="fixed bottom-16 lg:bottom-0 left-0 right-0 z-40 px-3 pb-2 lg:px-0 lg:pb-0 pointer-events-none">
-          <div className="max-w-lg lg:max-w-none mx-auto pointer-events-auto bg-[#1e293b]/95 backdrop-blur-xl border border-white/10 lg:border-x-0 lg:border-b-0 rounded-2xl lg:rounded-none shadow-2xl overflow-hidden">
+          <div className="glass-dark max-w-lg lg:max-w-none mx-auto pointer-events-auto lg:border-x-0 lg:border-b-0 rounded-2xl lg:rounded-none shadow-2xl overflow-hidden">
             {/* Scrubber — tap or drag anywhere to jump to that point */}
             <input
               type="range"
@@ -130,7 +130,7 @@ export function MediaPlayerProvider({ children }: { children: ReactNode }) {
               onChange={e => setCurrent(Number(e.target.value))}
               onMouseUp={e => { seek(Number((e.target as HTMLInputElement).value)); setScrubbing(false) }}
               onTouchEnd={e => { seek(Number((e.target as HTMLInputElement).value)); setScrubbing(false) }}
-              className="w-full h-1 accent-emerald-400 bg-white/10 cursor-pointer"
+              className="w-full h-1 accent-affirm-400 bg-white/10 cursor-pointer"
               aria-label="Seek"
             />
 
@@ -138,7 +138,7 @@ export function MediaPlayerProvider({ children }: { children: ReactNode }) {
               {track.artwork ? (
                 <img src={track.artwork} alt="" className="w-10 h-10 rounded-xl object-cover shrink-0" />
               ) : (
-                <div className="w-10 h-10 rounded-xl bg-emerald-500/15 text-emerald-400 flex items-center justify-center shrink-0">
+                <div className="w-10 h-10 rounded-xl bg-affirm-500/15 text-affirm-400 flex items-center justify-center shrink-0">
                   <Mic size={17} />
                 </div>
               )}
@@ -158,7 +158,7 @@ export function MediaPlayerProvider({ children }: { children: ReactNode }) {
 
               <button onClick={toggle}
                 aria-label={playing ? 'Pause' : 'Play'}
-                className="w-10 h-10 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white flex items-center justify-center shrink-0">
+                className="w-10 h-10 rounded-full bg-affirm-600 hover:bg-affirm-700 text-white flex items-center justify-center shrink-0">
                 {playing ? <Pause size={17} /> : <Play size={17} />}
               </button>
 
