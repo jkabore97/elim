@@ -282,3 +282,67 @@ exports.notifyOnComment = onDocumentCreated('comments/{commentId}', async (event
     }
   }
 });
+
+
+// ==================== DONATION THANK-YOU ====================
+//
+// When a member declares a donation (the app writes a doc to `donations`),
+// send a thank-you into their Messages from "Centre Chrétien E.L.I.M.".
+// Done server-side so the message genuinely comes from the church and can't
+// be forged by a client. It lands in the member's pastor channel - the same
+// deterministic `pastor_{uid}` conversation the app's Messages tab uses - so
+// no new UI is needed on the client, and the existing notifyOnNewMessage
+// trigger below picks it up and pushes it to the donor's phone.
+exports.thankOnDonation = onDocumentCreated('donations/{donationId}', async (event) => {
+  const donation = event.data && event.data.data();
+  if (!donation || !donation.donorId) return;
+  const db = getFirestore();
+
+  // The thank-you text is admin-editable in the donation settings; fall back
+  // to a sensible default, personalised by donation type.
+  let text = '';
+  try {
+    const cfg = await db.collection('config').doc('donation').get();
+    text = ((cfg.exists && cfg.data().thanksMessage) || '').trim();
+  } catch (_e) { /* fall through to the default */ }
+  if (!text) {
+    const typeWord = donation.type === 'dime' ? 'votre dîme'
+      : donation.type === 'offrande' ? 'votre offrande'
+      : 'votre don';
+    text = `Merci pour ${typeWord} ! Que Dieu vous bénisse abondamment. — Centre Chrétien E.L.I.M.`;
+  }
+
+  const convId = `pastor_${donation.donorId}`;
+  const convRef = db.collection('conversations').doc(convId);
+  const convSnap = await convRef.get();
+
+  const SENDER_ID = 'church-elim';
+  const SENDER_NAME = 'Centre Chrétien E.L.I.M.';
+
+  // Upsert the conversation the same way the client does (it may not exist if
+  // the donor never opened the pastor channel). participantIds stays just the
+  // member - staff access to pastor channels is by role, not membership.
+  const convPayload = {
+    type: 'pastor',
+    participantIds: [donation.donorId],
+    participantNames: { [donation.donorId]: donation.donorName || '' },
+    lastMessage: text.slice(0, 120),
+    lastMessageAt: FieldValue.serverTimestamp(),
+    lastSenderId: SENDER_ID,
+  };
+  if (!convSnap.exists) {
+    convPayload.createdAt = FieldValue.serverTimestamp();
+    convPayload.ownerRole = 'member';
+  }
+  await convRef.set(convPayload, { merge: true });
+
+  await db.collection('messages').add({
+    conversationId: convId,
+    senderId: SENDER_ID,
+    senderName: SENDER_NAME,
+    senderRole: 'pastor',
+    text,
+    participantIds: [donation.donorId],
+    createdAt: FieldValue.serverTimestamp(),
+  });
+});

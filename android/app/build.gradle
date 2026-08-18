@@ -15,7 +15,7 @@ android {
         // whose code it has already seen, so it must increase on EVERY build
         // sent to the console, even when the visible version is unchanged.
         // Started at 104 (encoding 1.04); bump this line for each new upload.
-        versionCode 105
+        versionCode 106
         versionName "1.04"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         aaptOptions {

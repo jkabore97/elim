@@ -34,7 +34,7 @@ import { MessagesTab, useUnreadCount } from './Messages'
 import { playMessageAlert, isAlertMuted, setAlertMuted } from './messageAlert'
 import { DataManagementTab } from './DataManagement'
 import { LibraryTab } from './Library'
-import type { Post, Comment, AppUser, ActivityLog, AppNotification, DonationConfig, DonationProvider, Report } from './types'
+import type { Post, Comment, AppUser, ActivityLog, AppNotification, DonationConfig, DonationProvider, Report, DonationType, Donation } from './types'
 import { LanguageProvider, useLanguage, type Language } from './i18n'
 
 function timeAgo(date: any) {
@@ -1071,7 +1071,7 @@ function AppInner() {
   const [musiqueSearch, setMusiqueSearch] = useState('')
   const [showCreateMusique, setShowCreateMusique] = useState(false)
   const [showBulkMusique, setShowBulkMusique] = useState(false)
-  const [adminSection, setAdminSection] = useState<'approvals' | 'reports' | 'logs' | 'data'>(
+  const [adminSection, setAdminSection] = useState<'approvals' | 'reports' | 'dons' | 'logs' | 'data'>(
     user?.role === 'church' ? 'data' : 'approvals'
   )
   // user is null at mount, so the initializer above always resolves to
@@ -1862,6 +1862,7 @@ function AppInner() {
                   {[
                     ...(isStaffUser ? [{ id: 'approvals' as const, label: t('admin.subApprovals') }] : []),
                     ...(isStaffUser ? [{ id: 'reports' as const, label: t('reports.tab') }] : []),
+                    ...(isStaffUser ? [{ id: 'dons' as const, label: t('dons.tab') }] : []),
                     ...(isStaffUser ? [{ id: 'logs' as const, label: t('nav.logs') }] : []),
                     { id: 'data' as const, label: t('nav.data') }
                   ].map(sub => (
@@ -1879,6 +1880,7 @@ function AppInner() {
                   <AdminPanel pendingChurches={pendingChurches} onApprove={handleApproveChurch} onDeny={handleDenyChurch} />
                 )}
                 {adminSection === 'reports' && isStaffUser && <ReportsPanel user={user} />}
+                {adminSection === 'dons' && isStaffUser && <DonationsPanel user={user} />}
                 {adminSection === 'logs' && isStaffUser && <LogsPanel />}
                 {adminSection === 'data' && <DataManagementTab user={user} />}
               </div>
@@ -2007,7 +2009,7 @@ function AppInner() {
           onViewNewPosts={() => { setShowNotifications(false); setActiveTab('feed') }} />
       )}
       {showDonation && (
-        <DonationSheet config={donation} canEdit={isStaffUser}
+        <DonationSheet config={donation} canEdit={isStaffUser} user={user}
           onClose={() => setShowDonation(false)} />
       )}
     </div>
@@ -3459,6 +3461,100 @@ function CommentsSheet({ postId, comments, onClose, onAdd, onLikeComment, likedC
   )
 }
 
+// Staff-only donations ledger. Members DECLARE donations after paying outside
+// the app; the treasurer matches each declaration against the mobile-money /
+// PayPal statements and marks it verified. Reads are staff-only in the rules
+// (a member can read back only their own declarations).
+function DonationsPanel({ user }: { user: AppUser }) {
+  const { t } = useLanguage()
+  const [donations, setDonations] = useState<Donation[]>([])
+  const [loading, setLoading] = useState(true)
+  const [showVerified, setShowVerified] = useState(false)
+  const [busyId, setBusyId] = useState<string | null>(null)
+
+  useEffect(() => {
+    const q = query(collection(db, 'donations'), orderBy('createdAt', 'desc'), limit(200))
+    const unsub = onSnapshot(q,
+      snap => { setDonations(snap.docs.map(d => ({ id: d.id, ...d.data() })) as Donation[]); setLoading(false) },
+      () => setLoading(false))
+    return unsub
+  }, [])
+
+  const verify = async (d: Donation) => {
+    if (busyId) return
+    setBusyId(d.id)
+    try {
+      await updateDoc(doc(db, 'donations', d.id), {
+        status: 'verified',
+        verifiedById: user.uid,
+        verifiedByName: user.displayName || '',
+        verifiedAt: serverTimestamp(),
+      })
+    } catch (_e) { /* rules reject non-staff writers */ }
+    finally { setBusyId(null) }
+  }
+
+  const typeLabel = (d: Donation) =>
+    d.type === 'dime' ? t('donate.typeDime') : d.type === 'offrande' ? t('donate.typeOffrande') : t('donate.typeAutre')
+  const typeAccent = (d: Donation) =>
+    d.type === 'dime' ? 'bg-amber-100 text-amber-700' : d.type === 'offrande' ? 'bg-affirm-100 text-affirm-700' : 'bg-slate-100 text-slate-600'
+
+  const shown = donations.filter(d => showVerified ? d.status === 'verified' : d.status !== 'verified')
+
+  return (
+    <div className="space-y-4">
+      <p className="text-xs text-slate-500 leading-relaxed">{t('dons.reconcileHint')}</p>
+      <div className="flex gap-2">
+        {[{ id: false, label: t('dons.declared') }, { id: true, label: t('dons.verified') }].map(o => (
+          <button key={String(o.id)} onClick={() => setShowVerified(o.id)}
+            className={`px-4 py-2 rounded-full text-sm font-semibold transition ${
+              showVerified === o.id ? 'bg-affirm-600 text-white' : 'glass-soft text-slate-600'}`}>
+            {o.label}
+          </button>
+        ))}
+      </div>
+
+      {loading && <p className="text-center py-16"><span className="scrim inline-block px-4 py-2 text-sm text-slate-600">{t('app.loading')}</span></p>}
+      {!loading && shown.length === 0 && (
+        <div className="text-center py-12 px-6 my-6 scrim">
+          <p className="text-slate-800 font-medium">{t('dons.empty')}</p>
+        </div>
+      )}
+
+      {shown.map(d => (
+        <div key={d.id} className="glass rounded-2xl p-4">
+          <div className="flex items-start justify-between gap-3">
+            <div className="min-w-0">
+              <div className="flex items-center gap-2 flex-wrap">
+                <span className={`px-2.5 py-1 rounded-full text-xs font-bold ${typeAccent(d)}`}>{typeLabel(d)}</span>
+                {d.amount && <span className="text-sm font-bold text-slate-800">{d.amount}</span>}
+                {d.methodLabel && <span className="text-[11px] text-slate-400">{t('dons.via')} {d.methodLabel}</span>}
+              </div>
+              <p className="text-[11px] text-slate-400 mt-0.5">{timeAgo(d.createdAt)}</p>
+            </div>
+            {d.status === 'verified' && (
+              <span className="shrink-0 text-[10px] font-bold px-2 py-1 rounded-full bg-affirm-100 text-affirm-700">
+                {t('dons.verified')}
+              </span>
+            )}
+          </div>
+          {d.purpose && <p className="mt-2 text-sm text-slate-700 break-words whitespace-pre-wrap">{d.purpose}</p>}
+          <p className="mt-2 text-[11px] text-slate-400">
+            {t('dons.by')} {d.donorName || d.donorId}
+            {d.status === 'verified' && d.verifiedByName ? ` · ${t('dons.verifiedBy')} ${d.verifiedByName}` : ''}
+          </p>
+          {d.status !== 'verified' && (
+            <button onClick={() => verify(d)} disabled={busyId === d.id}
+              className="mt-3 w-full py-2.5 rounded-xl bg-affirm-600 text-white text-sm font-semibold disabled:opacity-50">
+              {t('dons.markVerified')}
+            </button>
+          )}
+        </div>
+      ))}
+    </div>
+  )
+}
+
 // Staff-only queue of user reports. Reads are restricted to staff in
 // firestore.rules, so this is the only place reports are visible; a reporter
 // cannot read back other people's reports.
@@ -3648,9 +3744,9 @@ function NotificationsPanel({ notifications, newPostCount, onClose, onTap, onDis
 }
 
 const DONATION_SEED: DonationProvider[] = [
-  { id: 'wave', label: 'Wave', number: '', holder: '', note: '' },
-  { id: 'orange', label: 'Orange Money', number: '', holder: '', note: '' },
-  { id: 'moov', label: 'Moov Money', number: '', holder: '', note: '' },
+  { id: 'wave', label: 'Wave', kind: 'number', number: '', holder: '', note: '' },
+  { id: 'orange', label: 'Orange Money', kind: 'number', number: '', holder: '', note: '' },
+  { id: 'moov', label: 'Moov Money', kind: 'number', number: '', holder: '', note: '' },
 ]
 
 function donationAccent(label: string) {
@@ -3658,42 +3754,86 @@ function donationAccent(label: string) {
   if (l.includes('wave')) return 'bg-sky-100 text-sky-700'
   if (l.includes('orange')) return 'bg-orange-100 text-orange-700'
   if (l.includes('moov')) return 'bg-indigo-100 text-indigo-700'
+  if (l.includes('paypal')) return 'bg-blue-100 text-blue-700'
+  if (l.includes('cash')) return 'bg-green-100 text-green-700'
+  if (l.includes('carte') || l.includes('card')) return 'bg-violet-100 text-violet-700'
   return 'bg-affirm-100 text-affirm-700'
 }
 
-function DonationSheet({ config, canEdit, onClose }: {
+const providerKind = (p: DonationProvider): 'number' | 'link' => (p.kind === 'link' ? 'link' : 'number')
+
+function DonationSheet({ config, canEdit, user, onClose }: {
   config: DonationConfig | null
   canEdit: boolean
+  user: AppUser
   onClose: () => void
 }) {
   const { t } = useLanguage()
   const [editing, setEditing] = useState(false)
   const [draft, setDraft] = useState<DonationConfig>(
-    config && config.providers?.length ? config : { title: '', message: '', providers: DONATION_SEED })
+    config && config.providers?.length ? config : { title: '', message: '', thanksMessage: '', providers: DONATION_SEED })
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState('')
   const [copied, setCopied] = useState<string | null>(null)
 
+  // The declaration flow: what kind of gift, what it is for, how it was paid.
+  const [donType, setDonType] = useState<DonationType | null>(null)
+  const [purpose, setPurpose] = useState('')
+  const [amount, setAmount] = useState('')
+  const [methodUsed, setMethodUsed] = useState<DonationProvider | null>(null)
+  const [declaring, setDeclaring] = useState(false)
+  const [declareError, setDeclareError] = useState('')
+  const [declared, setDeclared] = useState(false)
+
   // Refresh the draft from the live config while not actively editing.
   useEffect(() => {
-    if (!editing) setDraft(config && config.providers?.length ? config : { title: '', message: '', providers: DONATION_SEED })
+    if (!editing) setDraft(config && config.providers?.length ? config : { title: '', message: '', thanksMessage: '', providers: DONATION_SEED })
   }, [config, editing])
 
-  const providers = (config?.providers || []).filter(p => (p.number || '').trim())
+  const providers = (config?.providers || []).filter(p =>
+    providerKind(p) === 'link' ? (p.url || '').trim() : (p.number || '').trim())
 
-  const copy = async (id: string, text: string) => {
+  const copy = async (p: DonationProvider) => {
     try {
-      await navigator.clipboard.writeText(text)
-      setCopied(id)
-      setTimeout(() => setCopied(c => (c === id ? null : c)), 1500)
+      await navigator.clipboard.writeText(p.number)
+      setCopied(p.id)
+      setMethodUsed(p)
+      setTimeout(() => setCopied(c => (c === p.id ? null : c)), 1500)
     } catch { /* clipboard unavailable in this context */ }
   }
 
-  const setField = (field: 'title' | 'message', value: string) => setDraft(d => ({ ...d, [field]: value }))
+  // External payment pages open in the system browser - never inside the
+  // WebView. That keeps card entry out of the app (PCI + Play policy).
+  const openLink = (p: DonationProvider) => {
+    setMethodUsed(p)
+    window.open(p.url!, '_blank', 'noopener,noreferrer')
+  }
+
+  const declare = async () => {
+    if (!donType || declaring) return
+    setDeclaring(true); setDeclareError('')
+    try {
+      await addDoc(collection(db, 'donations'), {
+        donorId: user.uid,
+        donorName: user.displayName || '',
+        type: donType,
+        purpose: purpose.trim().slice(0, 300),
+        amount: amount.trim().slice(0, 30),
+        ...(methodUsed ? { methodId: methodUsed.id, methodLabel: methodUsed.label } : {}),
+        status: 'declared',
+        createdAt: serverTimestamp(),
+      })
+      setDeclared(true)
+    } catch (_e) {
+      setDeclareError(t('donate.declareFailed'))
+    } finally { setDeclaring(false) }
+  }
+
+  const setField = (field: 'title' | 'message' | 'thanksMessage', value: string) => setDraft(d => ({ ...d, [field]: value }))
   const setProvider = (id: string, field: keyof DonationProvider, value: string) =>
     setDraft(d => ({ ...d, providers: d.providers.map(p => (p.id === id ? { ...p, [field]: value } : p)) }))
   const addProvider = () =>
-    setDraft(d => ({ ...d, providers: [...d.providers, { id: 'p' + Date.now(), label: '', number: '', holder: '', note: '' }] }))
+    setDraft(d => ({ ...d, providers: [...d.providers, { id: 'p' + Date.now(), label: '', kind: 'number', number: '', url: '', holder: '', note: '' }] }))
   const removeProvider = (id: string) =>
     setDraft(d => ({ ...d, providers: d.providers.filter(p => p.id !== id) }))
 
@@ -3703,10 +3843,12 @@ function DonationSheet({ config, canEdit, onClose }: {
       const clean: DonationConfig = {
         title: (draft.title || '').trim(),
         message: (draft.message || '').trim(),
+        thanksMessage: (draft.thanksMessage || '').trim(),
         providers: draft.providers
-          .filter(p => (p.label || '').trim() || (p.number || '').trim())
+          .filter(p => (p.label || '').trim() && (providerKind(p) === 'link' ? (p.url || '').trim() : (p.number || '').trim()))
           .map(p => ({
-            id: p.id, label: (p.label || '').trim(), number: (p.number || '').trim(),
+            id: p.id, label: (p.label || '').trim(), kind: providerKind(p),
+            number: (p.number || '').trim(), url: (p.url || '').trim(),
             holder: (p.holder || '').trim(), note: (p.note || '').trim()
           }))
       }
@@ -3716,6 +3858,14 @@ function DonationSheet({ config, canEdit, onClose }: {
       setError(e?.message || String(e))
     } finally { setSaving(false) }
   }
+
+  const typeChip = (id: DonationType, label: string) => (
+    <button key={id} type="button" onClick={() => setDonType(id)}
+      className={`flex-1 py-2.5 rounded-xl text-sm font-semibold border transition ${
+        donType === id ? 'bg-affirm-600 text-white border-affirm-500' : 'border-slate-200 text-slate-600 hover:border-slate-300'}`}>
+      {label}
+    </button>
+  )
 
   return (
     <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-end sm:items-center justify-center" onClick={onClose}>
@@ -3744,6 +3894,12 @@ function DonationSheet({ config, canEdit, onClose }: {
                 <textarea value={draft.message || ''} onChange={e => setField('message', e.target.value)} rows={2}
                   className="w-full mt-1 px-3 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-amber-400 text-sm resize-none" />
               </div>
+              <div>
+                <label className="text-xs font-semibold text-slate-500">{t('donate.fieldThanks')}</label>
+                <textarea value={draft.thanksMessage || ''} onChange={e => setField('thanksMessage', e.target.value)} rows={3}
+                  placeholder={t('donate.thanksPlaceholder')}
+                  className="w-full mt-1 px-3 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-amber-400 text-sm resize-none" />
+              </div>
               <div className="space-y-3">
                 {draft.providers.map(p => (
                   <div key={p.id} className="rounded-2xl border border-slate-200 p-3 space-y-2">
@@ -3753,8 +3909,22 @@ function DonationSheet({ config, canEdit, onClose }: {
                       <button onClick={() => removeProvider(p.id)} aria-label={t('post.delete')}
                         className="p-2 text-slate-300 hover:text-red-500"><Trash2 size={16} /></button>
                     </div>
-                    <input value={p.number} onChange={e => setProvider(p.id, 'number', e.target.value)} placeholder={t('donate.fieldNumber')} inputMode="tel"
-                      className="w-full px-3 py-2 rounded-lg border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400" />
+                    <div className="flex gap-2">
+                      {(['number', 'link'] as const).map(k => (
+                        <button key={k} type="button" onClick={() => setProvider(p.id, 'kind', k)}
+                          className={`flex-1 py-2 rounded-lg text-xs font-semibold border transition ${
+                            providerKind(p) === k ? 'bg-amber-500 text-white border-amber-400' : 'border-slate-200 text-slate-500'}`}>
+                          {k === 'number' ? t('donate.kindNumber') : t('donate.kindLink')}
+                        </button>
+                      ))}
+                    </div>
+                    {providerKind(p) === 'link' ? (
+                      <input value={p.url || ''} onChange={e => setProvider(p.id, 'url', e.target.value)} placeholder={t('donate.fieldUrl')} inputMode="url"
+                        className="w-full px-3 py-2 rounded-lg border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400" />
+                    ) : (
+                      <input value={p.number} onChange={e => setProvider(p.id, 'number', e.target.value)} placeholder={t('donate.fieldNumber')} inputMode="tel"
+                        className="w-full px-3 py-2 rounded-lg border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400" />
+                    )}
                     <input value={p.holder || ''} onChange={e => setProvider(p.id, 'holder', e.target.value)} placeholder={t('donate.fieldHolder')}
                       className="w-full px-3 py-2 rounded-lg border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400" />
                     <textarea value={p.note || ''} onChange={e => setProvider(p.id, 'note', e.target.value)} rows={2} placeholder={t('donate.fieldNote')}
@@ -3776,34 +3946,99 @@ function DonationSheet({ config, canEdit, onClose }: {
                 </button>
               </div>
             </div>
+          ) : declared ? (
+            <div className="text-center py-8">
+              <div className="w-14 h-14 rounded-full bg-affirm-50 text-affirm-600 flex items-center justify-center mx-auto">
+                <Check size={26} />
+              </div>
+              <h4 className="mt-4 text-lg font-bold text-slate-800">{t('donate.thanksTitle')}</h4>
+              <p className="mt-2 text-sm text-slate-500 leading-relaxed max-w-xs mx-auto">{t('donate.thanksBody')}</p>
+              <button onClick={onClose}
+                className="mt-6 w-full py-3.5 rounded-2xl btn-glass-primary font-semibold text-[15px]">
+                {t('report.close')}
+              </button>
+            </div>
           ) : (
-            <div className="space-y-4">
+            <div className="space-y-5">
               {(config?.title || config?.message) && (
                 <div className="text-center">
                   {config?.title && <h4 className="font-bold text-lg text-slate-800">{config.title}</h4>}
                   {config?.message && <p className="text-sm text-slate-500 mt-1 whitespace-pre-wrap">{config.message}</p>}
                 </div>
               )}
-              {providers.length === 0 ? (
-                <p className="text-center text-slate-400 text-sm py-10">
-                  {canEdit ? t('donate.emptyAdmin') : t('donate.empty')}
-                </p>
-              ) : providers.map(p => (
-                <div key={p.id} className="rounded-2xl border border-slate-200 p-4">
-                  <div className="mb-2">
-                    <span className={`px-2.5 py-1 rounded-full text-xs font-bold ${donationAccent(p.label)}`}>{p.label}</span>
-                  </div>
-                  {p.holder && <p className="text-xs text-slate-500 mb-1.5">{p.holder}</p>}
-                  <div className="flex items-center justify-between gap-2 bg-slate-50 rounded-xl px-3 py-2.5">
-                    <span className="font-mono font-semibold text-slate-800 text-[15px] tracking-wide break-all">{p.number}</span>
-                    <button onClick={() => copy(p.id, p.number)}
-                      className="flex items-center gap-1 text-xs font-semibold text-amber-600 hover:text-amber-700 shrink-0">
-                      {copied === p.id ? <><Check size={14} /> {t('donate.copied')}</> : <><Copy size={14} /> {t('donate.copy')}</>}
-                    </button>
-                  </div>
-                  {p.note && <p className="text-xs text-slate-500 mt-2 whitespace-pre-wrap">{p.note}</p>}
+
+              <div>
+                <p className="text-xs font-semibold text-slate-500 mb-2">{t('donate.typeLabel')}</p>
+                <div className="flex gap-2">
+                  {typeChip('dime', t('donate.typeDime'))}
+                  {typeChip('offrande', t('donate.typeOffrande'))}
+                  {typeChip('autre', t('donate.typeAutre'))}
                 </div>
-              ))}
+              </div>
+
+              <div>
+                <label className="text-xs font-semibold text-slate-500">{t('donate.purposeLabel')}</label>
+                <input value={purpose} onChange={e => setPurpose(e.target.value)} maxLength={300}
+                  placeholder={t('donate.purposePlaceholder')}
+                  className="w-full mt-1 px-3 py-2.5 rounded-xl glass-input text-slate-800 placeholder:text-slate-400 text-sm focus:outline-none" />
+              </div>
+              <div>
+                <label className="text-xs font-semibold text-slate-500">{t('donate.amountLabel')}</label>
+                <input value={amount} onChange={e => setAmount(e.target.value)} maxLength={30}
+                  placeholder={t('donate.amountPlaceholder')} inputMode="text"
+                  className="w-full mt-1 px-3 py-2.5 rounded-xl glass-input text-slate-800 placeholder:text-slate-400 text-sm focus:outline-none" />
+              </div>
+
+              <div>
+                <p className="text-xs font-semibold text-slate-500 mb-2">{t('donate.methodsLabel')}</p>
+                {providers.length === 0 ? (
+                  <p className="text-center text-slate-400 text-sm py-8">
+                    {canEdit ? t('donate.emptyAdmin') : t('donate.empty')}
+                  </p>
+                ) : (
+                  <div className="space-y-3">
+                    {providers.map(p => (
+                      <div key={p.id} className={`rounded-2xl border p-4 transition ${
+                        methodUsed?.id === p.id ? 'border-affirm-400 bg-affirm-50/60' : 'border-slate-200'}`}>
+                        <div className="mb-2 flex items-center justify-between">
+                          <span className={`px-2.5 py-1 rounded-full text-xs font-bold ${donationAccent(p.label)}`}>{p.label}</span>
+                          {methodUsed?.id === p.id && <Check size={15} className="text-affirm-600" />}
+                        </div>
+                        {p.holder && <p className="text-xs text-slate-500 mb-1.5">{p.holder}</p>}
+                        {providerKind(p) === 'link' ? (
+                          <>
+                            <button onClick={() => openLink(p)}
+                              className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-slate-800 hover:bg-slate-900 text-white text-sm font-semibold">
+                              {t('donate.open')} {p.label} <ArrowRight size={15} />
+                            </button>
+                            <p className="text-[10px] text-slate-400 text-center mt-1.5">{t('donate.openExternalNote')}</p>
+                          </>
+                        ) : (
+                          <div className="flex items-center justify-between gap-2 bg-slate-50 rounded-xl px-3 py-2.5">
+                            <span className="font-mono font-semibold text-slate-800 text-[15px] tracking-wide break-all">{p.number}</span>
+                            <button onClick={() => copy(p)}
+                              className="flex items-center gap-1 text-xs font-semibold text-amber-600 hover:text-amber-700 shrink-0">
+                              {copied === p.id ? <><Check size={14} /> {t('donate.copied')}</> : <><Copy size={14} /> {t('donate.copy')}</>}
+                            </button>
+                          </div>
+                        )}
+                        {p.note && <p className="text-xs text-slate-500 mt-2 whitespace-pre-wrap">{p.note}</p>}
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              {providers.length > 0 && (
+                <div>
+                  {declareError && <p className="text-sm text-red-600 bg-red-500/10 border border-red-500/20 rounded-xl px-4 py-3 mb-3">{declareError}</p>}
+                  <button onClick={declare} disabled={!donType || declaring}
+                    className="w-full py-3.5 rounded-2xl btn-glass-primary font-semibold text-[15px] disabled:opacity-50">
+                    {declaring ? t('donate.declaring') : t('donate.declare')}
+                  </button>
+                  <p className="text-[11px] text-slate-400 text-center mt-2 leading-relaxed">{t('donate.declareHint')}</p>
+                </div>
+              )}
             </div>
           )}
         </div>

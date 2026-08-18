@@ -176,19 +176,60 @@ export interface AppNotification {
 }
 
 
-// Mobile-money donation details, editable by an admin and shown to everyone
-// in the donation sheet. Stored as a single doc at config/donation.
+// Donation details, editable by an admin and shown to everyone in the
+// donation sheet. Stored as a single doc at config/donation.
+//
+// Two kinds of payment method:
+//  - 'number': a mobile-money number (Wave, Orange Money, Moov Money) the
+//    person copies and pays from their own money app. The original kind;
+//    providers without a `kind` are treated as 'number' for backward compat.
+//  - 'link': an external payment page (PayPal, Cash App, a card checkout
+//    link from a processor). The app only OPENS the link in the system
+//    browser - it never collects card details itself, which keeps it out of
+//    PCI scope and clear of Play's payment rules (charitable donations are
+//    exempt from Play Billing, but checkout still must not happen in-app).
 export interface DonationProvider {
   id: string;
-  label: string;      // e.g. "Wave", "Orange Money", "Moov Money"
-  number: string;     // the phone number money is sent to
+  label: string;      // e.g. "Wave", "PayPal", "Carte bancaire"
+  kind?: 'number' | 'link';
+  number: string;     // for kind 'number': the phone number money is sent to
+  url?: string;       // for kind 'link': the external payment page
   holder?: string;    // account holder name
   note?: string;      // free-text instructions
 }
 export interface DonationConfig {
   title?: string;
   message?: string;
+  // Thank-you sent into the donor's Messages (from Centre Chrétien E.L.I.M.)
+  // after they declare a donation. Sent server-side by a Cloud Function so it
+  // can't be forged; editable here so the church can word it.
+  thanksMessage?: string;
   providers: DonationProvider[];
+}
+
+// A donation DECLARED by a member after paying outside the app. The app never
+// sees the money move (mobile money / PayPal / cards all settle elsewhere),
+// so this self-declaration is what triggers the thank-you message and feeds
+// the treasurer's reconciliation ledger in the Admin tab. `verified` is set
+// by staff once the payment is matched against a statement.
+export type DonationType = 'dime' | 'offrande' | 'autre';
+export interface Donation {
+  id: string;
+  donorId: string;
+  donorName: string;
+  type: DonationType;
+  // Free text: what the donation is for (construction, missions, ...).
+  purpose?: string;
+  // Free text amount as the donor typed it ("10 000 FCFA", "$50") - currencies
+  // vary too much across mobile money / PayPal / Cash App to force a number.
+  amount?: string;
+  methodId?: string;
+  methodLabel?: string;
+  status: 'declared' | 'verified';
+  verifiedById?: string;
+  verifiedByName?: string;
+  verifiedAt?: any;
+  createdAt: any;
 }
 
 

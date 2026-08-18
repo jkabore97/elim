@@ -29,6 +29,7 @@ await env.withSecurityRulesDisabled(async (ctx) => {
   await setDoc(doc(db, 'users/church1'), { role: 'church', displayName: 'C1' })
   await setDoc(doc(db, 'comments/c1'), { postId: 'p1', userId: 'member2', text: 'hi', likes: 0 })
   await setDoc(doc(db, 'reports/r1'), { targetType: 'post', targetId: 'p1', reason: 'child_safety', reporterId: 'member2', reporterName: 'M2', status: 'open' })
+  await setDoc(doc(db, 'donations/d1'), { donorId: 'member2', donorName: 'M2', type: 'dime', purpose: 'construction', status: 'declared' })
   await setDoc(doc(db, 'comments/cOld'), { postId: 'p1', userId: 'member2', text: 'old' }) // no likes field
   await setDoc(doc(db, 'posts/p1'), { churchId: 'church1', likes: 0, commentsCount: 0 })
   await setDoc(doc(db, 'conversations/convDirect'), { type: 'direct', participantIds: ['pastor1', 'member1'] })
@@ -106,6 +107,28 @@ await check('member CANNOT resolve a report',
   assertFails(updateDoc(doc(m1, 'reports/r1'), { status: 'dismissed' })))
 await check('nobody can delete a report',
   assertFails(deleteDoc(doc(pastor, 'reports/r1'))))
+
+console.log('Donations (declarations):')
+await check('member declares a dime',
+  assertSucceeds(addDoc(collection(m1, 'donations'), { donorId: 'member1', donorName: 'M1', type: 'dime', purpose: 'x', amount: '5000 FCFA', status: 'declared', createdAt: serverTimestamp() })))
+await check('member CANNOT declare as someone else',
+  assertFails(addDoc(collection(m1, 'donations'), { donorId: 'member2', donorName: 'M2', type: 'dime', status: 'declared', createdAt: serverTimestamp() })))
+await check('member CANNOT self-verify at creation',
+  assertFails(addDoc(collection(m1, 'donations'), { donorId: 'member1', donorName: 'M1', type: 'dime', status: 'verified', createdAt: serverTimestamp() })))
+await check('member CANNOT use an unknown donation type',
+  assertFails(addDoc(collection(m1, 'donations'), { donorId: 'member1', donorName: 'M1', type: 'jackpot', status: 'declared', createdAt: serverTimestamp() })))
+await check('member CANNOT read another member donation',
+  assertFails(getDoc(doc(m1, 'donations/d1'))))
+await check('staff reads the donations ledger',
+  assertSucceeds(getDoc(doc(pastor, 'donations/d1'))))
+await check('staff verifies a donation',
+  assertSucceeds(updateDoc(doc(pastor, 'donations/d1'), { status: 'verified', verifiedById: 'pastor1', verifiedByName: 'P', verifiedAt: serverTimestamp() })))
+await check('staff CANNOT rewrite the declaration itself',
+  assertFails(updateDoc(doc(pastor, 'donations/d1'), { status: 'verified', amount: '999999' })))
+await check('member CANNOT verify a donation',
+  assertFails(updateDoc(doc(m1, 'donations/d1'), { status: 'verified' })))
+await check('nobody can delete a donation',
+  assertFails(deleteDoc(doc(pastor, 'donations/d1'))))
 
 await env.cleanup()
 console.log(`\n${pass} passed, ${fail} failed`)

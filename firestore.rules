@@ -301,6 +301,40 @@ service cloud.firestore {
       allow delete: if isSignedIn() && resource.data.recipientId == request.auth.uid;
     }
 
+    // ---- Donations (declarations) ----
+    // A member declares a donation AFTER paying outside the app (mobile
+    // money / PayPal / card link) - the app never touches the money itself.
+    // The declaration triggers the thank-you message (Cloud Function) and
+    // feeds the treasurer's ledger in the Admin tab.
+    //
+    // Reads: staff, or the donor reading their own declarations. Donation
+    // records (a dime is a tithe) are sensitive - they must never be
+    // readable across members.
+    match /donations/{donationId} {
+      allow read: if isSignedIn()
+                  && (isAdmin() || resource.data.donorId == request.auth.uid);
+
+      allow create: if isSignedIn()
+                    && request.resource.data.donorId == request.auth.uid
+                    && request.resource.data.status == 'declared'
+                    && request.resource.data.type in ['dime', 'offrande', 'autre']
+                    && (!('purpose' in request.resource.data)
+                        || request.resource.data.purpose.size() <= 300)
+                    && (!('amount' in request.resource.data)
+                        || request.resource.data.amount.size() <= 30)
+                    && (!('methodLabel' in request.resource.data)
+                        || request.resource.data.methodLabel.size() <= 60);
+
+      // Only staff may verify, and only by moving the status and stamping the
+      // reviewer - the declaration itself stays exactly as the donor filed it.
+      allow update: if isAdmin()
+                    && request.resource.data.diff(resource.data).affectedKeys()
+                         .hasOnly(['status', 'verifiedById', 'verifiedByName', 'verifiedAt'])
+                    && request.resource.data.status in ['declared', 'verified'];
+
+      allow delete: if false;
+    }
+
     // ---- Safety reports ----
     // In-app reporting, required by Google Play's child safety standards
     // policy. Write-only for ordinary users: anyone signed in may file a
