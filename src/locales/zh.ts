@@ -491,6 +491,10 @@ const zh: Record<string, string> = {
   "admin.syncFailed": "同步失败",
   "profile.language": "语言",
   "profile.languageNote": "选择应用的语言。",
+  "translate.action": "翻译",
+  "translate.showOriginal": "显示原文",
+  "translate.translating": "正在翻译...",
+  "translate.failed": "无法翻译",
 }
 
 export default zh

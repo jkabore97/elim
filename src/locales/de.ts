@@ -490,6 +490,10 @@ const de: Record<string, string> = {
   "admin.syncFailed": "Synchronisierung fehlgeschlagen",
   "profile.language": "Sprache",
   "profile.languageNote": "Wähle die Sprache der App.",
+  "translate.action": "Übersetzen",
+  "translate.showOriginal": "Original anzeigen",
+  "translate.translating": "Übersetzen...",
+  "translate.failed": "Übersetzung fehlgeschlagen",
 }
 
 export default de

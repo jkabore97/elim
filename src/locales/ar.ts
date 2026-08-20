@@ -491,6 +491,10 @@ const ar: Record<string, string> = {
   "admin.syncFailed": "فشلت المزامنة",
   "profile.language": "اللغة",
   "profile.languageNote": "اختر لغة التطبيق.",
+  "translate.action": "ترجمة",
+  "translate.showOriginal": "عرض الأصل",
+  "translate.translating": "جارٍ الترجمة...",
+  "translate.failed": "تعذّرت الترجمة",
 }
 
 export default ar

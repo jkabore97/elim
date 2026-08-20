@@ -491,6 +491,10 @@ const hi: Record<string, string> = {
   "admin.syncFailed": "सिंक विफल रहा",
   "profile.language": "भाषा",
   "profile.languageNote": "ऐप की भाषा चुनें।",
+  "translate.action": "अनुवाद करें",
+  "translate.showOriginal": "मूल दिखाएँ",
+  "translate.translating": "अनुवाद हो रहा है...",
+  "translate.failed": "अनुवाद नहीं हो सका",
 }
 
 export default hi

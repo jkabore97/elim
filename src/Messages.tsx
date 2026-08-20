@@ -13,6 +13,7 @@ import { useLanguage } from './i18n'
 import { useMediaPlayer } from './MediaPlayer'
 import { useBackHandler } from './backButton'
 import { ImageLightbox } from './ImageLightbox'
+import { TranslateToggle } from './TranslateToggle'
 import type { AppUser, Conversation, Message } from './types'
 
 // Staff = the two accounts that receive and answer messages. Church accounts
@@ -665,10 +666,15 @@ function ChatView({ conversation, user, onBack }: {
                     </button>
                   </div>
                 ) : m.text ? (
-                  <p onClick={() => setOpenActions(openActions === m.id ? null : m.id)}
-                    className="text-[15px] leading-relaxed whitespace-pre-wrap break-words cursor-pointer">
-                    {m.text}
-                  </p>
+                  <>
+                    <p onClick={() => setOpenActions(openActions === m.id ? null : m.id)}
+                      className="text-[15px] leading-relaxed whitespace-pre-wrap break-words cursor-pointer">
+                      {m.text}
+                    </p>
+                    {/* Only offer to translate the other person's words - you
+                        don't need your own message translated. */}
+                    {!mine && <TranslateToggle text={m.text} tone="light" className="mt-1" />}
+                  </>
                 ) : null}
 
                 <p className={`text-[10px] mt-1 flex items-center gap-1 ${mine ? 'text-affirm-100/70' : 'text-slate-500'}`}>

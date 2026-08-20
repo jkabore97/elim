@@ -491,6 +491,10 @@ const fr = {
   "admin.syncFailed": 'Échec de la synchronisation',
   "profile.language": "Langue",
   "profile.languageNote": "Choisissez la langue de l'application.",
+  "translate.action": "Traduire",
+  "translate.showOriginal": "Afficher l'original",
+  "translate.translating": "Traduction...",
+  "translate.failed": "Traduction impossible",
 }
 
 export default fr

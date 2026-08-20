@@ -491,6 +491,10 @@ const en = {
   "admin.syncFailed": 'Sync failed',
   "profile.language": "Language",
   "profile.languageNote": "Choose the language of the app.",
+  "translate.action": "Translate",
+  "translate.showOriginal": "Show original",
+  "translate.translating": "Translating...",
+  "translate.failed": "Couldn't translate",
 }
 
 export default en
