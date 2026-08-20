@@ -43,6 +43,42 @@ jobs:
           fi
           printf '%s' "$SA_JSON" > "$RUNNER_TEMP/sa.json"
 
+      # Catch a mangled/truncated key with a clear message BEFORE the deploy,
+      # and print only the non-secret identity fields so we can confirm the key
+      # is intact and points at the right project.
+      - name: Validate the service-account key
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: ${{ runner.temp }}/sa.json
+        run: |
+          node -e '
+            const fs = require("fs");
+            let k;
+            try {
+              k = JSON.parse(fs.readFileSync(process.env.GOOGLE_APPLICATION_CREDENTIALS, "utf8"));
+            } catch (e) {
+              console.error("::error::FIREBASE_SERVICE_ACCOUNT is not valid JSON. Re-copy the ENTIRE key.json - including the outer { and } - into the secret, with nothing before or after it.");
+              process.exit(1);
+            }
+            const missing = ["type","project_id","private_key","client_email"].filter(f => !k[f]);
+            if (missing.length) {
+              console.error("::error::The key is missing required field(s): " + missing.join(", ") + ". Generate a fresh service-account key and paste the whole file.");
+              process.exit(1);
+            }
+            if (k.type !== "service_account") {
+              console.error("::error::Key type is \"" + k.type + "\" but must be \"service_account\". This is the wrong kind of key - generate one with: gcloud iam service-accounts keys create.");
+              process.exit(1);
+            }
+            if (k.project_id !== "elim-b1fff") {
+              console.error("::error::Key is for project \"" + k.project_id + "\" but this app is elim-b1fff.");
+              process.exit(1);
+            }
+            if (!/-----BEGIN PRIVATE KEY-----/.test(k.private_key) || !/-----END PRIVATE KEY-----/.test(k.private_key)) {
+              console.error("::error::The private_key looks truncated - it must contain the full -----BEGIN/END PRIVATE KEY----- block. Re-paste the whole key.json.");
+              process.exit(1);
+            }
+            console.log("Key looks valid. Service account:", k.client_email, "| project:", k.project_id);
+          '
+
       - name: Deploy
         env:
           # firebase-tools authenticates non-interactively from this key file.
