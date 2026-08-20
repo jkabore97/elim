@@ -36,6 +36,9 @@ export const LANGUAGES: { code: Language; native: string; english: string; rtl?:
   { code: 'pt', native: 'Português', english: 'Portuguese' },
   { code: 'it', native: 'Italiano', english: 'Italian' },
   { code: 'de', native: 'Deutsch', english: 'German' },
+  { code: 'ar', native: 'العربية', english: 'Arabic', rtl: true },
+  { code: 'zh', native: '中文', english: 'Chinese' },
+  { code: 'hi', native: 'हिन्दी', english: 'Hindi' },
 ]
 
 const SUPPORTED = new Set<string>(LANGUAGES.map(l => l.code))
