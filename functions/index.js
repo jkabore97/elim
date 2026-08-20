@@ -1,9 +1,17 @@
 const { onDocumentCreated } = require('firebase-functions/v2/firestore');
+const { onCall, HttpsError } = require('firebase-functions/v2/https');
 const { initializeApp } = require('firebase-admin/app');
 const { getFirestore, FieldValue } = require('firebase-admin/firestore');
 const { getMessaging } = require('firebase-admin/messaging');
+const { Translate } = require('@google-cloud/translate').v2;
 
 initializeApp();
+
+// One Translate client, reused across warm invocations. It authenticates with
+// the function's own service account (Application Default Credentials), so no
+// API key is stored anywhere - the Cloud Translation API just needs to be
+// enabled on the project.
+const translateClient = new Translate();
 
 // FCM's multicast send accepts at most 500 tokens per call - this batches
 // a longer token list into chunks that size, sending each chunk in parallel.
@@ -345,4 +353,34 @@ exports.thankOnDonation = onDocumentCreated('donations/{donationId}', async (eve
     participantIds: [donation.donorId],
     createdAt: FieldValue.serverTimestamp(),
   });
+});
+
+// Translates a single piece of user content into the reader's language, on
+// demand from the "Translate" button. Callable (not an HTTP endpoint) so the
+// Firebase Auth token rides along automatically - only signed-in members can
+// use it, which keeps it from being an open, abusable translation proxy.
+exports.translateContent = onCall({ region: 'us-central1' }, async (request) => {
+  if (!request.auth) {
+    throw new HttpsError('unauthenticated', 'Sign in to translate.');
+  }
+  const text = String(request.data?.text || '').trim();
+  const target = String(request.data?.target || '').trim();
+  if (!text || !target) {
+    throw new HttpsError('invalid-argument', 'text and target are required.');
+  }
+  // A church post or message; anything longer is almost certainly abuse.
+  if (text.length > 5000) {
+    throw new HttpsError('invalid-argument', 'Text is too long to translate.');
+  }
+  try {
+    const [translation, meta] = await translateClient.translate(text, target);
+    const detected = meta && meta.data && meta.data.translations
+      && meta.data.translations[0]
+      ? meta.data.translations[0].detectedSourceLanguage
+      : null;
+    return { text: translation, source: detected || null };
+  } catch (err) {
+    console.error('translateContent failed', err);
+    throw new HttpsError('internal', 'Translation failed. Please try again.');
+  }
 });

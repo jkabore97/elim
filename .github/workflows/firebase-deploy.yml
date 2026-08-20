@@ -1,0 +1,50 @@
+name: Deploy Firebase
+
+# Manual, button-triggered deploy of the Firestore rules/indexes and the Cloud
+# Functions - so they can be shipped without an interactive `firebase login`.
+# Auth is a service-account key stored in the repo secret FIREBASE_SERVICE_ACCOUNT
+# (see store/README or the setup notes), which avoids the browser sign-in flow
+# entirely.
+on:
+  workflow_dispatch:
+    inputs:
+      targets:
+        description: "What to deploy"
+        type: choice
+        default: "firestore:rules,firestore:indexes,functions"
+        options:
+          - "firestore:rules,firestore:indexes,functions"
+          - "firestore:rules,firestore:indexes"
+          - "functions"
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Install functions dependencies
+        run: npm install
+        working-directory: functions
+
+      - name: Write the service-account key
+        env:
+          SA_JSON: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+        run: |
+          if [ -z "$SA_JSON" ]; then
+            echo "::error::Secret FIREBASE_SERVICE_ACCOUNT is empty or missing."
+            echo "Add it under Settings -> Secrets and variables -> Actions."
+            exit 1
+          fi
+          printf '%s' "$SA_JSON" > "$RUNNER_TEMP/sa.json"
+
+      - name: Deploy
+        env:
+          # firebase-tools authenticates non-interactively from this key file.
+          GOOGLE_APPLICATION_CREDENTIALS: ${{ runner.temp }}/sa.json
+        run: npx --yes firebase-tools deploy --only "${{ inputs.targets }}" --project elim-b1fff --non-interactive --force
