@@ -35,7 +35,7 @@ import { playMessageAlert, isAlertMuted, setAlertMuted } from './messageAlert'
 import { DataManagementTab } from './DataManagement'
 import { LibraryTab } from './Library'
 import type { Post, Comment, AppUser, ActivityLog, AppNotification, DonationConfig, DonationProvider, Report, DonationType, Donation } from './types'
-import { LanguageProvider, useLanguage, type Language } from './i18n'
+import { LanguageProvider, useLanguage, LANGUAGES, type Language } from './i18n'
 
 function timeAgo(date: any) {
   if (!date) return ''
@@ -190,24 +190,51 @@ function AuthBanner({ subtitle }: { subtitle?: string }) {
 
 // Small EN/FR toggle. `dark` picks the variant meant to sit on dark
 // surfaces (auth screens, sidebar) vs. light ones (landing page nav).
-function LanguageSwitcher({ dark = false }: { dark?: boolean }) {
+// Compact all-languages dropdown (globe + native <select>). A native select
+// scales cleanly to any number of languages and is fully accessible. Used on
+// the pre-login auth/landing screens (where there's no Profile tab yet); the
+// logged-in app puts the picker under Profile instead.
+function LanguageSwitcher() {
   const { language, setLanguage } = useLanguage()
-  const base = dark
-    ? 'bg-white/5 border-white/10'
-    : 'bg-slate-100 border-transparent'
-  const inactive = dark ? 'text-slate-400' : 'text-slate-500'
-  const active = dark ? 'bg-white/10 text-white' : 'bg-white text-slate-900 shadow-sm'
-
   return (
-    <div className={`inline-flex items-center gap-0.5 p-1 rounded-full border ${base}`}>
-      <Globe size={13} className={`ml-1.5 mr-0.5 ${inactive}`} />
-      {(['fr', 'en'] as Language[]).map(lang => (
-        <button key={lang} onClick={() => setLanguage(lang)}
-          className={`px-2.5 py-1 rounded-full text-[11px] font-bold uppercase tracking-wide transition ${
-            language === lang ? active : `${inactive} hover:text-slate-300`}`}>
-          {lang}
-        </button>
-      ))}
+    <div className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-full bg-slate-100 border border-transparent">
+      <Globe size={14} className="text-slate-500 shrink-0" />
+      <select value={language} onChange={e => setLanguage(e.target.value as Language)}
+        aria-label="Language"
+        className="bg-transparent text-[13px] font-semibold text-slate-700 focus:outline-none appearance-none pr-1 cursor-pointer">
+        {LANGUAGES.map(l => (
+          <option key={l.code} value={l.code}>{l.native}</option>
+        ))}
+      </select>
+    </div>
+  )
+}
+
+// The full language picker shown under Profile: one tappable row per language,
+// its own name shown, a check on the active one.
+function LanguagePicker() {
+  const { language, setLanguage, t } = useLanguage()
+  return (
+    <div className="glass rounded-3xl p-6 shadow-sm border border-slate-100">
+      <div className="flex items-center gap-2">
+        <Globe size={18} className="text-affirm-600" />
+        <h3 className="font-bold text-slate-900">{t('profile.language')}</h3>
+      </div>
+      <p className="text-xs text-slate-400 mt-0.5">{t('profile.languageNote')}</p>
+      <div className="mt-4 grid grid-cols-2 gap-2">
+        {LANGUAGES.map(l => {
+          const on = language === l.code
+          return (
+            <button key={l.code} type="button" onClick={() => setLanguage(l.code)}
+              dir={l.rtl ? 'rtl' : 'ltr'}
+              className={`flex items-center justify-between gap-2 px-4 py-3 rounded-2xl border text-[15px] font-semibold transition ${
+                on ? 'border-affirm-500 bg-affirm-50 text-affirm-700' : 'border-slate-200 text-slate-700 hover:border-slate-300'}`}>
+              <span className="truncate">{l.native}</span>
+              {on && <Check size={16} className="text-affirm-600 shrink-0" />}
+            </button>
+          )
+        })}
+      </div>
     </div>
   )
 }
@@ -1604,7 +1631,6 @@ function AppInner() {
           <div className="flex items-center justify-between">
             <Logo size={34} />
           </div>
-          <div className="mt-4"><LanguageSwitcher /></div>
           <nav className="mt-6 flex-1 space-y-1">
             {navItems.map(item => {
               const Icon = item.icon
@@ -1660,7 +1686,6 @@ function AppInner() {
             <div className="px-5 h-14 flex items-center justify-between">
               <Logo size={32} />
               <div className="flex items-center gap-3">
-                <LanguageSwitcher />
                 <button onClick={openNotifications} aria-label={t('notif.title')}
                   className="relative p-2 rounded-full hover:bg-slate-900/5 text-slate-600 transition">
                   <Bell size={20} />
@@ -2307,6 +2332,8 @@ function ProfileTab({ user, onProfileUpdated, onLogout }: {
           {saving ? t('profile.saving') : t('profile.saveChanges')}
         </button>
       </form>
+
+      <LanguagePicker />
 
       <div className="glass rounded-3xl p-6 shadow-sm border border-slate-100">
         <div className="flex items-center justify-between gap-4">

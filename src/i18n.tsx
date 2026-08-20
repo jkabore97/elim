@@ -1,550 +1,42 @@
 import { createContext, useContext, useState, useEffect, type ReactNode } from 'react'
 import { storageGet, storageSet } from './safeStorage'
 
-export type Language = 'en' | 'fr'
+import en from './locales/en'
+import fr from './locales/fr'
+import es from './locales/es'
+import pt from './locales/pt'
+import it from './locales/it'
+import de from './locales/de'
+import ar from './locales/ar'
+import zh from './locales/zh'
+import hi from './locales/hi'
+// To add a language: create src/locales/<code>.ts, import it here, add it to
+// DICTS and to LANGUAGES below. Missing keys fall back to English automatically.
 
-const translations = {
-  // ---- Feed filters & search ----
-  'feed.searchPlaceholder': { en: 'Search posts...', fr: 'Rechercher des publications...' },
-  'feed.all': { en: 'All', fr: 'Tout' },
-  'feed.videos': { en: 'Videos', fr: 'Vidéos' },
-  'feed.audios': { en: 'Audio', fr: 'Audio' },
-  'feed.posts': { en: 'Posts', fr: 'Publications' },
-  'feed.noMatches': { en: 'Nothing found', fr: 'Aucun résultat' },
-  'feed.tryDifferent': { en: 'Try a different search or filter', fr: 'Essayez une autre recherche ou un autre filtre' },
-  'post.linkCopied': { en: 'Link copied', fr: 'Lien copié' },
+// English is the source of truth: every key exists in en, and TranslationKey
+// is derived from it. Other locales are Partial - any key they're missing
+// falls back to English (see `t` below), so a half-finished translation can
+// never crash the app or show a blank label.
+export type TranslationKey = keyof typeof en
 
-  // ---- Notification prompt ----
-  'notifPrompt.title': { en: 'Stay updated', fr: 'Restez informé' },
-  'notifPrompt.body': { en: 'Turn on notifications to know when your church shares something new.', fr: 'Activez les notifications pour savoir quand votre église partage du nouveau contenu.' },
-  'notifPrompt.enable': { en: 'Turn on', fr: 'Activer' },
-  'notifPrompt.later': { en: 'Not now', fr: 'Plus tard' },
+export type Language = 'en' | 'fr' | 'es' | 'pt' | 'it' | 'de' | 'ar' | 'zh' | 'hi'
 
-  'nav.logs': { en: 'Logs', fr: 'Journaux' },
-  'logs.searchPlaceholder': { en: 'Search logs...', fr: 'Rechercher dans les journaux...' },
-  'logs.all': { en: 'All', fr: 'Tout' },
-  'logs.authFilter': { en: 'Sign-ins', fr: 'Connexions' },
-  'logs.postsFilter': { en: 'Posts', fr: 'Publications' },
-  'logs.adminFilter': { en: 'Admin', fr: 'Admin' },
-  'logs.empty': { en: 'No activity recorded yet', fr: 'Aucune activité enregistrée' },
-  'logs.signin': { en: 'Signed in', fr: "S'est connecté" },
-  'logs.signup': { en: 'Created an account', fr: 'A créé un compte' },
-  'logs.postCreated': { en: 'Published a post', fr: 'A publié' },
-  'logs.postEdited': { en: 'Edited a post', fr: 'A modifié une publication' },
-  'logs.postDeleted': { en: 'Deleted a post', fr: 'A supprimé une publication' },
-  'logs.churchApproved': { en: 'Approved a church', fr: 'A approuvé une église' },
-  'logs.churchDenied': { en: 'Denied a church', fr: 'A refusé une église' },
-  'logs.directorySynced': { en: 'Synced the church directory', fr: 'A synchronisé le répertoire' },
-  'nav.musique': { en: 'Music', fr: 'Musique' },
-  'musique.search': { en: 'Search for a song...', fr: 'Rechercher un chant...' },
-  'musique.noMatches': { en: 'Nothing found', fr: 'Aucun résultat' },
-  'musique.tryDifferent': { en: 'Try another search or filter', fr: 'Essayez une autre recherche ou un autre filtre' },
-  'musique.all': { en: 'All', fr: 'Tout' },
-  'musique.addOne': { en: 'Add a song', fr: 'Ajouter un chant' },
-  'musique.addMany': { en: 'Add many', fr: 'Ajouter plusieurs' },
-  'musique.bulkTitle': { en: 'Add several songs', fr: 'Ajouter plusieurs chants' },
-  'musique.bulkHint': { en: 'One song per line, in the form: Song title | YouTube link. A line with only a link also works - the link becomes the title.', fr: "Un chant par ligne, sous la forme : Titre du chant | lien YouTube. Une ligne contenant seulement un lien fonctionne aussi - le lien devient le titre." },
-  'musique.readyToAdd': { en: 'song(s) ready to add', fr: 'chant(s) prêt(s) à ajouter' },
-  'musique.skipped': { en: 'line(s) skipped - no valid YouTube link found', fr: 'ligne(s) ignorée(s) - aucun lien YouTube valide' },
-  'musique.addAll': { en: 'Add all', fr: 'Tout ajouter' },
-  'musique.adding': { en: 'Adding...', fr: 'Ajout...' },
-  'musique.empty': { en: 'No music yet', fr: 'Aucune musique' },
-  'musique.emptyHint': { en: 'Songs shared by the church will appear here', fr: "Les chants partagés par l'église apparaîtront ici" },
-  'nav.library': { en: 'Read', fr: 'Lire' },
-  'lib.search': { en: 'Search books...', fr: 'Rechercher un livre...' },
-  'lib.allBooks': { en: 'All', fr: 'Tout' },
-  'lib.addBook': { en: 'Add a book', fr: 'Ajouter un livre' },
-  'lib.choosePdf': { en: 'Choose a PDF file', fr: 'Choisir un fichier PDF' },
-  'lib.bookTitle': { en: 'Title', fr: 'Titre' },
-  'lib.bookAuthor': { en: 'Author (optional)', fr: 'Auteur (facultatif)' },
-  'lib.publishBook': { en: 'Publish to the library', fr: 'Publier dans la bibliothèque' },
-  'lib.uploading': { en: 'Uploading...', fr: 'Téléversement...' },
-  'lib.notPdf': { en: 'Please choose a PDF file.', fr: 'Veuillez choisir un fichier PDF.' },
-  'lib.tooLarge': { en: 'The file must be under 100 MB.', fr: 'Le fichier doit faire moins de 100 Mo.' },
-  'lib.empty': { en: 'No books yet', fr: 'Aucun livre' },
-  'lib.emptyHint': { en: 'Books shared by the church will appear here', fr: "Les livres partagés par l'église apparaîtront ici" },
-  'lib.page': { en: 'Page', fr: 'Page' },
-  'lib.zoomIn': { en: 'Zoom in', fr: 'Agrandir' },
-  'lib.zoomOut': { en: 'Zoom out', fr: 'Réduire' },
-  'lib.loadingBook': { en: 'Opening the book...', fr: 'Ouverture du livre...' },
-  'lib.readFailed': { en: "This book couldn't be opened", fr: "Ce livre n'a pas pu être ouvert" },
-  'lib.corsHint': { en: 'The storage bucket is not yet allowing the app to read files directly. An administrator needs to apply the CORS configuration.', fr: "Le stockage n'autorise pas encore l'application à lire les fichiers directement. Un administrateur doit appliquer la configuration CORS." },
-  'lib.openExternally': { en: 'Open outside the app', fr: "Ouvrir hors de l'application" },
-  'nav.sante': { en: 'Health', fr: 'Santé' },
-  'nav.data': { en: 'Data', fr: 'Données' },
-  'admin.subApprovals': { en: 'Approvals', fr: 'Approbations' },
+type Dict = Partial<Record<TranslationKey, string>>
+const DICTS: Record<Language, Dict> = { en, fr, es, pt, it, de, ar, zh, hi }
 
-  // ---- Santé ----
-  'sante.disclaimer': { en: 'These tips are shared by health professionals in the church for general information. They do not replace a consultation with your own doctor.', fr: "Ces conseils sont partagés par des professionnels de santé de l'église à titre informatif. Ils ne remplacent pas une consultation avec votre médecin." },
-  'sante.allCategories': { en: 'All', fr: 'Tout' },
-  'sante.newTip': { en: 'Share a health tip', fr: 'Partager un conseil santé' },
-  'sante.titlePlaceholder': { en: 'Title of the tip', fr: 'Titre du conseil' },
-  'sante.bodyPlaceholder': { en: 'Write the advice here...', fr: 'Rédigez le conseil ici...' },
-  'sante.publish': { en: 'Publish', fr: 'Publier' },
-  'sante.publishing': { en: 'Publishing...', fr: 'Publication...' },
-  'sante.empty': { en: 'No health tips yet', fr: 'Aucun conseil santé' },
-  'sante.emptyHint': { en: 'Tips shared by the church health team will appear here', fr: "Les conseils partagés par l'équipe santé apparaîtront ici" },
+// Shown in the Profile language picker. `native` is the language's own name so
+// a speaker recognises it without reading English; `rtl` flips layout.
+// Only languages with a real translation are listed here (so the picker never
+// offers a language that would show as English). New ones are added as their
+// locale file is filled in.
+export const LANGUAGES: { code: Language; native: string; english: string; rtl?: boolean }[] = [
+  { code: 'fr', native: 'Français', english: 'French' },
+  { code: 'en', native: 'English', english: 'English' },
+  { code: 'es', native: 'Español', english: 'Spanish' },
+]
 
-  // ---- Data management ----
-  'data.people': { en: 'People', fr: 'Personnes' },
-  'data.browse': { en: 'Browse', fr: 'Explorer' },
-  'data.searchRecords': { en: 'Search all records...', fr: 'Rechercher dans les enregistrements...' },
-  'data.records': { en: 'record(s)', fr: 'enregistrement(s)' },
-  'data.saveChanges': { en: 'Save changes', fr: 'Enregistrer' },
-  'data.saving': { en: 'Saving...', fr: 'Enregistrement...' },
-  'data.saved': { en: 'Saved.', fr: 'Enregistré.' },
-  'data.noChanges': { en: 'Nothing changed.', fr: 'Aucune modification.' },
-  'data.invalidNumber': { en: 'must be a number', fr: 'doit être un nombre' },
-  'data.deleteRecord': { en: 'Delete this record', fr: 'Supprimer cet enregistrement' },
-  'data.confirmDelete': { en: 'Delete permanently', fr: 'Supprimer définitivement' },
-  'data.readOnlyNote': { en: 'You can view and export these records. Only an administrator or the pastor can change them.', fr: "Vous pouvez consulter et exporter ces enregistrements. Seul un administrateur ou le pasteur peut les modifier." },
-  'data.lockedNote': { en: 'Identifiers and dates are hidden from editing: changing them would break how this record links to others.', fr: "Les identifiants et dates ne sont pas modifiables : les changer romprait les liens entre cet enregistrement et les autres." },
-  'data.registry': { en: 'Registry', fr: 'Registre' },
-  'data.export': { en: 'Export', fr: 'Export' },
-  'data.loadFailed': { en: "Couldn't load data", fr: 'Impossible de charger les données' },
-  'data.searchPeople': { en: 'Search by name, phone, church, profession...', fr: 'Rechercher par nom, téléphone, église, profession...' },
-  'data.results': { en: 'result(s)', fr: 'résultat(s)' },
-  'data.showingFirst200': { en: 'Showing the first 200. Narrow the search to see others.', fr: 'Affichage des 200 premiers. Affinez la recherche pour voir les autres.' },
-  'data.filterAll': { en: 'All', fr: 'Tout' },
-  'data.filterMembers': { en: 'Members', fr: 'Membres' },
-  'data.filterLeads': { en: 'Leads', fr: 'Leads' },
-  'data.filterPending': { en: 'Pending', fr: 'En attente' },
-  'data.filterAdmin': { en: 'Admin', fr: 'Admin' },
-  'data.statTotal': { en: 'Total accounts', fr: 'Comptes au total' },
-  'data.statMembers': { en: 'Members', fr: 'Membres' },
-  'data.statLeads': { en: 'Leads', fr: 'Leads' },
-  'data.statPending': { en: 'Pending', fr: 'En attente' },
-  'data.statVerified': { en: 'Phone verified', fr: 'Tél. vérifié' },
-  'data.statNotifs': { en: 'Notifications on', fr: 'Notifs activées' },
-  'data.personalData': { en: 'PERSONAL DATA', fr: 'DONNÉES PERSONNELLES' },
-  'data.registryIntro': { en: 'This is the full inventory of data the app stores, what each collection is for, and whether it contains personal data. Export it if an authority requests a record of what you hold.', fr: "Voici l'inventaire complet des données stockées par l'application, la finalité de chaque collection, et si elle contient des données personnelles. Exportez-le si une autorité demande un état de ce que vous détenez." },
-  'data.exportWarning': { en: 'Exported files contain personal data. Share them only with people entitled to see them, and delete copies once they are no longer needed.', fr: 'Les fichiers exportés contiennent des données personnelles. Ne les partagez qu\'avec les personnes habilitées, et supprimez les copies dès qu\'elles ne sont plus nécessaires.' },
-  'data.exportCsv': { en: 'Export people (CSV)', fr: 'Exporter les personnes (CSV)' },
-  'data.exportCsvDesc': { en: 'Opens in Excel or Google Sheets', fr: "S'ouvre dans Excel ou Google Sheets" },
-  'data.exportJson': { en: 'Export people (JSON)', fr: 'Exporter les personnes (JSON)' },
-  'data.exportJsonDesc': { en: 'Complete records, for a technical request', fr: 'Enregistrements complets, pour une demande technique' },
-  'data.exportRegistry': { en: 'Export the data registry', fr: 'Exporter le registre des données' },
-  'data.exportRegistryDesc': { en: 'The written inventory of what is held and why', fr: 'Inventaire écrit de ce qui est détenu et pourquoi' },
-  'data.exportScope': { en: 'The export follows the filters above:', fr: "L'export suit les filtres ci-dessus :" },
-
-  // ---- Registry purposes ----
-  'reg.users': { en: 'Account records: identity, contact details, role, and the profile a person supplies at signup.', fr: "Comptes : identité, coordonnées, rôle et profil fourni à l'inscription." },
-  'reg.posts': { en: 'Content published by leads to the community feed.', fr: 'Contenus publiés par les leads dans le fil communautaire.' },
-  'reg.comments': { en: 'Comments left by members on posts.', fr: 'Commentaires laissés par les membres sur les publications.' },
-  'reg.likes': { en: 'Records which member liked which post, so a like can be undone.', fr: "Indique quel membre a aimé quelle publication, afin de pouvoir retirer un j'aime." },
-  'reg.conversations': { en: 'Message thread headers: who is involved and when it was last active.', fr: 'En-têtes de conversations : participants et dernière activité.' },
-  'reg.messages': { en: 'The content of private messages, including photos and voice notes.', fr: 'Contenu des messages privés, y compris photos et messages vocaux.' },
-  'reg.logs': { en: 'Audit trail of sign-ins, publications and administrative actions. Append-only.', fr: 'Journal des connexions, publications et actions administratives. Ajout uniquement.' },
-  'reg.directory': { en: 'Public list of approved church names, used by the signup dropdown.', fr: "Liste publique des églises approuvées, utilisée par le menu d'inscription." },
-
-  'nav.messages': { en: 'Messages', fr: 'Messages' },
-
-  // ---- Roles ----
-  'role.pastor': { en: 'Pastor', fr: 'Pasteur' },
-  'role.admin': { en: 'Technical Support', fr: 'Support technique' },
-  'role.church': { en: 'Lead', fr: 'Lead' },
-  'role.pendingChurch': { en: 'Pending', fr: 'En attente' },
-  'role.member': { en: 'Member', fr: 'Membre' },
-
-  // ---- Messaging ----
-  'msg.edited': { en: 'edited', fr: 'modifié' },
-  'msg.deleteThread': { en: 'Delete conversation', fr: 'Supprimer la conversation' },
-  'msg.deleteConfirm': { en: 'Delete all', fr: 'Tout supprimer' },
-  'msg.editFailed': { en: "Couldn't edit - try again", fr: 'Échec de la modification - réessayez' },
-  'msg.deleteFailed': { en: "Couldn't delete - try again", fr: 'Échec de la suppression - réessayez' },
-  'msg.directThreads': { en: 'Your conversations', fr: 'Vos conversations' },
-  'msg.isTyping': { en: 'is typing...', fr: "est en train d'écrire..." },
-  'msg.someone': { en: 'Someone', fr: "Quelqu'un" },
-  'msg.newMessageToast': { en: 'New message', fr: 'Nouveau message' },
-  'msg.tapToOpen': { en: 'Tap to open', fr: 'Appuyez pour ouvrir' },
-  'msg.scrollToLatest': { en: 'Jump to latest', fr: 'Aller au plus récent' },
-  'msg.newBadge': { en: 'New', fr: 'Nouveau' },
-  'msg.chooseChannel': { en: 'Who would you like to reach?', fr: 'Qui souhaitez-vous contacter ?' },
-  'msg.pastorChannel': { en: 'Message the Pastor', fr: 'Écrire au Pasteur' },
-  'msg.pastorChannelDesc': { en: 'Prayer, guidance, or anything personal', fr: 'Prière, accompagnement ou toute demande personnelle' },
-  'msg.techChannel': { en: 'Technical Support', fr: 'Support technique' },
-  'msg.techChannelDesc': { en: 'Problems with the app, your account, or sign-in', fr: "Problèmes avec l'application, votre compte ou la connexion" },
-  'msg.pastorTag': { en: 'PASTOR', fr: 'PASTEUR' },
-  'msg.techTag': { en: 'TECH', fr: 'TECH' },
-  'msg.pastorHint': { en: 'Whatever you share here goes to the Pastor.', fr: 'Ce que vous partagez ici est adressé au Pasteur.' },
-  'msg.techHint': { en: 'Describe the problem and we will look into it.', fr: 'Décrivez le problème et nous allons le regarder.' },
-  'msg.conversation': { en: 'Conversation', fr: 'Conversation' },
-  'msg.usuallyReplies': { en: 'Usually replies within a day', fr: 'Répond généralement sous un jour' },
-  'msg.writePlaceholder': { en: 'Write a message...', fr: 'Écrivez un message...' },
-  'msg.noMessages': { en: 'No messages yet', fr: 'Aucun message' },
-  'msg.startHint': { en: 'Send the first message to start this conversation.', fr: 'Envoyez le premier message pour démarrer cette conversation.' },
-  'msg.sendFailed': { en: "Couldn't send - try again", fr: "Échec de l'envoi - réessayez" },
-  'msg.loadFailed': { en: "Couldn't load conversations", fr: 'Impossible de charger les conversations' },
-  'msg.sending': { en: 'Sending...', fr: 'Envoi...' },
-  'msg.recording': { en: 'Recording...', fr: 'Enregistrement...' },
-  'msg.micDenied': { en: 'Microphone access was denied.', fr: "L'accès au microphone a été refusé." },
-  'msg.notAnImage': { en: 'Please choose an image file.', fr: 'Veuillez choisir un fichier image.' },
-  'msg.imageTooLarge': { en: 'Image must be under 10MB.', fr: "L'image doit faire moins de 10 Mo." },
-  'msg.sentPhoto': { en: 'Photo', fr: 'Photo' },
-  'msg.sentVoice': { en: 'Voice message', fr: 'Message vocal' },
-  'msg.newMessage': { en: 'New message', fr: 'Nouveau message' },
-  'msg.searchPeople': { en: 'Search members and churches...', fr: 'Rechercher membres et églises...' },
-  'msg.searchConversations': { en: 'Search conversations...', fr: 'Rechercher des conversations...' },
-  'msg.noPeople': { en: 'No one found', fr: 'Personne trouvée' },
-  'msg.noConversations': { en: 'No conversations yet', fr: 'Aucune conversation' },
-  'msg.noConversationsHint': { en: 'Messages sent to you will appear here', fr: 'Les messages qui vous sont adressés apparaîtront ici' },
-  'msg.noMessagesYet': { en: 'No messages yet', fr: 'Aucun message' },
-
-  'support.title': { en: 'Support', fr: 'Assistance' },
-  'support.note': { en: "Having trouble or have a question? Get in touch and we'll help.", fr: 'Un problème ou une question ? Contactez-nous, nous vous aiderons.' },
-  'support.emailUs': { en: 'Email support', fr: 'Assistance par e-mail' },
-  'support.visitSite': { en: 'Visit our website', fr: 'Visiter notre site web' },
-  'footer.privacy': { en: 'Privacy Policy', fr: 'Politique de confidentialité' },
-  'footer.childSafety': { en: 'Child Safety', fr: 'Sécurité des enfants' },
-
-  // ---- In-app reporting (Google Play child safety standards) ----
-  'report.action': { en: 'Report', fr: 'Signaler' },
-  'report.title': { en: 'Report this content', fr: 'Signaler ce contenu' },
-  'report.subtitle': {
-    en: 'Tell us what is wrong. Reports go to the ELIM team and are reviewed confidentially - the person you report is not told who reported them.',
-    fr: "Dites-nous ce qui ne va pas. Les signalements sont transmis à l'équipe ELIM et examinés confidentiellement - la personne signalée ne sait pas qui l'a signalée." },
-  'report.reason.childSafety': { en: 'Child safety or abuse of a minor', fr: "Sécurité d'un enfant ou abus sur un mineur" },
-  'report.reason.sexual': { en: 'Sexual or inappropriate content', fr: 'Contenu sexuel ou inapproprié' },
-  'report.reason.violence': { en: 'Violence or threats', fr: 'Violence ou menaces' },
-  'report.reason.harassment': { en: 'Harassment or hate speech', fr: 'Harcèlement ou propos haineux' },
-  'report.reason.spam': { en: 'Spam or scam', fr: 'Spam ou arnaque' },
-  'report.reason.other': { en: 'Something else', fr: 'Autre chose' },
-  'report.detailsPlaceholder': { en: 'Add any detail that would help us (optional)', fr: 'Ajoutez tout détail qui pourrait nous aider (facultatif)' },
-  'report.submit': { en: 'Send report', fr: 'Envoyer le signalement' },
-  'report.sending': { en: 'Sending...', fr: 'Envoi...' },
-  'report.close': { en: 'Close', fr: 'Fermer' },
-  'report.failed': { en: "Couldn't send the report. Please try again.", fr: "Impossible d'envoyer le signalement. Réessayez." },
-  'report.sentTitle': { en: 'Report received', fr: 'Signalement reçu' },
-  'report.sentBody': {
-    en: 'Thank you. The ELIM team will review this. Child safety reports are treated as urgent and reported to the authorities where the law requires it.',
-    fr: "Merci. L'équipe ELIM va l'examiner. Les signalements concernant la sécurité des enfants sont traités en urgence et transmis aux autorités lorsque la loi l'exige." },
-  'report.urgentNote': {
-    en: 'If a child is in immediate danger, contact your local authorities first.',
-    fr: "Si un enfant est en danger immédiat, contactez d'abord les autorités locales." },
-
-  // ---- Admin report queue ----
-  'reports.tab': { en: 'Reports', fr: 'Signalements' },
-  'reports.empty': { en: 'No reports to review.', fr: 'Aucun signalement à examiner.' },
-  'reports.open': { en: 'Open', fr: 'À traiter' },
-  'reports.handled': { en: 'Handled', fr: 'Traités' },
-  'reports.reportedBy': { en: 'Reported by', fr: 'Signalé par' },
-  'reports.about': { en: 'Content by', fr: 'Contenu de' },
-  'reports.markActioned': { en: 'Action taken', fr: 'Mesure prise' },
-  'reports.dismiss': { en: 'Dismiss', fr: 'Rejeter' },
-  'reports.actioned': { en: 'Action taken', fr: 'Mesure prise' },
-  'reports.dismissed': { en: 'Dismissed', fr: 'Rejeté' },
-  'reports.target.post': { en: 'Post', fr: 'Publication' },
-  'reports.target.comment': { en: 'Comment', fr: 'Commentaire' },
-  'reports.target.message': { en: 'Message', fr: 'Message' },
-  'reports.target.user': { en: 'Member', fr: 'Membre' },
-  'logs.loadFailed': { en: "Couldn't load logs", fr: 'Impossible de charger les journaux' },
-  'logs.rulesHint': { en: "If this says 'Missing or insufficient permissions', the Firestore rules for activityLogs haven't been published yet in the Firebase console.", fr: "Si le message indique « Missing or insufficient permissions », les règles Firestore pour activityLogs n'ont pas encore été publiées dans la console Firebase." },
-  'logs.likeAdded': { en: 'Liked a post', fr: 'A aimé une publication' },
-  'logs.likeRemoved': { en: 'Removed a like', fr: "A retiré un j'aime" },
-  'logs.commentAdded': { en: 'Commented on a post', fr: 'A commenté une publication' },
-  'logs.engagementFilter': { en: 'Likes & comments', fr: "J'aime et commentaires" },
-  'logs.today': { en: 'Today', fr: "Aujourd'hui" },
-  'logs.yesterday': { en: 'Yesterday', fr: 'Hier' },
-  'logs.unknownDate': { en: 'Pending', fr: 'En attente' },
-
-  // ---- Common ----
-  'common.church': { en: 'Church', fr: 'Église' },
-
-  // ---- Auth: shared ----
-  'auth.signIn': { en: 'Sign In', fr: 'Se connecter' },
-  'auth.createAccount': { en: 'Create Account', fr: 'Créer un compte' },
-  'auth.continueWithGoogle': { en: 'Continue with Google', fr: 'Continuer avec Google' },
-  'auth.or': { en: 'or', fr: 'ou' },
-  'auth.member': { en: 'Member', fr: 'Membre' },
-  'auth.church': { en: 'Church', fr: 'Église' },
-  'auth.fullName': { en: 'Your full name', fr: 'Votre nom complet' },
-  'auth.churchName': { en: 'Church name', fr: "Nom de l'église" },
-  'auth.cityState': { en: 'City, State', fr: 'Ville, Région' },
-  'auth.email': { en: 'Email address', fr: 'Adresse e-mail' },
-  'auth.password': { en: 'Password', fr: 'Mot de passe' },
-  'auth.confirmPassword': { en: 'Confirm password', fr: 'Confirmer le mot de passe' },
-  'auth.phoneNumber': { en: 'Phone number', fr: 'Numéro de téléphone' },
-  'auth.forgotPassword': { en: 'Forgot password?', fr: 'Mot de passe oublié ?' },
-  'auth.resetTitle': { en: 'Reset your password', fr: 'Réinitialiser le mot de passe' },
-  'auth.resetIntro': { en: "Enter the email address of your Lead account. We'll send you a link to choose a new password.", fr: "Entrez l'adresse e-mail de votre compte Lead. Nous vous enverrons un lien pour choisir un nouveau mot de passe." },
-  'auth.resetSend': { en: 'Send the link', fr: 'Envoyer le lien' },
-  'auth.resetSending': { en: 'Sending...', fr: 'Envoi...' },
-  'auth.resetClose': { en: 'Done', fr: 'Terminé' },
-  'auth.resetSpamHint': { en: "If it doesn't arrive within a few minutes, check your spam or junk folder — the message comes from a no-reply address.", fr: "S'il n'arrive pas dans quelques minutes, vérifiez vos spams ou courriers indésirables — le message vient d'une adresse no-reply." },
-  'auth.resetInvalidEmail': { en: "That doesn't look like a valid email address.", fr: "Cette adresse e-mail ne semble pas valide." },
-  'auth.resetNoAccount': { en: 'No Lead account was found with that email address.', fr: "Aucun compte Lead n'a été trouvé avec cette adresse e-mail." },
-  'auth.resetTooMany': { en: 'Too many attempts. Please wait a few minutes and try again.', fr: 'Trop de tentatives. Patientez quelques minutes puis réessayez.' },
-  'auth.resetSent': { en: 'Password reset email sent — check your inbox.', fr: 'E-mail de réinitialisation envoyé — vérifiez votre boîte de réception.' },
-  'auth.enterEmailFirst': { en: 'Enter your email above first, then tap "Forgot password?"', fr: 'Entrez d\'abord votre e-mail ci-dessus, puis appuyez sur « Mot de passe oublié ? »' },
-  'auth.pleaseWait': { en: 'Please wait...', fr: 'Veuillez patienter...' },
-  'auth.churchApprovalNote': { en: 'Church accounts require approval before you can publish content.', fr: 'Les comptes église doivent être approuvés avant de pouvoir publier du contenu.' },
-  'auth.passwordsDontMatch': { en: "Passwords don't match.", fr: 'Les mots de passe ne correspondent pas.' },
-  'auth.passwordTooShort': { en: 'Password must be at least 8 characters.', fr: 'Le mot de passe doit contenir au moins 8 caractères.' },
-  'auth.phoneRequired': { en: 'Phone number is required.', fr: 'Le numéro de téléphone est requis.' },
-  'auth.accountCreated': { en: 'Account created! Sign in below to continue.', fr: 'Compte créé ! Connectez-vous ci-dessous pour continuer.' },
-  'auth.somethingWrong': { en: 'Something went wrong', fr: "Une erreur s'est produite" },
-  'auth.googleSignInFailed': { en: 'Google sign-in failed', fr: 'Échec de la connexion avec Google' },
-  'auth.almostThere': { en: 'Almost there', fr: 'Vous y êtes presque' },
-  'auth.tellUsHowYoullUse': { en: "Tell us how you'll be using ELIM", fr: "Dites-nous comment vous allez utiliser ELIM" },
-  'auth.finishSetup': { en: 'Finish Setup', fr: "Terminer l'inscription" },
-  'auth.welcomeTo': { en: 'Welcome to ELIM', fr: 'Bienvenue sur ELIM' },
-  'auth.peacefulPlace': { en: 'A peaceful place for the church community', fr: 'Un espace paisible pour la communauté de l\'église' },
-  'auth.dateOfBirth': { en: 'Date of birth', fr: 'Date de naissance' },
-  'auth.ageNotice': { en: 'You must be at least 13 years old to create an account.', fr: 'Vous devez avoir au moins 13 ans pour créer un compte.' },
-  'auth.tooYoung': { en: 'You must be at least 13 years old to create an account.', fr: 'Vous devez avoir au moins 13 ans pour créer un compte.' },
-  'auth.gender': { en: 'Gender', fr: 'Sexe' },
-  'auth.male': { en: 'Male', fr: 'Homme' },
-  'auth.female': { en: 'Female', fr: 'Femme' },
-  'auth.genderRequired': { en: 'Please select Homme or Femme.', fr: 'Veuillez sélectionner Homme ou Femme.' },
-  'auth.selectProfession': { en: 'Profession', fr: 'Profession' },
-  'auth.interests': { en: 'Centre of interest', fr: "Centre d'intérêt" },
-  'auth.interestsRequired': { en: 'Please choose at least one centre of interest.', fr: "Veuillez choisir au moins un centre d'intérêt." },
-  'auth.allRequired': { en: 'All fields are required.', fr: 'Tous les champs sont obligatoires.' },
-  'auth.interestsHint': { en: 'Which department do you serve in, or would like to join? Choose as many as you like.', fr: "Dans quel département servez-vous, ou aimeriez-vous servir ? Choisissez-en autant que vous voulez." },
-  'auth.smsVerifyButton': { en: 'Verify this number', fr: 'Vérifier ce numéro' },
-  'auth.smsSending': { en: 'Sending...', fr: 'Envoi...' },
-  'auth.smsSentTo': { en: 'Code sent to', fr: 'Code envoyé au' },
-  'auth.smsCodePlaceholder': { en: '6-digit code', fr: 'Code à 6 chiffres' },
-  'auth.smsConfirm': { en: 'Confirm', fr: 'Confirmer' },
-  'auth.smsResend': { en: 'Send the code again', fr: 'Renvoyer le code' },
-  'auth.smsBadCode': { en: 'That code is incorrect.', fr: "Ce code n'est pas correct." },
-  'auth.smsExpired': { en: 'That code has expired - request a new one.', fr: 'Ce code a expiré - demandez-en un nouveau.' },
-  'auth.smsTooMany': { en: 'Too many attempts. Please wait a little and try again.', fr: 'Trop de tentatives. Patientez un peu puis réessayez.' },
-  'auth.smsQuota': { en: 'SMS limit reached. Please contact support.', fr: 'Limite de SMS atteinte. Contactez le support.' },
-  'auth.phoneVerified': { en: 'Number verified', fr: 'Numéro vérifié' },
-  'auth.verifyPhoneFirst': { en: 'Please verify your phone number first.', fr: "Veuillez d'abord vérifier votre numéro de téléphone." },
-  'auth.confirmPhone': { en: 'Re-type your phone number', fr: 'Retapez votre numéro de téléphone' },
-  'auth.phonesDontMatch': { en: "The two phone numbers don't match.", fr: 'Les deux numéros ne correspondent pas.' },
-  'auth.country': { en: 'Country', fr: 'Pays' },
-  'auth.city': { en: 'City', fr: 'Ville' },
-  'auth.quartier': { en: 'Neighbourhood', fr: 'Quartier' },
-  'auth.firstName': { en: 'First name', fr: 'Prénom' },
-  'auth.lastName': { en: 'Last name', fr: 'Nom' },
-  'auth.pin': { en: '6-digit PIN', fr: 'Code à 6 chiffres' },
-  'auth.confirmPin': { en: 'Confirm PIN', fr: 'Confirmer le code' },
-  'auth.yourChurch': { en: 'Your church', fr: 'Votre église' },
-  'auth.selectYourChurch': { en: 'Select your church', fr: 'Sélectionnez votre église' },
-  'auth.otherNoChurch': { en: "Other / I don't have a church", fr: "Autre / Je n'ai pas d'église" },
-  'auth.newChurchName': { en: 'Church name', fr: "Nom de l'église" },
-  'auth.showPassword': { en: 'Show password', fr: 'Afficher le mot de passe' },
-  'auth.hidePassword': { en: 'Hide password', fr: 'Masquer le mot de passe' },
-  'auth.pinsDontMatch': { en: "PINs don't match.", fr: 'Les codes ne correspondent pas.' },
-  'auth.pinMustBe6Digits': { en: 'PIN must be exactly 6 digits.', fr: 'Le code doit comporter exactement 6 chiffres.' },
-  'auth.phoneInvalid': { en: 'Please enter a valid phone number.', fr: 'Veuillez entrer un numéro de téléphone valide.' },
-  'auth.phoneAlreadyRegistered': { en: 'This phone number is already registered — try signing in instead.', fr: 'Ce numéro est déjà enregistré — essayez de vous connecter.' },
-  'auth.wrongPhoneOrPin': { en: 'Phone number or PIN is incorrect.', fr: 'Numéro de téléphone ou code incorrect.' },
-  'auth.iAmA': { en: 'I am a...', fr: 'Je suis...' },
-  'auth.memberSignIn': { en: 'Member', fr: 'Membre' },
-  'auth.churchSignIn': { en: 'Lead', fr: 'Lead' },
-
-  // ---- Landing page ----
-  'landing.badge': { en: 'A MODERN HOME FOR YOUR CHURCH COMMUNITY', fr: 'UN FOYER MODERNE POUR VOTRE COMMUNAUTÉ D\'ÉGLISE' },
-  'landing.heroLine1': { en: 'Stay close to your', fr: 'Restez proche de votre' },
-  'landing.heroLine2': { en: 'church family.', fr: 'famille d\'église.' },
-  'landing.heroSubtitle': { en: 'ELIM brings sermons, updates, and encouragement from your church straight to your pocket — photos, audio, video, and real conversation, all in one gentle, focused space.', fr: 'ELIM apporte les sermons, actualités et messages d\'encouragement de votre église directement dans votre poche — photos, audio, vidéo et vraies conversations, le tout dans un espace paisible et dédié.' },
-  'landing.getStarted': { en: 'Get Started', fr: 'Commencer' },
-  'landing.getStartedFree': { en: 'Get Started Free', fr: 'Commencer gratuitement' },
-  'landing.valueProp.photos': { en: 'Photos & Updates', fr: 'Photos et actualités' },
-  'landing.valueProp.audio': { en: 'Audio Messages', fr: 'Messages audio' },
-  'landing.valueProp.video': { en: 'Sermons & Video', fr: 'Sermons et vidéos' },
-  'landing.valueProp.verified': { en: 'Verified Churches', fr: 'Églises vérifiées' },
-  'landing.whoItsFor': { en: "WHO IT'S FOR", fr: 'POUR QUI' },
-  'landing.builtForBoth': { en: 'Built for both sides of the pew.', fr: 'Pensé pour toute la communauté.' },
-  'landing.forChurches': { en: 'For Churches', fr: 'Pour les églises' },
-  'landing.forChurches.1': { en: 'Share sermons as text, audio, or video', fr: 'Partagez vos sermons en texte, audio ou vidéo' },
-  'landing.forChurches.2': { en: 'Reach your whole congregation instantly', fr: 'Touchez toute votre congrégation instantanément' },
-  'landing.forChurches.3': { en: 'A verified badge builds trust with members', fr: 'Un badge vérifié renforce la confiance des membres' },
-  'landing.forMembers': { en: 'For Members', fr: 'Pour les membres' },
-  'landing.forMembers.1': { en: "Follow your church's feed, wherever you are", fr: 'Suivez le fil de votre église, où que vous soyez' },
-  'landing.forMembers.2': { en: 'Comment and stay part of the conversation', fr: 'Commentez et participez à la conversation' },
-  'landing.forMembers.3': { en: 'Never miss an update or encouragement', fr: 'Ne manquez plus jamais une actualité ou un message' },
-  'landing.gettingStarted': { en: 'GETTING STARTED', fr: 'POUR COMMENCER' },
-  'landing.threeSteps': { en: 'Three steps to feeling at home.', fr: 'Trois étapes pour se sentir chez soi.' },
-  'landing.step1.title': { en: 'Create your account', fr: 'Créez votre compte' },
-  'landing.step1.desc': { en: 'Sign up in seconds as a member, or register your church for verification.', fr: 'Inscrivez-vous en tant que membre, ou enregistrez votre église pour vérification.' },
-  'landing.step2.title': { en: 'Follow your church', fr: 'Suivez votre église' },
-  'landing.step2.desc': { en: 'Find your church and start seeing their posts in your feed right away.', fr: 'Trouvez votre église et voyez ses publications dans votre fil immédiatement.' },
-  'landing.step3.title': { en: 'Stay connected', fr: 'Restez connecté' },
-  'landing.step3.desc': { en: 'Like, comment, and never miss a message from the people you gather with.', fr: 'Aimez, commentez, et ne manquez aucun message de votre communauté.' },
-  'landing.finalCta1': { en: 'Your church, always', fr: 'Votre église, toujours' },
-  'landing.finalCta2': { en: 'within reach.', fr: 'à portée de main.' },
-  'landing.footerTagline': { en: 'A peaceful place for the church community.', fr: 'Un espace paisible pour la communauté de l\'église.' },
-
-  // ---- App shell / nav ----
-  'nav.feed': { en: 'Feed', fr: 'Fil' },
-  'nav.profile': { en: 'Profile', fr: 'Profil' },
-  'nav.admin': { en: 'Admin', fr: 'Admin' },
-  'nav.post': { en: 'Post', fr: 'Publier' },
-  'nav.newPost': { en: 'New Post', fr: 'Nouvelle publication' },
-  'app.loading': { en: 'Loading...', fr: 'Chargement...' },
-  'app.noPostsYet': { en: 'No posts yet', fr: 'Aucune publication' },
-  'app.beFirstToShare': { en: 'Be the first to share something', fr: 'Soyez le premier à partager quelque chose' },
-  'app.verifiedChurch': { en: 'Verified Church', fr: 'Église vérifiée' },
-  'app.admin': { en: 'Admin', fr: 'Admin' },
-  'app.member': { en: 'Member', fr: 'Membre' },
-
-  // ---- Pending screen ----
-  'pending.title': { en: 'Waiting for Approval', fr: "En attente d'approbation" },
-  'pending.underReview': { en: 'is under review.', fr: 'est en cours d\'examen.' },
-  'pending.yourChurchAccount': { en: 'Your church account', fr: 'Votre compte église' },
-  'pending.note': { en: 'You will be able to publish once an administrator approves your request.', fr: 'Vous pourrez publier une fois qu\'un administrateur aura approuvé votre demande.' },
-  'pending.signOut': { en: 'Sign out', fr: 'Se déconnecter' },
-
-  // ---- Create post modal ----
-  'post.new': { en: 'New Post', fr: 'Nouvelle publication' },
-  'post.publish': { en: 'Publish', fr: 'Publier' },
-  'post.photo': { en: 'Photo', fr: 'Photo' },
-  'post.audio': { en: 'Audio', fr: 'Audio' },
-  'post.document': { en: 'Document', fr: 'Document' },
-  'post.video': { en: 'Video', fr: 'Vidéo' },
-  'post.contentPlaceholder': { en: 'Share an encouragement, announcement or message...', fr: 'Partagez un encouragement, une annonce ou un message...' },
-  'post.uploadPhoto': { en: 'a photo', fr: 'une photo' },
-  'post.uploadAudio': { en: 'an audio file', fr: 'un fichier audio' },
-  'post.uploadVideo': { en: 'a video', fr: 'une vidéo' },
-  'post.uploadPdf': { en: 'a PDF', fr: 'un PDF' },
-  'post.uploading': { en: 'Uploading...', fr: 'Téléversement...' },
-  'post.tapToReplace': { en: 'Tap to replace', fr: 'Appuyez pour remplacer' },
-  'post.maxSize': { en: 'Max', fr: 'Max' },
-  'post.orPasteLinkInstead': { en: 'or paste a link instead', fr: 'ou collez un lien à la place' },
-  'post.pasteLink': { en: 'paste a link', fr: 'collez un lien' },
-  'post.pasteYoutube': { en: 'Paste YouTube link...', fr: 'Collez le lien YouTube...' },
-  'post.pasteFacebook': { en: 'Paste Facebook video link...', fr: 'Collez le lien vidéo Facebook...' },
-  'post.pasteAudioUrl': { en: 'Paste audio file URL (mp3, m4a...)', fr: 'Collez l\'URL du fichier audio (mp3, m4a...)' },
-  'post.pasteDocUrl': { en: 'Paste a document URL...', fr: 'Collez l\'URL du document...' },
-  'post.pasteImageVideoUrl': { en: 'Paste image or video URL...', fr: 'Collez l\'URL de l\'image ou de la vidéo...' },
-  'post.pasteCoverUrl': { en: 'Paste cover image URL (optional)', fr: 'Collez l\'URL de l\'image de couverture (facultatif)' },
-  'player.listen': { en: 'Listen', fr: 'Écouter' },
-  'player.nowPlaying': { en: 'Now playing', fr: 'En cours de lecture' },
-  'post.download': { en: 'Download', fr: 'Télécharger' },
-  'post.watchOnFacebook': { en: 'Watch on Facebook', fr: 'Regarder sur Facebook' },
-  'post.tapToOpen': { en: 'Tap to open', fr: 'Appuyez pour ouvrir' },
-  'post.document.fallback': { en: 'Document', fr: 'Document' },
-  'post.couldntUpdate': { en: "Couldn't update — try again", fr: 'Échec — réessayez' },
-  'post.delete': { en: 'Delete', fr: 'Supprimer' },
-  'post.cancel': { en: 'Cancel', fr: 'Annuler' },
-  'post.edit': { en: 'Edit Post', fr: 'Modifier la publication' },
-  'post.save': { en: 'Save', fr: 'Enregistrer' },
-  'post.saving': { en: 'Saving...', fr: 'Enregistrement...' },
-  'post.publishFailed': { en: 'Could not publish. Check your connection and try again.', fr: 'Publication impossible. Vérifiez votre connexion et réessayez.' },
-  'post.editNote': { en: 'Only the text can be edited here. To change the attached photo, audio, or video, delete this post and share a new one.', fr: 'Seul le texte peut être modifié ici. Pour changer la photo, l\'audio ou la vidéo, supprimez cette publication et partagez-en une nouvelle.' },
-
-  // ---- Comments ----
-  'comments.title': { en: 'Comments', fr: 'Commentaires' },
-  'comments.none': { en: 'No comments yet', fr: 'Aucun commentaire' },
-  'comments.writePlaceholder': { en: 'Write a comment...', fr: 'Écrivez un commentaire...' },
-  'comments.replyPlaceholder': { en: 'Write a reply...', fr: 'Écrivez une réponse...' },
-  'comments.reply': { en: 'Reply', fr: 'Répondre' },
-  'comments.replyingTo': { en: 'Replying to', fr: 'En réponse à' },
-  'comments.like': { en: 'Like', fr: "J'aime" },
-  'comments.likeFailed': { en: "Couldn't register your like. Please try again.", fr: "Impossible d'enregistrer votre j'aime. Réessayez." },
-
-  // ---- Notifications (bell) ----
-  'notif.title': { en: 'Notifications', fr: 'Notifications' },
-  'notif.none': { en: 'Nothing new for now', fr: 'Rien de nouveau pour l’instant' },
-  'notif.newPosts': { en: 'new posts', fr: 'nouvelles publications' },
-  'notif.tapToView': { en: 'Tap to open the feed', fr: 'Appuyez pour ouvrir le fil' },
-  'notif.postLike': { en: 'liked your post', fr: 'a aimé votre publication' },
-  'notif.commentLike': { en: 'liked your comment', fr: 'a aimé votre commentaire' },
-  'notif.postComment': { en: 'commented on your post', fr: 'a commenté votre publication' },
-  'notif.commentReply': { en: 'replied to your comment', fr: 'a répondu à votre commentaire' },
-
-  // ---- Donation ----
-  'donate.button': { en: 'Donate', fr: 'Faire un don' },
-  'donate.title': { en: 'Make a donation', fr: 'Faire un don' },
-  'donate.edit': { en: 'Edit', fr: 'Modifier' },
-  'donate.copy': { en: 'Copy', fr: 'Copier' },
-  'donate.copied': { en: 'Copied!', fr: 'Copié !' },
-  'donate.empty': { en: 'Donation details are not available yet.', fr: 'Les informations de don ne sont pas encore disponibles.' },
-  'donate.emptyAdmin': { en: 'Add your mobile-money numbers so people can give.', fr: 'Ajoutez vos numéros mobile money pour permettre les dons.' },
-  'donate.addProvider': { en: 'Add a payment method', fr: 'Ajouter un moyen de paiement' },
-  'donate.fieldTitle': { en: 'Title', fr: 'Titre' },
-  'donate.fieldMessage': { en: 'Message', fr: 'Message' },
-  'donate.fieldLabel': { en: 'Service name (e.g. Wave)', fr: 'Nom du service (ex : Wave)' },
-  'donate.fieldNumber': { en: 'Number', fr: 'Numéro' },
-  'donate.fieldHolder': { en: 'Account holder name', fr: 'Nom du bénéficiaire' },
-  'donate.fieldNote': { en: 'Instructions (optional)', fr: 'Instructions (optionnel)' },
-  'donate.kindNumber': { en: 'Number', fr: 'Numéro' },
-  'donate.kindLink': { en: 'Payment link', fr: 'Lien de paiement' },
-  'donate.fieldUrl': { en: 'Payment page link (https://...)', fr: 'Lien de la page de paiement (https://...)' },
-  'donate.fieldThanks': { en: 'Thank-you message (sent in Messages after a donation)', fr: 'Message de remerciement (envoyé dans Messages après un don)' },
-  'donate.thanksPlaceholder': { en: 'Thank you for your gift! May God bless you abundantly.', fr: 'Merci pour votre don ! Que Dieu vous bénisse abondamment.' },
-  'donate.open': { en: 'Open', fr: 'Ouvrir' },
-  'donate.openExternalNote': { en: 'Opens in your browser', fr: "S'ouvre dans votre navigateur" },
-  'donate.typeLabel': { en: 'What kind of gift?', fr: 'Quel type de don ?' },
-  'donate.typeDime': { en: 'Tithe', fr: 'Dîme' },
-  'donate.typeOffrande': { en: 'Offering', fr: 'Offrande' },
-  'donate.typeAutre': { en: 'Other gift', fr: 'Autre don' },
-  'donate.purposeLabel': { en: 'This gift is for... (optional)', fr: 'Ce don est pour... (optionnel)' },
-  'donate.purposePlaceholder': { en: 'e.g. construction, missions, supporting a family', fr: 'ex : construction, missions, soutien à une famille' },
-  'donate.amountLabel': { en: 'Amount (optional)', fr: 'Montant (optionnel)' },
-  'donate.amountPlaceholder': { en: 'e.g. 10 000 FCFA or $50', fr: 'ex : 10 000 FCFA ou 50 $' },
-  'donate.methodsLabel': { en: 'Choose how to give', fr: 'Choisissez comment donner' },
-  'donate.declare': { en: 'I have made this donation', fr: "J'ai effectué ce don" },
-  'donate.declaring': { en: 'Sending...', fr: 'Envoi...' },
-  'donate.declareHint': { en: 'After paying, tap here so the church can thank you and keep its records.', fr: "Après le paiement, appuyez ici pour que l'église puisse vous remercier et tenir ses registres." },
-  'donate.declareFailed': { en: "Couldn't record your donation. Please try again.", fr: "Impossible d'enregistrer votre don. Réessayez." },
-  'donate.thanksTitle': { en: 'Thank you!', fr: 'Merci !' },
-  'donate.thanksBody': { en: 'A thank-you from Centre Chrétien E.L.I.M. will appear in your Messages.', fr: 'Un message de remerciement du Centre Chrétien E.L.I.M. apparaîtra dans vos Messages.' },
-
-  // ---- Admin donations ledger ----
-  'dons.tab': { en: 'Donations', fr: 'Dons' },
-  'dons.empty': { en: 'No declared donations yet.', fr: 'Aucun don déclaré pour le moment.' },
-  'dons.declared': { en: 'Declared', fr: 'Déclarés' },
-  'dons.verified': { en: 'Verified', fr: 'Vérifiés' },
-  'dons.markVerified': { en: 'Mark as verified', fr: 'Marquer comme vérifié' },
-  'dons.by': { en: 'By', fr: 'Par' },
-  'dons.via': { en: 'via', fr: 'via' },
-  'dons.verifiedBy': { en: 'Verified by', fr: 'Vérifié par' },
-  'dons.reconcileHint': { en: 'Match these declarations against your mobile-money and PayPal statements, then mark them verified.', fr: 'Rapprochez ces déclarations de vos relevés mobile money et PayPal, puis marquez-les comme vérifiées.' },
-
-  // ---- Profile tab ----
-  'profile.details': { en: 'Profile details', fr: 'Détails du profil' },
-  'profile.logout': { en: 'Log out', fr: 'Se déconnecter' },
-  'profile.church': { en: 'Church', fr: 'Église' },
-  'profile.churchPlaceholder': { en: 'e.g. Grace Community Church', fr: 'ex. Église de la Grâce' },
-  'profile.country': { en: 'Country', fr: 'Pays' },
-  'profile.selectCountry': { en: 'Select...', fr: 'Sélectionner...' },
-  'profile.city': { en: 'City', fr: 'Ville' },
-  'profile.phoneNumber': { en: 'Phone number', fr: 'Numéro de téléphone' },
-  'profile.saveChanges': { en: 'Save Changes', fr: 'Enregistrer les modifications' },
-  'profile.saving': { en: 'Saving...', fr: 'Enregistrement...' },
-  'profile.updated': { en: 'Profile updated.', fr: 'Profil mis à jour.' },
-  'profile.imageTypeError': { en: 'Please choose an image file (JPEG, PNG, or WebP).', fr: 'Veuillez choisir un fichier image (JPEG, PNG ou WebP).' },
-  'profile.imageSizeError': { en: 'Image must be under 5MB.', fr: 'L\'image doit faire moins de 5 Mo.' },
-  'profile.uploadFailed': { en: 'Upload failed', fr: 'Échec du téléversement' },
-  'profile.couldNotSave': { en: 'Could not save changes', fr: 'Impossible d\'enregistrer les modifications' },
-  'profile.blockedBySystem': { en: 'Your phone is blocking notifications for ELIM. Turn them on in phone settings, then come back.', fr: "Votre téléphone bloque les notifications pour ELIM. Activez-les dans les paramètres du téléphone, puis revenez." },
-  'profile.openPhoneSettings': { en: 'Open phone settings', fr: 'Ouvrir les paramètres du téléphone' },
-  'profile.openSettingsManually': { en: 'Open Settings > Apps > ELIM > Notifications on your phone.', fr: 'Ouvrez Paramètres > Applications > ELIM > Notifications sur votre téléphone.' },
-  'profile.systemLinkNote': { en: 'This switch follows your phone settings. If notifications are blocked on the phone, this stays off until you allow them there. Turning it off here stops ELIM sending, but does not change your phone settings.', fr: "Ce bouton suit les paramètres de votre téléphone. Si les notifications y sont bloquées, il reste désactivé jusqu'à ce que vous les autorisiez. Le désactiver ici arrête les envois d'ELIM, mais ne modifie pas les paramètres du téléphone." },
-  'profile.messageSound': { en: 'Message sound', fr: 'Son des messages' },
-  'profile.messageSoundNote': { en: 'Play a sound and vibrate on a new message', fr: 'Émettre un son et vibrer à chaque nouveau message' },
-  'profile.testNotification': { en: 'Send a test notification', fr: 'Envoyer une notification test' },
-  'profile.testSent': { en: 'Sent', fr: 'Envoyée' },
-  'profile.testFailed': { en: 'Failed', fr: 'Échec' },
-  'profile.diagPlatform': { en: 'Platform', fr: 'Plateforme' },
-  'profile.diagPermission': { en: 'Permission', fr: 'Autorisation' },
-  'profile.diagEnabled': { en: 'Enabled', fr: 'Activé' },
-  'profile.diagTokens': { en: 'Devices', fr: 'Appareils' },
-  'profile.notifications': { en: 'Notifications', fr: 'Notifications' },
-  'profile.notificationsNote': { en: 'Get notified when your church shares something new.', fr: 'Soyez averti quand votre église partage quelque chose de nouveau.' },
-  'profile.notificationsPermissionDenied': { en: "Permission denied — check your device's notification settings for this app.", fr: 'Autorisation refusée — vérifiez les paramètres de notification de votre appareil pour cette application.' },
-
-  // ---- Admin panel ----
-  'admin.pendingChurches': { en: 'Pending Churches', fr: 'Églises en attente' },
-  'admin.noPending': { en: 'No pending churches', fr: 'Aucune église en attente' },
-  'admin.noPendingNote': { en: 'New church signups will show up here for approval', fr: 'Les nouvelles inscriptions d\'église apparaîtront ici pour approbation' },
-  'admin.approve': { en: 'Approve', fr: 'Approuver' },
-  'admin.deny': { en: 'Deny', fr: 'Refuser' },
-  'admin.syncDirectory': { en: 'Sync Church Directory', fr: 'Synchroniser le répertoire' },
-  'admin.syncDirectoryNote': { en: "Run this if a church isn't showing up as an option for members signing up.", fr: "Exécutez ceci si une église n'apparaît pas comme option pour les membres qui s'inscrivent." },
-  'admin.syncing': { en: 'Syncing...', fr: 'Synchronisation...' },
-  'admin.synced': { en: 'Directory synced —', fr: 'Répertoire synchronisé —' },
-  'admin.churchesSelectable': { en: 'church(es) now selectable.', fr: 'église(s) désormais sélectionnable(s).' },
-  'admin.syncFailed': { en: 'Sync failed', fr: 'Échec de la synchronisation' },
-} as const
-
-export type TranslationKey = keyof typeof translations
+const SUPPORTED = new Set<string>(LANGUAGES.map(l => l.code))
+const isRtl = (lang: Language) => !!LANGUAGES.find(l => l.code === lang)?.rtl
 
 interface LanguageContextValue {
   language: Language
@@ -554,16 +46,19 @@ interface LanguageContextValue {
 
 const LanguageContext = createContext<LanguageContextValue | null>(null)
 
+// The person's saved choice wins; otherwise follow the phone/browser language
+// so a Spanish or German device shows the app in that language on first open.
+// Falls back to French (most of the congregation) when the device language
+// isn't one we ship.
 function detectDefaultLanguage(): Language {
-  // storageGet never throws: a bare read here would take down the whole app
-  // at boot in browsers that block site data.
   const stored = storageGet('elim-language')
-  if (stored === 'en' || stored === 'fr') return stored
-  // Most ELIM users are French speakers - default to French unless the
-  // device is clearly set to English, rather than the more usual "default
-  // to English" assumption.
-  const browserLang = typeof navigator !== 'undefined' ? navigator.language.toLowerCase() : ''
-  return browserLang.startsWith('en') ? 'en' : 'fr'
+  if (stored && SUPPORTED.has(stored)) return stored as Language
+  const nav = typeof navigator !== 'undefined'
+    ? (navigator.languages && navigator.languages[0]) || navigator.language || ''
+    : ''
+  const primary = nav.toLowerCase().split('-')[0] // "es-MX" -> "es", "zh-Hans" -> "zh"
+  if (SUPPORTED.has(primary)) return primary as Language
+  return 'fr'
 }
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
@@ -571,15 +66,18 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     storageSet('elim-language', language)
+    // Reflect the language on the document so screen readers announce it and
+    // Arabic lays out right-to-left.
+    if (typeof document !== 'undefined') {
+      document.documentElement.lang = language
+      document.documentElement.dir = isRtl(language) ? 'rtl' : 'ltr'
+    }
   }, [language])
 
   const setLanguage = (lang: Language) => setLanguageState(lang)
 
-  const t = (key: TranslationKey): string => {
-    const entry = translations[key]
-    if (!entry) return key
-    return entry[language]
-  }
+  const t = (key: TranslationKey): string =>
+    DICTS[language][key] ?? en[key] ?? (key as string)
 
   return (
     <LanguageContext.Provider value={{ language, setLanguage, t }}>
