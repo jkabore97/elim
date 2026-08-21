@@ -4,7 +4,7 @@ import {
   Image as ImageIcon, Video, Mic, X, Send, LogOut,
   Youtube, Facebook, CheckCircle2, Clock, ArrowRight, ShieldCheck, UserX, Sparkles,
   Trash2, Camera, FileText, Upload, Pencil, Globe, Eye, EyeOff, Search, Bell, ScrollText, Mail, Play, Pause, HeartPulse, Download, AlertTriangle, BookOpen, Music,
-  HandCoins, Copy, Check, Plus, Flag
+  HandCoins, Copy, Check, Plus, Flag, Users
 } from 'lucide-react'
 import {
   collection, addDoc, onSnapshot, query, orderBy, where,
@@ -26,6 +26,7 @@ import { storageGet, storageSet } from './safeStorage'
 import { StarField } from './StarField'
 import { ReportSheet } from './ReportSheet'
 import { AutoTranslate } from './AutoTranslate'
+import { MembersTab } from './MembersTab'
 import { logActivity } from './activityLog'
 import { AnimatedSplash } from './AnimatedSplash'
 import { MediaPlayerProvider, useMediaPlayer } from './MediaPlayer'
@@ -1609,7 +1610,6 @@ function AppInner() {
     .filter(p => santeCategory === 'all' || p.category === santeCategory)
 
   const isStaffUser = user.role === 'admin' || user.role === 'pastor'
-  const isLeadOrStaff = isStaffUser || user.role === 'church'
 
   const navItems = [
     { id: 'feed', icon: Home, label: t('nav.feed') },
@@ -1619,8 +1619,11 @@ function AppInner() {
     ...(MUSIQUE_ENABLED ? [{ id: 'musique', icon: Music, label: t('nav.musique') }] : []),
     { id: 'profile', icon: User, label: t('nav.profile') },
     // Logs and Data live INSIDE Admin rather than as their own tabs - eight
-    // bottom-nav items is unusable on a phone.
-    ...(isLeadOrStaff ? [{ id: 'admin', icon: ShieldCheck, label: t('nav.admin') }] : [])
+    // bottom-nav items is unusable on a phone. Staff (admin/pastor) get Admin;
+    // church leads instead get a read-only Members directory of the
+    // congregation.
+    ...(isStaffUser ? [{ id: 'admin', icon: ShieldCheck, label: t('nav.admin') }] : []),
+    ...(user.role === 'church' ? [{ id: 'members', icon: Users, label: t('nav.members') }] : [])
   ]
 
   return (
@@ -1882,7 +1885,9 @@ function AppInner() {
               </div>
             )}
 
-            {activeTab === 'admin' && isLeadOrStaff && (
+            {activeTab === 'members' && user.role === 'church' && <MembersTab />}
+
+            {activeTab === 'admin' && isStaffUser && (
               <div className="space-y-4">
                 <div className="flex gap-2 overflow-x-auto pb-1">
                   {[
