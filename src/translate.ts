@@ -1,5 +1,6 @@
 import { httpsCallable } from 'firebase/functions'
 import { functions } from './firebase'
+import { storageGet, storageSet } from './safeStorage'
 import type { Language } from './i18n'
 
 // On-demand translation of user-written content (posts, comments, messages).
@@ -74,20 +75,48 @@ export function worthTranslating(text: string): boolean {
 }
 
 // --- Translation call ------------------------------------------------------
-// In-memory cache so re-opening the same post/thread doesn't re-hit the
-// function. Keyed by target+text.
+// Two-level cache so a given text is translated at most once per device, ever:
+//   - an in-memory Map for this session (instant), and
+//   - localStorage so it survives reloads (posts/comments rarely change).
+// This keeps auto-translation cheap: the Cloud Translation API is only hit the
+// first time anyone's device sees a particular piece of text in a given
+// language.
 const cache = new Map<string, string>()
+
+// Short, stable key for a (text, language) pair - a djb2 hash keeps
+// localStorage keys small even for long posts.
+function cacheKey(text: string, target: Language): string {
+  let h = 5381
+  for (let i = 0; i < text.length; i++) h = ((h << 5) + h + text.charCodeAt(i)) | 0
+  return `tr:${target}:${h >>> 0}`
+}
+
+// Synchronous cache read, so a component can show a cached translation
+// immediately on mount with no flash of the original.
+export function getCachedTranslation(text: string, target: Language): string | null {
+  const key = cacheKey(text, target)
+  const mem = cache.get(key)
+  if (mem !== undefined) return mem
+  const stored = storageGet(key)
+  if (stored !== null && stored !== undefined) {
+    cache.set(key, stored)
+    return stored
+  }
+  return null
+}
+
 const callTranslate = httpsCallable<
   { text: string; target: string },
   { text: string; source: string | null }
 >(functions, 'translateContent')
 
 export async function translateText(text: string, target: Language): Promise<string> {
-  const key = target + '\n' + text
-  const hit = cache.get(key)
-  if (hit !== undefined) return hit
+  const cached = getCachedTranslation(text, target)
+  if (cached !== null) return cached
+  const key = cacheKey(text, target)
   const res = await callTranslate({ text, target })
   const out = res.data?.text ?? text
   cache.set(key, out)
+  storageSet(key, out)
   return out
 }

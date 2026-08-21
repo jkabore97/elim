@@ -25,7 +25,7 @@ import { enableNotifications, disableNotifications, listenForForegroundMessages,
 import { storageGet, storageSet } from './safeStorage'
 import { StarField } from './StarField'
 import { ReportSheet } from './ReportSheet'
-import { TranslateToggle } from './TranslateToggle'
+import { AutoTranslate } from './AutoTranslate'
 import { logActivity } from './activityLog'
 import { AnimatedSplash } from './AnimatedSplash'
 import { MediaPlayerProvider, useMediaPlayer } from './MediaPlayer'
@@ -2821,8 +2821,8 @@ function PostCard({ post, onLike, onOpenComments, currentUser, isLiked, onEdit, 
 
       {post.content && (
         <div className="px-4 pb-3">
-          <p className="text-slate-800 text-base leading-relaxed whitespace-pre-wrap">{post.content}</p>
-          <TranslateToggle text={post.content} className="mt-1.5" />
+          <AutoTranslate text={post.content}
+            textClass="text-slate-800 text-base leading-relaxed whitespace-pre-wrap" />
         </div>
       )}
 
@@ -3344,8 +3344,8 @@ function CommentRow({ c, isReply, liked, likeCount, onLike, onReply, onReport, c
       <div className="flex-1 min-w-0">
         <div className="bg-slate-50 rounded-2xl px-3.5 py-2.5">
           <p className="text-sm font-semibold text-slate-800">{c.userName}</p>
-          <p className="text-sm text-slate-600 break-words whitespace-pre-wrap">{c.text}</p>
-          <TranslateToggle text={c.text} className="mt-1 text-sm" />
+          <AutoTranslate text={c.text}
+            textClass="text-sm text-slate-600 break-words whitespace-pre-wrap" />
         </div>
         <div className="flex items-center gap-4 mt-1 ml-1">
           <span className="text-[11px] text-slate-400">{timeAgo(c.createdAt)}</span>

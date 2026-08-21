@@ -493,6 +493,7 @@ const zh: Record<string, string> = {
   "profile.languageNote": "选择应用的语言。",
   "translate.action": "翻译",
   "translate.showOriginal": "显示原文",
+  "translate.showTranslation": "显示译文",
   "translate.translating": "正在翻译...",
   "translate.failed": "无法翻译",
 }

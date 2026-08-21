@@ -493,6 +493,7 @@ const hi: Record<string, string> = {
   "profile.languageNote": "ऐप की भाषा चुनें।",
   "translate.action": "अनुवाद करें",
   "translate.showOriginal": "मूल दिखाएँ",
+  "translate.showTranslation": "अनुवाद दिखाएँ",
   "translate.translating": "अनुवाद हो रहा है...",
   "translate.failed": "अनुवाद नहीं हो सका",
 }

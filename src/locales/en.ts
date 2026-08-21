@@ -493,6 +493,7 @@ const en = {
   "profile.languageNote": "Choose the language of the app.",
   "translate.action": "Translate",
   "translate.showOriginal": "Show original",
+  "translate.showTranslation": "Show translation",
   "translate.translating": "Translating...",
   "translate.failed": "Couldn't translate",
 }

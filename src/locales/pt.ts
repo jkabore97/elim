@@ -492,6 +492,7 @@ const pt: Record<string, string> = {
   "profile.languageNote": "Escolha o idioma do aplicativo.",
   "translate.action": "Traduzir",
   "translate.showOriginal": "Mostrar original",
+  "translate.showTranslation": "Ver tradução",
   "translate.translating": "Traduzindo...",
   "translate.failed": "Não foi possível traduzir",
 }

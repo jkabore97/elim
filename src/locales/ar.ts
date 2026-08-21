@@ -493,6 +493,7 @@ const ar: Record<string, string> = {
   "profile.languageNote": "اختر لغة التطبيق.",
   "translate.action": "ترجمة",
   "translate.showOriginal": "عرض الأصل",
+  "translate.showTranslation": "عرض الترجمة",
   "translate.translating": "جارٍ الترجمة...",
   "translate.failed": "تعذّرت الترجمة",
 }
