@@ -59,6 +59,20 @@ export function detectLanguage(raw: string): Language | null {
   return null
 }
 
+// Whether a piece of text has enough substance to bother offering a
+// translation for. Comments are often too short for detectLanguage to name a
+// language, but we still want to offer to translate a real sentence like
+// "Gloire a Dieu, alleluia" - so the button shows for anything with a few
+// words, while skipping trivial reactions ("Amen", an emoji, "ok").
+export function worthTranslating(text: string): boolean {
+  const t = (text || '').trim()
+  // Any Arabic / Chinese / Devanagari is worth offering even when very short.
+  if (/[؀-ۿ一-鿿ऀ-ॿ]/.test(t)) return t.length >= 2
+  const letters = (t.match(/[a-zàâäáãçéèêëíìîïñóòôöõúùûüß]/gi) || []).length
+  const words = (t.match(/[a-zàâäáãçéèêëíìîïñóòôöõúùûüß']+/gi) || []).length
+  return letters >= 10 && words >= 2
+}
+
 // --- Translation call ------------------------------------------------------
 // In-memory cache so re-opening the same post/thread doesn't re-hit the
 // function. Keyed by target+text.

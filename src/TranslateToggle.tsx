@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Languages } from 'lucide-react'
 import { useLanguage } from './i18n'
-import { detectLanguage, translateText } from './translate'
+import { detectLanguage, translateText, worthTranslating } from './translate'
 
 // A subtle "Translate" link shown under a piece of user-written content when it
 // looks like it's in a language other than the reader's. Tapping translates to
@@ -14,10 +14,15 @@ export function TranslateToggle({ text, className = '', tone = 'dark' }: { text:
   const [translated, setTranslated] = useState('')
   const [shown, setShown] = useState(false)
 
-  // Only offer translation when we're fairly sure the content is in a
-  // different language than the reader's. Uncertain guesses show nothing.
+  // Show the Translate link unless we're confident the text is already in the
+  // reader's language. Short comments often can't be pinned to a language
+  // (detected === null); in that case we still offer translation as long as
+  // there's enough text to be worth it - better to offer once too often than
+  // to hide it on a comment someone can't read. Trivial reactions ("Amen", an
+  // emoji) are filtered out by worthTranslating.
   const detected = detectLanguage(text)
-  if (!detected || detected === language) return null
+  if (detected === language) return null
+  if (!worthTranslating(text)) return null
 
   const handleTranslate = async () => {
     if (state === 'done') {
