@@ -110,13 +110,29 @@ const callTranslate = httpsCallable<
   { text: string; source: string | null }
 >(functions, 'translateContent')
 
+// Coalesce concurrent requests for the same (text, language): when a members
+// list renders, many rows ask for the same profession or department at once -
+// this makes that a single network call instead of dozens.
+const inflight = new Map<string, Promise<string>>()
+
 export async function translateText(text: string, target: Language): Promise<string> {
   const cached = getCachedTranslation(text, target)
   if (cached !== null) return cached
   const key = cacheKey(text, target)
-  const res = await callTranslate({ text, target })
-  const out = res.data?.text ?? text
-  cache.set(key, out)
-  storageSet(key, out)
-  return out
+  const pending = inflight.get(key)
+  if (pending) return pending
+  const p = callTranslate({ text, target })
+    .then(res => {
+      const out = res.data?.text ?? text
+      cache.set(key, out)
+      storageSet(key, out)
+      inflight.delete(key)
+      return out
+    })
+    .catch(err => {
+      inflight.delete(key)
+      throw err
+    })
+  inflight.set(key, p)
+  return p
 }
