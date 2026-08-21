@@ -30,7 +30,9 @@ export function MembersTab() {
   }, [])
 
   const members = useMemo(() => {
-    let rows = people.filter(p => p.role === 'member')
+    // The congregation: ordinary members and church leads. Staff accounts
+    // (admin/pastor) and not-yet-approved churches are deliberately left out.
+    let rows = people.filter(p => p.role === 'member' || p.role === 'church')
     const q = search.trim().toLowerCase()
     if (q) {
       rows = rows.filter(p =>
@@ -100,11 +102,18 @@ function MemberCard({ m, t }: { m: AppUser; t: (k: any) => string }) {
         )}
         <div className="min-w-0">
           <p className="font-semibold text-slate-800 truncate">{m.displayName || '—'}</p>
-          {gender && (
-            <span className="inline-block mt-0.5 text-[11px] font-semibold text-affirm-700 bg-affirm-500/10 rounded-full px-2 py-0.5">
-              {gender}
-            </span>
-          )}
+          <div className="flex flex-wrap items-center gap-1.5 mt-0.5">
+            {m.role === 'church' && (
+              <span className="text-[11px] font-semibold text-teal-700 bg-teal-500/10 rounded-full px-2 py-0.5">
+                {t('role.church')}
+              </span>
+            )}
+            {gender && (
+              <span className="text-[11px] font-semibold text-affirm-700 bg-affirm-500/10 rounded-full px-2 py-0.5">
+                {gender}
+              </span>
+            )}
+          </div>
         </div>
       </div>
 

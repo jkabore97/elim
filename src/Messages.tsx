@@ -825,7 +825,7 @@ function NewMessagePicker({ user, onPick, onClose }: {
   }, [people, search])
 
   return (
-    <div className="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-sm flex items-end sm:items-center justify-center">
+    <div className="fixed inset-0 z-[70] bg-slate-950/70 backdrop-blur-sm flex items-end sm:items-center justify-center">
       <div className="glass-bar w-full max-w-md rounded-t-3xl sm:rounded-3xl border border-white/40 shadow-2xl max-h-[85vh] flex flex-col">
         <div className="px-5 py-4 border-b border-slate-200 flex items-center justify-between">
           <h2 className="font-bold text-slate-800">{t('msg.newMessage')}</h2>
@@ -840,7 +840,7 @@ function NewMessagePicker({ user, onPick, onClose }: {
           </div>
         </div>
 
-        <div className="flex-1 overflow-y-auto px-4 pb-5">
+        <div className="flex-1 overflow-y-auto px-4 pb-[calc(1.5rem+env(safe-area-inset-bottom))]">
           {loading && <p className="text-center py-10"><span className="scrim inline-block px-4 py-2 text-sm text-slate-600">{t('app.loading')}</span></p>}
           {!loading && error && (
             <p className="text-sm text-red-400 bg-red-500/10 border border-red-500/20 rounded-xl px-4 py-3 break-words">{error}</p>
