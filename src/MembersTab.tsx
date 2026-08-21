@@ -3,6 +3,7 @@ import { collection, onSnapshot, query, limit } from 'firebase/firestore'
 import { Search, Phone, Mail, MapPin, Briefcase, Users } from 'lucide-react'
 import { db } from './firebase'
 import { useLanguage } from './i18n'
+import { TValue } from './TValue'
 import type { AppUser } from './types'
 
 // Read-only directory of the congregation, for church leads. Members sign up
@@ -86,7 +87,6 @@ export function MembersTab() {
 }
 
 function MemberCard({ m, t }: { m: AppUser; t: (k: any) => string }) {
-  const location = [m.city, m.country].filter(Boolean).join(', ')
   const gender = m.gender === 'homme' ? t('auth.male') : m.gender === 'femme' ? t('auth.female') : null
 
   return (
@@ -131,26 +131,31 @@ function MemberCard({ m, t }: { m: AppUser; t: (k: any) => string }) {
             <span className="truncate">{m.email}</span>
           </a>
         )}
-        {location && (
+        {(m.city || m.country) && (
           <p className="flex items-center gap-2">
             <MapPin size={14} className="text-slate-400 shrink-0" />
-            <span className="truncate">{location}</span>
+            {/* City stays as written (a place name); the country comes from a
+                fixed English list, so it follows the reader's language. */}
+            <span className="truncate">
+              {m.city}{m.city && m.country ? ', ' : ''}
+              {m.country && <TValue text={m.country} source="en" />}
+            </span>
           </p>
         )}
         {m.profession && (
           <p className="flex items-center gap-2">
             <Briefcase size={14} className="text-slate-400 shrink-0" />
-            <span className="truncate">{m.profession}</span>
+            <span className="truncate"><TValue text={m.profession} source="fr" /></span>
           </p>
         )}
       </div>
 
-      {/* Interests / departments */}
+      {/* Interests / departments (authored in French) */}
       {m.interests && m.interests.length > 0 && (
         <div className="mt-3 flex flex-wrap gap-1.5">
           {m.interests.map(i => (
             <span key={i} className="text-[11px] font-medium text-slate-600 bg-slate-100 rounded-full px-2.5 py-1">
-              {i}
+              <TValue text={i} source="fr" />
             </span>
           ))}
         </div>
