@@ -36,7 +36,7 @@ import { MessagesTab, useUnreadCount } from './Messages'
 import { playMessageAlert, isAlertMuted, setAlertMuted } from './messageAlert'
 import { DataManagementTab } from './DataManagement'
 import { LibraryTab } from './Library'
-import type { Post, Comment, AppUser, ActivityLog, AppNotification, DonationConfig, DonationProvider, Report, Donation } from './types'
+import type { Post, Comment, AppUser, ActivityLog, AppNotification, DonationConfig, DonationProvider, Report, DonationType, Donation } from './types'
 import { LanguageProvider, useLanguage, LANGUAGES, type Language } from './i18n'
 
 function timeAgo(date: any) {
@@ -3824,8 +3824,10 @@ function DonationSheet({ config, canEdit, user, onClose }: {
   const [error, setError] = useState('')
   const [copied, setCopied] = useState<string | null>(null)
 
-  // The declaration flow: just which method was used. The gift is recorded as
-  // a generic 'autre' - members no longer pick a type/purpose/amount here.
+  // The declaration flow: what kind of gift, what it is for, how it was paid.
+  const [donType, setDonType] = useState<DonationType | null>(null)
+  const [purpose, setPurpose] = useState('')
+  const [amount, setAmount] = useState('')
   const [methodUsed, setMethodUsed] = useState<DonationProvider | null>(null)
   const [declaring, setDeclaring] = useState(false)
   const [declareError, setDeclareError] = useState('')
@@ -3856,13 +3858,15 @@ function DonationSheet({ config, canEdit, user, onClose }: {
   }
 
   const declare = async () => {
-    if (declaring) return
+    if (!donType || declaring) return
     setDeclaring(true); setDeclareError('')
     try {
       await addDoc(collection(db, 'donations'), {
         donorId: user.uid,
         donorName: user.displayName || '',
-        type: 'autre',
+        type: donType,
+        purpose: purpose.trim().slice(0, 300),
+        amount: amount.trim().slice(0, 30),
         ...(methodUsed ? { methodId: methodUsed.id, methodLabel: methodUsed.label } : {}),
         status: 'declared',
         createdAt: serverTimestamp(),
@@ -3903,6 +3907,13 @@ function DonationSheet({ config, canEdit, user, onClose }: {
     } finally { setSaving(false) }
   }
 
+  const typeChip = (id: DonationType, label: string) => (
+    <button key={id} type="button" onClick={() => setDonType(id)}
+      className={`flex-1 py-2.5 rounded-xl text-sm font-semibold border transition ${
+        donType === id ? 'bg-affirm-600 text-white border-affirm-500' : 'border-slate-200 text-slate-600 hover:border-slate-300'}`}>
+      {label}
+    </button>
+  )
 
   return (
     <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-end sm:items-center justify-center" onClick={onClose}>
@@ -4005,6 +4016,28 @@ function DonationSheet({ config, canEdit, user, onClose }: {
               )}
 
               <div>
+                <p className="text-xs font-semibold text-slate-500 mb-2">{t('donate.typeLabel')}</p>
+                <div className="flex gap-2">
+                  {typeChip('dime', t('donate.typeDime'))}
+                  {typeChip('offrande', t('donate.typeOffrande'))}
+                  {typeChip('autre', t('donate.typeAutre'))}
+                </div>
+              </div>
+
+              <div>
+                <label className="text-xs font-semibold text-slate-500">{t('donate.purposeLabel')}</label>
+                <input value={purpose} onChange={e => setPurpose(e.target.value)} maxLength={300}
+                  placeholder={t('donate.purposePlaceholder')}
+                  className="w-full mt-1 px-3 py-2.5 rounded-xl glass-input text-slate-800 placeholder:text-slate-400 text-sm focus:outline-none" />
+              </div>
+              <div>
+                <label className="text-xs font-semibold text-slate-500">{t('donate.amountLabel')}</label>
+                <input value={amount} onChange={e => setAmount(e.target.value)} maxLength={30}
+                  placeholder={t('donate.amountPlaceholder')} inputMode="text"
+                  className="w-full mt-1 px-3 py-2.5 rounded-xl glass-input text-slate-800 placeholder:text-slate-400 text-sm focus:outline-none" />
+              </div>
+
+              <div>
                 <p className="text-xs font-semibold text-slate-500 mb-2">{t('donate.methodsLabel')}</p>
                 {providers.length === 0 ? (
                   <p className="text-center text-slate-400 text-sm py-8">
@@ -4054,7 +4087,7 @@ function DonationSheet({ config, canEdit, user, onClose }: {
               {providers.length > 0 && (
                 <div>
                   {declareError && <p className="text-sm text-red-600 bg-red-500/10 border border-red-500/20 rounded-xl px-4 py-3 mb-3">{declareError}</p>}
-                  <button onClick={declare} disabled={declaring}
+                  <button onClick={declare} disabled={!donType || declaring}
                     className="w-full py-3.5 rounded-2xl btn-glass-primary font-semibold text-[15px] disabled:opacity-50">
                     {declaring ? t('donate.declaring') : t('donate.declare')}
                   </button>
