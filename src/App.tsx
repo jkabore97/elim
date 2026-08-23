@@ -3791,21 +3791,25 @@ function donationAccent(label: string) {
   if (l.includes('moov')) return 'bg-indigo-100 text-indigo-700'
   if (l.includes('paypal')) return 'bg-blue-100 text-blue-700'
   if (l.includes('cash')) return 'bg-green-100 text-green-700'
-  if (l.includes('square')) return 'bg-slate-900 text-white'
+  // Fixed hex (not a slate token): the neutral scale inverts in dark mode, so a
+  // slate-900 chip would turn pale. This keeps Square's badge black in both themes.
+  if (l.includes('square')) return 'bg-[#0b0b0d] text-white'
   if (l.includes('carte') || l.includes('card') || l.includes('visa')) return 'bg-violet-100 text-violet-700'
   return 'bg-affirm-100 text-affirm-700'
 }
 
 // Brand colour for the "give" button on a payment-link method, so Square,
-// PayPal, Cash App and card links each look like themselves.
+// PayPal, Cash App and card links each look like themselves. These use fixed
+// hex values on purpose: the slate scale inverts under the app's dark theme,
+// which would turn a slate-900 button pale and hide its white label.
 function donationBrandBtn(label: string) {
   const l = (label || '').toLowerCase()
   if (l.includes('paypal')) return 'bg-[#0070ba] hover:bg-[#005ea6] text-white'
   if (l.includes('cash')) return 'bg-[#00d64f] hover:bg-[#00c247] text-[#052e13]'
-  if (l.includes('square')) return 'bg-slate-900 hover:bg-black text-white'
+  if (l.includes('square')) return 'bg-[#0b0b0d] hover:bg-black text-white'
   if (l.includes('carte') || l.includes('card') || l.includes('visa') || l.includes('stripe'))
     return 'bg-gradient-to-r from-affirm-500 to-affirm-600 hover:from-affirm-600 hover:to-affirm-700 text-white'
-  return 'bg-slate-800 hover:bg-slate-900 text-white'
+  return 'bg-[#1e293b] hover:bg-[#0f172a] text-white'
 }
 
 const providerKind = (p: DonationProvider): 'number' | 'link' => (p.kind === 'link' ? 'link' : 'number')
@@ -4047,7 +4051,7 @@ function DonationSheet({ config, canEdit, user, onClose }: {
                   <div className="space-y-3">
                     {providers.map(p => (
                       <div key={p.id} className={`rounded-2xl border p-4 transition ${
-                        methodUsed?.id === p.id ? 'border-affirm-400 bg-affirm-50/60' : 'border-slate-200 bg-white/60'}`}>
+                        methodUsed?.id === p.id ? 'border-affirm-400 bg-affirm-500/10' : 'border-slate-200 bg-slate-50'}`}>
                         <div className="flex items-center gap-3 mb-3">
                           <div className={`w-9 h-9 rounded-full flex items-center justify-center text-sm font-bold shrink-0 ${donationAccent(p.label)}`}>
                             {(p.label || '?').charAt(0).toUpperCase()}
