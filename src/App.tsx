@@ -4,7 +4,7 @@ import {
   Image as ImageIcon, Video, Mic, X, Send, LogOut,
   Youtube, Facebook, CheckCircle2, Clock, ArrowRight, ShieldCheck, UserX, Sparkles,
   Trash2, Camera, FileText, Upload, Pencil, Globe, Eye, EyeOff, Search, Bell, ScrollText, Mail, Play, Pause, HeartPulse, Download, AlertTriangle, BookOpen, Music,
-  HandCoins, Copy, Check, Plus, Flag, Users
+  HandCoins, Copy, Check, Plus, Flag, Users, CreditCard
 } from 'lucide-react'
 import {
   collection, addDoc, onSnapshot, query, orderBy, where,
@@ -3791,8 +3791,21 @@ function donationAccent(label: string) {
   if (l.includes('moov')) return 'bg-indigo-100 text-indigo-700'
   if (l.includes('paypal')) return 'bg-blue-100 text-blue-700'
   if (l.includes('cash')) return 'bg-green-100 text-green-700'
-  if (l.includes('carte') || l.includes('card')) return 'bg-violet-100 text-violet-700'
+  if (l.includes('square')) return 'bg-slate-900 text-white'
+  if (l.includes('carte') || l.includes('card') || l.includes('visa')) return 'bg-violet-100 text-violet-700'
   return 'bg-affirm-100 text-affirm-700'
+}
+
+// Brand colour for the "give" button on a payment-link method, so Square,
+// PayPal, Cash App and card links each look like themselves.
+function donationBrandBtn(label: string) {
+  const l = (label || '').toLowerCase()
+  if (l.includes('paypal')) return 'bg-[#0070ba] hover:bg-[#005ea6] text-white'
+  if (l.includes('cash')) return 'bg-[#00d64f] hover:bg-[#00c247] text-[#052e13]'
+  if (l.includes('square')) return 'bg-slate-900 hover:bg-black text-white'
+  if (l.includes('carte') || l.includes('card') || l.includes('visa') || l.includes('stripe'))
+    return 'bg-gradient-to-r from-affirm-500 to-affirm-600 hover:from-affirm-600 hover:to-affirm-700 text-white'
+  return 'bg-slate-800 hover:bg-slate-900 text-white'
 }
 
 const providerKind = (p: DonationProvider): 'number' | 'link' => (p.kind === 'link' ? 'link' : 'number')
@@ -4034,19 +4047,26 @@ function DonationSheet({ config, canEdit, user, onClose }: {
                   <div className="space-y-3">
                     {providers.map(p => (
                       <div key={p.id} className={`rounded-2xl border p-4 transition ${
-                        methodUsed?.id === p.id ? 'border-affirm-400 bg-affirm-50/60' : 'border-slate-200'}`}>
-                        <div className="mb-2 flex items-center justify-between">
-                          <span className={`px-2.5 py-1 rounded-full text-xs font-bold ${donationAccent(p.label)}`}>{p.label}</span>
-                          {methodUsed?.id === p.id && <Check size={15} className="text-affirm-600" />}
+                        methodUsed?.id === p.id ? 'border-affirm-400 bg-affirm-50/60' : 'border-slate-200 bg-white/60'}`}>
+                        <div className="flex items-center gap-3 mb-3">
+                          <div className={`w-9 h-9 rounded-full flex items-center justify-center text-sm font-bold shrink-0 ${donationAccent(p.label)}`}>
+                            {(p.label || '?').charAt(0).toUpperCase()}
+                          </div>
+                          <div className="min-w-0 flex-1">
+                            <p className="font-semibold text-slate-800 text-sm leading-tight truncate">{p.label}</p>
+                            {p.holder && <p className="text-xs text-slate-500 truncate">{p.holder}</p>}
+                          </div>
+                          {methodUsed?.id === p.id && <Check size={16} className="text-affirm-600 shrink-0" />}
                         </div>
-                        {p.holder && <p className="text-xs text-slate-500 mb-1.5">{p.holder}</p>}
                         {providerKind(p) === 'link' ? (
                           <>
                             <button onClick={() => openLink(p)}
-                              className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-slate-800 hover:bg-slate-900 text-white text-sm font-semibold">
-                              {t('donate.open')} {p.label} <ArrowRight size={15} />
+                              className={`w-full flex items-center justify-center gap-2 py-3.5 rounded-2xl text-[15px] font-bold shadow-sm active:scale-[.99] transition ${donationBrandBtn(p.label)}`}>
+                              <CreditCard size={17} /> {p.label} <ArrowRight size={16} />
                             </button>
-                            <p className="text-[10px] text-slate-400 text-center mt-1.5">{t('donate.openExternalNote')}</p>
+                            <p className="flex items-center justify-center gap-1.5 text-[10px] text-slate-400 mt-2">
+                              <ShieldCheck size={12} /> {t('donate.openExternalNote')}
+                            </p>
                           </>
                         ) : (
                           <div className="flex items-center justify-between gap-2 bg-slate-50 rounded-xl px-3 py-2.5">
@@ -4057,7 +4077,7 @@ function DonationSheet({ config, canEdit, user, onClose }: {
                             </button>
                           </div>
                         )}
-                        {p.note && <p className="text-xs text-slate-500 mt-2 whitespace-pre-wrap">{p.note}</p>}
+                        {p.note && <p className="text-xs text-slate-500 mt-2.5 whitespace-pre-wrap">{p.note}</p>}
                       </div>
                     ))}
                   </div>
