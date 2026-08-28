@@ -27,6 +27,8 @@ import { StarField } from './StarField'
 import { ReportSheet } from './ReportSheet'
 import { AutoTranslate } from './AutoTranslate'
 import { MembersTab } from './MembersTab'
+import { OfflineButton } from './OfflineButton'
+import { getOfflineSrc } from './offline'
 import { logActivity } from './activityLog'
 import { AnimatedSplash } from './AnimatedSplash'
 import { MediaPlayerProvider, useMediaPlayer } from './MediaPlayer'
@@ -2742,6 +2744,17 @@ function PostCard({ post, onLike, onOpenComments, currentUser, isLiked, onEdit, 
   const [lightbox, setLightbox] = useState<string | null>(null)
   const player = useMediaPlayer()
 
+  // Play the on-device copy when this audio has been saved offline; otherwise
+  // stream. Resolved ahead of the tap so playback stays inside the user
+  // gesture the browser requires.
+  const [audioSrc, setAudioSrc] = useState(post.mediaUrl || '')
+  useEffect(() => {
+    if (post.type !== 'audio' || !post.mediaUrl) return
+    let alive = true
+    getOfflineSrc(post.id).then(s => { if (alive && s) setAudioSrc(s) })
+    return () => { alive = false }
+  }, [post.id, post.type, post.mediaUrl])
+
   const handleShare = async () => {
     const shareUrl = `https://ccelim.com/?post=${post.id}`
     const shareTitle = post.authorName || post.churchName || 'ELIM'
@@ -2923,7 +2936,7 @@ function PostCard({ post, onLike, onOpenComments, currentUser, isLiked, onEdit, 
               if (player.isCurrent(post.id)) player.toggle()
               else player.play({
                 id: post.id,
-                url: post.mediaUrl!,
+                url: audioSrc || post.mediaUrl!,
                 title: post.content?.slice(0, 60) || 'Audio',
                 artist: post.authorName || post.churchName || 'ELIM',
                 artwork: post.coverUrl || undefined
@@ -2941,6 +2954,10 @@ function PostCard({ post, onLike, onOpenComments, currentUser, isLiked, onEdit, 
               <p className="text-[11px] text-slate-400">{post.authorName || post.churchName || 'ELIM'}</p>
             </div>
           </button>
+          <div className="mt-2 flex justify-end">
+            <OfflineButton id={post.id} url={post.mediaUrl} kind="audio"
+              title={post.content?.slice(0, 60) || 'Audio'} />
+          </div>
         </div>
       )}
 
