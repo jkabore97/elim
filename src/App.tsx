@@ -185,7 +185,7 @@ function AuthBanner({ subtitle }: { subtitle?: string }) {
           <div className="banner-halo" aria-hidden="true" />
           <Logo size={76} variant="mark" />
         </div>
-        <h1 className="banner-title mt-4 text-3xl font-extrabold tracking-tight">ELIM</h1>
+        <h1 translate="no" className="notranslate banner-title mt-4 text-3xl font-extrabold tracking-tight">ELIM</h1>
         {subtitle && <p className="mt-1 text-[13px] font-semibold text-affirm-700">{subtitle}</p>}
       </div>
     </div>
@@ -798,7 +798,7 @@ function AuthScreen({ onSuccess }: { onSuccess: (user: AppUser) => void }) {
         <div className="relative flex-1 flex flex-col items-center justify-center px-6 py-12">
           <div className="w-full max-w-md text-center">
             <Logo size={110} variant="full" />
-            <h1 className="mt-8 text-3xl font-bold text-slate-900 tracking-tight">ELIM</h1>
+            <h1 translate="no" className="notranslate mt-8 text-3xl font-bold text-slate-900 tracking-tight">ELIM</h1>
             <p className="mt-2 text-[13px] text-affirm-600 font-medium leading-relaxed px-4">
               Centre Chrétien d'Enseignement, de Libéralité,<br />d'Intercession et de Moisson
             </p>
