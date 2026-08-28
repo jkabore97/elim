@@ -413,50 +413,128 @@ exports.translateContent = onCall({ region: 'us-central1' }, async (request) => 
 // and writes a VERIFIED donation matched to that donor. thankOnDonation then
 // sends the thank-you automatically. No self-declaration, no guesswork.
 
-// Creates a Square-hosted checkout for a fixed amount and returns its URL.
-// The donor's uid rides along in payment_note so the webhook can match the
-// payment back to the person.
+// Currencies with no minor unit ("cents"): 200 JPY / 200 XOF is 200, not
+// 20000. Square expects the smallest unit, so the multiplier depends on this.
+const ZERO_DECIMAL = new Set([
+  'JPY', 'XOF', 'XAF', 'XPF', 'KRW', 'VND', 'CLP', 'ISK', 'UGX', 'RWF',
+  'GNF', 'PYG', 'BIF', 'DJF', 'KMF', 'MGA', 'VUV',
+]);
+const minorFactor = (cur) => (ZERO_DECIMAL.has(cur) ? 1 : 100);
+
+// The CFA francs are pegged to the euro at a fixed, published rate, so we can
+// convert them exactly with no network call - a reliable fallback if the live
+// rate service is unreachable, and the source of truth for the EUR pairs.
+const CFA_PER_EUR = { XOF: 655.957, XAF: 655.957, XPF: 119.33174 };
+function cfaPeg(amount, from, to) {
+  if (from === 'EUR' && CFA_PER_EUR[to]) return amount * CFA_PER_EUR[to];
+  if (CFA_PER_EUR[from] && to === 'EUR') return amount / CFA_PER_EUR[from];
+  return null;
+}
+
+// Convert a major-unit amount between currencies. Live rates from the free
+// open.er-api.com; the fixed CFA<->EUR peg backs it up. Returns null if we
+// genuinely can't get a rate (caller turns that into a friendly error).
+async function fxConvert(amount, from, to) {
+  if (from === to) return amount;
+  try {
+    const r = await fetch(`https://open.er-api.com/v6/latest/${from}`);
+    const j = await r.json();
+    if (j && j.result === 'success' && j.rates && typeof j.rates[to] === 'number') {
+      return amount * j.rates[to];
+    }
+    console.error('FX API returned no rate', from, to, JSON.stringify(j).slice(0, 200));
+  } catch (err) {
+    console.error('FX API failed', err);
+  }
+  return cfaPeg(amount, from, to);
+}
+
+// Reads the Square location's own currency (USD, CAD, EUR, ...). A quick_pay
+// price MUST be in this currency or Square rejects the link.
+async function squareLocationCurrency(accessToken, locationId) {
+  try {
+    const locRes = await fetch(`${SQUARE_API}/locations/${locationId}`, {
+      headers: { Authorization: `Bearer ${accessToken}`, 'Square-Version': SQUARE_VERSION },
+    });
+    const locJson = await locRes.json();
+    if (locRes.ok && locJson.location && locJson.location.currency) {
+      return String(locJson.location.currency).toUpperCase();
+    }
+    console.error('Square location lookup returned no currency', locRes.status, JSON.stringify(locJson));
+  } catch (err) {
+    console.error('Square location lookup failed', err);
+  }
+  return null;
+}
+
+// Tells the app which currency this Square account actually charges in, so the
+// donation form can label the amount and default its currency picker.
+exports.squareChargeCurrency = onCall(
+  { region: 'us-central1', secrets: [SQUARE_ACCESS_TOKEN, SQUARE_LOCATION_ID] },
+  async (request) => {
+    if (!request.auth) throw new HttpsError('unauthenticated', 'Sign in first.');
+    const currency = await squareLocationCurrency(SQUARE_ACCESS_TOKEN.value(), SQUARE_LOCATION_ID.value());
+    return { currency: currency || 'USD' };
+  },
+);
+
+// Creates a Square-hosted checkout and returns its URL. The donor enters an
+// amount in a currency they choose (e.g. FCFA); we convert it into the Square
+// account's real currency and charge THAT, so "200 FCFA" is never mistaken for
+// "$200". The donor's uid rides along in payment_note so the webhook can match
+// the payment back to the person.
 exports.createSquareCheckout = onCall(
   { region: 'us-central1', secrets: [SQUARE_ACCESS_TOKEN, SQUARE_LOCATION_ID] },
   async (request) => {
     if (!request.auth) throw new HttpsError('unauthenticated', 'Sign in to give.');
     const uid = request.auth.uid;
-    const amount = Math.round(Number(request.data && request.data.amountCents));
+    const rawAmount = Number(request.data && request.data.amount);
+    const inputCurrency = String((request.data && request.data.currency) || '').toUpperCase();
     const type = String((request.data && request.data.type) || 'autre');
     const purpose = String((request.data && request.data.purpose) || '').slice(0, 120);
-    if (!Number.isFinite(amount) || amount < 100) {
+    if (!Number.isFinite(rawAmount) || rawAmount <= 0) {
       throw new HttpsError('invalid-argument', 'Enter a valid amount.');
     }
 
     const accessToken = SQUARE_ACCESS_TOKEN.value();
     const locationId = SQUARE_LOCATION_ID.value();
+    const chargeCurrency = (await squareLocationCurrency(accessToken, locationId)) || 'USD';
+    const from = inputCurrency || chargeCurrency;
 
-    // A quick_pay price must be in the location's own currency, or Square
-    // rejects the link. The seller could be in the US (USD), Canada (CAD), etc.,
-    // so ask Square what this location uses instead of guessing.
-    let currency = 'USD';
-    try {
-      const locRes = await fetch(`${SQUARE_API}/locations/${locationId}`, {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-          'Square-Version': SQUARE_VERSION,
-        },
-      });
-      const locJson = await locRes.json();
-      if (locRes.ok && locJson.location && locJson.location.currency) {
-        currency = String(locJson.location.currency).toUpperCase();
-      } else {
-        console.error('Square location lookup returned no currency', locRes.status, JSON.stringify(locJson));
+    // Convert the entered amount into the account's charge currency.
+    let chargedMajor;
+    if (from === chargeCurrency) {
+      chargedMajor = rawAmount;
+    } else {
+      const converted = await fxConvert(rawAmount, from, chargeCurrency);
+      if (converted == null) {
+        throw new HttpsError('failed-precondition', 'conversion_unavailable');
       }
-    } catch (err) {
-      console.error('Square location lookup failed; defaulting to USD', err);
+      chargedMajor = converted;
+    }
+
+    const factor = minorFactor(chargeCurrency);
+    const chargeMinor = Math.round(chargedMajor * factor);
+    const source = { amount: rawAmount, currency: from };
+
+    // Card processors won't take micro-payments; Square's floor is ~1 unit of
+    // the charge currency. Tell the giver kindly instead of failing at Square.
+    const MIN_MINOR = 100;
+    if (chargeMinor < MIN_MINOR) {
+      return {
+        ok: false,
+        reason: 'below_min',
+        min: { amount: MIN_MINOR / factor, currency: chargeCurrency },
+        charge: { amount: chargeMinor / factor, currency: chargeCurrency },
+        source,
+      };
     }
 
     const body = {
       idempotency_key: crypto.randomUUID(),
       quick_pay: {
         name: purpose ? `Don — ${purpose}` : 'Don — Centre Chrétien E.L.I.M',
-        price_money: { amount, currency },
+        price_money: { amount: chargeMinor, currency: chargeCurrency },
         location_id: locationId,
       },
       // Carries the donor + gift type through to the webhook.
@@ -490,8 +568,12 @@ exports.createSquareCheckout = onCall(
     }
 
     return {
+      ok: true,
       url: json.payment_link && json.payment_link.url,
       orderId: (json.payment_link && json.payment_link.order_id) || null,
+      charge: { amount: chargeMinor / factor, currency: chargeCurrency },
+      source,
+      converted: from !== chargeCurrency,
     };
   },
 );

@@ -3849,6 +3849,8 @@ function donationBrandBtn(label: string) {
 
 const providerKind = (p: DonationProvider): 'number' | 'link' => (p.kind === 'link' ? 'link' : 'number')
 
+type Money = { amount: number; currency: string }
+
 function DonationSheet({ config, canEdit, user, onClose }: {
   config: DonationConfig | null
   canEdit: boolean
@@ -3903,37 +3905,92 @@ function DonationSheet({ config, canEdit, user, onClose }: {
   // the person and amount.
   const [squareBusy, setSquareBusy] = useState<string | null>(null)
   const [squareError, setSquareError] = useState('')
+  // The donor picks the currency of the amount they type; the backend converts
+  // it into whatever currency the Square account actually charges in, so
+  // "200 FCFA" can never be mistaken for "$200".
+  const [curr, setCurr] = useState('XOF')
+  const [chargeCur, setChargeCur] = useState('')
+  const [squareConfirm, setSquareConfirm] = useState<
+    { url: string; source: Money; charge: Money } | null
+  >(null)
 
   const isSquareCheckout = (p: DonationProvider) =>
     providerKind(p) === 'link' && (p.label || '').toLowerCase().includes('square')
 
-  // The amount box is free text ("50", "$50", "50 CAD"). Pull a number out of it
-  // and convert to the integer cents Square needs.
-  const parsedAmountCents = () => {
+  const hasSquare = providers.some(isSquareCheckout)
+
+  // Ask the backend which currency this Square account charges in, so the
+  // picker can default to it (no conversion when the donor uses that currency).
+  useEffect(() => {
+    if (!hasSquare) return
+    let alive = true
+    httpsCallable<Record<string, never>, { currency: string }>(functions, 'squareChargeCurrency')({})
+      .then(res => {
+        if (!alive) return
+        const c = (res.data?.currency || '').toUpperCase()
+        if (c) { setChargeCur(c); setCurr(prev => prev || c) }
+      })
+      .catch(() => { /* keep the FCFA default */ })
+    return () => { alive = false }
+  }, [hasSquare])
+
+  const currencyOptions = useMemo(() => {
+    const base = ['XOF', 'USD', 'EUR', 'CAD', 'GBP']
+    if (chargeCur && !base.includes(chargeCur)) base.push(chargeCur)
+    return base
+  }, [chargeCur])
+
+  const fmtMoney = (a: number, c: string) => {
+    const zeroDec = ['JPY', 'XOF', 'XAF', 'XPF', 'KRW', 'VND', 'CLP'].includes(c)
+    const n = zeroDec ? Math.round(a).toString() : a.toFixed(2)
+    return `${n} ${c === 'XOF' ? 'FCFA' : c}`
+  }
+
+  const parsedAmount = () => {
     const n = parseFloat((amount || '').replace(/[^0-9.]/g, ''))
-    return Number.isFinite(n) ? Math.round(n * 100) : NaN
+    return Number.isFinite(n) ? n : NaN
   }
 
   const payWithSquare = async (p: DonationProvider) => {
     if (squareBusy) return
-    setSquareError('')
+    setSquareError(''); setSquareConfirm(null)
     setMethodUsed(p)
     if (!donType) { setSquareError(t('donate.squareNeedType')); return }
-    const cents = parsedAmountCents()
-    if (!Number.isFinite(cents) || cents < 100) { setSquareError(t('donate.squareNeedAmount')); return }
+    const amt = parsedAmount()
+    if (!Number.isFinite(amt) || amt <= 0) { setSquareError(t('donate.squareNeedAmount')); return }
     setSquareBusy(p.id)
     try {
       const call = httpsCallable<
-        { amountCents: number; type: string; purpose: string },
-        { url: string | null; orderId: string | null }
+        { amount: number; currency: string; type: string; purpose: string },
+        {
+          ok: boolean; url?: string | null; reason?: string
+          charge?: Money; source?: Money; min?: Money; converted?: boolean
+        }
       >(functions, 'createSquareCheckout')
-      const res = await call({ amountCents: cents, type: donType, purpose: purpose.trim().slice(0, 120) })
-      const url = res.data && res.data.url
-      if (!url) throw new Error('no-url')
-      window.open(url, '_blank', 'noopener,noreferrer')
-    } catch (_e) {
-      setSquareError(t('donate.squareFailed'))
+      const res = await call({ amount: amt, currency: curr, type: donType, purpose: purpose.trim().slice(0, 120) })
+      const d = res.data
+      if (d && d.ok === false && d.reason === 'below_min' && d.min && d.charge) {
+        setSquareError(`${t('donate.squareBelowMin')} ${fmtMoney(d.min.amount, d.min.currency)} (${fmtMoney(d.charge.amount, d.charge.currency)}). ${t('donate.squareBelowMinHint')}`)
+        return
+      }
+      const url = d && d.url
+      if (!url || !d.charge) throw new Error('no-url')
+      if (d.converted && d.source) {
+        // Show the exact converted charge and let them confirm before Square.
+        setSquareConfirm({ url, source: d.source, charge: d.charge })
+      } else {
+        window.open(url, '_blank', 'noopener,noreferrer')
+      }
+    } catch (e: any) {
+      const msg = String(e?.message || '')
+      setSquareError(msg.includes('conversion_unavailable') ? t('donate.squareFxDown') : t('donate.squareFailed'))
     } finally { setSquareBusy(null) }
+  }
+
+  const confirmSquare = () => {
+    if (!squareConfirm) return
+    window.open(squareConfirm.url, '_blank', 'noopener,noreferrer')
+    setSquareConfirm(null)
   }
 
   const declare = async () => {
@@ -3945,7 +4002,9 @@ function DonationSheet({ config, canEdit, user, onClose }: {
         donorName: user.displayName || '',
         type: donType,
         purpose: purpose.trim().slice(0, 300),
-        amount: amount.trim().slice(0, 30),
+        // Keep the currency with the number so "200" is never ambiguous.
+        amount: (amount.trim() ? `${amount.trim()} ${curr === 'XOF' ? 'FCFA' : curr}` : '').slice(0, 30),
+        currency: curr,
         ...(methodUsed ? { methodId: methodUsed.id, methodLabel: methodUsed.label } : {}),
         status: 'declared',
         createdAt: serverTimestamp(),
@@ -4111,9 +4170,23 @@ function DonationSheet({ config, canEdit, user, onClose }: {
               </div>
               <div>
                 <label className="text-xs font-semibold text-slate-500">{t('donate.amountLabel')}</label>
-                <input value={amount} onChange={e => setAmount(e.target.value)} maxLength={30}
-                  placeholder={t('donate.amountPlaceholder')} inputMode="text"
-                  className="w-full mt-1 px-3 py-2.5 rounded-xl glass-input text-slate-800 placeholder:text-slate-400 text-sm focus:outline-none" />
+                <div className="flex gap-2 mt-1">
+                  <input value={amount} onChange={e => setAmount(e.target.value)} maxLength={15}
+                    placeholder={t('donate.amountPlaceholder')} inputMode="decimal"
+                    className="flex-1 min-w-0 px-3 py-2.5 rounded-xl glass-input text-slate-800 placeholder:text-slate-400 text-sm focus:outline-none" />
+                  <select value={curr} onChange={e => setCurr(e.target.value)}
+                    aria-label={t('donate.currencyLabel')}
+                    className="shrink-0 px-3 py-2.5 rounded-xl glass-input text-slate-800 text-sm font-semibold focus:outline-none">
+                    {currencyOptions.map(c => (
+                      <option key={c} value={c}>{c === 'XOF' ? 'FCFA' : c}</option>
+                    ))}
+                  </select>
+                </div>
+                {hasSquare && chargeCur && curr !== chargeCur && (
+                  <p className="text-[11px] text-slate-400 mt-1.5 leading-relaxed">
+                    {t('donate.squareConvertHint')} {chargeCur}.
+                  </p>
+                )}
               </div>
 
               <div>
@@ -4150,6 +4223,26 @@ function DonationSheet({ config, canEdit, user, onClose }: {
                               </button>
                               {squareError && methodUsed?.id === p.id && (
                                 <p className="text-xs text-red-600 bg-red-500/10 border border-red-500/20 rounded-xl px-3 py-2 mt-2">{squareError}</p>
+                              )}
+                              {squareConfirm && methodUsed?.id === p.id && (
+                                <div className="mt-3 rounded-2xl border border-affirm-400/40 bg-affirm-500/10 p-3">
+                                  <div className="flex items-center justify-between text-sm">
+                                    <span className="text-slate-500">{t('donate.squareYouEntered')}</span>
+                                    <span className="font-semibold text-slate-700">{fmtMoney(squareConfirm.source.amount, squareConfirm.source.currency)}</span>
+                                  </div>
+                                  <div className="flex items-center justify-between text-sm mt-1.5">
+                                    <span className="text-slate-500">{t('donate.squareWillCharge')}</span>
+                                    <span className="font-bold text-slate-900">{fmtMoney(squareConfirm.charge.amount, squareConfirm.charge.currency)}</span>
+                                  </div>
+                                  <button onClick={confirmSquare}
+                                    className={`w-full mt-3 flex items-center justify-center gap-2 py-3 rounded-xl text-[15px] font-bold ${donationBrandBtn(p.label)}`}>
+                                    <CreditCard size={16} /> {t('donate.squareContinue')} <ArrowRight size={15} />
+                                  </button>
+                                  <button onClick={() => setSquareConfirm(null)}
+                                    className="w-full mt-1.5 py-2 text-xs font-semibold text-slate-400 hover:text-slate-600">
+                                    {t('post.cancel')}
+                                  </button>
+                                </div>
                               )}
                               <p className="flex items-center justify-center gap-1.5 text-[10px] text-slate-400 mt-2">
                                 <ShieldCheck size={12} /> {t('donate.squareAutoNote')}
