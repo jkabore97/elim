@@ -1,11 +1,26 @@
 const { onDocumentCreated } = require('firebase-functions/v2/firestore');
-const { onCall, HttpsError } = require('firebase-functions/v2/https');
+const { onCall, onRequest, HttpsError } = require('firebase-functions/v2/https');
+const { defineSecret } = require('firebase-functions/params');
 const { initializeApp } = require('firebase-admin/app');
 const { getFirestore, FieldValue } = require('firebase-admin/firestore');
 const { getMessaging } = require('firebase-admin/messaging');
 const { Translate } = require('@google-cloud/translate').v2;
+const crypto = require('crypto');
 
 initializeApp();
+
+// Square credentials, stored in Secret Manager (never in the repo). Set with:
+//   gcloud secrets create SQUARE_ACCESS_TOKEN --data-file=- ...
+// See MOBILE.md / the release notes for the full setup.
+const SQUARE_ACCESS_TOKEN = defineSecret('SQUARE_ACCESS_TOKEN');
+const SQUARE_LOCATION_ID = defineSecret('SQUARE_LOCATION_ID');
+const SQUARE_WEBHOOK_SIGNATURE_KEY = defineSecret('SQUARE_WEBHOOK_SIGNATURE_KEY');
+// The exact public URL of the squareWebhook function - Square signs each
+// webhook with (this URL + body), so verification needs the same string.
+const SQUARE_WEBHOOK_URL = defineSecret('SQUARE_WEBHOOK_URL');
+
+const SQUARE_API = 'https://connect.squareup.com/v2';
+const SQUARE_VERSION = '2024-12-18';
 
 // One Translate client, reused across warm invocations. It authenticates with
 // the function's own service account (Application Default Credentials), so no
@@ -384,3 +399,147 @@ exports.translateContent = onCall({ region: 'us-central1' }, async (request) => 
     throw new HttpsError('internal', 'Translation failed. Please try again.');
   }
 });
+
+
+// ==================== SQUARE DONATIONS ====================
+//
+// Real payment <-> record linking. The app asks createSquareCheckout for a
+// Square payment page carrying the donor's uid; after the donor pays, Square
+// calls squareWebhook, which verifies the signature, reads the real amount,
+// and writes a VERIFIED donation matched to that donor. thankOnDonation then
+// sends the thank-you automatically. No self-declaration, no guesswork.
+
+// Creates a Square-hosted checkout for a fixed amount and returns its URL.
+// The donor's uid rides along in payment_note so the webhook can match the
+// payment back to the person.
+exports.createSquareCheckout = onCall(
+  { region: 'us-central1', secrets: [SQUARE_ACCESS_TOKEN, SQUARE_LOCATION_ID] },
+  async (request) => {
+    if (!request.auth) throw new HttpsError('unauthenticated', 'Sign in to give.');
+    const uid = request.auth.uid;
+    const amount = Math.round(Number(request.data && request.data.amountCents));
+    const currency = String((request.data && request.data.currency) || 'USD').toUpperCase();
+    const type = String((request.data && request.data.type) || 'autre');
+    const purpose = String((request.data && request.data.purpose) || '').slice(0, 120);
+    if (!Number.isFinite(amount) || amount < 100) {
+      throw new HttpsError('invalid-argument', 'Enter a valid amount.');
+    }
+
+    const body = {
+      idempotency_key: crypto.randomUUID(),
+      quick_pay: {
+        name: purpose ? `Don — ${purpose}` : 'Don — Centre Chrétien E.L.I.M',
+        price_money: { amount, currency },
+        location_id: SQUARE_LOCATION_ID.value(),
+      },
+      // Carries the donor + gift type through to the webhook.
+      payment_note: `elim:${uid}:${['dime', 'offrande', 'autre'].includes(type) ? type : 'autre'}`,
+      checkout_options: {
+        redirect_url: 'https://ccelim.com/?donation=thanks',
+        ask_for_shipping_address: false,
+      },
+    };
+
+    let json;
+    try {
+      const res = await fetch(`${SQUARE_API}/online-checkout/payment-links`, {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${SQUARE_ACCESS_TOKEN.value()}`,
+          'Content-Type': 'application/json',
+          'Square-Version': SQUARE_VERSION,
+        },
+        body: JSON.stringify(body),
+      });
+      json = await res.json();
+      if (!res.ok) {
+        console.error('Square payment-link error', res.status, JSON.stringify(json));
+        throw new HttpsError('internal', 'Could not start the Square checkout.');
+      }
+    } catch (err) {
+      if (err instanceof HttpsError) throw err;
+      console.error('Square request failed', err);
+      throw new HttpsError('internal', 'Could not reach Square. Please try again.');
+    }
+
+    return {
+      url: json.payment_link && json.payment_link.url,
+      orderId: (json.payment_link && json.payment_link.order_id) || null,
+    };
+  },
+);
+
+// Receives Square webhooks. Verifies the HMAC signature, then on a COMPLETED
+// payment records a verified donation for the donor named in payment_note.
+exports.squareWebhook = onRequest(
+  { region: 'us-central1', secrets: [SQUARE_WEBHOOK_SIGNATURE_KEY, SQUARE_WEBHOOK_URL] },
+  async (req, res) => {
+    try {
+      const signature = req.get('x-square-hmacsha256-signature') || '';
+      const raw = req.rawBody ? req.rawBody.toString('utf8') : JSON.stringify(req.body || {});
+      const expected = crypto
+        .createHmac('sha256', SQUARE_WEBHOOK_SIGNATURE_KEY.value())
+        .update(SQUARE_WEBHOOK_URL.value() + raw)
+        .digest('base64');
+      // Constant-time compare, guarding against a length mismatch throwing.
+      const ok = signature.length === expected.length &&
+        crypto.timingSafeEqual(Buffer.from(signature), Buffer.from(expected));
+      if (!ok) {
+        console.warn('Square webhook: signature mismatch');
+        return res.status(403).send('bad signature');
+      }
+
+      const event = req.body || {};
+      if (event.type !== 'payment.created' && event.type !== 'payment.updated') {
+        return res.status(200).send('ignored');
+      }
+      const payment = event.data && event.data.object && event.data.object.payment;
+      if (!payment || payment.status !== 'COMPLETED') {
+        return res.status(200).send('not completed');
+      }
+
+      const db = getFirestore();
+      // Idempotency: a payment.updated can arrive more than once.
+      const dup = await db.collection('donations')
+        .where('squarePaymentId', '==', payment.id).limit(1).get();
+      if (!dup.empty) return res.status(200).send('duplicate');
+
+      const m = /^elim:([^:]+):?(.*)$/.exec(payment.note || '');
+      const donorId = m ? m[1] : 'unknown';
+      const donType = m && ['dime', 'offrande', 'autre'].includes(m[2]) ? m[2] : 'autre';
+      const cents = (payment.amount_money && payment.amount_money.amount) || 0;
+      const currency = (payment.amount_money && payment.amount_money.currency) || 'USD';
+
+      let donorName = '';
+      if (donorId !== 'unknown') {
+        try {
+          const u = await db.collection('users').doc(donorId).get();
+          donorName = u.exists ? (u.data().displayName || '') : '';
+        } catch (_e) { /* name is best-effort */ }
+      }
+
+      await db.collection('donations').add({
+        donorId,
+        donorName,
+        type: donType,
+        amount: `${(cents / 100).toFixed(2)} ${currency}`,
+        amountCents: cents,
+        currency,
+        provider: 'square',
+        squarePaymentId: payment.id,
+        squareOrderId: payment.order_id || null,
+        status: 'verified',
+        verifiedById: 'square',
+        verifiedByName: 'Square',
+        verifiedAt: FieldValue.serverTimestamp(),
+        createdAt: FieldValue.serverTimestamp(),
+      });
+
+      return res.status(200).send('ok');
+    } catch (err) {
+      // Return 200 so Square doesn't retry-storm on our own bug; it's logged.
+      console.error('squareWebhook error', err);
+      return res.status(200).send('error-logged');
+    }
+  },
+);
