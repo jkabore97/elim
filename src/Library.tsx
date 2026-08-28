@@ -18,6 +18,8 @@ import 'react-pdf/dist/Page/AnnotationLayer.css'
 import 'react-pdf/dist/Page/TextLayer.css'
 import { storageGet, storageSet } from './safeStorage'
 import { Portal } from './Portal'
+import { OfflineButton } from './OfflineButton'
+import { getOfflineSrc } from './offline'
 
 // pdf.js does its parsing in a web worker. Pointing at the copy inside our own
 // bundle rather than a CDN means the reader still works offline and doesn't
@@ -60,6 +62,16 @@ function PdfReader({ book, onClose }: { book: Book; onClose: () => void }) {
   const [error, setError] = useState('')
   const [width, setWidth] = useState(0)
   const holderRef = useRef<HTMLDivElement>(null)
+
+  // Read from the on-device copy if the book was saved offline; otherwise
+  // stream from storage. Falls back to the network URL until the local one
+  // resolves, so opening is never blocked.
+  const [src, setSrc] = useState(book.fileUrl)
+  useEffect(() => {
+    let alive = true
+    getOfflineSrc(book.id).then(local => { if (alive && local) setSrc(local) })
+    return () => { alive = false }
+  }, [book.id])
 
   // Render at the container's width rather than a fixed size, so a page fills
   // a phone screen without horizontal scrolling.
@@ -126,7 +138,7 @@ function PdfReader({ book, onClose }: { book: Book; onClose: () => void }) {
           </div>
         ) : (
           <Document
-            file={book.fileUrl}
+            file={src}
             onLoadSuccess={({ numPages }) => { setNumPages(numPages); setError('') }}
             onLoadError={e => setError(e?.message || String(e))}
             loading={
@@ -401,6 +413,7 @@ export function LibraryTab({ user, canUpload }: { user: AppUser; canUpload: bool
             </button>
 
             <div className="flex flex-col gap-1 shrink-0">
+              <OfflineButton id={b.id} url={b.fileUrl} kind="book" title={b.title} compact />
               <a href={b.fileUrl} target="_blank" rel="noreferrer"
                 aria-label={t('post.download')}
                 className="p-2 rounded-full hover:bg-slate-100 text-slate-400 hover:text-affirm-600">
