@@ -6,7 +6,7 @@ import {
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
 import {
   ArrowLeft, Send, Search, MessageCircle, Plus, X, LifeBuoy,
-  ShieldCheck, HeartHandshake, Image as ImageIcon, Mic, Trash2, Play, Pause, Pencil, Check, CheckCheck, Download
+  ShieldCheck, HeartHandshake, Image as ImageIcon, Mic, Trash2, Play, Pause, Pencil, Check, CheckCheck, Download, Church
 } from 'lucide-react'
 import { db, storage } from './firebase'
 import { useLanguage } from './i18n'
@@ -506,11 +506,16 @@ function ChatView({ conversation, user, onBack }: {
   }
 
   const staff = isStaff(user)
+  // The church channel is a one-way announcement thread the server writes into
+  // (donation receipts, church-wide notes). Members read it; nobody types back.
+  const isChurchChannel = conversation.type === 'church'
   const channelMeta = conversation.type === 'pastor'
     ? { label: t('msg.pastorChannel'), Icon: HeartHandshake, tone: 'bg-indigo-500/15 text-indigo-400' }
     : conversation.type === 'tech'
       ? { label: t('msg.techChannel'), Icon: LifeBuoy, tone: 'bg-blue-500/15 text-blue-400' }
-      : { label: '', Icon: MessageCircle, tone: 'bg-affirm-500/15 text-affirm-400' }
+      : conversation.type === 'church'
+        ? { label: t('msg.churchChannel'), Icon: Church, tone: 'bg-affirm-500/15 text-affirm-600' }
+        : { label: '', Icon: MessageCircle, tone: 'bg-affirm-500/15 text-affirm-400' }
 
   const otherUid = conversation.participantIds.find(id => id !== user.uid) || conversation.participantIds[0]
   const title = conversation.type === 'direct'
@@ -544,6 +549,7 @@ function ChatView({ conversation, user, onBack }: {
           <p className="text-[11px] text-slate-400 truncate">
             {conversation.type === 'direct'
               ? roleMeta(conversation.ownerRole || 'member', t).label
+              : isChurchChannel ? t('msg.churchChannelDesc')
               : staff ? channelMeta.label : t('msg.usuallyReplies')}
           </p>
         </div>
@@ -591,6 +597,7 @@ function ChatView({ conversation, user, onBack }: {
             <p className="text-xs text-slate-500 mt-1 px-8 leading-relaxed">
               {conversation.type === 'pastor' ? t('msg.pastorHint')
                 : conversation.type === 'tech' ? t('msg.techHint')
+                : conversation.type === 'church' ? t('msg.churchHint')
                 : t('msg.startHint')}
             </p>
           </div>
@@ -746,6 +753,13 @@ function ChatView({ conversation, user, onBack }: {
         </div>
       )}
 
+      {isChurchChannel ? (
+        <div className="pt-3 border-t border-slate-200">
+          <p className="flex items-center justify-center gap-1.5 text-center text-[12px] text-slate-400 py-3 px-4 leading-relaxed">
+            <Church size={13} /> {t('msg.churchReadOnly')}
+          </p>
+        </div>
+      ) : (
       <div className="pt-3 border-t border-slate-200">
         {recording ? (
           <div className="flex items-center gap-3 px-4 py-3 rounded-2xl bg-red-500/10 border border-red-500/30">
@@ -786,6 +800,7 @@ function ChatView({ conversation, user, onBack }: {
         )}
         {sending && <p className="text-[11px] text-slate-500 mt-2 text-center">{t('msg.sending')}</p>}
       </div>
+      )}
 
       {lightbox && <ImageLightbox src={lightbox} onClose={() => setLightbox(null)} />}
     </div>
@@ -1168,6 +1183,27 @@ function ChannelChooser({ user, onOpen }: {
           </button>
         )
       })}
+
+      {existing['church'] && (
+        <button onClick={() => onOpen(existing['church'])}
+          className="w-full flex items-center gap-4 p-5 rounded-3xl bg-white shadow-sm border border-slate-100 hover:border-affirm-200 hover:shadow-md transition text-left">
+          <div className="w-12 h-12 rounded-2xl flex items-center justify-center shrink-0 bg-affirm-100 text-affirm-600">
+            <Church size={22} />
+          </div>
+          <div className="min-w-0 flex-1">
+            <h3 className={`text-slate-900 ${isUnread(existing['church']) ? 'font-extrabold' : 'font-bold'}`}>{t('msg.churchChannel')}</h3>
+            <p className={`text-xs mt-0.5 leading-relaxed truncate ${
+              isUnread(existing['church']) ? 'text-slate-700 font-medium' : 'text-slate-400'}`}>
+              {existing['church'].lastMessage || t('msg.churchChannelDesc')}
+            </p>
+          </div>
+          {isUnread(existing['church']) && (
+            <span className="shrink-0 px-2.5 py-1 rounded-full bg-affirm-600 text-white text-[10px] font-bold uppercase tracking-wide">
+              {t('msg.newBadge')}
+            </span>
+          )}
+        </button>
+      )}
 
       {directs.length > 0 && (
         <>

@@ -101,7 +101,9 @@ export interface Conversation {
   id: string;
   // 'pastor' and 'tech' are the two support channels every member and
   // church can open. 'direct' is a one-to-one thread started by staff.
-  type: 'pastor' | 'tech' | 'direct';
+  // 'church' is a one-way, read-only channel the server writes into (donation
+  // receipts and church-wide notes), shown as coming from the church itself.
+  type: 'pastor' | 'tech' | 'direct' | 'church';
   // For 'support' this is just [memberUid]; staff access is granted by role
   // rather than membership, so any staff member can pick up the thread.
   participantIds: string[];
