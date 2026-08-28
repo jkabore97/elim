@@ -80,7 +80,8 @@ export function AnimatedSplash({ onDone }: { onDone: () => void }) {
         />
 
         <h1
-          className="mt-8 text-[2.6rem] leading-none font-extrabold tracking-[0.16em] transition-all duration-1000 ease-out"
+          translate="no"
+          className="notranslate mt-8 text-[2.6rem] leading-none font-extrabold tracking-[0.16em] transition-all duration-1000 ease-out"
           style={{
             transform: shown ? 'translateY(0)' : 'translateY(16px)',
             opacity: shown ? 1 : 0,

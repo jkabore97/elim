@@ -418,11 +418,34 @@ exports.createSquareCheckout = onCall(
     if (!request.auth) throw new HttpsError('unauthenticated', 'Sign in to give.');
     const uid = request.auth.uid;
     const amount = Math.round(Number(request.data && request.data.amountCents));
-    const currency = String((request.data && request.data.currency) || 'USD').toUpperCase();
     const type = String((request.data && request.data.type) || 'autre');
     const purpose = String((request.data && request.data.purpose) || '').slice(0, 120);
     if (!Number.isFinite(amount) || amount < 100) {
       throw new HttpsError('invalid-argument', 'Enter a valid amount.');
+    }
+
+    const accessToken = SQUARE_ACCESS_TOKEN.value();
+    const locationId = SQUARE_LOCATION_ID.value();
+
+    // A quick_pay price must be in the location's own currency, or Square
+    // rejects the link. The seller could be in the US (USD), Canada (CAD), etc.,
+    // so ask Square what this location uses instead of guessing.
+    let currency = 'USD';
+    try {
+      const locRes = await fetch(`${SQUARE_API}/locations/${locationId}`, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          'Square-Version': SQUARE_VERSION,
+        },
+      });
+      const locJson = await locRes.json();
+      if (locRes.ok && locJson.location && locJson.location.currency) {
+        currency = String(locJson.location.currency).toUpperCase();
+      } else {
+        console.error('Square location lookup returned no currency', locRes.status, JSON.stringify(locJson));
+      }
+    } catch (err) {
+      console.error('Square location lookup failed; defaulting to USD', err);
     }
 
     const body = {
@@ -430,7 +453,7 @@ exports.createSquareCheckout = onCall(
       quick_pay: {
         name: purpose ? `Don — ${purpose}` : 'Don — Centre Chrétien E.L.I.M',
         price_money: { amount, currency },
-        location_id: SQUARE_LOCATION_ID.value(),
+        location_id: locationId,
       },
       // Carries the donor + gift type through to the webhook.
       payment_note: `elim:${uid}:${['dime', 'offrande', 'autre'].includes(type) ? type : 'autre'}`,
@@ -445,7 +468,7 @@ exports.createSquareCheckout = onCall(
       const res = await fetch(`${SQUARE_API}/online-checkout/payment-links`, {
         method: 'POST',
         headers: {
-          Authorization: `Bearer ${SQUARE_ACCESS_TOKEN.value()}`,
+          Authorization: `Bearer ${accessToken}`,
           'Content-Type': 'application/json',
           'Square-Version': SQUARE_VERSION,
         },

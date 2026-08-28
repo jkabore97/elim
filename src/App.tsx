@@ -4,7 +4,7 @@ import {
   Image as ImageIcon, Video, Mic, X, Send, LogOut,
   Youtube, Facebook, CheckCircle2, Clock, ArrowRight, ShieldCheck, UserX, Sparkles,
   Trash2, Camera, FileText, Upload, Pencil, Globe, Eye, EyeOff, Search, Bell, ScrollText, Mail, Play, Pause, HeartPulse, Download, AlertTriangle, BookOpen, Music,
-  HandCoins, Copy, Check, Plus, Flag, Users, CreditCard
+  HandCoins, Copy, Check, Plus, Flag, Users, CreditCard, Loader2
 } from 'lucide-react'
 import {
   collection, addDoc, onSnapshot, query, orderBy, where,
@@ -17,10 +17,11 @@ import {
   EmailAuthProvider, linkWithCredential
 } from 'firebase/auth'
 import { ref, uploadBytes, uploadBytesResumable, getDownloadURL } from 'firebase/storage'
+import { httpsCallable } from 'firebase/functions'
 import { Capacitor, SystemBars, SystemBarsStyle } from '@capacitor/core'
 import { Share } from '@capacitor/share'
 import { EdgeToEdge } from '@capawesome/capacitor-android-edge-to-edge-support'
-import { auth, db, storage } from './firebase'
+import { auth, db, storage, functions } from './firebase'
 import { enableNotifications, disableNotifications, listenForForegroundMessages, checkNotificationPermission, reconcileNotificationState, initNativeNotifications, sendTestNotification, notificationDiagnostics, onNotificationRoute, consumeLaunchUrlRoute, openNotificationSettings, cleanupPushForLogout } from './notifications'
 import { storageGet, storageSet } from './safeStorage'
 import { StarField } from './StarField'
@@ -185,7 +186,7 @@ function AuthBanner({ subtitle }: { subtitle?: string }) {
           <div className="banner-halo" aria-hidden="true" />
           <Logo size={76} variant="mark" />
         </div>
-        <h1 className="banner-title mt-4 text-3xl font-extrabold tracking-tight">ELIM</h1>
+        <h1 translate="no" className="notranslate banner-title mt-4 text-3xl font-extrabold tracking-tight">ELIM</h1>
         {subtitle && <p className="mt-1 text-[13px] font-semibold text-affirm-700">{subtitle}</p>}
       </div>
     </div>
@@ -798,7 +799,7 @@ function AuthScreen({ onSuccess }: { onSuccess: (user: AppUser) => void }) {
         <div className="relative flex-1 flex flex-col items-center justify-center px-6 py-12">
           <div className="w-full max-w-md text-center">
             <Logo size={110} variant="full" />
-            <h1 className="mt-8 text-3xl font-bold text-slate-900 tracking-tight">ELIM</h1>
+            <h1 translate="no" className="notranslate mt-8 text-3xl font-bold text-slate-900 tracking-tight">ELIM</h1>
             <p className="mt-2 text-[13px] text-affirm-600 font-medium leading-relaxed px-4">
               Centre Chrétien d'Enseignement, de Libéralité,<br />d'Intercession et de Moisson
             </p>
@@ -3895,6 +3896,46 @@ function DonationSheet({ config, canEdit, user, onClose }: {
     window.open(p.url!, '_blank', 'noopener,noreferrer')
   }
 
+  // A link method labelled "Square" is upgraded to a live, donor-linked
+  // checkout: we mint a Square payment page stamped with this donor's id and
+  // gift type, so once they pay, the webhook records it as a verified donation
+  // automatically - no self-declaration, and the payment is actually tied to
+  // the person and amount.
+  const [squareBusy, setSquareBusy] = useState<string | null>(null)
+  const [squareError, setSquareError] = useState('')
+
+  const isSquareCheckout = (p: DonationProvider) =>
+    providerKind(p) === 'link' && (p.label || '').toLowerCase().includes('square')
+
+  // The amount box is free text ("50", "$50", "50 CAD"). Pull a number out of it
+  // and convert to the integer cents Square needs.
+  const parsedAmountCents = () => {
+    const n = parseFloat((amount || '').replace(/[^0-9.]/g, ''))
+    return Number.isFinite(n) ? Math.round(n * 100) : NaN
+  }
+
+  const payWithSquare = async (p: DonationProvider) => {
+    if (squareBusy) return
+    setSquareError('')
+    setMethodUsed(p)
+    if (!donType) { setSquareError(t('donate.squareNeedType')); return }
+    const cents = parsedAmountCents()
+    if (!Number.isFinite(cents) || cents < 100) { setSquareError(t('donate.squareNeedAmount')); return }
+    setSquareBusy(p.id)
+    try {
+      const call = httpsCallable<
+        { amountCents: number; type: string; purpose: string },
+        { url: string | null; orderId: string | null }
+      >(functions, 'createSquareCheckout')
+      const res = await call({ amountCents: cents, type: donType, purpose: purpose.trim().slice(0, 120) })
+      const url = res.data && res.data.url
+      if (!url) throw new Error('no-url')
+      window.open(url, '_blank', 'noopener,noreferrer')
+    } catch (_e) {
+      setSquareError(t('donate.squareFailed'))
+    } finally { setSquareBusy(null) }
+  }
+
   const declare = async () => {
     if (!donType || declaring) return
     setDeclaring(true); setDeclareError('')
@@ -4097,6 +4138,24 @@ function DonationSheet({ config, canEdit, user, onClose }: {
                           {methodUsed?.id === p.id && <Check size={16} className="text-affirm-600 shrink-0" />}
                         </div>
                         {providerKind(p) === 'link' ? (
+                          isSquareCheckout(p) ? (
+                            <>
+                              <button onClick={() => payWithSquare(p)} disabled={squareBusy === p.id}
+                                className={`w-full flex items-center justify-center gap-2 py-3.5 rounded-2xl text-[15px] font-bold shadow-sm active:scale-[.99] transition disabled:opacity-60 ${donationBrandBtn(p.label)}`}>
+                                {squareBusy === p.id ? (
+                                  <><Loader2 size={17} className="animate-spin" /> {t('donate.squareStarting')}</>
+                                ) : (
+                                  <><CreditCard size={17} /> {t('donate.squarePay')} <ArrowRight size={16} /></>
+                                )}
+                              </button>
+                              {squareError && methodUsed?.id === p.id && (
+                                <p className="text-xs text-red-600 bg-red-500/10 border border-red-500/20 rounded-xl px-3 py-2 mt-2">{squareError}</p>
+                              )}
+                              <p className="flex items-center justify-center gap-1.5 text-[10px] text-slate-400 mt-2">
+                                <ShieldCheck size={12} /> {t('donate.squareAutoNote')}
+                              </p>
+                            </>
+                          ) : (
                           <>
                             <button onClick={() => openLink(p)}
                               className={`w-full flex items-center justify-center gap-2 py-3.5 rounded-2xl text-[15px] font-bold shadow-sm active:scale-[.99] transition ${donationBrandBtn(p.label)}`}>
@@ -4106,6 +4165,7 @@ function DonationSheet({ config, canEdit, user, onClose }: {
                               <ShieldCheck size={12} /> {t('donate.openExternalNote')}
                             </p>
                           </>
+                          )
                         ) : (
                           <div className="flex items-center justify-between gap-2 bg-slate-50 rounded-xl px-3 py-2.5">
                             <span className="font-mono font-semibold text-slate-800 text-[15px] tracking-wide break-all">{p.number}</span>
@@ -4123,6 +4183,15 @@ function DonationSheet({ config, canEdit, user, onClose }: {
               </div>
 
               {providers.length > 0 && (
+                methodUsed && isSquareCheckout(methodUsed) ? (
+                  // Paying by card records the gift itself once Square confirms
+                  // it - so we don't offer the manual declaration here, to avoid
+                  // a duplicate record.
+                  <div className="rounded-2xl bg-affirm-500/10 border border-affirm-400/30 px-4 py-3 flex items-start gap-2.5">
+                    <ShieldCheck size={16} className="text-affirm-600 shrink-0 mt-0.5" />
+                    <p className="text-[12.5px] text-slate-600 leading-relaxed">{t('donate.squarePendingNote')}</p>
+                  </div>
+                ) : (
                 <div>
                   {declareError && <p className="text-sm text-red-600 bg-red-500/10 border border-red-500/20 rounded-xl px-4 py-3 mb-3">{declareError}</p>}
                   <button onClick={declare} disabled={!donType || declaring}
@@ -4131,6 +4200,7 @@ function DonationSheet({ config, canEdit, user, onClose }: {
                   </button>
                   <p className="text-[11px] text-slate-400 text-center mt-2 leading-relaxed">{t('donate.declareHint')}</p>
                 </div>
+                )
               )}
             </div>
           )}
