@@ -1611,20 +1611,25 @@ function AppInner() {
 
   const isStaffUser = user.role === 'admin' || user.role === 'pastor'
 
-  const navItems = [
+  const baseNav = [
     { id: 'feed', icon: Home, label: t('nav.feed') },
     { id: 'messages', icon: MessageCircle, label: t('nav.messages') },
     { id: 'sante', icon: HeartPulse, label: t('nav.sante') },
     { id: 'library', icon: BookOpen, label: t('nav.library') },
     ...(MUSIQUE_ENABLED ? [{ id: 'musique', icon: Music, label: t('nav.musique') }] : []),
     { id: 'profile', icon: User, label: t('nav.profile') },
-    // Logs and Data live INSIDE Admin rather than as their own tabs - eight
-    // bottom-nav items is unusable on a phone. Staff (admin/pastor) get Admin;
-    // church leads instead get a read-only Members directory of the
-    // congregation.
-    ...(isStaffUser ? [{ id: 'admin', icon: ShieldCheck, label: t('nav.admin') }] : []),
-    ...(user.role === 'church' ? [{ id: 'members', icon: Users, label: t('nav.members') }] : [])
   ]
+  // The one extra destination staff/leads get. Staff (admin/pastor) get Admin;
+  // church leads get the Members directory. On phones this lives in the top
+  // header (below) instead of the bottom bar - six labelled items on a narrow
+  // phone made the words wrap. The desktop sidebar has room, so it keeps it.
+  const staffTab = isStaffUser
+    ? { id: 'admin', icon: ShieldCheck, label: t('nav.admin') }
+    : user.role === 'church'
+      ? { id: 'members', icon: Users, label: t('nav.members') }
+      : null
+  const navItems = staffTab ? [...baseNav, staffTab] : baseNav   // desktop sidebar
+  const bottomNavItems = baseNav                                  // phone bottom bar
 
   return (
     <div className="min-h-screen max-w-lg mx-auto lg:max-w-none lg:mx-0 relative">
@@ -1690,6 +1695,18 @@ function AppInner() {
             <div className="px-5 h-14 flex items-center justify-between">
               <Logo size={32} />
               <div className="flex items-center gap-3">
+                {staffTab && (
+                  <button onClick={() => setActiveTab(staffTab.id)} aria-label={staffTab.label}
+                    className={`relative p-2 rounded-full transition ${
+                      activeTab === staffTab.id ? 'bg-affirm-500/15 text-affirm-700' : 'hover:bg-slate-900/5 text-slate-600'}`}>
+                    <staffTab.icon size={20} />
+                    {staffTab.id === 'admin' && pendingChurches.length > 0 && (
+                      <span className="absolute -top-0.5 -right-0.5 min-w-[16px] h-4 px-1 rounded-full bg-red-500 text-white text-[9px] font-bold flex items-center justify-center">
+                        {pendingChurches.length}
+                      </span>
+                    )}
+                  </button>
+                )}
                 <button onClick={openNotifications} aria-label={t('notif.title')}
                   className="relative p-2 rounded-full hover:bg-slate-900/5 text-slate-600 transition">
                   <Bell size={20} />
@@ -1922,7 +1939,7 @@ function AppInner() {
         {/* Bottom Nav — mobile & tablet only */}
         <nav className="nav-bar lg:hidden fixed bottom-0 left-0 right-0 safe-bottom z-50">
           <div className="max-w-lg mx-auto flex items-center h-16 px-1">
-            {navItems.map(item => {
+            {bottomNavItems.map(item => {
               const Icon = item.icon
               const active = activeTab === item.id
               return (
@@ -1940,7 +1957,7 @@ function AppInner() {
                       {unreadMessages > 9 ? '9+' : unreadMessages}
                     </span>
                   )}
-                  <span className="text-[10px] mt-1 font-bold leading-[1.1] text-center px-0.5 max-w-full break-words">
+                  <span className="text-[10px] mt-1 font-bold leading-[1.1] text-center px-0.5 max-w-full whitespace-nowrap overflow-hidden text-ellipsis">
                     {item.label}
                   </span>
                 </button>
