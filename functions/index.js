@@ -140,7 +140,10 @@ exports.notifyOnNewMessage = onDocumentCreated('messages/{messageId}', async (ev
   const senderIsStaff = message.senderRole === 'pastor' || message.senderRole === 'admin';
   let recipientIds = [];
 
-  if (conv.type === 'direct') {
+  if (conv.type === 'direct' || conv.type === 'church') {
+    // Direct threads and the one-way church channel both go straight to the
+    // other participant(s) - the church channel's sender ('church-elim') isn't
+    // a participant, so this leaves just the member.
     recipientIds = (conv.participantIds || []).filter((id) => id !== message.senderId);
   } else if (senderIsStaff) {
     recipientIds = (conv.participantIds || []).filter((id) => id !== message.senderId);
@@ -335,18 +338,19 @@ exports.thankOnDonation = onDocumentCreated('donations/{donationId}', async (eve
     text = `Merci pour ${typeWord} ! Que Dieu vous bénisse abondamment. — Centre Chrétien E.L.I.M.`;
   }
 
-  const convId = `pastor_${donation.donorId}`;
+  // Delivered into a dedicated one-way "church" channel - NOT the personal
+  // pastor thread - so the donor sees it come from Centre Chrétien E.L.I.M.
+  // itself, not from the pastor or an admin. The channel is read-only in the
+  // app; only the server writes into it.
+  const convId = `church_${donation.donorId}`;
   const convRef = db.collection('conversations').doc(convId);
   const convSnap = await convRef.get();
 
   const SENDER_ID = 'church-elim';
   const SENDER_NAME = 'Centre Chrétien E.L.I.M.';
 
-  // Upsert the conversation the same way the client does (it may not exist if
-  // the donor never opened the pastor channel). participantIds stays just the
-  // member - staff access to pastor channels is by role, not membership.
   const convPayload = {
-    type: 'pastor',
+    type: 'church',
     participantIds: [donation.donorId],
     participantNames: { [donation.donorId]: donation.donorName || '' },
     lastMessage: text.slice(0, 120),
@@ -363,7 +367,7 @@ exports.thankOnDonation = onDocumentCreated('donations/{donationId}', async (eve
     conversationId: convId,
     senderId: SENDER_ID,
     senderName: SENDER_NAME,
-    senderRole: 'pastor',
+    senderRole: 'church',
     text,
     participantIds: [donation.donorId],
     createdAt: FieldValue.serverTimestamp(),
