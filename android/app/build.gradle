@@ -10,13 +10,12 @@ android {
         // Fresh Play listing under com.elim.app - the version history starts
         // over here, independent of the old com.ccelim.app app.
         //
-        // versionName is what people see and stays "1.04" across these builds.
-        // versionCode is the internal upload counter: Play rejects an upload
-        // whose code it has already seen, so it must increase on EVERY build
-        // sent to the console, even when the visible version is unchanged.
-        // Started at 104 (encoding 1.04); bump this line for each new upload.
-        versionCode 106
-        versionName "1.04"
+        // versionName is what people see; versionCode is the internal upload
+        // counter Play requires to increase on EVERY build sent to the console.
+        // 1.05 (code 107): stay-signed-in, offline books/audio + Firestore
+        // cache, tidier admin/lead nav, plus everything merged since 1.04.
+        versionCode 107
+        versionName "1.05"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         aaptOptions {
              // Files and dirs to omit from the packaged assets dir, modified to accommodate modern web apps.
