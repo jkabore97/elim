@@ -535,9 +535,9 @@ function ChatView({ conversation, user, onBack }: {
         ? 'h-[calc(100vh-18rem)] lg:h-[calc(100vh-15rem)]'
         : 'h-[calc(100vh-13rem)] lg:h-[calc(100vh-10rem)]'
     }`}>
-      <div className="flex items-center gap-3 pb-3 border-b border-slate-200">
+      <div className="flex items-center gap-3 pb-3 border-b border-white/25">
         {onBack && (
-          <button onClick={onBack} className="p-1.5 -ml-1.5 rounded-full hover:bg-slate-100 text-slate-500">
+          <button onClick={onBack} className="p-1.5 -ml-1.5 rounded-full hover:bg-white/10 text-on-bg">
             <ArrowLeft size={20} />
           </button>
         )}
@@ -545,8 +545,8 @@ function ChatView({ conversation, user, onBack }: {
           <ChannelIcon size={18} />
         </div>
         <div className="min-w-0 flex-1">
-          <h2 className="font-bold text-slate-800 truncate">{title}</h2>
-          <p className="text-[11px] text-slate-400 truncate">
+          <h2 className="font-bold text-on-bg truncate">{title}</h2>
+          <p className="text-[11px] text-on-bg opacity-80 truncate">
             {conversation.type === 'direct'
               ? roleMeta(conversation.ownerRole || 'member', t).label
               : isChurchChannel ? t('msg.churchChannelDesc')
@@ -563,14 +563,14 @@ function ChatView({ conversation, user, onBack }: {
               {t('msg.deleteConfirm')}
             </button>
             <button onClick={() => setConfirmDeleteThread(false)}
-              className="text-xs font-semibold text-slate-400 hover:text-slate-700 px-1">
+              className="text-xs font-semibold text-on-bg hover:text-white px-1">
               {t('post.cancel')}
             </button>
           </div>
         ) : (
           <button onClick={() => setConfirmDeleteThread(true)}
             aria-label={t('msg.deleteThread')}
-            className="p-2 rounded-full hover:bg-slate-100 text-slate-500 hover:text-red-400 shrink-0 transition">
+            className="p-2 rounded-full hover:bg-white/10 text-on-bg hover:text-red-200 shrink-0 transition">
             <Trash2 size={17} />
           </button>
         )}
@@ -749,25 +749,25 @@ function ChatView({ conversation, user, onBack }: {
                 style={{ animation: `typingDot 1.2s ease-in-out ${i * 0.18}s infinite` }} />
             ))}
           </div>
-          <span className="text-[11px] text-slate-400">
+          <span className="text-[11px] text-on-bg opacity-80">
             {othersTyping[0]} {t('msg.isTyping')}
           </span>
         </div>
       )}
 
       {isChurchChannel ? (
-        <div className="pt-3 border-t border-slate-200">
-          <p className="flex items-center justify-center gap-1.5 text-center text-[12px] text-slate-400 py-3 px-4 leading-relaxed">
+        <div className="pt-3 border-t border-white/25">
+          <p className="flex items-center justify-center gap-1.5 text-center text-[12px] text-on-bg opacity-90 py-3 px-4 leading-relaxed">
             <Church size={13} /> {t('msg.churchReadOnly')}
           </p>
         </div>
       ) : (
-      <div className="pt-3 border-t border-slate-200">
+      <div className="pt-3 border-t border-white/25">
         {recording ? (
           <div className="flex items-center gap-3 px-4 py-3 rounded-2xl bg-red-500/10 border border-red-500/30">
             <span className="w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse shrink-0" />
             <span className="text-sm font-medium text-red-300 tabular-nums">{fmtDuration(elapsed)}</span>
-            <span className="text-xs text-slate-400 flex-1 truncate">{t('msg.recording')}</span>
+            <span className="text-xs text-on-bg opacity-90 flex-1 truncate">{t('msg.recording')}</span>
             <button onClick={() => stopRecording(false)}
               className="w-9 h-9 rounded-full glass-soft hover:bg-slate-200 text-slate-500 flex items-center justify-center shrink-0">
               <Trash2 size={16} />
@@ -800,7 +800,7 @@ function ChatView({ conversation, user, onBack }: {
             </button>
           </div>
         )}
-        {sending && <p className="text-[11px] text-slate-500 mt-2 text-center">{t('msg.sending')}</p>}
+        {sending && <p className="text-[11px] text-on-bg opacity-80 mt-2 text-center">{t('msg.sending')}</p>}
       </div>
       )}
 
