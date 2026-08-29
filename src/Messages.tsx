@@ -554,7 +554,9 @@ function ChatView({ conversation, user, onBack }: {
           </p>
         </div>
 
-        {confirmDeleteThread ? (
+        {/* The church channel is a read-only announcement thread - no delete
+            affordance, so the read-only framing holds. */}
+        {isChurchChannel ? null : confirmDeleteThread ? (
           <div className="flex items-center gap-2 shrink-0">
             <button onClick={deleteThread}
               className="px-3 py-1.5 rounded-full bg-red-500 hover:bg-red-600 text-white text-xs font-semibold">

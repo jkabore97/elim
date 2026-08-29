@@ -432,7 +432,7 @@ const pt: Record<string, string> = {
   "donate.typeAutre": "Outra oferta",
   "donate.purposeLabel": "Esta oferta é para... (opcional)",
   "donate.purposePlaceholder": "ex.: construção, missões, apoiar uma família",
-  "donate.amountLabel": "Valor (opcional)",
+  "donate.amountLabel": "Valor",
   "donate.amountPlaceholder": "ex. 5000",
   "donate.methodsLabel": "Escolha como doar",
   "donate.declare": "Eu fiz esta doação",

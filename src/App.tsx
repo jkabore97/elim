@@ -29,7 +29,7 @@ import { ReportSheet } from './ReportSheet'
 import { AutoTranslate } from './AutoTranslate'
 import { MembersTab } from './MembersTab'
 import { OfflineButton } from './OfflineButton'
-import { getOfflineSrc } from './offline'
+import { getOfflineSrc, removeOffline } from './offline'
 import { logActivity } from './activityLog'
 import { AnimatedSplash } from './AnimatedSplash'
 import { MediaPlayerProvider, useMediaPlayer } from './MediaPlayer'
@@ -1350,6 +1350,8 @@ function AppInner() {
   const handleDeletePost = async (id: string) => {
     const post = posts.find(p => p.id === id)
     await deleteDoc(doc(db, 'posts', id))
+    // Reclaim any offline copy of this post's audio (best-effort).
+    removeOffline(id).catch(() => {})
     logActivity(user, 'post_deleted', post?.content?.slice(0, 80))
   }
 
@@ -3919,8 +3921,9 @@ function DonationSheet({ config, canEdit, user, onClose }: {
 
   const hasSquare = providers.some(isSquareCheckout)
 
-  // Ask the backend which currency this Square account charges in, so the
-  // picker can default to it (no conversion when the donor uses that currency).
+  // Ask the backend which currency this Square account charges in, so we can
+  // label the conversion ("...charged in USD") and add it to the picker. The
+  // picker itself defaults to FCFA, the currency our donors think in.
   useEffect(() => {
     if (!hasSquare) return
     let alive = true
@@ -3928,9 +3931,9 @@ function DonationSheet({ config, canEdit, user, onClose }: {
       .then(res => {
         if (!alive) return
         const c = (res.data?.currency || '').toUpperCase()
-        if (c) { setChargeCur(c); setCurr(prev => prev || c) }
+        if (c) setChargeCur(c)
       })
-      .catch(() => { /* keep the FCFA default */ })
+      .catch(() => { /* the conversion hint just won't name the currency */ })
     return () => { alive = false }
   }, [hasSquare])
 
@@ -3941,7 +3944,8 @@ function DonationSheet({ config, canEdit, user, onClose }: {
   }, [chargeCur])
 
   const fmtMoney = (a: number, c: string) => {
-    const zeroDec = ['JPY', 'XOF', 'XAF', 'XPF', 'KRW', 'VND', 'CLP'].includes(c)
+    // Keep in sync with the server's ZERO_DECIMAL set (functions/index.js).
+    const zeroDec = ['JPY', 'XOF', 'XAF', 'XPF', 'KRW', 'VND', 'CLP', 'ISK', 'UGX', 'RWF', 'GNF', 'PYG', 'BIF', 'DJF', 'KMF', 'MGA', 'VUV'].includes(c)
     const n = zeroDec ? Math.round(a).toString() : a.toFixed(2)
     return `${n} ${c === 'XOF' ? 'FCFA' : c}`
   }

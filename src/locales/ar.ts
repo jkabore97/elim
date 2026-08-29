@@ -433,7 +433,7 @@ const ar: Record<string, string> = {
   "donate.typeAutre": "عطاء آخر",
   "donate.purposeLabel": "هذا العطاء من أجل... (اختياري)",
   "donate.purposePlaceholder": "مثل البناء أو الإرساليات أو دعم عائلة",
-  "donate.amountLabel": "المبلغ (اختياري)",
+  "donate.amountLabel": "المبلغ",
   "donate.amountPlaceholder": "مثال: 5000",
   "donate.methodsLabel": "اختر كيفية العطاء",
   "donate.declare": "لقد قدّمت هذا التبرّع",

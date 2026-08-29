@@ -432,7 +432,7 @@ const es: Record<string, string> = {
   "donate.typeAutre": "Otra ofrenda",
   "donate.purposeLabel": "Esta ofrenda es para... (opcional)",
   "donate.purposePlaceholder": "p. ej. construcción, misiones, apoyar a una familia",
-  "donate.amountLabel": "Importe (opcional)",
+  "donate.amountLabel": "Importe",
   "donate.amountPlaceholder": "ej. 5000",
   "donate.methodsLabel": "Elige cómo dar",
   "donate.declare": "He realizado esta donación",

@@ -433,7 +433,7 @@ const hi: Record<string, string> = {
   "donate.typeAutre": "अन्य उपहार",
   "donate.purposeLabel": "यह उपहार इसके लिए है... (वैकल्पिक)",
   "donate.purposePlaceholder": "जैसे निर्माण, मिशन, एक परिवार का सहयोग",
-  "donate.amountLabel": "राशि (वैकल्पिक)",
+  "donate.amountLabel": "राशि",
   "donate.amountPlaceholder": "उदा. 5000",
   "donate.methodsLabel": "दान करने का तरीका चुनें",
   "donate.declare": "मैंने यह दान कर दिया है",

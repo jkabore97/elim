@@ -37,13 +37,13 @@ service firebase.storage {
       );
     }
 
-    // Message attachments (photos and voice notes). Written only by the
-    // sender, under their own uid. Read is open like the other buckets —
-    // the real security boundary for messaging is firestore.rules on the
-    // conversations/messages collections, which controls who can ever
-    // learn the URL in the first place.
+    // Message attachments (photos and voice notes) can be private pastoral
+    // correspondence, so — unlike avatars/post media/books, which appear in the
+    // public feed — direct object reads require a signed-in user. The app views
+    // these through the tokenized download URL stored in the message doc (which
+    // works regardless), so this only shuts the door on anonymous path access.
     match /message-media/{uid}/{fileName} {
-      allow read: if true;
+      allow read: if isSignedIn();
       allow write: if isOwner(uid) && (
         (request.resource.contentType.matches('image/.*') && request.resource.size < 10 * 1024 * 1024) ||
         (request.resource.contentType.matches('audio/.*') && request.resource.size < 25 * 1024 * 1024)

@@ -433,7 +433,7 @@ const zh: Record<string, string> = {
   "donate.typeAutre": "其他奉献",
   "donate.purposeLabel": "此奉献用于...（可选）",
   "donate.purposePlaceholder": "例如：建设、宣教、帮助一个家庭",
-  "donate.amountLabel": "金额（可选）",
+  "donate.amountLabel": "金额",
   "donate.amountPlaceholder": "例如 5000",
   "donate.methodsLabel": "选择奉献方式",
   "donate.declare": "我已完成此捐赠",

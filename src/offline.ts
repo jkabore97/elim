@@ -37,9 +37,17 @@ export async function getOfflineSrc(id: string): Promise<string | null> {
   const entry = readReg()[id]
   if (!entry) return null
   try {
+    // getUri never checks the file exists, so a stale entry (OS cleared app
+    // data, a partial/failed delete) would otherwise return a broken file://
+    // src that permanently shadows the working network copy. stat() throws when
+    // the file is gone - then we prune the dead entry and fall back to network.
+    await Filesystem.stat({ directory: Directory.Data, path: entry.path })
     const { uri } = await Filesystem.getUri({ directory: Directory.Data, path: entry.path })
     return Capacitor.convertFileSrc(uri)
   } catch {
+    const reg = readReg()
+    delete reg[id]
+    writeReg(reg)
     return null
   }
 }

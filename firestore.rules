@@ -25,6 +25,10 @@ service cloud.firestore {
       return isSignedIn() && (role() == 'admin' || role() == 'pastor');
     }
 
+    function conv(convId) {
+      return get(/databases/$(database)/documents/conversations/$(convId));
+    }
+
 
     // ---- Users ----
     match /users/{userId} {
@@ -104,10 +108,16 @@ service cloud.firestore {
                         && request.auth.uid in request.resource.data.participantIds)
                     );
 
-      allow update: if isSignedIn() && (
-                      request.auth.uid in resource.data.participantIds
-                      || ownsChannel(resource.data.type)
-                    );
+      // A participant/owner may only touch the runtime fields (last message,
+      // read state, typing). type and participantIds are FROZEN after creation:
+      // without this a participant could flip a thread to type 'church' and add
+      // other members to participantIds, turning it into a church-branded
+      // push/inbox broadcast to the whole congregation.
+      allow update: if isSignedIn()
+                    && (request.auth.uid in resource.data.participantIds
+                        || ownsChannel(resource.data.type))
+                    && request.resource.data.type == resource.data.type
+                    && request.resource.data.participantIds == resource.data.participantIds;
 
       // Either side may delete the whole thread. Note this deletes it for
       // EVERYONE, not just the person doing it - there is no per-user hiding.
@@ -133,10 +143,17 @@ service cloud.firestore {
       // upserts the conversation - with these same participantIds - before the
       // message, so the parent exists and matches; the one extra read is the
       // correct price for closing the injection.
+      // senderRole MUST equal the sender's real role, so a member cannot post a
+      // message that renders with a Pastor/Admin badge (the UI badges purely off
+      // senderRole). The 'church' channel is server-only: clients may never
+      // write into a type=='church' thread - only the Admin SDK does, which
+      // bypasses these rules. Both together stop church/staff impersonation.
       allow create: if isSignedIn()
                     && request.resource.data.senderId == request.auth.uid
+                    && request.resource.data.senderRole == role()
+                    && conv(request.resource.data.conversationId).data.type != 'church'
                     && request.resource.data.participantIds ==
-                         get(/databases/$(database)/documents/conversations/$(request.resource.data.conversationId)).data.participantIds
+                         conv(request.resource.data.conversationId).data.participantIds
                     && (
                       request.auth.uid in request.resource.data.participantIds
                       || isPastor() || isTechAdmin()
@@ -318,6 +335,13 @@ service cloud.firestore {
                     && request.resource.data.donorId == request.auth.uid
                     && request.resource.data.status == 'declared'
                     && request.resource.data.type in ['dime', 'offrande', 'autre']
+                    // Only the fields a self-declaration legitimately carries -
+                    // so a member can't smuggle in provider/verifiedById/
+                    // amountCents/squarePaymentId to dress a declaration up as a
+                    // Square-verified gift for any exporter that trusts them.
+                    && request.resource.data.keys().hasOnly(
+                         ['donorId', 'donorName', 'type', 'purpose', 'amount',
+                          'currency', 'methodId', 'methodLabel', 'status', 'createdAt'])
                     && (!('purpose' in request.resource.data)
                         || request.resource.data.purpose.size() <= 300)
                     && (!('amount' in request.resource.data)

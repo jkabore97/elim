@@ -11,10 +11,13 @@ on:
       targets:
         description: "What to deploy"
         type: choice
-        default: "firestore:rules,firestore:indexes,functions"
+        default: "firestore:rules,firestore:indexes,storage,functions"
         options:
+          - "firestore:rules,firestore:indexes,storage,functions"
           - "firestore:rules,firestore:indexes,functions"
+          - "firestore:rules,firestore:indexes,storage"
           - "firestore:rules,firestore:indexes"
+          - "storage"
           - "functions"
 
 jobs:

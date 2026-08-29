@@ -19,7 +19,7 @@ import 'react-pdf/dist/Page/TextLayer.css'
 import { storageGet, storageSet } from './safeStorage'
 import { Portal } from './Portal'
 import { OfflineButton } from './OfflineButton'
-import { getOfflineSrc } from './offline'
+import { getOfflineSrc, removeOffline } from './offline'
 
 // pdf.js does its parsing in a web worker. Pointing at the copy inside our own
 // bundle rather than a CDN means the reader still works offline and doesn't
@@ -338,6 +338,9 @@ export function LibraryTab({ user, canUpload }: { user: AppUser; canUpload: bool
       if (b.fileUrl) {
         try { await deleteObject(ref(storage, b.fileUrl)) } catch { /* already gone */ }
       }
+      // Drop any on-device offline copy so it can't linger unreclaimable once
+      // the book no longer appears in any list (its OfflineButton is gone too).
+      removeOffline(b.id).catch(() => {})
       setConfirmRemoveId(null)
     }
     catch (err: any) { setError(err?.message || String(err)) }
