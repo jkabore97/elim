@@ -277,6 +277,13 @@ video, audio {
   padding-bottom: env(safe-area-inset-bottom, 0px);
 }
 
+/* Android 15+/iOS draw the app edge-to-edge under the status bar. Pad the top
+   so the header (and its frosted background) sits below the status bar instead
+   of under it. The bottom bar already handles its inset via .safe-bottom. */
+.safe-top {
+  padding-top: env(safe-area-inset-top, 0px);
+}
+
 /* Auth / landing backdrop now shares the global glass gradient. */
 .heavenly-bg {
   background:
