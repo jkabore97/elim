@@ -62,10 +62,12 @@ body {
   text-rendering: optimizeLegibility;
   font-size: 16px;
   line-height: 1.6;
+  /* Day mode is a vivid warm-orange sky (matching the splash/banner), so the
+     white content cards float on it and the drifting stars read clearly. */
   background:
-    radial-gradient(48rem 48rem at 8% -12%, rgba(249, 115, 22, 0.22), transparent 62%),
-    radial-gradient(42rem 42rem at 100% 4%, rgba(234, 88, 12, 0.18), transparent 58%),
-    linear-gradient(180deg, #fff2e0 0%, #ffe7cd 52%, #ffdcbb 100%);
+    radial-gradient(60rem 42rem at 50% -16%, rgba(255, 238, 214, 0.40), transparent 60%),
+    radial-gradient(46rem 46rem at 100% 8%, rgba(194, 65, 12, 0.30), transparent 58%),
+    linear-gradient(178deg, #fb923c 0%, #f97316 46%, #ea580c 100%);
   background-attachment: fixed;
 }
 
@@ -103,7 +105,9 @@ body {
      is what keeps them from dissolving into the orange; at night the glow
      does the work instead. */
   background: #ffffff;
-  box-shadow: 0 0 4px rgba(255, 255, 255, 0.9), 0 0 0 0.5px rgba(154, 52, 18, 0.28);
+  /* On the vivid orange day sky a soft white glow makes the stars glint;
+     a faint warm rim keeps the smallest ones from dissolving. */
+  box-shadow: 0 0 6px rgba(255, 255, 255, 0.95), 0 0 0 0.5px rgba(255, 237, 213, 0.5);
   opacity: 0;
   will-change: transform, opacity;
   animation-name: starFly;
@@ -268,10 +272,9 @@ video, audio {
 /* Auth / landing backdrop now shares the global glass gradient. */
 .heavenly-bg {
   background:
-    radial-gradient(50rem 50rem at 10% -10%, rgba(249, 115, 22, 0.26), transparent 60%),
-    radial-gradient(46rem 46rem at 100% 0%, rgba(234, 88, 12, 0.20), transparent 55%),
-    radial-gradient(40rem 40rem at 50% 120%, rgba(251, 146, 60, 0.22), transparent 60%),
-    linear-gradient(180deg, #fff2e0 0%, #fff7ec 45%, #ffdcbb 100%);
+    radial-gradient(50rem 40rem at 50% -14%, rgba(255, 240, 220, 0.38), transparent 60%),
+    radial-gradient(46rem 46rem at 100% 4%, rgba(194, 65, 12, 0.28), transparent 55%),
+    linear-gradient(178deg, #fb923c 0%, #f97316 46%, #ea580c 100%);
 }
 
 /* Shimmer sweep used by the animated splash loading bar */
@@ -292,11 +295,13 @@ video, audio {
   isolation: isolate;
   overflow: hidden;
   border-radius: 1.75rem;
+  /* A deeper orange hero panel so it reads as its own surface on the orange
+     page, with white content sitting directly on it. */
   background:
-    radial-gradient(130% 120% at 50% -25%, rgba(249, 115, 22, 0.14), transparent 60%),
-    #ffffff;
-  border: 1px solid #e4ece7;
-  box-shadow: 0 1px 2px rgba(16, 24, 40, 0.04), 0 18px 44px -24px rgba(194, 65, 12, 0.34);
+    radial-gradient(130% 120% at 50% -22%, rgba(255, 255, 255, 0.22), transparent 60%),
+    linear-gradient(158deg, #f97316 0%, #ea580c 58%, #c2410c 100%);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  box-shadow: 0 18px 44px -20px rgba(124, 45, 18, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.28);
 }
 
 .banner-aura {
@@ -349,11 +354,13 @@ video, audio {
 }
 
 .banner-title {
-  background: linear-gradient(100deg, #c2410c 0%, #f97316 45%, #c2410c 90%);
+  /* White wordmark on the orange hero, with a soft shine sweeping across. */
+  background: linear-gradient(100deg, #ffffff 0%, #fff1e2 45%, #ffffff 90%);
   background-size: 220% 100%;
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+  text-shadow: 0 2px 10px rgba(124, 45, 18, 0.35);
   animation: bannerShine 6s linear infinite;
 }
 @keyframes bannerShine {
@@ -543,7 +550,7 @@ video, audio {
 /* Opening splash backdrop. A class rather than an inline style so the dark
    variant below can take over when the phone is in dark mode. */
 .splash-bg {
-  background: radial-gradient(ellipse 92% 62% at 50% 108%, #fdba74 0%, #fed7aa 30%, #ffe7cd 64%, #fff2e0 100%);
+  background: radial-gradient(ellipse 96% 66% at 50% 110%, #fdba74 0%, #f97316 36%, #ea580c 72%, #c2410c 100%);
 }
 @media (prefers-color-scheme: dark) {
   .splash-bg {

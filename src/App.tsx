@@ -187,7 +187,7 @@ function AuthBanner({ subtitle }: { subtitle?: string }) {
           <Logo size={76} variant="mark" />
         </div>
         <h1 translate="no" className="notranslate banner-title mt-4 text-3xl font-extrabold tracking-tight">ELIM</h1>
-        {subtitle && <p className="mt-1 text-[13px] font-semibold text-affirm-700">{subtitle}</p>}
+        {subtitle && <p className="mt-1 text-[13px] font-semibold text-white/90">{subtitle}</p>}
       </div>
     </div>
   )
@@ -799,11 +799,11 @@ function AuthScreen({ onSuccess }: { onSuccess: (user: AppUser) => void }) {
         <div className="relative flex-1 flex flex-col items-center justify-center px-6 py-12">
           <div className="w-full max-w-md text-center">
             <Logo size={110} variant="full" />
-            <h1 translate="no" className="notranslate mt-8 text-3xl font-bold text-slate-900 tracking-tight">ELIM</h1>
-            <p className="mt-2 text-[13px] text-affirm-600 font-medium leading-relaxed px-4">
+            <h1 translate="no" className="notranslate mt-8 text-3xl font-bold text-white tracking-tight drop-shadow-[0_2px_10px_rgba(124,45,18,0.4)]">ELIM</h1>
+            <p className="mt-2 text-[13px] text-white/90 font-medium leading-relaxed px-4">
               Centre Chrétien d'Enseignement, de Libéralité,<br />d'Intercession et de Moisson
             </p>
-            <p className="mt-4 text-slate-400 leading-relaxed">{t('auth.peacefulPlace')}</p>
+            <p className="mt-4 text-white/75 leading-relaxed">{t('auth.peacefulPlace')}</p>
 
             <div className="mt-10 grid grid-cols-2 gap-4">
               {[
@@ -822,7 +822,7 @@ function AuthScreen({ onSuccess }: { onSuccess: (user: AppUser) => void }) {
             </div>
 
             <button onClick={() => setShowWelcome(false)}
-              className="mt-10 w-full py-4 rounded-2xl bg-affirm-600 hover:bg-affirm-700 text-white font-semibold text-[15px] transition flex items-center justify-center gap-2 shadow-lg shadow-affirm-500/20">
+              className="mt-10 w-full py-4 rounded-2xl bg-white hover:bg-white/95 text-affirm-700 font-bold text-[15px] transition flex items-center justify-center gap-2 shadow-xl shadow-orange-900/20">
               {t('landing.getStarted')} <ArrowRight size={18} />
             </button>
           </div>
@@ -839,7 +839,7 @@ function AuthScreen({ onSuccess }: { onSuccess: (user: AppUser) => void }) {
       )}
 
       <div className="relative pb-6 px-6 text-center">
-        <p className="text-[11px] text-slate-600">{COPYRIGHT}</p>
+        <p className="text-[11px] text-white/70">{COPYRIGHT}</p>
       </div>
     </div>
   )
