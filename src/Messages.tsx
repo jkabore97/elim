@@ -767,7 +767,7 @@ function ChatView({ conversation, user, onBack }: {
           <div className="flex items-center gap-3 px-4 py-3 rounded-2xl bg-red-500/10 border border-red-500/30">
             <span className="w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse shrink-0" />
             <span className="text-sm font-medium text-red-300 tabular-nums">{fmtDuration(elapsed)}</span>
-            <span className="text-xs text-slate-400 flex-1 truncate">{t('msg.recording')}</span>
+            <span className="text-xs text-on-bg opacity-90 flex-1 truncate">{t('msg.recording')}</span>
             <button onClick={() => stopRecording(false)}
               className="w-9 h-9 rounded-full glass-soft hover:bg-slate-200 text-slate-500 flex items-center justify-center shrink-0">
               <Trash2 size={16} />
@@ -800,7 +800,7 @@ function ChatView({ conversation, user, onBack }: {
             </button>
           </div>
         )}
-        {sending && <p className="text-[11px] text-slate-500 mt-2 text-center">{t('msg.sending')}</p>}
+        {sending && <p className="text-[11px] text-on-bg opacity-80 mt-2 text-center">{t('msg.sending')}</p>}
       </div>
       )}
 
