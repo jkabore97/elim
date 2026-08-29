@@ -18,7 +18,9 @@ android {
         // church-branded thank-you channel, complete logo, orange day-mode theme.
         // 1.06 (code 109): Android 15+ edge-to-edge - pad the top inset so the
         // header clears the status bar; readable-text fixes across the app.
-        versionCode 109
+        // 1.06 (code 110): fix offline download of books/audio - create the
+        // offline/ folder before downloadFile (the plugin ignores recursive).
+        versionCode 110
         versionName "1.06"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         aaptOptions {

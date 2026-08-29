@@ -59,7 +59,14 @@ export async function downloadForOffline(
 ): Promise<void> {
   if (!offlineSupported()) throw new Error('offline-unsupported')
   const path = `offline/${id}.${opts.ext || 'bin'}`
-  await Filesystem.downloadFile({ url, path, directory: Directory.Data, recursive: true })
+  // The plugin's downloadFile ignores its own `recursive` flag on Android and
+  // does NOT create nested parent folders, so writing to offline/… fails with
+  // "No such file or directory" on the very first download. Create the folder
+  // ourselves first (a no-op once it exists).
+  try {
+    await Filesystem.mkdir({ directory: Directory.Data, path: 'offline', recursive: true })
+  } catch { /* already exists */ }
+  await Filesystem.downloadFile({ url, path, directory: Directory.Data })
   const reg = readReg()
   reg[id] = { path, title: opts.title, kind: opts.kind, at: Date.now() }
   writeReg(reg)
