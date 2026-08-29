@@ -20,8 +20,10 @@ android {
         // header clears the status bar; readable-text fixes across the app.
         // 1.06 (code 110): fix offline download of books/audio - create the
         // offline/ folder before downloadFile (the plugin ignores recursive).
-        versionCode 110
-        versionName "1.06"
+        // 1.07 (code 111): final version label for the first public release of
+        // this feature set (no code change vs 110 beyond the version bump).
+        versionCode 111
+        versionName "1.07"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         aaptOptions {
              // Files and dirs to omit from the packaged assets dir, modified to accommodate modern web apps.
