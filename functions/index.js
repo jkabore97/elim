@@ -374,6 +374,15 @@ exports.thankOnDonation = onDocumentCreated('donations/{donationId}', async (eve
   });
 });
 
+// Google Cloud Translation gives 500,000 characters/month free, then bills.
+// We keep the app permanently inside that free tier two ways:
+//   1. A shared server-side cache: each unique (text, language) is translated
+//      ONCE for the whole congregation and reused, instead of once per phone.
+//   2. A monthly character budget: once the month's real API usage nears the
+//      free limit we stop calling the paid API and just return the original
+//      text, so a burst can never run up a bill. Both reset every month.
+const TRANSLATION_FREE_BUDGET = 450000; // chars/month, safe margin under 500k
+
 // Translates a single piece of user content into the reader's language, on
 // demand from the "Translate" button. Callable (not an HTTP endpoint) so the
 // Firebase Auth token rides along automatically - only signed-in members can
@@ -391,12 +400,43 @@ exports.translateContent = onCall({ region: 'us-central1' }, async (request) => 
   if (text.length > 5000) {
     throw new HttpsError('invalid-argument', 'Text is too long to translate.');
   }
+
+  const db = getFirestore();
+  const cacheKey = crypto.createHash('sha1').update(`${target}\n${text}`).digest('hex');
+  const cacheRef = db.collection('translationCache').doc(cacheKey);
+
+  // 1. Shared cache - free, and instant on a repeat.
+  try {
+    const hit = await cacheRef.get();
+    if (hit.exists) {
+      return { text: hit.data().text, source: hit.data().source || null };
+    }
+  } catch (_e) { /* cache is best-effort; fall through to translate */ }
+
+  // 2. Monthly free-tier guard.
+  const month = new Date().toISOString().slice(0, 7); // YYYY-MM
+  const usageRef = db.collection('translationUsage').doc(month);
+  let used = 0;
+  try {
+    const u = await usageRef.get();
+    used = (u.exists && u.data().chars) || 0;
+  } catch (_e) { /* if we can't read usage, be conservative and still translate */ }
+  if (used + text.length > TRANSLATION_FREE_BUDGET) {
+    // Over budget for the month: show the original rather than spend money.
+    return { text, source: null, capped: true };
+  }
+
   try {
     const [translation, meta] = await translateClient.translate(text, target);
     const detected = meta && meta.data && meta.data.translations
       && meta.data.translations[0]
       ? meta.data.translations[0].detectedSourceLanguage
       : null;
+    // Persist to the shared cache and count the characters we actually spent.
+    cacheRef.set({ text: translation, source: detected || null, target, at: FieldValue.serverTimestamp() })
+      .catch(() => {});
+    usageRef.set({ chars: FieldValue.increment(text.length), month }, { merge: true })
+      .catch(() => {});
     return { text: translation, source: detected || null };
   } catch (err) {
     console.error('translateContent failed', err);

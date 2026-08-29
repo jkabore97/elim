@@ -2476,15 +2476,15 @@ function ProfileTab({ user, onProfileUpdated, onLogout }: {
       </button>
 
       <div className="text-center py-4">
-        <p className="text-[11px] text-slate-500">{COPYRIGHT}</p>
+        <p className="text-[11px] text-on-bg">{COPYRIGHT}</p>
         <div className="mt-1 flex items-center justify-center gap-3">
           <a href="/privacy.html" target="_blank" rel="noreferrer"
-            className="text-[11px] text-slate-500 hover:text-affirm-600 underline">
+            className="text-[11px] text-on-bg hover:text-white underline">
             {t('footer.privacy')}
           </a>
-          <span className="text-[11px] text-slate-300">·</span>
+          <span className="text-[11px] text-on-bg">·</span>
           <a href="/child-safety.html" target="_blank" rel="noreferrer"
-            className="text-[11px] text-slate-500 hover:text-affirm-600 underline">
+            className="text-[11px] text-on-bg hover:text-white underline">
             {t('footer.childSafety')}
           </a>
         </div>
@@ -2628,7 +2628,7 @@ function LogsPanel() {
         <div className="space-y-5">
           {Object.entries(grouped).map(([dayLabel, dayLogs]) => (
             <div key={dayLabel}>
-              <h3 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2 px-1">{dayLabel}</h3>
+              <h3 className="text-xs font-bold text-on-bg uppercase tracking-wider mb-2 px-1">{dayLabel}</h3>
               <div className="glass rounded-3xl shadow-sm border border-slate-100 overflow-hidden">
                 {dayLogs.map((log, i) => {
                   const meta = ACTION_META[log.action] || { label: log.action, color: 'bg-slate-100 text-slate-600', Icon: ScrollText }
@@ -2697,7 +2697,7 @@ function AdminPanel({ pendingChurches, onApprove, onDeny }: {
 
   return (
     <div className="space-y-4">
-      <h2 className="text-lg font-bold text-slate-900 px-1">{t('admin.pendingChurches')} ({pendingChurches.length})</h2>
+      <h2 className="text-lg font-bold text-on-bg px-1">{t('admin.pendingChurches')} ({pendingChurches.length})</h2>
       {pendingChurches.map(church => (
         <div key={church.uid} className="glass rounded-3xl p-5 shadow-sm border border-slate-100">
           <div className="flex items-center gap-3 mb-4">
@@ -3575,7 +3575,7 @@ function DonationsPanel({ user }: { user: AppUser }) {
 
   return (
     <div className="space-y-4">
-      <p className="text-xs text-slate-500 leading-relaxed">{t('dons.reconcileHint')}</p>
+      <p className="text-xs text-on-bg leading-relaxed">{t('dons.reconcileHint')}</p>
       <div className="flex gap-2">
         {[{ id: false, label: t('dons.declared') }, { id: true, label: t('dons.verified') }].map(o => (
           <button key={String(o.id)} onClick={() => setShowVerified(o.id)}
