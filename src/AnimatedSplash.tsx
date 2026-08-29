@@ -86,10 +86,8 @@ export function AnimatedSplash({ onDone }: { onDone: () => void }) {
             transform: shown ? 'translateY(0)' : 'translateY(16px)',
             opacity: shown ? 1 : 0,
             transitionDelay: '280ms',
-            background: 'linear-gradient(180deg, #c2410c 0%, #f97316 55%, #ea580c 100%)',
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
-            backgroundClip: 'text'
+            color: '#ffffff',
+            textShadow: '0 3px 16px rgba(124, 45, 18, 0.45)'
           }}
         >
           ELIM
@@ -100,7 +98,7 @@ export function AnimatedSplash({ onDone }: { onDone: () => void }) {
           style={{ width: shown ? 200 : 0, opacity: shown ? 1 : 0, transitionDelay: '620ms' }} />
 
         <p
-          className="mt-5 text-center text-[12.5px] leading-relaxed text-slate-600 max-w-[19rem] transition-all duration-1000 ease-out"
+          className="mt-5 text-center text-[12.5px] leading-relaxed text-white/85 max-w-[19rem] transition-all duration-1000 ease-out"
           style={{
             transform: shown ? 'translateY(0)' : 'translateY(12px)',
             opacity: shown ? 1 : 0,
@@ -111,7 +109,7 @@ export function AnimatedSplash({ onDone }: { onDone: () => void }) {
         </p>
       </div>
 
-      <p className="absolute bottom-8 text-[10px] text-slate-400 transition-opacity duration-700"
+      <p className="absolute bottom-8 text-[10px] text-white/70 transition-opacity duration-700"
         style={{ opacity: shown ? 1 : 0, transitionDelay: '1000ms' }}>
         © {new Date().getFullYear()} Centre Chrétien E.L.I.M.
       </p>

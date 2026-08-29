@@ -14,8 +14,10 @@ android {
         // counter Play requires to increase on EVERY build sent to the console.
         // 1.05 (code 107): stay-signed-in, offline books/audio + Firestore
         // cache, tidier admin/lead nav, plus everything merged since 1.04.
-        versionCode 107
-        versionName "1.05"
+        // 1.06 (code 108): Square donations (real payment + currency convert),
+        // church-branded thank-you channel, complete logo, orange day-mode theme.
+        versionCode 108
+        versionName "1.06"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         aaptOptions {
              // Files and dirs to omit from the packaged assets dir, modified to accommodate modern web apps.
