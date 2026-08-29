@@ -608,16 +608,17 @@ exports.squareWebhook = onRequest(
       }
 
       const db = getFirestore();
-      // Idempotency: a payment.updated can arrive more than once.
-      const dup = await db.collection('donations')
-        .where('squarePaymentId', '==', payment.id).limit(1).get();
-      if (!dup.empty) return res.status(200).send('duplicate');
 
       const m = /^elim:([^:]+):?(.*)$/.exec(payment.note || '');
       const donorId = m ? m[1] : 'unknown';
       const donType = m && ['dime', 'offrande', 'autre'].includes(m[2]) ? m[2] : 'autre';
-      const cents = (payment.amount_money && payment.amount_money.amount) || 0;
+      const minor = (payment.amount_money && payment.amount_money.amount) || 0;
       const currency = (payment.amount_money && payment.amount_money.currency) || 'USD';
+      // amount_money is already in the currency's smallest unit. For zero-decimal
+      // currencies (JPY, XOF, ...) that IS the whole number - don't divide by 100.
+      const factor = minorFactor(currency);
+      const major = minor / factor;
+      const amountStr = factor === 100 ? `${major.toFixed(2)} ${currency}` : `${major} ${currency}`;
 
       let donorName = '';
       if (donorId !== 'unknown') {
@@ -627,22 +628,31 @@ exports.squareWebhook = onRequest(
         } catch (_e) { /* name is best-effort */ }
       }
 
-      await db.collection('donations').add({
-        donorId,
-        donorName,
-        type: donType,
-        amount: `${(cents / 100).toFixed(2)} ${currency}`,
-        amountCents: cents,
-        currency,
-        provider: 'square',
-        squarePaymentId: payment.id,
-        squareOrderId: payment.order_id || null,
-        status: 'verified',
-        verifiedById: 'square',
-        verifiedByName: 'Square',
-        verifiedAt: FieldValue.serverTimestamp(),
-        createdAt: FieldValue.serverTimestamp(),
-      });
+      // Idempotency: key the doc on the Square payment id and create() it, so
+      // payment.created and payment.updated (which arrive near-simultaneously
+      // and can retry) can never write two donation records for one payment.
+      try {
+        await db.collection('donations').doc(`sq_${payment.id}`).create({
+          donorId,
+          donorName,
+          type: donType,
+          amount: amountStr,
+          amountCents: minor,
+          currency,
+          provider: 'square',
+          squarePaymentId: payment.id,
+          squareOrderId: payment.order_id || null,
+          status: 'verified',
+          verifiedById: 'square',
+          verifiedByName: 'Square',
+          verifiedAt: FieldValue.serverTimestamp(),
+          createdAt: FieldValue.serverTimestamp(),
+        });
+      } catch (err) {
+        // ALREADY_EXISTS (gRPC code 6): this payment was already recorded.
+        if (err && err.code === 6) return res.status(200).send('duplicate');
+        throw err;
+      }
 
       return res.status(200).send('ok');
     } catch (err) {

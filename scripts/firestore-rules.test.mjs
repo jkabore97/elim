@@ -34,6 +34,7 @@ await env.withSecurityRulesDisabled(async (ctx) => {
   await setDoc(doc(db, 'posts/p1'), { churchId: 'church1', likes: 0, commentsCount: 0 })
   await setDoc(doc(db, 'conversations/convDirect'), { type: 'direct', participantIds: ['pastor1', 'member1'] })
   await setDoc(doc(db, 'conversations/convPastor2'), { type: 'pastor', participantIds: ['member2'] })
+  await setDoc(doc(db, 'conversations/convChurch'), { type: 'church', participantIds: ['member1'] })
   await setDoc(doc(db, 'notifications/n1'), { recipientId: 'member1', type: 'post_like', actorId: 'member2', actorName: 'M2', postId: 'p1', read: false })
   await setDoc(doc(db, 'notifications/n2'), { recipientId: 'member2', type: 'post_like', actorId: 'member1', actorName: 'M1', postId: 'p1', read: false })
   await setDoc(doc(db, 'config/donation'), { title: 'Give', providers: [] })
@@ -66,6 +67,13 @@ console.log('SEC-2 message injection:')
 await check('member sends matching message', assertSucceeds(addDoc(collection(m1, 'messages'), { conversationId: 'convDirect', senderId: 'member1', senderName: 'M1', senderRole: 'member', text: 'hey', participantIds: ['pastor1', 'member1'], createdAt: serverTimestamp() })))
 await check('member CANNOT inject into a thread they are not in', assertFails(addDoc(collection(m1, 'messages'), { conversationId: 'convPastor2', senderId: 'member1', senderName: 'M1', senderRole: 'member', text: 'intrude', participantIds: ['member1', 'member2'], createdAt: serverTimestamp() })))
 await check('member CANNOT forge participantIds mismatching the conversation', assertFails(addDoc(collection(m1, 'messages'), { conversationId: 'convDirect', senderId: 'member1', senderName: 'M1', senderRole: 'member', text: 'x', participantIds: ['member1', 'member2'], createdAt: serverTimestamp() })))
+
+console.log('Church-channel impersonation guards:')
+await check('member CANNOT forge a staff senderRole (fake Pastor badge)', assertFails(addDoc(collection(m1, 'messages'), { conversationId: 'convDirect', senderId: 'member1', senderName: 'M1', senderRole: 'pastor', text: 'x', participantIds: ['pastor1', 'member1'], createdAt: serverTimestamp() })))
+await check('member CANNOT write into a church (server-only) thread', assertFails(addDoc(collection(m1, 'messages'), { conversationId: 'convChurch', senderId: 'member1', senderName: 'M1', senderRole: 'member', text: 'x', participantIds: ['member1'], createdAt: serverTimestamp() })))
+await check('member CANNOT flip a thread type to church', assertFails(updateDoc(doc(m1, 'conversations/convDirect'), { type: 'church' })))
+await check('member CANNOT add participants to a thread', assertFails(updateDoc(doc(m1, 'conversations/convDirect'), { participantIds: ['pastor1', 'member1', 'member2'] })))
+await check('member CAN update runtime fields on own thread', assertSucceeds(updateDoc(doc(m1, 'conversations/convDirect'), { lastMessage: 'hi', lastMessageAt: serverTimestamp() })))
 
 console.log('SEC-3 / SEC-5:')
 await check('member CANNOT change their own role', assertFails(updateDoc(doc(m1, 'users/member1'), { role: 'admin' })))
@@ -117,6 +125,10 @@ await check('member CANNOT self-verify at creation',
   assertFails(addDoc(collection(m1, 'donations'), { donorId: 'member1', donorName: 'M1', type: 'dime', status: 'verified', createdAt: serverTimestamp() })))
 await check('member CANNOT use an unknown donation type',
   assertFails(addDoc(collection(m1, 'donations'), { donorId: 'member1', donorName: 'M1', type: 'jackpot', status: 'declared', createdAt: serverTimestamp() })))
+await check('member declares with a currency field',
+  assertSucceeds(addDoc(collection(m1, 'donations'), { donorId: 'member1', donorName: 'M1', type: 'offrande', amount: '10 USD', currency: 'USD', status: 'declared', createdAt: serverTimestamp() })))
+await check('member CANNOT smuggle verified fields into a declaration',
+  assertFails(addDoc(collection(m1, 'donations'), { donorId: 'member1', donorName: 'M1', type: 'dime', status: 'declared', verifiedById: 'square', provider: 'square', amountCents: 999999, createdAt: serverTimestamp() })))
 await check('member CANNOT read another member donation',
   assertFails(getDoc(doc(m1, 'donations/d1'))))
 await check('staff reads the donations ledger',
