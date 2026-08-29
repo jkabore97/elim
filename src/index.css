@@ -86,6 +86,14 @@ body {
 .aurora-field { display: none; }
 .aurora { display: none; }
 
+/* Muted section labels / hints that sit DIRECTLY on the page background (not
+   inside a white card). They must read on the vivid orange day sky and on the
+   charcoal at night - plain text-slate-* washes out on the orange. */
+.text-on-bg { color: rgba(255, 255, 255, 0.9); }
+@media (prefers-color-scheme: dark) {
+  .text-on-bg { color: rgba(236, 231, 226, 0.72); }
+}
+
 /* ---- Flying stars ------------------------------------------------------
    A slow upward drift of small warm stars behind everything. Fixed layer at
    z-index 0; app content sits on z-10. Only transform/opacity animate, so

@@ -1160,7 +1160,7 @@ function ChannelChooser({ user, onOpen }: {
 
   return (
     <div className="space-y-3">
-      <p className="text-sm text-slate-400 px-1">{t('msg.chooseChannel')}</p>
+      <p className="text-sm font-semibold text-on-bg px-1">{t('msg.chooseChannel')}</p>
       {channels.map(ch => {
         const conv = existing[ch.type]
         const unread = unreadFor(ch.type)
@@ -1209,7 +1209,7 @@ function ChannelChooser({ user, onOpen }: {
 
       {directs.length > 0 && (
         <>
-          <p className="text-sm text-slate-400 px-1 pt-3">{t('msg.directThreads')}</p>
+          <p className="text-sm font-semibold text-on-bg px-1 pt-3">{t('msg.directThreads')}</p>
           <div className="bg-white rounded-3xl shadow-sm border border-slate-100 overflow-hidden">
             {directs.map((conv, i) => {
               const other = conv.participantIds.find(id => id !== user.uid) || ''
