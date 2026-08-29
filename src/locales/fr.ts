@@ -433,7 +433,7 @@ const fr = {
   "donate.typeAutre": 'Autre don',
   "donate.purposeLabel": 'Ce don est pour... (optionnel)',
   "donate.purposePlaceholder": 'ex : construction, missions, soutien à une famille',
-  "donate.amountLabel": 'Montant (optionnel)',
+  "donate.amountLabel": "Montant",
   "donate.amountPlaceholder": "ex. 5000",
   "donate.methodsLabel": 'Choisissez comment donner',
   "donate.declare": "J'ai effectué ce don",

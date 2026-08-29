@@ -432,7 +432,7 @@ const de: Record<string, string> = {
   "donate.typeAutre": "Andere Gabe",
   "donate.purposeLabel": "Diese Gabe ist für... (optional)",
   "donate.purposePlaceholder": "z. B. Bau, Mission, eine Familie unterstützen",
-  "donate.amountLabel": "Betrag (optional)",
+  "donate.amountLabel": "Betrag",
   "donate.amountPlaceholder": "z. B. 5000",
   "donate.methodsLabel": "Wähle, wie du geben möchtest",
   "donate.declare": "Ich habe diese Spende gemacht",

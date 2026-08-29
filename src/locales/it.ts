@@ -432,7 +432,7 @@ const it: Record<string, string> = {
   "donate.typeAutre": "Altro dono",
   "donate.purposeLabel": "Questo dono è per... (facoltativo)",
   "donate.purposePlaceholder": "es. costruzione, missioni, sostenere una famiglia",
-  "donate.amountLabel": "Importo (facoltativo)",
+  "donate.amountLabel": "Importo",
   "donate.amountPlaceholder": "es. 5000",
   "donate.methodsLabel": "Scegli come donare",
   "donate.declare": "Ho fatto questa donazione",
