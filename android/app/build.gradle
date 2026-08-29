@@ -16,7 +16,9 @@ android {
         // cache, tidier admin/lead nav, plus everything merged since 1.04.
         // 1.06 (code 108): Square donations (real payment + currency convert),
         // church-branded thank-you channel, complete logo, orange day-mode theme.
-        versionCode 108
+        // 1.06 (code 109): Android 15+ edge-to-edge - pad the top inset so the
+        // header clears the status bar; readable-text fixes across the app.
+        versionCode 109
         versionName "1.06"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         aaptOptions {

@@ -791,7 +791,7 @@ function AuthScreen({ onSuccess }: { onSuccess: (user: AppUser) => void }) {
   return (
     <div className="min-h-screen heavenly-bg flex flex-col relative overflow-hidden">
       <StarField />
-      <div className="relative flex justify-end px-6 pt-6">
+      <div className="relative flex justify-end px-6" style={{ paddingTop: 'calc(env(safe-area-inset-top, 0px) + 1.5rem)' }}>
         <LanguageSwitcher />
       </div>
 
@@ -1696,7 +1696,7 @@ function AppInner() {
 
         <div className="flex-1 min-w-0">
           {/* Header — mobile & tablet only */}
-          <header className="glass-bar lg:hidden sticky top-0 z-40 border-b border-slate-200/70">
+          <header className="glass-bar lg:hidden sticky top-0 z-40 border-b border-slate-200/70 safe-top">
             <div className="px-5 h-14 flex items-center justify-between">
               <Logo size={32} />
               <div className="flex items-center gap-3">
