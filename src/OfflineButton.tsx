@@ -55,7 +55,8 @@ export function OfflineButton({
         ext: extFromUrl(url, kind === 'book' ? 'pdf' : 'mp3'),
       })
       setState('done')
-    } catch {
+    } catch (e) {
+      console.error('offline download failed', e)
       setState('error')
       setTimeout(() => setState('idle'), 3000)
     }
