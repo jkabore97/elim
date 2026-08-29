@@ -68,13 +68,13 @@ export function MembersTab() {
         </p>
       </div>
 
-      {loading && <p className="text-center text-slate-400 py-8 text-sm">{t('app.loading')}</p>}
+      {loading && <p className="text-center text-on-bg py-8 text-sm">{t('app.loading')}</p>}
       {error && <p className="text-center text-red-500 py-8 text-sm">{error}</p>}
 
       {!loading && !error && members.length === 0 && (
-        <div className="text-center py-14 text-slate-400">
+        <div className="text-center py-14 text-on-bg">
           <Users size={34} className="mx-auto mb-3 opacity-50" />
-          <p className="font-semibold text-slate-500">{t('members.empty')}</p>
+          <p className="font-semibold text-on-bg">{t('members.empty')}</p>
           <p className="text-sm mt-1">{t('members.emptyHint')}</p>
         </div>
       )}

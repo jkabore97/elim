@@ -220,7 +220,7 @@ function BrowseCollections({ isAdmin }: { isAdmin: boolean }) {
           className="w-full pl-11 pr-4 py-3 rounded-2xl glass-input text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-affirm-400/60 text-[15px]" />
       </div>
 
-      <p className="text-xs text-slate-400 px-1">{visible.length} {t('data.records')}</p>
+      <p className="text-xs text-on-bg px-1">{visible.length} {t('data.records')}</p>
 
       {loading && <p className="text-center py-12"><span className="scrim inline-block px-4 py-2 text-sm text-slate-600">{t('app.loading')}</span></p>}
       {!loading && error && (
@@ -491,7 +491,7 @@ export function DataManagementTab({ user }: { user: AppUser }) {
             ))}
           </div>
 
-          <p className="text-xs text-slate-400 px-1">{visible.length} {t('data.results')}</p>
+          <p className="text-xs text-on-bg px-1">{visible.length} {t('data.results')}</p>
 
           <div className="bg-white rounded-3xl shadow-sm border border-slate-100 overflow-hidden">
             {visible.slice(0, 200).map((p, i) => (
@@ -514,7 +514,7 @@ export function DataManagementTab({ user }: { user: AppUser }) {
             ))}
           </div>
           {visible.length > 200 && (
-            <p className="text-[11px] text-slate-500 text-center">{t('data.showingFirst200')}</p>
+            <p className="text-[11px] text-on-bg text-center">{t('data.showingFirst200')}</p>
           )}
         </>
       )}
@@ -574,7 +574,7 @@ export function DataManagementTab({ user }: { user: AppUser }) {
             </button>
           ))}
 
-          <p className="text-[11px] text-slate-500 px-1 leading-relaxed">
+          <p className="text-[11px] text-on-bg px-1 leading-relaxed">
             {t('data.exportScope')} {visible.length} {t('data.results')}.
           </p>
         </div>
