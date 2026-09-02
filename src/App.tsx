@@ -3032,7 +3032,7 @@ function PostCard({ post, onLike, onOpenComments, currentUser, isLiked, onEdit, 
 
 const UPLOAD_RULES: Record<string, { accept: string; maxMB: number; check: (f: File) => boolean; label: string }> = {
   'text-image': { accept: 'image/jpeg,image/png,image/webp,image/gif', maxMB: 10, check: f => f.type.startsWith('image/'), label: 'a photo' },
-  audio: { accept: 'audio/*,.m4a', maxMB: 50, check: f => f.type.startsWith('audio/'), label: 'an audio file' },
+  audio: { accept: 'audio/*,.m4a', maxMB: 100, check: f => f.type.startsWith('audio/'), label: 'an audio file' },
   video: { accept: 'video/mp4,video/webm,video/quicktime', maxMB: 200, check: f => f.type.startsWith('video/'), label: 'a video' },
   document: { accept: 'application/pdf', maxMB: 20, check: f => f.type === 'application/pdf', label: 'a PDF' },
 }
