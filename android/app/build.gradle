@@ -22,8 +22,9 @@ android {
         // offline/ folder before downloadFile (the plugin ignores recursive).
         // 1.07 (code 111): final version label for the first public release of
         // this feature set (no code change vs 110 beyond the version bump).
-        versionCode 111
-        versionName "1.07"
+        // 1.08 (code 112): raise the audio (sermon) upload limit to 100 MB.
+        versionCode 112
+        versionName "1.08"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         aaptOptions {
              // Files and dirs to omit from the packaged assets dir, modified to accommodate modern web apps.
