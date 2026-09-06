@@ -18,6 +18,10 @@ A modern church community platform. Verified **church** accounts publish content
 - Installable as a PWA (manifest + icons)
 - Wrapped for native **iOS and Android** via Capacitor — see [MOBILE.md](./MOBILE.md)
 
+## Kaj System website
+
+The marketing site for **Kaj System** (the studio behind ELIM) lives in [`kaj-system/`](./kaj-system). It is a standalone static site with its own [README](./kaj-system/README.md) covering content editing and deployment.
+
 ## Tech Stack
 
 - React 19 + TypeScript, Vite, Tailwind CSS v4, Lucide React

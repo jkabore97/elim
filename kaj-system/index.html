@@ -1,0 +1,533 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Kaj System — We design, build and launch apps that people use</title>
+  <meta name="description" content="Kaj System is an app & software studio. Mobile apps, websites and custom business systems, built at fixed prices with clear timelines. Get a free quote." />
+  <meta name="theme-color" content="#f6f7fb" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#0a0e1a" media="(prefers-color-scheme: dark)" />
+  <link rel="canonical" href="https://kajsystem.com/" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+  <link rel="manifest" href="manifest.webmanifest" />
+
+  <!-- Social sharing -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Kaj System" />
+  <meta property="og:title" content="Kaj System — We design, build and launch apps that people use" />
+  <meta property="og:description" content="Mobile apps, websites and custom business systems at fixed prices with clear timelines." />
+  <meta property="og:url" content="https://kajsystem.com/" />
+  <meta property="og:image" content="https://kajsystem.com/og-image.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Kaj System — App & software studio" />
+  <meta name="twitter:description" content="Mobile apps, websites and custom business systems at fixed prices with clear timelines." />
+  <meta name="twitter:image" content="https://kajsystem.com/og-image.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "Kaj System",
+    "description": "App & software studio building mobile apps, websites and custom business systems.",
+    "url": "https://kajsystem.com/",
+    "email": "hello@kaj-consulting.com",
+    "areaServed": "Worldwide",
+    "priceRange": "$$",
+    "makesOffer": [
+      { "@type": "Offer", "name": "Launch Website", "price": "490", "priceCurrency": "USD" },
+      { "@type": "Offer", "name": "Web App / PWA", "price": "1900", "priceCurrency": "USD" },
+      { "@type": "Offer", "name": "Mobile App", "price": "3900", "priceCurrency": "USD" }
+    ]
+  }
+  </script>
+  <!-- Apply the saved theme before first paint to avoid a flash. -->
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem('kaj-theme');
+        if (!t) t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        document.documentElement.setAttribute('data-theme', t);
+      } catch (e) {}
+    })();
+  </script>
+</head>
+<body>
+
+  <!-- SVG icon sprite ---------------------------------------------------- -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <linearGradient id="kg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#4f46e5"/><stop offset="1" stop-color="#06b6d4"/></linearGradient>
+      <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></symbol>
+      <symbol id="i-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+      <symbol id="i-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M11 18h2"/></symbol>
+      <symbol id="i-globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></symbol>
+      <symbol id="i-layers" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 2 9 5-9 5-9-5 9-5z"/><path d="m3 12 9 5 9-5"/><path d="m3 17 9 5 9-5"/></symbol>
+      <symbol id="i-pen" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></symbol>
+      <symbol id="i-spark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"/><circle cx="12" cy="12" r="3"/></symbol>
+      <symbol id="i-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></symbol>
+      <symbol id="i-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></symbol>
+      <symbol id="i-tag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0L2 12V2h10l8.6 8.6a2 2 0 0 1 0 2.8z"/><circle cx="7.5" cy="7.5" r="1.5"/></symbol>
+      <symbol id="i-key" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="15" r="4"/><path d="m10.8 12.2 9.2-9.2M15 8l3 3M18 5l3 3"/></symbol>
+      <symbol id="i-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></symbol>
+      <symbol id="i-cal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></symbol>
+      <symbol id="i-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 7-8 12-8 12s-8-5-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></symbol>
+      <symbol id="i-wa" viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.4-.5c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5-.1-.1-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.2-.3-.3-.6-.4zM12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2z"/></symbol>
+      <symbol id="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+      <symbol id="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></symbol>
+      <symbol id="i-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+      <symbol id="i-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+      <symbol id="i-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></symbol>
+      <symbol id="i-users" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="4"/><path d="M2 21a7 7 0 0 1 14 0"/><path d="M16 4a4 4 0 0 1 0 8M22 21a7 7 0 0 0-5-6.7"/></symbol>
+      <symbol id="i-cart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6"/></symbol>
+      <symbol id="i-box" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8 12 3 3 8v8l9 5 9-5V8z"/><path d="M3 8l9 5 9-5M12 13v8"/></symbol>
+      <symbol id="i-home" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 11 9-8 9 8v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z"/></symbol>
+      <symbol id="i-book" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></symbol>
+      <symbol id="i-heart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21l7.8-7.5 1-1.1a5.5 5.5 0 0 0 0-7.8z"/></symbol>
+      <symbol id="i-life" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/><path d="m4.9 4.9 4.2 4.2M14.9 14.9l4.2 4.2M14.9 9.1l4.2-4.2M9.1 14.9l-4.2 4.2"/></symbol>
+      <symbol id="i-link" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1"/><path d="M14 11a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1"/></symbol>
+      <symbol id="i-gh" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5A12 12 0 0 0 8.2 23.9c.6.1.8-.3.8-.6v-2.2c-3.3.7-4-1.4-4-1.4-.5-1.4-1.3-1.8-1.3-1.8-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1.1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-5.9 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .5z"/></symbol>
+      <symbol id="i-in" viewBox="0 0 24 24" fill="currentColor"><path d="M20.4 2H3.6A1.6 1.6 0 0 0 2 3.6v16.8A1.6 1.6 0 0 0 3.6 22h16.8a1.6 1.6 0 0 0 1.6-1.6V3.6A1.6 1.6 0 0 0 20.4 2zM8 19H5V9h3zM6.5 7.7A1.7 1.7 0 1 1 8.2 6a1.7 1.7 0 0 1-1.7 1.7zM19 19h-3v-4.9c0-1.2 0-2.7-1.6-2.7s-1.9 1.3-1.9 2.6V19h-3V9h2.9v1.4a3.2 3.2 0 0 1 2.8-1.6c3 0 3.6 2 3.6 4.6z"/></symbol>
+      <symbol id="i-ig" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></symbol>
+      <symbol id="i-tw" viewBox="0 0 24 24" fill="currentColor"><path d="M18.9 2H22l-7.1 8.1L23 22h-6.6l-5.1-6.7L5.4 22H2.3l7.6-8.7L2 2h6.7l4.6 6.1L18.9 2zm-1.1 18h1.8L7.2 3.9H5.3L17.8 20z"/></symbol>
+    </defs>
+  </svg>
+
+  <!-- Navigation --------------------------------------------------------- -->
+  <header class="nav" id="nav">
+    <div class="container nav-inner">
+      <a class="logo" href="#top" aria-label="Kaj System home">
+        <svg class="logo-mark" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="16" fill="url(#kg)"/><path d="M20 16v32M20 32l18-16M22 34l18 14" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>Kaj System<small data-i18n="hero.eyebrow">App & software studio</small></span>
+      </a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="#services" data-i18n="nav.services">Services</a>
+        <a href="#work" data-i18n="nav.work">Work</a>
+        <a href="#process" data-i18n="nav.process">Process</a>
+        <a href="#pricing" data-i18n="nav.pricing">Pricing</a>
+        <a href="#faq" data-i18n="nav.faq">FAQ</a>
+        <a href="#contact" data-i18n="nav.contact">Contact</a>
+      </nav>
+      <div class="nav-actions">
+        <div class="lang-switch" role="group" aria-label="Language" id="langSwitch"></div>
+        <button class="icon-btn" id="themeBtn" type="button" data-i18n-aria="nav.theme" aria-label="Toggle dark mode">
+          <svg class="ic-sun"><use href="#i-sun"/></svg><svg class="ic-moon" hidden><use href="#i-moon"/></svg>
+        </button>
+        <a class="btn btn-primary btn-sm" href="#contact" data-i18n="nav.cta">Start a project</a>
+        <button class="icon-btn nav-toggle" id="navToggle" type="button" aria-expanded="false" aria-controls="navMobile" data-i18n-aria="nav.menu" aria-label="Menu">
+          <svg class="ic-open"><use href="#i-menu"/></svg><svg class="ic-close" hidden><use href="#i-x"/></svg>
+        </button>
+      </div>
+    </div>
+    <div class="nav-mobile" id="navMobile">
+      <a href="#services" data-i18n="nav.services">Services</a>
+      <a href="#work" data-i18n="nav.work">Work</a>
+      <a href="#process" data-i18n="nav.process">Process</a>
+      <a href="#pricing" data-i18n="nav.pricing">Pricing</a>
+      <a href="#faq" data-i18n="nav.faq">FAQ</a>
+      <a href="#contact" data-i18n="nav.contact">Contact</a>
+      <div class="lang-switch" role="group" aria-label="Language" id="langSwitchMobile" style="margin-top:1rem"></div>
+      <a class="btn btn-primary btn-block" href="#contact" data-i18n="nav.cta">Start a project</a>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- Hero ------------------------------------------------------------- -->
+    <section class="hero">
+      <div class="hero-bg" aria-hidden="true"></div>
+      <div class="container hero-grid">
+        <div>
+          <p class="eyebrow" data-i18n="hero.eyebrow">App & software studio</p>
+          <h1><span data-i18n="hero.title.a">We turn your idea into an app</span> <span class="grad" data-i18n="hero.title.b">people actually use.</span></h1>
+          <p class="lead" data-i18n="hero.sub">Mobile apps, websites and custom business systems — designed, built and launched by one dedicated team. Fixed prices, clear timelines, no surprises.</p>
+          <div class="hero-cta">
+            <a class="btn btn-primary btn-lg" href="#contact"><span data-i18n="hero.cta1">Get a free quote</span><svg><use href="#i-arrow"/></svg></a>
+            <a class="btn btn-ghost btn-lg" href="#work" data-i18n="hero.cta2">See our work</a>
+          </div>
+          <div class="chips">
+            <span class="chip"><svg><use href="#i-check"/></svg><span data-i18n="hero.chip1">iOS & Android</span></span>
+            <span class="chip"><svg><use href="#i-check"/></svg><span data-i18n="hero.chip2">Web & PWA</span></span>
+            <span class="chip"><svg><use href="#i-check"/></svg><span data-i18n="hero.chip3">First demo in 2 weeks</span></span>
+            <span class="chip"><svg><use href="#i-check"/></svg><span data-i18n="hero.chip4">Fixed-price packages</span></span>
+          </div>
+        </div>
+        <div class="hero-visual" aria-hidden="true">
+          <div class="phone">
+            <div class="phone-screen">
+              <div class="ps-top"><div><strong data-i18n="hero.card.title">Your app</strong><br><span data-i18n="hero.card.sub">Live on both stores</span></div><i class="ps-avatar"></i></div>
+              <div class="ps-card brand"><small data-i18n="hero.card.users">Active users</small><b>2,480</b><div class="ps-bars"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+              <div class="ps-card"><small data-i18n="hero.card.rating">Store rating</small><b>4.9 ★</b></div>
+              <div class="ps-list"><div class="ps-row"><i></i><div></div></div><div class="ps-row"><i></i><div></div></div><div class="ps-row"><i></i><div></div></div></div>
+              <div class="ps-nav"><i></i><i></i><i></i><i></i></div>
+            </div>
+          </div>
+          <div class="float float-1"><i style="background:#4f46e5"><svg><use href="#i-link"/></svg></i><span data-i18n="hero.float1">Weekly demo link</span></div>
+          <div class="float float-2"><i style="background:#06b6d4"><svg><use href="#i-phone"/></svg></i><span data-i18n="hero.float2">Published to App Store & Play Store</span></div>
+          <div class="float float-3"><i style="background:#16a34a"><svg><use href="#i-life"/></svg></i><span data-i18n="hero.float3">Support after launch</span></div>
+        </div>
+      </div>
+    </section>
+
+    <div class="trust">
+      <div class="container trust-inner">
+        <div class="trust-item"><svg><use href="#i-clock"/></svg><span data-i18n="trust.1">Reply within 24 hours</span></div>
+        <div class="trust-item"><svg><use href="#i-phone"/></svg><span data-i18n="trust.2">iOS · Android · Web</span></div>
+        <div class="trust-item"><svg><use href="#i-tag"/></svg><span data-i18n="trust.3">Fixed price, no hourly surprises</span></div>
+        <div class="trust-item"><svg><use href="#i-key"/></svg><span data-i18n="trust.4">You own 100% of the code</span></div>
+      </div>
+    </div>
+
+    <!-- Services --------------------------------------------------------- -->
+    <section class="section" id="services">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="eyebrow" data-i18n="services.eyebrow">What we do</p>
+          <h2 class="title" data-i18n="services.title">Everything you need to go from idea to launch</h2>
+          <p class="lead" data-i18n="services.sub">One team for design, development, publishing and support. Pick a single service or hand us the whole project.</p>
+        </div>
+        <div class="grid grid-3">
+          <article class="card reveal"><div class="icon"><svg><use href="#i-phone"/></svg></div><h3 data-i18n="services.1.title">Mobile apps</h3><p data-i18n="services.1.desc">Native-quality iOS and Android apps from a single codebase.</p></article>
+          <article class="card reveal"><div class="icon c2"><svg><use href="#i-globe"/></svg></div><h3 data-i18n="services.2.title">Websites & web apps</h3><p data-i18n="services.2.desc">Fast, mobile-first websites and installable web apps.</p></article>
+          <article class="card reveal"><div class="icon c3"><svg><use href="#i-layers"/></svg></div><h3 data-i18n="services.3.title">Custom business systems</h3><p data-i18n="services.3.desc">Software shaped around how you work.</p></article>
+          <article class="card reveal"><div class="icon"><svg><use href="#i-pen"/></svg></div><h3 data-i18n="services.4.title">UI/UX design & branding</h3><p data-i18n="services.4.desc">Logo, colours, typography and clickable prototypes.</p></article>
+          <article class="card reveal"><div class="icon c2"><svg><use href="#i-spark"/></svg></div><h3 data-i18n="services.5.title">AI & automation</h3><p data-i18n="services.5.desc">Chat assistants, automatic translation, smart search and workflows.</p></article>
+          <article class="card reveal"><div class="icon c3"><svg><use href="#i-shield"/></svg></div><h3 data-i18n="services.6.title">Hosting, maintenance & support</h3><p data-i18n="services.6.desc">Domains, hosting, monitoring, backups and store updates.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Work ------------------------------------------------------------- -->
+    <section class="section section-alt" id="work">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="eyebrow" data-i18n="work.eyebrow">Our work</p>
+          <h2 class="title" data-i18n="work.title">Built by Kaj System</h2>
+          <p class="lead" data-i18n="work.sub">A real product we designed, built and shipped end to end — plus ready-to-adapt solutions we can tailor to your business.</p>
+        </div>
+        <article class="case reveal">
+          <div>
+            <span class="badge" data-i18n="work.featured">Featured case study</span>
+            <h3 data-i18n="work.elim.title">ELIM — Church community app</h3>
+            <p data-i18n="work.elim.desc">A community platform where churches publish sermons, audio, video and documents, and members follow, comment and message — on iOS, Android and the web.</p>
+            <ul class="checks">
+              <li><svg><use href="#i-check"/></svg><span data-i18n="work.elim.f1">iOS, Android & PWA from one codebase</span></li>
+              <li><svg><use href="#i-check"/></svg><span data-i18n="work.elim.f2">9 languages with automatic translation</span></li>
+              <li><svg><use href="#i-check"/></svg><span data-i18n="work.elim.f3">Offline library, audio player & push notifications</span></li>
+              <li><svg><use href="#i-check"/></svg><span data-i18n="work.elim.f4">Role-based access, moderation & admin tools</span></li>
+            </ul>
+            <a class="btn btn-ghost" href="https://ccelim.com" target="_blank" rel="noopener"><span data-i18n="work.elim.cta">Visit ccelim.com</span><svg><use href="#i-arrow"/></svg></a>
+            <div class="case-stats">
+              <div><b>3</b><span data-i18n="work.elim.stat1">Platforms</span></div>
+              <div><b>9</b><span data-i18n="work.elim.stat2">Languages</span></div>
+              <div><b>5</b><span data-i18n="work.elim.stat3">Media types</span></div>
+            </div>
+          </div>
+          <div class="case-visual" aria-hidden="true">
+            <div class="app-shot">
+              <div class="as-head"><img src="elim-mark.png" alt="" width="34" height="34" /><div><b>ELIM</b><small>Church community</small></div></div>
+              <div class="as-post"><div class="who"><i></i><div><b>Grace Chapel</b>Sunday · 10:30</div></div><div class="media"><svg><use href="#i-play"/></svg></div><div class="txt">This week's sermon: "Walking in peace" — audio and notes now available.</div><div class="acts"><span>♥ 128</span><span>💬 24</span><span>↗ Share</span></div></div>
+              <div class="as-post" style="padding:.6rem .8rem"><div class="who" style="margin:0"><i></i><div><b>New message</b>Prayer group · 2 min ago</div></div></div>
+              <div class="as-nav"><i></i><i></i><i></i><i></i><i></i></div>
+            </div>
+          </div>
+        </article>
+
+        <h3 class="ready-title reveal" data-i18n="work.ready">Ready-to-adapt solutions</h3>
+        <div class="grid grid-3">
+          <article class="card mini reveal"><div class="icon"><svg><use href="#i-book"/></svg></div><h3 data-i18n="work.s1.title">School management</h3><p data-i18n="work.s1.desc">Enrolment, grades, attendance, fees and parent notifications.</p></article>
+          <article class="card mini reveal"><div class="icon c2"><svg><use href="#i-cart"/></svg></div><h3 data-i18n="work.s2.title">Ordering & delivery</h3><p data-i18n="work.s2.desc">Menu, cart, mobile payments and live order tracking.</p></article>
+          <article class="card mini reveal"><div class="icon c3"><svg><use href="#i-cal"/></svg></div><h3 data-i18n="work.s3.title">Booking & appointments</h3><p data-i18n="work.s3.desc">Calendars, reminders and online payment.</p></article>
+          <article class="card mini reveal"><div class="icon"><svg><use href="#i-box"/></svg></div><h3 data-i18n="work.s4.title">Inventory & point of sale</h3><p data-i18n="work.s4.desc">Stock, sales, receipts and reports that work offline.</p></article>
+          <article class="card mini reveal"><div class="icon c2"><svg><use href="#i-users"/></svg></div><h3 data-i18n="work.s5.title">Community & membership</h3><p data-i18n="work.s5.desc">Posts, events, messaging and donations.</p></article>
+          <article class="card mini reveal"><div class="icon c3"><svg><use href="#i-home"/></svg></div><h3 data-i18n="work.s6.title">Real estate listings</h3><p data-i18n="work.s6.desc">Listings, galleries, search filters and lead capture.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Process ---------------------------------------------------------- -->
+    <section class="section" id="process">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="eyebrow" data-i18n="process.eyebrow">How it works</p>
+          <h2 class="title" data-i18n="process.title">A clear path from first call to launch</h2>
+          <p class="lead" data-i18n="process.sub">You always know what happens next, what it costs and when you will see it.</p>
+        </div>
+        <div class="steps">
+          <div class="step reveal"><h3 data-i18n="process.1.title">Discovery call</h3><p data-i18n="process.1.desc">A free 30-minute call.</p></div>
+          <div class="step reveal"><h3 data-i18n="process.2.title">Proposal & fixed quote</h3><p data-i18n="process.2.desc">Written scope, price and timeline within 48 hours.</p></div>
+          <div class="step reveal"><h3 data-i18n="process.3.title">Design</h3><p data-i18n="process.3.desc">Clickable prototype before we build.</p></div>
+          <div class="step reveal"><h3 data-i18n="process.4.title">Build in weekly sprints</h3><p data-i18n="process.4.desc">A new version to try every week.</p></div>
+          <div class="step reveal"><h3 data-i18n="process.5.title">Test & launch</h3><p data-i18n="process.5.desc">Real devices, domain, stores.</p></div>
+          <div class="step reveal"><h3 data-i18n="process.6.title">Support & grow</h3><p data-i18n="process.6.desc">Monitor, fix and add features.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Why -------------------------------------------------------------- -->
+    <section class="section section-alt" id="why">
+      <div class="container">
+        <div class="section-head center reveal">
+          <p class="eyebrow" data-i18n="why.eyebrow">Why Kaj System</p>
+          <h2 class="title" data-i18n="why.title">Built like a partner, not a vendor</h2>
+        </div>
+        <div class="why-grid">
+          <div class="why reveal"><div class="icon"><svg><use href="#i-users"/></svg></div><h3 data-i18n="why.1.title">One team, start to finish</h3><p data-i18n="why.1.desc">Design, development, publishing and support by the same people.</p></div>
+          <div class="why reveal"><div class="icon c2"><svg><use href="#i-tag"/></svg></div><h3 data-i18n="why.2.title">Fixed price, written scope</h3><p data-i18n="why.2.desc">You approve the price before we start.</p></div>
+          <div class="why reveal"><div class="icon c3"><svg><use href="#i-key"/></svg></div><h3 data-i18n="why.3.title">You own everything</h3><p data-i18n="why.3.desc">Code, accounts, domain and store listings in your name.</p></div>
+          <div class="why reveal"><div class="icon"><svg><use href="#i-shield"/></svg></div><h3 data-i18n="why.4.title">Built for real conditions</h3><p data-i18n="why.4.desc">Usable on entry-level phones, slow networks and offline.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pricing ---------------------------------------------------------- -->
+    <section class="section" id="pricing">
+      <div class="container">
+        <div class="section-head center reveal">
+          <p class="eyebrow" data-i18n="pricing.eyebrow">Pricing</p>
+          <h2 class="title" data-i18n="pricing.title">Simple packages, honest prices</h2>
+          <p class="lead" data-i18n="pricing.sub">Every package includes design, development, testing, launch and 30 days of free fixes.</p>
+        </div>
+        <div class="plans">
+          <article class="card plan reveal">
+            <h3 data-i18n="pricing.1.name">Launch Website</h3><p class="desc" data-i18n="pricing.1.desc">A professional site that brings customers.</p>
+            <div class="price"><small data-i18n="pricing.from">from</small><b data-price="website">$490</b></div>
+            <ul>
+              <li><svg><use href="#i-check"/></svg><span data-i18n="pricing.1.f1"></span></li>
+              <li><svg><use href="#i-check"/></svg><span data-i18n="pricing.1.f2"></span></li>
+              <li><svg><use href="#i-check"/></svg><span data-i18n="pricing.1.f3"></span></li>
+              <li><svg><use href="#i-check"/></svg><span data-i18n="pricing.1.f4"></span></li>
+              <li><svg><use href="#i-check"/></svg><span data-i18n="pricing.1.f5"></span></li>
+            </ul>
+            <a class="btn btn-ghost btn-block" href="#contact" data-plan="website" data-i18n="pricing.cta">Choose this package</a>
+          </article>
+          <article class="card plan popular reveal">
+            <span class="pop" data-i18n="pricing.popular">Most popular</span>
+            <h3 data-i18n="pricing.2.name">Web App / PWA</h3><p class="desc" data-i18n="pricing.2.desc">A product your customers log into.</p>
+            <div class="price"><small data-i18n="pricing.from">from</small><b data-price="webapp">$1,900</b></div>
+            <ul>
+              <li><svg><use href="#i-check"/></svg><span data-i18n="pricing.2.f1"></span></li>
+              <li><svg><use href="#i-check"/></svg><span data-i18n="pricing.2.f2"></span></li>
+              <li><svg><use href="#i-check"/></svg><span data-i18n="pricing.2.f3"></span></li>
+              <li><svg><use href="#i-check"/></svg><span data-i18n="pricing.2.f4"></span></li>
+              <li><svg><use href="#i-check"/></svg><span data-i18n="pricing.2.f5"></span></li>
+            </ul>
+            <a class="btn btn-primary btn-block" href="#contact" data-plan="webapp" data-i18n="pricing.cta">Choose this package</a>
+          </article>
+          <article class="card plan reveal">
+            <h3 data-i18n="pricing.3.name">Mobile App</h3><p class="desc" data-i18n="pricing.3.desc">iOS and Android, published for you.</p>
+            <div class="price"><small data-i18n="pricing.from">from</small><b data-price="mobile">$3,900</b></div>
+            <ul>
+              <li><svg><use href="#i-check"/></svg><span data-i18n="pricing.3.f1"></span></li>
+              <li><svg><use href="#i-check"/></svg><span data-i18n="pricing.3.f2"></span></li>
+              <li><svg><use href="#i-check"/></svg><span data-i18n="pricing.3.f3"></span></li>
+              <li><svg><use href="#i-check"/></svg><span data-i18n="pricing.3.f4"></span></li>
+              <li><svg><use href="#i-check"/></svg><span data-i18n="pricing.3.f5"></span></li>
+            </ul>
+            <a class="btn btn-ghost btn-block" href="#contact" data-plan="mobile" data-i18n="pricing.cta">Choose this package</a>
+          </article>
+          <article class="card plan reveal">
+            <h3 data-i18n="pricing.4.name">Custom System</h3><p class="desc" data-i18n="pricing.4.desc">Software built around your operations.</p>
+            <div class="price"><small>&nbsp;</small><b class="custom" data-i18n="pricing.4.price">Custom quote</b></div>
+            <ul>
+              <li><svg><use href="#i-check"/></svg><span data-i18n="pricing.4.f1"></span></li>
+              <li><svg><use href="#i-check"/></svg><span data-i18n="pricing.4.f2"></span></li>
+              <li><svg><use href="#i-check"/></svg><span data-i18n="pricing.4.f3"></span></li>
+              <li><svg><use href="#i-check"/></svg><span data-i18n="pricing.4.f4"></span></li>
+              <li><svg><use href="#i-check"/></svg><span data-i18n="pricing.4.f5"></span></li>
+            </ul>
+            <a class="btn btn-ghost btn-block" href="#contact" data-plan="system" data-i18n="pricing.custom.cta">Request a quote</a>
+          </article>
+        </div>
+        <div class="card care reveal">
+          <div class="care-left">
+            <div class="icon c2"><svg><use href="#i-life"/></svg></div>
+            <div><h3 data-i18n="pricing.care.title">Care plan</h3><p data-i18n="pricing.care.desc">Hosting, monitoring, backups, security updates, store updates and small changes every month.</p></div>
+          </div>
+          <div class="price"><b data-price="care">$49</b> <span data-i18n="pricing.care.unit">/ month</span></div>
+        </div>
+        <p class="pricing-note" data-i18n="pricing.note">Prices in USD. Instalment plans and local-currency invoices available.</p>
+      </div>
+    </section>
+
+    <!-- Estimator -------------------------------------------------------- -->
+    <section class="section section-alt" id="estimate">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="eyebrow" data-i18n="est.eyebrow">Instant estimate</p>
+          <h2 class="title" data-i18n="est.title">How much will your project cost?</h2>
+          <p class="lead" data-i18n="est.sub">Pick what you need and get a ballpark price and timeline in seconds.</p>
+        </div>
+        <form class="est reveal" id="estimator" onsubmit="return false">
+          <div class="card est-panel">
+            <h3 data-i18n="est.step1">1. What are we building?</h3>
+            <div class="opt-grid">
+              <div class="opt"><input type="radio" name="platform" id="p-website" value="website" /><label for="p-website"><b data-i18n="est.p.website">Website</b><span data-i18n="est.p.website.sub">Marketing site or landing page</span></label></div>
+              <div class="opt"><input type="radio" name="platform" id="p-webapp" value="webapp" checked /><label for="p-webapp"><b data-i18n="est.p.webapp">Web app</b><span data-i18n="est.p.webapp.sub">Logged-in product, PWA</span></label></div>
+              <div class="opt"><input type="radio" name="platform" id="p-mobile" value="mobile" /><label for="p-mobile"><b data-i18n="est.p.mobile">Mobile app</b><span data-i18n="est.p.mobile.sub">iOS + Android</span></label></div>
+            </div>
+            <h3 data-i18n="est.step2">2. Which features do you need?</h3>
+            <div class="addons">
+              <div class="opt"><input type="checkbox" name="addon" id="a-accounts" value="accounts" checked /><label for="a-accounts" data-i18n="est.a.accounts">User accounts</label></div>
+              <div class="opt"><input type="checkbox" name="addon" id="a-payments" value="payments" /><label for="a-payments" data-i18n="est.a.payments">Online payments</label></div>
+              <div class="opt"><input type="checkbox" name="addon" id="a-admin" value="admin" checked /><label for="a-admin" data-i18n="est.a.admin">Admin dashboard</label></div>
+              <div class="opt"><input type="checkbox" name="addon" id="a-chat" value="chat" /><label for="a-chat" data-i18n="est.a.chat">Chat / messaging</label></div>
+              <div class="opt"><input type="checkbox" name="addon" id="a-push" value="push" /><label for="a-push" data-i18n="est.a.push">Push notifications</label></div>
+              <div class="opt"><input type="checkbox" name="addon" id="a-i18n" value="i18n" /><label for="a-i18n" data-i18n="est.a.i18n">Multiple languages</label></div>
+              <div class="opt"><input type="checkbox" name="addon" id="a-offline" value="offline" /><label for="a-offline" data-i18n="est.a.offline">Offline mode</label></div>
+              <div class="opt"><input type="checkbox" name="addon" id="a-ai" value="ai" /><label for="a-ai" data-i18n="est.a.ai">AI features</label></div>
+              <div class="opt"><input type="checkbox" name="addon" id="a-design" value="design" /><label for="a-design" data-i18n="est.a.design">Logo & branding</label></div>
+            </div>
+            <h3 data-i18n="est.step3">3. Timeline</h3>
+            <div class="seg">
+              <div class="opt"><input type="radio" name="speed" id="t-standard" value="standard" checked /><label for="t-standard" data-i18n="est.t.standard">Standard</label></div>
+              <div class="opt"><input type="radio" name="speed" id="t-rush" value="rush" /><label for="t-rush" data-i18n="est.t.rush">Rush (+30%)</label></div>
+            </div>
+          </div>
+          <aside class="card est-result" aria-live="polite">
+            <small data-i18n="est.result">Estimated investment</small>
+            <div class="big" id="estPrice">$2,200 – $3,000</div>
+            <small data-i18n="est.weeks">Estimated timeline</small>
+            <div class="mid" id="estWeeks">6 – 7 weeks</div>
+            <div class="tally" id="estTally"></div>
+            <a class="btn btn-primary btn-block" href="#contact" id="estSend"><span data-i18n="est.cta">Send me this estimate</span><svg><use href="#i-arrow"/></svg></a>
+            <p class="note" data-i18n="est.disclaimer">Indicative only. Final price depends on the written scope.</p>
+          </aside>
+        </form>
+      </div>
+    </section>
+
+    <!-- Testimonials (hidden until config has entries) ------------------- -->
+    <section class="section" id="testimonials" hidden>
+      <div class="container">
+        <div class="section-head center reveal">
+          <p class="eyebrow" data-i18n="testi.eyebrow">Testimonials</p>
+          <h2 class="title" data-i18n="testi.title">What clients say</h2>
+        </div>
+        <div class="grid grid-3" id="testiGrid"></div>
+      </div>
+    </section>
+
+    <!-- FAQ -------------------------------------------------------------- -->
+    <section class="section section-alt" id="faq">
+      <div class="container">
+        <div class="section-head center reveal">
+          <p class="eyebrow" data-i18n="faq.eyebrow">FAQ</p>
+          <h2 class="title" data-i18n="faq.title">Questions people ask before starting</h2>
+        </div>
+        <div class="faq reveal">
+          <details open><summary data-i18n="faq.1.q">How long does it take to build an app?</summary><p data-i18n="faq.1.a"></p></details>
+          <details><summary data-i18n="faq.2.q">Do I need to know anything technical?</summary><p data-i18n="faq.2.a"></p></details>
+          <details><summary data-i18n="faq.3.q">Who owns the code and the accounts?</summary><p data-i18n="faq.3.a"></p></details>
+          <details><summary data-i18n="faq.4.q">How do payments work?</summary><p data-i18n="faq.4.a"></p></details>
+          <details><summary data-i18n="faq.5.q">What happens after launch?</summary><p data-i18n="faq.5.a"></p></details>
+          <details><summary data-i18n="faq.6.q">Can you take over an existing app or website?</summary><p data-i18n="faq.6.a"></p></details>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact ---------------------------------------------------------- -->
+    <section class="section" id="contact">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="eyebrow" data-i18n="contact.eyebrow">Contact</p>
+          <h2 class="title" data-i18n="contact.title">Tell us about your project</h2>
+          <p class="lead" data-i18n="contact.sub">Answer a few questions and we reply within 24 hours.</p>
+        </div>
+        <div class="contact">
+          <form class="card form reveal" id="contactForm" novalidate>
+            <div class="row">
+              <div class="field"><label for="f-name" data-i18n="contact.name">Your name</label><input id="f-name" name="name" type="text" required autocomplete="name" /></div>
+              <div class="field"><label for="f-email" data-i18n="contact.email">Email</label><input id="f-email" name="email" type="email" required autocomplete="email" /></div>
+            </div>
+            <div class="row">
+              <div class="field"><label for="f-phone" data-i18n="contact.phone">Phone / WhatsApp (optional)</label><input id="f-phone" name="phone" type="tel" autocomplete="tel" /></div>
+              <div class="field"><label for="f-type" data-i18n="contact.type">What do you need?</label>
+                <select id="f-type" name="project">
+                  <option value="website" data-i18n="contact.type.website">Website</option>
+                  <option value="webapp" data-i18n="contact.type.webapp">Web app</option>
+                  <option value="mobile" data-i18n="contact.type.mobile">Mobile app</option>
+                  <option value="system" data-i18n="contact.type.system">Custom system</option>
+                  <option value="other" data-i18n="contact.type.other">Not sure yet</option>
+                </select>
+              </div>
+            </div>
+            <div class="field"><label for="f-budget" data-i18n="contact.budget">Budget</label>
+              <select id="f-budget" name="budget">
+                <option value="<1000" data-i18n="contact.budget.1">Under $1,000</option>
+                <option value="1000-3000" selected data-i18n="contact.budget.2">$1,000 – $3,000</option>
+                <option value="3000-8000" data-i18n="contact.budget.3">$3,000 – $8,000</option>
+                <option value=">8000" data-i18n="contact.budget.4">Over $8,000</option>
+              </select>
+            </div>
+            <div class="field"><label for="f-msg" data-i18n="contact.message">Describe your idea</label><textarea id="f-msg" name="message" required data-i18n-ph="contact.message.ph" placeholder="Who is it for, what should it do, and when do you want to launch?"></textarea></div>
+            <input class="hp" type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" />
+            <button class="btn btn-primary btn-lg btn-block" type="submit" id="submitBtn"><span data-i18n="contact.submit">Send message</span><svg><use href="#i-arrow"/></svg></button>
+            <p class="form-note" data-i18n="contact.privacy">We only use your details to reply to you.</p>
+            <div class="form-status" id="formStatus" hidden role="status"></div>
+          </form>
+          <aside class="card direct reveal">
+            <h3 data-i18n="contact.direct">Prefer to talk directly?</h3>
+            <a class="link" id="linkEmail" href="#"><i style="background:#4f46e5"><svg><use href="#i-mail"/></svg></i><div><b data-i18n="contact.emailLabel">Email us</b><span id="emailText"></span></div></a>
+            <a class="link" id="linkWa" href="#" target="_blank" rel="noopener" hidden><i style="background:#25d366"><svg><use href="#i-wa"/></svg></i><div><b data-i18n="contact.whatsapp">Chat on WhatsApp</b><span id="waText"></span></div></a>
+            <a class="link" id="linkBook" href="#" target="_blank" rel="noopener" hidden><i style="background:#06b6d4"><svg><use href="#i-cal"/></svg></i><div><b data-i18n="contact.book">Book a free 30-min call</b><span id="bookText"></span></div></a>
+            <div class="loc"><svg><use href="#i-pin"/></svg><span id="locText"></span></div>
+          </aside>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer ------------------------------------------------------------- -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <a class="logo" href="#top"><svg class="logo-mark" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="16" fill="url(#kg)"/><path d="M20 16v32M20 32l18-16M22 34l18 14" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Kaj System</span></a>
+          <p data-i18n="footer.desc">An app & software studio building mobile apps, websites and custom systems.</p>
+          <div class="socials" id="socials"></div>
+        </div>
+        <div>
+          <h4 data-i18n="footer.services">Services</h4>
+          <ul>
+            <li><a href="#services" data-i18n="services.1.title">Mobile apps</a></li>
+            <li><a href="#services" data-i18n="services.2.title">Websites & web apps</a></li>
+            <li><a href="#services" data-i18n="services.3.title">Custom business systems</a></li>
+            <li><a href="#services" data-i18n="services.6.title">Hosting, maintenance & support</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 data-i18n="footer.company">Company</h4>
+          <ul>
+            <li><a href="#work" data-i18n="nav.work">Work</a></li>
+            <li><a href="#process" data-i18n="nav.process">Process</a></li>
+            <li><a href="#pricing" data-i18n="nav.pricing">Pricing</a></li>
+            <li><a href="#contact" data-i18n="nav.contact">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 data-i18n="footer.legal">Legal</h4>
+          <ul>
+            <li><a href="privacy.html" data-i18n="footer.privacy">Privacy policy</a></li>
+            <li><a href="#top" data-i18n="footer.top">Back to top</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© <span id="year"></span> Kaj System. <span data-i18n="footer.rights">All rights reserved.</span></span>
+        <span id="footerEmail"></span>
+      </div>
+    </div>
+  </footer>
+
+  <a class="wa-fab" id="waFab" href="#" target="_blank" rel="noopener" aria-label="Chat on WhatsApp" hidden><svg><use href="#i-wa"/></svg></a>
+
+  <script src="config.js"></script>
+  <script src="i18n.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
