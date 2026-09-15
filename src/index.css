@@ -572,3 +572,39 @@ video, audio {
     background: radial-gradient(ellipse 92% 62% at 50% 108%, #7c2d12 0%, #40200f 34%, #21190f 66%, #14110e 100%);
   }
 }
+
+/* ---- Bible quiz -------------------------------------------------------------
+   Full-screen game overlay: the same warm orange sky as the app so the white
+   glass cards float on it, with its own scroll. */
+.quiz-bg {
+  background:
+    radial-gradient(50rem 40rem at 50% -14%, rgba(255, 240, 220, 0.40), transparent 60%),
+    radial-gradient(46rem 46rem at 100% 4%, rgba(194, 65, 12, 0.30), transparent 55%),
+    linear-gradient(178deg, #fb923c 0%, #f97316 46%, #ea580c 100%);
+}
+@media (prefers-color-scheme: dark) {
+  .quiz-bg {
+    background:
+      radial-gradient(50rem 40rem at 50% -14%, rgba(120, 66, 20, 0.34), transparent 60%),
+      linear-gradient(178deg, #2b1a10 0%, #1f1710 60%, #17110c 100%);
+  }
+}
+/* Falling confetti on the results screen. Transform/opacity only. */
+.quiz-confetti {
+  position: absolute;
+  top: -16px;
+  border-radius: 2px;
+  opacity: 0;
+  will-change: transform, opacity;
+  animation-name: quizConfettiFall;
+  animation-timing-function: ease-in;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+@keyframes quizConfettiFall {
+  0%   { transform: translateY(0) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(105vh) rotate(540deg); opacity: 0.9; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .quiz-confetti { display: none; }
+}

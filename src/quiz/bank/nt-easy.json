@@ -1,0 +1,326 @@
+[
+ {
+  "id": "nt-easy-001",
+  "ref": {
+   "fr": "Luc 2",
+   "en": "Luke 2"
+  },
+  "fr": {
+   "q": "Dans quelle ville Jésus est-il né ?",
+   "options": [
+    "Bethléhem",
+    "Nazareth",
+    "Jérusalem",
+    "Capernaüm"
+   ],
+   "explain": "Jésus naquit à Bethléhem de Judée. (Luc 2:4-7)"
+  },
+  "en": {
+   "q": "In which town was Jesus born?",
+   "options": [
+    "Bethlehem",
+    "Nazareth",
+    "Jerusalem",
+    "Capernaum"
+   ],
+   "explain": "Jesus was born in Bethlehem of Judea. (Luke 2:4-7)"
+  }
+ },
+ {
+  "id": "nt-easy-002",
+  "ref": {
+   "fr": "Matthieu 3",
+   "en": "Matthew 3"
+  },
+  "fr": {
+   "q": "Qui baptisa Jésus dans le Jourdain ?",
+   "options": [
+    "Jean-Baptiste",
+    "Pierre",
+    "André",
+    "Élie"
+   ],
+   "explain": "Jean-Baptiste baptisa Jésus dans le Jourdain. (Matthieu 3:13-16)"
+  },
+  "en": {
+   "q": "Who baptized Jesus in the Jordan?",
+   "options": [
+    "John the Baptist",
+    "Peter",
+    "Andrew",
+    "Elijah"
+   ],
+   "explain": "John the Baptist baptized Jesus in the Jordan. (Matthew 3:13-16)"
+  }
+ },
+ {
+  "id": "nt-easy-003",
+  "ref": {
+   "fr": "Matthieu 10",
+   "en": "Matthew 10"
+  },
+  "fr": {
+   "q": "Combien d’apôtres Jésus choisit-il ?",
+   "options": [
+    "Douze",
+    "Sept",
+    "Dix",
+    "Soixante-dix"
+   ],
+   "explain": "Jésus choisit douze apôtres. (Matthieu 10:1-4)"
+  },
+  "en": {
+   "q": "How many apostles did Jesus choose?",
+   "options": [
+    "Twelve",
+    "Seven",
+    "Ten",
+    "Seventy"
+   ],
+   "explain": "Jesus chose twelve apostles. (Matthew 10:1-4)"
+  }
+ },
+ {
+  "id": "nt-easy-004",
+  "ref": {
+   "fr": "Jean 11",
+   "en": "John 11"
+  },
+  "fr": {
+   "q": "Qui Jésus ressuscita-t-il d’entre les morts à Béthanie ?",
+   "options": [
+    "Lazare",
+    "Jaïrus",
+    "Nicodème",
+    "Zachée"
+   ],
+   "explain": "Jésus appela Lazare hors du tombeau. (Jean 11:43-44)"
+  },
+  "en": {
+   "q": "Whom did Jesus raise from the dead at Bethany?",
+   "options": [
+    "Lazarus",
+    "Jairus",
+    "Nicodemus",
+    "Zacchaeus"
+   ],
+   "explain": "Jesus called Lazarus out of the tomb. (John 11:43-44)"
+  }
+ },
+ {
+  "id": "nt-easy-005",
+  "ref": {
+   "fr": "Jean 6",
+   "en": "John 6"
+  },
+  "fr": {
+   "q": "Avec quoi Jésus nourrit-il cinq mille personnes ?",
+   "options": [
+    "Cinq pains et deux poissons",
+    "Sept pains",
+    "Douze pains",
+    "Du pain seulement"
+   ],
+   "explain": "Il multiplia cinq pains et deux poissons. (Jean 6:9-11)"
+  },
+  "en": {
+   "q": "With what did Jesus feed five thousand?",
+   "options": [
+    "Five loaves and two fish",
+    "Seven loaves",
+    "Twelve loaves",
+    "Bread only"
+   ],
+   "explain": "He multiplied five loaves and two fish. (John 6:9-11)"
+  }
+ },
+ {
+  "id": "nt-easy-006",
+  "ref": {
+   "fr": "Matthieu 4:19",
+   "en": "Matthew 4:19"
+  },
+  "fr": {
+   "q": "Quel métier exerçaient Pierre et André avant de suivre Jésus ?",
+   "options": [
+    "Pêcheurs",
+    "Charpentiers",
+    "Bergers",
+    "Publicains"
+   ],
+   "explain": "Jésus dit : « Je vous ferai pêcheurs d’hommes. » (Matthieu 4:19)"
+  },
+  "en": {
+   "q": "What was the trade of Peter and Andrew before following Jesus?",
+   "options": [
+    "Fishermen",
+    "Carpenters",
+    "Shepherds",
+    "Tax collectors"
+   ],
+   "explain": "Jesus said, “I will make you fishers of men.” (Matthew 4:19)"
+  }
+ },
+ {
+  "id": "nt-easy-007",
+  "ref": {
+   "fr": "Luc 19",
+   "en": "Luke 19"
+  },
+  "fr": {
+   "q": "Qui monta dans un sycomore pour voir Jésus ?",
+   "options": [
+    "Zachée",
+    "Nicodème",
+    "Barthélemy",
+    "Simon"
+   ],
+   "explain": "Zachée, petit de taille, monta sur un sycomore. (Luc 19:3-4)"
+  },
+  "en": {
+   "q": "Who climbed a sycamore tree to see Jesus?",
+   "options": [
+    "Zacchaeus",
+    "Nicodemus",
+    "Bartholomew",
+    "Simon"
+   ],
+   "explain": "Zacchaeus, short in stature, climbed a sycamore. (Luke 19:3-4)"
+  }
+ },
+ {
+  "id": "nt-easy-008",
+  "ref": {
+   "fr": "Jean 2",
+   "en": "John 2"
+  },
+  "fr": {
+   "q": "Quel fut le premier miracle de Jésus à Cana ?",
+   "options": [
+    "Changer l’eau en vin",
+    "Guérir un aveugle",
+    "Marcher sur l’eau",
+    "Calmer la tempête"
+   ],
+   "explain": "Il changea l’eau en vin aux noces de Cana. (Jean 2:9-11)"
+  },
+  "en": {
+   "q": "What was Jesus’ first miracle at Cana?",
+   "options": [
+    "Turning water into wine",
+    "Healing a blind man",
+    "Walking on water",
+    "Calming a storm"
+   ],
+   "explain": "He turned water into wine at the wedding in Cana. (John 2:9-11)"
+  }
+ },
+ {
+  "id": "nt-easy-009",
+  "ref": {
+   "fr": "Matthieu 28",
+   "en": "Matthew 28"
+  },
+  "fr": {
+   "q": "Que célèbre-t-on à Pâques concernant Jésus ?",
+   "options": [
+    "Sa résurrection",
+    "Sa naissance",
+    "Son baptême",
+    "Sa transfiguration"
+   ],
+   "explain": "Jésus ressuscita le troisième jour. (Matthieu 28:6)"
+  },
+  "en": {
+   "q": "What does Easter celebrate about Jesus?",
+   "options": [
+    "His resurrection",
+    "His birth",
+    "His baptism",
+    "His transfiguration"
+   ],
+   "explain": "Jesus rose on the third day. (Matthew 28:6)"
+  }
+ },
+ {
+  "id": "nt-easy-010",
+  "ref": {
+   "fr": "Actes 9",
+   "en": "Acts 9"
+  },
+  "fr": {
+   "q": "Sur quel chemin Saul rencontra-t-il Jésus et fut converti ?",
+   "options": [
+    "Le chemin de Damas",
+    "Le chemin d’Emmaüs",
+    "La route de Jéricho",
+    "Le chemin de Gaza"
+   ],
+   "explain": "Une lumière l’enveloppa sur le chemin de Damas. (Actes 9:3)"
+  },
+  "en": {
+   "q": "On which road did Saul meet Jesus and convert?",
+   "options": [
+    "The road to Damascus",
+    "The road to Emmaus",
+    "The Jericho road",
+    "The road to Gaza"
+   ],
+   "explain": "A light shone on him on the road to Damascus. (Acts 9:3)"
+  }
+ },
+ {
+  "id": "nt-easy-011",
+  "ref": {
+   "fr": "Luc 1",
+   "en": "Luke 1"
+  },
+  "fr": {
+   "q": "Quel ange annonça à Marie la naissance de Jésus ?",
+   "options": [
+    "Gabriel",
+    "Michel",
+    "Raphaël",
+    "Uriel"
+   ],
+   "explain": "L’ange Gabriel fut envoyé vers Marie. (Luc 1:26-31)"
+  },
+  "en": {
+   "q": "Which angel told Mary of Jesus’ birth?",
+   "options": [
+    "Gabriel",
+    "Michael",
+    "Raphael",
+    "Uriel"
+   ],
+   "explain": "The angel Gabriel was sent to Mary. (Luke 1:26-31)"
+  }
+ },
+ {
+  "id": "nt-easy-012",
+  "ref": {
+   "fr": "Matthieu 14",
+   "en": "Matthew 14"
+  },
+  "fr": {
+   "q": "Que fit Jésus sur la mer de Galilée qui étonna ses disciples ?",
+   "options": [
+    "Il marcha sur l’eau",
+    "Il pêcha seul",
+    "Il dormit trois jours",
+    "Il construisit un pont"
+   ],
+   "explain": "Jésus marcha sur la mer vers ses disciples. (Matthieu 14:25)"
+  },
+  "en": {
+   "q": "What did Jesus do on the Sea of Galilee that amazed the disciples?",
+   "options": [
+    "He walked on the water",
+    "He fished alone",
+    "He slept three days",
+    "He built a bridge"
+   ],
+   "explain": "Jesus walked on the sea toward his disciples. (Matthew 14:25)"
+  }
+ }
+]

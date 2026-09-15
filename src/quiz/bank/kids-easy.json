@@ -1,0 +1,326 @@
+[
+ {
+  "id": "kids-easy-001",
+  "ref": {
+   "fr": "Genèse 1",
+   "en": "Genesis 1"
+  },
+  "fr": {
+   "q": "Qui a créé le monde ?",
+   "options": [
+    "Dieu",
+    "Un roi",
+    "Les hommes",
+    "Le soleil"
+   ],
+   "explain": "C’est Dieu qui a tout créé. (Genèse 1:1)"
+  },
+  "en": {
+   "q": "Who created the world?",
+   "options": [
+    "God",
+    "A king",
+    "People",
+    "The sun"
+   ],
+   "explain": "God created everything. (Genesis 1:1)"
+  }
+ },
+ {
+  "id": "kids-easy-002",
+  "ref": {
+   "fr": "Genèse 7",
+   "en": "Genesis 7"
+  },
+  "fr": {
+   "q": "Noé a mis les animaux dans quoi ?",
+   "options": [
+    "Un grand bateau (l’arche)",
+    "Une maison",
+    "Une grotte",
+    "Un jardin"
+   ],
+   "explain": "Noé a mis les animaux dans l’arche. (Genèse 7:9)"
+  },
+  "en": {
+   "q": "Noah put the animals into what?",
+   "options": [
+    "A big boat (the ark)",
+    "A house",
+    "A cave",
+    "A garden"
+   ],
+   "explain": "Noah put the animals into the ark. (Genesis 7:9)"
+  }
+ },
+ {
+  "id": "kids-easy-003",
+  "ref": {
+   "fr": "Luc 2",
+   "en": "Luke 2"
+  },
+  "fr": {
+   "q": "Le bébé Jésus a été couché dans quoi ?",
+   "options": [
+    "Une mangeoire (crèche)",
+    "Un lit d’or",
+    "Un panier",
+    "Une barque"
+   ],
+   "explain": "On coucha Jésus dans une crèche. (Luc 2:7)"
+  },
+  "en": {
+   "q": "Baby Jesus was laid in what?",
+   "options": [
+    "A manger",
+    "A golden bed",
+    "A basket",
+    "A boat"
+   ],
+   "explain": "Jesus was laid in a manger. (Luke 2:7)"
+  }
+ },
+ {
+  "id": "kids-easy-004",
+  "ref": {
+   "fr": "1 Samuel 17",
+   "en": "1 Samuel 17"
+  },
+  "fr": {
+   "q": "Le petit David a vaincu le géant avec quoi ?",
+   "options": [
+    "Une fronde et une pierre",
+    "Une épée",
+    "Un arc",
+    "Un bâton"
+   ],
+   "explain": "David a lancé une pierre avec sa fronde. (1 Samuel 17:49)"
+  },
+  "en": {
+   "q": "Little David beat the giant with what?",
+   "options": [
+    "A sling and a stone",
+    "A sword",
+    "A bow",
+    "A stick"
+   ],
+   "explain": "David slung a stone. (1 Samuel 17:49)"
+  }
+ },
+ {
+  "id": "kids-easy-005",
+  "ref": {
+   "fr": "Jonas 1",
+   "en": "Jonah 1"
+  },
+  "fr": {
+   "q": "Jonas a été avalé par quoi ?",
+   "options": [
+    "Un grand poisson",
+    "Un lion",
+    "Un oiseau",
+    "Un serpent"
+   ],
+   "explain": "Un grand poisson a avalé Jonas. (Jonas 1:17)"
+  },
+  "en": {
+   "q": "Jonah was swallowed by what?",
+   "options": [
+    "A big fish",
+    "A lion",
+    "A bird",
+    "A snake"
+   ],
+   "explain": "A big fish swallowed Jonah. (Jonah 1:17)"
+  }
+ },
+ {
+  "id": "kids-easy-006",
+  "ref": {
+   "fr": "Daniel 6",
+   "en": "Daniel 6"
+  },
+  "fr": {
+   "q": "Daniel a été protégé parmi quels animaux ?",
+   "options": [
+    "Les lions",
+    "Les loups",
+    "Les ours",
+    "Les serpents"
+   ],
+   "explain": "Dieu a fermé la gueule des lions. (Daniel 6:22)"
+  },
+  "en": {
+   "q": "Daniel was kept safe among which animals?",
+   "options": [
+    "Lions",
+    "Wolves",
+    "Bears",
+    "Snakes"
+   ],
+   "explain": "God shut the lions’ mouths. (Daniel 6:22)"
+  }
+ },
+ {
+  "id": "kids-easy-007",
+  "ref": {
+   "fr": "Exode 2",
+   "en": "Exodus 2"
+  },
+  "fr": {
+   "q": "Le bébé Moïse a été caché dans un panier sur quel fleuve ?",
+   "options": [
+    "Le Nil",
+    "Le Jourdain",
+    "La mer Rouge",
+    "L’Euphrate"
+   ],
+   "explain": "Sa mère l’a caché sur le Nil. (Exode 2:3)"
+  },
+  "en": {
+   "q": "Baby Moses was hidden in a basket on which river?",
+   "options": [
+    "The Nile",
+    "The Jordan",
+    "The Red Sea",
+    "The Euphrates"
+   ],
+   "explain": "His mother hid him on the Nile. (Exodus 2:3)"
+  }
+ },
+ {
+  "id": "kids-easy-008",
+  "ref": {
+   "fr": "Jean 6",
+   "en": "John 6"
+  },
+  "fr": {
+   "q": "Jésus a nourri la foule avec cinq pains et combien de poissons ?",
+   "options": [
+    "Deux",
+    "Cinq",
+    "Sept",
+    "Dix"
+   ],
+   "explain": "Cinq pains et deux poissons. (Jean 6:9)"
+  },
+  "en": {
+   "q": "Jesus fed the crowd with five loaves and how many fish?",
+   "options": [
+    "Two",
+    "Five",
+    "Seven",
+    "Ten"
+   ],
+   "explain": "Five loaves and two fish. (John 6:9)"
+  }
+ },
+ {
+  "id": "kids-easy-009",
+  "ref": {
+   "fr": "Genèse 1",
+   "en": "Genesis 1"
+  },
+  "fr": {
+   "q": "En combien de jours Dieu a-t-il créé le monde ?",
+   "options": [
+    "Six jours",
+    "Trois jours",
+    "Dix jours",
+    "Un jour"
+   ],
+   "explain": "Dieu créa en six jours et se reposa le septième. (Genèse 1-2)"
+  },
+  "en": {
+   "q": "In how many days did God create the world?",
+   "options": [
+    "Six days",
+    "Three days",
+    "Ten days",
+    "One day"
+   ],
+   "explain": "God created in six days and rested on the seventh. (Genesis 1-2)"
+  }
+ },
+ {
+  "id": "kids-easy-010",
+  "ref": {
+   "fr": "Luc 2",
+   "en": "Luke 2"
+  },
+  "fr": {
+   "q": "Qui est la maman de Jésus ?",
+   "options": [
+    "Marie",
+    "Marthe",
+    "Ruth",
+    "Sara"
+   ],
+   "explain": "Marie est la mère de Jésus. (Luc 2:5-7)"
+  },
+  "en": {
+   "q": "Who is Jesus’ mother?",
+   "options": [
+    "Mary",
+    "Martha",
+    "Ruth",
+    "Sarah"
+   ],
+   "explain": "Mary is the mother of Jesus. (Luke 2:5-7)"
+  }
+ },
+ {
+  "id": "kids-easy-011",
+  "ref": {
+   "fr": "Matthieu 2",
+   "en": "Matthew 2"
+  },
+  "fr": {
+   "q": "Qui a suivi une étoile pour trouver Jésus ?",
+   "options": [
+    "Les mages",
+    "Des rois soldats",
+    "Des bergers seuls",
+    "Des pêcheurs"
+   ],
+   "explain": "Les mages ont suivi l’étoile. (Matthieu 2:2)"
+  },
+  "en": {
+   "q": "Who followed a star to find Jesus?",
+   "options": [
+    "The wise men",
+    "Soldier kings",
+    "Only shepherds",
+    "Fishermen"
+   ],
+   "explain": "The wise men followed the star. (Matthew 2:2)"
+  }
+ },
+ {
+  "id": "kids-easy-012",
+  "ref": {
+   "fr": "Genèse 6",
+   "en": "Genesis 6"
+  },
+  "fr": {
+   "q": "Combien de chaque animal Noé a-t-il gardé (au moins) ?",
+   "options": [
+    "Deux",
+    "Un",
+    "Cinq",
+    "Dix"
+   ],
+   "explain": "Deux de chaque, mâle et femelle. (Genèse 6:19)"
+  },
+  "en": {
+   "q": "How many of each animal did Noah keep (at least)?",
+   "options": [
+    "Two",
+    "One",
+    "Five",
+    "Ten"
+   ],
+   "explain": "Two of each, male and female. (Genesis 6:19)"
+  }
+ }
+]

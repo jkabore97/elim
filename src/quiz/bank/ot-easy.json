@@ -1,0 +1,326 @@
+[
+ {
+  "id": "ot-easy-001",
+  "ref": {
+   "fr": "Genèse 1:1",
+   "en": "Genesis 1:1"
+  },
+  "fr": {
+   "q": "Que Dieu créa-t-il au commencement ?",
+   "options": [
+    "Les cieux et la terre",
+    "Les anges",
+    "Les animaux",
+    "La lumière seulement"
+   ],
+   "explain": "« Au commencement, Dieu créa les cieux et la terre. » (Genèse 1:1)"
+  },
+  "en": {
+   "q": "What did God create in the beginning?",
+   "options": [
+    "The heavens and the earth",
+    "The angels",
+    "The animals",
+    "Light only"
+   ],
+   "explain": "“In the beginning God created the heavens and the earth.” (Genesis 1:1)"
+  }
+ },
+ {
+  "id": "ot-easy-002",
+  "ref": {
+   "fr": "Genèse 6-7",
+   "en": "Genesis 6-7"
+  },
+  "fr": {
+   "q": "Qui construisit l’arche pour survivre au déluge ?",
+   "options": [
+    "Noé",
+    "Abraham",
+    "Moïse",
+    "Loth"
+   ],
+   "explain": "Dieu ordonna à Noé de construire l’arche. (Genèse 6:14)"
+  },
+  "en": {
+   "q": "Who built the ark to survive the flood?",
+   "options": [
+    "Noah",
+    "Abraham",
+    "Moses",
+    "Lot"
+   ],
+   "explain": "God told Noah to build the ark. (Genesis 6:14)"
+  }
+ },
+ {
+  "id": "ot-easy-003",
+  "ref": {
+   "fr": "Exode 14",
+   "en": "Exodus 14"
+  },
+  "fr": {
+   "q": "Quelle mer Dieu ouvrit-il pour laisser passer Israël ?",
+   "options": [
+    "La mer Rouge",
+    "La mer Morte",
+    "le lac de Galilée",
+    "Le Jourdain"
+   ],
+   "explain": "Dieu ouvrit la mer Rouge devant Israël. (Exode 14:21)"
+  },
+  "en": {
+   "q": "Which sea did God part for Israel to cross?",
+   "options": [
+    "The Red Sea",
+    "The Dead Sea",
+    "the Sea of Galilee",
+    "The Jordan"
+   ],
+   "explain": "God parted the Red Sea before Israel. (Exodus 14:21)"
+  }
+ },
+ {
+  "id": "ot-easy-004",
+  "ref": {
+   "fr": "1 Samuel 17",
+   "en": "1 Samuel 17"
+  },
+  "fr": {
+   "q": "Qui vainquit le géant Goliath ?",
+   "options": [
+    "David",
+    "Saül",
+    "Jonathan",
+    "Samuel"
+   ],
+   "explain": "David abattit Goliath avec une fronde et une pierre. (1 Samuel 17:50)"
+  },
+  "en": {
+   "q": "Who defeated the giant Goliath?",
+   "options": [
+    "David",
+    "Saul",
+    "Jonathan",
+    "Samuel"
+   ],
+   "explain": "David struck Goliath with a sling and a stone. (1 Samuel 17:50)"
+  }
+ },
+ {
+  "id": "ot-easy-005",
+  "ref": {
+   "fr": "Daniel 6",
+   "en": "Daniel 6"
+  },
+  "fr": {
+   "q": "Où Daniel fut-il jeté et protégé par Dieu ?",
+   "options": [
+    "Dans la fosse aux lions",
+    "Dans une fournaise",
+    "En prison",
+    "Dans un puits"
+   ],
+   "explain": "Dieu ferma la gueule des lions. (Daniel 6:22)"
+  },
+  "en": {
+   "q": "Where was Daniel thrown and kept safe by God?",
+   "options": [
+    "In the lions’ den",
+    "In a furnace",
+    "In prison",
+    "In a well"
+   ],
+   "explain": "God shut the lions’ mouths. (Daniel 6:22)"
+  }
+ },
+ {
+  "id": "ot-easy-006",
+  "ref": {
+   "fr": "Jonas 1-2",
+   "en": "Jonah 1-2"
+  },
+  "fr": {
+   "q": "Quel grand animal avala Jonas ?",
+   "options": [
+    "Un grand poisson",
+    "Une baleine bleue",
+    "Un requin",
+    "Un crocodile"
+   ],
+   "explain": "« L’Éternel fit venir un grand poisson pour engloutir Jonas. » (Jonas 1:17)"
+  },
+  "en": {
+   "q": "What large creature swallowed Jonah?",
+   "options": [
+    "A great fish",
+    "A blue whale",
+    "A shark",
+    "A crocodile"
+   ],
+   "explain": "“The LORD prepared a great fish to swallow Jonah.” (Jonah 1:17)"
+  }
+ },
+ {
+  "id": "ot-easy-007",
+  "ref": {
+   "fr": "Genèse 2:19",
+   "en": "Genesis 2:19"
+  },
+  "fr": {
+   "q": "Qui donna un nom à tous les animaux ?",
+   "options": [
+    "Adam",
+    "Ève",
+    "Noé",
+    "Caïn"
+   ],
+   "explain": "Adam nomma tous les animaux. (Genèse 2:19-20)"
+  },
+  "en": {
+   "q": "Who named all the animals?",
+   "options": [
+    "Adam",
+    "Eve",
+    "Noah",
+    "Cain"
+   ],
+   "explain": "Adam gave names to all the animals. (Genesis 2:19-20)"
+  }
+ },
+ {
+  "id": "ot-easy-008",
+  "ref": {
+   "fr": "Exode 20",
+   "en": "Exodus 20"
+  },
+  "fr": {
+   "q": "Combien de commandements Dieu donna-t-il à Moïse ?",
+   "options": [
+    "Dix",
+    "Sept",
+    "Douze",
+    "Cinq"
+   ],
+   "explain": "Dieu donna les dix commandements au mont Sinaï. (Exode 20)"
+  },
+  "en": {
+   "q": "How many commandments did God give Moses?",
+   "options": [
+    "Ten",
+    "Seven",
+    "Twelve",
+    "Five"
+   ],
+   "explain": "God gave the Ten Commandments at Mount Sinai. (Exodus 20)"
+  }
+ },
+ {
+  "id": "ot-easy-009",
+  "ref": {
+   "fr": "Genèse 37",
+   "en": "Genesis 37"
+  },
+  "fr": {
+   "q": "Que reçut Joseph de son père Jacob ?",
+   "options": [
+    "Une tunique de plusieurs couleurs",
+    "Une couronne",
+    "Une épée",
+    "Un anneau"
+   ],
+   "explain": "Jacob fit à Joseph une tunique de plusieurs couleurs. (Genèse 37:3)"
+  },
+  "en": {
+   "q": "What did Joseph receive from his father Jacob?",
+   "options": [
+    "A coat of many colors",
+    "A crown",
+    "A sword",
+    "A ring"
+   ],
+   "explain": "Jacob made Joseph a coat of many colors. (Genesis 37:3)"
+  }
+ },
+ {
+  "id": "ot-easy-010",
+  "ref": {
+   "fr": "Josué 6",
+   "en": "Joshua 6"
+  },
+  "fr": {
+   "q": "Quelles murailles tombèrent après que le peuple eut marché autour ?",
+   "options": [
+    "Jéricho",
+    "Babylone",
+    "Jérusalem",
+    "Ninive"
+   ],
+   "explain": "Les murailles de Jéricho tombèrent. (Josué 6:20)"
+  },
+  "en": {
+   "q": "Which walls fell after the people marched around them?",
+   "options": [
+    "Jericho",
+    "Babylon",
+    "Jerusalem",
+    "Nineveh"
+   ],
+   "explain": "The walls of Jericho fell down. (Joshua 6:20)"
+  }
+ },
+ {
+  "id": "ot-easy-011",
+  "ref": {
+   "fr": "Genèse 3",
+   "en": "Genesis 3"
+  },
+  "fr": {
+   "q": "Quel fruit défendu Adam et Ève mangèrent-ils ?",
+   "options": [
+    "Le fruit de l’arbre défendu",
+    "Une figue",
+    "Une grenade",
+    "Un raisin"
+   ],
+   "explain": "Ils mangèrent de l’arbre que Dieu avait défendu. (Genèse 3:6)"
+  },
+  "en": {
+   "q": "What forbidden fruit did Adam and Eve eat?",
+   "options": [
+    "The fruit of the forbidden tree",
+    "A fig",
+    "A pomegranate",
+    "A grape"
+   ],
+   "explain": "They ate from the tree God had forbidden. (Genesis 3:6)"
+  }
+ },
+ {
+  "id": "ot-easy-012",
+  "ref": {
+   "fr": "1 Rois 3",
+   "en": "1 Kings 3"
+  },
+  "fr": {
+   "q": "Quel roi Dieu rendit-il très sage ?",
+   "options": [
+    "Salomon",
+    "David",
+    "Saül",
+    "Ézéchias"
+   ],
+   "explain": "Dieu donna à Salomon une grande sagesse. (1 Rois 3:12)"
+  },
+  "en": {
+   "q": "Which king did God make very wise?",
+   "options": [
+    "Solomon",
+    "David",
+    "Saul",
+    "Hezekiah"
+   ],
+   "explain": "God gave Solomon great wisdom. (1 Kings 3:12)"
+  }
+ }
+]

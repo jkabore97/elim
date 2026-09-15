@@ -145,13 +145,19 @@ export async function buildGame(cat: QuizCategory, diff: QuizDifficulty, lang: Q
 export async function buildDaily(lang: QuizLang, day = todayKey()): Promise<PlayQuestion[]> {
   const seed = Array.from(day).reduce((h, c) => (h * 31 + c.charCodeAt(0)) >>> 0, 7)
   const rnd = seeded(seed)
-  const cats = shuffle(QUIZ_CATEGORIES.filter(c => c !== 'kids' && bankAvailable(c, 'medium')), rnd).slice(0, DAILY_QUESTIONS)
+  // Prefer medium (the intended daily level), but fall back to whatever
+  // difficulty a category actually ships so the daily works from day one.
+  const pickDiff = (c: QuizCategory): QuizDifficulty | null =>
+    (['medium', 'easy', 'hard'] as QuizDifficulty[]).find(d => bankAvailable(c, d)) ?? null
+  const playable = QUIZ_CATEGORIES.filter(c => c !== 'kids' && pickDiff(c) !== null)
+  const cats = shuffle(playable, rnd).slice(0, DAILY_QUESTIONS)
   const out: PlayQuestion[] = []
   for (const cat of cats) {
-    const bank = await loadBank(cat, 'medium')
+    const diff = pickDiff(cat)!
+    const bank = await loadBank(cat, diff)
     if (!bank.length) continue
     const q = bank[Math.floor(rnd() * bank.length)]
-    out.push(toPlay(q, cat, 'medium', lang, rnd))
+    out.push(toPlay(q, cat, diff, lang, rnd))
   }
   return out
 }

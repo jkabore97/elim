@@ -4,7 +4,7 @@ import {
   Image as ImageIcon, Video, Mic, X, Send, LogOut,
   Youtube, Facebook, CheckCircle2, Clock, ArrowRight, ShieldCheck, UserX, Sparkles,
   Trash2, Camera, FileText, Upload, Pencil, Globe, Eye, EyeOff, Search, Bell, ScrollText, Mail, Play, Pause, HeartPulse, Download, AlertTriangle, BookOpen, Music,
-  HandCoins, Copy, Check, Plus, Flag, Users, CreditCard, Loader2
+  HandCoins, Copy, Check, Plus, Flag, Users, CreditCard, Loader2, Trophy
 } from 'lucide-react'
 import {
   collection, addDoc, onSnapshot, query, orderBy, where,
@@ -39,6 +39,7 @@ import { MessagesTab, useUnreadCount } from './Messages'
 import { playMessageAlert, isAlertMuted, setAlertMuted } from './messageAlert'
 import { DataManagementTab } from './DataManagement'
 import { LibraryTab } from './Library'
+import BibleQuiz from './BibleQuiz'
 import type { Post, Comment, AppUser, ActivityLog, AppNotification, DonationConfig, DonationProvider, Report, DonationType, Donation } from './types'
 import { LanguageProvider, useLanguage, LANGUAGES, type Language } from './i18n'
 
@@ -1080,6 +1081,7 @@ function AppInner() {
   const [likedCommentIds, setLikedCommentIds] = useState<Set<string>>(new Set())
   const [notifications, setNotifications] = useState<AppNotification[]>([])
   const [showNotifications, setShowNotifications] = useState(false)
+  const [showQuiz, setShowQuiz] = useState(false)
   const [donation, setDonation] = useState<DonationConfig | null>(null)
   const [showDonation, setShowDonation] = useState(false)
   const [seenNewPosts, setSeenNewPosts] = useState<Post[]>([])
@@ -1669,6 +1671,10 @@ function AppInner() {
               )
             })}
           </nav>
+          <button onClick={() => setShowQuiz(true)}
+            className="w-full flex items-center justify-center gap-2 py-3 rounded-2xl font-semibold text-sm mb-3 bg-gradient-to-r from-amber-400 to-orange-500 text-white shadow-sm hover:brightness-105 transition">
+            <Trophy size={18} /> {t('quiz.open')}
+          </button>
           <button onClick={() => setShowDonation(true)}
             className="btn-glass-amber w-full flex items-center justify-center gap-2 py-3 rounded-2xl font-semibold text-sm mb-3">
             <HandCoins size={18} /> {t('donate.button')}
@@ -1700,6 +1706,10 @@ function AppInner() {
             <div className="px-5 h-14 flex items-center justify-between">
               <Logo size={32} />
               <div className="flex items-center gap-3">
+                <button onClick={() => setShowQuiz(true)} aria-label={t('quiz.open')}
+                  className="relative w-9 h-9 grid place-items-center rounded-full bg-gradient-to-br from-amber-400 to-orange-500 text-white shadow-md active:scale-95 transition">
+                  <Trophy size={18} />
+                </button>
                 {staffTab && (
                   <button onClick={() => setActiveTab(staffTab.id)} aria-label={staffTab.label}
                     className={`relative p-2 rounded-full transition ${
@@ -2064,6 +2074,9 @@ function AppInner() {
       {showDonation && (
         <DonationSheet config={donation} canEdit={isStaffUser} user={user}
           onClose={() => setShowDonation(false)} />
+      )}
+      {showQuiz && (
+        <BibleQuiz user={user} onClose={() => setShowQuiz(false)} />
       )}
     </div>
   )

@@ -1,5 +1,5 @@
 // Validates src/quiz/bank/*.json against QUESTION_SPEC.md and prints a report.
-import { readdirSync, readFileSync, existsSync } from 'node:fs'
+import { readFileSync, existsSync } from 'node:fs'
 import { join } from 'node:path'
 const dir = new URL('../src/quiz/bank/', import.meta.url).pathname
 const CATS = ['ot','nt','parables','people','verses','miracles','geography','kids','business','morality']

@@ -1,0 +1,326 @@
+[
+ {
+  "id": "parables-easy-001",
+  "ref": {
+   "fr": "Luc 8:11",
+   "en": "Luke 8:11"
+  },
+  "fr": {
+   "q": "Dans la parabole du semeur, que représente la semence ?",
+   "options": [
+    "La parole de Dieu",
+    "La foi",
+    "La prière",
+    "Les anges"
+   ],
+   "explain": "« La semence, c’est la parole de Dieu. » (Luc 8:11)"
+  },
+  "en": {
+   "q": "In the parable of the sower, what does the seed represent?",
+   "options": [
+    "The word of God",
+    "Faith",
+    "Prayer",
+    "The angels"
+   ],
+   "explain": "“The seed is the word of God.” (Luke 8:11)"
+  }
+ },
+ {
+  "id": "parables-easy-002",
+  "ref": {
+   "fr": "Luc 15:4",
+   "en": "Luke 15:4"
+  },
+  "fr": {
+   "q": "Dans la parabole de la brebis perdue, combien de brebis le berger laisse-t-il pour chercher celle qui est perdue ?",
+   "options": [
+    "99",
+    "50",
+    "10",
+    "12"
+   ],
+   "explain": "Il laisse les 99 pour chercher la brebis perdue. (Luc 15:4)"
+  },
+  "en": {
+   "q": "In the parable of the lost sheep, how many does the shepherd leave to seek the lost one?",
+   "options": [
+    "99",
+    "50",
+    "10",
+    "12"
+   ],
+   "explain": "He leaves the 99 to find the lost sheep. (Luke 15:4)"
+  }
+ },
+ {
+  "id": "parables-easy-003",
+  "ref": {
+   "fr": "Luc 10:33",
+   "en": "Luke 10:33"
+  },
+  "fr": {
+   "q": "Qui a secouru l’homme blessé dans la parabole du bon Samaritain ?",
+   "options": [
+    "Un Samaritain",
+    "Un prêtre",
+    "Un lévite",
+    "Un pharisien"
+   ],
+   "explain": "Le Samaritain fut ému de compassion et le secourut. (Luc 10:33)"
+  },
+  "en": {
+   "q": "Who helped the wounded man in the parable of the Good Samaritan?",
+   "options": [
+    "A Samaritan",
+    "A priest",
+    "A Levite",
+    "A Pharisee"
+   ],
+   "explain": "The Samaritan had compassion and helped him. (Luke 10:33)"
+  }
+ },
+ {
+  "id": "parables-easy-004",
+  "ref": {
+   "fr": "Luc 15:20",
+   "en": "Luke 15:20"
+  },
+  "fr": {
+   "q": "Dans la parabole du fils prodigue, comment le père accueille-t-il son fils de retour ?",
+   "options": [
+    "Il court à sa rencontre et l’embrasse",
+    "Il le renvoie",
+    "Il l’ignore",
+    "Il le punit"
+   ],
+   "explain": "« Son père le vit et fut ému de compassion, il courut se jeter à son cou. » (Luc 15:20)"
+  },
+  "en": {
+   "q": "In the prodigal son, how does the father welcome his returning son?",
+   "options": [
+    "He runs to him and embraces him",
+    "He sends him away",
+    "He ignores him",
+    "He punishes him"
+   ],
+   "explain": "“His father saw him, was moved with compassion, ran and embraced him.” (Luke 15:20)"
+  }
+ },
+ {
+  "id": "parables-easy-005",
+  "ref": {
+   "fr": "Matthieu 13:31",
+   "en": "Matthew 13:31"
+  },
+  "fr": {
+   "q": "À quoi Jésus compare-t-il le royaume des cieux, qui est une très petite graine ?",
+   "options": [
+    "Un grain de moutarde",
+    "Un grain de blé",
+    "Un pépin de raisin",
+    "Une olive"
+   ],
+   "explain": "« Le royaume des cieux est semblable à un grain de sénevé. » (Matthieu 13:31)"
+  },
+  "en": {
+   "q": "To what small seed does Jesus compare the kingdom of heaven?",
+   "options": [
+    "A mustard seed",
+    "A grain of wheat",
+    "A grape seed",
+    "An olive"
+   ],
+   "explain": "“The kingdom of heaven is like a grain of mustard seed.” (Matthew 13:31)"
+  }
+ },
+ {
+  "id": "parables-easy-006",
+  "ref": {
+   "fr": "Matthieu 7:24",
+   "en": "Matthew 7:24"
+  },
+  "fr": {
+   "q": "Dans la parabole des deux maisons, l’homme sage bâtit sa maison sur quoi ?",
+   "options": [
+    "Le roc",
+    "Le sable",
+    "L’eau",
+    "L’argile"
+   ],
+   "explain": "L’homme sage bâtit sur le roc ; la maison tint bon. (Matthieu 7:24-25)"
+  },
+  "en": {
+   "q": "In the two builders, the wise man builds his house on what?",
+   "options": [
+    "The rock",
+    "The sand",
+    "The water",
+    "Clay"
+   ],
+   "explain": "The wise man built on the rock and the house stood. (Matthew 7:24-25)"
+  }
+ },
+ {
+  "id": "parables-easy-007",
+  "ref": {
+   "fr": "Matthieu 18:12",
+   "en": "Matthew 18:12"
+  },
+  "fr": {
+   "q": "De quel animal parle la parabole de la brebis perdue ?",
+   "options": [
+    "Une brebis",
+    "Une chèvre",
+    "Un âne",
+    "Un bœuf"
+   ],
+   "explain": "Le berger cherche la brebis égarée. (Matthieu 18:12)"
+  },
+  "en": {
+   "q": "What animal is in the parable of the lost sheep?",
+   "options": [
+    "A sheep",
+    "A goat",
+    "A donkey",
+    "An ox"
+   ],
+   "explain": "The shepherd seeks the wandering sheep. (Matthew 18:12)"
+  }
+ },
+ {
+  "id": "parables-easy-008",
+  "ref": {
+   "fr": "Luc 15:8",
+   "en": "Luke 15:8"
+  },
+  "fr": {
+   "q": "Dans la parabole de la drachme perdue, que perd la femme ?",
+   "options": [
+    "Une pièce d’argent",
+    "Un anneau",
+    "Un vêtement",
+    "Un pain"
+   ],
+   "explain": "Elle allume une lampe et cherche sa pièce perdue. (Luc 15:8)"
+  },
+  "en": {
+   "q": "In the lost coin, what does the woman lose?",
+   "options": [
+    "A silver coin",
+    "A ring",
+    "A garment",
+    "A loaf"
+   ],
+   "explain": "She lights a lamp and searches for her lost coin. (Luke 15:8)"
+  }
+ },
+ {
+  "id": "parables-easy-009",
+  "ref": {
+   "fr": "Matthieu 13:3",
+   "en": "Matthew 13:3"
+  },
+  "fr": {
+   "q": "Dans la parabole du semeur, que fait le semeur ?",
+   "options": [
+    "Il sème de la semence",
+    "Il moissonne",
+    "Il laboure seulement",
+    "Il plante un arbre"
+   ],
+   "explain": "« Un semeur sortit pour semer. » (Matthieu 13:3)"
+  },
+  "en": {
+   "q": "In the parable of the sower, what does the sower do?",
+   "options": [
+    "He sows seed",
+    "He harvests",
+    "He only plows",
+    "He plants a tree"
+   ],
+   "explain": "“A sower went out to sow.” (Matthew 13:3)"
+  }
+ },
+ {
+  "id": "parables-easy-010",
+  "ref": {
+   "fr": "Luc 15:23",
+   "en": "Luke 15:23"
+  },
+  "fr": {
+   "q": "Au retour du fils prodigue, que fait tuer le père pour la fête ?",
+   "options": [
+    "Le veau gras",
+    "Un agneau",
+    "Une colombe",
+    "Un bœuf de labour"
+   ],
+   "explain": "« Amenez le veau gras, et tuez-le. » (Luc 15:23)"
+  },
+  "en": {
+   "q": "For the prodigal son’s feast, what does the father have killed?",
+   "options": [
+    "The fattened calf",
+    "A lamb",
+    "A dove",
+    "A plow ox"
+   ],
+   "explain": "“Bring the fattened calf and kill it.” (Luke 15:23)"
+  }
+ },
+ {
+  "id": "parables-easy-011",
+  "ref": {
+   "fr": "Matthieu 13:45",
+   "en": "Matthew 13:45"
+  },
+  "fr": {
+   "q": "Dans la parabole de la perle, que cherche le marchand ?",
+   "options": [
+    "De belles perles",
+    "De l’or",
+    "Des épices",
+    "Du blé"
+   ],
+   "explain": "Le marchand cherche de belles perles. (Matthieu 13:45)"
+  },
+  "en": {
+   "q": "In the parable of the pearl, what does the merchant seek?",
+   "options": [
+    "Fine pearls",
+    "Gold",
+    "Spices",
+    "Wheat"
+   ],
+   "explain": "The merchant seeks fine pearls. (Matthew 13:45)"
+  }
+ },
+ {
+  "id": "parables-easy-012",
+  "ref": {
+   "fr": "Luc 15:7",
+   "en": "Luke 15:7"
+  },
+  "fr": {
+   "q": "Que se passe-t-il dans le ciel quand un pécheur se repent ?",
+   "options": [
+    "Il y a de la joie",
+    "Rien",
+    "Un jugement",
+    "Le silence"
+   ],
+   "explain": "« Il y a de la joie dans le ciel pour un seul pécheur qui se repent. » (Luc 15:7)"
+  },
+  "en": {
+   "q": "What happens in heaven when one sinner repents?",
+   "options": [
+    "There is joy",
+    "Nothing",
+    "Judgment",
+    "Silence"
+   ],
+   "explain": "“There is joy in heaven over one sinner who repents.” (Luke 15:7)"
+  }
+ }
+]
