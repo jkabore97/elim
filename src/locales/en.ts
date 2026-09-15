@@ -650,6 +650,8 @@ const en = {
   "quiz.champion": 'Champion',
   "quiz.championToday": "🏆 Today's champion",
   "quiz.championWeek": "🏆 Champion of the week",
+  "quiz.openBook": 'Open book',
+  "quiz.openBookHint": 'Open your Bible — take your time',
 }
 
 export default en

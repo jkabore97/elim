@@ -52,7 +52,6 @@ export const CATEGORY_META: Record<QuizCategory, { emoji: string; tint: string }
 
 export const QUESTIONS_PER_GAME = 10
 export const DAILY_QUESTIONS = 5
-export const SECONDS_PER_QUESTION = 20
 export const DAILY_BONUS = 50
 
 // ---- Bank loading -----------------------------------------------------------
@@ -162,38 +161,14 @@ export async function buildDaily(lang: QuizLang, day = todayKey()): Promise<Play
   return out
 }
 
-// Free training: 10 random questions drawn across every category that has a
-// bank (easiest available tier), for untimed practice.
-export async function buildMixed(lang: QuizLang): Promise<PlayQuestion[]> {
-  const pickDiff = (c: QuizCategory): QuizDifficulty | null =>
-    (['easy', 'medium', 'hard'] as QuizDifficulty[]).find(d => bankAvailable(c, d)) ?? null
-  const pool: PlayQuestion[] = []
-  for (const cat of QUIZ_CATEGORIES) {
-    const diff = pickDiff(cat)
-    if (!diff) continue
-    const bank = await loadBank(cat, diff)
-    for (const q of shuffle(bank).slice(0, 3)) pool.push(toPlay(q, cat, diff, lang, Math.random))
-  }
-  return shuffle(pool).slice(0, QUESTIONS_PER_GAME)
-}
-
 // ---- Scoring ----------------------------------------------------------------
 const BASE: Record<QuizDifficulty, number> = { easy: 100, medium: 150, hard: 200 }
 
-export interface AnswerScore { base: number; speed: number; streak: number; total: number }
-
-// A right answer earns the difficulty base, up to +100 for speed (linear in
-// the time left), and +25 per consecutive right answer before it (capped at
-// +150) - the "Série" the results screen brags about.
-export function scoreAnswer(diff: QuizDifficulty, correct: boolean, secondsLeft: number, streakBefore: number, training = false): AnswerScore {
-  if (!correct) return { base: 0, speed: 0, streak: 0, total: 0 }
-  const base = BASE[diff]
-  // Training (no timer) earns the base only - no speed or streak bonus - so
-  // the timed leaderboard stays fair while learners still progress.
-  if (training) return { base, speed: 0, streak: 0, total: base }
-  const speed = Math.round(100 * Math.max(0, Math.min(1, secondsLeft / SECONDS_PER_QUESTION)))
-  const streak = Math.min(150, 25 * streakBefore)
-  return { base, speed, streak, total: base + speed + streak }
+// Open-book quiz: every correct answer is worth its difficulty's base points.
+// There is no timer and no speed or streak bonus - the point is to study with
+// your Bible open and learn, not to race.
+export function pointsFor(diff: QuizDifficulty): number {
+  return BASE[diff]
 }
 
 export function starsFor(correct: number, total: number): 0 | 1 | 2 | 3 {
@@ -252,7 +227,7 @@ export function emptyProfile(uid: string, displayName: string, avatar?: string):
 }
 
 export const BADGE_IDS = [
-  'first_game', 'perfect', 'lightning', 'daily_first', 'daily_7', 'daily_30',
+  'first_game', 'perfect', 'daily_first', 'daily_7', 'daily_30',
   'games_50', 'level_5', 'level_10',
   'master_ot', 'master_nt', 'master_parables', 'master_people', 'master_verses',
   'master_miracles', 'master_geography', 'master_kids', 'master_business', 'master_morality',
@@ -260,20 +235,18 @@ export const BADGE_IDS = [
 export type BadgeId = typeof BADGE_IDS[number]
 
 export const BADGE_EMOJI: Record<BadgeId, string> = {
-  first_game: '🥉', perfect: '💯', lightning: '⚡', daily_first: '⭐', daily_7: '🔥', daily_30: '🏅',
+  first_game: '🥉', perfect: '💯', daily_first: '⭐', daily_7: '🔥', daily_30: '🏅',
   games_50: '🎯', level_5: '🥈', level_10: '👑',
   master_ot: '📜', master_nt: '✝️', master_parables: '🌾', master_people: '🧑‍🤝‍🧑', master_verses: '📖',
   master_miracles: '✨', master_geography: '🗺️', master_kids: '🧒', master_business: '💼', master_morality: '⚖️',
 }
 
 export interface GameResult {
-  category: QuizCategory | 'daily' | 'mixed'
+  category: QuizCategory | 'daily'
   difficulty: QuizDifficulty
   total: number
   correct: number
   points: number
-  fastAnswers: number   // right answers given with >= 10s left
-  training?: boolean    // untimed practice: no records, no speed badges
 }
 
 // Applies a finished game to the profile and returns the new profile plus
@@ -293,10 +266,10 @@ export function applyResult(p: QuizProfile, r: GameResult, day = todayKey()): { 
     dayId: day,
     dayPoints: (p.dayId === day ? (p.dayPoints || 0) : 0) + r.points,
   }
-  if (r.category !== 'daily' && r.category !== 'mixed' && !r.training) {
+  if (r.category !== 'daily') {
     const k = `${r.category}-${r.difficulty}`
     next.best[k] = Math.max(next.best[k] ?? 0, r.correct)
-  } else if (r.category === 'daily' && p.lastDailyDate !== day) {
+  } else if (p.lastDailyDate !== day) {
     // Daily streak: consecutive days with a completed challenge.
     const y = new Date(); y.setDate(y.getDate() - 1)
     next.dailyStreak = p.lastDailyDate === todayKey(y) ? p.dailyStreak + 1 : 1
@@ -309,14 +282,13 @@ export function applyResult(p: QuizProfile, r: GameResult, day = todayKey()): { 
   }
   grant('first_game', true)
   grant('perfect', r.total >= QUESTIONS_PER_GAME && r.correct === r.total)
-  grant('lightning', !r.training && r.fastAnswers >= 5)
   grant('daily_first', r.category === 'daily')
   grant('daily_7', next.dailyStreak >= 7)
   grant('daily_30', next.dailyStreak >= 30)
   grant('games_50', next.gamesPlayed >= 50)
   grant('level_5', levelFor(next.points) >= 5)
   grant('level_10', levelFor(next.points) >= 10)
-  if (r.category !== 'daily' && r.category !== 'mixed' && !r.training && r.difficulty === 'hard' && r.correct >= 8) {
+  if (r.category !== 'daily' && r.difficulty === 'hard' && r.correct >= 8) {
     grant(`master_${r.category}` as BadgeId, true)
   }
   return { profile: next, unlocked }

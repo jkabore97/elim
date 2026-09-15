@@ -1,7 +1,7 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import {
   Trophy, Medal, ArrowRight, X, RotateCcw, Share2,
-  ChevronLeft, Check, Loader2, GraduationCap, Timer,
+  ChevronLeft, Check, Loader2, BookOpen,
 } from 'lucide-react'
 import { Share } from '@capacitor/share'
 import { useLanguage } from './i18n'
@@ -10,8 +10,8 @@ import { useBackHandler } from './backButton'
 import type { AppUser } from './types'
 import {
   QUIZ_CATEGORIES, QUIZ_DIFFICULTIES, CATEGORY_META, BADGE_IDS, BADGE_EMOJI,
-  QUESTIONS_PER_GAME, SECONDS_PER_QUESTION, DAILY_BONUS,
-  bankAvailable, buildGame, buildDaily, buildMixed, scoreAnswer, starsFor, levelProgress,
+  QUESTIONS_PER_GAME, DAILY_BONUS,
+  bankAvailable, buildGame, buildDaily, pointsFor, starsFor, levelProgress,
   applyResult, emptyProfile, todayKey,
   type QuizCategory, type QuizDifficulty, type QuizLang, type PlayQuestion,
   type QuizProfile, type GameResult, type BadgeId,
@@ -34,7 +34,7 @@ export default function BibleQuiz({ user, onClose }: { user: AppUser; onClose: (
   const [profile, setProfile] = useState<QuizProfile>(() => emptyProfile(user.uid, user.displayName, user.avatar))
   const [screen, setScreen] = useState<Screen>('home')
   const [pickedCat, setPickedCat] = useState<QuizCategory | null>(null)
-  const [game, setGame] = useState<{ questions: PlayQuestion[]; category: QuizCategory | 'daily' | 'mixed'; difficulty: QuizDifficulty; training: boolean } | null>(null)
+  const [game, setGame] = useState<{ questions: PlayQuestion[]; category: QuizCategory | 'daily'; difficulty: QuizDifficulty } | null>(null)
   const [loading, setLoading] = useState(false)
   const [lastResult, setLastResult] = useState<{ result: GameResult; unlocked: BadgeId[] } | null>(null)
 
@@ -57,12 +57,12 @@ export default function BibleQuiz({ user, onClose }: { user: AppUser; onClose: (
     setScreen('home'); setGame(null); setPickedCat(null); setLastResult(null)
   }
 
-  async function startGame(cat: QuizCategory, diff: QuizDifficulty, training = false) {
+  async function startGame(cat: QuizCategory, diff: QuizDifficulty) {
     setLoading(true)
     const questions = await buildGame(cat, diff, lang)
     setLoading(false)
     if (!questions.length) return
-    setGame({ questions, category: cat, difficulty: diff, training })
+    setGame({ questions, category: cat, difficulty: diff })
     setScreen('playing')
   }
 
@@ -71,25 +71,15 @@ export default function BibleQuiz({ user, onClose }: { user: AppUser; onClose: (
     const questions = await buildDaily(lang)
     setLoading(false)
     if (!questions.length) return
-    setGame({ questions, category: 'daily', difficulty: 'medium', training: false })
+    setGame({ questions, category: 'daily', difficulty: 'medium' })
     setScreen('playing')
   }
 
-  // Untimed practice across every category - the "Training" card on the home.
-  async function startTraining() {
-    setLoading(true)
-    const questions = await buildMixed(lang)
-    setLoading(false)
-    if (!questions.length) return
-    setGame({ questions, category: 'mixed', difficulty: 'easy', training: true })
-    setScreen('playing')
-  }
-
-  async function finishGame(correct: number, points: number, fastAnswers: number) {
+  async function finishGame(correct: number, points: number) {
     if (!game) return
     const result: GameResult = {
       category: game.category, difficulty: game.difficulty,
-      total: game.questions.length, correct, points, fastAnswers, training: game.training,
+      total: game.questions.length, correct, points,
     }
     const { profile: next, unlocked } = applyResult(profile, result)
     setProfile(next)
@@ -110,25 +100,24 @@ export default function BibleQuiz({ user, onClose }: { user: AppUser; onClose: (
               onClose={onClose}
               onPickCategory={c => { setPickedCat(c); setScreen('difficulty') }}
               onDaily={startDaily}
-              onTraining={startTraining}
               onTrophies={() => setScreen('trophies')} />
           )}
           {screen === 'difficulty' && pickedCat && (
             <DifficultyScreen
               category={pickedCat} profile={profile} loading={loading}
               onBack={backToHome}
-              onStart={(diff, training) => startGame(pickedCat, diff, training)} />
+              onStart={diff => startGame(pickedCat, diff)} />
           )}
           {screen === 'playing' && game && (
             <PlayScreen
-              questions={game.questions} difficulty={game.difficulty} training={game.training}
+              questions={game.questions} difficulty={game.difficulty}
               onQuit={() => { if (confirm(t('quiz.quitConfirm'))) backToHome() }}
               onFinish={finishGame} />
           )}
           {screen === 'results' && lastResult && game && (
             <ResultsScreen
               result={lastResult.result} unlocked={lastResult.unlocked} profile={profile}
-              onReplay={() => { if (game.category === 'daily') startDaily(); else if (game.category === 'mixed') startTraining(); else startGame(game.category, game.difficulty, game.training) }}
+              onReplay={() => { if (game.category === 'daily') startDaily(); else startGame(game.category, game.difficulty) }}
               onHome={backToHome}
               onTrophies={() => setScreen('trophies')} />
           )}
@@ -142,9 +131,9 @@ export default function BibleQuiz({ user, onClose }: { user: AppUser; onClose: (
 }
 
 // ---- Home -------------------------------------------------------------------
-function HomeScreen({ profile, dailyDone, loading, onClose, onPickCategory, onDaily, onTraining, onTrophies }: {
+function HomeScreen({ profile, dailyDone, loading, onClose, onPickCategory, onDaily, onTrophies }: {
   profile: QuizProfile; dailyDone: boolean; loading: boolean
-  onClose: () => void; onPickCategory: (c: QuizCategory) => void; onDaily: () => void; onTraining: () => void; onTrophies: () => void
+  onClose: () => void; onPickCategory: (c: QuizCategory) => void; onDaily: () => void; onTrophies: () => void
 }) {
   const { t } = useLanguage()
   const lvl = levelProgress(profile.points)
@@ -182,10 +171,15 @@ function HomeScreen({ profile, dailyDone, loading, onClose, onPickCategory, onDa
         </p>
       )}
 
-      <div className="text-center mb-5">
+      <div className="text-center mb-4">
         <div className="text-5xl mb-1">🏆</div>
         <h1 className="text-3xl font-extrabold text-white" translate="no">{t('quiz.title')}</h1>
         <p className="text-on-bg text-sm mt-1">{t('quiz.subtitle')}</p>
+      </div>
+
+      {/* Open-book banner: study-friendly, no timer */}
+      <div className="flex items-center justify-center gap-2 mb-5 text-white/95 text-sm font-semibold">
+        <BookOpen size={16} /> {t('quiz.openBookHint')}
       </div>
 
       {/* Player card */}
@@ -216,17 +210,6 @@ function HomeScreen({ profile, dailyDone, loading, onClose, onPickCategory, onDa
           <p className="text-xs text-white/80">{dailyDone ? `${t('quiz.dailyDone')} ✓` : t('quiz.dailyDesc')}</p>
         </div>
         <span className="shrink-0 bg-white text-orange-700 font-bold text-sm rounded-full px-4 py-2">{t('quiz.play')}</span>
-      </button>
-
-      {/* Training: untimed, mixed categories */}
-      <button onClick={onTraining} disabled={loading}
-        className="w-full text-left glass rounded-3xl p-4 mb-5 flex items-center gap-3 glass-hover disabled:opacity-70">
-        <div className="w-12 h-12 rounded-2xl bg-sky-100 text-sky-700 grid place-items-center shrink-0"><GraduationCap size={26} /></div>
-        <div className="flex-1 min-w-0">
-          <p className="font-bold text-slate-800">{t('quiz.training')}</p>
-          <p className="text-xs text-slate-500">{t('quiz.trainingDesc')}</p>
-        </div>
-        <span className="shrink-0 bg-sky-600 text-white font-bold text-sm rounded-full px-4 py-2">{t('quiz.play')}</span>
       </button>
 
       <h2 className="font-extrabold text-white mb-3 px-1">{t('quiz.chooseCategory')}</h2>
@@ -268,11 +251,10 @@ function Stat({ n, label }: { n: number | string; label: string }) {
 // ---- Difficulty picker ------------------------------------------------------
 function DifficultyScreen({ category, profile, loading, onBack, onStart }: {
   category: QuizCategory; profile: QuizProfile; loading: boolean
-  onBack: () => void; onStart: (d: QuizDifficulty, training: boolean) => void
+  onBack: () => void; onStart: (d: QuizDifficulty) => void
 }) {
   const { t } = useLanguage()
   const meta = CATEGORY_META[category]
-  const [training, setTraining] = useState(false)
   const dots: Record<QuizDifficulty, string> = { easy: '●○○', medium: '●●○', hard: '●●●' }
   return (
     <div className="px-4 pt-4 pb-10 safe-top">
@@ -282,28 +264,15 @@ function DifficultyScreen({ category, profile, loading, onBack, onStart }: {
       <div className="text-center my-6">
         <div className={`w-20 h-20 mx-auto rounded-3xl ${meta.tint} flex items-center justify-center text-4xl mb-3`}>{meta.emoji}</div>
         <h1 className="text-2xl font-extrabold text-white">{t(`quiz.cat.${category}` as any)}</h1>
-        <p className="text-on-bg text-sm mt-1">{t('quiz.difficulty')}</p>
+        <p className="text-on-bg text-sm mt-1 flex items-center justify-center gap-1.5"><BookOpen size={14} /> {t('quiz.openBookHint')}</p>
       </div>
-
-      {/* Timed / Training switch */}
-      <div className="glass rounded-2xl p-1.5 grid grid-cols-2 gap-1 mb-4">
-        <button onClick={() => setTraining(false)}
-          className={`flex items-center justify-center gap-2 rounded-xl py-2.5 text-sm font-bold transition ${!training ? 'bg-affirm-600 text-white shadow' : 'text-slate-600'}`}>
-          <Timer size={16} /> {t('quiz.timedMode')}
-        </button>
-        <button onClick={() => setTraining(true)}
-          className={`flex items-center justify-center gap-2 rounded-xl py-2.5 text-sm font-bold transition ${training ? 'bg-sky-600 text-white shadow' : 'text-slate-600'}`}>
-          <GraduationCap size={16} /> {t('quiz.trainingMode')}
-        </button>
-      </div>
-      {training && <p className="text-on-bg text-xs text-center mb-3">{t('quiz.trainingNote')}</p>}
 
       <div className="space-y-3">
         {QUIZ_DIFFICULTIES.map(diff => {
           const ready = bankAvailable(category, diff)
           const best = profile.best[`${category}-${diff}`]
           return (
-            <button key={diff} onClick={() => ready && !loading && onStart(diff, training)} disabled={!ready || loading}
+            <button key={diff} onClick={() => ready && !loading && onStart(diff)} disabled={!ready || loading}
               className={`w-full glass rounded-2xl p-4 flex items-center gap-4 transition ${ready ? 'glass-hover' : 'opacity-60'}`}>
               <div className="text-affirm-500 tracking-widest text-lg font-bold w-14">{dots[diff]}</div>
               <div className="flex-1 text-left">
@@ -322,85 +291,64 @@ function DifficultyScreen({ category, profile, loading, onBack, onStart }: {
 }
 
 // ---- Playing ----------------------------------------------------------------
-function PlayScreen({ questions, difficulty, training, onQuit, onFinish }: {
-  questions: PlayQuestion[]; difficulty: QuizDifficulty; training: boolean
-  onQuit: () => void; onFinish: (correct: number, points: number, fast: number) => void
+// Open-book: no timer. Each correct answer is worth its difficulty's base
+// points; the player answers at their own pace, Bible in hand.
+function PlayScreen({ questions, difficulty, onQuit, onFinish }: {
+  questions: PlayQuestion[]; difficulty: QuizDifficulty
+  onQuit: () => void; onFinish: (correct: number, points: number) => void
 }) {
   const { t } = useLanguage()
   const [idx, setIdx] = useState(0)
   const [picked, setPicked] = useState<number | null>(null)
-  const [secondsLeft, setSecondsLeft] = useState(SECONDS_PER_QUESTION)
-  const tally = useRef({ correct: 0, points: 0, fast: 0, streak: 0 })
-  const [gained, setGained] = useState<{ total: number; speed: number; streak: number } | null>(null)
+  const [tally, setTally] = useState({ correct: 0, points: 0 })
+  const [gained, setGained] = useState(0)
 
   const q = questions[idx]
   const answered = picked !== null
 
-  // Per-question countdown. Freezes as soon as the player answers. Training
-  // mode has no clock at all.
-  useEffect(() => {
-    if (answered || training) return
-    if (secondsLeft <= 0) { lockAnswer(-1); return }
-    const id = setTimeout(() => setSecondsLeft(s => s - 1), 1000)
-    return () => clearTimeout(id)
-  }, [secondsLeft, answered, training])
-
   function lockAnswer(choice: number) {
     if (picked !== null) return
     const correct = choice === q.correct
-    const s = scoreAnswer(difficulty, correct, secondsLeft, tally.current.streak, training)
-    if (correct) {
-      tally.current.correct++
-      tally.current.points += s.total
-      tally.current.streak++
-      if (!training && secondsLeft >= 10) tally.current.fast++
-    } else {
-      tally.current.streak = 0
-    }
-    setGained(correct ? { total: s.total, speed: s.speed, streak: s.streak } : null)
+    const pts = correct ? pointsFor(difficulty) : 0
+    if (correct) setTally(prev => ({ correct: prev.correct + 1, points: prev.points + pts }))
+    setGained(pts)
     setPicked(choice)
   }
 
   function next() {
+    const totals = {
+      correct: tally.correct,
+      points: tally.points,
+    }
     if (idx + 1 >= questions.length) {
-      onFinish(tally.current.correct, tally.current.points, tally.current.fast)
+      onFinish(totals.correct, totals.points)
       return
     }
-    setIdx(i => i + 1); setPicked(null); setSecondsLeft(SECONDS_PER_QUESTION); setGained(null)
+    setIdx(i => i + 1); setPicked(null); setGained(0)
   }
-
-  const ringPct = (secondsLeft / SECONDS_PER_QUESTION) * 100
-  const urgent = !answered && secondsLeft <= 5
 
   return (
     <div className="px-4 pt-4 pb-6 safe-top flex flex-col min-h-full">
-      {/* Top bar: category chip + timer ring */}
+      {/* Top bar: category chip + open-book chip + quit */}
       <div className="flex items-center justify-between gap-2 mb-3">
         <span className="inline-flex items-center gap-1.5 bg-white/15 border border-white/30 rounded-full px-3 py-1.5 text-white text-sm font-semibold min-w-0 truncate">
           {CATEGORY_META[q.category].emoji} <span className="truncate">{t(`quiz.cat.${q.category}` as any)}</span>
         </span>
-        <div className="flex items-center gap-2">
-          {training ? (
-            <span className="inline-flex items-center gap-1.5 bg-sky-600 text-white rounded-full px-3 py-1.5 text-xs font-bold whitespace-nowrap shrink-0">
-              <GraduationCap size={14} /> {t('quiz.noTimer')}
-            </span>
-          ) : (
-            <div className={`relative w-11 h-11 rounded-full grid place-items-center font-bold text-white ${urgent ? 'animate-pulse' : ''}`}
-              style={{ background: `conic-gradient(#fff ${ringPct}%, rgba(255,255,255,.25) ${ringPct}%)` }}>
-              <span className="absolute inset-1 rounded-full bg-orange-600 grid place-items-center text-sm">{secondsLeft}</span>
-            </div>
-          )}
+        <div className="flex items-center gap-2 shrink-0">
+          <span className="inline-flex items-center gap-1.5 bg-white/15 border border-white/30 text-white rounded-full px-3 py-1.5 text-xs font-bold whitespace-nowrap">
+            <BookOpen size={14} /> {t('quiz.openBook')}
+          </span>
           <button onClick={onQuit} className="p-2 rounded-full text-white/80 hover:bg-white/10" aria-label={t('quiz.quit')}><X size={20} /></button>
         </div>
       </div>
 
-      {/* Progress + streak */}
+      {/* Progress + running score */}
       <div className="h-1.5 rounded-full bg-white/25 mb-2 overflow-hidden">
         <div className="h-full bg-white rounded-full transition-all" style={{ width: `${((idx + (answered ? 1 : 0)) / questions.length) * 100}%` }} />
       </div>
       <div className="flex items-center justify-between text-white/90 text-sm font-semibold mb-3">
         <span>{t('quiz.question')} {idx + 1} / {questions.length}</span>
-        {training ? <span>{tally.current.points} {t('quiz.pts')}</span> : tally.current.streak > 1 && <span>🔥 {t('quiz.streak')} ×{tally.current.streak} · {tally.current.points} {t('quiz.pts')}</span>}
+        <span>{tally.points} {t('quiz.pts')}</span>
       </div>
 
       {/* Question card */}
@@ -428,14 +376,14 @@ function PlayScreen({ questions, difficulty, training, onQuit, onFinish }: {
         </div>
 
         {answered && (
-          <div className={`mt-4 rounded-2xl p-3.5 text-sm font-medium ${gained ? 'bg-emerald-50 text-emerald-800' : 'bg-red-50 text-red-800'}`}>
+          <div className={`mt-4 rounded-2xl p-3.5 text-sm font-medium ${gained > 0 ? 'bg-emerald-50 text-emerald-800' : 'bg-red-50 text-red-800'}`}>
             <p className="font-bold mb-0.5">
-              {picked === q.correct ? `✅ ${t('quiz.correct')}` : picked === -1 ? `⏱️ ${t('quiz.timeUp')}` : `❌ ${t('quiz.wrong')}`}
+              {picked === q.correct ? `✅ ${t('quiz.correct')}` : `❌ ${t('quiz.wrong')}`}
               {q.ref ? ` — ${q.ref}` : ''}
             </p>
             <p>{q.explain}</p>
-            {gained && (gained.speed > 0 || gained.streak > 0) && (
-              <p className="mt-1 text-emerald-600 font-bold">+{gained.total} {t('quiz.pts')}{gained.speed > 0 ? ` · ⚡ ${gained.speed} ${t('quiz.speedBonus')}` : ''}{gained.streak > 0 ? ` · 🔥 ${gained.streak} ${t('quiz.streakBonus')}` : ''}</p>
+            {gained > 0 && (
+              <p className="mt-1 text-emerald-600 font-bold">+{gained} {t('quiz.pts')}</p>
             )}
           </div>
         )}
@@ -471,7 +419,7 @@ function ResultsScreen({ result, unlocked, profile, onReplay, onHome, onTrophies
     <div className="px-4 pt-6 pb-10 safe-top text-center relative overflow-hidden">
       {good && <Confetti />}
       <h1 className="text-3xl font-extrabold text-white mb-1">{good ? `${t('quiz.bravo')} 🎉` : t('quiz.goodTry')}</h1>
-      <p className="text-on-bg">{result.category === 'daily' ? t('quiz.daily') : result.category === 'mixed' ? t('quiz.mixed') : t(`quiz.cat.${result.category}` as any)}{result.training && result.category !== 'mixed' ? ` · ${t('quiz.training')}` : ''} · <b className="text-white">{result.correct} / {result.total}</b> {t('quiz.rightAnswers')}</p>
+      <p className="text-on-bg">{result.category === 'daily' ? t('quiz.daily') : t(`quiz.cat.${result.category}` as any)} · <b className="text-white">{result.correct} / {result.total}</b> {t('quiz.rightAnswers')}</p>
 
       <div className="flex justify-center gap-1 my-4 text-3xl">
         {[0, 1, 2].map(i => <span key={i} className={i < stars ? '' : 'opacity-25 grayscale'}>⭐</span>)}
