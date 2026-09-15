@@ -410,5 +410,21 @@ service cloud.firestore {
       allow delete: if isSignedIn() && (resource.data.userId == request.auth.uid || isAdmin());
       allow update: if false;
     }
+
+    // ---- Bible quiz player profiles ----
+    // One doc per player (docId == uid): points, streaks, badges, weekly
+    // score. Everyone signed in may READ the collection - that is what powers
+    // the weekly leaderboard (names + weekPoints are meant to be seen by the
+    // congregation). A player may only write their OWN document, and the
+    // stored uid must match, so nobody can inflate someone else's score.
+    // Scores are self-reported (the game runs on the client); this is a
+    // friendly church game, not gambling, so that trade-off is acceptable and
+    // matches how the donations/lightweight collections already work.
+    match /quizProfiles/{uid} {
+      allow read: if isSignedIn();
+      allow write: if isSignedIn()
+                   && request.auth.uid == uid
+                   && request.resource.data.uid == uid;
+    }
   }
 }
