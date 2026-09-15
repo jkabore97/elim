@@ -322,5 +322,2381 @@
    ],
    "explain": "“There is joy in heaven over one sinner who repents.” (Luke 15:7)"
   }
+ },
+ {
+  "id": "parables-easy-013",
+  "ref": {
+   "fr": "Matthieu 13:25",
+   "en": "Matthew 13:25"
+  },
+  "fr": {
+   "q": "Dans la parabole de l’ivraie, qui sème la mauvaise herbe parmi le bon grain ?",
+   "options": [
+    "Un ennemi",
+    "Les serviteurs",
+    "Le maître du champ",
+    "Les oiseaux"
+   ],
+   "explain": "« Son ennemi vint, sema de l’ivraie parmi le blé. » (Matthieu 13:25)"
+  },
+  "en": {
+   "q": "In the parable of the weeds, who sows the weeds among the good grain?",
+   "options": [
+    "An enemy",
+    "The servants",
+    "The owner of the field",
+    "The birds"
+   ],
+   "explain": "“His enemy came and sowed weeds among the wheat.” (Matthew 13:25)"
+  }
+ },
+ {
+  "id": "parables-easy-014",
+  "ref": {
+   "fr": "Matthieu 13:33",
+   "en": "Matthew 13:33"
+  },
+  "fr": {
+   "q": "Dans la parabole du levain, à quoi la femme mêle-t-elle le levain ?",
+   "options": [
+    "À de la farine",
+    "À de l’eau",
+    "À du miel",
+    "À de l’huile"
+   ],
+   "explain": "La femme cache le levain dans trois mesures de farine. (Matthieu 13:33)"
+  },
+  "en": {
+   "q": "In the parable of the leaven, into what does the woman mix the leaven?",
+   "options": [
+    "Into flour",
+    "Into water",
+    "Into honey",
+    "Into oil"
+   ],
+   "explain": "The woman hides leaven in three measures of flour. (Matthew 13:33)"
+  }
+ },
+ {
+  "id": "parables-easy-015",
+  "ref": {
+   "fr": "Matthieu 13:44",
+   "en": "Matthew 13:44"
+  },
+  "fr": {
+   "q": "Dans la parabole du trésor caché, où l’homme trouve-t-il le trésor ?",
+   "options": [
+    "Dans un champ",
+    "Dans la mer",
+    "Dans une maison",
+    "Dans le temple"
+   ],
+   "explain": "« Le royaume des cieux est semblable à un trésor caché dans un champ. » (Matthieu 13:44)"
+  },
+  "en": {
+   "q": "In the parable of the hidden treasure, where does the man find the treasure?",
+   "options": [
+    "In a field",
+    "In the sea",
+    "In a house",
+    "In the temple"
+   ],
+   "explain": "“The kingdom of heaven is like treasure hidden in a field.” (Matthew 13:44)"
+  }
+ },
+ {
+  "id": "parables-easy-016",
+  "ref": {
+   "fr": "Matthieu 13:44",
+   "en": "Matthew 13:44"
+  },
+  "fr": {
+   "q": "Dans la parabole du trésor caché, que fait l’homme pour acheter le champ ?",
+   "options": [
+    "Il vend tout ce qu’il a",
+    "Il emprunte de l’argent",
+    "Il échange sa maison",
+    "Il ne fait rien"
+   ],
+   "explain": "Dans sa joie, il vend tout ce qu’il a et achète ce champ. (Matthieu 13:44)"
+  },
+  "en": {
+   "q": "In the parable of the hidden treasure, what does the man do to buy the field?",
+   "options": [
+    "He sells all he has",
+    "He borrows money",
+    "He trades his house",
+    "He does nothing"
+   ],
+   "explain": "In his joy he sells all he has and buys that field. (Matthew 13:44)"
+  }
+ },
+ {
+  "id": "parables-easy-017",
+  "ref": {
+   "fr": "Matthieu 13:46",
+   "en": "Matthew 13:46"
+  },
+  "fr": {
+   "q": "Dans la parabole de la perle, que fait le marchand pour l’acquérir ?",
+   "options": [
+    "Il vend tout ce qu’il possède",
+    "Il la vole",
+    "Il la reçoit en cadeau",
+    "Il la troque contre du blé"
+   ],
+   "explain": "Ayant trouvé une perle de grand prix, il vend tout et l’achète. (Matthieu 13:46)"
+  },
+  "en": {
+   "q": "In the parable of the pearl, what does the merchant do to obtain it?",
+   "options": [
+    "He sells all he owns",
+    "He steals it",
+    "He receives it as a gift",
+    "He trades wheat for it"
+   ],
+   "explain": "Finding one very costly pearl, he sells all and buys it. (Matthew 13:46)"
+  }
+ },
+ {
+  "id": "parables-easy-018",
+  "ref": {
+   "fr": "Matthieu 13:47",
+   "en": "Matthew 13:47"
+  },
+  "fr": {
+   "q": "Dans la parabole du filet jeté dans la mer, que ramasse le filet ?",
+   "options": [
+    "Des poissons de toute espèce",
+    "Des perles",
+    "Du blé",
+    "Des oiseaux"
+   ],
+   "explain": "« Le royaume des cieux est semblable à un filet… qui ramasse des poissons de toute espèce. » (Matthieu 13:47)"
+  },
+  "en": {
+   "q": "In the parable of the net cast into the sea, what does the net gather?",
+   "options": [
+    "Fish of every kind",
+    "Pearls",
+    "Wheat",
+    "Birds"
+   ],
+   "explain": "“The kingdom of heaven is like a net… that gathered fish of every kind.” (Matthew 13:47)"
+  }
+ },
+ {
+  "id": "parables-easy-019",
+  "ref": {
+   "fr": "Matthieu 13:48",
+   "en": "Matthew 13:48"
+  },
+  "fr": {
+   "q": "Dans la parabole du filet, que font les pêcheurs après avoir trié les poissons ?",
+   "options": [
+    "Ils gardent les bons et rejettent les mauvais",
+    "Ils gardent tout",
+    "Ils rejettent tout",
+    "Ils les revendent"
+   ],
+   "explain": "Ils mettent les bons dans des vases et rejettent les mauvais. (Matthieu 13:48)"
+  },
+  "en": {
+   "q": "In the parable of the net, what do the fishermen do after sorting the fish?",
+   "options": [
+    "Keep the good and throw out the bad",
+    "Keep them all",
+    "Throw them all out",
+    "Sell them all"
+   ],
+   "explain": "They put the good into containers and throw the bad away. (Matthew 13:48)"
+  }
+ },
+ {
+  "id": "parables-easy-020",
+  "ref": {
+   "fr": "Matthieu 18:28",
+   "en": "Matthew 18:28"
+  },
+  "fr": {
+   "q": "Dans la parabole du serviteur impitoyable, envers qui refuse-t-il d’être clément ?",
+   "options": [
+    "Un compagnon de service",
+    "Le roi",
+    "Sa femme",
+    "Un étranger"
+   ],
+   "explain": "Il saisit un compagnon qui lui devait peu et refuse de patienter. (Matthieu 18:28)"
+  },
+  "en": {
+   "q": "In the parable of the unmerciful servant, to whom does he refuse mercy?",
+   "options": [
+    "A fellow servant",
+    "The king",
+    "His wife",
+    "A stranger"
+   ],
+   "explain": "He seizes a fellow servant who owed him little and shows no patience. (Matthew 18:28)"
+  }
+ },
+ {
+  "id": "parables-easy-021",
+  "ref": {
+   "fr": "Matthieu 18:27",
+   "en": "Matthew 18:27"
+  },
+  "fr": {
+   "q": "Dans la parabole du serviteur impitoyable, que fait d’abord le roi pour ce serviteur ?",
+   "options": [
+    "Il lui remet toute sa dette",
+    "Il le jette en prison",
+    "Il double sa dette",
+    "Il l’ignore"
+   ],
+   "explain": "Ému de compassion, le maître le renvoie et lui remet la dette. (Matthieu 18:27)"
+  },
+  "en": {
+   "q": "In the parable of the unmerciful servant, what does the king first do for him?",
+   "options": [
+    "He forgives his whole debt",
+    "He throws him in prison",
+    "He doubles his debt",
+    "He ignores him"
+   ],
+   "explain": "Moved with compassion, the master releases him and forgives the debt. (Matthew 18:27)"
+  }
+ },
+ {
+  "id": "parables-easy-022",
+  "ref": {
+   "fr": "Matthieu 20:9",
+   "en": "Matthew 20:9"
+  },
+  "fr": {
+   "q": "Dans la parabole des ouvriers de la vigne, combien chaque ouvrier reçoit-il ?",
+   "options": [
+    "Un denier",
+    "Dix deniers",
+    "Rien du tout",
+    "Deux deniers"
+   ],
+   "explain": "Le maître donne un denier à chacun, quelle que soit l’heure. (Matthieu 20:9-10)"
+  },
+  "en": {
+   "q": "In the parable of the vineyard workers, how much does each worker receive?",
+   "options": [
+    "One denarius",
+    "Ten denarii",
+    "Nothing",
+    "Two denarii"
+   ],
+   "explain": "The master gives each one a denarius, whatever the hour. (Matthew 20:9-10)"
+  }
+ },
+ {
+  "id": "parables-easy-023",
+  "ref": {
+   "fr": "Matthieu 20:11",
+   "en": "Matthew 20:11"
+  },
+  "fr": {
+   "q": "Dans la parabole des ouvriers de la vigne, qui murmure contre le maître ?",
+   "options": [
+    "Les ouvriers de la première heure",
+    "Ceux de la dernière heure",
+    "Le maître lui-même",
+    "Personne"
+   ],
+   "explain": "Les premiers embauchés murmurent d’avoir reçu autant que les derniers. (Matthieu 20:11-12)"
+  },
+  "en": {
+   "q": "In the parable of the vineyard workers, who grumbles against the master?",
+   "options": [
+    "Those hired first",
+    "Those hired last",
+    "The master himself",
+    "No one"
+   ],
+   "explain": "The first hired grumble at receiving the same as the last. (Matthew 20:11-12)"
+  }
+ },
+ {
+  "id": "parables-easy-024",
+  "ref": {
+   "fr": "Matthieu 21:31",
+   "en": "Matthew 21:31"
+  },
+  "fr": {
+   "q": "Dans la parabole des deux fils, lequel a fait la volonté du père ?",
+   "options": [
+    "Celui qui refusa puis y alla",
+    "Celui qui dit oui sans aller",
+    "Aucun des deux",
+    "Les deux également"
+   ],
+   "explain": "Le premier dit non, puis se repentit et alla travailler. (Matthieu 21:29-31)"
+  },
+  "en": {
+   "q": "In the parable of the two sons, which one did the father’s will?",
+   "options": [
+    "The one who refused then went",
+    "The one who said yes but didn’t go",
+    "Neither of them",
+    "Both equally"
+   ],
+   "explain": "The first said no, then repented and went to work. (Matthew 21:29-31)"
+  }
+ },
+ {
+  "id": "parables-easy-025",
+  "ref": {
+   "fr": "Matthieu 21:39",
+   "en": "Matthew 21:39"
+  },
+  "fr": {
+   "q": "Dans la parabole des vignerons, que font-ils au fils du maître ?",
+   "options": [
+    "Ils le tuent",
+    "Ils l’accueillent",
+    "Ils le paient",
+    "Ils le renvoient en paix"
+   ],
+   "explain": "Ils se saisissent du fils, le jettent hors de la vigne et le tuent. (Matthieu 21:39)"
+  },
+  "en": {
+   "q": "In the parable of the tenants, what do they do to the owner’s son?",
+   "options": [
+    "They kill him",
+    "They welcome him",
+    "They pay him",
+    "They send him away in peace"
+   ],
+   "explain": "They seize the son, cast him out of the vineyard, and kill him. (Matthew 21:39)"
+  }
+ },
+ {
+  "id": "parables-easy-026",
+  "ref": {
+   "fr": "Matthieu 22:2",
+   "en": "Matthew 22:2"
+  },
+  "fr": {
+   "q": "Dans la parabole des noces, pour qui le roi prépare-t-il un festin ?",
+   "options": [
+    "Pour son fils",
+    "Pour sa fille",
+    "Pour lui-même",
+    "Pour un ami"
+   ],
+   "explain": "« Un roi qui fit des noces pour son fils. » (Matthieu 22:2)"
+  },
+  "en": {
+   "q": "In the parable of the wedding feast, for whom does the king prepare it?",
+   "options": [
+    "For his son",
+    "For his daughter",
+    "For himself",
+    "For a friend"
+   ],
+   "explain": "“A king who made a wedding feast for his son.” (Matthew 22:2)"
+  }
+ },
+ {
+  "id": "parables-easy-027",
+  "ref": {
+   "fr": "Matthieu 22:11",
+   "en": "Matthew 22:11"
+  },
+  "fr": {
+   "q": "Dans la parabole des noces, pourquoi un invité est-il chassé de la fête ?",
+   "options": [
+    "Il n’a pas d’habit de noces",
+    "Il est arrivé en retard",
+    "Il ne mange pas",
+    "Il n’a pas d’argent"
+   ],
+   "explain": "Le roi voit un homme sans habit de noces et le fait sortir. (Matthieu 22:11-13)"
+  },
+  "en": {
+   "q": "In the parable of the wedding feast, why is a guest thrown out?",
+   "options": [
+    "He has no wedding garment",
+    "He arrived late",
+    "He does not eat",
+    "He has no money"
+   ],
+   "explain": "The king sees a man with no wedding garment and casts him out. (Matthew 22:11-13)"
+  }
+ },
+ {
+  "id": "parables-easy-028",
+  "ref": {
+   "fr": "Matthieu 25:2",
+   "en": "Matthew 25:2"
+  },
+  "fr": {
+   "q": "Dans la parabole des dix vierges, combien étaient sages ?",
+   "options": [
+    "Cinq",
+    "Dix",
+    "Trois",
+    "Sept"
+   ],
+   "explain": "« Cinq d’entre elles étaient folles, et cinq sages. » (Matthieu 25:2)"
+  },
+  "en": {
+   "q": "In the parable of the ten virgins, how many were wise?",
+   "options": [
+    "Five",
+    "Ten",
+    "Three",
+    "Seven"
+   ],
+   "explain": "“Five of them were foolish, and five were wise.” (Matthew 25:2)"
+  }
+ },
+ {
+  "id": "parables-easy-029",
+  "ref": {
+   "fr": "Matthieu 25:4",
+   "en": "Matthew 25:4"
+  },
+  "fr": {
+   "q": "Dans la parabole des dix vierges, qu’emportent les vierges sages ?",
+   "options": [
+    "De l’huile en réserve",
+    "Du pain",
+    "De l’eau",
+    "Des lampes seulement"
+   ],
+   "explain": "Les sages prennent de l’huile dans des vases avec leurs lampes. (Matthieu 25:4)"
+  },
+  "en": {
+   "q": "In the parable of the ten virgins, what do the wise ones take along?",
+   "options": [
+    "Extra oil",
+    "Bread",
+    "Water",
+    "Only their lamps"
+   ],
+   "explain": "The wise take oil in flasks along with their lamps. (Matthew 25:4)"
+  }
+ },
+ {
+  "id": "parables-easy-030",
+  "ref": {
+   "fr": "Matthieu 25:3",
+   "en": "Matthew 25:3"
+  },
+  "fr": {
+   "q": "Dans la parabole des dix vierges, qu’oublient les vierges folles ?",
+   "options": [
+    "De prendre de l’huile",
+    "Leurs lampes",
+    "Leurs sandales",
+    "La clé de la porte"
+   ],
+   "explain": "Les folles prennent leurs lampes sans emporter d’huile. (Matthieu 25:3)"
+  },
+  "en": {
+   "q": "In the parable of the ten virgins, what do the foolish ones forget?",
+   "options": [
+    "To take oil",
+    "Their lamps",
+    "Their sandals",
+    "The door key"
+   ],
+   "explain": "The foolish take their lamps but bring no oil. (Matthew 25:3)"
+  }
+ },
+ {
+  "id": "parables-easy-031",
+  "ref": {
+   "fr": "Matthieu 25:15",
+   "en": "Matthew 25:15"
+  },
+  "fr": {
+   "q": "Dans la parabole des talents, combien de talents reçoit le premier serviteur ?",
+   "options": [
+    "Cinq",
+    "Deux",
+    "Un",
+    "Dix"
+   ],
+   "explain": "Le maître donne cinq talents à l’un, deux à l’autre, un au dernier. (Matthieu 25:15)"
+  },
+  "en": {
+   "q": "In the parable of the talents, how many talents does the first servant receive?",
+   "options": [
+    "Five",
+    "Two",
+    "One",
+    "Ten"
+   ],
+   "explain": "The master gives five talents to one, two to another, one to the last. (Matthew 25:15)"
+  }
+ },
+ {
+  "id": "parables-easy-032",
+  "ref": {
+   "fr": "Matthieu 25:18",
+   "en": "Matthew 25:18"
+  },
+  "fr": {
+   "q": "Dans la parabole des talents, que fait le serviteur qui reçoit un seul talent ?",
+   "options": [
+    "Il l’enfouit en terre",
+    "Il le double",
+    "Il le donne aux pauvres",
+    "Il l’investit"
+   ],
+   "explain": "Il s’en va creuser dans la terre et cacher l’argent de son maître. (Matthieu 25:18)"
+  },
+  "en": {
+   "q": "In the parable of the talents, what does the servant with one talent do?",
+   "options": [
+    "He buries it in the ground",
+    "He doubles it",
+    "He gives it to the poor",
+    "He invests it"
+   ],
+   "explain": "He digs in the ground and hides his master’s money. (Matthew 25:18)"
+  }
+ },
+ {
+  "id": "parables-easy-033",
+  "ref": {
+   "fr": "Matthieu 25:26",
+   "en": "Matthew 25:26"
+  },
+  "fr": {
+   "q": "Dans la parabole des talents, comment le maître appelle-t-il le serviteur qui a caché le talent ?",
+   "options": [
+    "Méchant et paresseux",
+    "Bon et fidèle",
+    "Sage et prudent",
+    "Humble et doux"
+   ],
+   "explain": "« Serviteur méchant et paresseux… » (Matthieu 25:26)"
+  },
+  "en": {
+   "q": "In the parable of the talents, what does the master call the servant who hid the talent?",
+   "options": [
+    "Wicked and lazy",
+    "Good and faithful",
+    "Wise and prudent",
+    "Humble and gentle"
+   ],
+   "explain": "“You wicked and lazy servant…” (Matthew 25:26)"
+  }
+ },
+ {
+  "id": "parables-easy-034",
+  "ref": {
+   "fr": "Matthieu 25:21",
+   "en": "Matthew 25:21"
+  },
+  "fr": {
+   "q": "Dans la parabole des talents, que dit le maître aux serviteurs fidèles ?",
+   "options": [
+    "« Bon et fidèle serviteur »",
+    "« Méchant serviteur »",
+    "« Va-t’en de moi »",
+    "Il ne dit rien"
+   ],
+   "explain": "« C’est bien, bon et fidèle serviteur. » (Matthieu 25:21)"
+  },
+  "en": {
+   "q": "In the parable of the talents, what does the master say to the faithful servants?",
+   "options": [
+    "“Good and faithful servant”",
+    "“Wicked servant”",
+    "“Depart from me”",
+    "He says nothing"
+   ],
+   "explain": "“Well done, good and faithful servant.” (Matthew 25:21)"
+  }
+ },
+ {
+  "id": "parables-easy-035",
+  "ref": {
+   "fr": "Matthieu 25:32",
+   "en": "Matthew 25:32"
+  },
+  "fr": {
+   "q": "Dans la parabole du jugement, le Fils de l’homme sépare les hommes comme un berger sépare quoi ?",
+   "options": [
+    "Les brebis d’avec les boucs",
+    "Le blé de l’ivraie",
+    "Les bons poissons",
+    "L’or de l’argent"
+   ],
+   "explain": "« Il séparera les uns d’avec les autres, comme le berger sépare les brebis d’avec les boucs. » (Matthieu 25:32)"
+  },
+  "en": {
+   "q": "In the judgment parable, the Son of Man separates people as a shepherd separates what?",
+   "options": [
+    "Sheep from goats",
+    "Wheat from weeds",
+    "Good fish",
+    "Gold from silver"
+   ],
+   "explain": "“He will separate them as a shepherd separates the sheep from the goats.” (Matthew 25:32)"
+  }
+ },
+ {
+  "id": "parables-easy-036",
+  "ref": {
+   "fr": "Matthieu 25:33",
+   "en": "Matthew 25:33"
+  },
+  "fr": {
+   "q": "Dans la parabole des brebis et des boucs, où le roi place-t-il les brebis ?",
+   "options": [
+    "À sa droite",
+    "À sa gauche",
+    "Derrière lui",
+    "Devant le trône"
+   ],
+   "explain": "« Il mettra les brebis à sa droite, et les boucs à sa gauche. » (Matthieu 25:33)"
+  },
+  "en": {
+   "q": "In the parable of the sheep and goats, where does the king put the sheep?",
+   "options": [
+    "On his right",
+    "On his left",
+    "Behind him",
+    "Before the throne"
+   ],
+   "explain": "“He will put the sheep on his right, but the goats on his left.” (Matthew 25:33)"
+  }
+ },
+ {
+  "id": "parables-easy-037",
+  "ref": {
+   "fr": "Matthieu 25:35",
+   "en": "Matthew 25:35"
+  },
+  "fr": {
+   "q": "Dans la parabole des brebis et des boucs, que dit le roi à ceux qui l’ont servi ?",
+   "options": [
+    "« J’ai eu faim et vous m’avez nourri »",
+    "« Je ne vous connais pas »",
+    "« Retirez-vous »",
+    "« Vous avez péché »"
+   ],
+   "explain": "« J’ai eu faim, et vous m’avez donné à manger. » (Matthieu 25:35)"
+  },
+  "en": {
+   "q": "In the parable of the sheep and goats, what does the king say to those who served him?",
+   "options": [
+    "“I was hungry and you fed me”",
+    "“I never knew you”",
+    "“Depart from me”",
+    "“You have sinned”"
+   ],
+   "explain": "“I was hungry, and you gave me food to eat.” (Matthew 25:35)"
+  }
+ },
+ {
+  "id": "parables-easy-038",
+  "ref": {
+   "fr": "Marc 4:27",
+   "en": "Mark 4:27"
+  },
+  "fr": {
+   "q": "Dans la parabole de la semence qui pousse d’elle-même, que fait l’homme ?",
+   "options": [
+    "Il dort et la semence pousse seule",
+    "Il arrose sans cesse",
+    "Il déterre la graine",
+    "Il ne sème rien"
+   ],
+   "explain": "« Qu’il dorme ou qu’il veille… la semence germe et croît sans qu’il sache comment. » (Marc 4:27)"
+  },
+  "en": {
+   "q": "In the parable of the seed growing by itself, what does the man do?",
+   "options": [
+    "He sleeps while the seed grows on its own",
+    "He waters constantly",
+    "He digs up the seed",
+    "He sows nothing"
+   ],
+   "explain": "“Whether he sleeps or rises… the seed springs up and grows, he knows not how.” (Mark 4:27)"
+  }
+ },
+ {
+  "id": "parables-easy-039",
+  "ref": {
+   "fr": "Luc 7:43",
+   "en": "Luke 7:43"
+  },
+  "fr": {
+   "q": "Dans la parabole des deux débiteurs, lequel aimera le plus son créancier ?",
+   "options": [
+    "Celui à qui il fut le plus remis",
+    "Celui qui devait le moins",
+    "Aucun des deux",
+    "Les deux également"
+   ],
+   "explain": "« Celui à qui il a le plus remis. » (Luc 7:43)"
+  },
+  "en": {
+   "q": "In the parable of the two debtors, which one will love the creditor more?",
+   "options": [
+    "The one forgiven more",
+    "The one who owed less",
+    "Neither of them",
+    "Both the same"
+   ],
+   "explain": "“The one to whom he forgave the most.” (Luke 7:43)"
+  }
+ },
+ {
+  "id": "parables-easy-040",
+  "ref": {
+   "fr": "Luc 11:5",
+   "en": "Luke 11:5"
+  },
+  "fr": {
+   "q": "Dans la parabole de l’ami importun, combien de pains l’homme demande-t-il à minuit ?",
+   "options": [
+    "Trois",
+    "Cinq",
+    "Deux",
+    "Sept"
+   ],
+   "explain": "« Prête-moi trois pains… » demande l’ami à minuit. (Luc 11:5)"
+  },
+  "en": {
+   "q": "In the parable of the friend at midnight, how many loaves does the man ask for?",
+   "options": [
+    "Three",
+    "Five",
+    "Two",
+    "Seven"
+   ],
+   "explain": "“Lend me three loaves…” asks the friend at midnight. (Luke 11:5)"
+  }
+ },
+ {
+  "id": "parables-easy-041",
+  "ref": {
+   "fr": "Luc 12:18",
+   "en": "Luke 12:18"
+  },
+  "fr": {
+   "q": "Dans la parabole du riche insensé, que décide-t-il de faire de sa grande récolte ?",
+   "options": [
+    "Bâtir de plus grands greniers",
+    "Tout donner aux pauvres",
+    "Vendre ses terres",
+    "Faire un seul festin"
+   ],
+   "explain": "« J’abattrai mes greniers, j’en bâtirai de plus grands. » (Luc 12:18)"
+  },
+  "en": {
+   "q": "In the parable of the rich fool, what does he decide to do with his great harvest?",
+   "options": [
+    "Build bigger barns",
+    "Give it all to the poor",
+    "Sell his lands",
+    "Hold one great feast"
+   ],
+   "explain": "“I will pull down my barns and build larger ones.” (Luke 12:18)"
+  }
+ },
+ {
+  "id": "parables-easy-042",
+  "ref": {
+   "fr": "Luc 12:20",
+   "en": "Luke 12:20"
+  },
+  "fr": {
+   "q": "Dans la parabole du riche insensé, que lui dit Dieu cette nuit-là ?",
+   "options": [
+    "« Cette nuit ton âme te sera redemandée »",
+    "« Réjouis-toi longtemps »",
+    "« Tu vivras cent ans »",
+    "« Bâtis encore »"
+   ],
+   "explain": "« Insensé ! cette nuit même ton âme te sera redemandée. » (Luc 12:20)"
+  },
+  "en": {
+   "q": "In the parable of the rich fool, what does God say to him that night?",
+   "options": [
+    "“Tonight your soul is required of you”",
+    "“Rejoice for many years”",
+    "“You will live a hundred years”",
+    "“Build still more”"
+   ],
+   "explain": "“You fool! This night your soul is required of you.” (Luke 12:20)"
+  }
+ },
+ {
+  "id": "parables-easy-043",
+  "ref": {
+   "fr": "Luc 13:7",
+   "en": "Luke 13:7"
+  },
+  "fr": {
+   "q": "Dans la parabole du figuier stérile, depuis combien d’années le maître cherche-t-il du fruit ?",
+   "options": [
+    "Trois ans",
+    "Un an",
+    "Sept ans",
+    "Dix ans"
+   ],
+   "explain": "« Voilà trois ans que je viens chercher du fruit… et je n’en trouve point. » (Luc 13:7)"
+  },
+  "en": {
+   "q": "In the parable of the barren fig tree, for how many years has the owner sought fruit?",
+   "options": [
+    "Three years",
+    "One year",
+    "Seven years",
+    "Ten years"
+   ],
+   "explain": "“For three years I have come seeking fruit… and found none.” (Luke 13:7)"
+  }
+ },
+ {
+  "id": "parables-easy-044",
+  "ref": {
+   "fr": "Luc 14:21",
+   "en": "Luke 14:21"
+  },
+  "fr": {
+   "q": "Dans la parabole du grand festin, qui le maître fait-il finalement venir ?",
+   "options": [
+    "Les pauvres, estropiés, aveugles et boiteux",
+    "Ses proches parents",
+    "Les riches de la ville",
+    "Les prêtres"
+   ],
+   "explain": "« Amène ici les pauvres, les estropiés, les aveugles et les boiteux. » (Luc 14:21)"
+  },
+  "en": {
+   "q": "In the parable of the great banquet, whom does the master finally bring in?",
+   "options": [
+    "The poor, crippled, blind and lame",
+    "His close relatives",
+    "The city’s rich",
+    "The priests"
+   ],
+   "explain": "“Bring in the poor, the crippled, the blind and the lame.” (Luke 14:21)"
+  }
+ },
+ {
+  "id": "parables-easy-045",
+  "ref": {
+   "fr": "Luc 14:19",
+   "en": "Luke 14:19"
+  },
+  "fr": {
+   "q": "Dans la parabole du grand festin, quelle excuse donne l’un des invités ?",
+   "options": [
+    "Il a acheté cinq paires de bœufs",
+    "Il est malade",
+    "Il n’a pas faim",
+    "Il a peur de la route"
+   ],
+   "explain": "« J’ai acheté cinq paires de bœufs, et je vais les essayer. » (Luc 14:19)"
+  },
+  "en": {
+   "q": "In the parable of the great banquet, what excuse does one guest give?",
+   "options": [
+    "He bought five yoke of oxen",
+    "He is ill",
+    "He is not hungry",
+    "He fears the road"
+   ],
+   "explain": "“I have bought five yoke of oxen, and I must test them.” (Luke 14:19)"
+  }
+ },
+ {
+  "id": "parables-easy-046",
+  "ref": {
+   "fr": "Luc 14:28",
+   "en": "Luke 14:28"
+  },
+  "fr": {
+   "q": "Dans la parabole du constructeur, que faut-il faire avant de bâtir une tour ?",
+   "options": [
+    "S’asseoir et calculer la dépense",
+    "Commencer aussitôt",
+    "Demander au roi",
+    "Bâtir sur le sable"
+   ],
+   "explain": "« Ne s’assied-il pas d’abord pour calculer la dépense ? » (Luc 14:28)"
+  },
+  "en": {
+   "q": "In the parable of the builder, what should one do before building a tower?",
+   "options": [
+    "Sit down and count the cost",
+    "Begin at once",
+    "Ask the king",
+    "Build on sand"
+   ],
+   "explain": "“Doesn’t he first sit down and count the cost?” (Luke 14:28)"
+  }
+ },
+ {
+  "id": "parables-easy-047",
+  "ref": {
+   "fr": "Luc 16:6",
+   "en": "Luke 16:6"
+  },
+  "fr": {
+   "q": "Dans la parabole de l’économe infidèle, que fait-il aux dettes des débiteurs de son maître ?",
+   "options": [
+    "Il les diminue",
+    "Il les augmente",
+    "Il les annule toutes",
+    "Il les paie lui-même"
+   ],
+   "explain": "Il fait réécrire les reconnaissances pour réduire ce que chacun doit. (Luc 16:5-7)"
+  },
+  "en": {
+   "q": "In the parable of the shrewd manager, what does he do to his master’s debtors’ bills?",
+   "options": [
+    "He reduces them",
+    "He increases them",
+    "He cancels them all",
+    "He pays them himself"
+   ],
+   "explain": "He has the bills rewritten to lower what each one owes. (Luke 16:5-7)"
+  }
+ },
+ {
+  "id": "parables-easy-048",
+  "ref": {
+   "fr": "Luc 16:20",
+   "en": "Luke 16:20"
+  },
+  "fr": {
+   "q": "Dans la parabole du riche et de Lazare, qui est couché à la porte du riche ?",
+   "options": [
+    "Le pauvre Lazare",
+    "Un prophète",
+    "Un soldat",
+    "Un mendiant sans nom"
+   ],
+   "explain": "« Un pauvre, nommé Lazare, était couché à sa porte. » (Luc 16:20)"
+  },
+  "en": {
+   "q": "In the parable of the rich man and Lazarus, who lies at the rich man’s gate?",
+   "options": [
+    "The poor man Lazarus",
+    "A prophet",
+    "A soldier",
+    "A nameless beggar"
+   ],
+   "explain": "“A poor man named Lazarus was laid at his gate.” (Luke 16:20)"
+  }
+ },
+ {
+  "id": "parables-easy-049",
+  "ref": {
+   "fr": "Luc 16:22",
+   "en": "Luke 16:22"
+  },
+  "fr": {
+   "q": "Dans la parabole du riche et de Lazare, où les anges portent-ils Lazare après sa mort ?",
+   "options": [
+    "Dans le sein d’Abraham",
+    "Au temple de Jérusalem",
+    "Dans le jardin d’Éden",
+    "Dans la maison du riche"
+   ],
+   "explain": "« Le pauvre… fut porté par les anges dans le sein d’Abraham. » (Luc 16:22)"
+  },
+  "en": {
+   "q": "In the parable of the rich man and Lazarus, where do the angels carry Lazarus?",
+   "options": [
+    "To Abraham’s side",
+    "To the temple in Jerusalem",
+    "To the garden of Eden",
+    "To the rich man’s house"
+   ],
+   "explain": "“The poor man… was carried by the angels to Abraham’s side.” (Luke 16:22)"
+  }
+ },
+ {
+  "id": "parables-easy-050",
+  "ref": {
+   "fr": "Luc 16:24",
+   "en": "Luke 16:24"
+  },
+  "fr": {
+   "q": "Dans la parabole du riche et de Lazare, que demande le riche dans les tourments ?",
+   "options": [
+    "Une goutte d’eau sur sa langue",
+    "De l’or",
+    "Une seconde vie",
+    "Un habit neuf"
+   ],
+   "explain": "« … qu’il trempe le bout de son doigt dans l’eau pour me rafraîchir la langue. » (Luc 16:24)"
+  },
+  "en": {
+   "q": "In the parable of the rich man and Lazarus, what does the rich man ask for in torment?",
+   "options": [
+    "A drop of water on his tongue",
+    "Gold",
+    "A second life",
+    "New clothes"
+   ],
+   "explain": "“…dip the tip of his finger in water and cool my tongue.” (Luke 16:24)"
+  }
+ },
+ {
+  "id": "parables-easy-051",
+  "ref": {
+   "fr": "Luc 18:3",
+   "en": "Luke 18:3"
+  },
+  "fr": {
+   "q": "Dans la parabole de la veuve, que demande-t-elle sans cesse au juge ?",
+   "options": [
+    "Qu’on lui rende justice",
+    "De l’argent",
+    "Du pain",
+    "Un logement"
+   ],
+   "explain": "« Fais-moi justice de ma partie adverse. » (Luc 18:3)"
+  },
+  "en": {
+   "q": "In the parable of the widow, what does she keep asking the judge for?",
+   "options": [
+    "Justice against her adversary",
+    "Money",
+    "Bread",
+    "A place to live"
+   ],
+   "explain": "“Give me justice against my adversary.” (Luke 18:3)"
+  }
+ },
+ {
+  "id": "parables-easy-052",
+  "ref": {
+   "fr": "Luc 18:1",
+   "en": "Luke 18:1"
+  },
+  "fr": {
+   "q": "Quelle leçon Jésus donne-t-il par la parabole de la veuve et du juge ?",
+   "options": [
+    "Prier sans cesse et ne pas se lasser",
+    "Amasser des richesses",
+    "Craindre les juges",
+    "Voyager beaucoup"
+   ],
+   "explain": "« … qu’il faut toujours prier, et ne point se relâcher. » (Luc 18:1)"
+  },
+  "en": {
+   "q": "What lesson does Jesus give through the parable of the widow and the judge?",
+   "options": [
+    "Always pray and don’t give up",
+    "Store up riches",
+    "Fear the judges",
+    "Travel a lot"
+   ],
+   "explain": "“…that they ought always to pray, and not lose heart.” (Luke 18:1)"
+  }
+ },
+ {
+  "id": "parables-easy-053",
+  "ref": {
+   "fr": "Luc 18:14",
+   "en": "Luke 18:14"
+  },
+  "fr": {
+   "q": "Dans la parabole du pharisien et du publicain, lequel rentre justifié chez lui ?",
+   "options": [
+    "Le publicain",
+    "Le pharisien",
+    "Les deux",
+    "Aucun"
+   ],
+   "explain": "« Celui-ci descendit justifié dans sa maison, plutôt que l’autre. » (Luc 18:14)"
+  },
+  "en": {
+   "q": "In the parable of the Pharisee and the tax collector, which one goes home justified?",
+   "options": [
+    "The tax collector",
+    "The Pharisee",
+    "Both",
+    "Neither"
+   ],
+   "explain": "“This man went down to his house justified rather than the other.” (Luke 18:14)"
+  }
+ },
+ {
+  "id": "parables-easy-054",
+  "ref": {
+   "fr": "Luc 18:13",
+   "en": "Luke 18:13"
+  },
+  "fr": {
+   "q": "Dans la parabole du pharisien et du publicain, que prie le publicain ?",
+   "options": [
+    "« Ô Dieu, sois apaisé envers moi, pécheur »",
+    "« Je te rends grâces »",
+    "« Je jeûne deux fois »",
+    "« Je donne la dîme »"
+   ],
+   "explain": "« Ô Dieu, sois apaisé envers moi, qui suis un pécheur ! » (Luc 18:13)"
+  },
+  "en": {
+   "q": "In the parable of the Pharisee and the tax collector, what does the tax collector pray?",
+   "options": [
+    "“God, be merciful to me, a sinner”",
+    "“I thank you, God”",
+    "“I fast twice a week”",
+    "“I give tithes”"
+   ],
+   "explain": "“God, be merciful to me, a sinner!” (Luke 18:13)"
+  }
+ },
+ {
+  "id": "parables-easy-055",
+  "ref": {
+   "fr": "Luc 19:13",
+   "en": "Luke 19:13"
+  },
+  "fr": {
+   "q": "Dans la parabole des mines, combien de mines le maître donne-t-il à chaque serviteur ?",
+   "options": [
+    "Une mine",
+    "Dix mines",
+    "Cinq mines",
+    "Deux mines"
+   ],
+   "explain": "Il appelle dix serviteurs et donne à chacun une mine. (Luc 19:13)"
+  },
+  "en": {
+   "q": "In the parable of the minas, how many minas does the master give each servant?",
+   "options": [
+    "One mina",
+    "Ten minas",
+    "Five minas",
+    "Two minas"
+   ],
+   "explain": "He calls ten servants and gives each one a mina. (Luke 19:13)"
+  }
+ },
+ {
+  "id": "parables-easy-056",
+  "ref": {
+   "fr": "Marc 4:21",
+   "en": "Mark 4:21"
+  },
+  "fr": {
+   "q": "Dans la parabole de la lampe, où faut-il la placer ?",
+   "options": [
+    "Sur le chandelier",
+    "Sous le boisseau",
+    "Sous le lit",
+    "Dans un coffre"
+   ],
+   "explain": "« N’est-ce pas pour la mettre sur le chandelier ? » (Marc 4:21)"
+  },
+  "en": {
+   "q": "In the parable of the lamp, where should it be placed?",
+   "options": [
+    "On a lampstand",
+    "Under a basket",
+    "Under the bed",
+    "In a chest"
+   ],
+   "explain": "“Isn’t it brought to be put on a stand?” (Mark 4:21)"
+  }
+ },
+ {
+  "id": "parables-easy-057",
+  "ref": {
+   "fr": "Luc 5:37",
+   "en": "Luke 5:37"
+  },
+  "fr": {
+   "q": "Dans la parabole des outres, dans quoi met-on le vin nouveau ?",
+   "options": [
+    "Des outres neuves",
+    "De vieilles outres",
+    "Des jarres d’eau",
+    "Des coupes d’or"
+   ],
+   "explain": "« Il faut mettre le vin nouveau dans des outres neuves. » (Luc 5:38)"
+  },
+  "en": {
+   "q": "In the parable of the wineskins, into what is new wine put?",
+   "options": [
+    "New wineskins",
+    "Old wineskins",
+    "Water jars",
+    "Golden cups"
+   ],
+   "explain": "“New wine must be put into fresh wineskins.” (Luke 5:38)"
+  }
+ },
+ {
+  "id": "parables-easy-058",
+  "ref": {
+   "fr": "Matthieu 9:16",
+   "en": "Matthew 9:16"
+  },
+  "fr": {
+   "q": "Dans la parabole du vêtement, que ne coud-on pas sur un vieil habit ?",
+   "options": [
+    "Une pièce d’étoffe neuve",
+    "Un bouton d’or",
+    "Une poche",
+    "Une manche"
+   ],
+   "explain": "« Personne ne met une pièce d’étoffe neuve à un vieil habit. » (Matthieu 9:16)"
+  },
+  "en": {
+   "q": "In the parable of the garment, what is not sewn onto an old coat?",
+   "options": [
+    "A patch of new cloth",
+    "A gold button",
+    "A pocket",
+    "A sleeve"
+   ],
+   "explain": "“No one puts a piece of unshrunk cloth on an old garment.” (Matthew 9:16)"
+  }
+ },
+ {
+  "id": "parables-easy-059",
+  "ref": {
+   "fr": "Jean 10:11",
+   "en": "John 10:11"
+  },
+  "fr": {
+   "q": "Dans l’image du bon berger, que donne-t-il pour ses brebis ?",
+   "options": [
+    "Sa vie",
+    "De l’or",
+    "Sa maison",
+    "Rien"
+   ],
+   "explain": "« Le bon berger donne sa vie pour ses brebis. » (Jean 10:11)"
+  },
+  "en": {
+   "q": "In the picture of the good shepherd, what does he give for his sheep?",
+   "options": [
+    "His life",
+    "Gold",
+    "His house",
+    "Nothing"
+   ],
+   "explain": "“The good shepherd lays down his life for the sheep.” (John 10:11)"
+  }
+ },
+ {
+  "id": "parables-easy-060",
+  "ref": {
+   "fr": "Jean 15:5",
+   "en": "John 15:5"
+  },
+  "fr": {
+   "q": "Dans l’image du cep et des sarments, que sont les disciples ?",
+   "options": [
+    "Les sarments",
+    "Le vigneron",
+    "Les racines",
+    "Les fruits"
+   ],
+   "explain": "« Je suis le cep, vous êtes les sarments. » (Jean 15:5)"
+  },
+  "en": {
+   "q": "In the picture of the vine and branches, what are the disciples?",
+   "options": [
+    "The branches",
+    "The vinedresser",
+    "The roots",
+    "The fruit"
+   ],
+   "explain": "“I am the vine, you are the branches.” (John 15:5)"
+  }
+ },
+ {
+  "id": "parables-easy-061",
+  "ref": {
+   "fr": "Jean 15:1",
+   "en": "John 15:1"
+  },
+  "fr": {
+   "q": "Dans l’image du vrai cep, qui est le vigneron ?",
+   "options": [
+    "Le Père",
+    "Le Fils",
+    "L’Esprit",
+    "Les anges"
+   ],
+   "explain": "« Je suis le vrai cep, et mon Père est le vigneron. » (Jean 15:1)"
+  },
+  "en": {
+   "q": "In the picture of the true vine, who is the vinedresser?",
+   "options": [
+    "The Father",
+    "The Son",
+    "The Spirit",
+    "The angels"
+   ],
+   "explain": "“I am the true vine, and my Father is the vinedresser.” (John 15:1)"
+  }
+ },
+ {
+  "id": "parables-easy-062",
+  "ref": {
+   "fr": "Matthieu 13:4",
+   "en": "Matthew 13:4"
+  },
+  "fr": {
+   "q": "Dans la parabole du semeur, qu’arrive-t-il à la semence tombée le long du chemin ?",
+   "options": [
+    "Les oiseaux la mangent",
+    "Elle pousse très vite",
+    "Elle sèche au soleil",
+    "Les épines l’étouffent"
+   ],
+   "explain": "« Les oiseaux vinrent, et la mangèrent. » (Matthieu 13:4)"
+  },
+  "en": {
+   "q": "In the parable of the sower, what happens to the seed that falls on the path?",
+   "options": [
+    "The birds eat it",
+    "It grows very fast",
+    "It dries in the sun",
+    "Thorns choke it"
+   ],
+   "explain": "“The birds came and devoured it.” (Matthew 13:4)"
+  }
+ },
+ {
+  "id": "parables-easy-063",
+  "ref": {
+   "fr": "Matthieu 13:22",
+   "en": "Matthew 13:22"
+  },
+  "fr": {
+   "q": "Dans la parabole du semeur, qu’étouffe la semence tombée parmi les épines ?",
+   "options": [
+    "Les soucis et les richesses",
+    "La sécheresse",
+    "Les oiseaux",
+    "Le vent"
+   ],
+   "explain": "« Les soucis du siècle et la séduction des richesses étouffent cette parole. » (Matthieu 13:22)"
+  },
+  "en": {
+   "q": "In the parable of the sower, what chokes the seed sown among thorns?",
+   "options": [
+    "Worries and riches",
+    "Drought",
+    "The birds",
+    "The wind"
+   ],
+   "explain": "“The cares of this age and the deceitfulness of riches choke the word.” (Matthew 13:22)"
+  }
+ },
+ {
+  "id": "parables-easy-064",
+  "ref": {
+   "fr": "Matthieu 13:6",
+   "en": "Matthew 13:6"
+  },
+  "fr": {
+   "q": "Dans la parabole du semeur, pourquoi la semence sur le sol pierreux sèche-t-elle ?",
+   "options": [
+    "Elle n’a pas de racine",
+    "Il y a trop d’eau",
+    "Les oiseaux la prennent",
+    "Les épines l’étouffent"
+   ],
+   "explain": "« Comme elle n’avait pas de racines, elle sécha. » (Matthieu 13:6)"
+  },
+  "en": {
+   "q": "In the parable of the sower, why does the seed on rocky ground wither?",
+   "options": [
+    "It has no root",
+    "There is too much water",
+    "The birds take it",
+    "Thorns choke it"
+   ],
+   "explain": "“Because it had no root, it withered away.” (Matthew 13:6)"
+  }
+ },
+ {
+  "id": "parables-easy-065",
+  "ref": {
+   "fr": "Matthieu 13:8",
+   "en": "Matthew 13:8"
+  },
+  "fr": {
+   "q": "Dans la parabole du semeur, que rapporte la semence tombée dans la bonne terre ?",
+   "options": [
+    "Jusqu’à cent pour un",
+    "Rien du tout",
+    "Dix pour un",
+    "Deux pour un"
+   ],
+   "explain": "« … qui donnèrent du fruit, un grain cent, un autre soixante, un autre trente. » (Matthieu 13:8)"
+  },
+  "en": {
+   "q": "In the parable of the sower, what does the seed on good soil yield?",
+   "options": [
+    "Up to a hundredfold",
+    "Nothing at all",
+    "Tenfold",
+    "Twofold"
+   ],
+   "explain": "“…yielded fruit: some a hundredfold, some sixty, some thirty.” (Matthew 13:8)"
+  }
+ },
+ {
+  "id": "parables-easy-066",
+  "ref": {
+   "fr": "Marc 4:1",
+   "en": "Mark 4:1"
+  },
+  "fr": {
+   "q": "D’où Jésus enseigne-t-il la foule au bord du lac, notamment la parabole du semeur ?",
+   "options": [
+    "D’une barque",
+    "D’une montagne",
+    "Du temple",
+    "D’une maison"
+   ],
+   "explain": "Il monte dans une barque et enseigne la foule restée à terre. (Marc 4:1)"
+  },
+  "en": {
+   "q": "From where does Jesus teach the crowd by the lake, including the parable of the sower?",
+   "options": [
+    "From a boat",
+    "From a mountain",
+    "From the temple",
+    "From a house"
+   ],
+   "explain": "He gets into a boat and teaches the crowd on the shore. (Mark 4:1)"
+  }
+ },
+ {
+  "id": "parables-easy-067",
+  "ref": {
+   "fr": "Luc 10:30",
+   "en": "Luke 10:30"
+  },
+  "fr": {
+   "q": "Dans quel évangile se trouve la parabole du bon Samaritain ?",
+   "options": [
+    "Luc",
+    "Matthieu",
+    "Marc",
+    "Jean"
+   ],
+   "explain": "Seul l’évangile de Luc rapporte le bon Samaritain. (Luc 10:30-37)"
+  },
+  "en": {
+   "q": "In which Gospel is the parable of the Good Samaritan found?",
+   "options": [
+    "Luke",
+    "Matthew",
+    "Mark",
+    "John"
+   ],
+   "explain": "Only Luke’s Gospel records the Good Samaritan. (Luke 10:30-37)"
+  }
+ },
+ {
+  "id": "parables-easy-068",
+  "ref": {
+   "fr": "Luc 15:11",
+   "en": "Luke 15:11"
+  },
+  "fr": {
+   "q": "Dans quel évangile se trouve la parabole du fils prodigue ?",
+   "options": [
+    "Luc",
+    "Marc",
+    "Matthieu",
+    "Jean"
+   ],
+   "explain": "La parabole du fils prodigue est propre à Luc. (Luc 15:11-32)"
+  },
+  "en": {
+   "q": "In which Gospel is the parable of the prodigal son found?",
+   "options": [
+    "Luke",
+    "Mark",
+    "Matthew",
+    "John"
+   ],
+   "explain": "The prodigal son is unique to Luke. (Luke 15:11-32)"
+  }
+ },
+ {
+  "id": "parables-easy-069",
+  "ref": {
+   "fr": "Matthieu 25:1",
+   "en": "Matthew 25:1"
+  },
+  "fr": {
+   "q": "Dans quel évangile se trouve la parabole des dix vierges ?",
+   "options": [
+    "Matthieu",
+    "Luc",
+    "Marc",
+    "Jean"
+   ],
+   "explain": "La parabole des dix vierges se trouve chez Matthieu. (Matthieu 25:1-13)"
+  },
+  "en": {
+   "q": "In which Gospel is the parable of the ten virgins found?",
+   "options": [
+    "Matthew",
+    "Luke",
+    "Mark",
+    "John"
+   ],
+   "explain": "The parable of the ten virgins is found in Matthew. (Matthew 25:1-13)"
+  }
+ },
+ {
+  "id": "parables-easy-070",
+  "ref": {
+   "fr": "Luc 10:29",
+   "en": "Luke 10:29"
+  },
+  "fr": {
+   "q": "Quelle question amène Jésus à raconter la parabole du bon Samaritain ?",
+   "options": [
+    "« Qui est mon prochain ? »",
+    "« Où est Dieu ? »",
+    "« Qui est le plus grand ? »",
+    "« Que dois-je manger ? »"
+   ],
+   "explain": "Un docteur de la loi demande : « Et qui est mon prochain ? » (Luc 10:29)"
+  },
+  "en": {
+   "q": "What question prompts Jesus to tell the parable of the Good Samaritan?",
+   "options": [
+    "“Who is my neighbor?”",
+    "“Where is God?”",
+    "“Who is the greatest?”",
+    "“What shall I eat?”"
+   ],
+   "explain": "A lawyer asks, “And who is my neighbor?” (Luke 10:29)"
+  }
+ },
+ {
+  "id": "parables-easy-071",
+  "ref": {
+   "fr": "Luc 10:34",
+   "en": "Luke 10:34"
+  },
+  "fr": {
+   "q": "Dans la parabole du bon Samaritain, où conduit-il l’homme blessé ?",
+   "options": [
+    "À une hôtellerie",
+    "Au temple",
+    "Chez le prêtre",
+    "Dans sa maison"
+   ],
+   "explain": "« Il le mena à l’hôtellerie et prit soin de lui. » (Luc 10:34)"
+  },
+  "en": {
+   "q": "In the parable of the Good Samaritan, where does he take the wounded man?",
+   "options": [
+    "To an inn",
+    "To the temple",
+    "To the priest’s house",
+    "To his own home"
+   ],
+   "explain": "“He brought him to an inn and took care of him.” (Luke 10:34)"
+  }
+ },
+ {
+  "id": "parables-easy-072",
+  "ref": {
+   "fr": "Luc 10:34",
+   "en": "Luke 10:34"
+  },
+  "fr": {
+   "q": "Dans la parabole du bon Samaritain, que verse-t-il sur les plaies du blessé ?",
+   "options": [
+    "De l’huile et du vin",
+    "De l’eau claire",
+    "Du miel",
+    "Du lait"
+   ],
+   "explain": "Il bande ses plaies en y versant de l’huile et du vin. (Luc 10:34)"
+  },
+  "en": {
+   "q": "In the parable of the Good Samaritan, what does he pour on the man’s wounds?",
+   "options": [
+    "Oil and wine",
+    "Clean water",
+    "Honey",
+    "Milk"
+   ],
+   "explain": "He bandages his wounds, pouring on oil and wine. (Luke 10:34)"
+  }
+ },
+ {
+  "id": "parables-easy-073",
+  "ref": {
+   "fr": "Luc 15:12",
+   "en": "Luke 15:12"
+  },
+  "fr": {
+   "q": "Dans la parabole du fils prodigue, que demande d’abord le fils cadet à son père ?",
+   "options": [
+    "Sa part d’héritage",
+    "Un cheval",
+    "Une maison",
+    "Du pain"
+   ],
+   "explain": "« Mon père, donne-moi la part de bien qui me revient. » (Luc 15:12)"
+  },
+  "en": {
+   "q": "In the parable of the prodigal son, what does the younger son first ask his father?",
+   "options": [
+    "His share of the inheritance",
+    "A horse",
+    "A house",
+    "Bread"
+   ],
+   "explain": "“Father, give me the share of the estate that falls to me.” (Luke 15:12)"
+  }
+ },
+ {
+  "id": "parables-easy-074",
+  "ref": {
+   "fr": "Luc 15:15",
+   "en": "Luke 15:15"
+  },
+  "fr": {
+   "q": "Dans la parabole du fils prodigue, quel travail fait-il quand il est dans le besoin ?",
+   "options": [
+    "Il garde les pourceaux",
+    "Il pêche",
+    "Il laboure",
+    "Il garde les brebis"
+   ],
+   "explain": "Il est envoyé aux champs pour garder les pourceaux. (Luc 15:15)"
+  },
+  "en": {
+   "q": "In the parable of the prodigal son, what work does he do when in need?",
+   "options": [
+    "He feeds the pigs",
+    "He fishes",
+    "He plows",
+    "He tends sheep"
+   ],
+   "explain": "He is sent into the fields to feed the pigs. (Luke 15:15)"
+  }
+ },
+ {
+  "id": "parables-easy-075",
+  "ref": {
+   "fr": "Luc 15:28",
+   "en": "Luke 15:28"
+  },
+  "fr": {
+   "q": "Dans la parabole du fils prodigue, comment réagit le frère aîné à la fête ?",
+   "options": [
+    "Il se met en colère",
+    "Il se réjouit",
+    "Il pleure de joie",
+    "Il part en voyage"
+   ],
+   "explain": "« Il se mit en colère, et ne voulut pas entrer. » (Luc 15:28)"
+  },
+  "en": {
+   "q": "In the parable of the prodigal son, how does the elder brother react to the feast?",
+   "options": [
+    "He becomes angry",
+    "He rejoices",
+    "He weeps for joy",
+    "He goes on a journey"
+   ],
+   "explain": "“He was angry and would not go in.” (Luke 15:28)"
+  }
+ },
+ {
+  "id": "parables-easy-076",
+  "ref": {
+   "fr": "Luc 15:5",
+   "en": "Luke 15:5"
+  },
+  "fr": {
+   "q": "Dans la parabole de la brebis perdue, que fait le berger quand il la retrouve ?",
+   "options": [
+    "Il la met sur ses épaules avec joie",
+    "Il la vend",
+    "Il la laisse au champ",
+    "Il la punit"
+   ],
+   "explain": "« … il la met avec joie sur ses épaules. » (Luc 15:5)"
+  },
+  "en": {
+   "q": "In the parable of the lost sheep, what does the shepherd do when he finds it?",
+   "options": [
+    "He lays it on his shoulders with joy",
+    "He sells it",
+    "He leaves it in the field",
+    "He punishes it"
+   ],
+   "explain": "“…he lays it on his shoulders, rejoicing.” (Luke 15:5)"
+  }
+ },
+ {
+  "id": "parables-easy-077",
+  "ref": {
+   "fr": "Luc 15:8",
+   "en": "Luke 15:8"
+  },
+  "fr": {
+   "q": "Dans la parabole de la drachme perdue, combien de pièces la femme possède-t-elle ?",
+   "options": [
+    "Dix",
+    "Cinq",
+    "Cent",
+    "Trois"
+   ],
+   "explain": "« Quelle femme, si elle a dix drachmes… » (Luc 15:8)"
+  },
+  "en": {
+   "q": "In the parable of the lost coin, how many coins does the woman have?",
+   "options": [
+    "Ten",
+    "Five",
+    "A hundred",
+    "Three"
+   ],
+   "explain": "“What woman, if she has ten silver coins…” (Luke 15:8)"
+  }
+ },
+ {
+  "id": "parables-easy-078",
+  "ref": {
+   "fr": "Luc 15:9",
+   "en": "Luke 15:9"
+  },
+  "fr": {
+   "q": "Dans la parabole de la drachme perdue, que fait la femme après l’avoir retrouvée ?",
+   "options": [
+    "Elle appelle ses amies pour se réjouir",
+    "Elle la cache",
+    "Elle la dépense",
+    "Elle la donne au temple"
+   ],
+   "explain": "« Réjouissez-vous avec moi, car j’ai retrouvé la drachme. » (Luc 15:9)"
+  },
+  "en": {
+   "q": "In the parable of the lost coin, what does the woman do after finding it?",
+   "options": [
+    "She calls her friends to rejoice",
+    "She hides it",
+    "She spends it",
+    "She gives it to the temple"
+   ],
+   "explain": "“Rejoice with me, for I have found the coin I lost.” (Luke 15:9)"
+  }
+ },
+ {
+  "id": "parables-easy-079",
+  "ref": {
+   "fr": "Matthieu 13:32",
+   "en": "Matthew 13:32"
+  },
+  "fr": {
+   "q": "Dans la parabole du grain de sénevé, que devient-il en grandissant ?",
+   "options": [
+    "Un arbre où les oiseaux nichent",
+    "Une petite fleur",
+    "Un buisson d’épines",
+    "Une vigne"
+   ],
+   "explain": "« … elle devient un arbre, de sorte que les oiseaux viennent y nicher. » (Matthieu 13:32)"
+  },
+  "en": {
+   "q": "In the parable of the mustard seed, what does it become when it grows?",
+   "options": [
+    "A tree where birds nest",
+    "A small flower",
+    "A thorn bush",
+    "A vine"
+   ],
+   "explain": "“…it becomes a tree, so that the birds come and nest in its branches.” (Matthew 13:32)"
+  }
+ },
+ {
+  "id": "parables-easy-080",
+  "ref": {
+   "fr": "Matthieu 13:34",
+   "en": "Matthew 13:34"
+  },
+  "fr": {
+   "q": "Comment Jésus enseignait-il souvent les foules ?",
+   "options": [
+    "Par des paraboles",
+    "Par des chants",
+    "Par des lettres",
+    "Par des énigmes de nombres"
+   ],
+   "explain": "« Jésus dit toutes ces choses en paraboles… » (Matthieu 13:34)"
+  },
+  "en": {
+   "q": "How did Jesus often teach the crowds?",
+   "options": [
+    "In parables",
+    "In songs",
+    "In letters",
+    "In number riddles"
+   ],
+   "explain": "“Jesus spoke all these things to the crowds in parables…” (Matthew 13:34)"
+  }
+ },
+ {
+  "id": "parables-easy-081",
+  "ref": {
+   "fr": "Matthieu 7:27",
+   "en": "Matthew 7:27"
+  },
+  "fr": {
+   "q": "Dans la parabole des deux maisons, qu’arrive-t-il à la maison bâtie sur le sable ?",
+   "options": [
+    "Elle s’écroule",
+    "Elle tient bon",
+    "Elle brûle",
+    "Elle grandit"
+   ],
+   "explain": "« … elle tomba, et sa ruine fut grande. » (Matthieu 7:27)"
+  },
+  "en": {
+   "q": "In the parable of the two houses, what happens to the house built on sand?",
+   "options": [
+    "It collapses",
+    "It stands firm",
+    "It burns",
+    "It grows"
+   ],
+   "explain": "“…it fell, and great was its fall.” (Matthew 7:27)"
+  }
+ },
+ {
+  "id": "parables-easy-082",
+  "ref": {
+   "fr": "Matthieu 7:24",
+   "en": "Matthew 7:24"
+  },
+  "fr": {
+   "q": "La parabole des deux maisons conclut quel grand discours de Jésus ?",
+   "options": [
+    "Le sermon sur la montagne",
+    "Le discours d’adieu",
+    "La dernière Pâque",
+    "La prière au jardin"
+   ],
+   "explain": "La parabole clôt le sermon sur la montagne. (Matthieu 7:24-27)"
+  },
+  "en": {
+   "q": "The parable of the two houses concludes which great sermon of Jesus?",
+   "options": [
+    "The Sermon on the Mount",
+    "The farewell discourse",
+    "The last Passover",
+    "The garden prayer"
+   ],
+   "explain": "The parable closes the Sermon on the Mount. (Matthew 7:24-27)"
+  }
+ },
+ {
+  "id": "parables-easy-083",
+  "ref": {
+   "fr": "Matthieu 13:30",
+   "en": "Matthew 13:30"
+  },
+  "fr": {
+   "q": "Dans la parabole de l’ivraie, que faut-il faire du blé et de l’ivraie jusqu’à la moisson ?",
+   "options": [
+    "Les laisser croître ensemble",
+    "Arracher aussitôt l’ivraie",
+    "Tout brûler",
+    "Tout replanter"
+   ],
+   "explain": "« Laissez croître ensemble l’un et l’autre jusqu’à la moisson. » (Matthieu 13:30)"
+  },
+  "en": {
+   "q": "In the parable of the weeds, what is to be done with wheat and weeds until harvest?",
+   "options": [
+    "Let them grow together",
+    "Pull up the weeds at once",
+    "Burn it all",
+    "Replant it all"
+   ],
+   "explain": "“Let both grow together until the harvest.” (Matthew 13:30)"
+  }
+ },
+ {
+  "id": "parables-easy-084",
+  "ref": {
+   "fr": "Matthieu 13:30",
+   "en": "Matthew 13:30"
+  },
+  "fr": {
+   "q": "Dans la parabole de l’ivraie, que fait-on de l’ivraie au temps de la moisson ?",
+   "options": [
+    "On la brûle",
+    "On la sème de nouveau",
+    "On la vend",
+    "On la garde au grenier"
+   ],
+   "explain": "« Liez l’ivraie en gerbes pour la brûler. » (Matthieu 13:30)"
+  },
+  "en": {
+   "q": "In the parable of the weeds, what is done with the weeds at harvest time?",
+   "options": [
+    "They are burned",
+    "They are sown again",
+    "They are sold",
+    "They are stored in the barn"
+   ],
+   "explain": "“Bind the weeds in bundles to burn them.” (Matthew 13:30)"
+  }
+ },
+ {
+  "id": "parables-easy-085",
+  "ref": {
+   "fr": "Matthieu 9:17",
+   "en": "Matthew 9:17"
+  },
+  "fr": {
+   "q": "Dans la parabole des outres, pourquoi ne pas mettre le vin nouveau dans de vieilles outres ?",
+   "options": [
+    "Les outres se rompent",
+    "Le vin gèle",
+    "Rien n’arrive",
+    "Le vin devient de l’eau"
+   ],
+   "explain": "« … les outres se rompent, le vin se répand. » (Matthieu 9:17)"
+  },
+  "en": {
+   "q": "In the parable of the wineskins, why not put new wine in old skins?",
+   "options": [
+    "The skins burst",
+    "The wine freezes",
+    "Nothing happens",
+    "The wine turns to water"
+   ],
+   "explain": "“…the skins burst, and the wine is spilled.” (Matthew 9:17)"
+  }
+ },
+ {
+  "id": "parables-easy-086",
+  "ref": {
+   "fr": "Luc 12:35",
+   "en": "Luke 12:35"
+  },
+  "fr": {
+   "q": "Dans la parabole des serviteurs vigilants, comment doivent-ils attendre leur maître ?",
+   "options": [
+    "Les reins ceints et les lampes allumées",
+    "Endormis",
+    "Portes fermées",
+    "Assis à table"
+   ],
+   "explain": "« Que vos reins soient ceints, et vos lampes allumées. » (Luc 12:35)"
+  },
+  "en": {
+   "q": "In the parable of the watchful servants, how must they await their master?",
+   "options": [
+    "Dressed and lamps burning",
+    "Asleep",
+    "Doors shut",
+    "Seated at table"
+   ],
+   "explain": "“Let your waist be dressed and your lamps burning.” (Luke 12:35)"
+  }
+ },
+ {
+  "id": "parables-easy-087",
+  "ref": {
+   "fr": "Matthieu 18:22",
+   "en": "Matthew 18:22"
+  },
+  "fr": {
+   "q": "Avant la parabole du serviteur impitoyable, combien de fois Jésus dit-il de pardonner ?",
+   "options": [
+    "Soixante-dix fois sept fois",
+    "Sept fois",
+    "Trois fois",
+    "Une seule fois"
+   ],
+   "explain": "« … jusqu’à septante fois sept fois. » (Matthieu 18:22)"
+  },
+  "en": {
+   "q": "Before the parable of the unmerciful servant, how many times does Jesus say to forgive?",
+   "options": [
+    "Seventy times seven",
+    "Seven times",
+    "Three times",
+    "Only once"
+   ],
+   "explain": "“…up to seventy times seven.” (Matthew 18:22)"
+  }
+ },
+ {
+  "id": "parables-easy-088",
+  "ref": {
+   "fr": "Matthieu 22:9",
+   "en": "Matthew 22:9"
+  },
+  "fr": {
+   "q": "Dans la parabole des noces, qui le roi invite-t-il après le refus des premiers ?",
+   "options": [
+    "Les passants des carrefours",
+    "Les rois voisins",
+    "Les prêtres du temple",
+    "Ses seuls parents"
+   ],
+   "explain": "« Allez dans les carrefours, et invitez aux noces tous ceux que vous trouverez. » (Matthieu 22:9)"
+  },
+  "en": {
+   "q": "In the parable of the wedding feast, whom does the king invite after the first refuse?",
+   "options": [
+    "People from the street corners",
+    "Neighboring kings",
+    "Temple priests",
+    "Only his relatives"
+   ],
+   "explain": "“Go to the main roads and invite to the feast whomever you find.” (Matthew 22:9)"
+  }
+ },
+ {
+  "id": "parables-easy-089",
+  "ref": {
+   "fr": "Luc 15:22",
+   "en": "Luke 15:22"
+  },
+  "fr": {
+   "q": "Dans la parabole du fils prodigue, que fait mettre le père à son fils de retour ?",
+   "options": [
+    "La plus belle robe et un anneau",
+    "Des haillons",
+    "Une couronne d’or",
+    "Une armure"
+   ],
+   "explain": "« Apportez la plus belle robe… mettez un anneau à son doigt. » (Luc 15:22)"
+  },
+  "en": {
+   "q": "In the parable of the prodigal son, what does the father put on his returning son?",
+   "options": [
+    "The best robe and a ring",
+    "Rags",
+    "A gold crown",
+    "Armor"
+   ],
+   "explain": "“Bring the best robe… put a ring on his hand.” (Luke 15:22)"
+  }
+ },
+ {
+  "id": "parables-easy-090",
+  "ref": {
+   "fr": "Luc 12:21",
+   "en": "Luke 12:21"
+  },
+  "fr": {
+   "q": "Contre quoi met en garde la parabole du riche insensé ?",
+   "options": [
+    "Amasser pour soi sans être riche envers Dieu",
+    "Travailler la terre",
+    "Voyager loin",
+    "Nourrir les pauvres"
+   ],
+   "explain": "« Il en est ainsi de celui qui amasse pour lui, et n’est pas riche pour Dieu. » (Luc 12:21)"
+  },
+  "en": {
+   "q": "What does the parable of the rich fool warn against?",
+   "options": [
+    "Storing up for self, not rich toward God",
+    "Working the land",
+    "Traveling far",
+    "Feeding the poor"
+   ],
+   "explain": "“So is he who lays up treasure for himself, and is not rich toward God.” (Luke 12:21)"
+  }
+ },
+ {
+  "id": "parables-easy-091",
+  "ref": {
+   "fr": "Matthieu 25:28",
+   "en": "Matthew 25:28"
+  },
+  "fr": {
+   "q": "Dans la parabole des talents, à qui donne-t-on le talent ôté au serviteur paresseux ?",
+   "options": [
+    "À celui qui a dix talents",
+    "Aux pauvres",
+    "Au maître seul",
+    "On le jette au feu"
+   ],
+   "explain": "« Ôtez-lui donc le talent, et donnez-le à celui qui a les dix talents. » (Matthieu 25:28)"
+  },
+  "en": {
+   "q": "In the parable of the talents, to whom is the lazy servant’s talent given?",
+   "options": [
+    "To the one with ten talents",
+    "To the poor",
+    "To the master alone",
+    "It is thrown in the fire"
+   ],
+   "explain": "“Take the talent from him, and give it to the one with ten talents.” (Matthew 25:28)"
+  }
+ },
+ {
+  "id": "parables-easy-092",
+  "ref": {
+   "fr": "Matthieu 25:41",
+   "en": "Matthew 25:41"
+  },
+  "fr": {
+   "q": "Dans la parabole des brebis et des boucs, où vont les boucs placés à gauche ?",
+   "options": [
+    "Au châtiment éternel",
+    "À la vie éternelle",
+    "Au repos",
+    "Au festin des noces"
+   ],
+   "explain": "« Ceux-ci iront au châtiment éternel. » (Matthieu 25:46)"
+  },
+  "en": {
+   "q": "In the parable of the sheep and goats, where do the goats on the left go?",
+   "options": [
+    "To eternal punishment",
+    "To eternal life",
+    "To rest",
+    "To the wedding feast"
+   ],
+   "explain": "“These will go away into eternal punishment.” (Matthew 25:46)"
+  }
+ },
+ {
+  "id": "parables-easy-093",
+  "ref": {
+   "fr": "Matthieu 21:33",
+   "en": "Matthew 21:33"
+  },
+  "fr": {
+   "q": "Dans la parabole des vignerons, à qui le maître loue-t-il sa vigne avant de partir ?",
+   "options": [
+    "À des vignerons",
+    "À des bergers",
+    "À des pêcheurs",
+    "À des soldats"
+   ],
+   "explain": "« … il l’afferma à des vignerons, et s’en alla. » (Matthieu 21:33)"
+  },
+  "en": {
+   "q": "In the parable of the tenants, to whom does the owner lease his vineyard before leaving?",
+   "options": [
+    "To tenant farmers",
+    "To shepherds",
+    "To fishermen",
+    "To soldiers"
+   ],
+   "explain": "“…he leased it to tenant farmers and went away.” (Matthew 21:33)"
+  }
+ },
+ {
+  "id": "parables-easy-094",
+  "ref": {
+   "fr": "Matthieu 21:34",
+   "en": "Matthew 21:34"
+  },
+  "fr": {
+   "q": "Dans la parabole des vignerons, qui le maître envoie-t-il d’abord chercher le fruit ?",
+   "options": [
+    "Ses serviteurs",
+    "Ses soldats",
+    "Ses amis",
+    "Son fils en premier"
+   ],
+   "explain": "« … il envoya ses serviteurs vers les vignerons, pour recevoir le fruit. » (Matthieu 21:34)"
+  },
+  "en": {
+   "q": "In the parable of the tenants, whom does the owner first send for the fruit?",
+   "options": [
+    "His servants",
+    "His soldiers",
+    "His friends",
+    "His son first"
+   ],
+   "explain": "“…he sent his servants to the tenants to receive his fruit.” (Matthew 21:34)"
+  }
+ },
+ {
+  "id": "parables-easy-095",
+  "ref": {
+   "fr": "Matthieu 13:47",
+   "en": "Matthew 13:47"
+  },
+  "fr": {
+   "q": "Dans quel évangile se trouve la parabole du filet jeté dans la mer ?",
+   "options": [
+    "Matthieu",
+    "Luc",
+    "Marc",
+    "Jean"
+   ],
+   "explain": "La parabole du filet est rapportée par Matthieu. (Matthieu 13:47-50)"
+  },
+  "en": {
+   "q": "In which Gospel is the parable of the net cast into the sea found?",
+   "options": [
+    "Matthew",
+    "Luke",
+    "Mark",
+    "John"
+   ],
+   "explain": "The parable of the net is recorded by Matthew. (Matthew 13:47-50)"
+  }
+ },
+ {
+  "id": "parables-easy-096",
+  "ref": {
+   "fr": "Luc 18:10",
+   "en": "Luke 18:10"
+  },
+  "fr": {
+   "q": "Dans la parabole du pharisien et du publicain, où montent les deux hommes pour prier ?",
+   "options": [
+    "Au temple",
+    "À la synagogue",
+    "Sur la montagne",
+    "Au bord du lac"
+   ],
+   "explain": "« Deux hommes montèrent au temple pour prier. » (Luc 18:10)"
+  },
+  "en": {
+   "q": "In the parable of the Pharisee and the tax collector, where do the two men go to pray?",
+   "options": [
+    "To the temple",
+    "To the synagogue",
+    "Up the mountain",
+    "By the lake"
+   ],
+   "explain": "“Two men went up into the temple to pray.” (Luke 18:10)"
+  }
+ },
+ {
+  "id": "parables-easy-097",
+  "ref": {
+   "fr": "Luc 14:16",
+   "en": "Luke 14:16"
+  },
+  "fr": {
+   "q": "Dans quel évangile se trouve la parabole du grand festin ?",
+   "options": [
+    "Luc",
+    "Matthieu",
+    "Marc",
+    "Jean"
+   ],
+   "explain": "La parabole du grand festin est propre à Luc. (Luc 14:16-24)"
+  },
+  "en": {
+   "q": "In which Gospel is the parable of the great banquet found?",
+   "options": [
+    "Luke",
+    "Matthew",
+    "Mark",
+    "John"
+   ],
+   "explain": "The parable of the great banquet is unique to Luke. (Luke 14:16-24)"
+  }
+ },
+ {
+  "id": "parables-easy-098",
+  "ref": {
+   "fr": "Matthieu 25:14",
+   "en": "Matthew 25:14"
+  },
+  "fr": {
+   "q": "Dans quel évangile se trouve la parabole des talents ?",
+   "options": [
+    "Matthieu",
+    "Luc",
+    "Marc",
+    "Jean"
+   ],
+   "explain": "La parabole des talents se trouve chez Matthieu. (Matthieu 25:14-30)"
+  },
+  "en": {
+   "q": "In which Gospel is the parable of the talents found?",
+   "options": [
+    "Matthew",
+    "Luke",
+    "Mark",
+    "John"
+   ],
+   "explain": "The parable of the talents is found in Matthew. (Matthew 25:14-30)"
+  }
+ },
+ {
+  "id": "parables-easy-099",
+  "ref": {
+   "fr": "Matthieu 13:44",
+   "en": "Matthew 13:44"
+  },
+  "fr": {
+   "q": "Dans la parabole du trésor caché, quel sentiment pousse l’homme à tout vendre ?",
+   "options": [
+    "La joie",
+    "La peur",
+    "La colère",
+    "La tristesse"
+   ],
+   "explain": "« … dans sa joie, il va vendre tout ce qu’il a. » (Matthieu 13:44)"
+  },
+  "en": {
+   "q": "In the parable of the hidden treasure, what feeling moves the man to sell all?",
+   "options": [
+    "Joy",
+    "Fear",
+    "Anger",
+    "Sadness"
+   ],
+   "explain": "“…in his joy he goes and sells all that he has.” (Matthew 13:44)"
+  }
+ },
+ {
+  "id": "parables-easy-100",
+  "ref": {
+   "fr": "Matthieu 13:31",
+   "en": "Matthew 13:31"
+  },
+  "fr": {
+   "q": "Que montrent ensemble les paraboles du grain de sénevé et du levain ?",
+   "options": [
+    "Le royaume grandit de petits commencements",
+    "Le royaume reste caché",
+    "Le royaume est réservé aux riches",
+    "Le royaume disparaît vite"
+   ],
+   "explain": "Petit sénevé et peu de levain montrent la croissance du royaume. (Matthieu 13:31-33)"
+  },
+  "en": {
+   "q": "What do the parables of the mustard seed and the leaven together show?",
+   "options": [
+    "The kingdom grows from small beginnings",
+    "The kingdom stays hidden",
+    "The kingdom is only for the rich",
+    "The kingdom vanishes quickly"
+   ],
+   "explain": "A tiny mustard seed and a little leaven show the kingdom’s growth. (Matthew 13:31-33)"
+  }
  }
 ]
