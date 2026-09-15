@@ -647,6 +647,9 @@ const en = {
   "update.title": 'New version available',
   "update.desc": 'Update ELIM to get the latest features.',
   "update.button": 'Update',
+  "quiz.champion": 'Champion',
+  "quiz.championToday": "🏆 Today's champion",
+  "quiz.championWeek": "🏆 Champion of the week",
 }
 
 export default en

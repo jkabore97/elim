@@ -52,7 +52,7 @@ export const CATEGORY_META: Record<QuizCategory, { emoji: string; tint: string }
 
 export const QUESTIONS_PER_GAME = 10
 export const DAILY_QUESTIONS = 5
-export const SECONDS_PER_QUESTION = 15
+export const SECONDS_PER_QUESTION = 20
 export const DAILY_BONUS = 50
 
 // ---- Bank loading -----------------------------------------------------------

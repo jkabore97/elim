@@ -16,7 +16,7 @@ import {
   type QuizCategory, type QuizDifficulty, type QuizLang, type PlayQuestion,
   type QuizProfile, type GameResult, type BadgeId,
 } from './quiz/engine'
-import { subscribeProfile, saveProfile, fetchWeeklyLeaders, type LeaderRow } from './quiz/store'
+import { subscribeProfile, saveProfile, fetchWeeklyLeaders, fetchTopScorer, type LeaderRow, type TopScorer } from './quiz/store'
 
 const PLAY_URL = 'https://play.google.com/store/apps/details?id=com.elim.app'
 
@@ -149,16 +149,38 @@ function HomeScreen({ profile, dailyDone, loading, onClose, onPickCategory, onDa
   const { t } = useLanguage()
   const lvl = levelProgress(profile.points)
   const acc = profile.answered ? Math.round((profile.correct / profile.answered) * 100) : 0
+  const [champion, setChampion] = useState<TopScorer | null>(null)
+  useEffect(() => {
+    let alive = true
+    fetchTopScorer().then(c => { if (alive) setChampion(c) }).catch(() => {})
+    return () => { alive = false }
+  }, [profile.points])
+  const champName = champion ? (champion.uid === profile.uid ? t('quiz.you') : champion.name) : ''
   return (
     <div className="px-4 pt-4 pb-10 safe-top">
-      <div className="flex items-center justify-between mb-2">
-        <button onClick={onTrophies} className="p-2 rounded-full text-white/90 hover:bg-white/10" aria-label={t('quiz.trophies')}>
+      <div className="flex items-center justify-between gap-2 mb-2">
+        <button onClick={onTrophies} className="p-2 rounded-full text-white/90 hover:bg-white/10 shrink-0" aria-label={t('quiz.trophies')}>
           <Trophy size={22} />
         </button>
-        <button onClick={onClose} className="p-2 rounded-full text-white/90 hover:bg-white/10" aria-label={t('quiz.back')}>
+        <button onClick={champion ? onTrophies : undefined}
+          className="flex-1 min-w-0 flex justify-center" aria-label={t('quiz.champion')}>
+          {champion && (
+            <span className="inline-flex items-center gap-1.5 max-w-full bg-white/20 border border-white/40 rounded-full pl-2.5 pr-3 py-1.5">
+              <span className="text-base leading-none">👑</span>
+              <span className="min-w-0 truncate text-white font-bold text-sm leading-tight">{champName}</span>
+              <span className="shrink-0 text-white/80 text-xs font-semibold">{champion.points.toLocaleString()} {t('quiz.pts')}</span>
+            </span>
+          )}
+        </button>
+        <button onClick={onClose} className="p-2 rounded-full text-white/90 hover:bg-white/10 shrink-0" aria-label={t('quiz.back')}>
           <X size={22} />
         </button>
       </div>
+      {champion && (
+        <p className="text-center text-on-bg text-[11px] font-semibold -mt-1 mb-3">
+          {champion.scope === 'day' ? t('quiz.championToday') : t('quiz.championWeek')}
+        </p>
+      )}
 
       <div className="text-center mb-5">
         <div className="text-5xl mb-1">🏆</div>

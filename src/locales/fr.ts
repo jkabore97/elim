@@ -647,6 +647,9 @@ const fr = {
   "update.title": 'Nouvelle version disponible',
   "update.desc": 'Mets à jour ELIM pour les dernières nouveautés.',
   "update.button": 'Mettre à jour',
+  "quiz.champion": 'Champion',
+  "quiz.championToday": '🏆 Champion du jour',
+  "quiz.championWeek": '🏆 Champion de la semaine',
 }
 
 export default fr
