@@ -26,3 +26,7 @@ dist-ssr
 # Bible quiz question-bank scratch files (agent part/add files, merged then deleted)
 src/quiz/bank/*.part*.json
 src/quiz/bank/*.add.json
+
+# Local quiz preview harness (ad hoc)
+_preview.tsx
+preview.html
