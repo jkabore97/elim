@@ -237,6 +237,9 @@ export interface QuizProfile {
   best: Record<string, number>
   weekId: string
   weekPoints: number
+  // Per-day points, for the "top score today" push. dayId is YYYY-MM-DD.
+  dayId: string
+  dayPoints: number
   updatedAt?: unknown
 }
 
@@ -244,6 +247,7 @@ export function emptyProfile(uid: string, displayName: string, avatar?: string):
   return {
     uid, displayName, avatar, points: 0, gamesPlayed: 0, answered: 0, correct: 0,
     dailyStreak: 0, badges: [], best: {}, weekId: weekKey(), weekPoints: 0,
+    dayId: todayKey(), dayPoints: 0,
   }
 }
 
@@ -286,6 +290,8 @@ export function applyResult(p: QuizProfile, r: GameResult, day = todayKey()): { 
     best: { ...p.best },
     weekId: wk,
     weekPoints: (p.weekId === wk ? p.weekPoints : 0) + r.points,
+    dayId: day,
+    dayPoints: (p.dayId === day ? (p.dayPoints || 0) : 0) + r.points,
   }
   if (r.category !== 'daily' && r.category !== 'mixed' && !r.training) {
     const k = `${r.category}-${r.difficulty}`

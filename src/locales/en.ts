@@ -643,6 +643,10 @@ const en = {
   "quiz.noTimer": 'No timer',
   "quiz.trainingNote": 'Training: no timer, base points only.',
   "quiz.mixed": 'Mixed training',
+  "quiz.gameButton": 'Game',
+  "update.title": 'New version available',
+  "update.desc": 'Update ELIM to get the latest features.',
+  "update.button": 'Update',
 }
 
 export default en

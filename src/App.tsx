@@ -40,6 +40,9 @@ import { playMessageAlert, isAlertMuted, setAlertMuted } from './messageAlert'
 import { DataManagementTab } from './DataManagement'
 import { LibraryTab } from './Library'
 import BibleQuiz from './BibleQuiz'
+import { App as CapApp } from '@capacitor/app'
+import { subscribeProfile as subscribeQuizProfile } from './quiz/store'
+import { todayKey as quizTodayKey } from './quiz/engine'
 import type { Post, Comment, AppUser, ActivityLog, AppNotification, DonationConfig, DonationProvider, Report, DonationType, Donation } from './types'
 import { LanguageProvider, useLanguage, LANGUAGES, type Language } from './i18n'
 
@@ -1082,6 +1085,10 @@ function AppInner() {
   const [notifications, setNotifications] = useState<AppNotification[]>([])
   const [showNotifications, setShowNotifications] = useState(false)
   const [showQuiz, setShowQuiz] = useState(false)
+  // Red dot on the Game button while today's daily challenge is unplayed.
+  const [quizDailyPending, setQuizDailyPending] = useState(false)
+  // Set to the store URL when a newer app version is available (native only).
+  const [updateUrl, setUpdateUrl] = useState<string | null>(null)
   const [donation, setDonation] = useState<DonationConfig | null>(null)
   const [showDonation, setShowDonation] = useState(false)
   const [seenNewPosts, setSeenNewPosts] = useState<Post[]>([])
@@ -1174,7 +1181,9 @@ function AppInner() {
 
     // A tapped notification should land on what it was about.
     const off = onNotificationRoute(route => {
-      if (route.kind === 'message') {
+      if (route.kind === 'quiz') {
+        setShowQuiz(true)
+      } else if (route.kind === 'message') {
         setActiveTab('messages')
       } else {
         setActiveTab('feed')
@@ -1232,6 +1241,49 @@ function AppInner() {
     document.addEventListener('visibilitychange', onVisible)
     return () => { cancelled = true; document.removeEventListener('visibilitychange', onVisible) }
   }, [user?.uid])
+
+  // Bible quiz: light up the Game button while today's daily challenge is
+  // still unplayed (mirrors the dot the daily-reminder push nudges toward).
+  useEffect(() => {
+    if (!user) return
+    const unsub = subscribeQuizProfile(user.uid, user.displayName, user.avatar, p => {
+      setQuizDailyPending(p.lastDailyDate !== quizTodayKey())
+    }, () => {})
+    return unsub
+  }, [user?.uid])
+
+  // App-update prompt (native only). A single config doc, config/app, holds
+  // the latest published build. Staff installs act as the source of truth:
+  // when an admin/pastor opens a build newer than what's recorded, we bump the
+  // doc, so every member still on an older build then sees an Update button.
+  useEffect(() => {
+    if (!user || !Capacitor.isNativePlatform()) return
+    const staff = user.role === 'admin' || user.role === 'pastor'
+    let cancelled = false
+    let myBuild = 0
+    const PLAY_URL = 'https://play.google.com/store/apps/details?id=com.elim.app'
+    const unsub = onSnapshot(doc(db, 'config', 'app'), async snap => {
+      try {
+        if (myBuild === 0) {
+          const info = await CapApp.getInfo()
+          myBuild = parseInt(String(info.build || '0'), 10) || 0
+        }
+      } catch { myBuild = 0 }
+      if (cancelled) return
+      const data = snap.exists() ? snap.data() : null
+      const latest = Number(data?.latestBuild || 0)
+      const url = (data?.updateUrl && String(data.updateUrl)) || PLAY_URL
+      // Older than what's published -> offer the update.
+      setUpdateUrl(myBuild > 0 && latest > myBuild ? url : null)
+      // Staff on a newer build than recorded -> publish this build as latest.
+      if (staff && myBuild > latest) {
+        setDoc(doc(db, 'config', 'app'),
+          { latestBuild: myBuild, updateUrl: PLAY_URL, updatedAt: serverTimestamp() },
+          { merge: true }).catch(() => {})
+      }
+    }, () => {})
+    return () => { cancelled = true; unsub() }
+  }, [user?.uid, user?.role])
 
   // Auth listener
   useEffect(() => {
@@ -1672,8 +1724,11 @@ function AppInner() {
             })}
           </nav>
           <button onClick={() => setShowQuiz(true)}
-            className="w-full flex items-center justify-center gap-2 py-3 rounded-2xl font-semibold text-sm mb-3 bg-gradient-to-r from-amber-400 to-orange-500 text-white shadow-sm hover:brightness-105 transition">
+            className="relative w-full flex items-center justify-center gap-2 py-3 rounded-2xl font-semibold text-sm mb-3 bg-gradient-to-r from-amber-400 to-orange-500 text-white shadow-sm hover:brightness-105 transition">
             <Trophy size={18} /> {t('quiz.open')}
+            {quizDailyPending && (
+              <span className="absolute top-2 right-3 w-3 h-3 rounded-full bg-red-500 border-2 border-white animate-pulse" />
+            )}
           </button>
           <button onClick={() => setShowDonation(true)}
             className="btn-glass-amber w-full flex items-center justify-center gap-2 py-3 rounded-2xl font-semibold text-sm mb-3">
@@ -1705,10 +1760,13 @@ function AppInner() {
           <header className="glass-bar lg:hidden sticky top-0 z-40 border-b border-slate-200/70 safe-top">
             <div className="px-5 h-14 flex items-center justify-between">
               <Logo size={32} />
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2">
                 <button onClick={() => setShowQuiz(true)} aria-label={t('quiz.open')}
-                  className="relative w-9 h-9 grid place-items-center rounded-full bg-gradient-to-br from-amber-400 to-orange-500 text-white shadow-md active:scale-95 transition">
-                  <Trophy size={18} />
+                  className="relative flex items-center gap-1.5 pl-2.5 pr-3.5 py-2 rounded-full bg-gradient-to-br from-amber-400 to-orange-500 text-white font-bold text-sm shadow-md active:scale-95 transition">
+                  <Trophy size={17} /> {t('quiz.gameButton')}
+                  {quizDailyPending && (
+                    <span className="absolute -top-1 -right-1 w-3.5 h-3.5 rounded-full bg-red-500 border-2 border-white animate-pulse" />
+                  )}
                 </button>
                 {staffTab && (
                   <button onClick={() => setActiveTab(staffTab.id)} aria-label={staffTab.label}
@@ -1740,6 +1798,17 @@ function AppInner() {
           </header>
 
           <main className={`${playerTrack ? 'pb-48 lg:pb-32' : 'pb-28 lg:pb-16'} px-4 lg:px-10 pt-4 lg:pt-10 lg:max-w-3xl xl:max-w-4xl lg:mx-auto transition-[padding]`}>
+            {updateUrl && (
+              <a href={updateUrl} target="_blank" rel="noopener noreferrer"
+                className="mb-4 flex items-center gap-3 rounded-2xl bg-gradient-to-r from-emerald-600 to-teal-600 text-white p-3.5 shadow-md">
+                <Download size={22} className="shrink-0" />
+                <div className="flex-1 min-w-0">
+                  <p className="font-bold text-sm leading-tight">{t('update.title')}</p>
+                  <p className="text-xs text-white/85">{t('update.desc')}</p>
+                </div>
+                <span className="shrink-0 bg-white text-emerald-700 font-bold text-xs rounded-full px-3.5 py-2">{t('update.button')}</span>
+              </a>
+            )}
             {activeTab === 'feed' && (
               <div className="space-y-4">
                 <div className="relative">

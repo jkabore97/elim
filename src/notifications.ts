@@ -153,6 +153,8 @@ export async function initNativeNotifications() {
         emitNotificationRoute({ kind: 'message', conversationId: data.conversationId })
       } else if (data.kind === 'post') {
         emitNotificationRoute({ kind: 'post', postId: data.postId })
+      } else if (data.kind === 'quiz') {
+        emitNotificationRoute({ kind: 'quiz' })
       }
     })
 
@@ -317,6 +319,7 @@ export async function notificationDiagnostics(user: { uid: string; notifications
 export type NotificationRoute =
   | { kind: 'post'; postId?: string }
   | { kind: 'message'; conversationId?: string }
+  | { kind: 'quiz' }
 
 export function emitNotificationRoute(route: NotificationRoute) {
   window.dispatchEvent(new CustomEvent('elim:route', { detail: route }))
@@ -336,12 +339,15 @@ export function consumeLaunchUrlRoute() {
     const params = new URLSearchParams(window.location.search)
     const postId = params.get('post')
     const tab = params.get('tab')
-    if (!postId && !tab) return
+    const quiz = params.get('quiz')
+    if (!postId && !tab && !quiz) return
 
     if (postId) emitNotificationRoute({ kind: 'post', postId })
+    else if (quiz) emitNotificationRoute({ kind: 'quiz' })
     else if (tab === 'messages') emitNotificationRoute({ kind: 'message' })
 
     params.delete('post')
+    params.delete('quiz')
     params.delete('tab')
     const rest = params.toString()
     window.history.replaceState({}, '', window.location.pathname + (rest ? `?${rest}` : ''))

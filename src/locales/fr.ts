@@ -643,6 +643,10 @@ const fr = {
   "quiz.noTimer": 'Sans chrono',
   "quiz.trainingNote": 'Entraînement : sans chrono, points de base seulement.',
   "quiz.mixed": 'Entraînement mixte',
+  "quiz.gameButton": 'Jeu',
+  "update.title": 'Nouvelle version disponible',
+  "update.desc": 'Mets à jour ELIM pour les dernières nouveautés.',
+  "update.button": 'Mettre à jour',
 }
 
 export default fr

@@ -1,5 +1,6 @@
 const { onDocumentCreated } = require('firebase-functions/v2/firestore');
 const { onCall, onRequest, HttpsError } = require('firebase-functions/v2/https');
+const { onSchedule } = require('firebase-functions/v2/scheduler');
 const { defineSecret } = require('firebase-functions/params');
 const { initializeApp } = require('firebase-admin/app');
 const { getFirestore, FieldValue } = require('firebase-admin/firestore');
@@ -34,6 +35,73 @@ function chunk(arr, size) {
   const out = [];
   for (let i = 0; i < arr.length; i += size) out.push(arr.slice(i, i + size));
   return out;
+}
+
+// The church is in Burkina Faso (UTC+0, no DST). Day/time keys for the quiz
+// use this zone so "today" on the server matches "today" on a member's phone.
+const CHURCH_TZ = 'Africa/Ouagadougou';
+function churchDayKey(d = new Date()) {
+  // en-CA formats as YYYY-MM-DD, matching the client's todayKey().
+  return new Intl.DateTimeFormat('en-CA', {
+    timeZone: CHURCH_TZ, year: 'numeric', month: '2-digit', day: '2-digit',
+  }).format(d);
+}
+
+// Send one notification to every user who has push enabled. Mirrors the
+// per-event senders: multicast in batches of 500, then prune dead tokens.
+async function broadcastPush(db, { title, body, data }) {
+  const usersSnap = await db.collection('users').where('notificationsEnabled', '==', true).get();
+  const tokens = [];
+  usersSnap.forEach((doc) => {
+    const arr = doc.data().fcmTokens;
+    if (Array.isArray(arr)) tokens.push(...arr);
+  });
+  if (tokens.length === 0) return;
+
+  const messaging = getMessaging();
+  const batches = chunk(tokens, 500);
+  const results = await Promise.allSettled(
+    batches.map((batchTokens) =>
+      messaging.sendEachForMulticast({
+        tokens: batchTokens,
+        notification: { title, body },
+        data: data || {},
+        webpush: {
+          notification: { icon: 'https://ccelim.com/elim-logo-mark.png' },
+          fcmOptions: { link: 'https://ccelim.com/?quiz=1' },
+        },
+        android: {
+          priority: 'high',
+          notification: {
+            color: '#f97316',
+            channelId: 'elim-default',
+            icon: 'ic_stat_notify',
+            defaultSound: true,
+          },
+        },
+      })
+    )
+  );
+
+  const deadTokens = [];
+  results.forEach((result, i) => {
+    if (result.status !== 'fulfilled') return;
+    result.value.responses.forEach((res, j) => {
+      if (!res.success && ['messaging/registration-token-not-registered', 'messaging/invalid-registration-token'].includes(res.error?.code)) {
+        deadTokens.push(batches[i][j]);
+      }
+    });
+  });
+  if (deadTokens.length > 0) {
+    const deadSet = new Set(deadTokens);
+    await Promise.all(
+      usersSnap.docs
+        .filter((doc) => (doc.data().fcmTokens || []).some((t) => deadSet.has(t)))
+        .map((doc) => doc.ref.update({
+          fcmTokens: (doc.data().fcmTokens || []).filter((t) => !deadSet.has(t)),
+        }))
+    );
+  }
 }
 
 exports.notifyOnNewPost = onDocumentCreated('posts/{postId}', async (event) => {
@@ -701,4 +769,46 @@ exports.squareWebhook = onRequest(
       return res.status(200).send('error-logged');
     }
   },
+);
+
+
+// ==================== BIBLE QUIZ PUSH ====================
+
+// Morning nudge: remind everyone the daily challenge is ready. Fires once a
+// day at 08:00 church time. Body is French (the congregation's language).
+exports.dailyQuizReminder = onSchedule(
+  { schedule: '0 8 * * *', timeZone: CHURCH_TZ, region: 'us-central1' },
+  async () => {
+    const db = getFirestore();
+    await broadcastPush(db, {
+      title: 'Quiz Biblique 🏆',
+      body: "Le défi du jour t'attend : 5 questions, +50 points et un badge !",
+      data: { kind: 'quiz' },
+    });
+  }
+);
+
+// Evening recap: announce who holds the top score today, to spark friendly
+// competition. Fires at 20:00 church time. Skips quietly if nobody played.
+exports.dailyTopScore = onSchedule(
+  { schedule: '0 20 * * *', timeZone: CHURCH_TZ, region: 'us-central1' },
+  async () => {
+    const db = getFirestore();
+    const dayId = churchDayKey();
+    const snap = await db.collection('quizProfiles')
+      .where('dayId', '==', dayId)
+      .orderBy('dayPoints', 'desc')
+      .limit(1)
+      .get();
+    if (snap.empty) return;
+    const top = snap.docs[0].data();
+    const pts = top.dayPoints || 0;
+    if (pts <= 0) return;
+    const name = (top.displayName || 'Un membre').toString().slice(0, 40);
+    await broadcastPush(db, {
+      title: "🏆 Meilleur score du jour",
+      body: `${name} est en tête avec ${pts} points aujourd'hui. Rejoue pour le dépasser !`,
+      data: { kind: 'quiz' },
+    });
+  }
 );
