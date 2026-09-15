@@ -636,6 +636,13 @@ const fr = {
   "quiz.badge.master_business.desc": '8/10+ en Principes des affaires, difficile',
   "quiz.badge.master_morality.name": 'Cœur droit',
   "quiz.badge.master_morality.desc": '8/10+ en Moralité, difficile',
+  "quiz.training": 'Entraînement',
+  "quiz.trainingDesc": 'Sans chrono, toutes catégories mélangées · à ton rythme',
+  "quiz.trainingMode": 'Entraînement',
+  "quiz.timedMode": 'Chrono',
+  "quiz.noTimer": 'Sans chrono',
+  "quiz.trainingNote": 'Entraînement : sans chrono, points de base seulement.',
+  "quiz.mixed": 'Entraînement mixte',
 }
 
 export default fr

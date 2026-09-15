@@ -162,6 +162,21 @@ export async function buildDaily(lang: QuizLang, day = todayKey()): Promise<Play
   return out
 }
 
+// Free training: 10 random questions drawn across every category that has a
+// bank (easiest available tier), for untimed practice.
+export async function buildMixed(lang: QuizLang): Promise<PlayQuestion[]> {
+  const pickDiff = (c: QuizCategory): QuizDifficulty | null =>
+    (['easy', 'medium', 'hard'] as QuizDifficulty[]).find(d => bankAvailable(c, d)) ?? null
+  const pool: PlayQuestion[] = []
+  for (const cat of QUIZ_CATEGORIES) {
+    const diff = pickDiff(cat)
+    if (!diff) continue
+    const bank = await loadBank(cat, diff)
+    for (const q of shuffle(bank).slice(0, 3)) pool.push(toPlay(q, cat, diff, lang, Math.random))
+  }
+  return shuffle(pool).slice(0, QUESTIONS_PER_GAME)
+}
+
 // ---- Scoring ----------------------------------------------------------------
 const BASE: Record<QuizDifficulty, number> = { easy: 100, medium: 150, hard: 200 }
 
@@ -170,9 +185,12 @@ export interface AnswerScore { base: number; speed: number; streak: number; tota
 // A right answer earns the difficulty base, up to +100 for speed (linear in
 // the time left), and +25 per consecutive right answer before it (capped at
 // +150) - the "Série" the results screen brags about.
-export function scoreAnswer(diff: QuizDifficulty, correct: boolean, secondsLeft: number, streakBefore: number): AnswerScore {
+export function scoreAnswer(diff: QuizDifficulty, correct: boolean, secondsLeft: number, streakBefore: number, training = false): AnswerScore {
   if (!correct) return { base: 0, speed: 0, streak: 0, total: 0 }
   const base = BASE[diff]
+  // Training (no timer) earns the base only - no speed or streak bonus - so
+  // the timed leaderboard stays fair while learners still progress.
+  if (training) return { base, speed: 0, streak: 0, total: base }
   const speed = Math.round(100 * Math.max(0, Math.min(1, secondsLeft / SECONDS_PER_QUESTION)))
   const streak = Math.min(150, 25 * streakBefore)
   return { base, speed, streak, total: base + speed + streak }
@@ -245,12 +263,13 @@ export const BADGE_EMOJI: Record<BadgeId, string> = {
 }
 
 export interface GameResult {
-  category: QuizCategory | 'daily'
+  category: QuizCategory | 'daily' | 'mixed'
   difficulty: QuizDifficulty
   total: number
   correct: number
   points: number
   fastAnswers: number   // right answers given with >= 10s left
+  training?: boolean    // untimed practice: no records, no speed badges
 }
 
 // Applies a finished game to the profile and returns the new profile plus
@@ -268,10 +287,10 @@ export function applyResult(p: QuizProfile, r: GameResult, day = todayKey()): { 
     weekId: wk,
     weekPoints: (p.weekId === wk ? p.weekPoints : 0) + r.points,
   }
-  if (r.category !== 'daily') {
+  if (r.category !== 'daily' && r.category !== 'mixed' && !r.training) {
     const k = `${r.category}-${r.difficulty}`
     next.best[k] = Math.max(next.best[k] ?? 0, r.correct)
-  } else if (p.lastDailyDate !== day) {
+  } else if (r.category === 'daily' && p.lastDailyDate !== day) {
     // Daily streak: consecutive days with a completed challenge.
     const y = new Date(); y.setDate(y.getDate() - 1)
     next.dailyStreak = p.lastDailyDate === todayKey(y) ? p.dailyStreak + 1 : 1
@@ -284,14 +303,14 @@ export function applyResult(p: QuizProfile, r: GameResult, day = todayKey()): { 
   }
   grant('first_game', true)
   grant('perfect', r.total >= QUESTIONS_PER_GAME && r.correct === r.total)
-  grant('lightning', r.fastAnswers >= 5)
+  grant('lightning', !r.training && r.fastAnswers >= 5)
   grant('daily_first', r.category === 'daily')
   grant('daily_7', next.dailyStreak >= 7)
   grant('daily_30', next.dailyStreak >= 30)
   grant('games_50', next.gamesPlayed >= 50)
   grant('level_5', levelFor(next.points) >= 5)
   grant('level_10', levelFor(next.points) >= 10)
-  if (r.category !== 'daily' && r.difficulty === 'hard' && r.correct >= 8) {
+  if (r.category !== 'daily' && r.category !== 'mixed' && !r.training && r.difficulty === 'hard' && r.correct >= 8) {
     grant(`master_${r.category}` as BadgeId, true)
   }
   return { profile: next, unlocked }

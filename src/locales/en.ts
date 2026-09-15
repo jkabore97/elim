@@ -636,6 +636,13 @@ const en = {
   "quiz.badge.master_business.desc": '8/10+ in Business principles, hard',
   "quiz.badge.master_morality.name": 'Upright heart',
   "quiz.badge.master_morality.desc": '8/10+ in Morality, hard',
+  "quiz.training": 'Training',
+  "quiz.trainingDesc": 'No timer, all categories mixed · learn at your pace',
+  "quiz.trainingMode": 'Training',
+  "quiz.timedMode": 'Timed',
+  "quiz.noTimer": 'No timer',
+  "quiz.trainingNote": 'Training: no timer, base points only.',
+  "quiz.mixed": 'Mixed training',
 }
 
 export default en
