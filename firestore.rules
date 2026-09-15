@@ -426,5 +426,33 @@ service cloud.firestore {
                    && request.auth.uid == uid
                    && request.resource.data.uid == uid;
     }
+
+    // ---- Bible quiz weekly leaderboards (adults) ----
+    // One doc per (week, league, player); league is a category id or 'grand'.
+    // World-readable (the congregation sees the ranking); a player may only
+    // write rows carrying their own uid. Points are self-reported, same
+    // trade-off as quizProfiles above.
+    match /quizWeekly/{docId} {
+      allow read: if isSignedIn();
+      allow write: if isSignedIn() && request.resource.data.uid == request.auth.uid;
+    }
+
+    // ---- Bible quiz kids league ----
+    // Keyed by parent account + child name. The parent (owner) writes their
+    // children's rows; everyone may read them for the kids ranking and the
+    // Sunday-school prize.
+    match /quizKids/{docId} {
+      allow read: if isSignedIn();
+      allow write: if isSignedIn() && request.resource.data.uid == request.auth.uid;
+    }
+
+    // ---- Bible quiz champions (Hall of Fame) ----
+    // Written ONLY by Cloud Functions at week close (the Admin SDK bypasses
+    // these rules), so no client can forge a championship. Everyone may read
+    // the Palmarès.
+    match /quizChampions/{docId} {
+      allow read: if isSignedIn();
+      allow write: if false;
+    }
   }
 }

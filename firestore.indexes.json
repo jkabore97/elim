@@ -40,6 +40,23 @@
         { "fieldPath": "dayId", "order": "ASCENDING" },
         { "fieldPath": "dayPoints", "order": "DESCENDING" }
       ]
+    },
+    {
+      "collectionGroup": "quizWeekly",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "weekId", "order": "ASCENDING" },
+        { "fieldPath": "league", "order": "ASCENDING" },
+        { "fieldPath": "points", "order": "DESCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "quizKids",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "kidsWeekId", "order": "ASCENDING" },
+        { "fieldPath": "points", "order": "DESCENDING" }
+      ]
     }
   ],
   "fieldOverrides": []

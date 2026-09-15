@@ -110,7 +110,13 @@ export function todayKey(d = new Date()): string {
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
 }
 
-// ISO-8601 week id, e.g. "2026-W38". Weekly leaderboard buckets use this.
+// Adult competition categories - every category except Kids, which runs its
+// own separate weekly league (see kidsWeekKey).
+export const ADULT_CATEGORIES = QUIZ_CATEGORIES.filter(c => c !== 'kids') as Exclude<QuizCategory, 'kids'>[]
+
+// ISO-8601 week id, e.g. "2026-W38". Adult weekly leaderboards use this
+// (Monday-Sunday). Computed from the LOCAL date, which on a Burkina Faso
+// phone (UTC+0) matches the server.
 export function weekKey(d = new Date()): string {
   const date = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()))
   const day = date.getUTCDay() || 7
@@ -118,6 +124,18 @@ export function weekKey(d = new Date()): string {
   const yearStart = new Date(Date.UTC(date.getUTCFullYear(), 0, 1))
   const week = Math.ceil((((date.getTime() - yearStart.getTime()) / 86400000) + 1) / 7)
   return `${date.getUTCFullYear()}-W${String(week).padStart(2, '0')}`
+}
+
+// Kids league week id, SUNDAY-based (Sunday 00:00 -> Saturday 23:59), so the
+// week closes Saturday night and the winner is known for the Sunday-school
+// prize. Format "2026-K38": the year and the index of the week's Sunday.
+export function kidsWeekKey(d = new Date()): string {
+  const day = new Date(d.getFullYear(), d.getMonth(), d.getDate())
+  // Roll back to this week's Sunday.
+  day.setDate(day.getDate() - day.getDay())
+  const yearStart = new Date(day.getFullYear(), 0, 1)
+  const week = Math.floor((day.getTime() - yearStart.getTime()) / (7 * 86400000)) + 1
+  return `${day.getFullYear()}-K${String(week).padStart(2, '0')}`
 }
 
 function toPlay(q: BankQuestion, cat: QuizCategory, diff: QuizDifficulty, lang: QuizLang, rnd: () => number): PlayQuestion {
@@ -211,10 +229,16 @@ export interface QuizProfile {
   // Best score (right answers out of 10) per "category-difficulty".
   best: Record<string, number>
   weekId: string
-  weekPoints: number
-  // Per-day points, for the "top score today" push. dayId is YYYY-MM-DD.
+  weekPoints: number        // LEARNING points this week (new questions mastered)
+  // Per-day learning points, for the "top score today" push. dayId is YYYY-MM-DD.
   dayId: string
   dayPoints: number
+  // Every question id the player has ever answered correctly. Used to decide
+  // which answers are NEW - only new ones earn weekly/daily (learning) points,
+  // so the race rewards learning more, not replaying what you already know.
+  mastered: Record<string, true>
+  // How many weekly championships this player has won (drives the crown).
+  weeksWon: number
   updatedAt?: unknown
 }
 
@@ -222,7 +246,7 @@ export function emptyProfile(uid: string, displayName: string, avatar?: string):
   return {
     uid, displayName, avatar, points: 0, gamesPlayed: 0, answered: 0, correct: 0,
     dailyStreak: 0, badges: [], best: {}, weekId: weekKey(), weekPoints: 0,
-    dayId: todayKey(), dayPoints: 0,
+    dayId: todayKey(), dayPoints: 0, mastered: {}, weeksWon: 0,
   }
 }
 
@@ -246,25 +270,32 @@ export interface GameResult {
   difficulty: QuizDifficulty
   total: number
   correct: number
-  points: number
+  points: number          // CAREER points: every correct answer (drives level)
+  learningPoints: number  // points from NEW questions only (weekly/daily race)
+  newIds: string[]        // question ids mastered for the first time this game
 }
 
 // Applies a finished game to the profile and returns the new profile plus
 // the badges unlocked by this game. Pure - the caller persists it.
 export function applyResult(p: QuizProfile, r: GameResult, day = todayKey()): { profile: QuizProfile; unlocked: BadgeId[] } {
   const wk = weekKey()
+  const mastered = { ...(p.mastered || {}) }
+  for (const id of r.newIds) mastered[id] = true
   const next: QuizProfile = {
     ...p,
-    points: p.points + r.points,
+    points: p.points + r.points,                       // career: all correct
     gamesPlayed: p.gamesPlayed + 1,
     answered: p.answered + r.total,
     correct: p.correct + r.correct,
     badges: p.badges.slice(),
     best: { ...p.best },
+    mastered,
+    weeksWon: p.weeksWon || 0,
+    // Weekly/daily RACE counts learning points only (new questions).
     weekId: wk,
-    weekPoints: (p.weekId === wk ? p.weekPoints : 0) + r.points,
+    weekPoints: (p.weekId === wk ? p.weekPoints : 0) + r.learningPoints,
     dayId: day,
-    dayPoints: (p.dayId === day ? (p.dayPoints || 0) : 0) + r.points,
+    dayPoints: (p.dayId === day ? (p.dayPoints || 0) : 0) + r.learningPoints,
   }
   if (r.category !== 'daily') {
     const k = `${r.category}-${r.difficulty}`

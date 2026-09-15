@@ -812,3 +812,115 @@ exports.dailyTopScore = onSchedule(
     });
   }
 );
+
+// ==================== BIBLE QUIZ WEEKLY CHAMPIONS ====================
+
+const QUIZ_ADULT_CATEGORIES = ['ot', 'nt', 'parables', 'people', 'verses', 'miracles', 'geography', 'business', 'morality'];
+
+// ISO week id (Mon-Sun), computed in church time (UTC+0). Matches the client.
+function isoWeekKey(now) {
+  const date = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()));
+  const day = date.getUTCDay() || 7;
+  date.setUTCDate(date.getUTCDate() + 4 - day);
+  const yearStart = new Date(Date.UTC(date.getUTCFullYear(), 0, 1));
+  const week = Math.ceil((((date.getTime() - yearStart.getTime()) / 86400000) + 1) / 7);
+  return `${date.getUTCFullYear()}-W${String(week).padStart(2, '0')}`;
+}
+
+// Kids week id (Sunday-based), church time. Matches the client's kidsWeekKey.
+function kidsWeekKeyUTC(now) {
+  const day = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()));
+  day.setUTCDate(day.getUTCDate() - day.getUTCDay());
+  const yearStart = new Date(Date.UTC(day.getUTCFullYear(), 0, 1));
+  const week = Math.floor((day.getTime() - yearStart.getTime()) / (7 * 86400000)) + 1;
+  return `${day.getUTCFullYear()}-K${String(week).padStart(2, '0')}`;
+}
+
+function frDate(d) {
+  return new Intl.DateTimeFormat('fr-FR', { timeZone: CHURCH_TZ, day: '2-digit', month: '2-digit', year: 'numeric' }).format(d);
+}
+
+async function topOfLeague(db, weekId, league) {
+  const snap = await db.collection('quizWeekly')
+    .where('weekId', '==', weekId).where('league', '==', league)
+    .orderBy('points', 'desc').limit(1).get();
+  if (snap.empty) return null;
+  const v = snap.docs[0].data();
+  if (!(v.points > 0)) return null;
+  return { uid: v.uid, name: (v.name || 'Un membre').toString().slice(0, 60), points: v.points };
+}
+
+// Monday 08:00 church time: snapshot last week's category + grand champions
+// into the Palmarès, bump the grand champion's crown, and announce it.
+exports.weeklyCategoryChampions = onSchedule(
+  { schedule: '0 8 * * 1', timeZone: CHURCH_TZ, region: 'us-central1' },
+  async () => {
+    const db = getFirestore();
+    const yesterday = new Date(Date.now() - 24 * 3600 * 1000);
+    const weekId = isoWeekKey(yesterday);
+    const champRef = db.collection('quizChampions').doc(weekId);
+    if ((await champRef.get()).exists) return; // already recorded
+
+    const grand = await topOfLeague(db, weekId, 'grand');
+    if (!grand) return; // nobody played
+
+    const categories = {};
+    for (const cat of QUIZ_ADULT_CATEGORIES) {
+      const w = await topOfLeague(db, weekId, cat);
+      if (w) categories[cat] = w;
+    }
+
+    await champRef.set({
+      kind: 'adult', weekId, weekLabel: `Semaine du ${frDate(yesterday)}`,
+      endedAt: FieldValue.serverTimestamp(), grand, categories,
+    });
+
+    // The grand champion earns a crown (weeksWon++).
+    try {
+      await db.collection('quizProfiles').doc(grand.uid).set(
+        { weeksWon: FieldValue.increment(1) }, { merge: true });
+    } catch (_e) { /* profile may not exist yet; ignore */ }
+
+    const catCount = Object.keys(categories).length;
+    await broadcastPush(db, {
+      title: '🏆 Champion de la semaine',
+      body: `${grand.name} est le Grand Champion ! Bravo aussi à nos ${catCount} champions par catégorie. Nouvelle semaine, à toi de jouer !`,
+      data: { kind: 'quiz' },
+    });
+  }
+);
+
+// Sunday 08:00 church time: crown the kids champion of the week that just
+// ended (Saturday night) and announce the FULL name for the Sunday-school
+// prize.
+exports.kidsWeeklyChampion = onSchedule(
+  { schedule: '0 8 * * 0', timeZone: CHURCH_TZ, region: 'us-central1' },
+  async () => {
+    const db = getFirestore();
+    const yesterday = new Date(Date.now() - 24 * 3600 * 1000); // Saturday
+    const kidsWeekId = kidsWeekKeyUTC(yesterday);
+    const champRef = db.collection('quizChampions').doc(`kids-${kidsWeekId}`);
+    if ((await champRef.get()).exists) return;
+
+    const snap = await db.collection('quizKids')
+      .where('kidsWeekId', '==', kidsWeekId)
+      .orderBy('points', 'desc').limit(1).get();
+    if (snap.empty) return;
+    const v = snap.docs[0].data();
+    if (!(v.points > 0)) return;
+    const childName = (v.childName || 'Un enfant').toString().slice(0, 60);
+    const parentName = (v.parentName || '').toString().slice(0, 60);
+
+    await champRef.set({
+      kind: 'kids', kidsWeekId, weekLabel: `Semaine du ${frDate(yesterday)}`,
+      endedAt: FieldValue.serverTimestamp(),
+      winner: { uid: v.uid, childName, parentName, points: v.points },
+    });
+
+    await broadcastPush(db, {
+      title: '🎉 Champion du Quiz Enfants',
+      body: `Bravo ${childName} ! Champion des enfants cette semaine. Récompense aujourd'hui à l'école du dimanche. 👏`,
+      data: { kind: 'quiz' },
+    });
+  }
+);

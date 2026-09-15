@@ -652,6 +652,22 @@ const fr = {
   "quiz.championWeek": '🏆 Champion de la semaine',
   "quiz.openBook": 'Bible ouverte',
   "quiz.openBookHint": 'Ouvre ta Bible — prends ton temps',
+  "quiz.kidsTitle": 'Enfants',
+  "quiz.kidsSubtitle": 'Joue, apprends et gagne dimanche !',
+  "quiz.kidNamePrompt": 'Comment tu t\'appelles ?',
+  "quiz.kidNamePlaceholder": 'Ton nom',
+  "quiz.kidNameHint": 'Ton nom apparaît dans le classement des enfants.',
+  "quiz.kidStart": 'On joue',
+  "quiz.kidFriend": 'Ami',
+  "quiz.ranking": 'Classement',
+  "quiz.grand": 'Grand champion',
+  "quiz.weekNote": 'Cette semaine · remis à zéro le lundi',
+  "quiz.kidsWeekNote": 'Cette semaine · gagnant chaque dimanche',
+  "quiz.learningPts": 'nouveaux points appris',
+  "quiz.weeksWon": 'semaines gagnées',
+  "quiz.palmares": 'Palmarès',
+  "quiz.palmaresSub": 'Les champions des semaines passées',
+  "quiz.palmaresEmpty": 'Les premiers champions apparaîtront ici après cette semaine.',
 }
 
 export default fr

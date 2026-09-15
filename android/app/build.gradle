@@ -24,13 +24,17 @@ android {
         // this feature set (no code change vs 110 beyond the version bump).
         // 1.08 (code 112): raise the audio (sermon) upload limit to 100 MB.
         // 1.09 (code 113): Bible quiz game - 1000 bilingual (FR/EN) questions
+        // 1.11 (code 115): quiz leaderboards - weekly reset, a champion per
+        // category plus a Grand Champion, a separate Kids league (name entry,
+        // Sunday winner), learning-based scoring, Palmares, and weekly champion
+        // push notifications.
         // 1.10 (code 114): quiz - labelled Game button with a daily-challenge
         // dot, untimed training mode, daily + top-score push reminders, and an
         // in-app "update available" prompt.
         // across 10 categories, points/levels/badges, daily challenge and a
         // weekly leaderboard. Trophy button in the header.
-        versionCode 114
-        versionName "1.10"
+        versionCode 115
+        versionName "1.11"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         aaptOptions {
              // Files and dirs to omit from the packaged assets dir, modified to accommodate modern web apps.
