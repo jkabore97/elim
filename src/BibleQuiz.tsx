@@ -172,7 +172,7 @@ function HomeScreen({ profile, dailyDone, loading, onClose, onPickCategory, onDa
       )}
 
       <div className="text-center mb-4">
-        <div className="text-5xl mb-1">🏆</div>
+        <div className="text-5xl mb-1 quiz-anim-bounce inline-block">🏆</div>
         <h1 className="text-3xl font-extrabold text-white" translate="no">{t('quiz.title')}</h1>
         <p className="text-on-bg text-sm mt-1">{t('quiz.subtitle')}</p>
       </div>
@@ -204,7 +204,7 @@ function HomeScreen({ profile, dailyDone, loading, onClose, onPickCategory, onDa
       {/* Daily challenge */}
       <button onClick={onDaily} disabled={loading}
         className="w-full text-left rounded-3xl p-4 mb-5 flex items-center gap-3 bg-gradient-to-r from-orange-700 to-amber-700 shadow-lg disabled:opacity-70">
-        <div className="text-3xl shrink-0">⭐</div>
+        <div className="text-3xl shrink-0 quiz-anim-wiggle">⭐</div>
         <div className="flex-1 min-w-0">
           <p className="font-bold text-white">{t('quiz.daily')}</p>
           <p className="text-xs text-white/80">{dailyDone ? `${t('quiz.dailyDone')} ✓` : t('quiz.dailyDesc')}</p>
@@ -348,11 +348,16 @@ function PlayScreen({ questions, difficulty, onQuit, onFinish }: {
       </div>
       <div className="flex items-center justify-between text-white/90 text-sm font-semibold mb-3">
         <span>{t('quiz.question')} {idx + 1} / {questions.length}</span>
-        <span>{tally.points} {t('quiz.pts')}</span>
+        <span className="relative">
+          <span key={tally.points} className="quiz-anim-bump inline-block">{tally.points} {t('quiz.pts')}</span>
+          {answered && gained > 0 && (
+            <span key={`g${idx}`} className="quiz-anim-floatup absolute -top-4 right-0 text-emerald-200 font-extrabold whitespace-nowrap">+{gained}</span>
+          )}
+        </span>
       </div>
 
       {/* Question card */}
-      <div className="glass rounded-3xl p-5 flex-1">
+      <div key={idx} className="glass rounded-3xl p-5 flex-1 quiz-anim-pop">
         <h2 className="text-xl font-extrabold text-slate-800 leading-snug mb-4">{q.text}</h2>
         <div className="space-y-2.5">
           {q.options.map((opt, i) => {
@@ -363,9 +368,14 @@ function PlayScreen({ questions, difficulty, onQuit, onFinish }: {
             if (answered && isCorrect) { cls = 'border-emerald-400 bg-emerald-50'; badge = 'bg-emerald-500 text-white' }
             else if (answered && isPicked && !isCorrect) { cls = 'border-red-400 bg-red-50'; badge = 'bg-red-500 text-white' }
             else if (answered) { cls = 'border-slate-200 bg-white opacity-60' }
+            const anim = !answered
+              ? 'quiz-anim-in'
+              : isCorrect ? 'quiz-anim-correct'
+              : (isPicked ? 'quiz-anim-shake' : '')
             return (
               <button key={i} onClick={() => lockAnswer(i)} disabled={answered}
-                className={`w-full flex items-center gap-3 rounded-2xl border-2 p-3.5 text-left transition ${cls}`}>
+                style={!answered ? { animationDelay: `${i * 70}ms` } : undefined}
+                className={`w-full flex items-center gap-3 rounded-2xl border-2 p-3.5 text-left transition ${cls} ${anim}`}>
                 <span className={`w-8 h-8 rounded-full grid place-items-center font-bold text-sm shrink-0 ${badge}`}>
                   {answered && isCorrect ? <Check size={16} /> : answered && isPicked && !isCorrect ? <X size={16} /> : String.fromCharCode(65 + i)}
                 </span>
@@ -376,7 +386,7 @@ function PlayScreen({ questions, difficulty, onQuit, onFinish }: {
         </div>
 
         {answered && (
-          <div className={`mt-4 rounded-2xl p-3.5 text-sm font-medium ${gained > 0 ? 'bg-emerald-50 text-emerald-800' : 'bg-red-50 text-red-800'}`}>
+          <div className={`mt-4 rounded-2xl p-3.5 text-sm font-medium quiz-anim-in ${gained > 0 ? 'bg-emerald-50 text-emerald-800' : 'bg-red-50 text-red-800'}`}>
             <p className="font-bold mb-0.5">
               {picked === q.correct ? `✅ ${t('quiz.correct')}` : `❌ ${t('quiz.wrong')}`}
               {q.ref ? ` — ${q.ref}` : ''}
@@ -390,12 +400,29 @@ function PlayScreen({ questions, difficulty, onQuit, onFinish }: {
       </div>
 
       {answered && (
-        <button onClick={next} className="mt-4 w-full rounded-2xl bg-gradient-to-r from-orange-700 to-amber-700 text-white font-bold py-4 shadow-lg">
+        <button onClick={next} className="quiz-shine mt-4 w-full rounded-2xl bg-gradient-to-r from-orange-700 to-amber-700 text-white font-bold py-4 shadow-lg">
           {idx + 1 >= questions.length ? t('quiz.seeResults') : t('quiz.next')} →
         </button>
       )}
     </div>
   )
+}
+
+// Smoothly counts a number up from 0 for the results score reveal.
+function useCountUp(target: number, ms = 900): number {
+  const [n, setN] = useState(0)
+  useEffect(() => {
+    let raf = 0
+    const start = performance.now()
+    const tick = (now: number) => {
+      const p = Math.min(1, (now - start) / ms)
+      setN(Math.round(target * (1 - Math.pow(1 - p, 3))))
+      if (p < 1) raf = requestAnimationFrame(tick)
+    }
+    raf = requestAnimationFrame(tick)
+    return () => cancelAnimationFrame(raf)
+  }, [target, ms])
+  return n
 }
 
 // ---- Results ----------------------------------------------------------------
@@ -408,6 +435,7 @@ function ResultsScreen({ result, unlocked, profile, onReplay, onHome, onTrophies
   const medal = stars >= 3 ? '🥇' : stars === 2 ? '🥈' : stars === 1 ? '🥉' : '🎖️'
   const good = result.correct >= result.total / 2
   const lvl = levelProgress(profile.points)
+  const shownPoints = useCountUp(result.points)
 
   async function share() {
     const text = t('quiz.shareText').replace('{score}', String(result.correct)).replace('{total}', String(result.total))
@@ -417,20 +445,25 @@ function ResultsScreen({ result, unlocked, profile, onReplay, onHome, onTrophies
 
   return (
     <div className="px-4 pt-6 pb-10 safe-top text-center relative overflow-hidden">
-      {good && <Confetti />}
+      <PrizeBurst strong={good} />
       <h1 className="text-3xl font-extrabold text-white mb-1">{good ? `${t('quiz.bravo')} 🎉` : t('quiz.goodTry')}</h1>
       <p className="text-on-bg">{result.category === 'daily' ? t('quiz.daily') : t(`quiz.cat.${result.category}` as any)} · <b className="text-white">{result.correct} / {result.total}</b> {t('quiz.rightAnswers')}</p>
 
-      <div className="flex justify-center gap-1 my-4 text-3xl">
-        {[0, 1, 2].map(i => <span key={i} className={i < stars ? '' : 'opacity-25 grayscale'}>⭐</span>)}
+      <div className="flex justify-center gap-1.5 my-4 text-4xl">
+        {[0, 1, 2].map(i => (
+          <span key={i} className={i < stars ? 'quiz-anim-star inline-block' : 'opacity-25 grayscale'} style={{ animationDelay: `${300 + i * 220}ms` }}>⭐</span>
+        ))}
       </div>
 
-      <div className="text-7xl my-3">{medal}</div>
-      <p className="text-2xl font-extrabold text-white mb-4">+ {result.points.toLocaleString()} {t('quiz.points')}</p>
+      <div className="relative w-40 h-40 mx-auto my-2 grid place-items-center">
+        <div className="absolute w-32 h-32 rounded-full bg-amber-300/50 blur-2xl quiz-anim-glow" />
+        <div className="relative text-8xl quiz-anim-medal">{medal}</div>
+      </div>
+      <p className="text-2xl font-extrabold text-white mb-4 quiz-anim-pop">+ {shownPoints.toLocaleString()} {t('quiz.points')}</p>
 
       {unlocked.length > 0 && (
-        <div className="glass rounded-2xl p-4 mb-4 text-left flex items-start gap-3">
-          <div className="text-3xl">{BADGE_EMOJI[unlocked[0]]}</div>
+        <div className="glass rounded-2xl p-4 mb-4 text-left flex items-start gap-3 quiz-anim-badge">
+          <div className="text-3xl quiz-anim-bounce inline-block">{BADGE_EMOJI[unlocked[0]]}</div>
           <div>
             <p className="text-xs font-semibold text-affirm-600 uppercase tracking-wide">{t('quiz.newBadge')}</p>
             <p className="font-bold text-slate-800">{t(`quiz.badge.${unlocked[0]}.name` as any)}</p>
@@ -454,23 +487,34 @@ function ResultsScreen({ result, unlocked, profile, onReplay, onHome, onTrophies
         <button onClick={onReplay} className="glass rounded-2xl py-3.5 font-bold text-affirm-700 flex items-center justify-center gap-2"><RotateCcw size={17} /> {t('quiz.replay')}</button>
         <button onClick={share} className="glass rounded-2xl py-3.5 font-bold text-affirm-700 flex items-center justify-center gap-2"><Share2 size={17} /> {t('quiz.share')}</button>
       </div>
-      <button onClick={onTrophies} className="w-full rounded-2xl bg-gradient-to-r from-orange-700 to-amber-700 text-white font-bold py-3.5 mb-2 flex items-center justify-center gap-2"><Trophy size={17} /> {t('quiz.trophies')}</button>
+      <button onClick={onTrophies} className="quiz-shine w-full rounded-2xl bg-gradient-to-r from-orange-700 to-amber-700 text-white font-bold py-3.5 mb-2 flex items-center justify-center gap-2"><Trophy size={17} /> {t('quiz.trophies')}</button>
       <button onClick={onHome} className="w-full py-2 text-white/80 font-semibold text-sm">{t('quiz.back')}</button>
     </div>
   )
 }
 
-function Confetti() {
-  const bits = useMemo(() => Array.from({ length: 28 }, (_, i) => ({
-    left: Math.random() * 100, delay: Math.random() * 0.6, dur: 1.6 + Math.random() * 1.4,
-    color: ['#fbbf24', '#f97316', '#34d399', '#60a5fa', '#f472b6', '#a78bfa'][i % 6],
-    size: 6 + Math.random() * 6,
-  })), [])
+// Falling ribbons plus prize emoji. `strong` (a good score) makes it rain more
+// and adds trophies/medals; a weaker score still gets a gentle sprinkle.
+function PrizeBurst({ strong }: { strong: boolean }) {
+  const bits = useMemo(() => {
+    const emojis = strong ? ['🎉', '🏆', '⭐', '✨', '🎊', '💫', '🥇'] : ['✨', '⭐']
+    const colors = ['#fbbf24', '#f97316', '#34d399', '#60a5fa', '#f472b6', '#a78bfa']
+    const count = strong ? 40 : 16
+    return Array.from({ length: count }, (_, i) => ({
+      left: Math.random() * 100,
+      delay: Math.random() * 0.9,
+      dur: 1.8 + Math.random() * 1.9,
+      emoji: i % 3 === 0 ? emojis[i % emojis.length] : null,
+      color: colors[i % colors.length],
+      size: 7 + Math.random() * 7,
+    }))
+  }, [strong])
   return (
     <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
-      {bits.map((b, i) => (
-        <span key={i} className="quiz-confetti" style={{ left: `${b.left}%`, animationDelay: `${b.delay}s`, animationDuration: `${b.dur}s`, background: b.color, width: b.size, height: b.size }} />
-      ))}
+      {bits.map((b, i) => b.emoji
+        ? <span key={i} className="quiz-prize" style={{ left: `${b.left}%`, animationDelay: `${b.delay}s`, animationDuration: `${b.dur}s`, fontSize: b.size + 10 }}>{b.emoji}</span>
+        : <span key={i} className="quiz-prize" style={{ left: `${b.left}%`, animationDelay: `${b.delay}s`, animationDuration: `${b.dur}s`, background: b.color, width: b.size, height: b.size, borderRadius: 2, display: 'inline-block' }} />
+      )}
     </div>
   )
 }

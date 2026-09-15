@@ -608,3 +608,131 @@ video, audio {
 @media (prefers-reduced-motion: reduce) {
   .quiz-confetti { display: none; }
 }
+
+/* ---- Bible quiz: joyful animations -----------------------------------------
+   All transform/opacity only (compositor-friendly), and every one is disabled
+   under prefers-reduced-motion at the end of this block. */
+@keyframes quizPop {
+  0% { transform: scale(0.9); opacity: 0; }
+  60% { transform: scale(1.02); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+.quiz-anim-pop { animation: quizPop .32s cubic-bezier(.2,.8,.2,1) both; }
+
+@keyframes quizSlideUp {
+  0% { transform: translateY(14px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+.quiz-anim-in { animation: quizSlideUp .38s cubic-bezier(.2,.8,.2,1) both; }
+
+@keyframes quizCorrectPop {
+  0% { transform: scale(1); }
+  35% { transform: scale(1.05); }
+  70% { transform: scale(0.99); }
+  100% { transform: scale(1); }
+}
+.quiz-anim-correct { animation: quizCorrectPop .5s ease-out both; }
+
+@keyframes quizShake {
+  0%,100% { transform: translateX(0); }
+  20% { transform: translateX(-7px); }
+  40% { transform: translateX(6px); }
+  60% { transform: translateX(-4px); }
+  80% { transform: translateX(3px); }
+}
+.quiz-anim-shake { animation: quizShake .42s ease-in-out both; }
+
+@keyframes quizFloatUp {
+  0% { transform: translateY(6px) scale(.9); opacity: 0; }
+  25% { transform: translateY(-2px) scale(1.05); opacity: 1; }
+  75% { opacity: 1; }
+  100% { transform: translateY(-34px) scale(1); opacity: 0; }
+}
+.quiz-anim-floatup { animation: quizFloatUp 1.1s ease-out both; }
+
+@keyframes quizScoreBump {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.25); color: #16a34a; }
+  100% { transform: scale(1); }
+}
+.quiz-anim-bump { animation: quizScoreBump .45s ease-out; }
+
+@keyframes quizStarPop {
+  0% { transform: scale(0) rotate(-40deg); opacity: 0; }
+  60% { transform: scale(1.3) rotate(8deg); opacity: 1; }
+  100% { transform: scale(1) rotate(0); opacity: 1; }
+}
+.quiz-anim-star { animation: quizStarPop .5s cubic-bezier(.2,.9,.3,1.4) both; }
+
+@keyframes quizMedalIn {
+  0% { transform: scale(0) rotate(-180deg); opacity: 0; }
+  55% { transform: scale(1.18) rotate(12deg); opacity: 1; }
+  75% { transform: scale(0.94) rotate(-6deg); }
+  100% { transform: scale(1) rotate(0); opacity: 1; }
+}
+.quiz-anim-medal { animation: quizMedalIn .8s cubic-bezier(.2,.8,.25,1.2) both; }
+
+/* Pulsing halo behind the medal / prize. */
+@keyframes quizGlow {
+  0%,100% { transform: scale(1); opacity: .55; }
+  50% { transform: scale(1.12); opacity: .9; }
+}
+.quiz-anim-glow { animation: quizGlow 1.8s ease-in-out infinite; }
+
+@keyframes quizBadgeIn {
+  0% { transform: scale(0.6) translateY(10px); opacity: 0; }
+  60% { transform: scale(1.06) translateY(0); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+.quiz-anim-badge { animation: quizBadgeIn .6s cubic-bezier(.2,.8,.25,1.3) .15s both; }
+
+/* Gentle idle motion for the home hero + daily star. */
+@keyframes quizBounceSoft {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-7px); }
+}
+.quiz-anim-bounce { animation: quizBounceSoft 2.6s ease-in-out infinite; }
+
+@keyframes quizWiggle {
+  0%,92%,100% { transform: rotate(0); }
+  94% { transform: rotate(-14deg); }
+  96% { transform: rotate(12deg); }
+  98% { transform: rotate(-8deg); }
+}
+.quiz-anim-wiggle { animation: quizWiggle 3.4s ease-in-out infinite; transform-origin: 50% 80%; }
+
+/* Prize burst: emoji + ribbons raining from the top on the results screen. */
+.quiz-prize {
+  position: absolute;
+  top: -24px;
+  will-change: transform, opacity;
+  animation-name: quizPrizeFall;
+  animation-timing-function: cubic-bezier(.3,.4,.5,1);
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+@keyframes quizPrizeFall {
+  0% { transform: translateY(0) rotate(0); opacity: 0; }
+  10% { opacity: 1; }
+  100% { transform: translateY(112vh) rotate(400deg); opacity: 0.95; }
+}
+
+/* Shine sweep across the primary buttons. */
+@keyframes quizShine {
+  0% { transform: translateX(-120%) skewX(-18deg); }
+  100% { transform: translateX(320%) skewX(-18deg); }
+}
+.quiz-shine { position: relative; overflow: hidden; }
+.quiz-shine::after {
+  content: ""; position: absolute; top: 0; bottom: 0; width: 40%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.45), transparent);
+  animation: quizShine 2.6s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .quiz-anim-pop, .quiz-anim-in, .quiz-anim-correct, .quiz-anim-shake,
+  .quiz-anim-floatup, .quiz-anim-bump, .quiz-anim-star, .quiz-anim-medal,
+  .quiz-anim-glow, .quiz-anim-badge, .quiz-anim-bounce, .quiz-anim-wiggle,
+  .quiz-prize { animation: none !important; }
+  .quiz-shine::after { display: none; }
+}
