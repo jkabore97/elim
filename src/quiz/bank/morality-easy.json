@@ -1,0 +1,2702 @@
+[
+ {
+  "id": "morality-easy-001",
+  "ref": {
+   "fr": "Exode 20:12",
+   "en": "Exodus 20:12"
+  },
+  "fr": {
+   "q": "Quel commandement dit d’honorer son père et sa mère ?",
+   "options": [
+    "Honore ton père et ta mère",
+    "Tu ne tueras point",
+    "Tu ne voleras point",
+    "Tu ne mentiras point"
+   ],
+   "explain": "« Honore ton père et ta mère. » (Exode 20:12)"
+  },
+  "en": {
+   "q": "Which commandment says to honor your father and mother?",
+   "options": [
+    "Honor your father and your mother",
+    "You shall not kill",
+    "You shall not steal",
+    "You shall not lie"
+   ],
+   "explain": "“Honor your father and your mother.” (Exodus 20:12)"
+  }
+ },
+ {
+  "id": "morality-easy-002",
+  "ref": {
+   "fr": "Exode 20:13",
+   "en": "Exodus 20:13"
+  },
+  "fr": {
+   "q": "Complète le commandement : « Tu ne… point. »",
+   "options": [
+    "tueras",
+    "chanteras",
+    "dormiras",
+    "marcheras"
+   ],
+   "explain": "« Tu ne tueras point. » (Exode 20:13)"
+  },
+  "en": {
+   "q": "Complete the commandment: “You shall not…”",
+   "options": [
+    "kill",
+    "sing",
+    "sleep",
+    "walk"
+   ],
+   "explain": "“You shall not kill.” (Exodus 20:13)"
+  }
+ },
+ {
+  "id": "morality-easy-003",
+  "ref": {
+   "fr": "Exode 20:15",
+   "en": "Exodus 20:15"
+  },
+  "fr": {
+   "q": "Que dit le huitième commandement au sujet du bien d’autrui ?",
+   "options": [
+    "Tu ne voleras point",
+    "Tu ne mentiras point",
+    "Tu ne tueras point",
+    "Tu ne convoiteras point"
+   ],
+   "explain": "« Tu ne déroberas point. » (Exode 20:15)"
+  },
+  "en": {
+   "q": "What does the eighth commandment say about others’ property?",
+   "options": [
+    "You shall not steal",
+    "You shall not lie",
+    "You shall not kill",
+    "You shall not covet"
+   ],
+   "explain": "“You shall not steal.” (Exodus 20:15)"
+  }
+ },
+ {
+  "id": "morality-easy-004",
+  "ref": {
+   "fr": "Exode 20:16",
+   "en": "Exodus 20:16"
+  },
+  "fr": {
+   "q": "Quel commandement interdit le faux témoignage ?",
+   "options": [
+    "Tu ne porteras point de faux témoignage",
+    "Tu ne voleras point",
+    "Tu ne tueras point",
+    "Souviens-toi du sabbat"
+   ],
+   "explain": "« Tu ne porteras point de faux témoignage. » (Exode 20:16)"
+  },
+  "en": {
+   "q": "Which commandment forbids false witness?",
+   "options": [
+    "You shall not bear false witness",
+    "You shall not steal",
+    "You shall not kill",
+    "Remember the Sabbath"
+   ],
+   "explain": "“You shall not bear false witness.” (Exodus 20:16)"
+  }
+ },
+ {
+  "id": "morality-easy-005",
+  "ref": {
+   "fr": "Exode 20:3",
+   "en": "Exodus 20:3"
+  },
+  "fr": {
+   "q": "Que déclare le premier commandement au sujet des dieux ?",
+   "options": [
+    "Tu n’auras pas d’autres dieux devant moi",
+    "Honore tes parents",
+    "Ne vole pas",
+    "Repose-toi le sabbat"
+   ],
+   "explain": "« Tu n’auras pas d’autres dieux devant ma face. » (Exode 20:3)"
+  },
+  "en": {
+   "q": "What does the first commandment declare about other gods?",
+   "options": [
+    "You shall have no other gods before me",
+    "Honor your parents",
+    "Do not steal",
+    "Rest on the Sabbath"
+   ],
+   "explain": "“You shall have no other gods before me.” (Exodus 20:3)"
+  }
+ },
+ {
+  "id": "morality-easy-006",
+  "ref": {
+   "fr": "Exode 20:7",
+   "en": "Exodus 20:7"
+  },
+  "fr": {
+   "q": "Que ne faut-il pas faire du nom de l’Éternel ?",
+   "options": [
+    "Le prendre en vain",
+    "L’écrire",
+    "Le chanter",
+    "Le prononcer"
+   ],
+   "explain": "« Tu ne prendras point le nom de l’Éternel en vain. » (Exode 20:7)"
+  },
+  "en": {
+   "q": "What must you not do with the name of the LORD?",
+   "options": [
+    "Take it in vain",
+    "Write it",
+    "Sing it",
+    "Say it aloud"
+   ],
+   "explain": "“You shall not take the name of the LORD in vain.” (Exodus 20:7)"
+  }
+ },
+ {
+  "id": "morality-easy-007",
+  "ref": {
+   "fr": "Exode 20:8",
+   "en": "Exodus 20:8"
+  },
+  "fr": {
+   "q": "De quel jour faut-il se souvenir pour le sanctifier ?",
+   "options": [
+    "Le jour du sabbat",
+    "Le premier jour",
+    "Le jour de la fête",
+    "Le jour du marché"
+   ],
+   "explain": "« Souviens-toi du jour du repos, pour le sanctifier. » (Exode 20:8)"
+  },
+  "en": {
+   "q": "Which day are we to remember and keep holy?",
+   "options": [
+    "The Sabbath day",
+    "The first day",
+    "The feast day",
+    "The market day"
+   ],
+   "explain": "“Remember the Sabbath day, to keep it holy.” (Exodus 20:8)"
+  }
+ },
+ {
+  "id": "morality-easy-008",
+  "ref": {
+   "fr": "Exode 20:14",
+   "en": "Exodus 20:14"
+  },
+  "fr": {
+   "q": "Quel commandement protège la fidélité dans le mariage ?",
+   "options": [
+    "Tu ne commettras point d’adultère",
+    "Tu ne voleras point",
+    "Tu ne mentiras point",
+    "Tu ne convoiteras point"
+   ],
+   "explain": "« Tu ne commettras point d’adultère. » (Exode 20:14)"
+  },
+  "en": {
+   "q": "Which commandment protects faithfulness in marriage?",
+   "options": [
+    "You shall not commit adultery",
+    "You shall not steal",
+    "You shall not lie",
+    "You shall not covet"
+   ],
+   "explain": "“You shall not commit adultery.” (Exodus 20:14)"
+  }
+ },
+ {
+  "id": "morality-easy-009",
+  "ref": {
+   "fr": "Exode 20:17",
+   "en": "Exodus 20:17"
+  },
+  "fr": {
+   "q": "Quel commandement interdit de désirer ce qui est à autrui ?",
+   "options": [
+    "Tu ne convoiteras point",
+    "Tu ne tueras point",
+    "Honore tes parents",
+    "Ne mens pas"
+   ],
+   "explain": "« Tu ne convoiteras point la maison de ton prochain. » (Exode 20:17)"
+  },
+  "en": {
+   "q": "Which commandment forbids desiring what belongs to others?",
+   "options": [
+    "You shall not covet",
+    "You shall not kill",
+    "Honor your parents",
+    "Do not lie"
+   ],
+   "explain": "“You shall not covet your neighbor’s house.” (Exodus 20:17)"
+  }
+ },
+ {
+  "id": "morality-easy-010",
+  "ref": {
+   "fr": "Exode 20",
+   "en": "Exodus 20"
+  },
+  "fr": {
+   "q": "Combien de commandements Dieu grava-t-il sur les tables de pierre ?",
+   "options": [
+    "Dix",
+    "Sept",
+    "Douze",
+    "Trois"
+   ],
+   "explain": "Dieu donna les dix commandements au Sinaï. (Exode 20)"
+  },
+  "en": {
+   "q": "How many commandments did God write on the stone tablets?",
+   "options": [
+    "Ten",
+    "Seven",
+    "Twelve",
+    "Three"
+   ],
+   "explain": "God gave the Ten Commandments at Sinai. (Exodus 20)"
+  }
+ },
+ {
+  "id": "morality-easy-011",
+  "ref": {
+   "fr": "Matthieu 22:37",
+   "en": "Matthew 22:37"
+  },
+  "fr": {
+   "q": "Quel est le plus grand commandement selon Jésus ?",
+   "options": [
+    "Aimer Dieu de tout son cœur",
+    "Jeûner souvent",
+    "Donner la dîme",
+    "Garder le silence"
+   ],
+   "explain": "« Tu aimeras le Seigneur, ton Dieu, de tout ton cœur. » (Matthieu 22:37)"
+  },
+  "en": {
+   "q": "What is the greatest commandment according to Jesus?",
+   "options": [
+    "Love God with all your heart",
+    "Fast often",
+    "Give the tithe",
+    "Keep silent"
+   ],
+   "explain": "“You shall love the Lord your God with all your heart.” (Matthew 22:37)"
+  }
+ },
+ {
+  "id": "morality-easy-012",
+  "ref": {
+   "fr": "Matthieu 22:39",
+   "en": "Matthew 22:39"
+  },
+  "fr": {
+   "q": "Complète : « Tu aimeras ton prochain comme… »",
+   "options": [
+    "toi-même",
+    "ton père",
+    "un roi",
+    "un ami"
+   ],
+   "explain": "« Tu aimeras ton prochain comme toi-même. » (Matthieu 22:39)"
+  },
+  "en": {
+   "q": "Complete: “You shall love your neighbor as…”",
+   "options": [
+    "yourself",
+    "your father",
+    "a king",
+    "a friend"
+   ],
+   "explain": "“You shall love your neighbor as yourself.” (Matthew 22:39)"
+  }
+ },
+ {
+  "id": "morality-easy-013",
+  "ref": {
+   "fr": "Marc 12:30-31",
+   "en": "Mark 12:30-31"
+  },
+  "fr": {
+   "q": "Sur quoi Jésus dit-il que reposent toute la loi et les prophètes ?",
+   "options": [
+    "Aimer Dieu et aimer son prochain",
+    "Le jeûne et la prière",
+    "Les sacrifices",
+    "La circoncision"
+   ],
+   "explain": "Aimer Dieu et son prochain résume toute la loi. (Marc 12:30-31)"
+  },
+  "en": {
+   "q": "On what does Jesus say all the Law and Prophets rest?",
+   "options": [
+    "Loving God and loving your neighbor",
+    "Fasting and prayer",
+    "Sacrifices",
+    "Circumcision"
+   ],
+   "explain": "Loving God and neighbor sums up the whole law. (Mark 12:30-31)"
+  }
+ },
+ {
+  "id": "morality-easy-014",
+  "ref": {
+   "fr": "Matthieu 5:39",
+   "en": "Matthew 5:39"
+  },
+  "fr": {
+   "q": "Que dit Jésus de faire si quelqu’un te frappe sur la joue droite ?",
+   "options": [
+    "Présente aussi l’autre",
+    "Rends le coup",
+    "Fuis en criant",
+    "Appelle la garde"
+   ],
+   "explain": "« Présente-lui aussi l’autre joue. » (Matthieu 5:39)"
+  },
+  "en": {
+   "q": "What does Jesus say to do if someone strikes your right cheek?",
+   "options": [
+    "Turn the other also",
+    "Strike back",
+    "Run away shouting",
+    "Call the guard"
+   ],
+   "explain": "“Turn to him the other also.” (Matthew 5:39)"
+  }
+ },
+ {
+  "id": "morality-easy-015",
+  "ref": {
+   "fr": "Matthieu 5:44",
+   "en": "Matthew 5:44"
+  },
+  "fr": {
+   "q": "Que Jésus nous demande-t-il de faire envers nos ennemis ?",
+   "options": [
+    "Les aimer et prier pour eux",
+    "Les éviter toujours",
+    "Se venger d’eux",
+    "Les maudire"
+   ],
+   "explain": "« Aimez vos ennemis, priez pour ceux qui vous persécutent. » (Matthieu 5:44)"
+  },
+  "en": {
+   "q": "What does Jesus ask us to do toward our enemies?",
+   "options": [
+    "Love them and pray for them",
+    "Always avoid them",
+    "Take revenge on them",
+    "Curse them"
+   ],
+   "explain": "“Love your enemies, pray for those who persecute you.” (Matthew 5:44)"
+  }
+ },
+ {
+  "id": "morality-easy-016",
+  "ref": {
+   "fr": "Matthieu 7:12",
+   "en": "Matthew 7:12"
+  },
+  "fr": {
+   "q": "Selon la règle d’or, comment traiter les autres ?",
+   "options": [
+    "Comme tu veux qu’ils te traitent",
+    "Selon leur richesse",
+    "Selon leur mérite",
+    "Selon leur tribu"
+   ],
+   "explain": "« Faites pour les autres ce que vous voulez qu’ils fassent pour vous. » (Matthieu 7:12)"
+  },
+  "en": {
+   "q": "By the Golden Rule, how should we treat others?",
+   "options": [
+    "As you want them to treat you",
+    "According to their wealth",
+    "According to their merit",
+    "According to their tribe"
+   ],
+   "explain": "“Do to others what you want them to do to you.” (Matthew 7:12)"
+  }
+ },
+ {
+  "id": "morality-easy-017",
+  "ref": {
+   "fr": "Matthieu 7:1",
+   "en": "Matthew 7:1"
+  },
+  "fr": {
+   "q": "Complète l’enseignement de Jésus : « Ne jugez point, afin que… »",
+   "options": [
+    "vous ne soyez point jugés",
+    "vous soyez riches",
+    "vous soyez forts",
+    "vous soyez craints"
+   ],
+   "explain": "« Ne jugez point, afin que vous ne soyez point jugés. » (Matthieu 7:1)"
+  },
+  "en": {
+   "q": "Complete Jesus’ teaching: “Do not judge, so that…”",
+   "options": [
+    "you may not be judged",
+    "you may be rich",
+    "you may be strong",
+    "you may be feared"
+   ],
+   "explain": "“Do not judge, so that you may not be judged.” (Matthew 7:1)"
+  }
+ },
+ {
+  "id": "morality-easy-018",
+  "ref": {
+   "fr": "Matthieu 5:9",
+   "en": "Matthew 5:9"
+  },
+  "fr": {
+   "q": "Selon les Béatitudes, qui sera appelé enfant de Dieu ?",
+   "options": [
+    "Ceux qui procurent la paix",
+    "Les riches",
+    "Les puissants",
+    "Les savants"
+   ],
+   "explain": "« Heureux ceux qui procurent la paix ! » (Matthieu 5:9)"
+  },
+  "en": {
+   "q": "In the Beatitudes, who will be called children of God?",
+   "options": [
+    "The peacemakers",
+    "The rich",
+    "The powerful",
+    "The learned"
+   ],
+   "explain": "“Blessed are the peacemakers.” (Matthew 5:9)"
+  }
+ },
+ {
+  "id": "morality-easy-019",
+  "ref": {
+   "fr": "Matthieu 5:7",
+   "en": "Matthew 5:7"
+  },
+  "fr": {
+   "q": "Selon les Béatitudes, qui obtiendra miséricorde ?",
+   "options": [
+    "Les miséricordieux",
+    "Les orgueilleux",
+    "Les violents",
+    "Les riches"
+   ],
+   "explain": "« Heureux les miséricordieux, car ils obtiendront miséricorde ! » (Matthieu 5:7)"
+  },
+  "en": {
+   "q": "In the Beatitudes, who will obtain mercy?",
+   "options": [
+    "The merciful",
+    "The proud",
+    "The violent",
+    "The rich"
+   ],
+   "explain": "“Blessed are the merciful, for they shall obtain mercy.” (Matthew 5:7)"
+  }
+ },
+ {
+  "id": "morality-easy-020",
+  "ref": {
+   "fr": "Matthieu 5:8",
+   "en": "Matthew 5:8"
+  },
+  "fr": {
+   "q": "Selon les Béatitudes, qui verra Dieu ?",
+   "options": [
+    "Ceux qui ont le cœur pur",
+    "Les forts",
+    "Les orgueilleux",
+    "Les riches"
+   ],
+   "explain": "« Heureux ceux qui ont le cœur pur, car ils verront Dieu ! » (Matthieu 5:8)"
+  },
+  "en": {
+   "q": "In the Beatitudes, who will see God?",
+   "options": [
+    "The pure in heart",
+    "The strong",
+    "The proud",
+    "The rich"
+   ],
+   "explain": "“Blessed are the pure in heart, for they shall see God.” (Matthew 5:8)"
+  }
+ },
+ {
+  "id": "morality-easy-021",
+  "ref": {
+   "fr": "Matthieu 5:16",
+   "en": "Matthew 5:16"
+  },
+  "fr": {
+   "q": "Que Jésus veut-il que notre lumière fasse devant les hommes ?",
+   "options": [
+    "Qu’elle luise pour de bonnes œuvres",
+    "Qu’elle reste cachée",
+    "Qu’elle brille pour la gloire humaine",
+    "Qu’elle s’éteigne"
+   ],
+   "explain": "« Que votre lumière luise devant les hommes. » (Matthieu 5:16)"
+  },
+  "en": {
+   "q": "What does Jesus want our light to do before others?",
+   "options": [
+    "Shine through good works",
+    "Stay hidden",
+    "Shine for human praise",
+    "Go out"
+   ],
+   "explain": "“Let your light shine before men.” (Matthew 5:16)"
+  }
+ },
+ {
+  "id": "morality-easy-022",
+  "ref": {
+   "fr": "Matthieu 6:24",
+   "en": "Matthew 6:24"
+  },
+  "fr": {
+   "q": "Selon Jésus, on ne peut servir Dieu et…",
+   "options": [
+    "Mamon (l’argent)",
+    "Sa famille",
+    "Son travail",
+    "Le roi"
+   ],
+   "explain": "« Vous ne pouvez servir Dieu et Mamon. » (Matthieu 6:24)"
+  },
+  "en": {
+   "q": "According to Jesus, you cannot serve God and…",
+   "options": [
+    "Mammon (money)",
+    "Your family",
+    "Your work",
+    "The king"
+   ],
+   "explain": "“You cannot serve God and mammon.” (Matthew 6:24)"
+  }
+ },
+ {
+  "id": "morality-easy-023",
+  "ref": {
+   "fr": "Matthieu 6:33",
+   "en": "Matthew 6:33"
+  },
+  "fr": {
+   "q": "Que Jésus dit-il de chercher premièrement ?",
+   "options": [
+    "Le royaume de Dieu et sa justice",
+    "La richesse",
+    "La renommée",
+    "Le pouvoir"
+   ],
+   "explain": "« Cherchez premièrement le royaume et la justice de Dieu. » (Matthieu 6:33)"
+  },
+  "en": {
+   "q": "What does Jesus say to seek first?",
+   "options": [
+    "The kingdom of God and his righteousness",
+    "Wealth",
+    "Fame",
+    "Power"
+   ],
+   "explain": "“Seek first the kingdom of God and his righteousness.” (Matthew 6:33)"
+  }
+ },
+ {
+  "id": "morality-easy-024",
+  "ref": {
+   "fr": "Matthieu 6:14",
+   "en": "Matthew 6:14"
+  },
+  "fr": {
+   "q": "Que faut-il faire aux autres pour que Dieu nous pardonne ?",
+   "options": [
+    "Leur pardonner leurs offenses",
+    "Les corriger",
+    "Les oublier",
+    "Les juger"
+   ],
+   "explain": "« Si vous pardonnez aux hommes, votre Père vous pardonnera. » (Matthieu 6:14)"
+  },
+  "en": {
+   "q": "What must we do to others so God forgives us?",
+   "options": [
+    "Forgive their offenses",
+    "Correct them",
+    "Forget them",
+    "Judge them"
+   ],
+   "explain": "“If you forgive men, your Father will forgive you.” (Matthew 6:14)"
+  }
+ },
+ {
+  "id": "morality-easy-025",
+  "ref": {
+   "fr": "Matthieu 5:22",
+   "en": "Matthew 5:22"
+  },
+  "fr": {
+   "q": "Contre quoi Jésus met-il en garde à propos de son frère ?",
+   "options": [
+    "Se mettre en colère sans raison",
+    "Lui parler",
+    "Le visiter",
+    "Le nourrir"
+   ],
+   "explain": "« Quiconque se met en colère contre son frère mérite le jugement. » (Matthieu 5:22)"
+  },
+  "en": {
+   "q": "What does Jesus warn against regarding one’s brother?",
+   "options": [
+    "Being angry without cause",
+    "Speaking to him",
+    "Visiting him",
+    "Feeding him"
+   ],
+   "explain": "“Whoever is angry with his brother is liable to judgment.” (Matthew 5:22)"
+  }
+ },
+ {
+  "id": "morality-easy-026",
+  "ref": {
+   "fr": "Matthieu 5:24",
+   "en": "Matthew 5:24"
+  },
+  "fr": {
+   "q": "Avant d’offrir son don, que faut-il faire selon Jésus ?",
+   "options": [
+    "Se réconcilier avec son frère",
+    "Payer une amende",
+    "Attendre le sabbat",
+    "Prier plus fort"
+   ],
+   "explain": "« Va d’abord te réconcilier avec ton frère. » (Matthieu 5:24)"
+  },
+  "en": {
+   "q": "Before offering your gift, what does Jesus say to do?",
+   "options": [
+    "Be reconciled with your brother",
+    "Pay a fine",
+    "Wait for the Sabbath",
+    "Pray louder"
+   ],
+   "explain": "“First be reconciled to your brother.” (Matthew 5:24)"
+  }
+ },
+ {
+  "id": "morality-easy-027",
+  "ref": {
+   "fr": "Matthieu 7:3",
+   "en": "Matthew 7:3"
+  },
+  "fr": {
+   "q": "De quoi Jésus parle-t-il quand on voit le défaut du frère mais pas le sien ?",
+   "options": [
+    "La paille et la poutre",
+    "Le sel et la lumière",
+    "Le loup et la brebis",
+    "Le blé et l’ivraie"
+   ],
+   "explain": "« Pourquoi vois-tu la paille... et la poutre dans ton œil ? » (Matthieu 7:3)"
+  },
+  "en": {
+   "q": "What image does Jesus use for seeing others’ faults but not our own?",
+   "options": [
+    "The speck and the beam",
+    "The salt and the light",
+    "The wolf and the sheep",
+    "The wheat and the weeds"
+   ],
+   "explain": "“Why do you see the speck... but not the beam in your own eye?” (Matthew 7:3)"
+  }
+ },
+ {
+  "id": "morality-easy-028",
+  "ref": {
+   "fr": "Matthieu 5:37",
+   "en": "Matthew 5:37"
+  },
+  "fr": {
+   "q": "Complète l’enseignement de Jésus sur la parole vraie : « Que votre oui soit… »",
+   "options": [
+    "oui, et votre non, non",
+    "toujours prudent",
+    "accompagné d’un serment",
+    "écrit et signé"
+   ],
+   "explain": "« Que votre parole soit oui, oui, non, non. » (Matthieu 5:37)"
+  },
+  "en": {
+   "q": "Complete Jesus’ teaching on truthful speech: “Let your yes be…”",
+   "options": [
+    "yes, and your no, no",
+    "always cautious",
+    "backed by an oath",
+    "written and signed"
+   ],
+   "explain": "“Let your yes be yes, and your no, no.” (Matthew 5:37)"
+  }
+ },
+ {
+  "id": "morality-easy-029",
+  "ref": {
+   "fr": "Matthieu 6:3",
+   "en": "Matthew 6:3"
+  },
+  "fr": {
+   "q": "Comment Jésus dit-il de faire l’aumône ?",
+   "options": [
+    "En secret, sans le publier",
+    "Devant la foule",
+    "À son de trompette",
+    "Une fois par an"
+   ],
+   "explain": "« Que ta main gauche ne sache pas ce que fait ta droite. » (Matthieu 6:3)"
+  },
+  "en": {
+   "q": "How does Jesus say to give to the needy?",
+   "options": [
+    "In secret, without display",
+    "Before the crowd",
+    "With a trumpet",
+    "Once a year"
+   ],
+   "explain": "“Do not let your left hand know what your right hand does.” (Matthew 6:3)"
+  }
+ },
+ {
+  "id": "morality-easy-030",
+  "ref": {
+   "fr": "Galates 5:22",
+   "en": "Galatians 5:22"
+  },
+  "fr": {
+   "q": "Quel est le premier fruit de l’Esprit cité par Paul ?",
+   "options": [
+    "L’amour",
+    "La richesse",
+    "La force",
+    "La renommée"
+   ],
+   "explain": "« Le fruit de l’Esprit, c’est l’amour, la joie, la paix... » (Galates 5:22)"
+  },
+  "en": {
+   "q": "What is the first fruit of the Spirit Paul lists?",
+   "options": [
+    "Love",
+    "Wealth",
+    "Strength",
+    "Fame"
+   ],
+   "explain": "“The fruit of the Spirit is love, joy, peace...” (Galatians 5:22)"
+  }
+ },
+ {
+  "id": "morality-easy-031",
+  "ref": {
+   "fr": "Galates 5:22-23",
+   "en": "Galatians 5:22-23"
+  },
+  "fr": {
+   "q": "Laquelle de ces qualités fait partie du fruit de l’Esprit ?",
+   "options": [
+    "La patience",
+    "L’orgueil",
+    "La colère",
+    "La jalousie"
+   ],
+   "explain": "Le fruit de l’Esprit inclut la patience. (Galates 5:22-23)"
+  },
+  "en": {
+   "q": "Which of these is part of the fruit of the Spirit?",
+   "options": [
+    "Patience",
+    "Pride",
+    "Anger",
+    "Jealousy"
+   ],
+   "explain": "The fruit of the Spirit includes patience. (Galatians 5:22-23)"
+  }
+ },
+ {
+  "id": "morality-easy-032",
+  "ref": {
+   "fr": "Galates 5:23",
+   "en": "Galatians 5:23"
+  },
+  "fr": {
+   "q": "Quelle maîtrise fait partie du fruit de l’Esprit ?",
+   "options": [
+    "La tempérance (maîtrise de soi)",
+    "La domination",
+    "La ruse",
+    "La force"
+   ],
+   "explain": "Le fruit de l’Esprit comprend la tempérance. (Galates 5:23)"
+  },
+  "en": {
+   "q": "What self-mastery is part of the fruit of the Spirit?",
+   "options": [
+    "Self-control",
+    "Domination",
+    "Cunning",
+    "Force"
+   ],
+   "explain": "The fruit of the Spirit includes self-control. (Galatians 5:23)"
+  }
+ },
+ {
+  "id": "morality-easy-033",
+  "ref": {
+   "fr": "Matthieu 18:22",
+   "en": "Matthew 18:22"
+  },
+  "fr": {
+   "q": "Combien de fois faut-il pardonner selon la réponse de Jésus à Pierre ?",
+   "options": [
+    "Soixante-dix fois sept fois",
+    "Sept fois",
+    "Trois fois",
+    "Une seule fois"
+   ],
+   "explain": "« Jusqu’à soixante-dix fois sept fois. » (Matthieu 18:22)"
+  },
+  "en": {
+   "q": "How many times should we forgive, per Jesus’ answer to Peter?",
+   "options": [
+    "Seventy times seven",
+    "Seven times",
+    "Three times",
+    "Only once"
+   ],
+   "explain": "“Seventy times seven.” (Matthew 18:22)"
+  }
+ },
+ {
+  "id": "morality-easy-034",
+  "ref": {
+   "fr": "Éphésiens 4:32",
+   "en": "Ephesians 4:32"
+  },
+  "fr": {
+   "q": "Comment devons-nous nous pardonner, selon Paul ?",
+   "options": [
+    "Comme Dieu nous a pardonné en Christ",
+    "Après un long délai",
+    "Contre paiement",
+    "Seulement à nos proches"
+   ],
+   "explain": "« Pardonnez-vous... comme Dieu vous a pardonné en Christ. » (Éphésiens 4:32)"
+  },
+  "en": {
+   "q": "How should we forgive one another, per Paul?",
+   "options": [
+    "As God forgave us in Christ",
+    "After a long delay",
+    "For a payment",
+    "Only our close ones"
+   ],
+   "explain": "“Forgiving one another, as God forgave you in Christ.” (Ephesians 4:32)"
+  }
+ },
+ {
+  "id": "morality-easy-035",
+  "ref": {
+   "fr": "Colossiens 3:13",
+   "en": "Colossians 3:13"
+  },
+  "fr": {
+   "q": "Que faut-il faire si l’on a un sujet de plainte contre autrui ?",
+   "options": [
+    "Se pardonner mutuellement",
+    "Garder rancune",
+    "Se plaindre publiquement",
+    "Rompre pour toujours"
+   ],
+   "explain": "« Pardonnez-vous réciproquement... comme le Seigneur. » (Colossiens 3:13)"
+  },
+  "en": {
+   "q": "What should we do if we have a complaint against another?",
+   "options": [
+    "Forgive one another",
+    "Hold a grudge",
+    "Complain publicly",
+    "Break off forever"
+   ],
+   "explain": "“Forgive one another... as the Lord did.” (Colossians 3:13)"
+  }
+ },
+ {
+  "id": "morality-easy-036",
+  "ref": {
+   "fr": "Proverbes 12:22",
+   "en": "Proverbs 12:22"
+  },
+  "fr": {
+   "q": "Qu’est-ce qui est en abomination à l’Éternel selon ce proverbe ?",
+   "options": [
+    "Les lèvres menteuses",
+    "Les mains qui donnent",
+    "Les yeux qui pleurent",
+    "Les pieds qui courent"
+   ],
+   "explain": "« Les lèvres fausses sont en horreur à l’Éternel. » (Proverbes 12:22)"
+  },
+  "en": {
+   "q": "What is an abomination to the LORD in this proverb?",
+   "options": [
+    "Lying lips",
+    "Giving hands",
+    "Weeping eyes",
+    "Running feet"
+   ],
+   "explain": "“Lying lips are an abomination to the LORD.” (Proverbs 12:22)"
+  }
+ },
+ {
+  "id": "morality-easy-037",
+  "ref": {
+   "fr": "Colossiens 3:9",
+   "en": "Colossians 3:9"
+  },
+  "fr": {
+   "q": "Que Paul demande-t-il aux croyants au sujet du mensonge ?",
+   "options": [
+    "Ne pas se mentir les uns aux autres",
+    "Mentir avec prudence",
+    "Mentir aux étrangers",
+    "Se taire toujours"
+   ],
+   "explain": "« Ne mentez pas les uns aux autres. » (Colossiens 3:9)"
+  },
+  "en": {
+   "q": "What does Paul ask believers about lying?",
+   "options": [
+    "Do not lie to one another",
+    "Lie carefully",
+    "Lie to strangers",
+    "Always keep silent"
+   ],
+   "explain": "“Do not lie to one another.” (Colossians 3:9)"
+  }
+ },
+ {
+  "id": "morality-easy-038",
+  "ref": {
+   "fr": "Éphésiens 4:25",
+   "en": "Ephesians 4:25"
+  },
+  "fr": {
+   "q": "Que faut-il dire à son prochain après avoir rejeté le mensonge ?",
+   "options": [
+    "La vérité",
+    "Des flatteries",
+    "Des secrets",
+    "Rien du tout"
+   ],
+   "explain": "« Que chacun de vous parle selon la vérité à son prochain. » (Éphésiens 4:25)"
+  },
+  "en": {
+   "q": "What should we speak to our neighbor once we put off lying?",
+   "options": [
+    "The truth",
+    "Flattery",
+    "Secrets",
+    "Nothing at all"
+   ],
+   "explain": "“Let each one speak truth with his neighbor.” (Ephesians 4:25)"
+  }
+ },
+ {
+  "id": "morality-easy-039",
+  "ref": {
+   "fr": "Jacques 4:6",
+   "en": "James 4:6"
+  },
+  "fr": {
+   "q": "Comment Dieu agit-il envers les orgueilleux et les humbles ?",
+   "options": [
+    "Il résiste aux orgueilleux, fait grâce aux humbles",
+    "Il bénit les deux également",
+    "Il ignore les humbles",
+    "Il élève les orgueilleux"
+   ],
+   "explain": "« Dieu résiste aux orgueilleux, mais il fait grâce aux humbles. » (Jacques 4:6)"
+  },
+  "en": {
+   "q": "How does God act toward the proud and the humble?",
+   "options": [
+    "He resists the proud, gives grace to the humble",
+    "He blesses both equally",
+    "He ignores the humble",
+    "He exalts the proud"
+   ],
+   "explain": "“God resists the proud, but gives grace to the humble.” (James 4:6)"
+  }
+ },
+ {
+  "id": "morality-easy-040",
+  "ref": {
+   "fr": "Proverbes 16:18",
+   "en": "Proverbs 16:18"
+  },
+  "fr": {
+   "q": "Complète : « L’orgueil précède la… »",
+   "options": [
+    "ruine",
+    "joie",
+    "paix",
+    "récompense"
+   ],
+   "explain": "« L’arrogance précède la ruine. » (Proverbes 16:18)"
+  },
+  "en": {
+   "q": "Complete: “Pride goes before…”",
+   "options": [
+    "destruction",
+    "joy",
+    "peace",
+    "reward"
+   ],
+   "explain": "“Pride goes before destruction.” (Proverbs 16:18)"
+  }
+ },
+ {
+  "id": "morality-easy-041",
+  "ref": {
+   "fr": "Matthieu 23:12",
+   "en": "Matthew 23:12"
+  },
+  "fr": {
+   "q": "Que deviendra celui qui s’élève lui-même, selon Jésus ?",
+   "options": [
+    "Il sera abaissé",
+    "Il sera honoré",
+    "Il sera riche",
+    "Il sera craint"
+   ],
+   "explain": "« Quiconque s’élèvera sera abaissé. » (Matthieu 23:12)"
+  },
+  "en": {
+   "q": "What happens to the one who exalts himself, per Jesus?",
+   "options": [
+    "He will be humbled",
+    "He will be honored",
+    "He will be rich",
+    "He will be feared"
+   ],
+   "explain": "“Whoever exalts himself will be humbled.” (Matthew 23:12)"
+  }
+ },
+ {
+  "id": "morality-easy-042",
+  "ref": {
+   "fr": "Philippiens 2:3",
+   "en": "Philippians 2:3"
+  },
+  "fr": {
+   "q": "Par humilité, comment considérer les autres selon Paul ?",
+   "options": [
+    "Comme supérieurs à soi-même",
+    "Comme inférieurs",
+    "Comme des rivaux",
+    "Comme indifférents"
+   ],
+   "explain": "« Par humilité, regardez les autres comme au-dessus de vous. » (Philippiens 2:3)"
+  },
+  "en": {
+   "q": "In humility, how should we regard others, per Paul?",
+   "options": [
+    "As better than ourselves",
+    "As lesser",
+    "As rivals",
+    "As unimportant"
+   ],
+   "explain": "“In humility count others better than yourselves.” (Philippians 2:3)"
+  }
+ },
+ {
+  "id": "morality-easy-043",
+  "ref": {
+   "fr": "1 Pierre 5:6",
+   "en": "1 Peter 5:6"
+  },
+  "fr": {
+   "q": "Que faut-il faire sous la main puissante de Dieu ?",
+   "options": [
+    "S’humilier",
+    "S’exalter",
+    "Se cacher",
+    "Se plaindre"
+   ],
+   "explain": "« Humiliez-vous sous la puissante main de Dieu. » (1 Pierre 5:6)"
+  },
+  "en": {
+   "q": "What should we do under God’s mighty hand?",
+   "options": [
+    "Humble ourselves",
+    "Exalt ourselves",
+    "Hide",
+    "Complain"
+   ],
+   "explain": "“Humble yourselves under the mighty hand of God.” (1 Peter 5:6)"
+  }
+ },
+ {
+  "id": "morality-easy-044",
+  "ref": {
+   "fr": "Philippiens 4:8",
+   "en": "Philippians 4:8"
+  },
+  "fr": {
+   "q": "À quoi Paul dit-il de penser ?",
+   "options": [
+    "À ce qui est vrai, pur et honorable",
+    "Aux richesses",
+    "Aux plaintes",
+    "Aux rivalités"
+   ],
+   "explain": "« Que tout ce qui est vrai, pur... soit l’objet de vos pensées. » (Philippiens 4:8)"
+  },
+  "en": {
+   "q": "What does Paul say to think about?",
+   "options": [
+    "Whatever is true, pure and honorable",
+    "Riches",
+    "Complaints",
+    "Rivalries"
+   ],
+   "explain": "“Whatever is true, pure... think on these things.” (Philippians 4:8)"
+  }
+ },
+ {
+  "id": "morality-easy-045",
+  "ref": {
+   "fr": "1 Corinthiens 6:18",
+   "en": "1 Corinthians 6:18"
+  },
+  "fr": {
+   "q": "Que Paul dit-il de faire face à l’impudicité ?",
+   "options": [
+    "La fuir",
+    "La discuter",
+    "La tolérer",
+    "L’excuser"
+   ],
+   "explain": "« Fuyez l’impudicité. » (1 Corinthiens 6:18)"
+  },
+  "en": {
+   "q": "What does Paul say to do about sexual immorality?",
+   "options": [
+    "Flee from it",
+    "Debate it",
+    "Tolerate it",
+    "Excuse it"
+   ],
+   "explain": "“Flee sexual immorality.” (1 Corinthians 6:18)"
+  }
+ },
+ {
+  "id": "morality-easy-046",
+  "ref": {
+   "fr": "Lévitique 19:18",
+   "en": "Leviticus 19:18"
+  },
+  "fr": {
+   "q": "Que dit la loi de faire à l’égard de son prochain ?",
+   "options": [
+    "L’aimer comme soi-même",
+    "Le craindre",
+    "L’éviter",
+    "Le corriger"
+   ],
+   "explain": "« Tu aimeras ton prochain comme toi-même. » (Lévitique 19:18)"
+  },
+  "en": {
+   "q": "What does the law say to do toward one’s neighbor?",
+   "options": [
+    "Love him as yourself",
+    "Fear him",
+    "Avoid him",
+    "Correct him"
+   ],
+   "explain": "“You shall love your neighbor as yourself.” (Leviticus 19:18)"
+  }
+ },
+ {
+  "id": "morality-easy-047",
+  "ref": {
+   "fr": "Romains 12:20",
+   "en": "Romans 12:20"
+  },
+  "fr": {
+   "q": "Que faire si ton ennemi a faim, selon Paul ?",
+   "options": [
+    "Lui donner à manger",
+    "L’ignorer",
+    "Le punir",
+    "Le fuir"
+   ],
+   "explain": "« Si ton ennemi a faim, donne-lui à manger. » (Romains 12:20)"
+  },
+  "en": {
+   "q": "What should we do if our enemy is hungry, per Paul?",
+   "options": [
+    "Give him food",
+    "Ignore him",
+    "Punish him",
+    "Flee him"
+   ],
+   "explain": "“If your enemy is hungry, feed him.” (Romans 12:20)"
+  }
+ },
+ {
+  "id": "morality-easy-048",
+  "ref": {
+   "fr": "Romains 12:21",
+   "en": "Romans 12:21"
+  },
+  "fr": {
+   "q": "Comment Paul dit-il de vaincre le mal ?",
+   "options": [
+    "Par le bien",
+    "Par la force",
+    "Par la ruse",
+    "Par le silence"
+   ],
+   "explain": "« Ne te laisse pas vaincre par le mal, mais surmonte le mal par le bien. » (Romains 12:21)"
+  },
+  "en": {
+   "q": "How does Paul say to overcome evil?",
+   "options": [
+    "With good",
+    "With force",
+    "With cunning",
+    "With silence"
+   ],
+   "explain": "“Overcome evil with good.” (Romans 12:21)"
+  }
+ },
+ {
+  "id": "morality-easy-049",
+  "ref": {
+   "fr": "Romains 12:17",
+   "en": "Romans 12:17"
+  },
+  "fr": {
+   "q": "Que ne faut-il rendre à personne selon Paul ?",
+   "options": [
+    "Le mal pour le mal",
+    "Le bien pour le bien",
+    "Une parole douce",
+    "Un salut"
+   ],
+   "explain": "« Ne rendez à personne le mal pour le mal. » (Romains 12:17)"
+  },
+  "en": {
+   "q": "What must we render to no one, per Paul?",
+   "options": [
+    "Evil for evil",
+    "Good for good",
+    "A kind word",
+    "A greeting"
+   ],
+   "explain": "“Repay no one evil for evil.” (Romans 12:17)"
+  }
+ },
+ {
+  "id": "morality-easy-050",
+  "ref": {
+   "fr": "Romains 13:8",
+   "en": "Romans 13:8"
+  },
+  "fr": {
+   "q": "Selon Paul, quelle est la seule dette à toujours garder ?",
+   "options": [
+    "S’aimer les uns les autres",
+    "Payer l’impôt",
+    "Rendre un service",
+    "Offrir un don"
+   ],
+   "explain": "« N’ayez d’autre dette que celle de vous aimer. » (Romains 13:8)"
+  },
+  "en": {
+   "q": "According to Paul, what is the one debt to always keep?",
+   "options": [
+    "To love one another",
+    "Paying tax",
+    "Returning a favor",
+    "Giving a gift"
+   ],
+   "explain": "“Owe no one anything, except to love one another.” (Romans 13:8)"
+  }
+ },
+ {
+  "id": "morality-easy-051",
+  "ref": {
+   "fr": "Jean 13:34",
+   "en": "John 13:34"
+  },
+  "fr": {
+   "q": "Quel commandement nouveau Jésus donne-t-il à ses disciples ?",
+   "options": [
+    "Aimez-vous les uns les autres",
+    "Jeûnez souvent",
+    "Gardez le silence",
+    "Voyagez ensemble"
+   ],
+   "explain": "« Aimez-vous les uns les autres, comme je vous ai aimés. » (Jean 13:34)"
+  },
+  "en": {
+   "q": "What new commandment does Jesus give his disciples?",
+   "options": [
+    "Love one another",
+    "Fast often",
+    "Keep silence",
+    "Travel together"
+   ],
+   "explain": "“Love one another, as I have loved you.” (John 13:34)"
+  }
+ },
+ {
+  "id": "morality-easy-052",
+  "ref": {
+   "fr": "Michée 6:8",
+   "en": "Micah 6:8"
+  },
+  "fr": {
+   "q": "Que l’Éternel demande-t-il selon Michée ?",
+   "options": [
+    "Justice, miséricorde et humilité",
+    "Offrir mille béliers",
+    "Bâtir un temple",
+    "Jeûner longtemps"
+   ],
+   "explain": "« Pratiquer la justice, aimer la miséricorde, et marcher humblement. » (Michée 6:8)"
+  },
+  "en": {
+   "q": "What does the LORD require, according to Micah?",
+   "options": [
+    "Justice, mercy, and humility",
+    "Offer a thousand rams",
+    "Build a temple",
+    "Fast long"
+   ],
+   "explain": "“Do justice, love mercy, and walk humbly.” (Micah 6:8)"
+  }
+ },
+ {
+  "id": "morality-easy-053",
+  "ref": {
+   "fr": "Jacques 2:13",
+   "en": "James 2:13"
+  },
+  "fr": {
+   "q": "Selon Jacques, la miséricorde triomphe de quoi ?",
+   "options": [
+    "Du jugement",
+    "De la richesse",
+    "De la loi",
+    "De la foi"
+   ],
+   "explain": "« La miséricorde triomphe du jugement. » (Jacques 2:13)"
+  },
+  "en": {
+   "q": "According to James, mercy triumphs over what?",
+   "options": [
+    "Judgment",
+    "Wealth",
+    "The law",
+    "Faith"
+   ],
+   "explain": "“Mercy triumphs over judgment.” (James 2:13)"
+  }
+ },
+ {
+  "id": "morality-easy-054",
+  "ref": {
+   "fr": "Ésaïe 1:17",
+   "en": "Isaiah 1:17"
+  },
+  "fr": {
+   "q": "Que Dieu demande-t-il de faire pour l’orphelin et la veuve ?",
+   "options": [
+    "Défendre l’orphelin, plaider pour la veuve",
+    "Les ignorer",
+    "Les chasser",
+    "Les taxer"
+   ],
+   "explain": "« Défendez l’orphelin, plaidez pour la veuve. » (Ésaïe 1:17)"
+  },
+  "en": {
+   "q": "What does God ask us to do for the orphan and widow?",
+   "options": [
+    "Defend the orphan, plead for the widow",
+    "Ignore them",
+    "Drive them away",
+    "Tax them"
+   ],
+   "explain": "“Defend the fatherless, plead for the widow.” (Isaiah 1:17)"
+  }
+ },
+ {
+  "id": "morality-easy-055",
+  "ref": {
+   "fr": "Lévitique 19:15",
+   "en": "Leviticus 19:15"
+  },
+  "fr": {
+   "q": "Comment faut-il juger selon la loi ?",
+   "options": [
+    "Avec justice, sans favoriser",
+    "En faveur du riche",
+    "En faveur du pauvre",
+    "Selon l’amitié"
+   ],
+   "explain": "« Tu jugeras ton prochain selon la justice. » (Lévitique 19:15)"
+  },
+  "en": {
+   "q": "How must we judge according to the law?",
+   "options": [
+    "With justice, showing no favoritism",
+    "In favor of the rich",
+    "In favor of the poor",
+    "By friendship"
+   ],
+   "explain": "“You shall judge your neighbor with justice.” (Leviticus 19:15)"
+  }
+ },
+ {
+  "id": "morality-easy-056",
+  "ref": {
+   "fr": "Jacques 3:6",
+   "en": "James 3:6"
+  },
+  "fr": {
+   "q": "À quoi Jacques compare-t-il la langue ?",
+   "options": [
+    "À un feu",
+    "À une fleur",
+    "À une source",
+    "À une lampe"
+   ],
+   "explain": "« La langue aussi est un feu. » (Jacques 3:6)"
+  },
+  "en": {
+   "q": "To what does James compare the tongue?",
+   "options": [
+    "To a fire",
+    "To a flower",
+    "To a spring",
+    "To a lamp"
+   ],
+   "explain": "“The tongue is a fire.” (James 3:6)"
+  }
+ },
+ {
+  "id": "morality-easy-057",
+  "ref": {
+   "fr": "Proverbes 15:1",
+   "en": "Proverbs 15:1"
+  },
+  "fr": {
+   "q": "Qu’est-ce qui détourne la fureur selon ce proverbe ?",
+   "options": [
+    "Une réponse douce",
+    "Un cri",
+    "Un silence dur",
+    "Une menace"
+   ],
+   "explain": "« Une réponse douce calme la fureur. » (Proverbes 15:1)"
+  },
+  "en": {
+   "q": "What turns away wrath, according to this proverb?",
+   "options": [
+    "A soft answer",
+    "A shout",
+    "A cold silence",
+    "A threat"
+   ],
+   "explain": "“A soft answer turns away wrath.” (Proverbs 15:1)"
+  }
+ },
+ {
+  "id": "morality-easy-058",
+  "ref": {
+   "fr": "Éphésiens 4:29",
+   "en": "Ephesians 4:29"
+  },
+  "fr": {
+   "q": "Quelle parole ne doit pas sortir de notre bouche selon Paul ?",
+   "options": [
+    "Aucune parole mauvaise",
+    "Une parole vraie",
+    "Une parole utile",
+    "Une parole douce"
+   ],
+   "explain": "« Qu’il ne sorte de votre bouche aucune parole mauvaise. » (Éphésiens 4:29)"
+  },
+  "en": {
+   "q": "What kind of talk should not come from our mouth, per Paul?",
+   "options": [
+    "No corrupt talk",
+    "True speech",
+    "Helpful words",
+    "Gentle words"
+   ],
+   "explain": "“Let no corrupt talk come out of your mouth.” (Ephesians 4:29)"
+  }
+ },
+ {
+  "id": "morality-easy-059",
+  "ref": {
+   "fr": "Psaume 34:13",
+   "en": "Psalm 34:13"
+  },
+  "fr": {
+   "q": "De quoi faut-il garder sa langue selon le psaume ?",
+   "options": [
+    "Du mal",
+    "Du chant",
+    "De la prière",
+    "Du repos"
+   ],
+   "explain": "« Préserve ta langue du mal. » (Psaume 34:13)"
+  },
+  "en": {
+   "q": "What should we keep our tongue from, per the psalm?",
+   "options": [
+    "From evil",
+    "From singing",
+    "From prayer",
+    "From rest"
+   ],
+   "explain": "“Keep your tongue from evil.” (Psalm 34:13)"
+  }
+ },
+ {
+  "id": "morality-easy-060",
+  "ref": {
+   "fr": "Proverbes 18:21",
+   "en": "Proverbs 18:21"
+  },
+  "fr": {
+   "q": "Que renferme le pouvoir de la langue selon ce proverbe ?",
+   "options": [
+    "La mort et la vie",
+    "L’or et l’argent",
+    "Le jour et la nuit",
+    "La force et la faiblesse"
+   ],
+   "explain": "« La mort et la vie sont au pouvoir de la langue. » (Proverbes 18:21)"
+  },
+  "en": {
+   "q": "What lies in the power of the tongue, per this proverb?",
+   "options": [
+    "Death and life",
+    "Gold and silver",
+    "Day and night",
+    "Strength and weakness"
+   ],
+   "explain": "“Death and life are in the power of the tongue.” (Proverbs 18:21)"
+  }
+ },
+ {
+  "id": "morality-easy-061",
+  "ref": {
+   "fr": "Jacques 1:19",
+   "en": "James 1:19"
+  },
+  "fr": {
+   "q": "Complète le conseil de Jacques : « Prompt à écouter, lent à parler, lent à… »",
+   "options": [
+    "se mettre en colère",
+    "juger",
+    "promettre",
+    "donner"
+   ],
+   "explain": "« Prompt à écouter, lent à parler, lent à la colère. » (Jacques 1:19)"
+  },
+  "en": {
+   "q": "Complete James’ counsel: “Quick to hear, slow to speak, slow to…”",
+   "options": [
+    "anger",
+    "judge",
+    "promise",
+    "give"
+   ],
+   "explain": "“Quick to hear, slow to speak, slow to anger.” (James 1:19)"
+  }
+ },
+ {
+  "id": "morality-easy-062",
+  "ref": {
+   "fr": "Éphésiens 4:26",
+   "en": "Ephesians 4:26"
+  },
+  "fr": {
+   "q": "Que Paul dit-il de ne pas laisser se coucher sur la colère ?",
+   "options": [
+    "Le soleil",
+    "La lune",
+    "La pluie",
+    "Le vent"
+   ],
+   "explain": "« Que le soleil ne se couche pas sur votre colère. » (Éphésiens 4:26)"
+  },
+  "en": {
+   "q": "What does Paul say should not go down on our anger?",
+   "options": [
+    "The sun",
+    "The moon",
+    "The rain",
+    "The wind"
+   ],
+   "explain": "“Do not let the sun go down on your anger.” (Ephesians 4:26)"
+  }
+ },
+ {
+  "id": "morality-easy-063",
+  "ref": {
+   "fr": "Proverbes 14:29",
+   "en": "Proverbs 14:29"
+  },
+  "fr": {
+   "q": "Qui a une grande intelligence selon ce proverbe ?",
+   "options": [
+    "Celui qui est lent à la colère",
+    "Celui qui est riche",
+    "Celui qui parle fort",
+    "Celui qui se venge"
+   ],
+   "explain": "« Celui qui est lent à la colère a une grande intelligence. » (Proverbes 14:29)"
+  },
+  "en": {
+   "q": "Who has great understanding, according to this proverb?",
+   "options": [
+    "The one slow to anger",
+    "The rich one",
+    "The loud one",
+    "The one who avenges"
+   ],
+   "explain": "“He who is slow to anger has great understanding.” (Proverbs 14:29)"
+  }
+ },
+ {
+  "id": "morality-easy-064",
+  "ref": {
+   "fr": "Jacques 1:20",
+   "en": "James 1:20"
+  },
+  "fr": {
+   "q": "Selon Jacques, la colère de l’homme n’accomplit pas quoi ?",
+   "options": [
+    "La justice de Dieu",
+    "La richesse",
+    "La sagesse humaine",
+    "La paix des rois"
+   ],
+   "explain": "« La colère de l’homme n’accomplit pas la justice de Dieu. » (Jacques 1:20)"
+  },
+  "en": {
+   "q": "According to James, man’s anger does not accomplish what?",
+   "options": [
+    "The righteousness of God",
+    "Wealth",
+    "Human wisdom",
+    "Peace of kings"
+   ],
+   "explain": "“The anger of man does not produce the righteousness of God.” (James 1:20)"
+  }
+ },
+ {
+  "id": "morality-easy-065",
+  "ref": {
+   "fr": "1 Timothée 6:10",
+   "en": "1 Timothy 6:10"
+  },
+  "fr": {
+   "q": "Selon Paul, quelle est une racine de tous les maux ?",
+   "options": [
+    "L’amour de l’argent",
+    "Le travail",
+    "La pauvreté",
+    "Le repos"
+   ],
+   "explain": "« L’amour de l’argent est une racine de tous les maux. » (1 Timothée 6:10)"
+  },
+  "en": {
+   "q": "According to Paul, what is a root of all evils?",
+   "options": [
+    "The love of money",
+    "Work",
+    "Poverty",
+    "Rest"
+   ],
+   "explain": "“The love of money is a root of all evils.” (1 Timothy 6:10)"
+  }
+ },
+ {
+  "id": "morality-easy-066",
+  "ref": {
+   "fr": "Luc 12:15",
+   "en": "Luke 12:15"
+  },
+  "fr": {
+   "q": "Contre quoi Jésus met-il en garde à propos des biens ?",
+   "options": [
+    "La cupidité (avarice)",
+    "La générosité",
+    "L’épargne",
+    "Le travail"
+   ],
+   "explain": "« Gardez-vous avec soin de toute avarice. » (Luc 12:15)"
+  },
+  "en": {
+   "q": "What does Jesus warn against regarding possessions?",
+   "options": [
+    "Covetousness (greed)",
+    "Generosity",
+    "Saving",
+    "Working"
+   ],
+   "explain": "“Beware of all covetousness.” (Luke 12:15)"
+  }
+ },
+ {
+  "id": "morality-easy-067",
+  "ref": {
+   "fr": "1 Timothée 6:6",
+   "en": "1 Timothy 6:6"
+  },
+  "fr": {
+   "q": "Quel grand gain Paul associe-t-il au contentement ?",
+   "options": [
+    "La piété avec le contentement",
+    "La richesse",
+    "La renommée",
+    "Le pouvoir"
+   ],
+   "explain": "« La piété avec le contentement est un grand gain. » (1 Timothée 6:6)"
+  },
+  "en": {
+   "q": "What great gain does Paul link with contentment?",
+   "options": [
+    "Godliness with contentment",
+    "Wealth",
+    "Fame",
+    "Power"
+   ],
+   "explain": "“Godliness with contentment is great gain.” (1 Timothy 6:6)"
+  }
+ },
+ {
+  "id": "morality-easy-068",
+  "ref": {
+   "fr": "Hébreux 13:5",
+   "en": "Hebrews 13:5"
+  },
+  "fr": {
+   "q": "De quoi faut-il se contenter selon cette exhortation ?",
+   "options": [
+    "De ce que l’on a",
+    "De plus toujours",
+    "Des biens d’autrui",
+    "De l’or seul"
+   ],
+   "explain": "« Contentez-vous de ce que vous avez. » (Hébreux 13:5)"
+  },
+  "en": {
+   "q": "What should we be content with, per this exhortation?",
+   "options": [
+    "What we have",
+    "Always more",
+    "Others’ goods",
+    "Gold alone"
+   ],
+   "explain": "“Be content with what you have.” (Hebrews 13:5)"
+  }
+ },
+ {
+  "id": "morality-easy-069",
+  "ref": {
+   "fr": "Proverbes 11:13",
+   "en": "Proverbs 11:13"
+  },
+  "fr": {
+   "q": "Que fait le rapporteur (médisant) selon ce proverbe ?",
+   "options": [
+    "Il révèle les secrets",
+    "Il garde les secrets",
+    "Il aide les pauvres",
+    "Il bénit son prochain"
+   ],
+   "explain": "« Celui qui répand la calomnie dévoile les secrets. » (Proverbes 11:13)"
+  },
+  "en": {
+   "q": "What does the gossip do, according to this proverb?",
+   "options": [
+    "Reveals secrets",
+    "Keeps secrets",
+    "Helps the poor",
+    "Blesses his neighbor"
+   ],
+   "explain": "“A gossip reveals secrets.” (Proverbs 11:13)"
+  }
+ },
+ {
+  "id": "morality-easy-070",
+  "ref": {
+   "fr": "Proverbes 26:20",
+   "en": "Proverbs 26:20"
+  },
+  "fr": {
+   "q": "Sans quoi le feu de la querelle s’éteint, selon ce proverbe ?",
+   "options": [
+    "Sans le rapporteur (bois)",
+    "Sans l’eau",
+    "Sans le vent",
+    "Sans le sel"
+   ],
+   "explain": "« Faute de bois, le feu s’éteint ; sans médisant, la querelle s’apaise. » (Proverbes 26:20)"
+  },
+  "en": {
+   "q": "Without what does the fire of strife go out, per this proverb?",
+   "options": [
+    "Without the gossip (wood)",
+    "Without water",
+    "Without wind",
+    "Without salt"
+   ],
+   "explain": "“Without wood a fire goes out; without a gossip, quarreling ceases.” (Proverbs 26:20)"
+  }
+ },
+ {
+  "id": "morality-easy-071",
+  "ref": {
+   "fr": "Lévitique 19:16",
+   "en": "Leviticus 19:16"
+  },
+  "fr": {
+   "q": "Que la loi interdit-elle au sujet du prochain ?",
+   "options": [
+    "Répandre des calomnies",
+    "Le saluer",
+    "Le nourrir",
+    "Le visiter"
+   ],
+   "explain": "« Tu n’iras point çà et là comme un colporteur de médisances. » (Lévitique 19:16)"
+  },
+  "en": {
+   "q": "What does the law forbid regarding one’s neighbor?",
+   "options": [
+    "Spreading slander",
+    "Greeting him",
+    "Feeding him",
+    "Visiting him"
+   ],
+   "explain": "“You shall not go about spreading slander.” (Leviticus 19:16)"
+  }
+ },
+ {
+  "id": "morality-easy-072",
+  "ref": {
+   "fr": "Tite 3:2",
+   "en": "Titus 3:2"
+  },
+  "fr": {
+   "q": "De qui Paul dit-il de ne médire de personne ?",
+   "options": [
+    "De personne",
+    "De ses amis seulement",
+    "De ses chefs",
+    "De ses proches"
+   ],
+   "explain": "« Ne médire de personne, être pacifiques. » (Tite 3:2)"
+  },
+  "en": {
+   "q": "Of whom does Paul say to speak evil of no one?",
+   "options": [
+    "No one",
+    "Only friends",
+    "Only leaders",
+    "Only relatives"
+   ],
+   "explain": "“Speak evil of no one, be peaceable.” (Titus 3:2)"
+  }
+ },
+ {
+  "id": "morality-easy-073",
+  "ref": {
+   "fr": "Éphésiens 6:1",
+   "en": "Ephesians 6:1"
+  },
+  "fr": {
+   "q": "Que Paul demande-t-il aux enfants envers leurs parents ?",
+   "options": [
+    "Leur obéir dans le Seigneur",
+    "Les quitter",
+    "Les corriger",
+    "Les ignorer"
+   ],
+   "explain": "« Enfants, obéissez à vos parents, selon le Seigneur. » (Éphésiens 6:1)"
+  },
+  "en": {
+   "q": "What does Paul ask children to do toward their parents?",
+   "options": [
+    "Obey them in the Lord",
+    "Leave them",
+    "Correct them",
+    "Ignore them"
+   ],
+   "explain": "“Children, obey your parents in the Lord.” (Ephesians 6:1)"
+  }
+ },
+ {
+  "id": "morality-easy-074",
+  "ref": {
+   "fr": "Éphésiens 6:2",
+   "en": "Ephesians 6:2"
+  },
+  "fr": {
+   "q": "Quel commandement Paul rappelle-t-il comme le premier avec une promesse ?",
+   "options": [
+    "Honore ton père et ta mère",
+    "Ne vole pas",
+    "Ne mens pas",
+    "Repose-toi"
+   ],
+   "explain": "« Honore ton père et ta mère : c’est le premier avec une promesse. » (Éphésiens 6:2)"
+  },
+  "en": {
+   "q": "Which commandment does Paul call the first with a promise?",
+   "options": [
+    "Honor your father and mother",
+    "Do not steal",
+    "Do not lie",
+    "Rest"
+   ],
+   "explain": "“Honor your father and mother — the first with a promise.” (Ephesians 6:2)"
+  }
+ },
+ {
+  "id": "morality-easy-075",
+  "ref": {
+   "fr": "Éphésiens 4:32",
+   "en": "Ephesians 4:32"
+  },
+  "fr": {
+   "q": "Comment Paul dit-il d’être les uns envers les autres ?",
+   "options": [
+    "Bons et compatissants",
+    "Durs et fermes",
+    "Distants",
+    "Rivaux"
+   ],
+   "explain": "« Soyez bons les uns envers les autres, compatissants. » (Éphésiens 4:32)"
+  },
+  "en": {
+   "q": "How does Paul say to be toward one another?",
+   "options": [
+    "Kind and compassionate",
+    "Hard and stern",
+    "Distant",
+    "Rivals"
+   ],
+   "explain": "“Be kind to one another, tenderhearted.” (Ephesians 4:32)"
+  }
+ },
+ {
+  "id": "morality-easy-076",
+  "ref": {
+   "fr": "Galates 6:2",
+   "en": "Galatians 6:2"
+  },
+  "fr": {
+   "q": "Que devons-nous porter les uns pour les autres selon Paul ?",
+   "options": [
+    "Les fardeaux",
+    "Les biens",
+    "Les titres",
+    "Les armes"
+   ],
+   "explain": "« Portez les fardeaux les uns des autres. » (Galates 6:2)"
+  },
+  "en": {
+   "q": "What should we carry for one another, per Paul?",
+   "options": [
+    "Each other’s burdens",
+    "Each other’s goods",
+    "Titles",
+    "Weapons"
+   ],
+   "explain": "“Bear one another’s burdens.” (Galatians 6:2)"
+  }
+ },
+ {
+  "id": "morality-easy-077",
+  "ref": {
+   "fr": "Luc 6:31",
+   "en": "Luke 6:31"
+  },
+  "fr": {
+   "q": "Complète la règle d’or selon Luc : « Faites aux hommes ce que… »",
+   "options": [
+    "vous voulez qu’ils vous fassent",
+    "ils vous font",
+    "la loi exige",
+    "vos chefs disent"
+   ],
+   "explain": "« Ce que vous voulez que les hommes vous fassent, faites-le-leur. » (Luc 6:31)"
+  },
+  "en": {
+   "q": "Complete the Golden Rule in Luke: “Do to others what…”",
+   "options": [
+    "you want them to do to you",
+    "they do to you",
+    "the law requires",
+    "your leaders say"
+   ],
+   "explain": "“Do to others as you would have them do to you.” (Luke 6:31)"
+  }
+ },
+ {
+  "id": "morality-easy-078",
+  "ref": {
+   "fr": "Actes 20:35",
+   "en": "Acts 20:35"
+  },
+  "fr": {
+   "q": "Selon la parole de Jésus citée par Paul, qu’y a-t-il de plus heureux ?",
+   "options": [
+    "Donner que recevoir",
+    "Recevoir que donner",
+    "Garder que partager",
+    "Prendre que rendre"
+   ],
+   "explain": "« Il y a plus de bonheur à donner qu’à recevoir. » (Actes 20:35)"
+  },
+  "en": {
+   "q": "By Jesus’ words quoted by Paul, what is more blessed?",
+   "options": [
+    "To give than to receive",
+    "To receive than to give",
+    "To keep than to share",
+    "To take than to return"
+   ],
+   "explain": "“It is more blessed to give than to receive.” (Acts 20:35)"
+  }
+ },
+ {
+  "id": "morality-easy-079",
+  "ref": {
+   "fr": "Luc 6:38",
+   "en": "Luke 6:38"
+  },
+  "fr": {
+   "q": "Que promet Jésus à celui qui donne ?",
+   "options": [
+    "Il lui sera donné",
+    "Il perdra tout",
+    "Il restera pauvre",
+    "Il sera oublié"
+   ],
+   "explain": "« Donnez, et il vous sera donné. » (Luc 6:38)"
+  },
+  "en": {
+   "q": "What does Jesus promise to the one who gives?",
+   "options": [
+    "It will be given to him",
+    "He will lose all",
+    "He will stay poor",
+    "He will be forgotten"
+   ],
+   "explain": "“Give, and it will be given to you.” (Luke 6:38)"
+  }
+ },
+ {
+  "id": "morality-easy-080",
+  "ref": {
+   "fr": "1 Corinthiens 13:4",
+   "en": "1 Corinthians 13:4"
+  },
+  "fr": {
+   "q": "Complète l’hymne à l’amour : « L’amour est patient, il est… »",
+   "options": [
+    "plein de bonté",
+    "jaloux",
+    "orgueilleux",
+    "irritable"
+   ],
+   "explain": "« La charité est patiente, elle est pleine de bonté. » (1 Corinthiens 13:4)"
+  },
+  "en": {
+   "q": "Complete the hymn to love: “Love is patient, love is…”",
+   "options": [
+    "kind",
+    "jealous",
+    "proud",
+    "irritable"
+   ],
+   "explain": "“Love is patient, love is kind.” (1 Corinthians 13:4)"
+  }
+ },
+ {
+  "id": "morality-easy-081",
+  "ref": {
+   "fr": "Jacques 1:27",
+   "en": "James 1:27"
+  },
+  "fr": {
+   "q": "Quelle est la religion pure selon Jacques ?",
+   "options": [
+    "Visiter les orphelins et les veuves",
+    "Multiplier les sacrifices",
+    "Porter de beaux habits",
+    "Parler avec éloquence"
+   ],
+   "explain": "« Visiter les orphelins et les veuves dans leur affliction. » (Jacques 1:27)"
+  },
+  "en": {
+   "q": "What is pure religion, according to James?",
+   "options": [
+    "Visiting orphans and widows",
+    "Many sacrifices",
+    "Fine clothing",
+    "Eloquent speech"
+   ],
+   "explain": "“To visit orphans and widows in their affliction.” (James 1:27)"
+  }
+ },
+ {
+  "id": "morality-easy-082",
+  "ref": {
+   "fr": "Jacques 2:17",
+   "en": "James 2:17"
+  },
+  "fr": {
+   "q": "Selon Jacques, comment est la foi sans les œuvres ?",
+   "options": [
+    "Morte",
+    "Forte",
+    "Suffisante",
+    "Cachée"
+   ],
+   "explain": "« La foi, si elle n’a pas les œuvres, est morte. » (Jacques 2:17)"
+  },
+  "en": {
+   "q": "According to James, what is faith without works?",
+   "options": [
+    "Dead",
+    "Strong",
+    "Sufficient",
+    "Hidden"
+   ],
+   "explain": "“Faith without works is dead.” (James 2:17)"
+  }
+ },
+ {
+  "id": "morality-easy-083",
+  "ref": {
+   "fr": "Matthieu 25:40",
+   "en": "Matthew 25:40"
+  },
+  "fr": {
+   "q": "Selon Jésus, ce qu’on fait au plus petit, on le fait à…",
+   "options": [
+    "Lui (Jésus)",
+    "Personne",
+    "Soi-même",
+    "Un ange"
+   ],
+   "explain": "« Ce que vous avez fait au plus petit... c’est à moi. » (Matthieu 25:40)"
+  },
+  "en": {
+   "q": "By Jesus, what we do to the least, we do to…",
+   "options": [
+    "Him (Jesus)",
+    "No one",
+    "Ourselves",
+    "An angel"
+   ],
+   "explain": "“What you did to the least... you did to me.” (Matthew 25:40)"
+  }
+ },
+ {
+  "id": "morality-easy-084",
+  "ref": {
+   "fr": "Luc 10:36-37",
+   "en": "Luke 10:36-37"
+  },
+  "fr": {
+   "q": "Dans la parabole, qui fut le prochain de l’homme blessé ?",
+   "options": [
+    "Celui qui usa de miséricorde",
+    "Le prêtre",
+    "Le lévite",
+    "Le brigand"
+   ],
+   "explain": "Le bon Samaritain fut le prochain en usant de miséricorde. (Luc 10:36-37)"
+  },
+  "en": {
+   "q": "In the parable, who was neighbor to the wounded man?",
+   "options": [
+    "The one who showed mercy",
+    "The priest",
+    "The Levite",
+    "The robber"
+   ],
+   "explain": "The Good Samaritan was neighbor by showing mercy. (Luke 10:36-37)"
+  }
+ },
+ {
+  "id": "morality-easy-085",
+  "ref": {
+   "fr": "Romains 12:15",
+   "en": "Romans 12:15"
+  },
+  "fr": {
+   "q": "Que faut-il faire avec ceux qui pleurent, selon Paul ?",
+   "options": [
+    "Pleurer avec eux",
+    "Les éviter",
+    "Les blâmer",
+    "Se taire"
+   ],
+   "explain": "« Réjouissez-vous avec ceux qui se réjouissent ; pleurez avec ceux qui pleurent. » (Romains 12:15)"
+  },
+  "en": {
+   "q": "What should we do with those who weep, per Paul?",
+   "options": [
+    "Weep with them",
+    "Avoid them",
+    "Blame them",
+    "Stay silent"
+   ],
+   "explain": "“Rejoice with those who rejoice; weep with those who weep.” (Romans 12:15)"
+  }
+ },
+ {
+  "id": "morality-easy-086",
+  "ref": {
+   "fr": "Romains 12:14",
+   "en": "Romans 12:14"
+  },
+  "fr": {
+   "q": "Que Paul dit-il de faire à ceux qui nous persécutent ?",
+   "options": [
+    "Les bénir, ne pas les maudire",
+    "Les maudire",
+    "Les frapper",
+    "Les fuir"
+   ],
+   "explain": "« Bénissez ceux qui vous persécutent : bénissez et ne maudissez pas. » (Romains 12:14)"
+  },
+  "en": {
+   "q": "What does Paul say to do to those who persecute us?",
+   "options": [
+    "Bless them, do not curse",
+    "Curse them",
+    "Strike them",
+    "Flee them"
+   ],
+   "explain": "“Bless those who persecute you; bless and do not curse.” (Romans 12:14)"
+  }
+ },
+ {
+  "id": "morality-easy-087",
+  "ref": {
+   "fr": "Colossiens 3:23",
+   "en": "Colossians 3:23"
+  },
+  "fr": {
+   "q": "Comment faut-il travailler selon Paul ?",
+   "options": [
+    "De bon cœur, comme pour le Seigneur",
+    "À contrecœur",
+    "Pour la gloire humaine",
+    "Le moins possible"
+   ],
+   "explain": "« Faites de bon cœur, comme pour le Seigneur. » (Colossiens 3:23)"
+  },
+  "en": {
+   "q": "How should we work, according to Paul?",
+   "options": [
+    "Heartily, as for the Lord",
+    "Reluctantly",
+    "For human glory",
+    "As little as possible"
+   ],
+   "explain": "“Whatever you do, work heartily, as for the Lord.” (Colossians 3:23)"
+  }
+ },
+ {
+  "id": "morality-easy-088",
+  "ref": {
+   "fr": "1 Corinthiens 10:31",
+   "en": "1 Corinthians 10:31"
+  },
+  "fr": {
+   "q": "Pour quelle raison faut-il tout faire, selon Paul ?",
+   "options": [
+    "Pour la gloire de Dieu",
+    "Pour sa propre gloire",
+    "Pour l’argent",
+    "Pour la louange des hommes"
+   ],
+   "explain": "« Faites tout pour la gloire de Dieu. » (1 Corinthiens 10:31)"
+  },
+  "en": {
+   "q": "For what reason should we do everything, per Paul?",
+   "options": [
+    "For the glory of God",
+    "For our own glory",
+    "For money",
+    "For human praise"
+   ],
+   "explain": "“Do all to the glory of God.” (1 Corinthians 10:31)"
+  }
+ },
+ {
+  "id": "morality-easy-089",
+  "ref": {
+   "fr": "1 Pierre 2:17",
+   "en": "1 Peter 2:17"
+  },
+  "fr": {
+   "q": "Que Pierre dit-il de faire envers tous les hommes ?",
+   "options": [
+    "Les honorer",
+    "Les craindre",
+    "Les fuir",
+    "Les juger"
+   ],
+   "explain": "« Honorez tout le monde. » (1 Pierre 2:17)"
+  },
+  "en": {
+   "q": "What does Peter say to do toward everyone?",
+   "options": [
+    "Honor them",
+    "Fear them",
+    "Flee them",
+    "Judge them"
+   ],
+   "explain": "“Honor everyone.” (1 Peter 2:17)"
+  }
+ },
+ {
+  "id": "morality-easy-090",
+  "ref": {
+   "fr": "Éphésiens 4:28",
+   "en": "Ephesians 4:28"
+  },
+  "fr": {
+   "q": "Que doit faire le voleur au lieu de dérober, selon Paul ?",
+   "options": [
+    "Travailler de ses mains",
+    "Se cacher",
+    "Mendier",
+    "Fuir"
+   ],
+   "explain": "« Que celui qui dérobait ne dérobe plus, mais qu’il travaille. » (Éphésiens 4:28)"
+  },
+  "en": {
+   "q": "What should the thief do instead of stealing, per Paul?",
+   "options": [
+    "Work with his hands",
+    "Hide",
+    "Beg",
+    "Flee"
+   ],
+   "explain": "“Let the thief no longer steal, but rather labor.” (Ephesians 4:28)"
+  }
+ },
+ {
+  "id": "morality-easy-091",
+  "ref": {
+   "fr": "1 Thessaloniciens 5:15",
+   "en": "1 Thessalonians 5:15"
+  },
+  "fr": {
+   "q": "Que Paul dit-il de rechercher les uns envers les autres ?",
+   "options": [
+    "Le bien",
+    "La vengeance",
+    "La rivalité",
+    "La domination"
+   ],
+   "explain": "« Recherchez toujours le bien les uns envers les autres. » (1 Thess. 5:15)"
+  },
+  "en": {
+   "q": "What does Paul say to seek toward one another?",
+   "options": [
+    "What is good",
+    "Revenge",
+    "Rivalry",
+    "Domination"
+   ],
+   "explain": "“Always seek to do good to one another.” (1 Thessalonians 5:15)"
+  }
+ },
+ {
+  "id": "morality-easy-092",
+  "ref": {
+   "fr": "Matthieu 5:41",
+   "en": "Matthew 5:41"
+  },
+  "fr": {
+   "q": "Si quelqu’un te force à faire un mille, que dit Jésus de faire ?",
+   "options": [
+    "En faire deux avec lui",
+    "Refuser",
+    "Fuir",
+    "Se plaindre"
+   ],
+   "explain": "« Si quelqu’un te force à faire un mille, fais-en deux. » (Matthieu 5:41)"
+  },
+  "en": {
+   "q": "If someone forces you to go one mile, what does Jesus say?",
+   "options": [
+    "Go two miles with him",
+    "Refuse",
+    "Run away",
+    "Complain"
+   ],
+   "explain": "“If anyone forces you to go one mile, go two.” (Matthew 5:41)"
+  }
+ },
+ {
+  "id": "morality-easy-093",
+  "ref": {
+   "fr": "Matthieu 5:13",
+   "en": "Matthew 5:13"
+  },
+  "fr": {
+   "q": "Selon Jésus, les disciples sont le sel de quoi ?",
+   "options": [
+    "De la terre",
+    "Du ciel",
+    "De la mer",
+    "Du temple"
+   ],
+   "explain": "« Vous êtes le sel de la terre. » (Matthieu 5:13)"
+  },
+  "en": {
+   "q": "According to Jesus, the disciples are the salt of what?",
+   "options": [
+    "The earth",
+    "Heaven",
+    "The sea",
+    "The temple"
+   ],
+   "explain": "“You are the salt of the earth.” (Matthew 5:13)"
+  }
+ },
+ {
+  "id": "morality-easy-094",
+  "ref": {
+   "fr": "Matthieu 6:20",
+   "en": "Matthew 6:20"
+  },
+  "fr": {
+   "q": "Où Jésus dit-il d’amasser des trésors ?",
+   "options": [
+    "Dans le ciel",
+    "Sur la terre",
+    "Dans un coffre",
+    "Au marché"
+   ],
+   "explain": "« Amassez-vous des trésors dans le ciel. » (Matthieu 6:20)"
+  },
+  "en": {
+   "q": "Where does Jesus say to store up treasures?",
+   "options": [
+    "In heaven",
+    "On earth",
+    "In a chest",
+    "At the market"
+   ],
+   "explain": "“Store up treasures in heaven.” (Matthew 6:20)"
+  }
+ },
+ {
+  "id": "morality-easy-095",
+  "ref": {
+   "fr": "Matthieu 5:3",
+   "en": "Matthew 5:3"
+  },
+  "fr": {
+   "q": "À qui appartient le royaume des cieux selon la première béatitude ?",
+   "options": [
+    "Aux pauvres en esprit",
+    "Aux riches",
+    "Aux forts",
+    "Aux savants"
+   ],
+   "explain": "« Heureux les pauvres en esprit : le royaume des cieux est à eux ! » (Matthieu 5:3)"
+  },
+  "en": {
+   "q": "To whom belongs the kingdom, per the first beatitude?",
+   "options": [
+    "The poor in spirit",
+    "The rich",
+    "The strong",
+    "The learned"
+   ],
+   "explain": "“Blessed are the poor in spirit, for theirs is the kingdom.” (Matthew 5:3)"
+  }
+ },
+ {
+  "id": "morality-easy-096",
+  "ref": {
+   "fr": "Luc 6:37",
+   "en": "Luke 6:37"
+  },
+  "fr": {
+   "q": "Complète l’enseignement de Jésus : « Pardonnez, et… »",
+   "options": [
+    "vous serez pardonnés",
+    "vous serez riches",
+    "vous serez loués",
+    "vous serez craints"
+   ],
+   "explain": "« Pardonnez, et vous serez pardonnés. » (Luc 6:37)"
+  },
+  "en": {
+   "q": "Complete Jesus’ teaching: “Forgive, and…”",
+   "options": [
+    "you will be forgiven",
+    "you will be rich",
+    "you will be praised",
+    "you will be feared"
+   ],
+   "explain": "“Forgive, and you will be forgiven.” (Luke 6:37)"
+  }
+ },
+ {
+  "id": "morality-easy-097",
+  "ref": {
+   "fr": "Proverbes 15:33",
+   "en": "Proverbs 15:33"
+  },
+  "fr": {
+   "q": "Qu’est-ce qui précède la gloire selon ce proverbe ?",
+   "options": [
+    "L’humilité",
+    "La richesse",
+    "La force",
+    "La ruse"
+   ],
+   "explain": "« L’humilité précède la gloire. » (Proverbes 15:33)"
+  },
+  "en": {
+   "q": "What comes before honor, according to this proverb?",
+   "options": [
+    "Humility",
+    "Riches",
+    "Strength",
+    "Cunning"
+   ],
+   "explain": "“Humility comes before honor.” (Proverbs 15:33)"
+  }
+ },
+ {
+  "id": "morality-easy-098",
+  "ref": {
+   "fr": "Proverbes 19:11",
+   "en": "Proverbs 19:11"
+  },
+  "fr": {
+   "q": "Qu’est-ce qui rend un homme lent à la colère selon ce proverbe ?",
+   "options": [
+    "Sa sagesse",
+    "Sa richesse",
+    "Sa jeunesse",
+    "Sa force"
+   ],
+   "explain": "« La sagesse d’un homme le rend patient. » (Proverbes 19:11)"
+  },
+  "en": {
+   "q": "What makes a man slow to anger, according to this proverb?",
+   "options": [
+    "His wisdom",
+    "His wealth",
+    "His youth",
+    "His strength"
+   ],
+   "explain": "“A man’s wisdom makes him slow to anger.” (Proverbs 19:11)"
+  }
+ },
+ {
+  "id": "morality-easy-099",
+  "ref": {
+   "fr": "Colossiens 3:20",
+   "en": "Colossians 3:20"
+  },
+  "fr": {
+   "q": "Selon Paul, l’obéissance des enfants est agréable à qui ?",
+   "options": [
+    "Au Seigneur",
+    "Aux voisins",
+    "Aux chefs",
+    "Aux anciens"
+   ],
+   "explain": "« Enfants, obéissez à vos parents : cela est agréable au Seigneur. » (Colossiens 3:20)"
+  },
+  "en": {
+   "q": "By Paul, children’s obedience is pleasing to whom?",
+   "options": [
+    "The Lord",
+    "Neighbors",
+    "Leaders",
+    "Elders"
+   ],
+   "explain": "“Children, obey your parents; this pleases the Lord.” (Colossians 3:20)"
+  }
+ },
+ {
+  "id": "morality-easy-100",
+  "ref": {
+   "fr": "Proverbes 3:27",
+   "en": "Proverbs 3:27"
+  },
+  "fr": {
+   "q": "À qui ne faut-il pas refuser un bienfait, selon ce proverbe ?",
+   "options": [
+    "À celui qui y a droit",
+    "À un roi",
+    "À un riche",
+    "À un étranger"
+   ],
+   "explain": "« Ne refuse pas un bienfait à celui qui y a droit. » (Proverbes 3:27)"
+  },
+  "en": {
+   "q": "From whom should we not withhold good, per this proverb?",
+   "options": [
+    "From those it is due",
+    "From a king",
+    "From a rich man",
+    "From a stranger"
+   ],
+   "explain": "“Do not withhold good from those to whom it is due.” (Proverbs 3:27)"
+  }
+ }
+]
