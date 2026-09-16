@@ -1,0 +1,2702 @@
+[
+ {
+  "id": "verses-hard-001",
+  "ref": {
+   "fr": "Job 1:21",
+   "en": "Job 1:21"
+  },
+  "fr": {
+   "q": "Complétez : « L’Éternel a donné, et l’Éternel a ôté ; que le nom de l’Éternel soit ______ ! »",
+   "options": [
+    "béni",
+    "maudit",
+    "oublié",
+    "craint"
+   ],
+   "explain": "« ...que le nom de l’Éternel soit béni ! » (Job 1:21)"
+  },
+  "en": {
+   "q": "Complete: “The LORD gave, and the LORD hath taken away; ______ be the name of the LORD.”",
+   "options": [
+    "blessed",
+    "cursed",
+    "forgotten",
+    "feared"
+   ],
+   "explain": "“...blessed be the name of the LORD.” (Job 1:21)"
+  }
+ },
+ {
+  "id": "verses-hard-002",
+  "ref": {
+   "fr": "Job 19:25",
+   "en": "Job 19:25"
+  },
+  "fr": {
+   "q": "Complétez : « Mais je sais que ______ est vivant, et qu’il se lèvera le dernier sur la terre. »",
+   "options": [
+    "mon Rédempteur",
+    "mon juge",
+    "mon roi",
+    "mon berger"
+   ],
+   "explain": "« Mais je sais que mon Rédempteur est vivant. » (Job 19:25)"
+  },
+  "en": {
+   "q": "Complete: “For I know that ______ liveth, and that he shall stand at the latter day upon the earth.”",
+   "options": [
+    "my redeemer",
+    "my judge",
+    "my king",
+    "my shepherd"
+   ],
+   "explain": "“For I know that my redeemer liveth.” (Job 19:25)"
+  }
+ },
+ {
+  "id": "verses-hard-003",
+  "ref": {
+   "fr": "Job 5:7",
+   "en": "Job 5:7"
+  },
+  "fr": {
+   "q": "Complétez : « L’homme naît pour ______, comme l’étincelle pour voler. »",
+   "options": [
+    "souffrir",
+    "régner",
+    "dormir",
+    "chanter"
+   ],
+   "explain": "« L’homme naît pour souffrir, comme l’étincelle pour voler. » (Job 5:7)"
+  },
+  "en": {
+   "q": "Complete: “Yet man is born unto ______, as the sparks fly upward.”",
+   "options": [
+    "trouble",
+    "rule",
+    "rest",
+    "song"
+   ],
+   "explain": "“Yet man is born unto trouble, as the sparks fly upward.” (Job 5:7)"
+  }
+ },
+ {
+  "id": "verses-hard-004",
+  "ref": {
+   "fr": "Job 38:4",
+   "en": "Job 38:4"
+  },
+  "fr": {
+   "q": "Complétez : « Où étais-tu quand je fondais ______ ? Dis-le, si tu as de l’intelligence. »",
+   "options": [
+    "la terre",
+    "les cieux",
+    "la mer",
+    "le soleil"
+   ],
+   "explain": "« Où étais-tu quand je fondais la terre ? » (Job 38:4)"
+  },
+  "en": {
+   "q": "Complete: “Where wast thou when I laid the foundations of ______? declare, if thou hast understanding.”",
+   "options": [
+    "the earth",
+    "the heavens",
+    "the sea",
+    "the sun"
+   ],
+   "explain": "“Where wast thou when I laid the foundations of the earth?” (Job 38:4)"
+  }
+ },
+ {
+  "id": "verses-hard-005",
+  "ref": {
+   "fr": "Job 42:5",
+   "en": "Job 42:5"
+  },
+  "fr": {
+   "q": "Complétez : « Mon oreille avait entendu parler de toi ; mais maintenant ______ t’a vu. »",
+   "options": [
+    "mon œil",
+    "mon cœur",
+    "ma main",
+    "ma bouche"
+   ],
+   "explain": "« ...mais maintenant mon œil t’a vu. » (Job 42:5)"
+  },
+  "en": {
+   "q": "Complete: “I have heard of thee by the hearing of the ear: but now ______ seeth thee.”",
+   "options": [
+    "mine eye",
+    "my heart",
+    "my hand",
+    "my mouth"
+   ],
+   "explain": "“...but now mine eye seeth thee.” (Job 42:5)"
+  }
+ },
+ {
+  "id": "verses-hard-006",
+  "ref": {
+   "fr": "Ecclésiaste 1:2",
+   "en": "Ecclesiastes 1:2"
+  },
+  "fr": {
+   "q": "Complétez : « ______, dit l’Ecclésiaste, ...tout est vanité. »",
+   "options": [
+    "Vanité des vanités",
+    "Sagesse des sages",
+    "Gloire des gloires",
+    "Force des forts"
+   ],
+   "explain": "« Vanité des vanités, dit l’Ecclésiaste, ...tout est vanité. » (Ecclésiaste 1:2)"
+  },
+  "en": {
+   "q": "Complete: “______, saith the Preacher... all is vanity.”",
+   "options": [
+    "Vanity of vanities",
+    "Wisdom of the wise",
+    "Glory of glories",
+    "Strength of the strong"
+   ],
+   "explain": "“Vanity of vanities, saith the Preacher... all is vanity.” (Ecclesiastes 1:2)"
+  }
+ },
+ {
+  "id": "verses-hard-007",
+  "ref": {
+   "fr": "Ecclésiaste 12:1",
+   "en": "Ecclesiastes 12:1"
+  },
+  "fr": {
+   "q": "Complétez : « Mais souviens-toi de ______ pendant les jours de ta jeunesse. »",
+   "options": [
+    "ton créateur",
+    "ton roi",
+    "ton maître",
+    "ton père"
+   ],
+   "explain": "« Souviens-toi de ton créateur pendant les jours de ta jeunesse. » (Ecclésiaste 12:1)"
+  },
+  "en": {
+   "q": "Complete: “Remember now ______ in the days of thy youth.”",
+   "options": [
+    "thy Creator",
+    "thy king",
+    "thy master",
+    "thy father"
+   ],
+   "explain": "“Remember now thy Creator in the days of thy youth.” (Ecclesiastes 12:1)"
+  }
+ },
+ {
+  "id": "verses-hard-008",
+  "ref": {
+   "fr": "Ecclésiaste 4:9",
+   "en": "Ecclesiastes 4:9"
+  },
+  "fr": {
+   "q": "Complétez : « Deux valent mieux ______, parce qu’ils retirent un bon salaire de leur travail. »",
+   "options": [
+    "qu’un",
+    "que trois",
+    "que rien",
+    "que dix"
+   ],
+   "explain": "« Deux valent mieux qu’un. » (Ecclésiaste 4:9)"
+  },
+  "en": {
+   "q": "Complete: “Two are better ______; because they have a good reward for their labour.”",
+   "options": [
+    "than one",
+    "than three",
+    "than none",
+    "than ten"
+   ],
+   "explain": "“Two are better than one.” (Ecclesiastes 4:9)"
+  }
+ },
+ {
+  "id": "verses-hard-009",
+  "ref": {
+   "fr": "Ecclésiaste 7:1",
+   "en": "Ecclesiastes 7:1"
+  },
+  "fr": {
+   "q": "Complétez : « Une bonne réputation vaut mieux que ______, et le jour de la mort que le jour de la naissance. »",
+   "options": [
+    "le bon parfum",
+    "l’or fin",
+    "la grande armée",
+    "le vin nouveau"
+   ],
+   "explain": "« Une bonne réputation vaut mieux que le bon parfum. » (Ecclésiaste 7:1)"
+  },
+  "en": {
+   "q": "Complete: “A good name is better than ______; and the day of death than the day of one’s birth.”",
+   "options": [
+    "precious ointment",
+    "fine gold",
+    "a great army",
+    "new wine"
+   ],
+   "explain": "“A good name is better than precious ointment.” (Ecclesiastes 7:1)"
+  }
+ },
+ {
+  "id": "verses-hard-010",
+  "ref": {
+   "fr": "Cantique 2:1",
+   "en": "Song of Songs 2:1"
+  },
+  "fr": {
+   "q": "Complétez : « Je suis un narcisse de Saron, ______ des vallées. »",
+   "options": [
+    "un lis",
+    "une vigne",
+    "un cèdre",
+    "un myrte"
+   ],
+   "explain": "« Je suis un narcisse de Saron, un lis des vallées. » (Cantique 2:1)"
+  },
+  "en": {
+   "q": "Complete: “I am the rose of Sharon, and ______ of the valleys.”",
+   "options": [
+    "the lily",
+    "the vine",
+    "the cedar",
+    "the myrtle"
+   ],
+   "explain": "“I am the rose of Sharon, and the lily of the valleys.” (Song of Songs 2:1)"
+  }
+ },
+ {
+  "id": "verses-hard-011",
+  "ref": {
+   "fr": "Cantique 8:7",
+   "en": "Song of Songs 8:7"
+  },
+  "fr": {
+   "q": "Complétez : « Les grandes eaux ne peuvent ______ l’amour, et les fleuves ne le submergeraient pas. »",
+   "options": [
+    "éteindre",
+    "augmenter",
+    "acheter",
+    "cacher"
+   ],
+   "explain": "« Les grandes eaux ne peuvent éteindre l’amour. » (Cantique 8:7)"
+  },
+  "en": {
+   "q": "Complete: “Many waters cannot ______ love, neither can the floods drown it.”",
+   "options": [
+    "quench",
+    "increase",
+    "buy",
+    "hide"
+   ],
+   "explain": "“Many waters cannot quench love.” (Song of Songs 8:7)"
+  }
+ },
+ {
+  "id": "verses-hard-012",
+  "ref": {
+   "fr": "Ésaïe 53:3",
+   "en": "Isaiah 53:3"
+  },
+  "fr": {
+   "q": "Complétez : « Méprisé et abandonné des hommes, homme de douleur et habitué à ______. »",
+   "options": [
+    "la souffrance",
+    "la richesse",
+    "la gloire",
+    "la victoire"
+   ],
+   "explain": "« ...homme de douleur et habitué à la souffrance. » (Ésaïe 53:3)"
+  },
+  "en": {
+   "q": "Complete: “He is despised and rejected of men; a man of sorrows, and acquainted with ______.”",
+   "options": [
+    "grief",
+    "riches",
+    "glory",
+    "victory"
+   ],
+   "explain": "“...a man of sorrows, and acquainted with grief.” (Isaiah 53:3)"
+  }
+ },
+ {
+  "id": "verses-hard-013",
+  "ref": {
+   "fr": "Ésaïe 7:14",
+   "en": "Isaiah 7:14"
+  },
+  "fr": {
+   "q": "Complétez : « ...la jeune fille... enfantera un fils, et elle lui donnera le nom d’______. »",
+   "options": [
+    "Emmanuel",
+    "Jésus",
+    "Élie",
+    "Samuel"
+   ],
+   "explain": "« ...elle lui donnera le nom d’Emmanuel. » (Ésaïe 7:14)"
+  },
+  "en": {
+   "q": "Complete: “...a virgin shall conceive, and bear a son, and shall call his name ______.”",
+   "options": [
+    "Immanuel",
+    "Jesus",
+    "Elijah",
+    "Samuel"
+   ],
+   "explain": "“...shall call his name Immanuel.” (Isaiah 7:14)"
+  }
+ },
+ {
+  "id": "verses-hard-014",
+  "ref": {
+   "fr": "Ésaïe 40:3",
+   "en": "Isaiah 40:3"
+  },
+  "fr": {
+   "q": "Complétez : « Une voix crie : Préparez au désert ______ ; aplanissez une route dans les lieux arides. »",
+   "options": [
+    "le chemin de l’Éternel",
+    "la maison du roi",
+    "le trône de gloire",
+    "la table du festin"
+   ],
+   "explain": "« Préparez au désert le chemin de l’Éternel. » (Ésaïe 40:3)"
+  },
+  "en": {
+   "q": "Complete: “The voice of him that crieth in the wilderness, Prepare ye ______, make straight a highway.”",
+   "options": [
+    "the way of the LORD",
+    "the house of the king",
+    "the throne of glory",
+    "the feast of kings"
+   ],
+   "explain": "“Prepare ye the way of the LORD.” (Isaiah 40:3)"
+  }
+ },
+ {
+  "id": "verses-hard-015",
+  "ref": {
+   "fr": "Ésaïe 11:6",
+   "en": "Isaiah 11:6"
+  },
+  "fr": {
+   "q": "Complétez : « Le loup habitera avec ______, et la panthère se couchera avec le chevreau. »",
+   "options": [
+    "l’agneau",
+    "le lion",
+    "l’aigle",
+    "le serpent"
+   ],
+   "explain": "« Le loup habitera avec l’agneau. » (Ésaïe 11:6)"
+  },
+  "en": {
+   "q": "Complete: “The wolf also shall dwell with ______, and the leopard shall lie down with the kid.”",
+   "options": [
+    "the lamb",
+    "the lion",
+    "the eagle",
+    "the serpent"
+   ],
+   "explain": "“The wolf also shall dwell with the lamb.” (Isaiah 11:6)"
+  }
+ },
+ {
+  "id": "verses-hard-016",
+  "ref": {
+   "fr": "Ésaïe 60:1",
+   "en": "Isaiah 60:1"
+  },
+  "fr": {
+   "q": "Complétez : « Lève-toi, sois éclairée, car ______ arrive, et la gloire de l’Éternel se lève sur toi. »",
+   "options": [
+    "ta lumière",
+    "ton roi",
+    "ton secours",
+    "ta paix"
+   ],
+   "explain": "« Lève-toi, sois éclairée, car ta lumière arrive. » (Ésaïe 60:1)"
+  },
+  "en": {
+   "q": "Complete: “Arise, shine; for ______ is come, and the glory of the LORD is risen upon thee.”",
+   "options": [
+    "thy light",
+    "thy king",
+    "thy help",
+    "thy peace"
+   ],
+   "explain": "“Arise, shine; for thy light is come.” (Isaiah 60:1)"
+  }
+ },
+ {
+  "id": "verses-hard-017",
+  "ref": {
+   "fr": "Ésaïe 64:8",
+   "en": "Isaiah 64:8"
+  },
+  "fr": {
+   "q": "Complétez : « ...nous sommes l’argile, et c’est toi qui nous as formés, nous sommes tous l’ouvrage de ______. »",
+   "options": [
+    "tes mains",
+    "ton cœur",
+    "ta bouche",
+    "tes yeux"
+   ],
+   "explain": "« ...nous sommes tous l’ouvrage de tes mains. » (Ésaïe 64:8)"
+  },
+  "en": {
+   "q": "Complete: “...we are the clay, and thou our potter; and we all are the work of ______.”",
+   "options": [
+    "thy hand",
+    "thy heart",
+    "thy mouth",
+    "thine eyes"
+   ],
+   "explain": "“...we all are the work of thy hand.” (Isaiah 64:8)"
+  }
+ },
+ {
+  "id": "verses-hard-018",
+  "ref": {
+   "fr": "Jérémie 1:5",
+   "en": "Jeremiah 1:5"
+  },
+  "fr": {
+   "q": "Complétez : « Avant que je t’eusse formé dans le ventre de ta mère, ______. »",
+   "options": [
+    "je te connaissais",
+    "je t’oubliais",
+    "je te jugeais",
+    "je te craignais"
+   ],
+   "explain": "« Avant que je t’eusse formé..., je te connaissais. » (Jérémie 1:5)"
+  },
+  "en": {
+   "q": "Complete: “Before I formed thee in the belly ______; and before thou camest forth... I sanctified thee.”",
+   "options": [
+    "I knew thee",
+    "I forgot thee",
+    "I judged thee",
+    "I feared thee"
+   ],
+   "explain": "“Before I formed thee in the belly I knew thee.” (Jeremiah 1:5)"
+  }
+ },
+ {
+  "id": "verses-hard-019",
+  "ref": {
+   "fr": "Jérémie 31:3",
+   "en": "Jeremiah 31:3"
+  },
+  "fr": {
+   "q": "Complétez : « Je t’aime d’un amour ______ ; c’est pourquoi je te conserve ma bonté. »",
+   "options": [
+    "éternel",
+    "passager",
+    "caché",
+    "nouveau"
+   ],
+   "explain": "« Je t’aime d’un amour éternel. » (Jérémie 31:3)"
+  },
+  "en": {
+   "q": "Complete: “I have loved thee with an ______ love: therefore with lovingkindness have I drawn thee.”",
+   "options": [
+    "everlasting",
+    "passing",
+    "secret",
+    "new"
+   ],
+   "explain": "“I have loved thee with an everlasting love.” (Jeremiah 31:3)"
+  }
+ },
+ {
+  "id": "verses-hard-020",
+  "ref": {
+   "fr": "Ézéchiel 37:4",
+   "en": "Ezekiel 37:4"
+  },
+  "fr": {
+   "q": "Complétez : « ...Ossements desséchés, écoutez ______ ! »",
+   "options": [
+    "la parole de l’Éternel",
+    "le chant du roi",
+    "le cri du peuple",
+    "la voix du prophète"
+   ],
+   "explain": "« Ossements desséchés, écoutez la parole de l’Éternel ! » (Ézéchiel 37:4)"
+  },
+  "en": {
+   "q": "Complete: “...O ye dry bones, hear ______.”",
+   "options": [
+    "the word of the LORD",
+    "the song of the king",
+    "the cry of the people",
+    "the voice of the prophet"
+   ],
+   "explain": "“O ye dry bones, hear the word of the LORD.” (Ezekiel 37:4)"
+  }
+ },
+ {
+  "id": "verses-hard-021",
+  "ref": {
+   "fr": "Ézéchiel 18:4",
+   "en": "Ezekiel 18:4"
+  },
+  "fr": {
+   "q": "Complétez : « ...l’âme qui pèche, c’est celle qui ______. »",
+   "options": [
+    "mourra",
+    "vivra",
+    "régnera",
+    "triomphera"
+   ],
+   "explain": "« ...l’âme qui pèche, c’est celle qui mourra. » (Ézéchiel 18:4)"
+  },
+  "en": {
+   "q": "Complete: “...the soul that sinneth, it ______.”",
+   "options": [
+    "shall die",
+    "shall live",
+    "shall reign",
+    "shall triumph"
+   ],
+   "explain": "“...the soul that sinneth, it shall die.” (Ezekiel 18:4)"
+  }
+ },
+ {
+  "id": "verses-hard-022",
+  "ref": {
+   "fr": "Daniel 3:17",
+   "en": "Daniel 3:17"
+  },
+  "fr": {
+   "q": "Complétez : « ...notre Dieu que nous servons peut nous ______ de la fournaise ardente. »",
+   "options": [
+    "délivrer",
+    "séparer",
+    "éloigner",
+    "cacher"
+   ],
+   "explain": "« ...notre Dieu peut nous délivrer de la fournaise ardente. » (Daniel 3:17)"
+  },
+  "en": {
+   "q": "Complete: “...our God whom we serve is able to ______ us from the burning fiery furnace.”",
+   "options": [
+    "deliver",
+    "separate",
+    "remove",
+    "hide"
+   ],
+   "explain": "“...our God is able to deliver us from the burning fiery furnace.” (Daniel 3:17)"
+  }
+ },
+ {
+  "id": "verses-hard-023",
+  "ref": {
+   "fr": "Daniel 6:23",
+   "en": "Daniel 6:22"
+  },
+  "fr": {
+   "q": "Complétez : « Mon Dieu a envoyé son ange et fermé la gueule ______, qui ne m’ont fait aucun mal. »",
+   "options": [
+    "des lions",
+    "des ours",
+    "des loups",
+    "des serpents"
+   ],
+   "explain": "« ...et fermé la gueule des lions. » (Daniel 6:23)"
+  },
+  "en": {
+   "q": "Complete: “My God hath sent his angel, and hath shut ______ mouths, that they have not hurt me.”",
+   "options": [
+    "the lions’",
+    "the bears’",
+    "the wolves’",
+    "the serpents’"
+   ],
+   "explain": "“...hath shut the lions’ mouths.” (Daniel 6:22)"
+  }
+ },
+ {
+  "id": "verses-hard-024",
+  "ref": {
+   "fr": "Osée 4:6",
+   "en": "Hosea 4:6"
+  },
+  "fr": {
+   "q": "Complétez : « Mon peuple est détruit, parce qu’il lui manque ______. »",
+   "options": [
+    "la connaissance",
+    "la richesse",
+    "la force",
+    "le courage"
+   ],
+   "explain": "« Mon peuple est détruit, parce qu’il lui manque la connaissance. » (Osée 4:6)"
+  },
+  "en": {
+   "q": "Complete: “My people are destroyed for lack of ______.”",
+   "options": [
+    "knowledge",
+    "riches",
+    "strength",
+    "courage"
+   ],
+   "explain": "“My people are destroyed for lack of knowledge.” (Hosea 4:6)"
+  }
+ },
+ {
+  "id": "verses-hard-025",
+  "ref": {
+   "fr": "Joël 2:28",
+   "en": "Joel 2:28"
+  },
+  "fr": {
+   "q": "Complétez : « Après cela, je répandrai mon esprit sur ______ ; vos fils et vos filles prophétiseront. »",
+   "options": [
+    "toute chair",
+    "les rois seuls",
+    "les prêtres seuls",
+    "les anciens seuls"
+   ],
+   "explain": "« ...je répandrai mon esprit sur toute chair. » (Joël 2:28)"
+  },
+  "en": {
+   "q": "Complete: “...I will pour out my spirit upon ______; your sons and your daughters shall prophesy.”",
+   "options": [
+    "all flesh",
+    "the kings only",
+    "the priests only",
+    "the elders only"
+   ],
+   "explain": "“...I will pour out my spirit upon all flesh.” (Joel 2:28)"
+  }
+ },
+ {
+  "id": "verses-hard-026",
+  "ref": {
+   "fr": "Joël 2:13",
+   "en": "Joel 2:13"
+  },
+  "fr": {
+   "q": "Complétez : « Déchirez vos cœurs et non ______, et revenez à l’Éternel, votre Dieu. »",
+   "options": [
+    "vos vêtements",
+    "vos maisons",
+    "vos champs",
+    "vos livres"
+   ],
+   "explain": "« Déchirez vos cœurs et non vos vêtements. » (Joël 2:13)"
+  },
+  "en": {
+   "q": "Complete: “And rend your heart, and not ______, and turn unto the LORD your God.”",
+   "options": [
+    "your garments",
+    "your houses",
+    "your fields",
+    "your books"
+   ],
+   "explain": "“And rend your heart, and not your garments.” (Joel 2:13)"
+  }
+ },
+ {
+  "id": "verses-hard-027",
+  "ref": {
+   "fr": "Amos 5:24",
+   "en": "Amos 5:24"
+  },
+  "fr": {
+   "q": "Complétez : « Mais que la droiture soit comme ______, et la justice comme un torrent qui jamais ne tarit. »",
+   "options": [
+    "un courant d’eau",
+    "une flamme ardente",
+    "un vent violent",
+    "une haute montagne"
+   ],
+   "explain": "« ...que la droiture soit comme un courant d’eau. » (Amos 5:24)"
+  },
+  "en": {
+   "q": "Complete: “But let judgment run down as ______, and righteousness as a mighty stream.”",
+   "options": [
+    "waters",
+    "a burning flame",
+    "a mighty wind",
+    "a high mountain"
+   ],
+   "explain": "“...let judgment run down as waters.” (Amos 5:24)"
+  }
+ },
+ {
+  "id": "verses-hard-028",
+  "ref": {
+   "fr": "Jonas 1:17",
+   "en": "Jonah 1:17"
+  },
+  "fr": {
+   "q": "Complétez : « L’Éternel fit venir un grand ______ pour engloutir Jonas. »",
+   "options": [
+    "poisson",
+    "oiseau",
+    "navire",
+    "serpent"
+   ],
+   "explain": "« L’Éternel fit venir un grand poisson pour engloutir Jonas. » (Jonas 1:17)"
+  },
+  "en": {
+   "q": "Complete: “Now the LORD had prepared a great ______ to swallow up Jonah.”",
+   "options": [
+    "fish",
+    "bird",
+    "ship",
+    "serpent"
+   ],
+   "explain": "“...the LORD had prepared a great fish to swallow up Jonah.” (Jonah 1:17)"
+  }
+ },
+ {
+  "id": "verses-hard-029",
+  "ref": {
+   "fr": "Michée 5:2",
+   "en": "Micah 5:2"
+  },
+  "fr": {
+   "q": "Complétez : « Et toi, ______ Éphrata, ...de toi sortira celui qui dominera sur Israël. »",
+   "options": [
+    "Bethléhem",
+    "Jérusalem",
+    "Nazareth",
+    "Hébron"
+   ],
+   "explain": "« Et toi, Bethléhem Éphrata... » (Michée 5:2)"
+  },
+  "en": {
+   "q": "Complete: “But thou, ______ Ephratah... out of thee shall he come forth that is to be ruler in Israel.”",
+   "options": [
+    "Bethlehem",
+    "Jerusalem",
+    "Nazareth",
+    "Hebron"
+   ],
+   "explain": "“But thou, Bethlehem Ephratah...” (Micah 5:2)"
+  }
+ },
+ {
+  "id": "verses-hard-030",
+  "ref": {
+   "fr": "Habacuc 2:4",
+   "en": "Habakkuk 2:4"
+  },
+  "fr": {
+   "q": "Complétez : « ...mais le juste vivra par ______. »",
+   "options": [
+    "sa foi",
+    "sa force",
+    "sa sagesse",
+    "sa richesse"
+   ],
+   "explain": "« ...mais le juste vivra par sa foi. » (Habacuc 2:4)"
+  },
+  "en": {
+   "q": "Complete: “...but the just shall live by ______.”",
+   "options": [
+    "his faith",
+    "his strength",
+    "his wisdom",
+    "his riches"
+   ],
+   "explain": "“...but the just shall live by his faith.” (Habakkuk 2:4)"
+  }
+ },
+ {
+  "id": "verses-hard-031",
+  "ref": {
+   "fr": "Sophonie 3:17",
+   "en": "Zephaniah 3:17"
+  },
+  "fr": {
+   "q": "Complétez : « L’Éternel, ton Dieu, est au milieu de toi, comme ______ qui sauve. »",
+   "options": [
+    "un héros",
+    "un juge",
+    "un étranger",
+    "un berger"
+   ],
+   "explain": "« ...comme un héros qui sauve. » (Sophonie 3:17)"
+  },
+  "en": {
+   "q": "Complete: “The LORD your God in the midst of you is ______, who will save.”",
+   "options": [
+    "a mighty one",
+    "a judge",
+    "a stranger",
+    "a shepherd"
+   ],
+   "explain": "“...a mighty one who will save.” (Zephaniah 3:17, WEB)"
+  }
+ },
+ {
+  "id": "verses-hard-032",
+  "ref": {
+   "fr": "Zacharie 4:6",
+   "en": "Zechariah 4:6"
+  },
+  "fr": {
+   "q": "Complétez : « Ce n’est ni par la puissance ni par la force, mais par ______, dit l’Éternel. »",
+   "options": [
+    "mon esprit",
+    "ta main",
+    "ton armée",
+    "ton or"
+   ],
+   "explain": "« ...mais par mon esprit, dit l’Éternel des armées. » (Zacharie 4:6)"
+  },
+  "en": {
+   "q": "Complete: “Not by might, nor by power, but by ______, saith the LORD of hosts.”",
+   "options": [
+    "my spirit",
+    "thy hand",
+    "thine army",
+    "thy gold"
+   ],
+   "explain": "“Not by might, nor by power, but by my spirit.” (Zechariah 4:6)"
+  }
+ },
+ {
+  "id": "verses-hard-033",
+  "ref": {
+   "fr": "Malachie 3:6",
+   "en": "Malachi 3:6"
+  },
+  "fr": {
+   "q": "Complétez : « Car je suis l’Éternel, ______ ; c’est pourquoi vous n’avez pas été consumés. »",
+   "options": [
+    "je ne change pas",
+    "je me repens",
+    "je m’éloigne",
+    "je me cache"
+   ],
+   "explain": "« Car je suis l’Éternel, je ne change pas. » (Malachie 3:6)"
+  },
+  "en": {
+   "q": "Complete: “For I am the LORD, ______; therefore ye sons of Jacob are not consumed.”",
+   "options": [
+    "I change not",
+    "I repent",
+    "I depart",
+    "I hide"
+   ],
+   "explain": "“For I am the LORD, I change not.” (Malachi 3:6)"
+  }
+ },
+ {
+  "id": "verses-hard-034",
+  "ref": {
+   "fr": "Hébreux 11:3",
+   "en": "Hebrews 11:3"
+  },
+  "fr": {
+   "q": "Complétez : « C’est par la foi que nous reconnaissons que le monde a été formé par ______. »",
+   "options": [
+    "la parole de Dieu",
+    "la main de l’homme",
+    "la force du feu",
+    "la sagesse des anges"
+   ],
+   "explain": "« ...le monde a été formé par la parole de Dieu. » (Hébreux 11:3)"
+  },
+  "en": {
+   "q": "Complete: “Through faith we understand that the worlds were framed by ______.”",
+   "options": [
+    "the word of God",
+    "the hand of man",
+    "the power of fire",
+    "the wisdom of angels"
+   ],
+   "explain": "“...the worlds were framed by the word of God.” (Hebrews 11:3)"
+  }
+ },
+ {
+  "id": "verses-hard-035",
+  "ref": {
+   "fr": "Hébreux 12:1",
+   "en": "Hebrews 12:1"
+  },
+  "fr": {
+   "q": "Complétez : « ...courons avec persévérance dans ______ qui nous est ouverte. »",
+   "options": [
+    "la carrière",
+    "la bataille",
+    "la maison",
+    "la vigne"
+   ],
+   "explain": "« ...courons avec persévérance dans la carrière qui nous est ouverte. » (Hébreux 12:1)"
+  },
+  "en": {
+   "q": "Complete: “...let us run with patience ______ that is set before us.”",
+   "options": [
+    "the race",
+    "the battle",
+    "the house",
+    "the vineyard"
+   ],
+   "explain": "“...let us run with patience the race that is set before us.” (Hebrews 12:1)"
+  }
+ },
+ {
+  "id": "verses-hard-036",
+  "ref": {
+   "fr": "Hébreux 4:16",
+   "en": "Hebrews 4:16"
+  },
+  "fr": {
+   "q": "Complétez : « Approchons-nous donc avec assurance ______, afin d’obtenir miséricorde. »",
+   "options": [
+    "du trône de la grâce",
+    "de la porte du temple",
+    "de la montagne sainte",
+    "de l’autel d’or"
+   ],
+   "explain": "« Approchons-nous avec assurance du trône de la grâce. » (Hébreux 4:16)"
+  },
+  "en": {
+   "q": "Complete: “Let us therefore come boldly unto ______, that we may obtain mercy.”",
+   "options": [
+    "the throne of grace",
+    "the gate of the temple",
+    "the holy mountain",
+    "the altar of gold"
+   ],
+   "explain": "“Let us therefore come boldly unto the throne of grace.” (Hebrews 4:16)"
+  }
+ },
+ {
+  "id": "verses-hard-037",
+  "ref": {
+   "fr": "Hébreux 9:27",
+   "en": "Hebrews 9:27"
+  },
+  "fr": {
+   "q": "Complétez : « ...il est réservé aux hommes de mourir une seule fois, après quoi vient ______. »",
+   "options": [
+    "le jugement",
+    "le repos",
+    "la gloire",
+    "le sommeil"
+   ],
+   "explain": "« ...après quoi vient le jugement. » (Hébreux 9:27)"
+  },
+  "en": {
+   "q": "Complete: “...it is appointed unto men once to die, but after this ______.”",
+   "options": [
+    "the judgment",
+    "the rest",
+    "the glory",
+    "the sleep"
+   ],
+   "explain": "“...but after this the judgment.” (Hebrews 9:27)"
+  }
+ },
+ {
+  "id": "verses-hard-038",
+  "ref": {
+   "fr": "Hébreux 10:25",
+   "en": "Hebrews 10:25"
+  },
+  "fr": {
+   "q": "Complétez : « N’abandonnons pas ______, mais exhortons-nous réciproquement. »",
+   "options": [
+    "notre assemblée",
+    "notre travail",
+    "notre repos",
+    "notre maison"
+   ],
+   "explain": "« N’abandonnons pas notre assemblée. » (Hébreux 10:25)"
+  },
+  "en": {
+   "q": "Complete: “Not forsaking ______, as the manner of some is; but exhorting one another.”",
+   "options": [
+    "the assembling of ourselves",
+    "our labour",
+    "our rest",
+    "our house"
+   ],
+   "explain": "“Not forsaking the assembling of ourselves together.” (Hebrews 10:25)"
+  }
+ },
+ {
+  "id": "verses-hard-039",
+  "ref": {
+   "fr": "Hébreux 13:2",
+   "en": "Hebrews 13:2"
+  },
+  "fr": {
+   "q": "Complétez : « N’oubliez pas l’hospitalité ; car quelques-uns ont logé ______ sans le savoir. »",
+   "options": [
+    "des anges",
+    "des rois",
+    "des voleurs",
+    "des prophètes"
+   ],
+   "explain": "« ...quelques-uns ont logé des anges sans le savoir. » (Hébreux 13:2)"
+  },
+  "en": {
+   "q": "Complete: “Be not forgetful to entertain strangers: for some have entertained ______ unawares.”",
+   "options": [
+    "angels",
+    "kings",
+    "thieves",
+    "prophets"
+   ],
+   "explain": "“...some have entertained angels unawares.” (Hebrews 13:2)"
+  }
+ },
+ {
+  "id": "verses-hard-040",
+  "ref": {
+   "fr": "Jacques 2:17",
+   "en": "James 2:17"
+  },
+  "fr": {
+   "q": "Complétez : « Il en est ainsi de la foi : si elle n’a pas les œuvres, elle est ______ en elle-même. »",
+   "options": [
+    "morte",
+    "vaine seulement",
+    "cachée",
+    "faible"
+   ],
+   "explain": "« ...la foi, si elle n’a pas les œuvres, est morte. » (Jacques 2:17)"
+  },
+  "en": {
+   "q": "Complete: “Even so faith, if it hath not works, is ______, being alone.”",
+   "options": [
+    "dead",
+    "merely vain",
+    "hidden",
+    "weak"
+   ],
+   "explain": "“Even so faith, if it hath not works, is dead.” (James 2:17)"
+  }
+ },
+ {
+  "id": "verses-hard-041",
+  "ref": {
+   "fr": "Jacques 1:19",
+   "en": "James 1:19"
+  },
+  "fr": {
+   "q": "Complétez : « ...que tout homme soit prompt à écouter, lent à parler, lent à ______. »",
+   "options": [
+    "se mettre en colère",
+    "se réjouir",
+    "s’endormir",
+    "partir"
+   ],
+   "explain": "« ...lent à se mettre en colère. » (Jacques 1:19)"
+  },
+  "en": {
+   "q": "Complete: “...let every man be swift to hear, slow to speak, slow ______.”",
+   "options": [
+    "to wrath",
+    "to rejoice",
+    "to sleep",
+    "to depart"
+   ],
+   "explain": "“...slow to wrath.” (James 1:19)"
+  }
+ },
+ {
+  "id": "verses-hard-042",
+  "ref": {
+   "fr": "Jacques 4:8",
+   "en": "James 4:8"
+  },
+  "fr": {
+   "q": "Complétez : « Approchez-vous de Dieu, et il s’approchera ______. »",
+   "options": [
+    "de vous",
+    "du roi",
+    "des anges",
+    "du temple"
+   ],
+   "explain": "« Approchez-vous de Dieu, et il s’approchera de vous. » (Jacques 4:8)"
+  },
+  "en": {
+   "q": "Complete: “Draw nigh to God, and he will draw nigh ______.”",
+   "options": [
+    "to you",
+    "to the king",
+    "to the angels",
+    "to the temple"
+   ],
+   "explain": "“Draw nigh to God, and he will draw nigh to you.” (James 4:8)"
+  }
+ },
+ {
+  "id": "verses-hard-043",
+  "ref": {
+   "fr": "Jacques 3:5",
+   "en": "James 3:5"
+  },
+  "fr": {
+   "q": "Complétez : « De même, ______ est un petit membre, et elle se vante de grandes choses. »",
+   "options": [
+    "la langue",
+    "la main",
+    "l’oreille",
+    "le pied"
+   ],
+   "explain": "« ...la langue est un petit membre, et elle se vante de grandes choses. » (Jacques 3:5)"
+  },
+  "en": {
+   "q": "Complete: “Even so ______ is a little member, and boasteth great things.”",
+   "options": [
+    "the tongue",
+    "the hand",
+    "the ear",
+    "the foot"
+   ],
+   "explain": "“Even so the tongue is a little member, and boasteth great things.” (James 3:5)"
+  }
+ },
+ {
+  "id": "verses-hard-044",
+  "ref": {
+   "fr": "1 Pierre 1:16",
+   "en": "1 Peter 1:16"
+  },
+  "fr": {
+   "q": "Complétez : « ...selon qu’il est écrit : Vous serez saints, car je suis ______. »",
+   "options": [
+    "saint",
+    "roi",
+    "juste",
+    "fort"
+   ],
+   "explain": "« Vous serez saints, car je suis saint. » (1 Pierre 1:16)"
+  },
+  "en": {
+   "q": "Complete: “Because it is written, Be ye holy; for I am ______.”",
+   "options": [
+    "holy",
+    "king",
+    "just",
+    "strong"
+   ],
+   "explain": "“Be ye holy; for I am holy.” (1 Peter 1:16)"
+  }
+ },
+ {
+  "id": "verses-hard-045",
+  "ref": {
+   "fr": "1 Pierre 4:8",
+   "en": "1 Peter 4:8"
+  },
+  "fr": {
+   "q": "Complétez : « ...car ______ couvre une multitude de péchés. »",
+   "options": [
+    "la charité",
+    "la crainte",
+    "la sagesse",
+    "la loi"
+   ],
+   "explain": "« ...car la charité couvre une multitude de péchés. » (1 Pierre 4:8)"
+  },
+  "en": {
+   "q": "Complete: “...for ______ shall cover the multitude of sins.”",
+   "options": [
+    "charity",
+    "fear",
+    "wisdom",
+    "law"
+   ],
+   "explain": "“...for charity shall cover the multitude of sins.” (1 Peter 4:8)"
+  }
+ },
+ {
+  "id": "verses-hard-046",
+  "ref": {
+   "fr": "1 Pierre 5:5",
+   "en": "1 Peter 5:5"
+  },
+  "fr": {
+   "q": "Complétez : « ...Dieu résiste aux orgueilleux, mais il fait grâce ______. »",
+   "options": [
+    "aux humbles",
+    "aux riches",
+    "aux forts",
+    "aux sages"
+   ],
+   "explain": "« ...il fait grâce aux humbles. » (1 Pierre 5:5)"
+  },
+  "en": {
+   "q": "Complete: “...God resisteth the proud, and giveth grace ______.”",
+   "options": [
+    "to the humble",
+    "to the rich",
+    "to the strong",
+    "to the wise"
+   ],
+   "explain": "“...God giveth grace to the humble.” (1 Peter 5:5)"
+  }
+ },
+ {
+  "id": "verses-hard-047",
+  "ref": {
+   "fr": "2 Pierre 3:9",
+   "en": "2 Peter 3:9"
+  },
+  "fr": {
+   "q": "Complétez : « Le Seigneur ne tarde pas... voulant que tous arrivent à ______. »",
+   "options": [
+    "la repentance",
+    "la richesse",
+    "la gloire",
+    "la victoire"
+   ],
+   "explain": "« ...voulant que tous arrivent à la repentance. » (2 Pierre 3:9)"
+  },
+  "en": {
+   "q": "Complete: “The Lord is not slack... not willing that any should perish, but that all should come to ______.”",
+   "options": [
+    "repentance",
+    "riches",
+    "glory",
+    "victory"
+   ],
+   "explain": "“...but that all should come to repentance.” (2 Peter 3:9)"
+  }
+ },
+ {
+  "id": "verses-hard-048",
+  "ref": {
+   "fr": "2 Pierre 3:8",
+   "en": "2 Peter 3:8"
+  },
+  "fr": {
+   "q": "Complétez : « ...devant le Seigneur un jour est comme ______, et mille ans sont comme un jour. »",
+   "options": [
+    "mille ans",
+    "cent ans",
+    "un siècle",
+    "une heure"
+   ],
+   "explain": "« ...un jour est comme mille ans. » (2 Pierre 3:8)"
+  },
+  "en": {
+   "q": "Complete: “...one day is with the Lord as ______, and a thousand years as one day.”",
+   "options": [
+    "a thousand years",
+    "a hundred years",
+    "an age",
+    "an hour"
+   ],
+   "explain": "“...one day is with the Lord as a thousand years.” (2 Peter 3:8)"
+  }
+ },
+ {
+  "id": "verses-hard-049",
+  "ref": {
+   "fr": "1 Jean 3:1",
+   "en": "1 John 3:1"
+  },
+  "fr": {
+   "q": "Complétez : « Voyez quel amour le Père nous a témoigné, pour que nous soyons appelés ______. »",
+   "options": [
+    "enfants de Dieu",
+    "serviteurs du roi",
+    "amis du monde",
+    "anges du ciel"
+   ],
+   "explain": "« ...pour que nous soyons appelés enfants de Dieu. » (1 Jean 3:1)"
+  },
+  "en": {
+   "q": "Complete: “Behold, what manner of love the Father hath bestowed upon us, that we should be called ______.”",
+   "options": [
+    "the sons of God",
+    "the servants of the king",
+    "the friends of the world",
+    "the angels of heaven"
+   ],
+   "explain": "“...that we should be called the sons of God.” (1 John 3:1)"
+  }
+ },
+ {
+  "id": "verses-hard-050",
+  "ref": {
+   "fr": "1 Jean 4:4",
+   "en": "1 John 4:4"
+  },
+  "fr": {
+   "q": "Complétez : « ...celui qui est en vous est plus grand que celui qui est dans ______. »",
+   "options": [
+    "le monde",
+    "le ciel",
+    "le temple",
+    "le désert"
+   ],
+   "explain": "« ...plus grand que celui qui est dans le monde. » (1 Jean 4:4)"
+  },
+  "en": {
+   "q": "Complete: “...greater is he that is in you, than he that is in ______.”",
+   "options": [
+    "the world",
+    "heaven",
+    "the temple",
+    "the desert"
+   ],
+   "explain": "“...greater is he that is in you, than he that is in the world.” (1 John 4:4)"
+  }
+ },
+ {
+  "id": "verses-hard-051",
+  "ref": {
+   "fr": "1 Jean 3:16",
+   "en": "1 John 3:16"
+  },
+  "fr": {
+   "q": "Complétez : « ...Christ a donné sa vie pour nous ; nous aussi, nous devons donner notre vie pour ______. »",
+   "options": [
+    "nos frères",
+    "nos rois",
+    "nos maîtres",
+    "nous-mêmes"
+   ],
+   "explain": "« ...nous devons donner notre vie pour nos frères. » (1 Jean 3:16)"
+  },
+  "en": {
+   "q": "Complete: “...he laid down his life for us: and we ought to lay down our lives for ______.”",
+   "options": [
+    "the brethren",
+    "the kings",
+    "the masters",
+    "ourselves"
+   ],
+   "explain": "“...we ought to lay down our lives for the brethren.” (1 John 3:16)"
+  }
+ },
+ {
+  "id": "verses-hard-052",
+  "ref": {
+   "fr": "Jude 1:24",
+   "en": "Jude 1:24"
+  },
+  "fr": {
+   "q": "Complétez : « Or, à celui qui peut vous préserver de ______ et vous faire paraître devant sa gloire... »",
+   "options": [
+    "toute chute",
+    "toute crainte",
+    "tout ennemi",
+    "toute peine"
+   ],
+   "explain": "« ...celui qui peut vous préserver de toute chute. » (Jude 1:24)"
+  },
+  "en": {
+   "q": "Complete: “Now unto him that is able to keep you from ______, and to present you faultless...”",
+   "options": [
+    "falling",
+    "all fear",
+    "every enemy",
+    "all sorrow"
+   ],
+   "explain": "“...able to keep you from falling.” (Jude 1:24)"
+  }
+ },
+ {
+  "id": "verses-hard-053",
+  "ref": {
+   "fr": "Apocalypse 21:1",
+   "en": "Revelation 21:1"
+  },
+  "fr": {
+   "q": "Complétez : « Puis je vis un nouveau ciel et ______ ; car le premier ciel et la première terre avaient disparu. »",
+   "options": [
+    "une nouvelle terre",
+    "une grande ville",
+    "un vaste désert",
+    "une haute montagne"
+   ],
+   "explain": "« ...un nouveau ciel et une nouvelle terre. » (Apocalypse 21:1)"
+  },
+  "en": {
+   "q": "Complete: “And I saw a new heaven and ______: for the first heaven and the first earth were passed away.”",
+   "options": [
+    "a new earth",
+    "a great city",
+    "a wide desert",
+    "a high mountain"
+   ],
+   "explain": "“And I saw a new heaven and a new earth.” (Revelation 21:1)"
+  }
+ },
+ {
+  "id": "verses-hard-054",
+  "ref": {
+   "fr": "Apocalypse 5:5",
+   "en": "Revelation 5:5"
+  },
+  "fr": {
+   "q": "Complétez : « ...Voici, ______ de la tribu de Juda, le rejeton de David, a vaincu. »",
+   "options": [
+    "le lion",
+    "l’agneau",
+    "l’aigle",
+    "le berger"
+   ],
+   "explain": "« Voici, le lion de la tribu de Juda... a vaincu. » (Apocalypse 5:5)"
+  },
+  "en": {
+   "q": "Complete: “...behold, ______ of the tribe of Juda, the Root of David, hath prevailed.”",
+   "options": [
+    "the Lion",
+    "the Lamb",
+    "the Eagle",
+    "the Shepherd"
+   ],
+   "explain": "“...the Lion of the tribe of Juda... hath prevailed.” (Revelation 5:5)"
+  }
+ },
+ {
+  "id": "verses-hard-055",
+  "ref": {
+   "fr": "Apocalypse 3:16",
+   "en": "Revelation 3:16"
+  },
+  "fr": {
+   "q": "Complétez : « Ainsi, parce que tu es ______, et que tu n’es ni froid ni bouillant, je te vomirai de ma bouche. »",
+   "options": [
+    "tiède",
+    "orgueilleux",
+    "endormi",
+    "craintif"
+   ],
+   "explain": "« ...parce que tu es tiède... je te vomirai de ma bouche. » (Apocalypse 3:16)"
+  },
+  "en": {
+   "q": "Complete: “So then because thou art ______, and neither cold nor hot, I will spue thee out of my mouth.”",
+   "options": [
+    "lukewarm",
+    "proud",
+    "asleep",
+    "fearful"
+   ],
+   "explain": "“So then because thou art lukewarm... I will spue thee out.” (Revelation 3:16)"
+  }
+ },
+ {
+  "id": "verses-hard-056",
+  "ref": {
+   "fr": "Apocalypse 12:11",
+   "en": "Revelation 12:11"
+  },
+  "fr": {
+   "q": "Complétez : « Ils l’ont vaincu à cause du sang de ______ et à cause de la parole de leur témoignage. »",
+   "options": [
+    "l’agneau",
+    "leur roi",
+    "leurs martyrs",
+    "leurs anges"
+   ],
+   "explain": "« Ils l’ont vaincu à cause du sang de l’agneau. » (Apocalypse 12:11)"
+  },
+  "en": {
+   "q": "Complete: “And they overcame him by the blood of ______, and by the word of their testimony.”",
+   "options": [
+    "the Lamb",
+    "their king",
+    "their martyrs",
+    "their angels"
+   ],
+   "explain": "“...they overcame him by the blood of the Lamb.” (Revelation 12:11)"
+  }
+ },
+ {
+  "id": "verses-hard-057",
+  "ref": {
+   "fr": "Apocalypse 22:20",
+   "en": "Revelation 22:20"
+  },
+  "fr": {
+   "q": "Complétez : « ...Amen ! Viens, ______ ! »",
+   "options": [
+    "Seigneur Jésus",
+    "roi de gloire",
+    "Fils de David",
+    "saint des saints"
+   ],
+   "explain": "« Amen ! Viens, Seigneur Jésus ! » (Apocalypse 22:20)"
+  },
+  "en": {
+   "q": "Complete: “...Amen. Even so, come, ______.”",
+   "options": [
+    "Lord Jesus",
+    "King of glory",
+    "Son of David",
+    "Holy One"
+   ],
+   "explain": "“Amen. Even so, come, Lord Jesus.” (Revelation 22:20)"
+  }
+ },
+ {
+  "id": "verses-hard-058",
+  "ref": {
+   "fr": "Job 23:10",
+   "en": "Job 23:10"
+  },
+  "fr": {
+   "q": "Complétez : « ...quand il m’aura éprouvé, je sortirai pur comme ______. »",
+   "options": [
+    "l’or",
+    "l’argent",
+    "la neige",
+    "le feu"
+   ],
+   "explain": "« ...je sortirai pur comme l’or. » (Job 23:10)"
+  },
+  "en": {
+   "q": "Complete: “...when he hath tried me, I shall come forth as ______.”",
+   "options": [
+    "gold",
+    "silver",
+    "snow",
+    "fire"
+   ],
+   "explain": "“...I shall come forth as gold.” (Job 23:10)"
+  }
+ },
+ {
+  "id": "verses-hard-059",
+  "ref": {
+   "fr": "Proverbes 13:20",
+   "en": "Proverbs 13:20"
+  },
+  "fr": {
+   "q": "Complétez : « Celui qui fréquente les sages devient ______, mais celui qui se plaît avec les insensés s’en trouve mal. »",
+   "options": [
+    "sage",
+    "riche",
+    "fort",
+    "puissant"
+   ],
+   "explain": "« Celui qui fréquente les sages devient sage. » (Proverbes 13:20)"
+  },
+  "en": {
+   "q": "Complete: “He that walketh with wise men shall be ______: but a companion of fools shall be destroyed.”",
+   "options": [
+    "wise",
+    "rich",
+    "strong",
+    "mighty"
+   ],
+   "explain": "“He that walketh with wise men shall be wise.” (Proverbs 13:20)"
+  }
+ },
+ {
+  "id": "verses-hard-060",
+  "ref": {
+   "fr": "Proverbes 16:18",
+   "en": "Proverbs 16:18"
+  },
+  "fr": {
+   "q": "Complétez : « L’arrogance précède ______, et l’orgueil précède la chute. »",
+   "options": [
+    "la ruine",
+    "la gloire",
+    "la richesse",
+    "la paix"
+   ],
+   "explain": "« L’arrogance précède la ruine. » (Proverbes 16:18)"
+  },
+  "en": {
+   "q": "Complete: “Pride goeth before ______, and an haughty spirit before a fall.”",
+   "options": [
+    "destruction",
+    "glory",
+    "riches",
+    "peace"
+   ],
+   "explain": "“Pride goeth before destruction.” (Proverbs 16:18)"
+  }
+ },
+ {
+  "id": "verses-hard-061",
+  "ref": {
+   "fr": "Proverbes 18:24",
+   "en": "Proverbs 18:24"
+  },
+  "fr": {
+   "q": "Complétez : « ...il est tel ami plus attaché ______. »",
+   "options": [
+    "qu’un frère",
+    "qu’un roi",
+    "qu’un père",
+    "qu’un maître"
+   ],
+   "explain": "« ...il est tel ami plus attaché qu’un frère. » (Proverbes 18:24)"
+  },
+  "en": {
+   "q": "Complete: “...there is a friend that sticketh closer than ______.”",
+   "options": [
+    "a brother",
+    "a king",
+    "a father",
+    "a master"
+   ],
+   "explain": "“...a friend that sticketh closer than a brother.” (Proverbs 18:24)"
+  }
+ },
+ {
+  "id": "verses-hard-062",
+  "ref": {
+   "fr": "Proverbes 31:10",
+   "en": "Proverbs 31:10"
+  },
+  "fr": {
+   "q": "Complétez : « Qui peut trouver ______ ? Elle a bien plus de valeur que les perles. »",
+   "options": [
+    "une femme vertueuse",
+    "un roi puissant",
+    "un ami fidèle",
+    "un trésor caché"
+   ],
+   "explain": "« Qui peut trouver une femme vertueuse ? » (Proverbes 31:10)"
+  },
+  "en": {
+   "q": "Complete: “Who can find ______? for her price is far above rubies.”",
+   "options": [
+    "a virtuous woman",
+    "a mighty king",
+    "a faithful friend",
+    "a hidden treasure"
+   ],
+   "explain": "“Who can find a virtuous woman?” (Proverbs 31:10)"
+  }
+ },
+ {
+  "id": "verses-hard-063",
+  "ref": {
+   "fr": "Psaume 1:1",
+   "en": "Psalm 1:1"
+  },
+  "fr": {
+   "q": "Complétez : « Heureux l’homme qui ne marche pas selon le conseil ______. »",
+   "options": [
+    "des méchants",
+    "des rois",
+    "des sages",
+    "des étrangers"
+   ],
+   "explain": "« Heureux l’homme qui ne marche pas selon le conseil des méchants. » (Psaume 1:1)"
+  },
+  "en": {
+   "q": "Complete: “Blessed is the man that walketh not in the counsel of ______.”",
+   "options": [
+    "the ungodly",
+    "the kings",
+    "the wise",
+    "the strangers"
+   ],
+   "explain": "“Blessed is the man that walketh not in the counsel of the ungodly.” (Psalm 1:1)"
+  }
+ },
+ {
+  "id": "verses-hard-064",
+  "ref": {
+   "fr": "Psaume 8:5",
+   "en": "Psalm 8:4"
+  },
+  "fr": {
+   "q": "Complétez : « ...qu’est-ce que ______, pour que tu te souviennes de lui ? »",
+   "options": [
+    "l’homme",
+    "le roi",
+    "l’ange",
+    "le sage"
+   ],
+   "explain": "« Qu’est-ce que l’homme, pour que tu te souviennes de lui ? » (Psaume 8:5)"
+  },
+  "en": {
+   "q": "Complete: “What is ______, that thou art mindful of him?”",
+   "options": [
+    "man",
+    "the king",
+    "the angel",
+    "the wise"
+   ],
+   "explain": "“What is man, that thou art mindful of him?” (Psalm 8:4)"
+  }
+ },
+ {
+  "id": "verses-hard-065",
+  "ref": {
+   "fr": "Psaume 42:2",
+   "en": "Psalm 42:1"
+  },
+  "fr": {
+   "q": "Complétez : « Comme ______ soupire après des courants d’eau, ainsi mon âme soupire après toi, ô Dieu ! »",
+   "options": [
+    "une biche",
+    "un lion",
+    "un oiseau",
+    "un agneau"
+   ],
+   "explain": "« Comme une biche soupire après des courants d’eau... » (Psaume 42:2)"
+  },
+  "en": {
+   "q": "Complete: “As ______ panteth after the water brooks, so panteth my soul after thee, O God.”",
+   "options": [
+    "the hart",
+    "the lion",
+    "the bird",
+    "the lamb"
+   ],
+   "explain": "“As the hart panteth after the water brooks...” (Psalm 42:1)"
+  }
+ },
+ {
+  "id": "verses-hard-066",
+  "ref": {
+   "fr": "Psaume 51:9",
+   "en": "Psalm 51:7"
+  },
+  "fr": {
+   "q": "Complétez : « Purifie-moi avec ______, et je serai pur ; lave-moi, et je serai plus blanc que la neige. »",
+   "options": [
+    "l’hysope",
+    "l’huile",
+    "le feu",
+    "l’eau"
+   ],
+   "explain": "« Purifie-moi avec l’hysope, et je serai pur. » (Psaume 51:9)"
+  },
+  "en": {
+   "q": "Complete: “Purge me with ______, and I shall be clean: wash me, and I shall be whiter than snow.”",
+   "options": [
+    "hyssop",
+    "oil",
+    "fire",
+    "water"
+   ],
+   "explain": "“Purge me with hyssop, and I shall be clean.” (Psalm 51:7)"
+  }
+ },
+ {
+  "id": "verses-hard-067",
+  "ref": {
+   "fr": "Psaume 91:11",
+   "en": "Psalm 91:11"
+  },
+  "fr": {
+   "q": "Complétez : « Car il ordonnera à ______ de te garder dans toutes tes voies. »",
+   "options": [
+    "ses anges",
+    "ses serviteurs",
+    "ses armées",
+    "ses prophètes"
+   ],
+   "explain": "« Car il ordonnera à ses anges de te garder. » (Psaume 91:11)"
+  },
+  "en": {
+   "q": "Complete: “For he shall give ______ charge over thee, to keep thee in all thy ways.”",
+   "options": [
+    "his angels",
+    "his servants",
+    "his armies",
+    "his prophets"
+   ],
+   "explain": "“For he shall give his angels charge over thee.” (Psalm 91:11)"
+  }
+ },
+ {
+  "id": "verses-hard-068",
+  "ref": {
+   "fr": "Psaume 139:7",
+   "en": "Psalm 139:7"
+  },
+  "fr": {
+   "q": "Complétez : « Où irais-je loin de ______ ? Où fuirais-je loin de ta face ? »",
+   "options": [
+    "ton esprit",
+    "ta main",
+    "ta voix",
+    "ta gloire"
+   ],
+   "explain": "« Où irais-je loin de ton esprit ? » (Psaume 139:7)"
+  },
+  "en": {
+   "q": "Complete: “Whither shall I go from ______? or whither shall I flee from thy presence?”",
+   "options": [
+    "thy spirit",
+    "thy hand",
+    "thy voice",
+    "thy glory"
+   ],
+   "explain": "“Whither shall I go from thy spirit?” (Psalm 139:7)"
+  }
+ },
+ {
+  "id": "verses-hard-069",
+  "ref": {
+   "fr": "Psaume 147:4",
+   "en": "Psalm 147:4"
+  },
+  "fr": {
+   "q": "Complétez : « Il compte le nombre des ______, il leur donne à toutes des noms. »",
+   "options": [
+    "étoiles",
+    "nations",
+    "montagnes",
+    "rivières"
+   ],
+   "explain": "« Il compte le nombre des étoiles. » (Psaume 147:4)"
+  },
+  "en": {
+   "q": "Complete: “He telleth the number of ______; he calleth them all by their names.”",
+   "options": [
+    "the stars",
+    "the nations",
+    "the mountains",
+    "the rivers"
+   ],
+   "explain": "“He telleth the number of the stars.” (Psalm 147:4)"
+  }
+ },
+ {
+  "id": "verses-hard-070",
+  "ref": {
+   "fr": "Proverbes 3:11",
+   "en": "Proverbs 3:11"
+  },
+  "fr": {
+   "q": "Complétez : « Mon fils, ne méprise pas ______ de l’Éternel. »",
+   "options": [
+    "la correction",
+    "la parole",
+    "la crainte",
+    "la promesse"
+   ],
+   "explain": "« Mon fils, ne méprise pas la correction de l’Éternel. » (Proverbes 3:11)"
+  },
+  "en": {
+   "q": "Complete: “My son, despise not ______ of the LORD.”",
+   "options": [
+    "the chastening",
+    "the word",
+    "the fear",
+    "the promise"
+   ],
+   "explain": "“My son, despise not the chastening of the LORD.” (Proverbs 3:11)"
+  }
+ },
+ {
+  "id": "verses-hard-071",
+  "ref": {
+   "fr": "Ecclésiaste 9:10",
+   "en": "Ecclesiastes 9:10"
+  },
+  "fr": {
+   "q": "Complétez : « Tout ce que ta main trouve à faire avec ta force, ______. »",
+   "options": [
+    "fais-le",
+    "laisse-le",
+    "oublie-le",
+    "repousse-le"
+   ],
+   "explain": "« Tout ce que ta main trouve à faire avec ta force, fais-le. » (Ecclésiaste 9:10)"
+  },
+  "en": {
+   "q": "Complete: “Whatsoever thy hand findeth to do, ______ with thy might.”",
+   "options": [
+    "do it",
+    "leave it",
+    "forget it",
+    "delay it"
+   ],
+   "explain": "“Whatsoever thy hand findeth to do, do it with thy might.” (Ecclesiastes 9:10)"
+  }
+ },
+ {
+  "id": "verses-hard-072",
+  "ref": {
+   "fr": "Ecclésiaste 11:1",
+   "en": "Ecclesiastes 11:1"
+  },
+  "fr": {
+   "q": "Complétez : « Jette ______ sur la face des eaux, car avec le temps tu le retrouveras. »",
+   "options": [
+    "ton pain",
+    "ton or",
+    "ton filet",
+    "ta semence"
+   ],
+   "explain": "« Jette ton pain sur la face des eaux. » (Ecclésiaste 11:1)"
+  },
+  "en": {
+   "q": "Complete: “Cast ______ upon the waters: for thou shalt find it after many days.”",
+   "options": [
+    "thy bread",
+    "thy gold",
+    "thy net",
+    "thy seed"
+   ],
+   "explain": "“Cast thy bread upon the waters.” (Ecclesiastes 11:1)"
+  }
+ },
+ {
+  "id": "verses-hard-073",
+  "ref": {
+   "fr": "Ésaïe 42:3",
+   "en": "Isaiah 42:3"
+  },
+  "fr": {
+   "q": "Complétez : « Il ne brisera point ______ cassé, et il n’éteindra point la mèche qui brûle encore. »",
+   "options": [
+    "le roseau",
+    "le rocher",
+    "la branche",
+    "le bâton"
+   ],
+   "explain": "« Il ne brisera point le roseau cassé. » (Ésaïe 42:3)"
+  },
+  "en": {
+   "q": "Complete: “A bruised ______ shall he not break, and the smoking flax shall he not quench.”",
+   "options": [
+    "reed",
+    "rock",
+    "branch",
+    "staff"
+   ],
+   "explain": "“A bruised reed shall he not break.” (Isaiah 42:3)"
+  }
+ },
+ {
+  "id": "verses-hard-074",
+  "ref": {
+   "fr": "Ésaïe 48:22",
+   "en": "Isaiah 48:22"
+  },
+  "fr": {
+   "q": "Complétez : « Il n’y a point de paix pour ______, dit l’Éternel. »",
+   "options": [
+    "les méchants",
+    "les étrangers",
+    "les pauvres",
+    "les rois"
+   ],
+   "explain": "« Il n’y a point de paix pour les méchants. » (Ésaïe 48:22)"
+  },
+  "en": {
+   "q": "Complete: “There is no peace, saith the LORD, unto ______.”",
+   "options": [
+    "the wicked",
+    "the strangers",
+    "the poor",
+    "the kings"
+   ],
+   "explain": "“There is no peace, saith the LORD, unto the wicked.” (Isaiah 48:22)"
+  }
+ },
+ {
+  "id": "verses-hard-075",
+  "ref": {
+   "fr": "Jérémie 18:6",
+   "en": "Jeremiah 18:6"
+  },
+  "fr": {
+   "q": "Complétez : « ...Comme l’argile est dans la main du potier, ainsi vous êtes dans ma main, ______. »",
+   "options": [
+    "maison d’Israël",
+    "nations de la terre",
+    "fils de David",
+    "enfants d’Aaron"
+   ],
+   "explain": "« ...ainsi vous êtes dans ma main, maison d’Israël. » (Jérémie 18:6)"
+  },
+  "en": {
+   "q": "Complete: “...as the clay is in the potter’s hand, so are ye in mine hand, ______.”",
+   "options": [
+    "O house of Israel",
+    "O nations of the earth",
+    "O sons of David",
+    "O children of Aaron"
+   ],
+   "explain": "“...so are ye in mine hand, O house of Israel.” (Jeremiah 18:6)"
+  }
+ },
+ {
+  "id": "verses-hard-076",
+  "ref": {
+   "fr": "Daniel 12:3",
+   "en": "Daniel 12:3"
+  },
+  "fr": {
+   "q": "Complétez : « Ceux qui auront été intelligents brilleront comme ______. »",
+   "options": [
+    "la splendeur du ciel",
+    "les fleurs des champs",
+    "les feux de la terre",
+    "les eaux des mers"
+   ],
+   "explain": "« ...brilleront comme la splendeur du ciel. » (Daniel 12:3)"
+  },
+  "en": {
+   "q": "Complete: “And they that be wise shall shine as ______.”",
+   "options": [
+    "the brightness of the firmament",
+    "the flowers of the field",
+    "the fires of the earth",
+    "the waters of the sea"
+   ],
+   "explain": "“...shall shine as the brightness of the firmament.” (Daniel 12:3)"
+  }
+ },
+ {
+  "id": "verses-hard-077",
+  "ref": {
+   "fr": "Osée 6:6",
+   "en": "Hosea 6:6"
+  },
+  "fr": {
+   "q": "Complétez : « Car j’aime la piété et non ______, et la connaissance de Dieu plus que les holocaustes. »",
+   "options": [
+    "les sacrifices",
+    "les richesses",
+    "les combats",
+    "les fêtes"
+   ],
+   "explain": "« Car j’aime la piété et non les sacrifices. » (Osée 6:6)"
+  },
+  "en": {
+   "q": "Complete: “For I desired mercy, and not ______; and the knowledge of God more than burnt offerings.”",
+   "options": [
+    "sacrifice",
+    "riches",
+    "battle",
+    "feasts"
+   ],
+   "explain": "“For I desired mercy, and not sacrifice.” (Hosea 6:6)"
+  }
+ },
+ {
+  "id": "verses-hard-078",
+  "ref": {
+   "fr": "Abdias 1:15",
+   "en": "Obadiah 1:15"
+  },
+  "fr": {
+   "q": "Complétez : « ...il te sera fait comme tu as fait, tes œuvres retomberont ______. »",
+   "options": [
+    "sur ta tête",
+    "dans ta maison",
+    "sur tes fils",
+    "dans ton champ"
+   ],
+   "explain": "« ...tes œuvres retomberont sur ta tête. » (Abdias 1:15)"
+  },
+  "en": {
+   "q": "Complete: “...as thou hast done, it shall be done unto thee: thy reward shall return upon ______.”",
+   "options": [
+    "thine own head",
+    "thy house",
+    "thy sons",
+    "thy field"
+   ],
+   "explain": "“...thy reward shall return upon thine own head.” (Obadiah 1:15)"
+  }
+ },
+ {
+  "id": "verses-hard-079",
+  "ref": {
+   "fr": "Nahum 1:7",
+   "en": "Nahum 1:7"
+  },
+  "fr": {
+   "q": "Complétez : « L’Éternel est bon, il est ______ au jour de la détresse. »",
+   "options": [
+    "un refuge",
+    "un juge",
+    "un roi",
+    "un feu"
+   ],
+   "explain": "« L’Éternel est bon, il est un refuge au jour de la détresse. » (Nahum 1:7)"
+  },
+  "en": {
+   "q": "Complete: “The LORD is good, ______ in the day of trouble.”",
+   "options": [
+    "a strong hold",
+    "a judge",
+    "a king",
+    "a fire"
+   ],
+   "explain": "“The LORD is good, a strong hold in the day of trouble.” (Nahum 1:7)"
+  }
+ },
+ {
+  "id": "verses-hard-080",
+  "ref": {
+   "fr": "Zacharie 9:9",
+   "en": "Zechariah 9:9"
+  },
+  "fr": {
+   "q": "Complétez : « ...Voici, ton roi vient à toi... humble et monté sur ______. »",
+   "options": [
+    "un âne",
+    "un cheval",
+    "un char",
+    "un trône"
+   ],
+   "explain": "« ...ton roi vient à toi... monté sur un âne. » (Zacharie 9:9)"
+  },
+  "en": {
+   "q": "Complete: “...thy King cometh unto thee... lowly, and riding upon ______.”",
+   "options": [
+    "an ass",
+    "a horse",
+    "a chariot",
+    "a throne"
+   ],
+   "explain": "“...riding upon an ass.” (Zechariah 9:9)"
+  }
+ },
+ {
+  "id": "verses-hard-081",
+  "ref": {
+   "fr": "Malachie 4:2",
+   "en": "Malachi 4:2"
+  },
+  "fr": {
+   "q": "Complétez : « ...le soleil de ______ se lèvera, la guérison sera dans ses ailes. »",
+   "options": [
+    "la justice",
+    "la gloire",
+    "la paix",
+    "la sagesse"
+   ],
+   "explain": "« ...le soleil de la justice se lèvera. » (Malachie 4:2)"
+  },
+  "en": {
+   "q": "Complete: “...the Sun of ______ arise with healing in his wings.”",
+   "options": [
+    "righteousness",
+    "glory",
+    "peace",
+    "wisdom"
+   ],
+   "explain": "“...the Sun of righteousness arise with healing in his wings.” (Malachi 4:2)"
+  }
+ },
+ {
+  "id": "verses-hard-082",
+  "ref": {
+   "fr": "Hébreux 1:3",
+   "en": "Hebrews 1:3"
+  },
+  "fr": {
+   "q": "Complétez : « ...et soutenant toutes choses par ______. »",
+   "options": [
+    "sa parole puissante",
+    "sa main droite",
+    "son grand amour",
+    "son bras étendu"
+   ],
+   "explain": "« ...soutenant toutes choses par sa parole puissante. » (Hébreux 1:3)"
+  },
+  "en": {
+   "q": "Complete: “...upholding all things by ______.”",
+   "options": [
+    "the word of his power",
+    "his right hand",
+    "his great love",
+    "his mighty arm"
+   ],
+   "explain": "“...upholding all things by the word of his power.” (Hebrews 1:3)"
+  }
+ },
+ {
+  "id": "verses-hard-083",
+  "ref": {
+   "fr": "Hébreux 6:19",
+   "en": "Hebrews 6:19"
+  },
+  "fr": {
+   "q": "Complétez : « Cette espérance, nous la possédons comme ______ de l’âme, sûre et solide. »",
+   "options": [
+    "une ancre",
+    "un rocher",
+    "une lampe",
+    "un bouclier"
+   ],
+   "explain": "« ...comme une ancre de l’âme, sûre et solide. » (Hébreux 6:19)"
+  },
+  "en": {
+   "q": "Complete: “Which hope we have as ______ of the soul, both sure and stedfast.”",
+   "options": [
+    "an anchor",
+    "a rock",
+    "a lamp",
+    "a shield"
+   ],
+   "explain": "“Which hope we have as an anchor of the soul.” (Hebrews 6:19)"
+  }
+ },
+ {
+  "id": "verses-hard-084",
+  "ref": {
+   "fr": "Jacques 2:19",
+   "en": "James 2:19"
+  },
+  "fr": {
+   "q": "Complétez : « Tu crois qu’il y a un seul Dieu, tu fais bien ; ______ le croient aussi, et ils tremblent. »",
+   "options": [
+    "les démons",
+    "les anges",
+    "les rois",
+    "les nations"
+   ],
+   "explain": "« ...les démons le croient aussi, et ils tremblent. » (Jacques 2:19)"
+  },
+  "en": {
+   "q": "Complete: “...the ______ also believe, and tremble.”",
+   "options": [
+    "devils",
+    "angels",
+    "kings",
+    "nations"
+   ],
+   "explain": "“...the devils also believe, and tremble.” (James 2:19)"
+  }
+ },
+ {
+  "id": "verses-hard-085",
+  "ref": {
+   "fr": "Jacques 4:14",
+   "en": "James 4:14"
+  },
+  "fr": {
+   "q": "Complétez : « ...Car qu’est-ce que votre vie ? Vous êtes ______ qui paraît pour un peu de temps. »",
+   "options": [
+    "une vapeur",
+    "une ombre",
+    "une fleur",
+    "un souffle"
+   ],
+   "explain": "« Vous êtes une vapeur qui paraît pour un peu de temps. » (Jacques 4:14)"
+  },
+  "en": {
+   "q": "Complete: “...For what is your life? It is even ______, that appeareth for a little time.”",
+   "options": [
+    "a vapour",
+    "a shadow",
+    "a flower",
+    "a breath"
+   ],
+   "explain": "“It is even a vapour, that appeareth for a little time.” (James 4:14)"
+  }
+ },
+ {
+  "id": "verses-hard-086",
+  "ref": {
+   "fr": "1 Pierre 3:4",
+   "en": "1 Peter 3:4"
+  },
+  "fr": {
+   "q": "Complétez : « ...la parure d’un esprit doux et ______, qui est d’un grand prix devant Dieu. »",
+   "options": [
+    "paisible",
+    "puissant",
+    "craintif",
+    "joyeux"
+   ],
+   "explain": "« ...un esprit doux et paisible, qui est d’un grand prix devant Dieu. » (1 Pierre 3:4)"
+  },
+  "en": {
+   "q": "Complete: “...a meek and ______ spirit, which is in the sight of God of great price.”",
+   "options": [
+    "quiet",
+    "mighty",
+    "fearful",
+    "merry"
+   ],
+   "explain": "“...a meek and quiet spirit, which is... of great price.” (1 Peter 3:4)"
+  }
+ },
+ {
+  "id": "verses-hard-087",
+  "ref": {
+   "fr": "2 Pierre 1:19",
+   "en": "2 Peter 1:19"
+  },
+  "fr": {
+   "q": "Complétez : « ...comme à une lampe qui brille dans un lieu obscur, jusqu’à ce que ______ vienne à paraître. »",
+   "options": [
+    "le jour",
+    "le roi",
+    "le feu",
+    "le soir"
+   ],
+   "explain": "« ...jusqu’à ce que le jour vienne à paraître. » (2 Pierre 1:19)"
+  },
+  "en": {
+   "q": "Complete: “...as unto a light that shineth in a dark place, until ______ dawn, and the day star arise.”",
+   "options": [
+    "the day",
+    "the king",
+    "the fire",
+    "the evening"
+   ],
+   "explain": "“...until the day dawn, and the day star arise in your hearts.” (2 Peter 1:19)"
+  }
+ },
+ {
+  "id": "verses-hard-088",
+  "ref": {
+   "fr": "1 Jean 2:17",
+   "en": "1 John 2:17"
+  },
+  "fr": {
+   "q": "Complétez : « Et le monde passe, ...mais celui qui fait la volonté de Dieu demeure ______. »",
+   "options": [
+    "éternellement",
+    "un moment",
+    "en secret",
+    "dans la crainte"
+   ],
+   "explain": "« ...celui qui fait la volonté de Dieu demeure éternellement. » (1 Jean 2:17)"
+  },
+  "en": {
+   "q": "Complete: “...but he that doeth the will of God abideth ______.”",
+   "options": [
+    "for ever",
+    "for a moment",
+    "in secret",
+    "in fear"
+   ],
+   "explain": "“...he that doeth the will of God abideth for ever.” (1 John 2:17)"
+  }
+ },
+ {
+  "id": "verses-hard-089",
+  "ref": {
+   "fr": "2 Jean 1:6",
+   "en": "2 John 1:6"
+  },
+  "fr": {
+   "q": "Complétez : « Et l’amour consiste à marcher selon ______. »",
+   "options": [
+    "ses commandements",
+    "notre volonté",
+    "nos désirs",
+    "la loi des hommes"
+   ],
+   "explain": "« Et l’amour consiste à marcher selon ses commandements. » (2 Jean 1:6)"
+  },
+  "en": {
+   "q": "Complete: “And this is love, that we walk after ______.”",
+   "options": [
+    "his commandments",
+    "our own will",
+    "our desires",
+    "the law of men"
+   ],
+   "explain": "“And this is love, that we walk after his commandments.” (2 John 1:6)"
+  }
+ },
+ {
+  "id": "verses-hard-090",
+  "ref": {
+   "fr": "3 Jean 1:2",
+   "en": "3 John 1:2"
+  },
+  "fr": {
+   "q": "Complétez : « ...je souhaite que tu prospères et sois en bonne santé, comme prospère ______. »",
+   "options": [
+    "l’état de ton âme",
+    "la maison du roi",
+    "le champ du juste",
+    "le trésor caché"
+   ],
+   "explain": "« ...comme prospère l’état de ton âme. » (3 Jean 1:2)"
+  },
+  "en": {
+   "q": "Complete: “...that thou mayest prosper and be in health, even as ______ prospereth.”",
+   "options": [
+    "thy soul",
+    "the king’s house",
+    "the just man’s field",
+    "the hidden treasure"
+   ],
+   "explain": "“...even as thy soul prospereth.” (3 John 1:2)"
+  }
+ },
+ {
+  "id": "verses-hard-091",
+  "ref": {
+   "fr": "Apocalypse 2:10",
+   "en": "Revelation 2:10"
+  },
+  "fr": {
+   "q": "Complétez : « ...Sois fidèle jusqu’à la mort, et je te donnerai ______ de la vie. »",
+   "options": [
+    "la couronne",
+    "le trône",
+    "le royaume",
+    "le sceptre"
+   ],
+   "explain": "« ...je te donnerai la couronne de vie. » (Apocalypse 2:10)"
+  },
+  "en": {
+   "q": "Complete: “...be thou faithful unto death, and I will give thee ______ of life.”",
+   "options": [
+    "a crown",
+    "a throne",
+    "a kingdom",
+    "a sceptre"
+   ],
+   "explain": "“...I will give thee a crown of life.” (Revelation 2:10)"
+  }
+ },
+ {
+  "id": "verses-hard-092",
+  "ref": {
+   "fr": "Apocalypse 4:8",
+   "en": "Revelation 4:8"
+  },
+  "fr": {
+   "q": "Complétez : « ...Saint, saint, saint est ______, le Tout-Puissant, qui était, qui est, et qui vient ! »",
+   "options": [
+    "le Seigneur Dieu",
+    "le Roi des rois",
+    "l’Agneau de Dieu",
+    "le Fils de l’homme"
+   ],
+   "explain": "« Saint, saint, saint est le Seigneur Dieu, le Tout-Puissant. » (Apocalypse 4:8)"
+  },
+  "en": {
+   "q": "Complete: “...Holy, holy, holy, ______ Almighty, which was, and is, and is to come.”",
+   "options": [
+    "Lord God",
+    "King of kings",
+    "Lamb of God",
+    "Son of man"
+   ],
+   "explain": "“Holy, holy, holy, Lord God Almighty.” (Revelation 4:8)"
+  }
+ },
+ {
+  "id": "verses-hard-093",
+  "ref": {
+   "fr": "Apocalypse 20:12",
+   "en": "Revelation 20:12"
+  },
+  "fr": {
+   "q": "Complétez : « ...et les morts furent jugés selon leurs œuvres, d’après ce qui était écrit dans ______. »",
+   "options": [
+    "les livres",
+    "les cieux",
+    "les cœurs",
+    "la loi"
+   ],
+   "explain": "« ...d’après ce qui était écrit dans ces livres. » (Apocalypse 20:12)"
+  },
+  "en": {
+   "q": "Complete: “...and the dead were judged out of those things which were written in ______.”",
+   "options": [
+    "the books",
+    "the heavens",
+    "their hearts",
+    "the law"
+   ],
+   "explain": "“...written in the books, according to their works.” (Revelation 20:12)"
+  }
+ },
+ {
+  "id": "verses-hard-094",
+  "ref": {
+   "fr": "Apocalypse 22:17",
+   "en": "Revelation 22:17"
+  },
+  "fr": {
+   "q": "Complétez : « ...que celui qui veut prenne de l’eau de ______, gratuitement. »",
+   "options": [
+    "la vie",
+    "la grâce",
+    "la paix",
+    "la joie"
+   ],
+   "explain": "« ...prenne de l’eau de la vie, gratuitement. » (Apocalypse 22:17)"
+  },
+  "en": {
+   "q": "Complete: “...whosoever will, let him take the water of ______ freely.”",
+   "options": [
+    "life",
+    "grace",
+    "peace",
+    "joy"
+   ],
+   "explain": "“...let him take the water of life freely.” (Revelation 22:17)"
+  }
+ },
+ {
+  "id": "verses-hard-095",
+  "ref": {
+   "fr": "Job 28:28",
+   "en": "Job 28:28"
+  },
+  "fr": {
+   "q": "Complétez : « ...Voici, la crainte du Seigneur, c’est ______ ; s’éloigner du mal, c’est l’intelligence. »",
+   "options": [
+    "la sagesse",
+    "la richesse",
+    "la force",
+    "la gloire"
+   ],
+   "explain": "« ...la crainte du Seigneur, c’est la sagesse. » (Job 28:28)"
+  },
+  "en": {
+   "q": "Complete: “...Behold, the fear of the Lord, that is ______; and to depart from evil is understanding.”",
+   "options": [
+    "wisdom",
+    "riches",
+    "strength",
+    "glory"
+   ],
+   "explain": "“...the fear of the Lord, that is wisdom.” (Job 28:28)"
+  }
+ },
+ {
+  "id": "verses-hard-096",
+  "ref": {
+   "fr": "Proverbes 14:12",
+   "en": "Proverbs 14:12"
+  },
+  "fr": {
+   "q": "Complétez : « Telle voie paraît droite à un homme, mais son issue, c’est la voie de ______. »",
+   "options": [
+    "la mort",
+    "la vie",
+    "la gloire",
+    "la paix"
+   ],
+   "explain": "« ...mais son issue, c’est la voie de la mort. » (Proverbes 14:12)"
+  },
+  "en": {
+   "q": "Complete: “There is a way which seemeth right unto a man, but the end thereof are the ways of ______.”",
+   "options": [
+    "death",
+    "life",
+    "glory",
+    "peace"
+   ],
+   "explain": "“...the end thereof are the ways of death.” (Proverbs 14:12)"
+  }
+ },
+ {
+  "id": "verses-hard-097",
+  "ref": {
+   "fr": "Ésaïe 45:22",
+   "en": "Isaiah 45:22"
+  },
+  "fr": {
+   "q": "Complétez : « Tournez-vous vers moi, et vous serez sauvés, vous tous qui êtes aux ______ de la terre ! »",
+   "options": [
+    "extrémités",
+    "montagnes",
+    "villes",
+    "déserts"
+   ],
+   "explain": "« ...vous tous qui êtes aux extrémités de la terre ! » (Ésaïe 45:22)"
+  },
+  "en": {
+   "q": "Complete: “Look unto me, and be ye saved, all the ______ of the earth.”",
+   "options": [
+    "ends",
+    "mountains",
+    "cities",
+    "deserts"
+   ],
+   "explain": "“Look unto me, and be ye saved, all the ends of the earth.” (Isaiah 45:22)"
+  }
+ },
+ {
+  "id": "verses-hard-098",
+  "ref": {
+   "fr": "Proverbes 27:1",
+   "en": "Proverbs 27:1"
+  },
+  "fr": {
+   "q": "Complétez : « Ne te vante pas ______, car tu ne sais pas ce qu’un jour peut enfanter. »",
+   "options": [
+    "du lendemain",
+    "de ta force",
+    "de ta richesse",
+    "de ta sagesse"
+   ],
+   "explain": "« Ne te vante pas du lendemain. » (Proverbes 27:1)"
+  },
+  "en": {
+   "q": "Complete: “Boast not thyself of ______; for thou knowest not what a day may bring forth.”",
+   "options": [
+    "to morrow",
+    "thy strength",
+    "thy riches",
+    "thy wisdom"
+   ],
+   "explain": "“Boast not thyself of to morrow.” (Proverbs 27:1)"
+  }
+ },
+ {
+  "id": "verses-hard-099",
+  "ref": {
+   "fr": "Ecclésiaste 5:9",
+   "en": "Ecclesiastes 5:10"
+  },
+  "fr": {
+   "q": "Complétez : « Celui qui aime ______ n’est pas rassasié par l’argent ; et celui qui aime les richesses n’en profite pas. »",
+   "options": [
+    "l’argent",
+    "la sagesse",
+    "le pouvoir",
+    "la gloire"
+   ],
+   "explain": "« Celui qui aime l’argent n’est pas rassasié par l’argent. » (Ecclésiaste 5:9)"
+  },
+  "en": {
+   "q": "Complete: “He that loveth ______ shall not be satisfied with silver.”",
+   "options": [
+    "silver",
+    "wisdom",
+    "power",
+    "glory"
+   ],
+   "explain": "“He that loveth silver shall not be satisfied with silver.” (Ecclesiastes 5:10)"
+  }
+ },
+ {
+  "id": "verses-hard-100",
+  "ref": {
+   "fr": "Habacuc 3:19",
+   "en": "Habakkuk 3:19"
+  },
+  "fr": {
+   "q": "Complétez : « L’Éternel, le Seigneur, est ma force ; il rend mes pieds semblables à ceux ______. »",
+   "options": [
+    "des biches",
+    "des lions",
+    "des aigles",
+    "des chevaux"
+   ],
+   "explain": "« ...il rend mes pieds semblables à ceux des biches. » (Habacuc 3:19)"
+  },
+  "en": {
+   "q": "Complete: “The LORD God is my strength, and he will make my feet like ______.”",
+   "options": [
+    "hinds’ feet",
+    "the lion’s paws",
+    "the eagle’s wings",
+    "the horse’s hooves"
+   ],
+   "explain": "“...he will make my feet like hinds’ feet.” (Habakkuk 3:19)"
+  }
+ }
+]

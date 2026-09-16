@@ -1,0 +1,2702 @@
+[
+ {
+  "id": "geography-hard-001",
+  "ref": {
+   "fr": "Genèse 2:11",
+   "en": "Genesis 2:11"
+  },
+  "fr": {
+   "q": "Quel fleuve d’Éden contournait le pays de Havila, où se trouve l’or ?",
+   "options": [
+    "Le Pischon",
+    "Le Guihon",
+    "L’Hiddékel",
+    "L’Euphrate"
+   ],
+   "explain": "Le premier fleuve se nomme Pischon ; il entoure le pays de Havila. (Genèse 2:11)"
+  },
+  "en": {
+   "q": "Which river of Eden encircled the land of Havilah, where there is gold?",
+   "options": [
+    "The Pishon",
+    "The Gihon",
+    "The Hiddekel",
+    "The Euphrates"
+   ],
+   "explain": "The first river is Pishon; it flows around Havilah. (Genesis 2:11)"
+  }
+ },
+ {
+  "id": "geography-hard-002",
+  "ref": {
+   "fr": "Genèse 2:13",
+   "en": "Genesis 2:13"
+  },
+  "fr": {
+   "q": "Quel fleuve d’Éden entourait tout le pays de Cush ?",
+   "options": [
+    "Le Guihon",
+    "Le Pischon",
+    "L’Hiddékel",
+    "L’Euphrate"
+   ],
+   "explain": "Le second fleuve est le Guihon ; il entoure tout le pays de Cush. (Genèse 2:13)"
+  },
+  "en": {
+   "q": "Which river of Eden flowed around the whole land of Cush?",
+   "options": [
+    "The Gihon",
+    "The Pishon",
+    "The Hiddekel",
+    "The Euphrates"
+   ],
+   "explain": "The second river is Gihon; it flows around the land of Cush. (Genesis 2:13)"
+  }
+ },
+ {
+  "id": "geography-hard-003",
+  "ref": {
+   "fr": "Genèse 2:14",
+   "en": "Genesis 2:14"
+  },
+  "fr": {
+   "q": "Quel fleuve d’Éden coulait à l’orient de l’Assyrie ?",
+   "options": [
+    "L’Hiddékel",
+    "Le Pischon",
+    "Le Guihon",
+    "L’Arnon"
+   ],
+   "explain": "Le troisième fleuve, l’Hiddékel, coule à l’orient de l’Assyrie. (Genèse 2:14)"
+  },
+  "en": {
+   "q": "Which river of Eden ran east of Assyria?",
+   "options": [
+    "The Hiddekel",
+    "The Pishon",
+    "The Gihon",
+    "The Arnon"
+   ],
+   "explain": "The third river, Hiddekel, flows east of Assyria. (Genesis 2:14)"
+  }
+ },
+ {
+  "id": "geography-hard-004",
+  "ref": {
+   "fr": "Genèse 2:10",
+   "en": "Genesis 2:10"
+  },
+  "fr": {
+   "q": "En combien de bras le fleuve d’Éden se divisait-il ?",
+   "options": [
+    "Quatre",
+    "Deux",
+    "Trois",
+    "Sept"
+   ],
+   "explain": "De là le fleuve se divisait pour former quatre bras. (Genèse 2:10)"
+  },
+  "en": {
+   "q": "Into how many streams did the river of Eden divide?",
+   "options": [
+    "Four",
+    "Two",
+    "Three",
+    "Seven"
+   ],
+   "explain": "From there the river parted into four heads. (Genesis 2:10)"
+  }
+ },
+ {
+  "id": "geography-hard-005",
+  "ref": {
+   "fr": "Nombres 35:13",
+   "en": "Numbers 35:13"
+  },
+  "fr": {
+   "q": "Combien de villes de refuge furent établies en Israël ?",
+   "options": [
+    "Six",
+    "Trois",
+    "Douze",
+    "Sept"
+   ],
+   "explain": "Vous aurez six villes de refuge. (Nombres 35:13)"
+  },
+  "en": {
+   "q": "How many cities of refuge were appointed in Israel?",
+   "options": [
+    "Six",
+    "Three",
+    "Twelve",
+    "Seven"
+   ],
+   "explain": "You shall have six cities of refuge. (Numbers 35:13)"
+  }
+ },
+ {
+  "id": "geography-hard-006",
+  "ref": {
+   "fr": "Josué 20:7",
+   "en": "Joshua 20:7"
+  },
+  "fr": {
+   "q": "Quelle ville de refuge fut établie en Galilée, dans la montagne de Nephthali ?",
+   "options": [
+    "Kédesch",
+    "Sichem",
+    "Hébron",
+    "Betser"
+   ],
+   "explain": "Ils consacrèrent Kédesch en Galilée, dans la montagne de Nephthali. (Josué 20:7)"
+  },
+  "en": {
+   "q": "Which city of refuge lay in Galilee, in the hill country of Naphtali?",
+   "options": [
+    "Kedesh",
+    "Shechem",
+    "Hebron",
+    "Bezer"
+   ],
+   "explain": "They set apart Kedesh in Galilee, in the hills of Naphtali. (Joshua 20:7)"
+  }
+ },
+ {
+  "id": "geography-hard-007",
+  "ref": {
+   "fr": "Josué 20:8",
+   "en": "Joshua 20:8"
+  },
+  "fr": {
+   "q": "Quelle ville de refuge fut désignée en Basan, pour la tribu de Manassé ?",
+   "options": [
+    "Golan",
+    "Betser",
+    "Ramoth",
+    "Kédesch"
+   ],
+   "explain": "Ils désignèrent Golan en Basan, dans la tribu de Manassé. (Josué 20:8)"
+  },
+  "en": {
+   "q": "Which city of refuge was set apart in Bashan for the tribe of Manasseh?",
+   "options": [
+    "Golan",
+    "Bezer",
+    "Ramoth",
+    "Kedesh"
+   ],
+   "explain": "They appointed Golan in Bashan, of the tribe of Manasseh. (Joshua 20:8)"
+  }
+ },
+ {
+  "id": "geography-hard-008",
+  "ref": {
+   "fr": "Josué 20:8",
+   "en": "Joshua 20:8"
+  },
+  "fr": {
+   "q": "Quelle ville de refuge fut établie au désert, pour la tribu de Ruben ?",
+   "options": [
+    "Betser",
+    "Golan",
+    "Kédesch",
+    "Sichem"
+   ],
+   "explain": "On choisit Betser, au désert, dans la tribu de Ruben. (Josué 20:8)"
+  },
+  "en": {
+   "q": "Which city of refuge was in the wilderness plateau, for the tribe of Reuben?",
+   "options": [
+    "Bezer",
+    "Golan",
+    "Kedesh",
+    "Shechem"
+   ],
+   "explain": "They chose Bezer in the wilderness, of the tribe of Reuben. (Joshua 20:8)"
+  }
+ },
+ {
+  "id": "geography-hard-009",
+  "ref": {
+   "fr": "1 Samuel 27:6",
+   "en": "1 Samuel 27:6"
+  },
+  "fr": {
+   "q": "Quelle ville le roi Akisch de Gath donna-t-il à David ?",
+   "options": [
+    "Tsiklag",
+    "Gath",
+    "Hébron",
+    "Kéïla"
+   ],
+   "explain": "Akisch donna Tsiklag à David ce jour-là. (1 Samuel 27:6)"
+  },
+  "en": {
+   "q": "Which town did Achish king of Gath give to David?",
+   "options": [
+    "Ziklag",
+    "Gath",
+    "Hebron",
+    "Keilah"
+   ],
+   "explain": "Achish gave David Ziklag that day. (1 Samuel 27:6)"
+  }
+ },
+ {
+  "id": "geography-hard-010",
+  "ref": {
+   "fr": "1 Samuel 7:5-6",
+   "en": "1 Samuel 7:5-6"
+  },
+  "fr": {
+   "q": "En quel lieu Samuel rassembla-t-il Israël, y puisant de l’eau devant l’Éternel ?",
+   "options": [
+    "Mitspa",
+    "Guilgal",
+    "Silo",
+    "Rama"
+   ],
+   "explain": "Samuel assembla tout Israël à Mitspa. (1 Samuel 7:5-6)"
+  },
+  "en": {
+   "q": "Where did Samuel gather Israel and pour out water before the LORD?",
+   "options": [
+    "Mizpah",
+    "Gilgal",
+    "Shiloh",
+    "Ramah"
+   ],
+   "explain": "Samuel gathered all Israel to Mizpah. (1 Samuel 7:5-6)"
+  }
+ },
+ {
+  "id": "geography-hard-011",
+  "ref": {
+   "fr": "1 Samuel 7:12",
+   "en": "1 Samuel 7:12"
+  },
+  "fr": {
+   "q": "Quel nom Samuel donna-t-il à la pierre du secours, entre Mitspa et Schen ?",
+   "options": [
+    "Ében-Ézer",
+    "Béthel",
+    "Galed",
+    "Peniel"
+   ],
+   "explain": "Il la nomma Ében-Ézer, disant : Jusqu’ici l’Éternel nous a secourus. (1 Samuel 7:12)"
+  },
+  "en": {
+   "q": "What name did Samuel give the stone of help, between Mizpah and Shen?",
+   "options": [
+    "Ebenezer",
+    "Bethel",
+    "Galeed",
+    "Peniel"
+   ],
+   "explain": "He named it Ebenezer, saying, Thus far the LORD has helped us. (1 Samuel 7:12)"
+  }
+ },
+ {
+  "id": "geography-hard-012",
+  "ref": {
+   "fr": "2 Rois 25:23",
+   "en": "2 Kings 25:23"
+  },
+  "fr": {
+   "q": "Dans quelle ville Guedalia gouverna-t-il le reste de Juda après la chute de Jérusalem ?",
+   "options": [
+    "Mitspa",
+    "Béthel",
+    "Hébron",
+    "Lakis"
+   ],
+   "explain": "Les chefs vinrent vers Guedalia à Mitspa. (2 Rois 25:23)"
+  },
+  "en": {
+   "q": "In which town did Gedaliah govern Judah’s remnant after Jerusalem fell?",
+   "options": [
+    "Mizpah",
+    "Bethel",
+    "Hebron",
+    "Lachish"
+   ],
+   "explain": "The captains came to Gedaliah at Mizpah. (2 Kings 25:23)"
+  }
+ },
+ {
+  "id": "geography-hard-013",
+  "ref": {
+   "fr": "1 Samuel 4:3-4",
+   "en": "1 Samuel 4:3-4"
+  },
+  "fr": {
+   "q": "De quelle ville l’on apporta l’arche au camp avant qu’elle soit prise par les Philistins ?",
+   "options": [
+    "Silo",
+    "Guilgal",
+    "Béthel",
+    "Ében-Ézer"
+   ],
+   "explain": "On envoya chercher à Silo l’arche de l’alliance. (1 Samuel 4:3-4)"
+  },
+  "en": {
+   "q": "From which town was the ark brought to the camp before the Philistines captured it?",
+   "options": [
+    "Shiloh",
+    "Gilgal",
+    "Bethel",
+    "Ebenezer"
+   ],
+   "explain": "They sent to Shiloh for the ark of the covenant. (1 Samuel 4:3-4)"
+  }
+ },
+ {
+  "id": "geography-hard-014",
+  "ref": {
+   "fr": "Josué 4:19-20",
+   "en": "Joshua 4:19-20"
+  },
+  "fr": {
+   "q": "En quel lieu Israël campa-t-il et dressa-t-il douze pierres après le passage du Jourdain ?",
+   "options": [
+    "Guilgal",
+    "Sichem",
+    "Béthel",
+    "Aï"
+   ],
+   "explain": "Josué dressa à Guilgal les douze pierres prises du Jourdain. (Josué 4:19-20)"
+  },
+  "en": {
+   "q": "Where did Israel camp and set up twelve stones after crossing the Jordan?",
+   "options": [
+    "Gilgal",
+    "Shechem",
+    "Bethel",
+    "Ai"
+   ],
+   "explain": "Joshua set up at Gilgal the twelve stones from the Jordan. (Joshua 4:19-20)"
+  }
+ },
+ {
+  "id": "geography-hard-015",
+  "ref": {
+   "fr": "1 Samuel 11:15",
+   "en": "1 Samuel 11:15"
+  },
+  "fr": {
+   "q": "En quel lieu tout le peuple établit-il Saül roi devant l’Éternel ?",
+   "options": [
+    "Guilgal",
+    "Mitspa",
+    "Rama",
+    "Hébron"
+   ],
+   "explain": "Tout le peuple se rendit à Guilgal et y établit Saül roi. (1 Samuel 11:15)"
+  },
+  "en": {
+   "q": "Where did all the people make Saul king before the LORD?",
+   "options": [
+    "Gilgal",
+    "Mizpah",
+    "Ramah",
+    "Hebron"
+   ],
+   "explain": "All the people went to Gilgal and made Saul king there. (1 Samuel 11:15)"
+  }
+ },
+ {
+  "id": "geography-hard-016",
+  "ref": {
+   "fr": "2 Rois 2:1",
+   "en": "2 Kings 2:1"
+  },
+  "fr": {
+   "q": "De quel lieu Élie et Élisée partirent-ils avant qu’Élie fût enlevé au ciel ?",
+   "options": [
+    "Guilgal",
+    "Béthel",
+    "Jéricho",
+    "Le Jourdain"
+   ],
+   "explain": "Élie et Élisée partirent de Guilgal. (2 Rois 2:1)"
+  },
+  "en": {
+   "q": "From which place did Elijah and Elisha set out before Elijah was taken up?",
+   "options": [
+    "Gilgal",
+    "Bethel",
+    "Jericho",
+    "The Jordan"
+   ],
+   "explain": "Elijah went with Elisha from Gilgal. (2 Kings 2:1)"
+  }
+ },
+ {
+  "id": "geography-hard-017",
+  "ref": {
+   "fr": "Genèse 11:31-32",
+   "en": "Genesis 11:31-32"
+  },
+  "fr": {
+   "q": "Dans quelle ville Térach s’arrêta-t-il et mourut-il en chemin vers Canaan ?",
+   "options": [
+    "Charan",
+    "Ur",
+    "Sichem",
+    "Damas"
+   ],
+   "explain": "Térach s’établit à Charan, où il mourut. (Genèse 11:31-32)"
+  },
+  "en": {
+   "q": "In which city did Terah settle and die on the way to Canaan?",
+   "options": [
+    "Haran",
+    "Ur",
+    "Shechem",
+    "Damascus"
+   ],
+   "explain": "Terah settled in Haran and died there. (Genesis 11:31-32)"
+  }
+ },
+ {
+  "id": "geography-hard-018",
+  "ref": {
+   "fr": "Genèse 28:10",
+   "en": "Genesis 28:10"
+  },
+  "fr": {
+   "q": "Vers quelle ville Jacob s’enfuit-il, chez son oncle Laban ?",
+   "options": [
+    "Charan",
+    "Sichem",
+    "Hébron",
+    "Béthel"
+   ],
+   "explain": "Jacob partit de Beer-Schéba et s’en alla à Charan. (Genèse 28:10)"
+  },
+  "en": {
+   "q": "To which city did Jacob flee, to his uncle Laban?",
+   "options": [
+    "Haran",
+    "Shechem",
+    "Hebron",
+    "Bethel"
+   ],
+   "explain": "Jacob left Beersheba and went toward Haran. (Genesis 28:10)"
+  }
+ },
+ {
+  "id": "geography-hard-019",
+  "ref": {
+   "fr": "Genèse 28:2",
+   "en": "Genesis 28:2"
+  },
+  "fr": {
+   "q": "Vers quelle contrée Isaac envoya-t-il Jacob prendre une femme chez Laban ?",
+   "options": [
+    "Paddan-Aram",
+    "L’Égypte",
+    "Madian",
+    "Édom"
+   ],
+   "explain": "Va à Paddan-Aram, dans la maison de Bethuel. (Genèse 28:2)"
+  },
+  "en": {
+   "q": "To which region did Isaac send Jacob to take a wife from Laban’s house?",
+   "options": [
+    "Paddan-Aram",
+    "Egypt",
+    "Midian",
+    "Edom"
+   ],
+   "explain": "Go to Paddan-Aram, to the house of Bethuel. (Genesis 28:2)"
+  }
+ },
+ {
+  "id": "geography-hard-020",
+  "ref": {
+   "fr": "Romains 16:1",
+   "en": "Romans 16:1"
+  },
+  "fr": {
+   "q": "Dans quel port voisin de Corinthe Phœbé était-elle diaconesse de l’Église ?",
+   "options": [
+    "Cenchrées",
+    "Milet",
+    "Troas",
+    "Éphèse"
+   ],
+   "explain": "Je vous recommande Phœbé, diaconesse de l’Église de Cenchrées. (Romains 16:1)"
+  },
+  "en": {
+   "q": "In which port near Corinth was Phoebe a servant of the church?",
+   "options": [
+    "Cenchreae",
+    "Miletus",
+    "Troas",
+    "Ephesus"
+   ],
+   "explain": "I commend Phoebe, a servant of the church at Cenchreae. (Romans 16:1)"
+  }
+ },
+ {
+  "id": "geography-hard-021",
+  "ref": {
+   "fr": "Actes 18:18",
+   "en": "Acts 18:18"
+  },
+  "fr": {
+   "q": "Dans quel port Paul se fit-il raser la tête à cause d’un vœu ?",
+   "options": [
+    "Cenchrées",
+    "Éphèse",
+    "Corinthe",
+    "Antioche"
+   ],
+   "explain": "Paul se fit raser la tête à Cenchrées, car il avait fait un vœu. (Actes 18:18)"
+  },
+  "en": {
+   "q": "In which harbor did Paul shave his head because of a vow?",
+   "options": [
+    "Cenchreae",
+    "Ephesus",
+    "Corinth",
+    "Antioch"
+   ],
+   "explain": "Paul had his hair cut at Cenchreae, for he had a vow. (Acts 18:18)"
+  }
+ },
+ {
+  "id": "geography-hard-022",
+  "ref": {
+   "fr": "1 Rois 9:26",
+   "en": "1 Kings 9:26"
+  },
+  "fr": {
+   "q": "De quel port de la mer Rouge la flotte de Salomon prenait-elle la mer ?",
+   "options": [
+    "Étsjon-Guéber",
+    "Joppé",
+    "Tyr",
+    "Tarsis"
+   ],
+   "explain": "Salomon construisit des navires à Étsjon-Guéber, près d’Élath. (1 Rois 9:26)"
+  },
+  "en": {
+   "q": "From which Red Sea port did Solomon’s fleet set sail?",
+   "options": [
+    "Ezion-Geber",
+    "Joppa",
+    "Tyre",
+    "Tarshish"
+   ],
+   "explain": "Solomon built ships at Ezion-Geber, near Elath. (1 Kings 9:26)"
+  }
+ },
+ {
+  "id": "geography-hard-023",
+  "ref": {
+   "fr": "1 Rois 10:22",
+   "en": "1 Kings 10:22"
+  },
+  "fr": {
+   "q": "Quel nom portait la flotte de Salomon qui rapportait or, ivoire et singes ?",
+   "options": [
+    "La flotte de Tarsis",
+    "La flotte d’Ophir",
+    "La flotte de Séba",
+    "La flotte de Tyr"
+   ],
+   "explain": "Le roi avait en mer des navires de Tarsis. (1 Rois 10:22)"
+  },
+  "en": {
+   "q": "What was the name of Solomon’s fleet that brought gold, ivory, and apes?",
+   "options": [
+    "The navy of Tarshish",
+    "The navy of Ophir",
+    "The navy of Sheba",
+    "The navy of Tyre"
+   ],
+   "explain": "The king had at sea a navy of Tarshish. (1 Kings 10:22)"
+  }
+ },
+ {
+  "id": "geography-hard-024",
+  "ref": {
+   "fr": "Genèse 28:19",
+   "en": "Genesis 28:19"
+  },
+  "fr": {
+   "q": "Que signifie le nom Béthel, donné par Jacob à ce lieu ?",
+   "options": [
+    "Maison de Dieu",
+    "Porte du ciel",
+    "Pierre dressée",
+    "Face de Dieu"
+   ],
+   "explain": "Jacob nomma ce lieu Béthel, c’est-à-dire maison de Dieu. (Genèse 28:19)"
+  },
+  "en": {
+   "q": "What does the name Bethel mean, which Jacob gave the place?",
+   "options": [
+    "House of God",
+    "Gate of heaven",
+    "Standing stone",
+    "Face of God"
+   ],
+   "explain": "Jacob named the place Bethel, that is, the house of God. (Genesis 28:19)"
+  }
+ },
+ {
+  "id": "geography-hard-025",
+  "ref": {
+   "fr": "Genèse 32:31",
+   "en": "Genesis 32:30"
+  },
+  "fr": {
+   "q": "Que signifie Peniel, le lieu où Jacob lutta avec Dieu ?",
+   "options": [
+    "Face de Dieu",
+    "Main de Dieu",
+    "Camp de Dieu",
+    "Maison de Dieu"
+   ],
+   "explain": "Jacob appela ce lieu Peniel : J’ai vu Dieu face à face. (Genèse 32:31)"
+  },
+  "en": {
+   "q": "What does Peniel mean, the place where Jacob wrestled with God?",
+   "options": [
+    "Face of God",
+    "Hand of God",
+    "Camp of God",
+    "House of God"
+   ],
+   "explain": "Jacob called the place Peniel: I have seen God face to face. (Genesis 32:30)"
+  }
+ },
+ {
+  "id": "geography-hard-026",
+  "ref": {
+   "fr": "Genèse 11:9",
+   "en": "Genesis 11:9"
+  },
+  "fr": {
+   "q": "Pour quelle raison la ville reçut-elle le nom de Babel ?",
+   "options": [
+    "L’Éternel y confondit le langage",
+    "On y bâtit une haute tour",
+    "Le fleuve s’y divisait",
+    "Nemrod y régnait"
+   ],
+   "explain": "On l’appela Babel, car l’Éternel y confondit le langage. (Genèse 11:9)"
+  },
+  "en": {
+   "q": "For what reason was the city given the name Babel?",
+   "options": [
+    "The LORD confused the language there",
+    "A tall tower was built there",
+    "A river divided there",
+    "Nimrod reigned there"
+   ],
+   "explain": "It was called Babel, because the LORD confused the language there. (Genesis 11:9)"
+  }
+ },
+ {
+  "id": "geography-hard-027",
+  "ref": {
+   "fr": "Genèse 21:31",
+   "en": "Genesis 21:31"
+  },
+  "fr": {
+   "q": "Que rappelle le nom de Beer-Schéba, donné par Abraham ?",
+   "options": [
+    "Le puits du serment",
+    "Le puits de la dispute",
+    "La source des larmes",
+    "Le puits caché"
+   ],
+   "explain": "Il appela ce lieu Beer-Schéba, car ils y avaient tous deux juré. (Genèse 21:31)"
+  },
+  "en": {
+   "q": "What does the name Beersheba recall, given by Abraham?",
+   "options": [
+    "The well of the oath",
+    "The well of strife",
+    "The spring of tears",
+    "The hidden well"
+   ],
+   "explain": "He called the place Beersheba, because there they both swore an oath. (Genesis 21:31)"
+  }
+ },
+ {
+  "id": "geography-hard-028",
+  "ref": {
+   "fr": "Genèse 26:22",
+   "en": "Genesis 26:22"
+  },
+  "fr": {
+   "q": "Que signifie Rehoboth, le puits qu’Isaac creusa sans querelle ?",
+   "options": [
+    "Larges espaces",
+    "La querelle",
+    "L’inimitié",
+    "Le repos"
+   ],
+   "explain": "Il l’appela Rehoboth : maintenant l’Éternel nous a mis au large. (Genèse 26:22)"
+  },
+  "en": {
+   "q": "What does Rehoboth mean, the well Isaac dug without strife?",
+   "options": [
+    "Broad places",
+    "Strife",
+    "Enmity",
+    "Rest"
+   ],
+   "explain": "He called it Rehoboth: now the LORD has made room for us. (Genesis 26:22)"
+  }
+ },
+ {
+  "id": "geography-hard-029",
+  "ref": {
+   "fr": "Exode 17:7",
+   "en": "Exodus 17:7"
+  },
+  "fr": {
+   "q": "Que rappellent les noms Massa et Meriba, donnés près d’Horeb ?",
+   "options": [
+    "La tentation et la querelle",
+    "La faim et la soif",
+    "Le repos et la paix",
+    "Le feu et l’eau"
+   ],
+   "explain": "Il nomma ce lieu Massa et Meriba, à cause de la contestation. (Exode 17:7)"
+  },
+  "en": {
+   "q": "What do the names Massah and Meribah recall, given near Horeb?",
+   "options": [
+    "Testing and quarreling",
+    "Hunger and thirst",
+    "Rest and peace",
+    "Fire and water"
+   ],
+   "explain": "He named the place Massah and Meribah, because of the strife. (Exodus 17:7)"
+  }
+ },
+ {
+  "id": "geography-hard-030",
+  "ref": {
+   "fr": "Exode 15:23",
+   "en": "Exodus 15:23"
+  },
+  "fr": {
+   "q": "Pourquoi les eaux de Mara reçurent-elles ce nom au désert ?",
+   "options": [
+    "Elles étaient amères",
+    "Elles étaient rouges",
+    "Elles étaient cachées",
+    "Elles étaient abondantes"
+   ],
+   "explain": "On nomma ce lieu Mara, car les eaux étaient amères. (Exode 15:23)"
+  },
+  "en": {
+   "q": "Why were the waters of Marah so named in the wilderness?",
+   "options": [
+    "They were bitter",
+    "They were red",
+    "They were hidden",
+    "They were plentiful"
+   ],
+   "explain": "The place was called Marah, because the waters were bitter. (Exodus 15:23)"
+  }
+ },
+ {
+  "id": "geography-hard-031",
+  "ref": {
+   "fr": "Exode 15:27",
+   "en": "Exodus 15:27"
+  },
+  "fr": {
+   "q": "À quelle oasis Israël trouva-t-il douze sources et soixante-dix palmiers ?",
+   "options": [
+    "Élim",
+    "Mara",
+    "Rephidim",
+    "Kadès"
+   ],
+   "explain": "Ils arrivèrent à Élim, où étaient douze sources et soixante-dix palmiers. (Exode 15:27)"
+  },
+  "en": {
+   "q": "At which oasis did Israel find twelve springs of water and seventy palm trees?",
+   "options": [
+    "Elim",
+    "Marah",
+    "Rephidim",
+    "Kadesh"
+   ],
+   "explain": "They came to Elim, where were twelve springs and seventy palm trees. (Exodus 15:27)"
+  }
+ },
+ {
+  "id": "geography-hard-032",
+  "ref": {
+   "fr": "Exode 17:8",
+   "en": "Exodus 17:8"
+  },
+  "fr": {
+   "q": "En quel lieu Amalek combattit-il Israël pendant que Moïse tenait les mains levées ?",
+   "options": [
+    "Rephidim",
+    "Mara",
+    "Élim",
+    "Hor"
+   ],
+   "explain": "Amalek vint combattre Israël à Rephidim. (Exode 17:8)"
+  },
+  "en": {
+   "q": "Where did Amalek fight Israel while Moses held up his hands?",
+   "options": [
+    "Rephidim",
+    "Marah",
+    "Elim",
+    "Hor"
+   ],
+   "explain": "Amalek came and fought with Israel at Rephidim. (Exodus 17:8)"
+  }
+ },
+ {
+  "id": "geography-hard-033",
+  "ref": {
+   "fr": "Nombres 13:26",
+   "en": "Numbers 13:26"
+  },
+  "fr": {
+   "q": "De quelle oasis Moïse envoya-t-il les douze espions en Canaan ?",
+   "options": [
+    "Kadès-Barnéa",
+    "Rephidim",
+    "Élim",
+    "Hatséroth"
+   ],
+   "explain": "Les espions revinrent auprès de Moïse à Kadès. (Nombres 13:26)"
+  },
+  "en": {
+   "q": "From which oasis did Moses send the twelve spies into Canaan?",
+   "options": [
+    "Kadesh-Barnea",
+    "Rephidim",
+    "Elim",
+    "Hazeroth"
+   ],
+   "explain": "The spies returned to Moses at Kadesh. (Numbers 13:26)"
+  }
+ },
+ {
+  "id": "geography-hard-034",
+  "ref": {
+   "fr": "Nombres 20:13",
+   "en": "Numbers 20:13"
+  },
+  "fr": {
+   "q": "En quel lieu Moïse frappa-t-il le rocher, ce qui lui coûta l’entrée en Canaan ?",
+   "options": [
+    "Meriba, à Kadès",
+    "Rephidim",
+    "Mara",
+    "Le Sinaï"
+   ],
+   "explain": "Ce sont les eaux de Meriba, où les enfants d’Israël contestèrent. (Nombres 20:13)"
+  },
+  "en": {
+   "q": "Where did Moses strike the rock, which cost him entry into Canaan?",
+   "options": [
+    "Meribah, at Kadesh",
+    "Rephidim",
+    "Marah",
+    "Sinai"
+   ],
+   "explain": "These are the waters of Meribah, where Israel quarreled. (Numbers 20:13)"
+  }
+ },
+ {
+  "id": "geography-hard-035",
+  "ref": {
+   "fr": "Exode 12:37",
+   "en": "Exodus 12:37"
+  },
+  "fr": {
+   "q": "Quel fut le premier campement d’Israël en partant de Ramsès ?",
+   "options": [
+    "Succoth",
+    "Étham",
+    "Pi-Hahiroth",
+    "Mara"
+   ],
+   "explain": "Les enfants d’Israël partirent de Ramsès pour Succoth. (Exode 12:37)"
+  },
+  "en": {
+   "q": "What was Israel’s first camp when leaving Rameses?",
+   "options": [
+    "Succoth",
+    "Etham",
+    "Pi-Hahiroth",
+    "Marah"
+   ],
+   "explain": "The children of Israel journeyed from Rameses to Succoth. (Exodus 12:37)"
+  }
+ },
+ {
+  "id": "geography-hard-036",
+  "ref": {
+   "fr": "Exode 1:11",
+   "en": "Exodus 1:11"
+  },
+  "fr": {
+   "q": "Quelles villes de magasins les Hébreux bâtirent-ils pour Pharaon ?",
+   "options": [
+    "Pithom et Ramsès",
+    "Sin et On",
+    "Tanis et Memphis",
+    "Gosen et Tsoan"
+   ],
+   "explain": "Ils bâtirent pour Pharaon les villes de Pithom et de Ramsès. (Exode 1:11)"
+  },
+  "en": {
+   "q": "Which store cities did the Hebrews build for Pharaoh?",
+   "options": [
+    "Pithom and Rameses",
+    "Sin and On",
+    "Tanis and Memphis",
+    "Goshen and Zoan"
+   ],
+   "explain": "They built for Pharaoh the store cities Pithom and Rameses. (Exodus 1:11)"
+  }
+ },
+ {
+  "id": "geography-hard-037",
+  "ref": {
+   "fr": "Exode 14:2",
+   "en": "Exodus 14:2"
+  },
+  "fr": {
+   "q": "Près de quel lieu Israël campa-t-il au bord de la mer avant la traversée ?",
+   "options": [
+    "Pi-Hahiroth",
+    "Succoth",
+    "Étham",
+    "Mara"
+   ],
+   "explain": "Qu’ils campent devant Pi-Hahiroth, entre Migdol et la mer. (Exode 14:2)"
+  },
+  "en": {
+   "q": "Near which place did Israel camp by the sea before the crossing?",
+   "options": [
+    "Pi-Hahiroth",
+    "Succoth",
+    "Etham",
+    "Marah"
+   ],
+   "explain": "Let them camp before Pi-Hahiroth, between Migdol and the sea. (Exodus 14:2)"
+  }
+ },
+ {
+  "id": "geography-hard-038",
+  "ref": {
+   "fr": "Nombres 12:15-16",
+   "en": "Numbers 12:15-16"
+  },
+  "fr": {
+   "q": "En quel campement Marie fut-elle frappée de lèpre pendant sept jours ?",
+   "options": [
+    "Hatséroth",
+    "Kadès",
+    "Rephidim",
+    "Taberah"
+   ],
+   "explain": "Marie fut enfermée sept jours hors du camp, à Hatséroth. (Nombres 12:15-16)"
+  },
+  "en": {
+   "q": "At which camp was Miriam struck with leprosy for seven days?",
+   "options": [
+    "Hazeroth",
+    "Kadesh",
+    "Rephidim",
+    "Taberah"
+   ],
+   "explain": "Miriam was shut out of the camp seven days, at Hazeroth. (Numbers 12:15-16)"
+  }
+ },
+ {
+  "id": "geography-hard-039",
+  "ref": {
+   "fr": "Nombres 11:34",
+   "en": "Numbers 11:34"
+  },
+  "fr": {
+   "q": "Que signifie Kibroth-Hattaava, où le peuple fut enterré après avoir convoité la viande ?",
+   "options": [
+    "Les sépulcres de la convoitise",
+    "La vallée des cailles",
+    "Le camp du feu",
+    "Les tombes du désert"
+   ],
+   "explain": "On nomma ce lieu Kibroth-Hattaava : on y enterra le peuple avide. (Nombres 11:34)"
+  },
+  "en": {
+   "q": "What does Kibroth-Hattaavah mean, where the greedy people were buried?",
+   "options": [
+    "The graves of craving",
+    "The valley of quail",
+    "The camp of fire",
+    "The tombs of the desert"
+   ],
+   "explain": "The place was named Kibroth-Hattaavah, for there they buried the greedy people. (Numbers 11:34)"
+  }
+ },
+ {
+  "id": "geography-hard-040",
+  "ref": {
+   "fr": "Genèse 19:20-22",
+   "en": "Genesis 19:20-22"
+  },
+  "fr": {
+   "q": "Comment fut nommée la petite ville où Lot se réfugia loin de Sodome ?",
+   "options": [
+    "Tsoar",
+    "Sichem",
+    "Béthel",
+    "Hébron"
+   ],
+   "explain": "Lot dit : N’est-elle pas petite ? Aussi la ville fut nommée Tsoar. (Genèse 19:20-22)"
+  },
+  "en": {
+   "q": "What was the small town called where Lot took refuge away from Sodom?",
+   "options": [
+    "Zoar",
+    "Shechem",
+    "Bethel",
+    "Hebron"
+   ],
+   "explain": "Lot said, Is it not a little one? So the city was called Zoar. (Genesis 19:20-22)"
+  }
+ },
+ {
+  "id": "geography-hard-041",
+  "ref": {
+   "fr": "Genèse 36:8",
+   "en": "Genesis 36:8"
+  },
+  "fr": {
+   "q": "Dans quelle montagne Ésaü, appelé Édom, s’établit-il ?",
+   "options": [
+    "Séir",
+    "Nébo",
+    "Hor",
+    "Basan"
+   ],
+   "explain": "Ésaü habita dans la montagne de Séir ; Ésaü, c’est Édom. (Genèse 36:8)"
+  },
+  "en": {
+   "q": "In which mountain did Esau, called Edom, settle?",
+   "options": [
+    "Seir",
+    "Nebo",
+    "Hor",
+    "Bashan"
+   ],
+   "explain": "Esau dwelt in Mount Seir; Esau is Edom. (Genesis 36:8)"
+  }
+ },
+ {
+  "id": "geography-hard-042",
+  "ref": {
+   "fr": "Ésaïe 63:1",
+   "en": "Isaiah 63:1"
+  },
+  "fr": {
+   "q": "Quelle ville d’Édom le prophète nomme-t-il, d’où vient l’Éternel aux habits rouges ?",
+   "options": [
+    "Botsra",
+    "Téman",
+    "Séla",
+    "Élath"
+   ],
+   "explain": "Qui est celui-ci qui vient d’Édom, de Botsra, en habits éclatants ? (Ésaïe 63:1)"
+  },
+  "en": {
+   "q": "Which city of Edom does the prophet name, from which the LORD comes in red garments?",
+   "options": [
+    "Bozrah",
+    "Teman",
+    "Sela",
+    "Elath"
+   ],
+   "explain": "Who is this that comes from Edom, from Bozrah, in bright garments? (Isaiah 63:1)"
+  }
+ },
+ {
+  "id": "geography-hard-043",
+  "ref": {
+   "fr": "2 Samuel 12:26",
+   "en": "2 Samuel 12:26"
+  },
+  "fr": {
+   "q": "Devant quelle capitale des Ammonites Urie le Héthien trouva-t-il la mort ?",
+   "options": [
+    "Rabba",
+    "Damas",
+    "Sichem",
+    "Gath"
+   ],
+   "explain": "Joab assiégeait Rabba, la ville royale des Ammonites. (2 Samuel 12:26)"
+  },
+  "en": {
+   "q": "Before which Ammonite capital did Uriah the Hittite meet his death?",
+   "options": [
+    "Rabbah",
+    "Damascus",
+    "Shechem",
+    "Gath"
+   ],
+   "explain": "Joab fought against Rabbah, the royal city of the Ammonites. (2 Samuel 12:26)"
+  }
+ },
+ {
+  "id": "geography-hard-044",
+  "ref": {
+   "fr": "2 Rois 23:29-30",
+   "en": "2 Kings 23:29-30"
+  },
+  "fr": {
+   "q": "En quel lieu le roi Josias fut-il mortellement blessé par Pharaon Néco ?",
+   "options": [
+    "Meguiddo",
+    "Ramoth en Galaad",
+    "Jizreel",
+    "Béthel"
+   ],
+   "explain": "Le roi Josias fut frappé à Meguiddo et y mourut. (2 Rois 23:29-30)"
+  },
+  "en": {
+   "q": "Where was King Josiah mortally wounded by Pharaoh Necho?",
+   "options": [
+    "Megiddo",
+    "Ramoth-Gilead",
+    "Jezreel",
+    "Bethel"
+   ],
+   "explain": "King Josiah was struck down at Megiddo. (2 Kings 23:29-30)"
+  }
+ },
+ {
+  "id": "geography-hard-045",
+  "ref": {
+   "fr": "1 Rois 22:34",
+   "en": "1 Kings 22:34"
+  },
+  "fr": {
+   "q": "Devant quelle ville le roi Achab reçut-il la flèche qui le tua ?",
+   "options": [
+    "Ramoth en Galaad",
+    "Jizreel",
+    "Samarie",
+    "Aphek"
+   ],
+   "explain": "Achab monta à Ramoth en Galaad, où une flèche l’atteignit. (1 Rois 22:29-34)"
+  },
+  "en": {
+   "q": "At which city was King Ahab struck by the arrow that killed him?",
+   "options": [
+    "Ramoth-Gilead",
+    "Jezreel",
+    "Samaria",
+    "Aphek"
+   ],
+   "explain": "Ahab went up to Ramoth-Gilead, where an arrow struck him. (1 Kings 22:29-34)"
+  }
+ },
+ {
+  "id": "geography-hard-046",
+  "ref": {
+   "fr": "1 Rois 22:37-38",
+   "en": "1 Kings 22:37-38"
+  },
+  "fr": {
+   "q": "Dans quelle ville les chiens léchèrent-ils le sang du roi Achab ?",
+   "options": [
+    "Samarie",
+    "Jizreel",
+    "Damas",
+    "Béthel"
+   ],
+   "explain": "On enterra le roi à Samarie, et les chiens léchèrent son sang. (1 Rois 22:37-38)"
+  },
+  "en": {
+   "q": "In which city did dogs lick up the blood of King Ahab?",
+   "options": [
+    "Samaria",
+    "Jezreel",
+    "Damascus",
+    "Bethel"
+   ],
+   "explain": "They buried the king in Samaria, and dogs licked up his blood. (1 Kings 22:37-38)"
+  }
+ },
+ {
+  "id": "geography-hard-047",
+  "ref": {
+   "fr": "1 Rois 16:18",
+   "en": "1 Kings 16:18"
+  },
+  "fr": {
+   "q": "Dans quelle ancienne capitale du Nord Zimri brûla-t-il le palais sur lui-même ?",
+   "options": [
+    "Thirtsa",
+    "Samarie",
+    "Sichem",
+    "Béthel"
+   ],
+   "explain": "Zimri mit le feu sur lui à la maison royale de Thirtsa. (1 Rois 16:18)"
+  },
+  "en": {
+   "q": "In which early northern capital did Zimri burn the palace over himself?",
+   "options": [
+    "Tirzah",
+    "Samaria",
+    "Shechem",
+    "Bethel"
+   ],
+   "explain": "Zimri burned the king’s house over himself at Tirzah. (1 Kings 16:18)"
+  }
+ },
+ {
+  "id": "geography-hard-048",
+  "ref": {
+   "fr": "2 Samuel 18:6-9",
+   "en": "2 Samuel 18:6-9"
+  },
+  "fr": {
+   "q": "Dans quelle forêt Absalom fut-il tué, suspendu par la tête à un térébinthe ?",
+   "options": [
+    "La forêt d’Éphraïm",
+    "La forêt du Liban",
+    "Le bois de Hareth",
+    "Le bois de Béthel"
+   ],
+   "explain": "La bataille eut lieu dans la forêt d’Éphraïm, où périt Absalom. (2 Samuel 18:6-9)"
+  },
+  "en": {
+   "q": "In which forest was Absalom killed, caught by his head in an oak?",
+   "options": [
+    "The forest of Ephraim",
+    "The forest of Lebanon",
+    "The wood of Hareth",
+    "The wood of Bethel"
+   ],
+   "explain": "The battle was in the forest of Ephraim, where Absalom died. (2 Samuel 18:6-9)"
+  }
+ },
+ {
+  "id": "geography-hard-049",
+  "ref": {
+   "fr": "Deutéronome 34:6",
+   "en": "Deuteronomy 34:6"
+  },
+  "fr": {
+   "q": "Dans quel pays Moïse fut-il enterré, dans une vallée vis-à-vis de Beth-Peor ?",
+   "options": [
+    "Le pays de Moab",
+    "Le désert de Tsin",
+    "La terre de Canaan",
+    "Le pays de Galaad"
+   ],
+   "explain": "Il fut enterré dans la vallée au pays de Moab, vis-à-vis de Beth-Peor. (Deutéronome 34:6)"
+  },
+  "en": {
+   "q": "In which land was Moses buried, in a valley opposite Beth-Peor?",
+   "options": [
+    "The land of Moab",
+    "The wilderness of Zin",
+    "The land of Canaan",
+    "The land of Gilead"
+   ],
+   "explain": "He was buried in the valley in the land of Moab, opposite Beth-Peor. (Deuteronomy 34:6)"
+  }
+ },
+ {
+  "id": "geography-hard-050",
+  "ref": {
+   "fr": "Genèse 35:19",
+   "en": "Genesis 35:19"
+  },
+  "fr": {
+   "q": "Près de quelle ville Rachel mourut-elle et fut-elle enterrée, sur le chemin d’Éphrata ?",
+   "options": [
+    "Bethléhem",
+    "Béthel",
+    "Hébron",
+    "Sichem"
+   ],
+   "explain": "Rachel mourut sur le chemin d’Éphrata, qui est Bethléhem. (Genèse 35:19)"
+  },
+  "en": {
+   "q": "Near which town did Rachel die and get buried, on the way to Ephrath?",
+   "options": [
+    "Bethlehem",
+    "Bethel",
+    "Hebron",
+    "Shechem"
+   ],
+   "explain": "Rachel died on the way to Ephrath, that is, Bethlehem. (Genesis 35:19)"
+  }
+ },
+ {
+  "id": "geography-hard-051",
+  "ref": {
+   "fr": "Josué 24:32",
+   "en": "Joshua 24:32"
+  },
+  "fr": {
+   "q": "Dans quelle ville furent enterrés les os de Joseph, dans le champ acheté par Jacob ?",
+   "options": [
+    "Sichem",
+    "Hébron",
+    "Bethléhem",
+    "Silo"
+   ],
+   "explain": "On enterra à Sichem les os de Joseph. (Josué 24:32)"
+  },
+  "en": {
+   "q": "In which town were Joseph’s bones buried, in the field Jacob bought?",
+   "options": [
+    "Shechem",
+    "Hebron",
+    "Bethlehem",
+    "Shiloh"
+   ],
+   "explain": "They buried the bones of Joseph at Shechem. (Joshua 24:32)"
+  }
+ },
+ {
+  "id": "geography-hard-052",
+  "ref": {
+   "fr": "2 Samuel 6:6-7",
+   "en": "2 Samuel 6:6-7"
+  },
+  "fr": {
+   "q": "En quel lieu Uzza fut-il frappé de mort pour avoir touché l’arche ?",
+   "options": [
+    "L’aire de Nacon",
+    "La colline de Guibea",
+    "Le seuil de Dagon",
+    "La porte de Sion"
+   ],
+   "explain": "Uzza mourut près de l’aire de Nacon, pour avoir porté la main sur l’arche. (2 Samuel 6:6-7)"
+  },
+  "en": {
+   "q": "Where was Uzzah struck dead for touching the ark?",
+   "options": [
+    "The threshing floor of Nachon",
+    "The hill of Gibeah",
+    "The threshold of Dagon",
+    "The gate of Zion"
+   ],
+   "explain": "Uzzah died by the threshing floor of Nachon for reaching to the ark. (2 Samuel 6:6-7)"
+  }
+ },
+ {
+  "id": "geography-hard-053",
+  "ref": {
+   "fr": "Josué 7:26",
+   "en": "Joshua 7:26"
+  },
+  "fr": {
+   "q": "Dans quelle vallée Acan fut-il lapidé, appelée vallée du trouble ?",
+   "options": [
+    "La vallée d’Acor",
+    "La vallée d’Éla",
+    "La vallée de Josaphat",
+    "La vallée de Hinnom"
+   ],
+   "explain": "C’est pourquoi on a nommé ce lieu vallée d’Acor. (Josué 7:26)"
+  },
+  "en": {
+   "q": "In which valley was Achan stoned, called the valley of trouble?",
+   "options": [
+    "The Valley of Achor",
+    "The Valley of Elah",
+    "The Valley of Jehoshaphat",
+    "The Valley of Hinnom"
+   ],
+   "explain": "Therefore the place was called the Valley of Achor. (Joshua 7:26)"
+  }
+ },
+ {
+  "id": "geography-hard-054",
+  "ref": {
+   "fr": "Ézéchiel 1:1",
+   "en": "Ezekiel 1:1"
+  },
+  "fr": {
+   "q": "Au bord de quel fleuve, chez les exilés, Ézéchiel eut-il ses visions ?",
+   "options": [
+    "Le Kebar",
+    "L’Ahava",
+    "L’Ulaï",
+    "Le Tigre"
+   ],
+   "explain": "J’étais parmi les captifs, près du fleuve du Kebar. (Ézéchiel 1:1)"
+  },
+  "en": {
+   "q": "By which river among the exiles did Ezekiel see his visions?",
+   "options": [
+    "The Chebar",
+    "The Ahava",
+    "The Ulai",
+    "The Tigris"
+   ],
+   "explain": "I was among the captives by the river Chebar. (Ezekiel 1:1)"
+  }
+ },
+ {
+  "id": "geography-hard-055",
+  "ref": {
+   "fr": "Esdras 8:21",
+   "en": "Ezra 8:21"
+  },
+  "fr": {
+   "q": "Près de quel fleuve Esdras publia-t-il un jeûne avant de monter à Jérusalem ?",
+   "options": [
+    "L’Ahava",
+    "Le Kebar",
+    "L’Euphrate",
+    "Le Jourdain"
+   ],
+   "explain": "Je publiai là un jeûne, près du fleuve d’Ahava. (Esdras 8:21)"
+  },
+  "en": {
+   "q": "By which river did Ezra proclaim a fast before going up to Jerusalem?",
+   "options": [
+    "The Ahava",
+    "The Chebar",
+    "The Euphrates",
+    "The Jordan"
+   ],
+   "explain": "I proclaimed a fast there, at the river Ahava. (Ezra 8:21)"
+  }
+ },
+ {
+  "id": "geography-hard-056",
+  "ref": {
+   "fr": "Daniel 8:2",
+   "en": "Daniel 8:2"
+  },
+  "fr": {
+   "q": "Au bord de quel fleuve Daniel vit-il la vision du bélier et du bouc ?",
+   "options": [
+    "L’Ulaï",
+    "Le Kebar",
+    "L’Ahava",
+    "L’Arnon"
+   ],
+   "explain": "J’étais à Suse, près du fleuve Ulaï. (Daniel 8:2)"
+  },
+  "en": {
+   "q": "By which river did Daniel see the vision of the ram and the goat?",
+   "options": [
+    "The Ulai",
+    "The Chebar",
+    "The Ahava",
+    "The Arnon"
+   ],
+   "explain": "I was at Susa, by the river Ulai. (Daniel 8:2)"
+  }
+ },
+ {
+  "id": "geography-hard-057",
+  "ref": {
+   "fr": "2 Samuel 15:23",
+   "en": "2 Samuel 15:23"
+  },
+  "fr": {
+   "q": "Quel torrent David traversa-t-il en pleurant, fuyant devant Absalom ?",
+   "options": [
+    "Le Cédron",
+    "Le Jabbok",
+    "Le Kison",
+    "L’Arnon"
+   ],
+   "explain": "Tout le pays pleurait ; le roi passa le torrent de Cédron. (2 Samuel 15:23)"
+  },
+  "en": {
+   "q": "Which brook did David cross weeping, fleeing from Absalom?",
+   "options": [
+    "The Kidron",
+    "The Jabbok",
+    "The Kishon",
+    "The Arnon"
+   ],
+   "explain": "All the country wept; the king passed over the brook Kidron. (2 Samuel 15:23)"
+  }
+ },
+ {
+  "id": "geography-hard-058",
+  "ref": {
+   "fr": "1 Rois 17:3-6",
+   "en": "1 Kings 17:3-6"
+  },
+  "fr": {
+   "q": "Au bord de quel torrent Élie fut-il nourri par les corbeaux ?",
+   "options": [
+    "Le Kerith",
+    "Le Cédron",
+    "Le Kison",
+    "Le Jabbok"
+   ],
+   "explain": "Cache-toi près du torrent de Kerith ; les corbeaux t’y nourriront. (1 Rois 17:3-6)"
+  },
+  "en": {
+   "q": "By which brook was Elijah fed by ravens?",
+   "options": [
+    "The Cherith",
+    "The Kidron",
+    "The Kishon",
+    "The Jabbok"
+   ],
+   "explain": "Hide by the brook Cherith; the ravens will feed you there. (1 Kings 17:3-6)"
+  }
+ },
+ {
+  "id": "geography-hard-059",
+  "ref": {
+   "fr": "1 Rois 18:40",
+   "en": "1 Kings 18:40"
+  },
+  "fr": {
+   "q": "Près de quel torrent Élie fit-il égorger les prophètes de Baal ?",
+   "options": [
+    "Le Kison",
+    "Le Kerith",
+    "Le Cédron",
+    "Le Jourdain"
+   ],
+   "explain": "Élie fit descendre les prophètes de Baal au torrent de Kison, et les y égorgea. (1 Rois 18:40)"
+  },
+  "en": {
+   "q": "By which brook did Elijah have the prophets of Baal slain?",
+   "options": [
+    "The Kishon",
+    "The Cherith",
+    "The Kidron",
+    "The Jordan"
+   ],
+   "explain": "Elijah brought the prophets of Baal down to the brook Kishon and slew them. (1 Kings 18:40)"
+  }
+ },
+ {
+  "id": "geography-hard-060",
+  "ref": {
+   "fr": "Genèse 32:22-24",
+   "en": "Genesis 32:22-24"
+  },
+  "fr": {
+   "q": "Au gué de quel cours d’eau Jacob lutta-t-il jusqu’à l’aurore ?",
+   "options": [
+    "Le Jabbok",
+    "L’Arnon",
+    "Le Jourdain",
+    "Le Kison"
+   ],
+   "explain": "Jacob passa le gué du Jabbok, et un homme lutta avec lui. (Genèse 32:22-24)"
+  },
+  "en": {
+   "q": "At the ford of which stream did Jacob wrestle until daybreak?",
+   "options": [
+    "The Jabbok",
+    "The Arnon",
+    "The Jordan",
+    "The Kishon"
+   ],
+   "explain": "Jacob passed over the ford of the Jabbok, and a man wrestled with him. (Genesis 32:22-24)"
+  }
+ },
+ {
+  "id": "geography-hard-061",
+  "ref": {
+   "fr": "Nombres 21:13",
+   "en": "Numbers 21:13"
+  },
+  "fr": {
+   "q": "Quel torrent servait de frontière entre Moab et les Amoréens ?",
+   "options": [
+    "L’Arnon",
+    "Le Jabbok",
+    "Le Kison",
+    "Le Cédron"
+   ],
+   "explain": "L’Arnon est la frontière de Moab, entre Moab et les Amoréens. (Nombres 21:13)"
+  },
+  "en": {
+   "q": "Which river formed the border between Moab and the Amorites?",
+   "options": [
+    "The Arnon",
+    "The Jabbok",
+    "The Kishon",
+    "The Kidron"
+   ],
+   "explain": "The Arnon is the border of Moab, between Moab and the Amorites. (Numbers 21:13)"
+  }
+ },
+ {
+  "id": "geography-hard-062",
+  "ref": {
+   "fr": "Josué 11:5-7",
+   "en": "Joshua 11:5-7"
+  },
+  "fr": {
+   "q": "Près de quelles eaux Josué vainquit-il la coalition des rois du Nord ?",
+   "options": [
+    "Les eaux de Mérom",
+    "Les eaux de Meriba",
+    "Le torrent de Kison",
+    "La mer de Kinnéreth"
+   ],
+   "explain": "Les rois se réunirent près des eaux de Mérom, où Josué les battit. (Josué 11:5-7)"
+  },
+  "en": {
+   "q": "By which waters did Joshua defeat the coalition of northern kings?",
+   "options": [
+    "The waters of Merom",
+    "The waters of Meribah",
+    "The brook Kishon",
+    "The Sea of Chinnereth"
+   ],
+   "explain": "The kings met at the waters of Merom, where Joshua struck them. (Joshua 11:5-7)"
+  }
+ },
+ {
+  "id": "geography-hard-063",
+  "ref": {
+   "fr": "Jérémie 7:31",
+   "en": "Jeremiah 7:31"
+  },
+  "fr": {
+   "q": "Dans quelle vallée près de Jérusalem se trouvait Topheth, lieu des sacrifices d’enfants ?",
+   "options": [
+    "La vallée de Hinnom",
+    "La vallée d’Acor",
+    "La vallée d’Éla",
+    "La vallée de Josaphat"
+   ],
+   "explain": "Ils ont bâti Topheth dans la vallée du fils de Hinnom. (Jérémie 7:31)"
+  },
+  "en": {
+   "q": "In which valley near Jerusalem was Topheth, place of child sacrifice?",
+   "options": [
+    "The Valley of Hinnom",
+    "The Valley of Achor",
+    "The Valley of Elah",
+    "The Valley of Jehoshaphat"
+   ],
+   "explain": "They built Topheth in the Valley of the son of Hinnom. (Jeremiah 7:31)"
+  }
+ },
+ {
+  "id": "geography-hard-064",
+  "ref": {
+   "fr": "Joël 3:2",
+   "en": "Joel 3:2"
+  },
+  "fr": {
+   "q": "Dans quelle vallée Dieu déclare-t-il, par Joël, qu’il jugera les nations ?",
+   "options": [
+    "La vallée de Josaphat",
+    "La vallée de Hinnom",
+    "La vallée d’Acor",
+    "La vallée du Jourdain"
+   ],
+   "explain": "Je les ferai descendre dans la vallée de Josaphat, et là j’entrerai en jugement. (Joël 3:2)"
+  },
+  "en": {
+   "q": "In which valley does God, through Joel, say He will judge the nations?",
+   "options": [
+    "The Valley of Jehoshaphat",
+    "The Valley of Hinnom",
+    "The Valley of Achor",
+    "The Jordan Valley"
+   ],
+   "explain": "I will bring them down to the Valley of Jehoshaphat and enter into judgment. (Joel 3:2)"
+  }
+ },
+ {
+  "id": "geography-hard-065",
+  "ref": {
+   "fr": "1 Samuel 31:10",
+   "en": "1 Samuel 31:10"
+  },
+  "fr": {
+   "q": "À la muraille de quelle ville les Philistins attachèrent-ils le corps de Saül ?",
+   "options": [
+    "Beth-Schan",
+    "Gath",
+    "Aphek",
+    "Jizreel"
+   ],
+   "explain": "Ils attachèrent le corps de Saül à la muraille de Beth-Schan. (1 Samuel 31:10)"
+  },
+  "en": {
+   "q": "To the wall of which city did the Philistines fasten Saul’s body?",
+   "options": [
+    "Beth-Shan",
+    "Gath",
+    "Aphek",
+    "Jezreel"
+   ],
+   "explain": "They fastened Saul’s body to the wall of Beth-Shan. (1 Samuel 31:10)"
+  }
+ },
+ {
+  "id": "geography-hard-066",
+  "ref": {
+   "fr": "1 Samuel 31:11-13",
+   "en": "1 Samuel 31:11-13"
+  },
+  "fr": {
+   "q": "De quelle ville vinrent les vaillants hommes qui reprirent le corps de Saül ?",
+   "options": [
+    "Jabès en Galaad",
+    "Beth-Schan",
+    "Guibea",
+    "Rama"
+   ],
+   "explain": "Les hommes de Jabès en Galaad enlevèrent le corps de Saül. (1 Samuel 31:11-13)"
+  },
+  "en": {
+   "q": "From which town came the valiant men who recovered Saul’s body?",
+   "options": [
+    "Jabesh-Gilead",
+    "Beth-Shan",
+    "Gibeah",
+    "Ramah"
+   ],
+   "explain": "The men of Jabesh-Gilead took away the body of Saul. (1 Samuel 31:11-13)"
+  }
+ },
+ {
+  "id": "geography-hard-067",
+  "ref": {
+   "fr": "1 Samuel 21:1",
+   "en": "1 Samuel 21:1"
+  },
+  "fr": {
+   "q": "Dans quelle ville des sacrificateurs David mangea-t-il les pains consacrés ?",
+   "options": [
+    "Nob",
+    "Guibea",
+    "Rama",
+    "Silo"
+   ],
+   "explain": "David vint à Nob, vers le sacrificateur Achimélec. (1 Samuel 21:1)"
+  },
+  "en": {
+   "q": "In which city of the priests did David eat the consecrated bread?",
+   "options": [
+    "Nob",
+    "Gibeah",
+    "Ramah",
+    "Shiloh"
+   ],
+   "explain": "David came to Nob, to Ahimelech the priest. (1 Samuel 21:1)"
+  }
+ },
+ {
+  "id": "geography-hard-068",
+  "ref": {
+   "fr": "1 Samuel 22:1",
+   "en": "1 Samuel 22:1"
+  },
+  "fr": {
+   "q": "Vers quelle caverne se réfugièrent les affligés et les endettés autour de David ?",
+   "options": [
+    "Adullam",
+    "En-Guédi",
+    "Micmasch",
+    "Kéïla"
+   ],
+   "explain": "David se retira dans la caverne d’Adullam. (1 Samuel 22:1)"
+  },
+  "en": {
+   "q": "To which cave did the distressed and the debtors gather around David?",
+   "options": [
+    "Adullam",
+    "En-Gedi",
+    "Michmash",
+    "Keilah"
+   ],
+   "explain": "David escaped to the cave of Adullam. (1 Samuel 22:1)"
+  }
+ },
+ {
+  "id": "geography-hard-069",
+  "ref": {
+   "fr": "1 Samuel 10:26",
+   "en": "1 Samuel 10:26"
+  },
+  "fr": {
+   "q": "Quelle ville était la demeure et le siège du roi Saül ?",
+   "options": [
+    "Guibea",
+    "Rama",
+    "Nob",
+    "Guilgal"
+   ],
+   "explain": "Saül s’en alla dans sa maison à Guibea. (1 Samuel 10:26)"
+  },
+  "en": {
+   "q": "Which town was the home and seat of King Saul?",
+   "options": [
+    "Gibeah",
+    "Ramah",
+    "Nob",
+    "Gilgal"
+   ],
+   "explain": "Saul went home to Gibeah. (1 Samuel 10:26)"
+  }
+ },
+ {
+  "id": "geography-hard-070",
+  "ref": {
+   "fr": "1 Samuel 14:4-6",
+   "en": "1 Samuel 14:4-6"
+  },
+  "fr": {
+   "q": "À quel passage Jonathan attaqua-t-il un poste des Philistins avec son écuyer ?",
+   "options": [
+    "Micmasch",
+    "Aphek",
+    "Guibea",
+    "Béthel"
+   ],
+   "explain": "Jonathan cherchait à passer vers le poste des Philistins à Micmasch. (1 Samuel 14:4-6)"
+  },
+  "en": {
+   "q": "At which pass did Jonathan attack a Philistine garrison with his armor-bearer?",
+   "options": [
+    "Michmash",
+    "Aphek",
+    "Gibeah",
+    "Bethel"
+   ],
+   "explain": "Jonathan sought to cross to the Philistine garrison at Michmash. (1 Samuel 14:4-6)"
+  }
+ },
+ {
+  "id": "geography-hard-071",
+  "ref": {
+   "fr": "1 Samuel 6:12-13",
+   "en": "1 Samuel 6:12-13"
+  },
+  "fr": {
+   "q": "Vers quelle ville les vaches ramenèrent-elles l’arche renvoyée par les Philistins ?",
+   "options": [
+    "Beth-Schémesch",
+    "Kirjath-Jearim",
+    "Ékron",
+    "Asdod"
+   ],
+   "explain": "Les vaches allèrent tout droit vers le chemin de Beth-Schémesch. (1 Samuel 6:12-13)"
+  },
+  "en": {
+   "q": "To which town did the cows bring the ark sent back by the Philistines?",
+   "options": [
+    "Beth-Shemesh",
+    "Kirjath-Jearim",
+    "Ekron",
+    "Ashdod"
+   ],
+   "explain": "The cows went straight on the road to Beth-Shemesh. (1 Samuel 6:12-13)"
+  }
+ },
+ {
+  "id": "geography-hard-072",
+  "ref": {
+   "fr": "2 Rois 1:2-3",
+   "en": "2 Kings 1:2-3"
+  },
+  "fr": {
+   "q": "Auprès du dieu de quelle ville philistine Achazia envoya-t-il consulter ?",
+   "options": [
+    "Ékron",
+    "Gath",
+    "Gaza",
+    "Askalon"
+   ],
+   "explain": "Achazia envoya consulter Baal-Zebub, dieu d’Ékron. (2 Rois 1:2-3)"
+  },
+  "en": {
+   "q": "To the god of which Philistine city did Ahaziah send to inquire?",
+   "options": [
+    "Ekron",
+    "Gath",
+    "Gaza",
+    "Ashkelon"
+   ],
+   "explain": "Ahaziah sent to inquire of Baal-Zebub, the god of Ekron. (2 Kings 1:2-3)"
+  }
+ },
+ {
+  "id": "geography-hard-073",
+  "ref": {
+   "fr": "Josué 13:3",
+   "en": "Joshua 13:3"
+  },
+  "fr": {
+   "q": "Combien de villes principales les princes des Philistins gouvernaient-ils ?",
+   "options": [
+    "Cinq",
+    "Trois",
+    "Sept",
+    "Dix"
+   ],
+   "explain": "Les cinq princes : de Gaza, d’Asdod, d’Askalon, de Gath et d’Ékron. (Josué 13:3)"
+  },
+  "en": {
+   "q": "How many chief cities did the lords of the Philistines rule?",
+   "options": [
+    "Five",
+    "Three",
+    "Seven",
+    "Ten"
+   ],
+   "explain": "The five lords: of Gaza, Ashdod, Ashkelon, Gath, and Ekron. (Joshua 13:3)"
+  }
+ },
+ {
+  "id": "geography-hard-074",
+  "ref": {
+   "fr": "1 Rois 1:3",
+   "en": "1 Kings 1:3"
+  },
+  "fr": {
+   "q": "De quelle ville venait Abischag, la jeune fille qui servit le roi David âgé ?",
+   "options": [
+    "Sunem",
+    "Jizreel",
+    "Thékoa",
+    "Sarepta"
+   ],
+   "explain": "On amena au roi Abischag, la Sunamite. (1 Rois 1:3)"
+  },
+  "en": {
+   "q": "From which town was Abishag, the young woman who served aged King David?",
+   "options": [
+    "Shunem",
+    "Jezreel",
+    "Tekoa",
+    "Zarephath"
+   ],
+   "explain": "They brought Abishag the Shunammite to the king. (1 Kings 1:3)"
+  }
+ },
+ {
+  "id": "geography-hard-075",
+  "ref": {
+   "fr": "1 Rois 19:16",
+   "en": "1 Kings 19:16"
+  },
+  "fr": {
+   "q": "De quelle ville était Élisée, qu’Élie trouva labourant ?",
+   "options": [
+    "Abel-Mehola",
+    "Thischbé",
+    "Dothan",
+    "Sunem"
+   ],
+   "explain": "Tu oindras Élisée, d’Abel-Mehola, pour prophète à ta place. (1 Rois 19:16)"
+  },
+  "en": {
+   "q": "From which town was Elisha, whom Elijah found plowing?",
+   "options": [
+    "Abel-Meholah",
+    "Tishbe",
+    "Dothan",
+    "Shunem"
+   ],
+   "explain": "You shall anoint Elisha of Abel-Meholah as prophet in your place. (1 Kings 19:16)"
+  }
+ },
+ {
+  "id": "geography-hard-076",
+  "ref": {
+   "fr": "Deutéronome 27:13",
+   "en": "Deuteronomy 27:13"
+  },
+  "fr": {
+   "q": "Sur quelle montagne devait-on prononcer la malédiction, face au mont Garizim ?",
+   "options": [
+    "Le mont Ébal",
+    "Le mont Thabor",
+    "Le mont Guilboa",
+    "Le mont Hermon"
+   ],
+   "explain": "Ceux-ci se tiendront sur le mont Ébal pour prononcer la malédiction. (Deutéronome 27:13)"
+  },
+  "en": {
+   "q": "On which mountain were the curses to be pronounced, opposite Mount Gerizim?",
+   "options": [
+    "Mount Ebal",
+    "Mount Tabor",
+    "Mount Gilboa",
+    "Mount Hermon"
+   ],
+   "explain": "These shall stand on Mount Ebal for the curse. (Deuteronomy 27:13)"
+  }
+ },
+ {
+  "id": "geography-hard-077",
+  "ref": {
+   "fr": "Deutéronome 3:8",
+   "en": "Deuteronomy 3:8"
+  },
+  "fr": {
+   "q": "Quelle haute montagne enneigée marque la limite nord d’Israël, près des sources du Jourdain ?",
+   "options": [
+    "Le mont Hermon",
+    "Le mont Carmel",
+    "Le mont Thabor",
+    "Le mont Séir"
+   ],
+   "explain": "Nous prîmes le pays depuis l’Arnon jusqu’au mont Hermon. (Deutéronome 3:8)"
+  },
+  "en": {
+   "q": "Which tall snow-capped mountain marks Israel’s northern border, near the Jordan’s springs?",
+   "options": [
+    "Mount Hermon",
+    "Mount Carmel",
+    "Mount Tabor",
+    "Mount Seir"
+   ],
+   "explain": "We took the land from the Arnon to Mount Hermon. (Deuteronomy 3:8)"
+  }
+ },
+ {
+  "id": "geography-hard-078",
+  "ref": {
+   "fr": "Genèse 11:2",
+   "en": "Genesis 11:2"
+  },
+  "fr": {
+   "q": "Dans quelle plaine les hommes s’établirent-ils pour bâtir la tour ?",
+   "options": [
+    "La plaine de Schinear",
+    "La plaine de Dura",
+    "La plaine du Jourdain",
+    "La plaine de Saron"
+   ],
+   "explain": "Ils trouvèrent une plaine au pays de Schinear et s’y établirent. (Genèse 11:2)"
+  },
+  "en": {
+   "q": "On which plain did men settle in order to build the tower?",
+   "options": [
+    "The plain of Shinar",
+    "The plain of Dura",
+    "The plain of Jordan",
+    "The plain of Sharon"
+   ],
+   "explain": "They found a plain in the land of Shinar and settled there. (Genesis 11:2)"
+  }
+ },
+ {
+  "id": "geography-hard-079",
+  "ref": {
+   "fr": "Nombres 34:6",
+   "en": "Numbers 34:6"
+  },
+  "fr": {
+   "q": "Quelle mer l’Éternel fixa-t-il comme limite occidentale de la Terre promise ?",
+   "options": [
+    "La grande mer",
+    "La mer Morte",
+    "La mer de Galilée",
+    "La mer Rouge"
+   ],
+   "explain": "Votre limite occidentale sera la grande mer. (Nombres 34:6)"
+  },
+  "en": {
+   "q": "Which sea did the LORD set as the western border of the Promised Land?",
+   "options": [
+    "The Great Sea",
+    "The Dead Sea",
+    "The Sea of Galilee",
+    "The Red Sea"
+   ],
+   "explain": "Your western border shall be the Great Sea. (Numbers 34:6)"
+  }
+ },
+ {
+  "id": "geography-hard-080",
+  "ref": {
+   "fr": "Actes 28:13",
+   "en": "Acts 28:13"
+  },
+  "fr": {
+   "q": "Dans quel port d’Italie Paul débarqua-t-il et demeura sept jours avec des frères ?",
+   "options": [
+    "Pouzzoles",
+    "Rhegium",
+    "Syracuse",
+    "Ostie"
+   ],
+   "explain": "Nous arrivâmes à Pouzzoles, où nous restâmes sept jours. (Actes 28:13)"
+  },
+  "en": {
+   "q": "At which Italian port did Paul land and stay seven days with brothers?",
+   "options": [
+    "Puteoli",
+    "Rhegium",
+    "Syracuse",
+    "Ostia"
+   ],
+   "explain": "We came to Puteoli, where we stayed seven days. (Acts 28:13)"
+  }
+ },
+ {
+  "id": "geography-hard-081",
+  "ref": {
+   "fr": "Actes 27:8",
+   "en": "Acts 27:8"
+  },
+  "fr": {
+   "q": "À quel mouillage de Crète, nommé Beaux-Ports, Paul conseilla-t-il de ne pas repartir ?",
+   "options": [
+    "Beaux-Ports",
+    "Phénix",
+    "Cnide",
+    "Salmoné"
+   ],
+   "explain": "On arriva à un lieu appelé Beaux-Ports, près de Lasée. (Actes 27:8)"
+  },
+  "en": {
+   "q": "At which Crete anchorage, called Fair Havens, did Paul warn against sailing on?",
+   "options": [
+    "Fair Havens",
+    "Phoenix",
+    "Cnidus",
+    "Salmone"
+   ],
+   "explain": "We came to a place called Fair Havens, near Lasea. (Acts 27:8)"
+  }
+ },
+ {
+  "id": "geography-hard-082",
+  "ref": {
+   "fr": "Actes 20:13",
+   "en": "Acts 20:13"
+  },
+  "fr": {
+   "q": "Vers quelle ville Paul se rendit-il à pied, devant y rejoindre le navire ?",
+   "options": [
+    "Assos",
+    "Milet",
+    "Troas",
+    "Mytilène"
+   ],
+   "explain": "Nous devions y reprendre Paul, qui voulait aller à pied jusqu’à Assos. (Actes 20:13)"
+  },
+  "en": {
+   "q": "To which town did Paul go on foot, meaning to meet the ship there?",
+   "options": [
+    "Assos",
+    "Miletus",
+    "Troas",
+    "Mitylene"
+   ],
+   "explain": "We were to take Paul aboard, for he meant to go by land to Assos. (Acts 20:13)"
+  }
+ },
+ {
+  "id": "geography-hard-083",
+  "ref": {
+   "fr": "Actes 21:1-2",
+   "en": "Acts 21:1-2"
+  },
+  "fr": {
+   "q": "Dans quelle ville Paul trouva-t-il un navire faisant voile vers la Phénicie ?",
+   "options": [
+    "Patara",
+    "Cos",
+    "Rhodes",
+    "Tyr"
+   ],
+   "explain": "À Patara, ayant trouvé un navire pour la Phénicie, nous y montâmes. (Actes 21:1-2)"
+  },
+  "en": {
+   "q": "In which city did Paul find a ship crossing over to Phoenicia?",
+   "options": [
+    "Patara",
+    "Cos",
+    "Rhodes",
+    "Tyre"
+   ],
+   "explain": "At Patara we found a ship crossing to Phoenicia and went aboard. (Acts 21:1-2)"
+  }
+ },
+ {
+  "id": "geography-hard-084",
+  "ref": {
+   "fr": "Actes 14:20",
+   "en": "Acts 14:20"
+  },
+  "fr": {
+   "q": "Vers quelle ville Paul partit-il après avoir été lapidé à Lystre ?",
+   "options": [
+    "Derbe",
+    "Icone",
+    "Antioche",
+    "Perge"
+   ],
+   "explain": "Le lendemain, il partit pour Derbe avec Barnabas. (Actes 14:20)"
+  },
+  "en": {
+   "q": "To which city did Paul go after being stoned at Lystra?",
+   "options": [
+    "Derbe",
+    "Iconium",
+    "Antioch",
+    "Perga"
+   ],
+   "explain": "The next day he left with Barnabas for Derbe. (Acts 14:20)"
+  }
+ },
+ {
+  "id": "geography-hard-085",
+  "ref": {
+   "fr": "Actes 23:31",
+   "en": "Acts 23:31"
+  },
+  "fr": {
+   "q": "Vers quelle ville les soldats conduisirent-ils Paul de nuit, en route pour Césarée ?",
+   "options": [
+    "Antipatris",
+    "Lydde",
+    "Emmaüs",
+    "Joppé"
+   ],
+   "explain": "Les soldats menèrent Paul de nuit jusqu’à Antipatris. (Actes 23:31)"
+  },
+  "en": {
+   "q": "To which town did the soldiers bring Paul by night, on the way to Caesarea?",
+   "options": [
+    "Antipatris",
+    "Lydda",
+    "Emmaus",
+    "Joppa"
+   ],
+   "explain": "The soldiers brought Paul by night to Antipatris. (Acts 23:31)"
+  }
+ },
+ {
+  "id": "geography-hard-086",
+  "ref": {
+   "fr": "Colossiens 1:2",
+   "en": "Colossians 1:2"
+  },
+  "fr": {
+   "q": "Dans quelle ville voisine de Laodicée se trouvait l’Église exhortée à s’attacher au Chef ?",
+   "options": [
+    "Colosses",
+    "Hiérapolis",
+    "Milet",
+    "Pergame"
+   ],
+   "explain": "Aux saints et fidèles frères qui sont à Colosses. (Colossiens 1:2)"
+  },
+  "en": {
+   "q": "In which city near Laodicea was the church urged to hold fast the Head?",
+   "options": [
+    "Colossae",
+    "Hierapolis",
+    "Miletus",
+    "Pergamum"
+   ],
+   "explain": "To the saints and faithful brothers at Colossae. (Colossians 1:2)"
+  }
+ },
+ {
+  "id": "geography-hard-087",
+  "ref": {
+   "fr": "Tite 3:12",
+   "en": "Titus 3:12"
+  },
+  "fr": {
+   "q": "Dans quelle ville Paul décida-t-il de passer l’hiver, priant Tite de l’y rejoindre ?",
+   "options": [
+    "Nicopolis",
+    "Corinthe",
+    "Éphèse",
+    "Antioche"
+   ],
+   "explain": "J’ai résolu de passer l’hiver à Nicopolis. (Tite 3:12)"
+  },
+  "en": {
+   "q": "In which city did Paul decide to winter, asking Titus to join him?",
+   "options": [
+    "Nicopolis",
+    "Corinth",
+    "Ephesus",
+    "Antioch"
+   ],
+   "explain": "I have decided to spend the winter at Nicopolis. (Titus 3:12)"
+  }
+ },
+ {
+  "id": "geography-hard-088",
+  "ref": {
+   "fr": "Romains 15:19",
+   "en": "Romans 15:19"
+  },
+  "fr": {
+   "q": "Jusqu’aux confins de quelle contrée Paul dit-il avoir annoncé l’Évangile ?",
+   "options": [
+    "L’Illyrie",
+    "La Macédoine",
+    "L’Achaïe",
+    "La Galatie"
+   ],
+   "explain": "Depuis Jérusalem jusqu’en Illyrie, j’ai abondamment répandu l’Évangile. (Romains 15:19)"
+  },
+  "en": {
+   "q": "To the borders of which region did Paul say he had preached the gospel?",
+   "options": [
+    "Illyricum",
+    "Macedonia",
+    "Achaia",
+    "Galatia"
+   ],
+   "explain": "From Jerusalem as far as Illyricum I have fully preached the gospel. (Romans 15:19)"
+  }
+ },
+ {
+  "id": "geography-hard-089",
+  "ref": {
+   "fr": "Romains 15:24",
+   "en": "Romans 15:24"
+  },
+  "fr": {
+   "q": "Vers quel pays Paul exprima-t-il le désir de voyager, au-delà de Rome ?",
+   "options": [
+    "L’Espagne",
+    "L’Égypte",
+    "La Gaule",
+    "La Bretagne"
+   ],
+   "explain": "Je partirai chez vous en me rendant en Espagne. (Romains 15:24)"
+  },
+  "en": {
+   "q": "To which country did Paul express a desire to travel, beyond Rome?",
+   "options": [
+    "Spain",
+    "Egypt",
+    "Gaul",
+    "Britain"
+   ],
+   "explain": "I will come to you on my way to Spain. (Romans 15:24)"
+  }
+ },
+ {
+  "id": "geography-hard-090",
+  "ref": {
+   "fr": "Actes 16:7",
+   "en": "Acts 16:7"
+  },
+  "fr": {
+   "q": "Dans quelle contrée l’Esprit ne permit-il pas à Paul et Timothée d’aller ?",
+   "options": [
+    "La Bithynie",
+    "La Mysie",
+    "La Phrygie",
+    "La Galatie"
+   ],
+   "explain": "Ils voulurent aller en Bithynie ; mais l’Esprit de Jésus ne le leur permit pas. (Actes 16:7)"
+  },
+  "en": {
+   "q": "Into which region did the Spirit not allow Paul and Timothy to go?",
+   "options": [
+    "Bithynia",
+    "Mysia",
+    "Phrygia",
+    "Galatia"
+   ],
+   "explain": "They tried to go into Bithynia, but the Spirit did not allow them. (Acts 16:7)"
+  }
+ },
+ {
+  "id": "geography-hard-091",
+  "ref": {
+   "fr": "Actes 16:11",
+   "en": "Acts 16:11"
+  },
+  "fr": {
+   "q": "Dans quelle île le navire de Paul relâcha-t-il en route vers Néapolis ?",
+   "options": [
+    "Samothrace",
+    "Chypre",
+    "Cos",
+    "Milet"
+   ],
+   "explain": "De Troas, nous vînmes droit à Samothrace. (Actes 16:11)"
+  },
+  "en": {
+   "q": "At which island did Paul’s ship put in on the way to Neapolis?",
+   "options": [
+    "Samothrace",
+    "Cyprus",
+    "Cos",
+    "Miletus"
+   ],
+   "explain": "From Troas we sailed straight to Samothrace. (Acts 16:11)"
+  }
+ },
+ {
+  "id": "geography-hard-092",
+  "ref": {
+   "fr": "Actes 17:1",
+   "en": "Acts 17:1"
+  },
+  "fr": {
+   "q": "Par quelles deux villes Paul passa-t-il avant d’arriver à Thessalonique ?",
+   "options": [
+    "Amphipolis et Apollonie",
+    "Bérée et Philippes",
+    "Troas et Assos",
+    "Athènes et Corinthe"
+   ],
+   "explain": "Ils passèrent par Amphipolis et Apollonie, et vinrent à Thessalonique. (Actes 17:1)"
+  },
+  "en": {
+   "q": "Through which two cities did Paul pass before reaching Thessalonica?",
+   "options": [
+    "Amphipolis and Apollonia",
+    "Berea and Philippi",
+    "Troas and Assos",
+    "Athens and Corinth"
+   ],
+   "explain": "They passed through Amphipolis and Apollonia and came to Thessalonica. (Acts 17:1)"
+  }
+ },
+ {
+  "id": "geography-hard-093",
+  "ref": {
+   "fr": "Actes 18:2",
+   "en": "Acts 18:2"
+  },
+  "fr": {
+   "q": "De quelle contrée était originaire Aquilas, le fabricant de tentes ?",
+   "options": [
+    "Le Pont",
+    "La Crète",
+    "La Cilicie",
+    "La Cappadoce"
+   ],
+   "explain": "Il trouva un Juif nommé Aquilas, originaire du Pont. (Actes 18:2)"
+  },
+  "en": {
+   "q": "From which region did Aquila the tentmaker come?",
+   "options": [
+    "Pontus",
+    "Crete",
+    "Cilicia",
+    "Cappadocia"
+   ],
+   "explain": "He found a Jew named Aquila, a native of Pontus. (Acts 18:2)"
+  }
+ },
+ {
+  "id": "geography-hard-094",
+  "ref": {
+   "fr": "Matthieu 27:33",
+   "en": "Matthew 27:33"
+  },
+  "fr": {
+   "q": "Que signifie le nom Golgotha, lieu de la crucifixion ?",
+   "options": [
+    "Le lieu du crâne",
+    "Le mont du sacrifice",
+    "Le jardin des tombeaux",
+    "La porte des brebis"
+   ],
+   "explain": "Ils arrivèrent à Golgotha, c’est-à-dire lieu du crâne. (Matthieu 27:33)"
+  },
+  "en": {
+   "q": "What does the name Golgotha mean, the place of the crucifixion?",
+   "options": [
+    "The place of a skull",
+    "The mount of sacrifice",
+    "The garden of tombs",
+    "The sheep gate"
+   ],
+   "explain": "They came to Golgotha, that is, the place of a skull. (Matthew 27:33)"
+  }
+ },
+ {
+  "id": "geography-hard-095",
+  "ref": {
+   "fr": "Jean 5:2",
+   "en": "John 5:2"
+  },
+  "fr": {
+   "q": "Combien de portiques entouraient la piscine de Béthesda à Jérusalem ?",
+   "options": [
+    "Cinq",
+    "Trois",
+    "Quatre",
+    "Sept"
+   ],
+   "explain": "Il y a à Jérusalem une piscine qui a cinq portiques. (Jean 5:2)"
+  },
+  "en": {
+   "q": "How many porches surrounded the pool of Bethesda in Jerusalem?",
+   "options": [
+    "Five",
+    "Three",
+    "Four",
+    "Seven"
+   ],
+   "explain": "In Jerusalem there is a pool that has five porches. (John 5:2)"
+  }
+ },
+ {
+  "id": "geography-hard-096",
+  "ref": {
+   "fr": "Jean 11:18",
+   "en": "John 11:18"
+  },
+  "fr": {
+   "q": "À quelle distance de Jérusalem se trouvait Béthanie, selon Jean ?",
+   "options": [
+    "Environ quinze stades",
+    "Environ soixante stades",
+    "Une journée de marche",
+    "Trois lieues"
+   ],
+   "explain": "Béthanie était près de Jérusalem, à quinze stades environ. (Jean 11:18)"
+  },
+  "en": {
+   "q": "How far from Jerusalem was Bethany, according to John?",
+   "options": [
+    "About fifteen stadia",
+    "About sixty stadia",
+    "A day’s journey",
+    "Three leagues"
+   ],
+   "explain": "Bethany was near Jerusalem, about fifteen stadia away. (John 11:18)"
+  }
+ },
+ {
+  "id": "geography-hard-097",
+  "ref": {
+   "fr": "Luc 24:13",
+   "en": "Luke 24:13"
+  },
+  "fr": {
+   "q": "À quelle distance de Jérusalem se trouvait le village d’Emmaüs ?",
+   "options": [
+    "Soixante stades",
+    "Quinze stades",
+    "Cent stades",
+    "Une journée de marche"
+   ],
+   "explain": "Emmaüs était éloigné de Jérusalem de soixante stades. (Luc 24:13)"
+  },
+  "en": {
+   "q": "How far from Jerusalem was the village of Emmaus?",
+   "options": [
+    "Sixty stadia",
+    "Fifteen stadia",
+    "One hundred stadia",
+    "A day’s journey"
+   ],
+   "explain": "Emmaus was about sixty stadia from Jerusalem. (Luke 24:13)"
+  }
+ },
+ {
+  "id": "geography-hard-098",
+  "ref": {
+   "fr": "Actes 1:12",
+   "en": "Acts 1:12"
+  },
+  "fr": {
+   "q": "À quelle distance de Jérusalem se trouvait le mont des Oliviers ?",
+   "options": [
+    "Le chemin d’un sabbat",
+    "Une journée de marche",
+    "Quinze stades",
+    "Trois milles"
+   ],
+   "explain": "Le mont des Oliviers est près de Jérusalem, à la distance d’un chemin de sabbat. (Actes 1:12)"
+  },
+  "en": {
+   "q": "How far from Jerusalem was the Mount of Olives?",
+   "options": [
+    "A Sabbath day’s journey",
+    "A day’s journey",
+    "Fifteen stadia",
+    "Three miles"
+   ],
+   "explain": "The Mount of Olives is near Jerusalem, a Sabbath day’s journey away. (Acts 1:12)"
+  }
+ },
+ {
+  "id": "geography-hard-099",
+  "ref": {
+   "fr": "Genèse 2:11-12",
+   "en": "Genesis 2:11-12"
+  },
+  "fr": {
+   "q": "Dans quel pays, entouré par le Pischon, se trouvait de l’or de bonne qualité ?",
+   "options": [
+    "Havila",
+    "Cush",
+    "Assur",
+    "Éden"
+   ],
+   "explain": "L’or du pays de Havila est pur. (Genèse 2:11-12)"
+  },
+  "en": {
+   "q": "In which land, encircled by the Pishon, was there good gold?",
+   "options": [
+    "Havilah",
+    "Cush",
+    "Asshur",
+    "Eden"
+   ],
+   "explain": "The gold of the land of Havilah is good. (Genesis 2:11-12)"
+  }
+ },
+ {
+  "id": "geography-hard-100",
+  "ref": {
+   "fr": "Josué 3:16",
+   "en": "Joshua 3:16"
+  },
+  "fr": {
+   "q": "Dans quelle mer le Jourdain se jette-t-il en descendant vers le sud ?",
+   "options": [
+    "La mer Morte",
+    "La mer de Galilée",
+    "La Méditerranée",
+    "La mer Rouge"
+   ],
+   "explain": "Les eaux descendent vers la mer de la plaine, la mer Salée. (Josué 3:16)"
+  },
+  "en": {
+   "q": "Into which sea does the Jordan River flow as it descends southward?",
+   "options": [
+    "The Dead Sea",
+    "The Sea of Galilee",
+    "The Mediterranean",
+    "The Red Sea"
+   ],
+   "explain": "The waters go down toward the sea of the plain, the Salt Sea. (Joshua 3:16)"
+  }
+ }
+]

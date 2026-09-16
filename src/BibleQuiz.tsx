@@ -12,7 +12,7 @@ import type { AppUser } from './types'
 import {
   QUIZ_DIFFICULTIES, ADULT_CATEGORIES, CATEGORY_META, BADGE_IDS, BADGE_EMOJI,
   QUESTIONS_PER_GAME, DAILY_BONUS,
-  bankAvailable, buildGame, buildDaily, pointsFor, starsFor, levelProgress,
+  bankAvailable, buildGame, buildDaily, buildRandom, pointsFor, starsFor, levelProgress,
   applyResult, emptyProfile, todayKey,
   type QuizCategory, type QuizDifficulty, type QuizLang, type PlayQuestion,
   type QuizProfile, type GameResult, type BadgeId,
@@ -34,7 +34,7 @@ function playLang(language: string): QuizLang {
 
 interface Game {
   questions: PlayQuestion[]
-  category: QuizCategory | 'daily'
+  category: QuizCategory | 'daily' | 'random'
   difficulty: QuizDifficulty
   mode: 'adult' | 'kids'
   childName?: string
@@ -84,6 +84,16 @@ export default function BibleQuiz({ user, onClose }: { user: AppUser; onClose: (
     setLoading(false)
     if (!questions.length) return
     setGame({ questions, category: 'daily', difficulty: 'medium', mode: 'adult' })
+    setScreen('playing')
+  }
+
+  // Quick game from the home level card: random questions across everything.
+  async function startRandom() {
+    setLoading(true)
+    const questions = await buildRandom(lang)
+    setLoading(false)
+    if (!questions.length) return
+    setGame({ questions, category: 'random', difficulty: 'easy', mode: 'adult' })
     setScreen('playing')
   }
 
@@ -142,6 +152,7 @@ export default function BibleQuiz({ user, onClose }: { user: AppUser; onClose: (
               onClose={onClose}
               onPickCategory={c => { setPickedCat(c); setScreen('difficulty') }}
               onDaily={startDaily}
+              onContinue={startRandom}
               onKids={() => setScreen('kidname')}
               onLeaders={() => setScreen('leaders')}
               onPalmares={() => setScreen('palmares')}
@@ -167,7 +178,7 @@ export default function BibleQuiz({ user, onClose }: { user: AppUser; onClose: (
           )}
           {screen === 'results' && !kidResult && lastResult && game && (
             <ResultsScreen result={lastResult.result} unlocked={lastResult.unlocked} profile={profile}
-              onReplay={() => { if (game.category === 'daily') startDaily(); else startGame(game.category as QuizCategory, game.difficulty) }}
+              onReplay={() => { if (game.category === 'daily') startDaily(); else if (game.category === 'random') startRandom(); else startGame(game.category as QuizCategory, game.difficulty) }}
               onHome={backToHome} onLeaders={() => setScreen('leaders')} />
           )}
           {screen === 'trophies' && (
@@ -186,9 +197,9 @@ export default function BibleQuiz({ user, onClose }: { user: AppUser; onClose: (
 }
 
 // ---- Home -------------------------------------------------------------------
-function HomeScreen({ profile, dailyDone, loading, onClose, onPickCategory, onDaily, onKids, onLeaders, onPalmares, onTrophies }: {
+function HomeScreen({ profile, dailyDone, loading, onClose, onPickCategory, onDaily, onContinue, onKids, onLeaders, onPalmares, onTrophies }: {
   profile: QuizProfile; dailyDone: boolean; loading: boolean
-  onClose: () => void; onPickCategory: (c: QuizCategory) => void; onDaily: () => void
+  onClose: () => void; onPickCategory: (c: QuizCategory) => void; onDaily: () => void; onContinue: () => void
   onKids: () => void; onLeaders: () => void; onPalmares: () => void; onTrophies: () => void
 }) {
   const { t } = useLanguage()
@@ -247,8 +258,9 @@ function HomeScreen({ profile, dailyDone, loading, onClose, onPickCategory, onDa
         <span className="shrink-0 bg-white text-fuchsia-700 font-extrabold rounded-full px-5 py-2.5">{t('quiz.play')}</span>
       </button>
 
-      {/* Player card */}
-      <div className="glass rounded-3xl p-4 mb-4 flex items-center gap-4">
+      {/* Player card - tap to keep playing with random questions */}
+      <button onClick={onContinue} disabled={loading}
+        className="w-full text-left glass glass-hover rounded-3xl p-4 mb-4 flex items-center gap-4 disabled:opacity-70">
         <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center text-white text-xl font-bold shrink-0">
           {profile.displayName?.[0]?.toUpperCase() ?? '?'}
         </div>
@@ -266,8 +278,9 @@ function HomeScreen({ profile, dailyDone, loading, onClose, onPickCategory, onDa
           <div className="h-2 rounded-full bg-slate-200 overflow-hidden">
             <div className="h-full bg-gradient-to-r from-amber-400 to-orange-500 rounded-full transition-all" style={{ width: `${Math.round(lvl.ratio * 100)}%` }} />
           </div>
+          <p className="text-[11px] font-bold text-affirm-600 mt-1.5 flex items-center gap-1">▶ {t('quiz.continuePlay')}</p>
         </div>
-      </div>
+      </button>
 
       {/* Daily challenge */}
       <button onClick={onDaily} disabled={loading}
@@ -555,7 +568,7 @@ function ResultsScreen({ result, unlocked, profile, onReplay, onHome, onLeaders 
     <div className="px-4 pt-6 pb-10 safe-top text-center relative overflow-hidden">
       <PrizeBurst strong={good} />
       <h1 className="text-3xl font-extrabold text-white mb-1">{good ? `${t('quiz.bravo')} 🎉` : t('quiz.goodTry')}</h1>
-      <p className="text-on-bg">{result.category === 'daily' ? t('quiz.daily') : t(`quiz.cat.${result.category}` as any)} · <b className="text-white">{result.correct} / {result.total}</b> {t('quiz.rightAnswers')}</p>
+      <p className="text-on-bg">{result.category === 'daily' ? t('quiz.daily') : result.category === 'random' ? t('quiz.randomGame') : t(`quiz.cat.${result.category}` as any)} · <b className="text-white">{result.correct} / {result.total}</b> {t('quiz.rightAnswers')}</p>
       {result.learningPoints > 0 && (
         <p className="text-emerald-200 text-sm font-bold mt-1">✨ +{result.learningPoints.toLocaleString()} {t('quiz.learningPts')}</p>
       )}

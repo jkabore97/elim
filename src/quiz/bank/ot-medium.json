@@ -1,0 +1,2702 @@
+[
+ {
+  "id": "ot-medium-001",
+  "ref": {
+   "fr": "Genèse 10:9",
+   "en": "Genesis 10:9"
+  },
+  "fr": {
+   "q": "Quel homme la Bible décrit-elle comme un vaillant chasseur devant l'Éternel ?",
+   "options": [
+    "Nimrod",
+    "Ésaü",
+    "Lémec",
+    "Tubal-Caïn"
+   ],
+   "explain": "« Nimrod fut un vaillant chasseur devant l'Éternel. » (Genèse 10:9)"
+  },
+  "en": {
+   "q": "Which man does the Bible call a mighty hunter before the LORD?",
+   "options": [
+    "Nimrod",
+    "Esau",
+    "Lamech",
+    "Tubal-Cain"
+   ],
+   "explain": "\"Nimrod was a mighty hunter before the LORD.\" (Genesis 10:9)"
+  }
+ },
+ {
+  "id": "ot-medium-002",
+  "ref": {
+   "fr": "Genèse 5:24",
+   "en": "Genesis 5:24"
+  },
+  "fr": {
+   "q": "Quel homme marcha avec Dieu et fut enlevé sans mourir ?",
+   "options": [
+    "Hénoc",
+    "Élie",
+    "Mathusalem",
+    "Seth"
+   ],
+   "explain": "Hénoc marcha avec Dieu, puis Dieu le prit. (Genèse 5:24)"
+  },
+  "en": {
+   "q": "Which man walked with God and was taken without dying?",
+   "options": [
+    "Enoch",
+    "Elijah",
+    "Methuselah",
+    "Seth"
+   ],
+   "explain": "Enoch walked with God, then God took him. (Genesis 5:24)"
+  }
+ },
+ {
+  "id": "ot-medium-003",
+  "ref": {
+   "fr": "Genèse 14:18",
+   "en": "Genesis 14:18"
+  },
+  "fr": {
+   "q": "Quel roi de Salem, sacrificateur du Dieu Très-Haut, bénit Abram ?",
+   "options": [
+    "Melchisédek",
+    "Abimélec",
+    "Kedorlaomer",
+    "Béra"
+   ],
+   "explain": "Melchisédek, roi de Salem, apporta du pain et du vin. (Genèse 14:18)"
+  },
+  "en": {
+   "q": "Which king of Salem, priest of God Most High, blessed Abram?",
+   "options": [
+    "Melchizedek",
+    "Abimelech",
+    "Chedorlaomer",
+    "Bera"
+   ],
+   "explain": "Melchizedek, king of Salem, brought out bread and wine. (Genesis 14:18)"
+  }
+ },
+ {
+  "id": "ot-medium-004",
+  "ref": {
+   "fr": "Genèse 16:1",
+   "en": "Genesis 16:1"
+  },
+  "fr": {
+   "q": "Comment s'appelait la servante égyptienne de Saraï, mère d'Ismaël ?",
+   "options": [
+    "Agar",
+    "Zilpa",
+    "Bilha",
+    "Kétura"
+   ],
+   "explain": "Agar, servante égyptienne de Saraï, enfanta Ismaël. (Genèse 16:1-15)"
+  },
+  "en": {
+   "q": "What was the name of Sarai's Egyptian maidservant, mother of Ishmael?",
+   "options": [
+    "Hagar",
+    "Zilpah",
+    "Bilhah",
+    "Keturah"
+   ],
+   "explain": "Hagar, Sarai's Egyptian servant, bore Ishmael. (Genesis 16:1-15)"
+  }
+ },
+ {
+  "id": "ot-medium-005",
+  "ref": {
+   "fr": "Genèse 23:19",
+   "en": "Genesis 23:19"
+  },
+  "fr": {
+   "q": "Dans quelle caverne Abraham enterra-t-il Sara ?",
+   "options": [
+    "La caverne de Macpéla",
+    "La caverne d'Adullam",
+    "La caverne du Carmel",
+    "La caverne de Makkéda"
+   ],
+   "explain": "Abraham enterra Sara dans la caverne de Macpéla. (Genèse 23:19)"
+  },
+  "en": {
+   "q": "In which cave did Abraham bury Sarah?",
+   "options": [
+    "The cave of Machpelah",
+    "The cave of Adullam",
+    "The cave of Carmel",
+    "The cave of Makkedah"
+   ],
+   "explain": "Abraham buried Sarah in the cave of Machpelah. (Genesis 23:19)"
+  }
+ },
+ {
+  "id": "ot-medium-006",
+  "ref": {
+   "fr": "Genèse 32:28",
+   "en": "Genesis 32:28"
+  },
+  "fr": {
+   "q": "Quel nouveau nom Jacob reçut-il après avoir lutté avec Dieu ?",
+   "options": [
+    "Israël",
+    "Édom",
+    "Emmanuel",
+    "Jesurun"
+   ],
+   "explain": "« Ton nom sera Israël, car tu as lutté avec Dieu. » (Genèse 32:28)"
+  },
+  "en": {
+   "q": "What new name did Jacob receive after wrestling with God?",
+   "options": [
+    "Israel",
+    "Edom",
+    "Immanuel",
+    "Jeshurun"
+   ],
+   "explain": "\"Your name will be Israel, for you have struggled with God.\" (Genesis 32:28)"
+  }
+ },
+ {
+  "id": "ot-medium-007",
+  "ref": {
+   "fr": "Genèse 37:21",
+   "en": "Genesis 37:21"
+  },
+  "fr": {
+   "q": "Quel frère chercha à sauver Joseph de la mort auprès des autres ?",
+   "options": [
+    "Ruben",
+    "Juda",
+    "Siméon",
+    "Lévi"
+   ],
+   "explain": "Ruben voulut le délivrer et le rendre à son père. (Genèse 37:21-22)"
+  },
+  "en": {
+   "q": "Which brother tried to save Joseph from being killed?",
+   "options": [
+    "Reuben",
+    "Judah",
+    "Simeon",
+    "Levi"
+   ],
+   "explain": "Reuben wanted to rescue him and return him to his father. (Genesis 37:21-22)"
+  }
+ },
+ {
+  "id": "ot-medium-008",
+  "ref": {
+   "fr": "Genèse 39:1",
+   "en": "Genesis 39:1"
+  },
+  "fr": {
+   "q": "Comment s'appelait l'officier égyptien qui acheta Joseph ?",
+   "options": [
+    "Potiphar",
+    "Potiphéra",
+    "Aphséneth",
+    "Tsaphnath-Paenéach"
+   ],
+   "explain": "Potiphar, officier de Pharaon, acheta Joseph. (Genèse 39:1)"
+  },
+  "en": {
+   "q": "What was the name of the Egyptian officer who bought Joseph?",
+   "options": [
+    "Potiphar",
+    "Potiphera",
+    "Asenath",
+    "Zaphenath-Paneah"
+   ],
+   "explain": "Potiphar, an officer of Pharaoh, bought Joseph. (Genesis 39:1)"
+  }
+ },
+ {
+  "id": "ot-medium-009",
+  "ref": {
+   "fr": "Genèse 40:5",
+   "en": "Genesis 40:5"
+  },
+  "fr": {
+   "q": "Les songes de quels deux serviteurs Joseph interpréta-t-il en prison ?",
+   "options": [
+    "Le chef des échansons et le chef des panetiers",
+    "Deux gardes du palais",
+    "Deux prêtres d'Égypte",
+    "Le trésorier et le scribe"
+   ],
+   "explain": "Joseph interpréta les songes de l'échanson et du panetier. (Genèse 40:5-19)"
+  },
+  "en": {
+   "q": "Whose two dreams did Joseph interpret in prison?",
+   "options": [
+    "The chief cupbearer and the chief baker",
+    "Two palace guards",
+    "Two priests of Egypt",
+    "The treasurer and the scribe"
+   ],
+   "explain": "Joseph interpreted the cupbearer's and the baker's dreams. (Genesis 40:5-19)"
+  }
+ },
+ {
+  "id": "ot-medium-010",
+  "ref": {
+   "fr": "Genèse 41:26",
+   "en": "Genesis 41:26"
+  },
+  "fr": {
+   "q": "Dans le songe de Pharaon, que représentaient les sept belles vaches ?",
+   "options": [
+    "Sept années d'abondance",
+    "Sept rois",
+    "Sept fleuves",
+    "Sept tribus"
+   ],
+   "explain": "Les sept vaches grasses sont sept années d'abondance. (Genèse 41:26-29)"
+  },
+  "en": {
+   "q": "In Pharaoh's dream, what did the seven good cows represent?",
+   "options": [
+    "Seven years of plenty",
+    "Seven kings",
+    "Seven rivers",
+    "Seven tribes"
+   ],
+   "explain": "The seven good cows are seven years of plenty. (Genesis 41:26-29)"
+  }
+ },
+ {
+  "id": "ot-medium-011",
+  "ref": {
+   "fr": "Genèse 41:51-52",
+   "en": "Genesis 41:51-52"
+  },
+  "fr": {
+   "q": "Comment s'appelaient les deux fils de Joseph nés en Égypte ?",
+   "options": [
+    "Manassé et Éphraïm",
+    "Guerschom et Éliézer",
+    "Pérets et Zérach",
+    "Er et Onan"
+   ],
+   "explain": "Joseph nomma ses fils Manassé et Éphraïm. (Genèse 41:51-52)"
+  },
+  "en": {
+   "q": "What were the names of Joseph's two sons born in Egypt?",
+   "options": [
+    "Manasseh and Ephraim",
+    "Gershom and Eliezer",
+    "Perez and Zerah",
+    "Er and Onan"
+   ],
+   "explain": "Joseph named his sons Manasseh and Ephraim. (Genesis 41:51-52)"
+  }
+ },
+ {
+  "id": "ot-medium-012",
+  "ref": {
+   "fr": "Genèse 42:4",
+   "en": "Genesis 42:4"
+  },
+  "fr": {
+   "q": "Quel était le plus jeune frère de Joseph, resté auprès de Jacob ?",
+   "options": [
+    "Benjamin",
+    "Ruben",
+    "Juda",
+    "Nephthali"
+   ],
+   "explain": "Jacob retint Benjamin, frère de Joseph, auprès de lui. (Genèse 42:4)"
+  },
+  "en": {
+   "q": "Who was Joseph's youngest brother, kept back with Jacob?",
+   "options": [
+    "Benjamin",
+    "Reuben",
+    "Judah",
+    "Naphtali"
+   ],
+   "explain": "Jacob kept Benjamin, Joseph's brother, with him. (Genesis 42:4)"
+  }
+ },
+ {
+  "id": "ot-medium-013",
+  "ref": {
+   "fr": "Genèse 47:6",
+   "en": "Genesis 47:6"
+  },
+  "fr": {
+   "q": "Dans quelle région d'Égypte la famille de Jacob s'établit-elle ?",
+   "options": [
+    "Le pays de Gosen",
+    "La ville de Sin",
+    "La terre de Pathros",
+    "Le pays de Cusch"
+   ],
+   "explain": "Pharaon donna le pays de Gosen à la famille de Jacob. (Genèse 47:6)"
+  },
+  "en": {
+   "q": "In which region of Egypt did Jacob's family settle?",
+   "options": [
+    "The land of Goshen",
+    "The city of Sin",
+    "The land of Pathros",
+    "The land of Cush"
+   ],
+   "explain": "Pharaoh gave the land of Goshen to Jacob's family. (Genesis 47:6)"
+  }
+ },
+ {
+  "id": "ot-medium-014",
+  "ref": {
+   "fr": "Genèse 47:28",
+   "en": "Genesis 47:28"
+  },
+  "fr": {
+   "q": "À quel âge Jacob mourut-il en Égypte ?",
+   "options": [
+    "147 ans",
+    "120 ans",
+    "175 ans",
+    "110 ans"
+   ],
+   "explain": "Les jours de Jacob furent de cent quarante-sept ans. (Genèse 47:28)"
+  },
+  "en": {
+   "q": "At what age did Jacob die in Egypt?",
+   "options": [
+    "147 years",
+    "120 years",
+    "175 years",
+    "110 years"
+   ],
+   "explain": "The years of Jacob's life were a hundred forty-seven. (Genesis 47:28)"
+  }
+ },
+ {
+  "id": "ot-medium-015",
+  "ref": {
+   "fr": "Exode 1:15",
+   "en": "Exodus 1:15"
+  },
+  "fr": {
+   "q": "Comment s'appelaient les sages-femmes qui craignirent Dieu ?",
+   "options": [
+    "Schiphra et Pua",
+    "Milca et Jisca",
+    "Zilpa et Bilha",
+    "Marie et Séphora"
+   ],
+   "explain": "Schiphra et Pua refusèrent de tuer les nouveau-nés. (Exode 1:15-17)"
+  },
+  "en": {
+   "q": "What were the names of the midwives who feared God?",
+   "options": [
+    "Shiphrah and Puah",
+    "Milcah and Iscah",
+    "Zilpah and Bilhah",
+    "Miriam and Zipporah"
+   ],
+   "explain": "Shiphrah and Puah refused to kill the newborn boys. (Exodus 1:15-17)"
+  }
+ },
+ {
+  "id": "ot-medium-016",
+  "ref": {
+   "fr": "Exode 2:21",
+   "en": "Exodus 2:21"
+  },
+  "fr": {
+   "q": "Comment s'appelait l'épouse de Moïse, rencontrée à Madian ?",
+   "options": [
+    "Séphora",
+    "Miryam",
+    "Élischéba",
+    "Débora"
+   ],
+   "explain": "Moïse épousa Séphora, fille du prêtre de Madian. (Exode 2:21)"
+  },
+  "en": {
+   "q": "What was the name of Moses' wife, met in Midian?",
+   "options": [
+    "Zipporah",
+    "Miriam",
+    "Elisheba",
+    "Deborah"
+   ],
+   "explain": "Moses married Zipporah, daughter of the priest of Midian. (Exodus 2:21)"
+  }
+ },
+ {
+  "id": "ot-medium-017",
+  "ref": {
+   "fr": "Exode 3:1",
+   "en": "Exodus 3:1"
+  },
+  "fr": {
+   "q": "Comment s'appelait le beau-père de Moïse, prêtre de Madian ?",
+   "options": [
+    "Jéthro",
+    "Laban",
+    "Nahor",
+    "Réuel"
+   ],
+   "explain": "Moïse faisait paître le troupeau de Jéthro, son beau-père. (Exode 3:1)"
+  },
+  "en": {
+   "q": "What was the name of Moses' father-in-law, priest of Midian?",
+   "options": [
+    "Jethro",
+    "Laban",
+    "Nahor",
+    "Reuel"
+   ],
+   "explain": "Moses kept the flock of Jethro, his father-in-law. (Exodus 3:1)"
+  }
+ },
+ {
+  "id": "ot-medium-018",
+  "ref": {
+   "fr": "Exode 10:22",
+   "en": "Exodus 10:22"
+  },
+  "fr": {
+   "q": "Combien de temps dura la plaie des ténèbres en Égypte ?",
+   "options": [
+    "Trois jours",
+    "Un jour",
+    "Sept jours",
+    "Quarante jours"
+   ],
+   "explain": "Il y eut d'épaisses ténèbres pendant trois jours. (Exode 10:22)"
+  },
+  "en": {
+   "q": "How long did the plague of darkness last in Egypt?",
+   "options": [
+    "Three days",
+    "One day",
+    "Seven days",
+    "Forty days"
+   ],
+   "explain": "There was thick darkness for three days. (Exodus 10:22)"
+  }
+ },
+ {
+  "id": "ot-medium-019",
+  "ref": {
+   "fr": "Exode 31:2",
+   "en": "Exodus 31:2"
+  },
+  "fr": {
+   "q": "Quel artisan Dieu remplit-il de son Esprit pour bâtir le tabernacle ?",
+   "options": [
+    "Betsaleel",
+    "Oholiab",
+    "Hiram",
+    "Bezaï"
+   ],
+   "explain": "Dieu remplit Betsaleel d'un esprit d'habileté. (Exode 31:2-3)"
+  },
+  "en": {
+   "q": "Which craftsman did God fill with his Spirit to build the tabernacle?",
+   "options": [
+    "Bezalel",
+    "Oholiab",
+    "Hiram",
+    "Bezai"
+   ],
+   "explain": "God filled Bezalel with a spirit of skill. (Exodus 31:2-3)"
+  }
+ },
+ {
+  "id": "ot-medium-020",
+  "ref": {
+   "fr": "Lévitique 10:1-2",
+   "en": "Leviticus 10:1-2"
+  },
+  "fr": {
+   "q": "Quels fils d'Aaron moururent pour avoir offert un feu étranger ?",
+   "options": [
+    "Nadab et Abihu",
+    "Éléazar et Ithamar",
+    "Hophni et Phinées",
+    "Er et Onan"
+   ],
+   "explain": "Un feu sortit et consuma Nadab et Abihu. (Lévitique 10:1-2)"
+  },
+  "en": {
+   "q": "Which sons of Aaron died for offering strange fire?",
+   "options": [
+    "Nadab and Abihu",
+    "Eleazar and Ithamar",
+    "Hophni and Phinehas",
+    "Er and Onan"
+   ],
+   "explain": "Fire came out and consumed Nadab and Abihu. (Leviticus 10:1-2)"
+  }
+ },
+ {
+  "id": "ot-medium-021",
+  "ref": {
+   "fr": "Lévitique 16:10",
+   "en": "Leviticus 16:10"
+  },
+  "fr": {
+   "q": "Au jour des expiations, où envoyait-on le bouc chargé des péchés ?",
+   "options": [
+    "Dans le désert",
+    "Au sommet du Sinaï",
+    "Dans la mer",
+    "Sur l'autel du parvis"
+   ],
+   "explain": "Le bouc était envoyé dans le désert pour Azazel. (Lévitique 16:10)"
+  },
+  "en": {
+   "q": "On the Day of Atonement, where was the goat bearing the sins sent?",
+   "options": [
+    "Into the wilderness",
+    "To the top of Sinai",
+    "Into the sea",
+    "Onto the courtyard altar"
+   ],
+   "explain": "The goat was sent into the wilderness for Azazel. (Leviticus 16:10)"
+  }
+ },
+ {
+  "id": "ot-medium-022",
+  "ref": {
+   "fr": "Lévitique 25:10",
+   "en": "Leviticus 25:10"
+  },
+  "fr": {
+   "q": "Tous les combien d'années Israël devait-il célébrer le jubilé ?",
+   "options": [
+    "Cinquante ans",
+    "Sept ans",
+    "Dix ans",
+    "Quarante ans"
+   ],
+   "explain": "La cinquantième année était l'année du jubilé. (Lévitique 25:10-11)"
+  },
+  "en": {
+   "q": "Every how many years was Israel to celebrate the Jubilee?",
+   "options": [
+    "Fifty years",
+    "Seven years",
+    "Ten years",
+    "Forty years"
+   ],
+   "explain": "The fiftieth year was the year of Jubilee. (Leviticus 25:10-11)"
+  }
+ },
+ {
+  "id": "ot-medium-023",
+  "ref": {
+   "fr": "Nombres 14:6",
+   "en": "Numbers 14:6"
+  },
+  "fr": {
+   "q": "Quels deux espions encouragèrent Israël à entrer en Canaan ?",
+   "options": [
+    "Josué et Caleb",
+    "Aaron et Hur",
+    "Éléazar et Ithamar",
+    "Nadab et Abihu"
+   ],
+   "explain": "Josué et Caleb crurent que Dieu donnerait le pays. (Nombres 14:6-9)"
+  },
+  "en": {
+   "q": "Which two spies urged Israel to enter Canaan?",
+   "options": [
+    "Joshua and Caleb",
+    "Aaron and Hur",
+    "Eleazar and Ithamar",
+    "Nadab and Abihu"
+   ],
+   "explain": "Joshua and Caleb trusted God to give the land. (Numbers 14:6-9)"
+  }
+ },
+ {
+  "id": "ot-medium-024",
+  "ref": {
+   "fr": "Nombres 16:32",
+   "en": "Numbers 16:32"
+  },
+  "fr": {
+   "q": "Quel homme se révolta contre Moïse et fut englouti par la terre ?",
+   "options": [
+    "Koré",
+    "Balak",
+    "Achan",
+    "Nabal"
+   ],
+   "explain": "La terre s'ouvrit et engloutit Koré et les siens. (Nombres 16:31-32)"
+  },
+  "en": {
+   "q": "Which man rebelled against Moses and was swallowed by the earth?",
+   "options": [
+    "Korah",
+    "Balak",
+    "Achan",
+    "Nabal"
+   ],
+   "explain": "The earth opened and swallowed Korah and his group. (Numbers 16:31-32)"
+  }
+ },
+ {
+  "id": "ot-medium-025",
+  "ref": {
+   "fr": "Nombres 17:8",
+   "en": "Numbers 17:8"
+  },
+  "fr": {
+   "q": "Quel signe confirma le sacerdoce d'Aaron ?",
+   "options": [
+    "Sa verge fleurit et donna des amandes",
+    "Sa verge devint un serpent",
+    "Son bâton brilla comme le feu",
+    "Sa verge se changea en or"
+   ],
+   "explain": "La verge d'Aaron poussa des fleurs et mûrit des amandes. (Nombres 17:8)"
+  },
+  "en": {
+   "q": "What sign confirmed Aaron's priesthood?",
+   "options": [
+    "His staff budded and yielded almonds",
+    "His staff became a serpent",
+    "His staff shone like fire",
+    "His staff turned to gold"
+   ],
+   "explain": "Aaron's staff budded and produced ripe almonds. (Numbers 17:8)"
+  }
+ },
+ {
+  "id": "ot-medium-026",
+  "ref": {
+   "fr": "Nombres 20:12",
+   "en": "Numbers 20:12"
+  },
+  "fr": {
+   "q": "Pourquoi Moïse ne put-il entrer dans la Terre promise ?",
+   "options": [
+    "Il frappa le rocher au lieu de lui parler",
+    "Il adora le veau d'or",
+    "Il refusa d'aller en Égypte",
+    "Il brisa les tables de la loi"
+   ],
+   "explain": "Moïse n'eut pas confiance et frappa le rocher. (Nombres 20:11-12)"
+  },
+  "en": {
+   "q": "Why could Moses not enter the Promised Land?",
+   "options": [
+    "He struck the rock instead of speaking to it",
+    "He worshiped the golden calf",
+    "He refused to go to Egypt",
+    "He broke the tablets of the Law"
+   ],
+   "explain": "Moses did not trust God and struck the rock. (Numbers 20:11-12)"
+  }
+ },
+ {
+  "id": "ot-medium-027",
+  "ref": {
+   "fr": "Nombres 22:4",
+   "en": "Numbers 22:4"
+  },
+  "fr": {
+   "q": "Quel roi engagea Balaam pour maudire Israël ?",
+   "options": [
+    "Balak, roi de Moab",
+    "Og, roi de Basan",
+    "Sihon, roi des Amoréens",
+    "Éeglon, roi de Moab"
+   ],
+   "explain": "Balak, roi de Moab, appela Balaam pour maudire le peuple. (Nombres 22:4-6)"
+  },
+  "en": {
+   "q": "Which king hired Balaam to curse Israel?",
+   "options": [
+    "Balak, king of Moab",
+    "Og, king of Bashan",
+    "Sihon, king of the Amorites",
+    "Eglon, king of Moab"
+   ],
+   "explain": "Balak, king of Moab, called Balaam to curse the people. (Numbers 22:4-6)"
+  }
+ },
+ {
+  "id": "ot-medium-028",
+  "ref": {
+   "fr": "Deutéronome 34:5",
+   "en": "Deuteronomy 34:5"
+  },
+  "fr": {
+   "q": "Sur quelle montagne Moïse mourut-il, face à Canaan ?",
+   "options": [
+    "Le mont Nebo",
+    "Le mont Hor",
+    "Le mont Sinaï",
+    "Le mont Guerizim"
+   ],
+   "explain": "Moïse mourut au pays de Moab, sur le mont Nebo. (Deutéronome 34:1-5)"
+  },
+  "en": {
+   "q": "On which mountain did Moses die, facing Canaan?",
+   "options": [
+    "Mount Nebo",
+    "Mount Hor",
+    "Mount Sinai",
+    "Mount Gerizim"
+   ],
+   "explain": "Moses died in Moab, on Mount Nebo. (Deuteronomy 34:1-5)"
+  }
+ },
+ {
+  "id": "ot-medium-029",
+  "ref": {
+   "fr": "Deutéronome 34:7",
+   "en": "Deuteronomy 34:7"
+  },
+  "fr": {
+   "q": "À quel âge Moïse mourut-il ?",
+   "options": [
+    "120 ans",
+    "80 ans",
+    "110 ans",
+    "147 ans"
+   ],
+   "explain": "Moïse avait cent vingt ans lorsqu'il mourut. (Deutéronome 34:7)"
+  },
+  "en": {
+   "q": "At what age did Moses die?",
+   "options": [
+    "120 years",
+    "80 years",
+    "110 years",
+    "147 years"
+   ],
+   "explain": "Moses was a hundred twenty years old when he died. (Deuteronomy 34:7)"
+  }
+ },
+ {
+  "id": "ot-medium-030",
+  "ref": {
+   "fr": "Josué 2:1",
+   "en": "Joshua 2:1"
+  },
+  "fr": {
+   "q": "Quelle femme de Jéricho cacha les espions d'Israël ?",
+   "options": [
+    "Rahab",
+    "Débora",
+    "Jaël",
+    "Aksa"
+   ],
+   "explain": "Rahab reçut les espions et les cacha sur son toit. (Josué 2:1-6)"
+  },
+  "en": {
+   "q": "Which woman of Jericho hid Israel's spies?",
+   "options": [
+    "Rahab",
+    "Deborah",
+    "Jael",
+    "Achsah"
+   ],
+   "explain": "Rahab took in the spies and hid them on her roof. (Joshua 2:1-6)"
+  }
+ },
+ {
+  "id": "ot-medium-031",
+  "ref": {
+   "fr": "Josué 7:1",
+   "en": "Joshua 7:1"
+  },
+  "fr": {
+   "q": "Quel homme causa la défaite d'Israël à Aï en gardant du butin interdit ?",
+   "options": [
+    "Acan",
+    "Acar de Guibea",
+    "Zimri",
+    "Nabal"
+   ],
+   "explain": "Acan prit des choses vouées à l'interdit. (Josué 7:1)"
+  },
+  "en": {
+   "q": "Which man caused Israel's defeat at Ai by keeping forbidden spoil?",
+   "options": [
+    "Achan",
+    "Achar of Gibeah",
+    "Zimri",
+    "Nabal"
+   ],
+   "explain": "Achan took some of the devoted things. (Joshua 7:1)"
+  }
+ },
+ {
+  "id": "ot-medium-032",
+  "ref": {
+   "fr": "Josué 9:4",
+   "en": "Joshua 9:4"
+  },
+  "fr": {
+   "q": "Quel peuple trompa Josué avec de vieilles provisions pour faire alliance ?",
+   "options": [
+    "Les Gabaonites",
+    "Les Amalécites",
+    "Les Jébusiens",
+    "Les Madianites"
+   ],
+   "explain": "Les Gabaonites usèrent de ruse avec de vieux sacs et du pain sec. (Josué 9:4-6)"
+  },
+  "en": {
+   "q": "Which people tricked Joshua with old provisions to make a treaty?",
+   "options": [
+    "The Gibeonites",
+    "The Amalekites",
+    "The Jebusites",
+    "The Midianites"
+   ],
+   "explain": "The Gibeonites used cunning with worn sacks and dry bread. (Joshua 9:4-6)"
+  }
+ },
+ {
+  "id": "ot-medium-033",
+  "ref": {
+   "fr": "Josué 10:13",
+   "en": "Joshua 10:13"
+  },
+  "fr": {
+   "q": "Quel prodige eut lieu quand Josué combattit à Gabaon ?",
+   "options": [
+    "Le soleil s'arrêta dans le ciel",
+    "La mer s'ouvrit",
+    "Le feu tomba du ciel",
+    "La terre trembla"
+   ],
+   "explain": "Le soleil s'arrêta et la lune resta immobile. (Josué 10:12-13)"
+  },
+  "en": {
+   "q": "What miracle happened when Joshua fought at Gibeon?",
+   "options": [
+    "The sun stood still in the sky",
+    "The sea parted",
+    "Fire fell from heaven",
+    "The earth quaked"
+   ],
+   "explain": "The sun stood still and the moon stopped. (Joshua 10:12-13)"
+  }
+ },
+ {
+  "id": "ot-medium-034",
+  "ref": {
+   "fr": "Juges 3:9",
+   "en": "Judges 3:9"
+  },
+  "fr": {
+   "q": "Qui fut le premier juge que Dieu suscita pour délivrer Israël ?",
+   "options": [
+    "Othniel",
+    "Éhud",
+    "Gédéon",
+    "Samgar"
+   ],
+   "explain": "L'Éternel suscita Othniel comme libérateur. (Juges 3:9)"
+  },
+  "en": {
+   "q": "Who was the first judge God raised up to deliver Israel?",
+   "options": [
+    "Othniel",
+    "Ehud",
+    "Gideon",
+    "Shamgar"
+   ],
+   "explain": "The LORD raised up Othniel as a deliverer. (Judges 3:9)"
+  }
+ },
+ {
+  "id": "ot-medium-035",
+  "ref": {
+   "fr": "Juges 3:21",
+   "en": "Judges 3:21"
+  },
+  "fr": {
+   "q": "Quel juge gaucher tua Églon, roi de Moab ?",
+   "options": [
+    "Éhud",
+    "Othniel",
+    "Barak",
+    "Tola"
+   ],
+   "explain": "Éhud, homme gaucher, enfonça son épée dans Églon. (Juges 3:15-21)"
+  },
+  "en": {
+   "q": "Which left-handed judge killed Eglon, king of Moab?",
+   "options": [
+    "Ehud",
+    "Othniel",
+    "Barak",
+    "Tola"
+   ],
+   "explain": "Ehud, a left-handed man, thrust his sword into Eglon. (Judges 3:15-21)"
+  }
+ },
+ {
+  "id": "ot-medium-036",
+  "ref": {
+   "fr": "Juges 3:31",
+   "en": "Judges 3:31"
+  },
+  "fr": {
+   "q": "Avec quel outil Samgar frappa-t-il six cents Philistins ?",
+   "options": [
+    "Un aiguillon à bœufs",
+    "Une mâchoire d'âne",
+    "Une fronde",
+    "Une faucille"
+   ],
+   "explain": "Samgar battit six cents hommes avec un aiguillon à bœufs. (Juges 3:31)"
+  },
+  "en": {
+   "q": "With what tool did Shamgar strike six hundred Philistines?",
+   "options": [
+    "An ox goad",
+    "A donkey's jawbone",
+    "A sling",
+    "A sickle"
+   ],
+   "explain": "Shamgar struck six hundred men with an ox goad. (Judges 3:31)"
+  }
+ },
+ {
+  "id": "ot-medium-037",
+  "ref": {
+   "fr": "Juges 4:21",
+   "en": "Judges 4:21"
+  },
+  "fr": {
+   "q": "Quelle femme tua Sisera avec un pieu de tente ?",
+   "options": [
+    "Jaël",
+    "Débora",
+    "Aksa",
+    "Rahab"
+   ],
+   "explain": "Jaël enfonça un pieu dans la tempe de Sisera endormi. (Juges 4:21)"
+  },
+  "en": {
+   "q": "Which woman killed Sisera with a tent peg?",
+   "options": [
+    "Jael",
+    "Deborah",
+    "Achsah",
+    "Rahab"
+   ],
+   "explain": "Jael drove a tent peg into sleeping Sisera's temple. (Judges 4:21)"
+  }
+ },
+ {
+  "id": "ot-medium-038",
+  "ref": {
+   "fr": "Juges 4:6",
+   "en": "Judges 4:6"
+  },
+  "fr": {
+   "q": "Quel chef de guerre Débora appela-t-elle pour combattre Sisera ?",
+   "options": [
+    "Barak",
+    "Gédéon",
+    "Jephthé",
+    "Abimélec"
+   ],
+   "explain": "Débora appela Barak, fils d'Abinoam, pour conduire l'armée. (Juges 4:6)"
+  },
+  "en": {
+   "q": "Which commander did Deborah call to fight Sisera?",
+   "options": [
+    "Barak",
+    "Gideon",
+    "Jephthah",
+    "Abimelech"
+   ],
+   "explain": "Deborah summoned Barak, son of Abinoam, to lead the army. (Judges 4:6)"
+  }
+ },
+ {
+  "id": "ot-medium-039",
+  "ref": {
+   "fr": "Juges 6:37",
+   "en": "Judges 6:37"
+  },
+  "fr": {
+   "q": "Quel objet Gédéon utilisa-t-il pour éprouver la volonté de Dieu ?",
+   "options": [
+    "Une toison de laine",
+    "Un vase d'eau",
+    "Un bâton",
+    "Un manteau"
+   ],
+   "explain": "Gédéon demanda un signe avec la rosée sur la toison. (Juges 6:37-40)"
+  },
+  "en": {
+   "q": "What object did Gideon use to test God's will?",
+   "options": [
+    "A wool fleece",
+    "A jar of water",
+    "A staff",
+    "A cloak"
+   ],
+   "explain": "Gideon asked for a sign with dew on the fleece. (Judges 6:37-40)"
+  }
+ },
+ {
+  "id": "ot-medium-040",
+  "ref": {
+   "fr": "Juges 7:7",
+   "en": "Judges 7:7"
+  },
+  "fr": {
+   "q": "Combien d'hommes Dieu garda-t-il avec Gédéon contre Madian ?",
+   "options": [
+    "Trois cents",
+    "Mille",
+    "Trente-deux mille",
+    "Sept cents"
+   ],
+   "explain": "Dieu retint les trois cents hommes qui avaient lapé l'eau. (Juges 7:7)"
+  },
+  "en": {
+   "q": "How many men did God keep with Gideon against Midian?",
+   "options": [
+    "Three hundred",
+    "One thousand",
+    "Thirty-two thousand",
+    "Seven hundred"
+   ],
+   "explain": "God kept the three hundred men who lapped the water. (Judges 7:7)"
+  }
+ },
+ {
+  "id": "ot-medium-041",
+  "ref": {
+   "fr": "Juges 9:53",
+   "en": "Judges 9:53"
+  },
+  "fr": {
+   "q": "Comment mourut Abimélec, qui avait tué ses frères ?",
+   "options": [
+    "Une femme lui jeta une meule sur la tête",
+    "Il fut mordu par un serpent",
+    "Il tomba d'une tour",
+    "Il fut transpercé d'une flèche"
+   ],
+   "explain": "Une femme lança une meule et brisa le crâne d'Abimélec. (Juges 9:53)"
+  },
+  "en": {
+   "q": "How did Abimelech, who had killed his brothers, die?",
+   "options": [
+    "A woman dropped a millstone on his head",
+    "He was bitten by a snake",
+    "He fell from a tower",
+    "He was pierced by an arrow"
+   ],
+   "explain": "A woman threw a millstone and cracked Abimelech's skull. (Judges 9:53)"
+  }
+ },
+ {
+  "id": "ot-medium-042",
+  "ref": {
+   "fr": "Juges 11:30",
+   "en": "Judges 11:30"
+  },
+  "fr": {
+   "q": "Quel juge fit un vœu imprudent avant sa victoire sur Ammon ?",
+   "options": [
+    "Jephthé",
+    "Gédéon",
+    "Samson",
+    "Éhud"
+   ],
+   "explain": "Jephthé fit un vœu à l'Éternel avant de combattre. (Juges 11:30-31)"
+  },
+  "en": {
+   "q": "Which judge made a rash vow before his victory over Ammon?",
+   "options": [
+    "Jephthah",
+    "Gideon",
+    "Samson",
+    "Ehud"
+   ],
+   "explain": "Jephthah made a vow to the LORD before the battle. (Judges 11:30-31)"
+  }
+ },
+ {
+  "id": "ot-medium-043",
+  "ref": {
+   "fr": "Juges 14:8",
+   "en": "Judges 14:8"
+  },
+  "fr": {
+   "q": "Où Samson trouva-t-il le miel qui inspira son énigme ?",
+   "options": [
+    "Dans le corps d'un lion mort",
+    "Dans un arbre creux",
+    "Dans une ruche au rocher",
+    "Dans un champ de fleurs"
+   ],
+   "explain": "Samson trouva un essaim d'abeilles et du miel dans le lion. (Juges 14:8-9)"
+  },
+  "en": {
+   "q": "Where did Samson find the honey that inspired his riddle?",
+   "options": [
+    "In the body of a dead lion",
+    "In a hollow tree",
+    "In a hive on the rock",
+    "In a field of flowers"
+   ],
+   "explain": "Samson found a swarm of bees and honey in the lion. (Judges 14:8-9)"
+  }
+ },
+ {
+  "id": "ot-medium-044",
+  "ref": {
+   "fr": "Juges 16:17",
+   "en": "Judges 16:17"
+  },
+  "fr": {
+   "q": "Où résidait la force de Samson, selon son secret ?",
+   "options": [
+    "Dans ses cheveux",
+    "Dans ses bras",
+    "Dans sa ceinture",
+    "Dans son bâton"
+   ],
+   "explain": "Samson révéla que sa force tenait à ses cheveux non coupés. (Juges 16:17)"
+  },
+  "en": {
+   "q": "Where lay Samson's strength, according to his secret?",
+   "options": [
+    "In his hair",
+    "In his arms",
+    "In his belt",
+    "In his staff"
+   ],
+   "explain": "Samson revealed his strength lay in his uncut hair. (Judges 16:17)"
+  }
+ },
+ {
+  "id": "ot-medium-045",
+  "ref": {
+   "fr": "Juges 16:30",
+   "en": "Judges 16:30"
+  },
+  "fr": {
+   "q": "Comment Samson tua-t-il le plus d'ennemis, à sa mort ?",
+   "options": [
+    "Il renversa le temple de Dagon",
+    "Il incendia leurs champs",
+    "Il combattit à l'épée",
+    "Il ouvrit un barrage"
+   ],
+   "explain": "Samson renversa les colonnes et le temple s'écroula. (Juges 16:29-30)"
+  },
+  "en": {
+   "q": "How did Samson kill the most enemies, at his death?",
+   "options": [
+    "He pulled down the temple of Dagon",
+    "He burned their fields",
+    "He fought with a sword",
+    "He opened a dam"
+   ],
+   "explain": "Samson pushed the pillars and the temple collapsed. (Judges 16:29-30)"
+  }
+ },
+ {
+  "id": "ot-medium-046",
+  "ref": {
+   "fr": "Ruth 1:20",
+   "en": "Ruth 1:20"
+  },
+  "fr": {
+   "q": "Quel nom Naomi voulut-elle porter après ses deuils ?",
+   "options": [
+    "Mara",
+    "Orpa",
+    "Léa",
+    "Kétura"
+   ],
+   "explain": "« Appelez-moi Mara, car le Tout-Puissant m'a affligée. » (Ruth 1:20)"
+  },
+  "en": {
+   "q": "What name did Naomi want to be called after her losses?",
+   "options": [
+    "Mara",
+    "Orpah",
+    "Leah",
+    "Keturah"
+   ],
+   "explain": "\"Call me Mara, for the Almighty has dealt bitterly with me.\" (Ruth 1:20)"
+  }
+ },
+ {
+  "id": "ot-medium-047",
+  "ref": {
+   "fr": "1 Samuel 3:1",
+   "en": "1 Samuel 3:1"
+  },
+  "fr": {
+   "q": "Auprès de quel prêtre le jeune Samuel servit-il au temple ?",
+   "options": [
+    "Éli",
+    "Tsadok",
+    "Abiathar",
+    "Achimélec"
+   ],
+   "explain": "Samuel servait l'Éternel devant le prêtre Éli. (1 Samuel 3:1)"
+  },
+  "en": {
+   "q": "Under which priest did young Samuel serve at the temple?",
+   "options": [
+    "Eli",
+    "Zadok",
+    "Abiathar",
+    "Ahimelech"
+   ],
+   "explain": "Samuel ministered before the LORD under Eli the priest. (1 Samuel 3:1)"
+  }
+ },
+ {
+  "id": "ot-medium-048",
+  "ref": {
+   "fr": "1 Samuel 4:11",
+   "en": "1 Samuel 4:11"
+  },
+  "fr": {
+   "q": "Quel peuple s'empara de l'arche de l'alliance du temps d'Éli ?",
+   "options": [
+    "Les Philistins",
+    "Les Amalécites",
+    "Les Moabites",
+    "Les Édomites"
+   ],
+   "explain": "L'arche de Dieu fut prise par les Philistins. (1 Samuel 4:11)"
+  },
+  "en": {
+   "q": "Which people captured the ark of the covenant in Eli's day?",
+   "options": [
+    "The Philistines",
+    "The Amalekites",
+    "The Moabites",
+    "The Edomites"
+   ],
+   "explain": "The ark of God was taken by the Philistines. (1 Samuel 4:11)"
+  }
+ },
+ {
+  "id": "ot-medium-049",
+  "ref": {
+   "fr": "1 Samuel 5:4",
+   "en": "1 Samuel 5:4"
+  },
+  "fr": {
+   "q": "Quelle idole tomba brisée devant l'arche à Asdod ?",
+   "options": [
+    "Dagon",
+    "Baal",
+    "Astarté",
+    "Moloc"
+   ],
+   "explain": "Dagon était tombé, la tête et les mains coupées. (1 Samuel 5:4)"
+  },
+  "en": {
+   "q": "Which idol fell broken before the ark at Ashdod?",
+   "options": [
+    "Dagon",
+    "Baal",
+    "Ashtoreth",
+    "Molech"
+   ],
+   "explain": "Dagon had fallen, its head and hands cut off. (1 Samuel 5:4)"
+  }
+ },
+ {
+  "id": "ot-medium-050",
+  "ref": {
+   "fr": "1 Samuel 9:21",
+   "en": "1 Samuel 9:21"
+  },
+  "fr": {
+   "q": "De quelle tribu d'Israël était issu le roi Saül ?",
+   "options": [
+    "Benjamin",
+    "Juda",
+    "Éphraïm",
+    "Lévi"
+   ],
+   "explain": "Saül était de la tribu de Benjamin, la plus petite. (1 Samuel 9:21)"
+  },
+  "en": {
+   "q": "From which tribe of Israel did King Saul come?",
+   "options": [
+    "Benjamin",
+    "Judah",
+    "Ephraim",
+    "Levi"
+   ],
+   "explain": "Saul was from the tribe of Benjamin, the smallest. (1 Samuel 9:21)"
+  }
+ },
+ {
+  "id": "ot-medium-051",
+  "ref": {
+   "fr": "1 Samuel 18:1",
+   "en": "1 Samuel 18:1"
+  },
+  "fr": {
+   "q": "Quel fils de Saül fit alliance d'amitié avec David ?",
+   "options": [
+    "Jonathan",
+    "Isch-Boscheth",
+    "Abinadab",
+    "Malkischua"
+   ],
+   "explain": "L'âme de Jonathan s'attacha à l'âme de David. (1 Samuel 18:1)"
+  },
+  "en": {
+   "q": "Which son of Saul made a covenant of friendship with David?",
+   "options": [
+    "Jonathan",
+    "Ish-bosheth",
+    "Abinadab",
+    "Malchishua"
+   ],
+   "explain": "Jonathan's soul was knit to the soul of David. (1 Samuel 18:1)"
+  }
+ },
+ {
+  "id": "ot-medium-052",
+  "ref": {
+   "fr": "1 Samuel 24:4",
+   "en": "1 Samuel 24:4"
+  },
+  "fr": {
+   "q": "Que fit David au lieu de tuer Saül dans la caverne ?",
+   "options": [
+    "Il coupa un pan de son manteau",
+    "Il prit sa lance",
+    "Il l'enferma dans la grotte",
+    "Il l'attacha pendant son sommeil"
+   ],
+   "explain": "David coupa le pan du manteau de Saül et l'épargna. (1 Samuel 24:4-7)"
+  },
+  "en": {
+   "q": "What did David do instead of killing Saul in the cave?",
+   "options": [
+    "He cut off a corner of his robe",
+    "He took his spear",
+    "He shut him in the cave",
+    "He tied him while he slept"
+   ],
+   "explain": "David cut off the corner of Saul's robe and spared him. (1 Samuel 24:4-7)"
+  }
+ },
+ {
+  "id": "ot-medium-053",
+  "ref": {
+   "fr": "1 Samuel 25:3",
+   "en": "1 Samuel 25:3"
+  },
+  "fr": {
+   "q": "Quelle femme sage apaisa David après l'insulte de Nabal ?",
+   "options": [
+    "Abigaïl",
+    "Michal",
+    "Ahinoam",
+    "Bethsabée"
+   ],
+   "explain": "Abigaïl, femme de Nabal, apaisa David par sa sagesse. (1 Samuel 25:3, 32-33)"
+  },
+  "en": {
+   "q": "Which wise woman calmed David after Nabal's insult?",
+   "options": [
+    "Abigail",
+    "Michal",
+    "Ahinoam",
+    "Bathsheba"
+   ],
+   "explain": "Abigail, Nabal's wife, calmed David by her wisdom. (1 Samuel 25:3, 32-33)"
+  }
+ },
+ {
+  "id": "ot-medium-054",
+  "ref": {
+   "fr": "1 Samuel 28:7",
+   "en": "1 Samuel 28:7"
+  },
+  "fr": {
+   "q": "Vers quelle personne Saül alla-t-il pour évoquer l'esprit de Samuel ?",
+   "options": [
+    "La femme qui évoquait les morts à En-Dor",
+    "La reine de Séba",
+    "Une prophétesse à Silo",
+    "Une magicienne d'Égypte"
+   ],
+   "explain": "Saül consulta la nécromancienne d'En-Dor. (1 Samuel 28:7-11)"
+  },
+  "en": {
+   "q": "To whom did Saul go to call up the spirit of Samuel?",
+   "options": [
+    "The medium at Endor",
+    "The Queen of Sheba",
+    "A prophetess at Shiloh",
+    "A sorceress of Egypt"
+   ],
+   "explain": "Saul consulted the medium at Endor. (1 Samuel 28:7-11)"
+  }
+ },
+ {
+  "id": "ot-medium-055",
+  "ref": {
+   "fr": "1 Samuel 31:8",
+   "en": "1 Samuel 31:8"
+  },
+  "fr": {
+   "q": "Sur quelle montagne Saül et ses fils périrent-ils au combat ?",
+   "options": [
+    "Le mont Guilboa",
+    "Le mont Thabor",
+    "Le mont Hermon",
+    "Le mont Carmel"
+   ],
+   "explain": "Saül et ses fils tombèrent sur la montagne de Guilboa. (1 Samuel 31:8)"
+  },
+  "en": {
+   "q": "On which mountain did Saul and his sons die in battle?",
+   "options": [
+    "Mount Gilboa",
+    "Mount Tabor",
+    "Mount Hermon",
+    "Mount Carmel"
+   ],
+   "explain": "Saul and his sons fell on Mount Gilboa. (1 Samuel 31:8)"
+  }
+ },
+ {
+  "id": "ot-medium-056",
+  "ref": {
+   "fr": "2 Samuel 2:8",
+   "en": "2 Samuel 2:8"
+  },
+  "fr": {
+   "q": "Qui était le chef de l'armée de Saül ?",
+   "options": [
+    "Abner",
+    "Joab",
+    "Amasa",
+    "Benaja"
+   ],
+   "explain": "Abner, fils de Ner, commandait l'armée de Saül. (2 Samuel 2:8)"
+  },
+  "en": {
+   "q": "Who was the commander of Saul's army?",
+   "options": [
+    "Abner",
+    "Joab",
+    "Amasa",
+    "Benaiah"
+   ],
+   "explain": "Abner, son of Ner, commanded Saul's army. (2 Samuel 2:8)"
+  }
+ },
+ {
+  "id": "ot-medium-057",
+  "ref": {
+   "fr": "2 Samuel 2:10",
+   "en": "2 Samuel 2:10"
+  },
+  "fr": {
+   "q": "Quel fils de Saül régna sur Israël face à David à Hébron ?",
+   "options": [
+    "Isch-Boscheth",
+    "Jonathan",
+    "Mephiboscheth",
+    "Abinadab"
+   ],
+   "explain": "Isch-Boscheth, fils de Saül, fut établi roi sur Israël. (2 Samuel 2:8-10)"
+  },
+  "en": {
+   "q": "Which son of Saul reigned over Israel against David at Hebron?",
+   "options": [
+    "Ish-bosheth",
+    "Jonathan",
+    "Mephibosheth",
+    "Abinadab"
+   ],
+   "explain": "Ish-bosheth, Saul's son, was made king over Israel. (2 Samuel 2:8-10)"
+  }
+ },
+ {
+  "id": "ot-medium-058",
+  "ref": {
+   "fr": "2 Samuel 6:7",
+   "en": "2 Samuel 6:7"
+  },
+  "fr": {
+   "q": "Quel homme mourut pour avoir touché l'arche de l'alliance ?",
+   "options": [
+    "Uzza",
+    "Achjo",
+    "Obed-Édom",
+    "Nacon"
+   ],
+   "explain": "La colère de Dieu frappa Uzza qui toucha l'arche. (2 Samuel 6:6-7)"
+  },
+  "en": {
+   "q": "Which man died for touching the ark of the covenant?",
+   "options": [
+    "Uzzah",
+    "Ahio",
+    "Obed-Edom",
+    "Nacon"
+   ],
+   "explain": "God's anger struck Uzzah, who touched the ark. (2 Samuel 6:6-7)"
+  }
+ },
+ {
+  "id": "ot-medium-059",
+  "ref": {
+   "fr": "2 Samuel 11:3",
+   "en": "2 Samuel 11:3"
+  },
+  "fr": {
+   "q": "De quel soldat Bethsabée était-elle l'épouse ?",
+   "options": [
+    "Urie le Héthien",
+    "Achitophel",
+    "Joab",
+    "Nathan"
+   ],
+   "explain": "Bethsabée était la femme d'Urie le Héthien. (2 Samuel 11:3)"
+  },
+  "en": {
+   "q": "Whose wife was Bathsheba?",
+   "options": [
+    "Uriah the Hittite",
+    "Ahithophel",
+    "Joab",
+    "Nathan"
+   ],
+   "explain": "Bathsheba was the wife of Uriah the Hittite. (2 Samuel 11:3)"
+  }
+ },
+ {
+  "id": "ot-medium-060",
+  "ref": {
+   "fr": "2 Samuel 18:9",
+   "en": "2 Samuel 18:9"
+  },
+  "fr": {
+   "q": "Comment Absalom fut-il pris avant d'être tué ?",
+   "options": [
+    "Sa tête resta prise dans un chêne",
+    "Il tomba d'un char",
+    "Il se noya dans le Jourdain",
+    "Il fut cerné dans une grotte"
+   ],
+   "explain": "La tête d'Absalom se prit au chêne, suspendu entre ciel et terre. (2 Samuel 18:9)"
+  },
+  "en": {
+   "q": "How was Absalom caught before he was killed?",
+   "options": [
+    "His head was caught in an oak",
+    "He fell from a chariot",
+    "He drowned in the Jordan",
+    "He was trapped in a cave"
+   ],
+   "explain": "Absalom's head caught in the oak, left hanging in mid-air. (2 Samuel 18:9)"
+  }
+ },
+ {
+  "id": "ot-medium-061",
+  "ref": {
+   "fr": "2 Samuel 18:14",
+   "en": "2 Samuel 18:14"
+  },
+  "fr": {
+   "q": "Quel chef de David tua Absalom malgré l'ordre du roi ?",
+   "options": [
+    "Joab",
+    "Abner",
+    "Benaja",
+    "Ittaï"
+   ],
+   "explain": "Joab enfonça trois javelots dans le cœur d'Absalom. (2 Samuel 18:14)"
+  },
+  "en": {
+   "q": "Which of David's commanders killed Absalom despite the king's order?",
+   "options": [
+    "Joab",
+    "Abner",
+    "Benaiah",
+    "Ittai"
+   ],
+   "explain": "Joab thrust three darts into Absalom's heart. (2 Samuel 18:14)"
+  }
+ },
+ {
+  "id": "ot-medium-062",
+  "ref": {
+   "fr": "2 Samuel 9:3",
+   "en": "2 Samuel 9:3"
+  },
+  "fr": {
+   "q": "Quel fils infirme de Jonathan David traita-t-il avec bonté ?",
+   "options": [
+    "Mephiboscheth",
+    "Isch-Boscheth",
+    "Micha",
+    "Ammiel"
+   ],
+   "explain": "Mephiboscheth, boiteux des deux pieds, mangea à la table de David. (2 Samuel 9:3-13)"
+  },
+  "en": {
+   "q": "Which lame son of Jonathan did David treat with kindness?",
+   "options": [
+    "Mephibosheth",
+    "Ish-bosheth",
+    "Mica",
+    "Ammiel"
+   ],
+   "explain": "Mephibosheth, lame in both feet, ate at David's table. (2 Samuel 9:3-13)"
+  }
+ },
+ {
+  "id": "ot-medium-063",
+  "ref": {
+   "fr": "1 Rois 1:5",
+   "en": "1 Kings 1:5"
+  },
+  "fr": {
+   "q": "Quel fils de David tenta de s'emparer du trône avant Salomon ?",
+   "options": [
+    "Adonija",
+    "Absalom",
+    "Amnon",
+    "Kileab"
+   ],
+   "explain": "Adonija s'éleva en disant : « C'est moi qui serai roi. » (1 Rois 1:5)"
+  },
+  "en": {
+   "q": "Which son of David tried to seize the throne before Solomon?",
+   "options": [
+    "Adonijah",
+    "Absalom",
+    "Amnon",
+    "Chileab"
+   ],
+   "explain": "Adonijah exalted himself, saying, \"I will be king.\" (1 Kings 1:5)"
+  }
+ },
+ {
+  "id": "ot-medium-064",
+  "ref": {
+   "fr": "1 Rois 6:38",
+   "en": "1 Kings 6:38"
+  },
+  "fr": {
+   "q": "En combien d'années Salomon acheva-t-il le temple ?",
+   "options": [
+    "Sept ans",
+    "Trois ans",
+    "Vingt ans",
+    "Douze ans"
+   ],
+   "explain": "Salomon bâtit le temple en sept années. (1 Rois 6:38)"
+  },
+  "en": {
+   "q": "In how many years did Solomon finish the temple?",
+   "options": [
+    "Seven years",
+    "Three years",
+    "Twenty years",
+    "Twelve years"
+   ],
+   "explain": "Solomon built the temple in seven years. (1 Kings 6:38)"
+  }
+ },
+ {
+  "id": "ot-medium-065",
+  "ref": {
+   "fr": "1 Rois 7:21",
+   "en": "1 Kings 7:21"
+  },
+  "fr": {
+   "q": "Comment s'appelaient les deux colonnes de bronze du temple ?",
+   "options": [
+    "Jakin et Boaz",
+    "Gerizim et Ébal",
+    "Sem et Cham",
+    "Sion et Morija"
+   ],
+   "explain": "Il nomma la colonne de droite Jakin, celle de gauche Boaz. (1 Rois 7:21)"
+  },
+  "en": {
+   "q": "What were the names of the two bronze pillars of the temple?",
+   "options": [
+    "Jachin and Boaz",
+    "Gerizim and Ebal",
+    "Shem and Ham",
+    "Zion and Moriah"
+   ],
+   "explain": "He named the right pillar Jachin and the left Boaz. (1 Kings 7:21)"
+  }
+ },
+ {
+  "id": "ot-medium-066",
+  "ref": {
+   "fr": "1 Rois 12:16",
+   "en": "1 Kings 12:16"
+  },
+  "fr": {
+   "q": "Sous quel roi le royaume d'Israël se divisa-t-il en deux ?",
+   "options": [
+    "Roboam",
+    "Salomon",
+    "Jéroboam",
+    "Abija"
+   ],
+   "explain": "Le royaume se divisa sous Roboam, fils de Salomon. (1 Rois 12:16-17)"
+  },
+  "en": {
+   "q": "Under which king did the kingdom of Israel split in two?",
+   "options": [
+    "Rehoboam",
+    "Solomon",
+    "Jeroboam",
+    "Abijah"
+   ],
+   "explain": "The kingdom divided under Rehoboam, Solomon's son. (1 Kings 12:16-17)"
+  }
+ },
+ {
+  "id": "ot-medium-067",
+  "ref": {
+   "fr": "1 Rois 12:28",
+   "en": "1 Kings 12:28"
+  },
+  "fr": {
+   "q": "Quel roi du Nord fit deux veaux d'or à Béthel et à Dan ?",
+   "options": [
+    "Jéroboam",
+    "Roboam",
+    "Achab",
+    "Omri"
+   ],
+   "explain": "Jéroboam fit deux veaux d'or pour détourner le peuple. (1 Rois 12:28-29)"
+  },
+  "en": {
+   "q": "Which northern king made two golden calves at Bethel and Dan?",
+   "options": [
+    "Jeroboam",
+    "Rehoboam",
+    "Ahab",
+    "Omri"
+   ],
+   "explain": "Jeroboam made two golden calves to mislead the people. (1 Kings 12:28-29)"
+  }
+ },
+ {
+  "id": "ot-medium-068",
+  "ref": {
+   "fr": "1 Rois 16:31",
+   "en": "1 Kings 16:31"
+  },
+  "fr": {
+   "q": "Quelle femme idolâtre le roi Achab épousa-t-il ?",
+   "options": [
+    "Jézabel",
+    "Athalie",
+    "Maaca",
+    "Vasthi"
+   ],
+   "explain": "Achab prit pour femme Jézabel et servit Baal. (1 Rois 16:31)"
+  },
+  "en": {
+   "q": "Which idolatrous woman did King Ahab marry?",
+   "options": [
+    "Jezebel",
+    "Athaliah",
+    "Maacah",
+    "Vashti"
+   ],
+   "explain": "Ahab took Jezebel as wife and served Baal. (1 Kings 16:31)"
+  }
+ },
+ {
+  "id": "ot-medium-069",
+  "ref": {
+   "fr": "1 Rois 17:22",
+   "en": "1 Kings 17:22"
+  },
+  "fr": {
+   "q": "Dans quelle ville Élie ressuscita-t-il le fils d'une veuve ?",
+   "options": [
+    "Sarepta",
+    "Sunem",
+    "Béthel",
+    "Jizreel"
+   ],
+   "explain": "À Sarepta, l'enfant de la veuve revint à la vie. (1 Rois 17:9-22)"
+  },
+  "en": {
+   "q": "In which town did Elijah raise a widow's son?",
+   "options": [
+    "Zarephath",
+    "Shunem",
+    "Bethel",
+    "Jezreel"
+   ],
+   "explain": "At Zarephath the widow's child came back to life. (1 Kings 17:9-22)"
+  }
+ },
+ {
+  "id": "ot-medium-070",
+  "ref": {
+   "fr": "1 Rois 21:15",
+   "en": "1 Kings 21:15"
+  },
+  "fr": {
+   "q": "Quel bien Achab convoita-t-il, menant Jézabel à tuer son propriétaire ?",
+   "options": [
+    "La vigne de Naboth",
+    "Le puits d'Isaac",
+    "Le champ d'Éphron",
+    "L'aire d'Ornan"
+   ],
+   "explain": "Jézabel fit tuer Naboth pour donner sa vigne à Achab. (1 Rois 21:15-16)"
+  },
+  "en": {
+   "q": "What property did Ahab covet, leading Jezebel to kill its owner?",
+   "options": [
+    "Naboth's vineyard",
+    "Isaac's well",
+    "Ephron's field",
+    "Ornan's threshing floor"
+   ],
+   "explain": "Jezebel had Naboth killed to give his vineyard to Ahab. (1 Kings 21:15-16)"
+  }
+ },
+ {
+  "id": "ot-medium-071",
+  "ref": {
+   "fr": "2 Rois 2:8",
+   "en": "2 Kings 2:8"
+  },
+  "fr": {
+   "q": "Avec quel objet Élie sépara-t-il les eaux du Jourdain ?",
+   "options": [
+    "Son manteau",
+    "Son bâton",
+    "Sa ceinture",
+    "Une branche"
+   ],
+   "explain": "Élie frappa les eaux de son manteau et elles se partagèrent. (2 Rois 2:8)"
+  },
+  "en": {
+   "q": "With what object did Elijah part the waters of the Jordan?",
+   "options": [
+    "His cloak",
+    "His staff",
+    "His belt",
+    "A branch"
+   ],
+   "explain": "Elijah struck the water with his cloak and it divided. (2 Kings 2:8)"
+  }
+ },
+ {
+  "id": "ot-medium-072",
+  "ref": {
+   "fr": "2 Rois 2:9",
+   "en": "2 Kings 2:9"
+  },
+  "fr": {
+   "q": "Que demanda Élisée à Élie avant qu'il soit enlevé au ciel ?",
+   "options": [
+    "Une double portion de son esprit",
+    "Un char de feu",
+    "Le trône d'Israël",
+    "Le don de prophétie"
+   ],
+   "explain": "Élisée demanda une double portion de l'esprit d'Élie. (2 Rois 2:9)"
+  },
+  "en": {
+   "q": "What did Elisha ask of Elijah before he was taken up to heaven?",
+   "options": [
+    "A double portion of his spirit",
+    "A chariot of fire",
+    "The throne of Israel",
+    "The gift of prophecy"
+   ],
+   "explain": "Elisha asked for a double portion of Elijah's spirit. (2 Kings 2:9)"
+  }
+ },
+ {
+  "id": "ot-medium-073",
+  "ref": {
+   "fr": "2 Rois 4:6",
+   "en": "2 Kings 4:6"
+  },
+  "fr": {
+   "q": "Comment Élisée aida-t-il une veuve endettée ?",
+   "options": [
+    "Il multiplia son huile",
+    "Il changea l'eau en vin",
+    "Il trouva de l'or caché",
+    "Il fit pousser du blé"
+   ],
+   "explain": "L'huile de la veuve remplit tous les vases empruntés. (2 Rois 4:1-7)"
+  },
+  "en": {
+   "q": "How did Elisha help a widow in debt?",
+   "options": [
+    "He multiplied her oil",
+    "He turned water into wine",
+    "He found hidden gold",
+    "He grew wheat"
+   ],
+   "explain": "The widow's oil filled all the borrowed jars. (2 Kings 4:1-7)"
+  }
+ },
+ {
+  "id": "ot-medium-074",
+  "ref": {
+   "fr": "2 Rois 4:35",
+   "en": "2 Kings 4:35"
+  },
+  "fr": {
+   "q": "Quelle femme accueillit Élisée et vit son fils ressuscité ?",
+   "options": [
+    "La Sunamite",
+    "La veuve de Sarepta",
+    "Rispa",
+    "La reine de Séba"
+   ],
+   "explain": "Le fils de la femme de Sunem revint à la vie. (2 Rois 4:32-35)"
+  },
+  "en": {
+   "q": "Which woman hosted Elisha and saw her son raised to life?",
+   "options": [
+    "The Shunammite",
+    "The widow of Zarephath",
+    "Rizpah",
+    "The Queen of Sheba"
+   ],
+   "explain": "The son of the woman of Shunem came back to life. (2 Kings 4:32-35)"
+  }
+ },
+ {
+  "id": "ot-medium-075",
+  "ref": {
+   "fr": "2 Rois 5:27",
+   "en": "2 Kings 5:27"
+  },
+  "fr": {
+   "q": "Quel serviteur d'Élisée fut frappé de lèpre pour sa cupidité ?",
+   "options": [
+    "Guéhazi",
+    "Naaman",
+    "Baruc",
+    "Éliézer"
+   ],
+   "explain": "La lèpre de Naaman s'attacha à Guéhazi. (2 Rois 5:20-27)"
+  },
+  "en": {
+   "q": "Which servant of Elisha was struck with leprosy for his greed?",
+   "options": [
+    "Gehazi",
+    "Naaman",
+    "Baruch",
+    "Eliezer"
+   ],
+   "explain": "Naaman's leprosy clung to Gehazi. (2 Kings 5:20-27)"
+  }
+ },
+ {
+  "id": "ot-medium-076",
+  "ref": {
+   "fr": "2 Rois 6:6",
+   "en": "2 Kings 6:6"
+  },
+  "fr": {
+   "q": "Quel prodige Élisée accomplit-il quand un fer de hache tomba dans l'eau ?",
+   "options": [
+    "Il fit flotter le fer",
+    "Il assécha la rivière",
+    "Il changea l'eau en huile",
+    "Il fit apparaître une hache neuve"
+   ],
+   "explain": "Élisée jeta un morceau de bois et le fer surnagea. (2 Rois 6:6)"
+  },
+  "en": {
+   "q": "What miracle did Elisha do when an axe head fell in the water?",
+   "options": [
+    "He made the iron float",
+    "He dried up the river",
+    "He turned the water to oil",
+    "He produced a new axe"
+   ],
+   "explain": "Elisha threw in a stick and the iron floated. (2 Kings 6:6)"
+  }
+ },
+ {
+  "id": "ot-medium-077",
+  "ref": {
+   "fr": "2 Rois 9:33",
+   "en": "2 Kings 9:33"
+  },
+  "fr": {
+   "q": "Quel roi ordonna la mort de Jézabel, jetée par la fenêtre ?",
+   "options": [
+    "Jéhu",
+    "Achab",
+    "Joram",
+    "Hazaël"
+   ],
+   "explain": "Sur l'ordre de Jéhu, Jézabel fut précipitée et dévorée par les chiens. (2 Rois 9:33-36)"
+  },
+  "en": {
+   "q": "Which king ordered the death of Jezebel, thrown from a window?",
+   "options": [
+    "Jehu",
+    "Ahab",
+    "Joram",
+    "Hazael"
+   ],
+   "explain": "At Jehu's command Jezebel was thrown down and eaten by dogs. (2 Kings 9:33-36)"
+  }
+ },
+ {
+  "id": "ot-medium-078",
+  "ref": {
+   "fr": "2 Rois 11:2",
+   "en": "2 Kings 11:2"
+  },
+  "fr": {
+   "q": "Quel jeune roi fut caché dans le temple pour échapper à Athalie ?",
+   "options": [
+    "Joas",
+    "Ozias",
+    "Amatsia",
+    "Achaz"
+   ],
+   "explain": "Joas fut caché six ans dans la maison de l'Éternel. (2 Rois 11:2-3)"
+  },
+  "en": {
+   "q": "Which young king was hidden in the temple to escape Athaliah?",
+   "options": [
+    "Joash",
+    "Uzziah",
+    "Amaziah",
+    "Ahaz"
+   ],
+   "explain": "Joash was hidden six years in the house of the LORD. (2 Kings 11:2-3)"
+  }
+ },
+ {
+  "id": "ot-medium-079",
+  "ref": {
+   "fr": "2 Rois 20:11",
+   "en": "2 Kings 20:11"
+  },
+  "fr": {
+   "q": "Quel signe Dieu donna-t-il au roi Ézéchias pour sa guérison ?",
+   "options": [
+    "L'ombre recula de dix degrés",
+    "Le soleil s'obscurcit",
+    "Une étoile parut",
+    "La pluie tomba"
+   ],
+   "explain": "L'ombre recula de dix degrés au cadran d'Achaz. (2 Rois 20:11)"
+  },
+  "en": {
+   "q": "What sign did God give King Hezekiah for his healing?",
+   "options": [
+    "The shadow went back ten steps",
+    "The sun darkened",
+    "A star appeared",
+    "Rain fell"
+   ],
+   "explain": "The shadow went back ten steps on the dial of Ahaz. (2 Kings 20:11)"
+  }
+ },
+ {
+  "id": "ot-medium-080",
+  "ref": {
+   "fr": "2 Rois 22:8",
+   "en": "2 Kings 22:8"
+  },
+  "fr": {
+   "q": "Quel roi retrouva le livre de la loi dans le temple ?",
+   "options": [
+    "Josias",
+    "Ézéchias",
+    "Manassé",
+    "Joachaz"
+   ],
+   "explain": "Sous Josias, on retrouva le livre de la loi dans le temple. (2 Rois 22:8)"
+  },
+  "en": {
+   "q": "Which king rediscovered the Book of the Law in the temple?",
+   "options": [
+    "Josiah",
+    "Hezekiah",
+    "Manasseh",
+    "Jehoahaz"
+   ],
+   "explain": "Under Josiah the Book of the Law was found in the temple. (2 Kings 22:8)"
+  }
+ },
+ {
+  "id": "ot-medium-081",
+  "ref": {
+   "fr": "2 Rois 17:6",
+   "en": "2 Kings 17:6"
+  },
+  "fr": {
+   "q": "Quel empire emmena le royaume du Nord en captivité ?",
+   "options": [
+    "L'Assyrie",
+    "Babylone",
+    "La Perse",
+    "L'Égypte"
+   ],
+   "explain": "Le roi d'Assyrie prit Samarie et déporta Israël. (2 Rois 17:6)"
+  },
+  "en": {
+   "q": "Which empire carried the northern kingdom into captivity?",
+   "options": [
+    "Assyria",
+    "Babylon",
+    "Persia",
+    "Egypt"
+   ],
+   "explain": "The king of Assyria took Samaria and exiled Israel. (2 Kings 17:6)"
+  }
+ },
+ {
+  "id": "ot-medium-082",
+  "ref": {
+   "fr": "2 Rois 19:35",
+   "en": "2 Kings 19:35"
+  },
+  "fr": {
+   "q": "Combien de soldats assyriens l'ange de l'Éternel frappa-t-il en une nuit ?",
+   "options": [
+    "185 000",
+    "10 000",
+    "70 000",
+    "40 000"
+   ],
+   "explain": "L'ange frappa 185 000 hommes du camp assyrien. (2 Rois 19:35)"
+  },
+  "en": {
+   "q": "How many Assyrian soldiers did the angel of the LORD strike in one night?",
+   "options": [
+    "185,000",
+    "10,000",
+    "70,000",
+    "40,000"
+   ],
+   "explain": "The angel struck down 185,000 in the Assyrian camp. (2 Kings 19:35)"
+  }
+ },
+ {
+  "id": "ot-medium-083",
+  "ref": {
+   "fr": "Néhémie 6:15",
+   "en": "Nehemiah 6:15"
+  },
+  "fr": {
+   "q": "En combien de jours la muraille de Jérusalem fut-elle reconstruite ?",
+   "options": [
+    "Cinquante-deux jours",
+    "Sept jours",
+    "Cent jours",
+    "Quarante jours"
+   ],
+   "explain": "La muraille fut achevée en cinquante-deux jours. (Néhémie 6:15)"
+  },
+  "en": {
+   "q": "In how many days was the wall of Jerusalem rebuilt?",
+   "options": [
+    "Fifty-two days",
+    "Seven days",
+    "One hundred days",
+    "Forty days"
+   ],
+   "explain": "The wall was completed in fifty-two days. (Nehemiah 6:15)"
+  }
+ },
+ {
+  "id": "ot-medium-084",
+  "ref": {
+   "fr": "Néhémie 1:11",
+   "en": "Nehemiah 1:11"
+  },
+  "fr": {
+   "q": "Quelle fonction Néhémie occupait-il auprès du roi de Perse ?",
+   "options": [
+    "Échanson",
+    "Scribe",
+    "Général",
+    "Trésorier"
+   ],
+   "explain": "Néhémie était échanson du roi Artaxerxès. (Néhémie 1:11)"
+  },
+  "en": {
+   "q": "What role did Nehemiah hold with the king of Persia?",
+   "options": [
+    "Cupbearer",
+    "Scribe",
+    "General",
+    "Treasurer"
+   ],
+   "explain": "Nehemiah was cupbearer to King Artaxerxes. (Nehemiah 1:11)"
+  }
+ },
+ {
+  "id": "ot-medium-085",
+  "ref": {
+   "fr": "Esther 2:7",
+   "en": "Esther 2:7"
+  },
+  "fr": {
+   "q": "Quel parent éleva Esther comme sa propre fille ?",
+   "options": [
+    "Mardochée",
+    "Haman",
+    "Assuérus",
+    "Hégaï"
+   ],
+   "explain": "Mardochée avait élevé Esther, sa cousine orpheline. (Esther 2:7)"
+  },
+  "en": {
+   "q": "Which relative raised Esther as his own daughter?",
+   "options": [
+    "Mordecai",
+    "Haman",
+    "Ahasuerus",
+    "Hegai"
+   ],
+   "explain": "Mordecai had raised Esther, his orphaned cousin. (Esther 2:7)"
+  }
+ },
+ {
+  "id": "ot-medium-086",
+  "ref": {
+   "fr": "Esther 2:17",
+   "en": "Esther 2:17"
+  },
+  "fr": {
+   "q": "Quelle reine Esther remplaça-t-elle auprès du roi Assuérus ?",
+   "options": [
+    "Vasthi",
+    "Athalie",
+    "Jézabel",
+    "Bethsabée"
+   ],
+   "explain": "Esther fut faite reine à la place de Vasthi. (Esther 2:17)"
+  },
+  "en": {
+   "q": "Which queen did Esther replace beside King Ahasuerus?",
+   "options": [
+    "Vashti",
+    "Athaliah",
+    "Jezebel",
+    "Bathsheba"
+   ],
+   "explain": "Esther was made queen in place of Vashti. (Esther 2:17)"
+  }
+ },
+ {
+  "id": "ot-medium-087",
+  "ref": {
+   "fr": "Esther 9:26",
+   "en": "Esther 9:26"
+  },
+  "fr": {
+   "q": "Quelle fête juive rappelle la délivrance racontée dans le livre d'Esther ?",
+   "options": [
+    "Pourim",
+    "La Pâque",
+    "Hanoucca",
+    "Les Tabernacles"
+   ],
+   "explain": "Ces jours furent appelés Pourim, du mot « pur » (le sort). (Esther 9:26)"
+  },
+  "en": {
+   "q": "Which Jewish feast recalls the deliverance told in the book of Esther?",
+   "options": [
+    "Purim",
+    "Passover",
+    "Hanukkah",
+    "Tabernacles"
+   ],
+   "explain": "These days were called Purim, from \"pur\" (the lot). (Esther 9:26)"
+  }
+ },
+ {
+  "id": "ot-medium-088",
+  "ref": {
+   "fr": "Job 2:11",
+   "en": "Job 2:11"
+  },
+  "fr": {
+   "q": "Combien d'amis vinrent consoler Job dans son malheur ?",
+   "options": [
+    "Trois",
+    "Deux",
+    "Quatre",
+    "Sept"
+   ],
+   "explain": "Éliphaz, Bildad et Tsophar vinrent auprès de Job. (Job 2:11)"
+  },
+  "en": {
+   "q": "How many friends came to comfort Job in his suffering?",
+   "options": [
+    "Three",
+    "Two",
+    "Four",
+    "Seven"
+   ],
+   "explain": "Eliphaz, Bildad, and Zophar came to Job. (Job 2:11)"
+  }
+ },
+ {
+  "id": "ot-medium-089",
+  "ref": {
+   "fr": "Daniel 3:23",
+   "en": "Daniel 3:23"
+  },
+  "fr": {
+   "q": "Quels trois compagnons de Daniel furent jetés dans la fournaise ?",
+   "options": [
+    "Schadrac, Méschac et Abed-Nego",
+    "Sem, Cham et Japhet",
+    "Hanania, Azaria et Daniel",
+    "Éliphaz, Bildad et Tsophar"
+   ],
+   "explain": "Schadrac, Méschac et Abed-Nego tombèrent dans la fournaise. (Daniel 3:23)"
+  },
+  "en": {
+   "q": "Which three companions of Daniel were thrown into the furnace?",
+   "options": [
+    "Shadrach, Meshach, and Abednego",
+    "Shem, Ham, and Japheth",
+    "Hananiah, Azariah, and Daniel",
+    "Eliphaz, Bildad, and Zophar"
+   ],
+   "explain": "Shadrach, Meshach, and Abednego fell into the furnace. (Daniel 3:23)"
+  }
+ },
+ {
+  "id": "ot-medium-090",
+  "ref": {
+   "fr": "Daniel 3:25",
+   "en": "Daniel 3:25"
+  },
+  "fr": {
+   "q": "Que vit le roi dans la fournaise avec les trois hommes ?",
+   "options": [
+    "Un quatrième semblable à un fils de Dieu",
+    "Un lion de feu",
+    "Une colonne de nuée",
+    "Un aigle flamboyant"
+   ],
+   "explain": "Le roi vit un quatrième homme, semblable à un fils de Dieu. (Daniel 3:25)"
+  },
+  "en": {
+   "q": "What did the king see in the furnace with the three men?",
+   "options": [
+    "A fourth like a son of God",
+    "A lion of fire",
+    "A pillar of cloud",
+    "A flaming eagle"
+   ],
+   "explain": "The king saw a fourth man, like a son of God. (Daniel 3:25)"
+  }
+ },
+ {
+  "id": "ot-medium-091",
+  "ref": {
+   "fr": "Daniel 2:32",
+   "en": "Daniel 2:32"
+  },
+  "fr": {
+   "q": "En quel métal était la tête de la statue du songe de Nebucadnetsar ?",
+   "options": [
+    "En or",
+    "En argent",
+    "En bronze",
+    "En fer"
+   ],
+   "explain": "La tête de la statue était d'or fin. (Daniel 2:32)"
+  },
+  "en": {
+   "q": "Of what metal was the head of the statue in Nebuchadnezzar's dream?",
+   "options": [
+    "Gold",
+    "Silver",
+    "Bronze",
+    "Iron"
+   ],
+   "explain": "The head of the statue was of fine gold. (Daniel 2:32)"
+  }
+ },
+ {
+  "id": "ot-medium-092",
+  "ref": {
+   "fr": "Daniel 5:28",
+   "en": "Daniel 5:28"
+  },
+  "fr": {
+   "q": "À qui l'inscription annonçait-elle que le royaume de Belschatsar serait livré ?",
+   "options": [
+    "Aux Mèdes et aux Perses",
+    "Aux Assyriens",
+    "Aux Égyptiens",
+    "Aux Grecs"
+   ],
+   "explain": "Le royaume est livré aux Mèdes et aux Perses. (Daniel 5:28)"
+  },
+  "en": {
+   "q": "To whom did the writing say Belshazzar's kingdom would be given?",
+   "options": [
+    "The Medes and the Persians",
+    "The Assyrians",
+    "The Egyptians",
+    "The Greeks"
+   ],
+   "explain": "The kingdom is given to the Medes and Persians. (Daniel 5:28)"
+  }
+ },
+ {
+  "id": "ot-medium-093",
+  "ref": {
+   "fr": "Osée 1:3",
+   "en": "Hosea 1:3"
+  },
+  "fr": {
+   "q": "Quelle femme le prophète Osée épousa-t-il sur l'ordre de Dieu ?",
+   "options": [
+    "Gomer",
+    "Anne",
+    "Houlda",
+    "Rispa"
+   ],
+   "explain": "Osée prit Gomer pour femme, image de l'infidélité d'Israël. (Osée 1:2-3)"
+  },
+  "en": {
+   "q": "Which woman did the prophet Hosea marry at God's command?",
+   "options": [
+    "Gomer",
+    "Hannah",
+    "Huldah",
+    "Rizpah"
+   ],
+   "explain": "Hosea took Gomer as wife, a picture of Israel's unfaithfulness. (Hosea 1:2-3)"
+  }
+ },
+ {
+  "id": "ot-medium-094",
+  "ref": {
+   "fr": "Amos 1:1",
+   "en": "Amos 1:1"
+  },
+  "fr": {
+   "q": "Quel métier exerçait le prophète Amos avant son appel ?",
+   "options": [
+    "Berger de Tekoa",
+    "Scribe du roi",
+    "Prêtre de Béthel",
+    "Marchand de Tyr"
+   ],
+   "explain": "Amos était parmi les bergers de Tekoa. (Amos 1:1)"
+  },
+  "en": {
+   "q": "What was the prophet Amos's occupation before his call?",
+   "options": [
+    "Shepherd of Tekoa",
+    "Royal scribe",
+    "Priest of Bethel",
+    "Merchant of Tyre"
+   ],
+   "explain": "Amos was among the shepherds of Tekoa. (Amos 1:1)"
+  }
+ },
+ {
+  "id": "ot-medium-095",
+  "ref": {
+   "fr": "Michée 5:2",
+   "en": "Micah 5:2"
+  },
+  "fr": {
+   "q": "De quelle ville le prophète Michée annonça-t-il la venue d'un dominateur ?",
+   "options": [
+    "Bethléhem",
+    "Jérusalem",
+    "Silo",
+    "Sichem"
+   ],
+   "explain": "« Bethléhem Éphrata... de toi sortira le dominateur d'Israël. » (Michée 5:2)"
+  },
+  "en": {
+   "q": "From which town did the prophet Micah foretell a ruler would come?",
+   "options": [
+    "Bethlehem",
+    "Jerusalem",
+    "Shiloh",
+    "Shechem"
+   ],
+   "explain": "\"Bethlehem Ephrathah... from you will come a ruler of Israel.\" (Micah 5:2)"
+  }
+ },
+ {
+  "id": "ot-medium-096",
+  "ref": {
+   "fr": "Habacuc 2:4",
+   "en": "Habakkuk 2:4"
+  },
+  "fr": {
+   "q": "Quelle parole célèbre sur la foi trouve-t-on chez Habacuc ?",
+   "options": [
+    "« Le juste vivra par sa foi »",
+    "« La foi sans les œuvres est morte »",
+    "« La foi vient de ce qu'on entend »",
+    "« Sans la foi, il est impossible de plaire »"
+   ],
+   "explain": "« Le juste vivra par sa foi. » (Habacuc 2:4)"
+  },
+  "en": {
+   "q": "Which famous word about faith is found in Habakkuk?",
+   "options": [
+    "\"The righteous will live by his faith\"",
+    "\"Faith without works is dead\"",
+    "\"Faith comes by hearing\"",
+    "\"Without faith it is impossible to please God\""
+   ],
+   "explain": "\"The righteous will live by his faith.\" (Habakkuk 2:4)"
+  }
+ },
+ {
+  "id": "ot-medium-097",
+  "ref": {
+   "fr": "Aggée 1:8",
+   "en": "Haggai 1:8"
+  },
+  "fr": {
+   "q": "À quelle œuvre le prophète Aggée exhorta-t-il le peuple revenu d'exil ?",
+   "options": [
+    "Rebâtir le temple",
+    "Relever la muraille",
+    "Ouvrir un puits",
+    "Planter des vignes"
+   ],
+   "explain": "Aggée pressa le peuple de rebâtir la maison de l'Éternel. (Aggée 1:8)"
+  },
+  "en": {
+   "q": "To what work did the prophet Haggai urge the returned exiles?",
+   "options": [
+    "Rebuild the temple",
+    "Rebuild the wall",
+    "Dig a well",
+    "Plant vineyards"
+   ],
+   "explain": "Haggai urged the people to rebuild the house of the LORD. (Haggai 1:8)"
+  }
+ },
+ {
+  "id": "ot-medium-098",
+  "ref": {
+   "fr": "Malachie 4:5",
+   "en": "Malachi 4:5"
+  },
+  "fr": {
+   "q": "Quel prophète Malachie annonce-t-il avant le jour de l'Éternel ?",
+   "options": [
+    "Élie",
+    "Ésaïe",
+    "Moïse",
+    "Énoch"
+   ],
+   "explain": "« Je vous enverrai Élie avant le jour de l'Éternel. » (Malachie 4:5)"
+  },
+  "en": {
+   "q": "Which prophet does Malachi foretell before the day of the LORD?",
+   "options": [
+    "Elijah",
+    "Isaiah",
+    "Moses",
+    "Enoch"
+   ],
+   "explain": "\"I will send you Elijah before the day of the LORD.\" (Malachi 4:5)"
+  }
+ },
+ {
+  "id": "ot-medium-099",
+  "ref": {
+   "fr": "Ézéchiel 3:3",
+   "en": "Ezekiel 3:3"
+  },
+  "fr": {
+   "q": "Que Dieu demanda-t-il à Ézéchiel de manger, doux comme le miel ?",
+   "options": [
+    "Un rouleau",
+    "Un pain d'orge",
+    "Une figue",
+    "Une pierre blanche"
+   ],
+   "explain": "Ézéchiel mangea le rouleau, doux comme du miel. (Ézéchiel 3:1-3)"
+  },
+  "en": {
+   "q": "What did God tell Ezekiel to eat, sweet as honey?",
+   "options": [
+    "A scroll",
+    "A barley loaf",
+    "A fig",
+    "A white stone"
+   ],
+   "explain": "Ezekiel ate the scroll, sweet as honey. (Ezekiel 3:1-3)"
+  }
+ },
+ {
+  "id": "ot-medium-100",
+  "ref": {
+   "fr": "Jonas 4:7",
+   "en": "Jonah 4:7"
+  },
+  "fr": {
+   "q": "Qu'est-ce qui fit périr la plante qui abritait Jonas ?",
+   "options": [
+    "Un ver",
+    "Le vent d'orient",
+    "Le soleil",
+    "Le sel de la mer"
+   ],
+   "explain": "Dieu fit venir un ver qui piqua le ricin, et il sécha. (Jonas 4:7)"
+  },
+  "en": {
+   "q": "What caused the plant that sheltered Jonah to die?",
+   "options": [
+    "A worm",
+    "The east wind",
+    "The sun",
+    "The salt of the sea"
+   ],
+   "explain": "God sent a worm that attacked the plant, and it withered. (Jonah 4:7)"
+  }
+ }
+]

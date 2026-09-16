@@ -1,0 +1,2702 @@
+[
+ {
+  "id": "morality-hard-001",
+  "ref": {
+   "fr": "Exode 20:2",
+   "en": "Exodus 20:2"
+  },
+  "fr": {
+   "q": "Quelles paroles ouvrent le Décalogue avant les commandements ?",
+   "options": [
+    "Je suis l’Éternel, qui t’ai fait sortir d’Égypte",
+    "Écoute, Israël",
+    "Au commencement, Dieu créa",
+    "Tu aimeras l’Éternel, ton Dieu"
+   ],
+   "explain": "« Je suis l’Éternel, ton Dieu, qui t’ai fait sortir du pays d’Égypte. » (Exode 20:2)"
+  },
+  "en": {
+   "q": "What words open the Decalogue before the commandments?",
+   "options": [
+    "I am the LORD, who brought you out of Egypt",
+    "Hear, O Israel",
+    "In the beginning, God created",
+    "You shall love the LORD your God"
+   ],
+   "explain": "“I am the LORD your God, who brought you out of the land of Egypt.” (Exodus 20:2)"
+  }
+ },
+ {
+  "id": "morality-hard-002",
+  "ref": {
+   "fr": "Exode 20:5",
+   "en": "Exodus 20:5"
+  },
+  "fr": {
+   "q": "Jusqu’à quelle génération Dieu punit-il l’iniquité des pères ?",
+   "options": [
+    "La troisième et la quatrième",
+    "La septième",
+    "La dixième",
+    "La première seulement"
+   ],
+   "explain": "« Je punis l’iniquité des pères… jusqu’à la troisième et la quatrième génération. » (Exode 20:5)"
+  },
+  "en": {
+   "q": "To which generation does God punish the fathers’ iniquity?",
+   "options": [
+    "The third and fourth",
+    "The seventh",
+    "The tenth",
+    "Only the first"
+   ],
+   "explain": "“Visiting the iniquity of the fathers… to the third and fourth generation.” (Exodus 20:5)"
+  }
+ },
+ {
+  "id": "morality-hard-003",
+  "ref": {
+   "fr": "Exode 20:6",
+   "en": "Exodus 20:6"
+  },
+  "fr": {
+   "q": "À combien de générations Dieu fait-il miséricorde selon ce verset ?",
+   "options": [
+    "Mille générations",
+    "Cent générations",
+    "Dix générations",
+    "Sept générations"
+   ],
+   "explain": "« Je fais miséricorde jusqu’à mille générations à ceux qui m’aiment. » (Exode 20:6)"
+  },
+  "en": {
+   "q": "To how many generations does God show mercy in this verse?",
+   "options": [
+    "A thousand generations",
+    "A hundred generations",
+    "Ten generations",
+    "Seven generations"
+   ],
+   "explain": "“Showing mercy to thousands of those who love me.” (Exodus 20:6)"
+  }
+ },
+ {
+  "id": "morality-hard-004",
+  "ref": {
+   "fr": "Exode 20:4",
+   "en": "Exodus 20:4"
+  },
+  "fr": {
+   "q": "Que le deuxième commandement défend-il de se faire ?",
+   "options": [
+    "Une image taillée",
+    "Un autel de pierre",
+    "Un veau d’or",
+    "Un second temple"
+   ],
+   "explain": "« Tu ne te feras point d’image taillée. » (Exode 20:4)"
+  },
+  "en": {
+   "q": "What does the second commandment forbid making?",
+   "options": [
+    "A carved image",
+    "A stone altar",
+    "A golden calf",
+    "A second temple"
+   ],
+   "explain": "“You shall not make for yourself a carved image.” (Exodus 20:4)"
+  }
+ },
+ {
+  "id": "morality-hard-005",
+  "ref": {
+   "fr": "Exode 20:11",
+   "en": "Exodus 20:11"
+  },
+  "fr": {
+   "q": "Quel motif du sabbat l’Exode donne-t-il ?",
+   "options": [
+    "Dieu fit le ciel et la terre en six jours",
+    "La sortie d’Égypte",
+    "L’alliance avec Abraham",
+    "Le don de la manne"
+   ],
+   "explain": "« En six jours l’Éternel a fait le ciel et la terre… et il s’est reposé. » (Exode 20:11)"
+  },
+  "en": {
+   "q": "What reason for the Sabbath does Exodus give?",
+   "options": [
+    "God made heaven and earth in six days",
+    "The exodus from Egypt",
+    "The covenant with Abraham",
+    "The gift of manna"
+   ],
+   "explain": "“In six days the LORD made heaven and earth… and rested.” (Exodus 20:11)"
+  }
+ },
+ {
+  "id": "morality-hard-006",
+  "ref": {
+   "fr": "Deutéronome 5:15",
+   "en": "Deuteronomy 5:15"
+  },
+  "fr": {
+   "q": "Quel motif du sabbat le Deutéronome donne-t-il ?",
+   "options": [
+    "Tu as été esclave en Égypte",
+    "La création en six jours",
+    "Le jour de la manne",
+    "La traversée du Jourdain"
+   ],
+   "explain": "« Tu te souviendras que tu as été esclave au pays d’Égypte. » (Deutéronome 5:15)"
+  },
+  "en": {
+   "q": "What reason for the Sabbath does Deuteronomy give?",
+   "options": [
+    "You were a slave in Egypt",
+    "Creation in six days",
+    "The day of the manna",
+    "Crossing the Jordan"
+   ],
+   "explain": "“Remember that you were a servant in the land of Egypt.” (Deuteronomy 5:15)"
+  }
+ },
+ {
+  "id": "morality-hard-007",
+  "ref": {
+   "fr": "Exode 20:17",
+   "en": "Exodus 20:17"
+  },
+  "fr": {
+   "q": "Dans l’Exode, qu’est-il nommé en premier parmi ce qu’on ne doit pas convoiter ?",
+   "options": [
+    "La maison de ton prochain",
+    "La femme de ton prochain",
+    "Le serviteur",
+    "Le bœuf"
+   ],
+   "explain": "« Tu ne convoiteras point la maison de ton prochain… » (Exode 20:17)"
+  },
+  "en": {
+   "q": "In Exodus, what is named first among things not to covet?",
+   "options": [
+    "Your neighbor’s house",
+    "Your neighbor’s wife",
+    "The servant",
+    "The ox"
+   ],
+   "explain": "“You shall not covet your neighbor’s house…” (Exodus 20:17)"
+  }
+ },
+ {
+  "id": "morality-hard-008",
+  "ref": {
+   "fr": "Deutéronome 5:21",
+   "en": "Deuteronomy 5:21"
+  },
+  "fr": {
+   "q": "Dans le Deutéronome, qu’est-il nommé en premier à ne pas convoiter ?",
+   "options": [
+    "La femme de ton prochain",
+    "La maison de ton prochain",
+    "Le champ",
+    "L’âne"
+   ],
+   "explain": "« Tu ne convoiteras point la femme de ton prochain. » (Deutéronome 5:21)"
+  },
+  "en": {
+   "q": "In Deuteronomy, what is named first among things not to covet?",
+   "options": [
+    "Your neighbor’s wife",
+    "Your neighbor’s house",
+    "The field",
+    "The donkey"
+   ],
+   "explain": "“You shall not covet your neighbor’s wife.” (Deuteronomy 5:21)"
+  }
+ },
+ {
+  "id": "morality-hard-009",
+  "ref": {
+   "fr": "Exode 20:12",
+   "en": "Exodus 20:12"
+  },
+  "fr": {
+   "q": "Quel rang occupe « Honore ton père et ta mère » dans le Décalogue ?",
+   "options": [
+    "Le cinquième",
+    "Le quatrième",
+    "Le sixième",
+    "Le premier"
+   ],
+   "explain": "Le cinquième commandement dit d’honorer son père et sa mère. (Exode 20:12)"
+  },
+  "en": {
+   "q": "What place does “Honor your father and mother” hold in the Decalogue?",
+   "options": [
+    "The fifth",
+    "The fourth",
+    "The sixth",
+    "The first"
+   ],
+   "explain": "The fifth commandment tells us to honor father and mother. (Exodus 20:12)"
+  }
+ },
+ {
+  "id": "morality-hard-010",
+  "ref": {
+   "fr": "Deutéronome 5:16",
+   "en": "Deuteronomy 5:16"
+  },
+  "fr": {
+   "q": "Quelle promesse le Deutéronome ajoute-t-il à la longévité pour qui honore ses parents ?",
+   "options": [
+    "Que tu sois heureux",
+    "La richesse",
+    "La victoire",
+    "Une grande descendance"
+   ],
+   "explain": "« …afin que tes jours se prolongent et que tu sois heureux. » (Deutéronome 5:16)"
+  },
+  "en": {
+   "q": "What promise does Deuteronomy add to long life for honoring parents?",
+   "options": [
+    "That it may go well with you",
+    "Riches",
+    "Victory",
+    "Many descendants"
+   ],
+   "explain": "“…that your days may be prolonged and that it may go well with you.” (Deuteronomy 5:16)"
+  }
+ },
+ {
+  "id": "morality-hard-011",
+  "ref": {
+   "fr": "Exode 20:13-14",
+   "en": "Exodus 20:13-14"
+  },
+  "fr": {
+   "q": "Quel commandement suit immédiatement « Tu ne tueras point » ?",
+   "options": [
+    "Tu ne commettras point d’adultère",
+    "Tu ne déroberas point",
+    "Tu ne mentiras point",
+    "Tu ne convoiteras point"
+   ],
+   "explain": "Après « Tu ne tueras point » vient « Tu ne commettras point d’adultère ». (Exode 20:13-14)"
+  },
+  "en": {
+   "q": "Which commandment comes right after “You shall not kill”?",
+   "options": [
+    "You shall not commit adultery",
+    "You shall not steal",
+    "You shall not lie",
+    "You shall not covet"
+   ],
+   "explain": "After “You shall not kill” comes “You shall not commit adultery.” (Exodus 20:13-14)"
+  }
+ },
+ {
+  "id": "morality-hard-012",
+  "ref": {
+   "fr": "Exode 20:15-16",
+   "en": "Exodus 20:15-16"
+  },
+  "fr": {
+   "q": "Quel commandement suit immédiatement « Tu ne déroberas point » ?",
+   "options": [
+    "Tu ne porteras point de faux témoignage",
+    "Tu ne convoiteras point",
+    "Tu ne tueras point",
+    "Tu ne commettras point d’adultère"
+   ],
+   "explain": "Après « Tu ne déroberas point » vient le faux témoignage. (Exode 20:15-16)"
+  },
+  "en": {
+   "q": "Which commandment comes right after “You shall not steal”?",
+   "options": [
+    "You shall not bear false witness",
+    "You shall not covet",
+    "You shall not kill",
+    "You shall not commit adultery"
+   ],
+   "explain": "After “You shall not steal” comes “You shall not bear false witness.” (Exodus 20:15-16)"
+  }
+ },
+ {
+  "id": "morality-hard-013",
+  "ref": {
+   "fr": "Galates 5:22",
+   "en": "Galatians 5:22"
+  },
+  "fr": {
+   "q": "Quel fruit de l’Esprit vient juste après « l’amour, la joie » ?",
+   "options": [
+    "La paix",
+    "La patience",
+    "La bonté",
+    "La fidélité"
+   ],
+   "explain": "« …l’amour, la joie, la paix, la patience… » (Galates 5:22)"
+  },
+  "en": {
+   "q": "Which fruit of the Spirit comes right after “love, joy”?",
+   "options": [
+    "Peace",
+    "Patience",
+    "Kindness",
+    "Faithfulness"
+   ],
+   "explain": "“…love, joy, peace, patience…” (Galatians 5:22)"
+  }
+ },
+ {
+  "id": "morality-hard-014",
+  "ref": {
+   "fr": "Galates 5:22",
+   "en": "Galatians 5:22"
+  },
+  "fr": {
+   "q": "Dans la liste de Paul, quel fruit suit « la paix » ?",
+   "options": [
+    "La patience",
+    "La joie",
+    "La bonté",
+    "La douceur"
+   ],
+   "explain": "« …la paix, la patience, la bonté… » (Galates 5:22)"
+  },
+  "en": {
+   "q": "In Paul’s list, which fruit follows “peace”?",
+   "options": [
+    "Patience",
+    "Joy",
+    "Kindness",
+    "Gentleness"
+   ],
+   "explain": "“…peace, patience, kindness…” (Galatians 5:22)"
+  }
+ },
+ {
+  "id": "morality-hard-015",
+  "ref": {
+   "fr": "Galates 5:22-23",
+   "en": "Galatians 5:22-23"
+  },
+  "fr": {
+   "q": "Quel est le dernier fruit de l’Esprit nommé par Paul ?",
+   "options": [
+    "La tempérance",
+    "La fidélité",
+    "La douceur",
+    "L’amour"
+   ],
+   "explain": "La liste se termine par « …la douceur, la tempérance ». (Galates 5:22-23)"
+  },
+  "en": {
+   "q": "What is the last fruit of the Spirit Paul names?",
+   "options": [
+    "Self-control",
+    "Faithfulness",
+    "Gentleness",
+    "Love"
+   ],
+   "explain": "The list ends “…gentleness, self-control.” (Galatians 5:22-23)"
+  }
+ },
+ {
+  "id": "morality-hard-016",
+  "ref": {
+   "fr": "Galates 5:23",
+   "en": "Galatians 5:23"
+  },
+  "fr": {
+   "q": "Quel fruit précède immédiatement la tempérance ?",
+   "options": [
+    "La douceur",
+    "La fidélité",
+    "La bonté",
+    "La paix"
+   ],
+   "explain": "« …la douceur, la tempérance. » (Galates 5:23)"
+  },
+  "en": {
+   "q": "Which fruit comes immediately before self-control?",
+   "options": [
+    "Gentleness",
+    "Faithfulness",
+    "Kindness",
+    "Peace"
+   ],
+   "explain": "“…gentleness, self-control.” (Galatians 5:23)"
+  }
+ },
+ {
+  "id": "morality-hard-017",
+  "ref": {
+   "fr": "Galates 5:22-23",
+   "en": "Galatians 5:22-23"
+  },
+  "fr": {
+   "q": "Combien de vertus composent le fruit de l’Esprit selon Paul ?",
+   "options": [
+    "Neuf",
+    "Sept",
+    "Douze",
+    "Trois"
+   ],
+   "explain": "Paul énumère neuf vertus, de l’amour à la tempérance. (Galates 5:22-23)"
+  },
+  "en": {
+   "q": "How many virtues make up the fruit of the Spirit per Paul?",
+   "options": [
+    "Nine",
+    "Seven",
+    "Twelve",
+    "Three"
+   ],
+   "explain": "Paul lists nine virtues, from love to self-control. (Galatians 5:22-23)"
+  }
+ },
+ {
+  "id": "morality-hard-018",
+  "ref": {
+   "fr": "Galates 5:22",
+   "en": "Galatians 5:22"
+  },
+  "fr": {
+   "q": "Dans la liste de Paul, quelle vertu vient juste après la patience ?",
+   "options": [
+    "La bonté",
+    "La paix",
+    "La fidélité",
+    "La joie"
+   ],
+   "explain": "« …la patience, la bonté, la bénignité… » (Galates 5:22)"
+  },
+  "en": {
+   "q": "In Paul’s list, which virtue comes right after patience?",
+   "options": [
+    "Kindness",
+    "Peace",
+    "Faithfulness",
+    "Joy"
+   ],
+   "explain": "“…patience, kindness, goodness…” (Galatians 5:22)"
+  }
+ },
+ {
+  "id": "morality-hard-019",
+  "ref": {
+   "fr": "Galates 5:19-23",
+   "en": "Galatians 5:19-23"
+  },
+  "fr": {
+   "q": "Laquelle NE figure PAS parmi les œuvres de la chair ?",
+   "options": [
+    "La maîtrise de soi",
+    "L’impudicité",
+    "L’idolâtrie",
+    "Les querelles"
+   ],
+   "explain": "La maîtrise de soi est un fruit de l’Esprit, non une œuvre de la chair. (Galates 5:19-23)"
+  },
+  "en": {
+   "q": "Which is NOT among the works of the flesh?",
+   "options": [
+    "Self-control",
+    "Sexual immorality",
+    "Idolatry",
+    "Strife"
+   ],
+   "explain": "Self-control is a fruit of the Spirit, not a work of the flesh. (Galatians 5:19-23)"
+  }
+ },
+ {
+  "id": "morality-hard-020",
+  "ref": {
+   "fr": "Galates 5:21",
+   "en": "Galatians 5:21"
+  },
+  "fr": {
+   "q": "Quel avertissement Paul donne-t-il à ceux qui pratiquent les œuvres de la chair ?",
+   "options": [
+    "Ils n’hériteront pas le royaume de Dieu",
+    "Ils seront riches",
+    "Ils vivront longtemps",
+    "Ils seront honorés"
+   ],
+   "explain": "« Ceux qui commettent de telles choses n’hériteront point le royaume de Dieu. » (Galates 5:21)"
+  },
+  "en": {
+   "q": "What warning does Paul give those who practice the works of the flesh?",
+   "options": [
+    "They will not inherit God’s kingdom",
+    "They will be rich",
+    "They will live long",
+    "They will be honored"
+   ],
+   "explain": "“Those who do such things will not inherit the kingdom of God.” (Galatians 5:21)"
+  }
+ },
+ {
+  "id": "morality-hard-021",
+  "ref": {
+   "fr": "Proverbes 6:16",
+   "en": "Proverbs 6:16"
+  },
+  "fr": {
+   "q": "Combien de choses l’Éternel a-t-il en horreur selon ce passage ?",
+   "options": [
+    "Sept",
+    "Six",
+    "Dix",
+    "Trois"
+   ],
+   "explain": "« Il y a six choses que hait l’Éternel, et même sept qu’il a en horreur. » (Proverbes 6:16)"
+  },
+  "en": {
+   "q": "How many things are an abomination to the LORD in this passage?",
+   "options": [
+    "Seven",
+    "Six",
+    "Ten",
+    "Three"
+   ],
+   "explain": "“There are six things the LORD hates, seven that are an abomination.” (Proverbs 6:16)"
+  }
+ },
+ {
+  "id": "morality-hard-022",
+  "ref": {
+   "fr": "Proverbes 6:17",
+   "en": "Proverbs 6:17"
+  },
+  "fr": {
+   "q": "Qu’est-ce qui est nommé en premier parmi ce que l’Éternel hait ?",
+   "options": [
+    "Les yeux hautains",
+    "La langue menteuse",
+    "Les mains violentes",
+    "Le faux témoin"
+   ],
+   "explain": "La liste commence par « les yeux hautains ». (Proverbes 6:17)"
+  },
+  "en": {
+   "q": "What is named first among the things the LORD hates?",
+   "options": [
+    "Haughty eyes",
+    "A lying tongue",
+    "Violent hands",
+    "A false witness"
+   ],
+   "explain": "The list begins with “haughty eyes.” (Proverbs 6:17)"
+  }
+ },
+ {
+  "id": "morality-hard-023",
+  "ref": {
+   "fr": "Proverbes 6:19",
+   "en": "Proverbs 6:19"
+  },
+  "fr": {
+   "q": "Quelle est la septième chose en abomination selon ce passage ?",
+   "options": [
+    "Celui qui sème la discorde entre frères",
+    "Le faux témoin",
+    "La langue menteuse",
+    "Les yeux hautains"
+   ],
+   "explain": "La septième est « celui qui excite des querelles entre frères ». (Proverbes 6:19)"
+  },
+  "en": {
+   "q": "What is the seventh abomination in this passage?",
+   "options": [
+    "One who sows discord among brothers",
+    "A false witness",
+    "A lying tongue",
+    "Haughty eyes"
+   ],
+   "explain": "The seventh is “one who sows discord among brothers.” (Proverbs 6:19)"
+  }
+ },
+ {
+  "id": "morality-hard-024",
+  "ref": {
+   "fr": "Proverbes 6:17",
+   "en": "Proverbs 6:17"
+  },
+  "fr": {
+   "q": "Quelles mains l’Éternel hait-il selon ce passage ?",
+   "options": [
+    "Les mains qui répandent le sang innocent",
+    "Les mains oisives",
+    "Les mains vides",
+    "Les mains ridées"
+   ],
+   "explain": "« …les mains qui répandent le sang innocent. » (Proverbes 6:17)"
+  },
+  "en": {
+   "q": "What hands does the LORD hate in this passage?",
+   "options": [
+    "Hands that shed innocent blood",
+    "Idle hands",
+    "Empty hands",
+    "Wrinkled hands"
+   ],
+   "explain": "“…hands that shed innocent blood.” (Proverbs 6:17)"
+  }
+ },
+ {
+  "id": "morality-hard-025",
+  "ref": {
+   "fr": "Proverbes 6:18",
+   "en": "Proverbs 6:18"
+  },
+  "fr": {
+   "q": "Quels pieds sont nommés parmi ce que hait l’Éternel ?",
+   "options": [
+    "Les pieds qui courent au mal",
+    "Les pieds nus",
+    "Les pieds boiteux",
+    "Les pieds lents"
+   ],
+   "explain": "« …les pieds qui se hâtent de courir au mal. » (Proverbes 6:18)"
+  },
+  "en": {
+   "q": "What feet are named among what the LORD hates?",
+   "options": [
+    "Feet quick to run to evil",
+    "Bare feet",
+    "Lame feet",
+    "Slow feet"
+   ],
+   "explain": "“…feet that make haste to run to evil.” (Proverbs 6:18)"
+  }
+ },
+ {
+  "id": "morality-hard-026",
+  "ref": {
+   "fr": "Matthieu 5:10",
+   "en": "Matthew 5:10"
+  },
+  "fr": {
+   "q": "Selon la béatitude, à qui appartient le royaume pour cause de justice ?",
+   "options": [
+    "Aux persécutés pour la justice",
+    "Aux riches",
+    "Aux savants",
+    "Aux puissants"
+   ],
+   "explain": "« Heureux ceux qui sont persécutés pour la justice : le royaume est à eux ! » (Matthieu 5:10)"
+  },
+  "en": {
+   "q": "By the beatitude, to whom belongs the kingdom for righteousness’ sake?",
+   "options": [
+    "The persecuted for righteousness",
+    "The rich",
+    "The learned",
+    "The powerful"
+   ],
+   "explain": "“Blessed are those persecuted for righteousness, theirs is the kingdom.” (Matthew 5:10)"
+  }
+ },
+ {
+  "id": "morality-hard-027",
+  "ref": {
+   "fr": "Matthieu 5:12",
+   "en": "Matthew 5:12"
+  },
+  "fr": {
+   "q": "Quelle récompense Jésus promet-il aux persécutés ?",
+   "options": [
+    "Une grande récompense dans les cieux",
+    "Une récompense sur la terre",
+    "De l’argent",
+    "Des honneurs"
+   ],
+   "explain": "« Réjouissez-vous… car votre récompense sera grande dans les cieux. » (Matthieu 5:12)"
+  },
+  "en": {
+   "q": "What reward does Jesus promise the persecuted?",
+   "options": [
+    "A great reward in heaven",
+    "A reward on earth",
+    "Money",
+    "Honors"
+   ],
+   "explain": "“Rejoice… for great is your reward in heaven.” (Matthew 5:12)"
+  }
+ },
+ {
+  "id": "morality-hard-028",
+  "ref": {
+   "fr": "Matthieu 5:11",
+   "en": "Matthew 5:11"
+  },
+  "fr": {
+   "q": "Pour quelle cause Jésus dit-il heureux ceux qu’on outrage ?",
+   "options": [
+    "À cause de lui (de Christ)",
+    "À cause de leur richesse",
+    "À cause de leur sagesse",
+    "À cause de leur force"
+   ],
+   "explain": "« Heureux serez-vous, lorsqu’on vous outragera… à cause de moi. » (Matthieu 5:11)"
+  },
+  "en": {
+   "q": "For what cause does Jesus call blessed those who are reviled?",
+   "options": [
+    "For his sake (for Christ)",
+    "For their wealth",
+    "For their wisdom",
+    "For their strength"
+   ],
+   "explain": "“Blessed are you when men revile you… for my sake.” (Matthew 5:11)"
+  }
+ },
+ {
+  "id": "morality-hard-029",
+  "ref": {
+   "fr": "Matthieu 5:28",
+   "en": "Matthew 5:28"
+  },
+  "fr": {
+   "q": "Selon Jésus, regarder une femme avec convoitise, c’est déjà quoi ?",
+   "options": [
+    "Commettre l’adultère dans son cœur",
+    "Un simple regard sans faute",
+    "Un péché léger",
+    "Une pensée innocente"
+   ],
+   "explain": "« Quiconque regarde une femme pour la convoiter a déjà commis l’adultère dans son cœur. » (Matthieu 5:28)"
+  },
+  "en": {
+   "q": "By Jesus, looking at a woman with lust is already what?",
+   "options": [
+    "Adultery in the heart",
+    "A harmless glance",
+    "A minor fault",
+    "An innocent thought"
+   ],
+   "explain": "“Whoever looks at a woman to lust has committed adultery in his heart.” (Matthew 5:28)"
+  }
+ },
+ {
+  "id": "morality-hard-030",
+  "ref": {
+   "fr": "Matthieu 5:32",
+   "en": "Matthew 5:32"
+  },
+  "fr": {
+   "q": "Pour quel seul motif Jésus admet-il la répudiation en Matthieu 5 ?",
+   "options": [
+    "L’infidélité (la fornication)",
+    "La pauvreté",
+    "La maladie",
+    "La stérilité"
+   ],
+   "explain": "« …si ce n’est pour cause d’infidélité. » (Matthieu 5:32)"
+  },
+  "en": {
+   "q": "For what sole cause does Jesus allow divorce in Matthew 5?",
+   "options": [
+    "Sexual immorality",
+    "Poverty",
+    "Sickness",
+    "Barrenness"
+   ],
+   "explain": "“…except for the cause of sexual immorality.” (Matthew 5:32)"
+  }
+ },
+ {
+  "id": "morality-hard-031",
+  "ref": {
+   "fr": "Matthieu 5:34",
+   "en": "Matthew 5:34"
+  },
+  "fr": {
+   "q": "Que Jésus enseigne-t-il au sujet des serments ?",
+   "options": [
+    "Ne jurer aucunement",
+    "Jurer par le ciel",
+    "Jurer par le temple",
+    "Jurer avec prudence"
+   ],
+   "explain": "« Mais moi, je vous dis de ne jurer aucunement. » (Matthieu 5:34)"
+  },
+  "en": {
+   "q": "What does Jesus teach about oaths?",
+   "options": [
+    "Do not swear at all",
+    "Swear by heaven",
+    "Swear by the temple",
+    "Swear cautiously"
+   ],
+   "explain": "“But I tell you, do not swear at all.” (Matthew 5:34)"
+  }
+ },
+ {
+  "id": "morality-hard-032",
+  "ref": {
+   "fr": "Matthieu 5:35",
+   "en": "Matthew 5:35"
+  },
+  "fr": {
+   "q": "Par quoi Jésus interdit-il de jurer, la nommant marchepied de Dieu ?",
+   "options": [
+    "La terre",
+    "Le ciel",
+    "Jérusalem",
+    "Le temple"
+   ],
+   "explain": "« …ni par la terre, parce que c’est son marchepied. » (Matthieu 5:35)"
+  },
+  "en": {
+   "q": "By what does Jesus forbid swearing, calling it God’s footstool?",
+   "options": [
+    "The earth",
+    "Heaven",
+    "Jerusalem",
+    "The temple"
+   ],
+   "explain": "“…nor by the earth, for it is his footstool.” (Matthew 5:35)"
+  }
+ },
+ {
+  "id": "morality-hard-033",
+  "ref": {
+   "fr": "Matthieu 5:34",
+   "en": "Matthew 5:34"
+  },
+  "fr": {
+   "q": "Pourquoi Jésus dit-il de ne pas jurer par le ciel ?",
+   "options": [
+    "C’est le trône de Dieu",
+    "C’est trop lointain",
+    "C’est trop sacré",
+    "Il est vide"
+   ],
+   "explain": "« …ni par le ciel, parce que c’est le trône de Dieu. » (Matthieu 5:34)"
+  },
+  "en": {
+   "q": "Why does Jesus say not to swear by heaven?",
+   "options": [
+    "It is God’s throne",
+    "It is too far",
+    "It is too holy",
+    "It is empty"
+   ],
+   "explain": "“…not by heaven, for it is God’s throne.” (Matthew 5:34)"
+  }
+ },
+ {
+  "id": "morality-hard-034",
+  "ref": {
+   "fr": "Matthieu 5:35",
+   "en": "Matthew 5:35"
+  },
+  "fr": {
+   "q": "Comment Jésus qualifie-t-il Jérusalem en défendant d’en jurer ?",
+   "options": [
+    "La ville du grand roi",
+    "La ville sainte",
+    "La ville de David",
+    "La ville de paix"
+   ],
+   "explain": "« …ni par Jérusalem, parce que c’est la ville du grand roi. » (Matthieu 5:35)"
+  },
+  "en": {
+   "q": "How does Jesus describe Jerusalem when forbidding oaths by it?",
+   "options": [
+    "The city of the great King",
+    "The holy city",
+    "The city of David",
+    "The city of peace"
+   ],
+   "explain": "“…nor by Jerusalem, for it is the city of the great King.” (Matthew 5:35)"
+  }
+ },
+ {
+  "id": "morality-hard-035",
+  "ref": {
+   "fr": "Matthieu 5:38",
+   "en": "Matthew 5:38"
+  },
+  "fr": {
+   "q": "Quelle ancienne parole Jésus cite-t-il avant d’enseigner à ne pas résister au méchant ?",
+   "options": [
+    "Œil pour œil, dent pour dent",
+    "Aime ton prochain",
+    "Ne tue point",
+    "Rends le bien pour le bien"
+   ],
+   "explain": "« Vous avez appris qu’il a été dit : œil pour œil, dent pour dent. » (Matthieu 5:38)"
+  },
+  "en": {
+   "q": "What old saying does Jesus cite before teaching not to resist the evildoer?",
+   "options": [
+    "Eye for eye, tooth for tooth",
+    "Love your neighbor",
+    "Do not kill",
+    "Repay good for good"
+   ],
+   "explain": "“You have heard it said: eye for eye, tooth for tooth.” (Matthew 5:38)"
+  }
+ },
+ {
+  "id": "morality-hard-036",
+  "ref": {
+   "fr": "Matthieu 19:8",
+   "en": "Matthew 19:8"
+  },
+  "fr": {
+   "q": "Pourquoi Moïse a-t-il permis la répudiation, selon Jésus ?",
+   "options": [
+    "À cause de la dureté du cœur",
+    "Par ordre de Dieu",
+    "À cause d’une loi ancienne",
+    "Pour préserver la paix"
+   ],
+   "explain": "« C’est à cause de la dureté de votre cœur que Moïse vous a permis de répudier. » (Matthieu 19:8)"
+  },
+  "en": {
+   "q": "Why did Moses permit divorce, according to Jesus?",
+   "options": [
+    "Because of hardness of heart",
+    "By God’s command",
+    "Because of an old law",
+    "To keep the peace"
+   ],
+   "explain": "“For your hardness of heart Moses allowed you to divorce.” (Matthew 19:8)"
+  }
+ },
+ {
+  "id": "morality-hard-037",
+  "ref": {
+   "fr": "Marc 2:27",
+   "en": "Mark 2:27"
+  },
+  "fr": {
+   "q": "Selon Jésus, pour qui le sabbat a-t-il été fait ?",
+   "options": [
+    "Pour l’homme",
+    "Pour Dieu",
+    "Pour les prêtres",
+    "Pour les anges"
+   ],
+   "explain": "« Le sabbat a été fait pour l’homme, et non l’homme pour le sabbat. » (Marc 2:27)"
+  },
+  "en": {
+   "q": "According to Jesus, for whom was the Sabbath made?",
+   "options": [
+    "For man",
+    "For God",
+    "For the priests",
+    "For the angels"
+   ],
+   "explain": "“The Sabbath was made for man, not man for the Sabbath.” (Mark 2:27)"
+  }
+ },
+ {
+  "id": "morality-hard-038",
+  "ref": {
+   "fr": "Marc 3:4",
+   "en": "Mark 3:4"
+  },
+  "fr": {
+   "q": "Que Jésus demande-t-il qu’il est permis de faire le jour du sabbat ?",
+   "options": [
+    "Faire du bien et sauver une vie",
+    "Se reposer seulement",
+    "Jeûner",
+    "Garder le silence"
+   ],
+   "explain": "« Est-il permis, le jour du sabbat, de faire du bien… de sauver une personne ? » (Marc 3:4)"
+  },
+  "en": {
+   "q": "What does Jesus ask is lawful to do on the Sabbath?",
+   "options": [
+    "To do good and save a life",
+    "Only to rest",
+    "To fast",
+    "To keep silent"
+   ],
+   "explain": "“Is it lawful on the Sabbath to do good… to save a life?” (Mark 3:4)"
+  }
+ },
+ {
+  "id": "morality-hard-039",
+  "ref": {
+   "fr": "Matthieu 12:11",
+   "en": "Matthew 12:11"
+  },
+  "fr": {
+   "q": "Quel exemple Jésus donne-t-il pour justifier le bien le jour du sabbat ?",
+   "options": [
+    "Retirer une brebis tombée dans une fosse",
+    "Allumer un feu",
+    "Moissonner un champ",
+    "Bâtir une maison"
+   ],
+   "explain": "« Qui de vous… ne saisira pas sa brebis tombée dans une fosse un jour de sabbat ? » (Matthieu 12:11)"
+  },
+  "en": {
+   "q": "What example does Jesus give to justify good on the Sabbath?",
+   "options": [
+    "Lifting a sheep fallen in a pit",
+    "Lighting a fire",
+    "Reaping a field",
+    "Building a house"
+   ],
+   "explain": "“Who of you… will not lift out a sheep fallen into a pit on the Sabbath?” (Matthew 12:11)"
+  }
+ },
+ {
+  "id": "morality-hard-040",
+  "ref": {
+   "fr": "Luc 13:16",
+   "en": "Luke 13:16"
+  },
+  "fr": {
+   "q": "Qui Jésus estime-t-il juste de délier le jour du sabbat ?",
+   "options": [
+    "Cette femme, fille d’Abraham",
+    "Un prêtre fatigué",
+    "Un lévite",
+    "Un Pharisien"
+   ],
+   "explain": "« Cette femme, fille d’Abraham… ne fallait-il pas la délivrer le jour du sabbat ? » (Luc 13:16)"
+  },
+  "en": {
+   "q": "Whom does Jesus judge right to loose on the Sabbath?",
+   "options": [
+    "This woman, a daughter of Abraham",
+    "A tired priest",
+    "A Levite",
+    "A Pharisee"
+   ],
+   "explain": "“This woman, a daughter of Abraham… should she not be freed on the Sabbath?” (Luke 13:16)"
+  }
+ },
+ {
+  "id": "morality-hard-041",
+  "ref": {
+   "fr": "Exode 21:2",
+   "en": "Exodus 21:2"
+  },
+  "fr": {
+   "q": "Combien d’années un serviteur hébreu sert-il avant d’être libre ?",
+   "options": [
+    "Six ans, libre la septième",
+    "Sept ans, libre la huitième",
+    "Trois ans",
+    "Dix ans"
+   ],
+   "explain": "« Il servira six ans ; la septième, il sortira libre. » (Exode 21:2)"
+  },
+  "en": {
+   "q": "How many years does a Hebrew servant serve before going free?",
+   "options": [
+    "Six years, free the seventh",
+    "Seven years, free the eighth",
+    "Three years",
+    "Ten years"
+   ],
+   "explain": "“He shall serve six years; in the seventh he shall go free.” (Exodus 21:2)"
+  }
+ },
+ {
+  "id": "morality-hard-042",
+  "ref": {
+   "fr": "Exode 21:24",
+   "en": "Exodus 21:24"
+  },
+  "fr": {
+   "q": "Quelle loi du talion l’Exode énonce-t-il ?",
+   "options": [
+    "Œil pour œil, dent pour dent",
+    "La vie sauve pour tous",
+    "Le pardon obligatoire",
+    "Le double en argent"
+   ],
+   "explain": "« Œil pour œil, dent pour dent, main pour main, pied pour pied. » (Exode 21:24)"
+  },
+  "en": {
+   "q": "What law of retribution does Exodus state?",
+   "options": [
+    "Eye for eye, tooth for tooth",
+    "Life spared for all",
+    "Compulsory pardon",
+    "Double in silver"
+   ],
+   "explain": "“Eye for eye, tooth for tooth, hand for hand, foot for foot.” (Exodus 21:24)"
+  }
+ },
+ {
+  "id": "morality-hard-043",
+  "ref": {
+   "fr": "Exode 21:16",
+   "en": "Exodus 21:16"
+  },
+  "fr": {
+   "q": "Quel sort la loi réserve-t-elle à celui qui vole un homme ?",
+   "options": [
+    "Il sera puni de mort",
+    "Une simple amende",
+    "L’exil",
+    "La prison"
+   ],
+   "explain": "« Celui qui dérobera un homme… sera puni de mort. » (Exode 21:16)"
+  },
+  "en": {
+   "q": "What penalty does the law set for one who kidnaps a man?",
+   "options": [
+    "He shall be put to death",
+    "A mere fine",
+    "Exile",
+    "Prison"
+   ],
+   "explain": "“He who kidnaps a man… shall surely be put to death.” (Exodus 21:16)"
+  }
+ },
+ {
+  "id": "morality-hard-044",
+  "ref": {
+   "fr": "Exode 21:37",
+   "en": "Exodus 22:1"
+  },
+  "fr": {
+   "q": "Combien de bœufs faut-il rendre pour un bœuf volé et égorgé ?",
+   "options": [
+    "Cinq bœufs",
+    "Deux bœufs",
+    "Quatre bœufs",
+    "Dix bœufs"
+   ],
+   "explain": "« Il restituera cinq bœufs pour le bœuf. » (Exode 21:37)"
+  },
+  "en": {
+   "q": "How many oxen must be repaid for a stolen ox that is slaughtered?",
+   "options": [
+    "Five oxen",
+    "Two oxen",
+    "Four oxen",
+    "Ten oxen"
+   ],
+   "explain": "“He shall restore five oxen for an ox.” (Exodus 22:1)"
+  }
+ },
+ {
+  "id": "morality-hard-045",
+  "ref": {
+   "fr": "Exode 21:37",
+   "en": "Exodus 22:1"
+  },
+  "fr": {
+   "q": "Combien d’agneaux faut-il rendre pour un agneau volé et égorgé ?",
+   "options": [
+    "Quatre agneaux",
+    "Deux agneaux",
+    "Cinq agneaux",
+    "Sept agneaux"
+   ],
+   "explain": "« …et quatre agneaux pour l’agneau. » (Exode 21:37)"
+  },
+  "en": {
+   "q": "How many sheep must be repaid for a stolen sheep that is slaughtered?",
+   "options": [
+    "Four sheep",
+    "Two sheep",
+    "Five sheep",
+    "Seven sheep"
+   ],
+   "explain": "“…and four sheep for a sheep.” (Exodus 22:1)"
+  }
+ },
+ {
+  "id": "morality-hard-046",
+  "ref": {
+   "fr": "Exode 22:21",
+   "en": "Exodus 22:22"
+  },
+  "fr": {
+   "q": "Qui la loi défend-elle particulièrement d’affliger ?",
+   "options": [
+    "La veuve et l’orphelin",
+    "Le riche",
+    "Le roi",
+    "Le prêtre"
+   ],
+   "explain": "« Tu n’affligeras point la veuve, ni l’orphelin. » (Exode 22:21)"
+  },
+  "en": {
+   "q": "Whom does the law especially forbid afflicting?",
+   "options": [
+    "The widow and the orphan",
+    "The rich",
+    "The king",
+    "The priest"
+   ],
+   "explain": "“You shall not afflict any widow or fatherless child.” (Exodus 22:22)"
+  }
+ },
+ {
+  "id": "morality-hard-047",
+  "ref": {
+   "fr": "Exode 22:24",
+   "en": "Exodus 22:25"
+  },
+  "fr": {
+   "q": "Que la loi interdit-elle quand on prête au pauvre ?",
+   "options": [
+    "Exiger un intérêt (l’usure)",
+    "Donner en secret",
+    "Donner peu",
+    "Refuser un gage"
+   ],
+   "explain": "« Tu n’exigeras de lui point d’intérêt. » (Exode 22:24)"
+  },
+  "en": {
+   "q": "What does the law forbid when lending to the poor?",
+   "options": [
+    "Charging interest (usury)",
+    "Giving in secret",
+    "Giving little",
+    "Refusing a pledge"
+   ],
+   "explain": "“You shall not charge him interest.” (Exodus 22:25)"
+  }
+ },
+ {
+  "id": "morality-hard-048",
+  "ref": {
+   "fr": "Exode 22:25",
+   "en": "Exodus 22:26"
+  },
+  "fr": {
+   "q": "Quand faut-il rendre le vêtement pris en gage au prochain ?",
+   "options": [
+    "Avant le coucher du soleil",
+    "Après sept jours",
+    "À la nouvelle lune",
+    "Jamais"
+   ],
+   "explain": "« Tu le lui rendras avant le coucher du soleil. » (Exode 22:25)"
+  },
+  "en": {
+   "q": "When must a neighbor’s garment taken in pledge be returned?",
+   "options": [
+    "Before the sun goes down",
+    "After seven days",
+    "At the new moon",
+    "Never"
+   ],
+   "explain": "“You shall return it to him before the sun goes down.” (Exodus 22:26)"
+  }
+ },
+ {
+  "id": "morality-hard-049",
+  "ref": {
+   "fr": "Exode 23:8",
+   "en": "Exodus 23:8"
+  },
+  "fr": {
+   "q": "Que la loi défend-elle d’accepter, car il aveugle les clairvoyants ?",
+   "options": [
+    "Un présent (un pot-de-vin)",
+    "Un serment",
+    "Un gage",
+    "Un héritage"
+   ],
+   "explain": "« Tu ne recevras point de présent ; car les présents aveuglent. » (Exode 23:8)"
+  },
+  "en": {
+   "q": "What does the law forbid accepting, since it blinds the clear-sighted?",
+   "options": [
+    "A gift (a bribe)",
+    "An oath",
+    "A pledge",
+    "An inheritance"
+   ],
+   "explain": "“You shall take no bribe, for a bribe blinds the clear-sighted.” (Exodus 23:8)"
+  }
+ },
+ {
+  "id": "morality-hard-050",
+  "ref": {
+   "fr": "Exode 23:9",
+   "en": "Exodus 23:9"
+  },
+  "fr": {
+   "q": "Pourquoi ne pas opprimer l’étranger, selon la loi ?",
+   "options": [
+    "Vous avez été étrangers en Égypte",
+    "Il est riche",
+    "Il est fort",
+    "Il est nombreux"
+   ],
+   "explain": "« Vous savez ce qu’éprouve l’étranger, car vous fûtes étrangers en Égypte. » (Exode 23:9)"
+  },
+  "en": {
+   "q": "Why should the stranger not be oppressed, per the law?",
+   "options": [
+    "You were strangers in Egypt",
+    "He is rich",
+    "He is strong",
+    "He is many"
+   ],
+   "explain": "“You know the heart of a stranger, for you were strangers in Egypt.” (Exodus 23:9)"
+  }
+ },
+ {
+  "id": "morality-hard-051",
+  "ref": {
+   "fr": "Exode 23:4",
+   "en": "Exodus 23:4"
+  },
+  "fr": {
+   "q": "Que faut-il faire du bœuf égaré de son ennemi, selon la loi ?",
+   "options": [
+    "Le lui ramener",
+    "Le garder",
+    "Le vendre",
+    "L’abattre"
+   ],
+   "explain": "« Si tu rencontres le bœuf de ton ennemi… tu le lui ramèneras. » (Exode 23:4)"
+  },
+  "en": {
+   "q": "What must be done with an enemy’s stray ox, per the law?",
+   "options": [
+    "Bring it back to him",
+    "Keep it",
+    "Sell it",
+    "Slaughter it"
+   ],
+   "explain": "“If you meet your enemy’s ox going astray, bring it back to him.” (Exodus 23:4)"
+  }
+ },
+ {
+  "id": "morality-hard-052",
+  "ref": {
+   "fr": "Exode 23:1",
+   "en": "Exodus 23:1"
+  },
+  "fr": {
+   "q": "Que la loi défend-elle de répandre au sujet d’autrui ?",
+   "options": [
+    "Un faux bruit",
+    "Du sel",
+    "De l’eau",
+    "Du parfum"
+   ],
+   "explain": "« Tu ne répandras point de faux bruit. » (Exode 23:1)"
+  },
+  "en": {
+   "q": "What does the law forbid spreading about others?",
+   "options": [
+    "A false report",
+    "Salt",
+    "Water",
+    "Perfume"
+   ],
+   "explain": "“You shall not spread a false report.” (Exodus 23:1)"
+  }
+ },
+ {
+  "id": "morality-hard-053",
+  "ref": {
+   "fr": "Exode 21:28",
+   "en": "Exodus 21:28"
+  },
+  "fr": {
+   "q": "Si un bœuf tue un homme, quel sort la loi réserve-t-elle au bœuf ?",
+   "options": [
+    "Il sera lapidé",
+    "Il sera vendu",
+    "Il sera marqué",
+    "Il sera libéré"
+   ],
+   "explain": "« Si un bœuf frappe à mort un homme… le bœuf sera lapidé. » (Exode 21:28)"
+  },
+  "en": {
+   "q": "If an ox kills a man, what does the law do to the ox?",
+   "options": [
+    "It shall be stoned",
+    "It shall be sold",
+    "It shall be branded",
+    "It shall be freed"
+   ],
+   "explain": "“If an ox gores a man to death, the ox shall be stoned.” (Exodus 21:28)"
+  }
+ },
+ {
+  "id": "morality-hard-054",
+  "ref": {
+   "fr": "Éphésiens 5:22",
+   "en": "Ephesians 5:22"
+  },
+  "fr": {
+   "q": "Dans le code domestique de Paul, à qui les femmes se soumettent-elles ?",
+   "options": [
+    "À leurs maris, comme au Seigneur",
+    "Aux anciens",
+    "Aux parents",
+    "Aux voisins"
+   ],
+   "explain": "« Femmes, soyez soumises à vos maris, comme au Seigneur. » (Éphésiens 5:22)"
+  },
+  "en": {
+   "q": "In Paul’s household code, to whom do wives submit?",
+   "options": [
+    "To their husbands, as to the Lord",
+    "To the elders",
+    "To parents",
+    "To neighbors"
+   ],
+   "explain": "“Wives, submit to your husbands, as to the Lord.” (Ephesians 5:22)"
+  }
+ },
+ {
+  "id": "morality-hard-055",
+  "ref": {
+   "fr": "Éphésiens 6:5",
+   "en": "Ephesians 6:5"
+  },
+  "fr": {
+   "q": "À qui les serviteurs doivent-ils obéir, selon le code de Paul ?",
+   "options": [
+    "À leurs maîtres selon la chair",
+    "Aux rois",
+    "Aux prêtres",
+    "Aux étrangers"
+   ],
+   "explain": "« Serviteurs, obéissez à vos maîtres selon la chair. » (Éphésiens 6:5)"
+  },
+  "en": {
+   "q": "Whom must servants obey, in Paul’s code?",
+   "options": [
+    "Their earthly masters",
+    "Kings",
+    "Priests",
+    "Strangers"
+   ],
+   "explain": "“Servants, obey your masters according to the flesh.” (Ephesians 6:5)"
+  }
+ },
+ {
+  "id": "morality-hard-056",
+  "ref": {
+   "fr": "Éphésiens 6:9",
+   "en": "Ephesians 6:9"
+  },
+  "fr": {
+   "q": "Que Paul demande aux maîtres de cesser envers leurs serviteurs ?",
+   "options": [
+    "Les menaces",
+    "Les salaires",
+    "Le repos",
+    "Les ordres"
+   ],
+   "explain": "« Et vous, maîtres… abstenez-vous de menaces. » (Éphésiens 6:9)"
+  },
+  "en": {
+   "q": "What does Paul tell masters to give up toward their servants?",
+   "options": [
+    "Threatening",
+    "Wages",
+    "Rest",
+    "Orders"
+   ],
+   "explain": "“Masters… give up threatening.” (Ephesians 6:9)"
+  }
+ },
+ {
+  "id": "morality-hard-057",
+  "ref": {
+   "fr": "Colossiens 3:22",
+   "en": "Colossians 3:22"
+  },
+  "fr": {
+   "q": "Comment les serviteurs doivent-ils obéir, selon Colossiens ?",
+   "options": [
+    "En simplicité de cœur, craignant le Seigneur",
+    "Seulement sous les yeux du maître",
+    "À contrecœur",
+    "Pour le seul gain"
+   ],
+   "explain": "« Obéissez… en simplicité de cœur, dans la crainte du Seigneur. » (Colossiens 3:22)"
+  },
+  "en": {
+   "q": "How should servants obey, per Colossians?",
+   "options": [
+    "In sincerity of heart, fearing the Lord",
+    "Only under the master’s eye",
+    "Reluctantly",
+    "For gain alone"
+   ],
+   "explain": "“Obey… in sincerity of heart, fearing the Lord.” (Colossians 3:22)"
+  }
+ },
+ {
+  "id": "morality-hard-058",
+  "ref": {
+   "fr": "Tite 2:4",
+   "en": "Titus 2:4"
+  },
+  "fr": {
+   "q": "Qu’enseignent les femmes âgées aux jeunes femmes, selon Paul ?",
+   "options": [
+    "À aimer leurs maris et leurs enfants",
+    "À commander la maison",
+    "À voyager souvent",
+    "À garder le silence"
+   ],
+   "explain": "« …apprendre aux jeunes femmes à aimer leurs maris et leurs enfants. » (Tite 2:4)"
+  },
+  "en": {
+   "q": "What do older women teach the younger women, per Paul?",
+   "options": [
+    "To love their husbands and children",
+    "To rule the house",
+    "To travel often",
+    "To keep silent"
+   ],
+   "explain": "“…train the young women to love their husbands and children.” (Titus 2:4)"
+  }
+ },
+ {
+  "id": "morality-hard-059",
+  "ref": {
+   "fr": "1 Timothée 3:2",
+   "en": "1 Timothy 3:2"
+  },
+  "fr": {
+   "q": "Quelle qualité l’évêque doit-il avoir, selon Paul ?",
+   "options": [
+    "Irréprochable, mari d’une seule femme",
+    "Riche et connu",
+    "Âgé et savant",
+    "Éloquent et fort"
+   ],
+   "explain": "« Il faut que l’évêque soit irréprochable, mari d’une seule femme. » (1 Timothée 3:2)"
+  },
+  "en": {
+   "q": "What quality must the overseer have, per Paul?",
+   "options": [
+    "Blameless, husband of one wife",
+    "Rich and known",
+    "Old and learned",
+    "Eloquent and strong"
+   ],
+   "explain": "“An overseer must be blameless, the husband of one wife.” (1 Timothy 3:2)"
+  }
+ },
+ {
+  "id": "morality-hard-060",
+  "ref": {
+   "fr": "1 Timothée 3:3",
+   "en": "1 Timothy 3:3"
+  },
+  "fr": {
+   "q": "De quoi l’évêque doit-il s’abstenir, selon Paul ?",
+   "options": [
+    "Du vin et de la violence",
+    "Du travail",
+    "Du voyage",
+    "Du mariage"
+   ],
+   "explain": "« …ni adonné au vin, ni violent, mais indulgent. » (1 Timothée 3:3)"
+  },
+  "en": {
+   "q": "What must the overseer abstain from, per Paul?",
+   "options": [
+    "Wine and violence",
+    "Work",
+    "Travel",
+    "Marriage"
+   ],
+   "explain": "“…not given to wine, not violent, but gentle.” (1 Timothy 3:3)"
+  }
+ },
+ {
+  "id": "morality-hard-061",
+  "ref": {
+   "fr": "1 Timothée 3:8",
+   "en": "1 Timothy 3:8"
+  },
+  "fr": {
+   "q": "Comment les diacres doivent-ils être, selon Paul ?",
+   "options": [
+    "Honnêtes, sans duplicité",
+    "Riches et connus",
+    "Éloquents",
+    "Âgés"
+   ],
+   "explain": "« Les diacres aussi doivent être honnêtes, éloignés de la duplicité. » (1 Timothée 3:8)"
+  },
+  "en": {
+   "q": "How must deacons be, per Paul?",
+   "options": [
+    "Honest, not double-tongued",
+    "Rich and known",
+    "Eloquent",
+    "Old"
+   ],
+   "explain": "“Deacons likewise must be dignified, not double-tongued.” (1 Timothy 3:8)"
+  }
+ },
+ {
+  "id": "morality-hard-062",
+  "ref": {
+   "fr": "1 Pierre 2:18",
+   "en": "1 Peter 2:18"
+  },
+  "fr": {
+   "q": "À quels maîtres les serviteurs doivent-ils se soumettre, selon Pierre ?",
+   "options": [
+    "Aux bons comme aux difficiles",
+    "Aux bons seulement",
+    "Aux riches",
+    "Aux justes"
+   ],
+   "explain": "« …non seulement à ceux qui sont bons et doux, mais aussi aux difficiles. » (1 Pierre 2:18)"
+  },
+  "en": {
+   "q": "To which masters must servants submit, per Peter?",
+   "options": [
+    "The good and the harsh alike",
+    "Only the good",
+    "The rich",
+    "The just"
+   ],
+   "explain": "“…not only to the good and gentle, but also to the harsh.” (1 Peter 2:18)"
+  }
+ },
+ {
+  "id": "morality-hard-063",
+  "ref": {
+   "fr": "2 Pierre 1:5",
+   "en": "2 Peter 1:5"
+  },
+  "fr": {
+   "q": "Que faut-il joindre en premier à la foi, selon Pierre ?",
+   "options": [
+    "La vertu",
+    "La richesse",
+    "La force",
+    "Le savoir profane"
+   ],
+   "explain": "« …joignez à votre foi la vertu, et à la vertu la science. » (2 Pierre 1:5)"
+  },
+  "en": {
+   "q": "What must first be added to faith, per Peter?",
+   "options": [
+    "Virtue",
+    "Wealth",
+    "Strength",
+    "Worldly learning"
+   ],
+   "explain": "“…add to your faith virtue, and to virtue knowledge.” (2 Peter 1:5)"
+  }
+ },
+ {
+  "id": "morality-hard-064",
+  "ref": {
+   "fr": "2 Pierre 1:7",
+   "en": "2 Peter 1:7"
+  },
+  "fr": {
+   "q": "Quelle vertu couronne la liste de Pierre après l’affection fraternelle ?",
+   "options": [
+    "La charité (l’amour)",
+    "La crainte",
+    "La richesse",
+    "La gloire"
+   ],
+   "explain": "« …à l’amour fraternel la charité. » (2 Pierre 1:7)"
+  },
+  "en": {
+   "q": "What virtue crowns Peter’s list after brotherly affection?",
+   "options": [
+    "Love (charity)",
+    "Fear",
+    "Wealth",
+    "Glory"
+   ],
+   "explain": "“…and to brotherly affection, love.” (2 Peter 1:7)"
+  }
+ },
+ {
+  "id": "morality-hard-065",
+  "ref": {
+   "fr": "Colossiens 3:8",
+   "en": "Colossians 3:8"
+  },
+  "fr": {
+   "q": "Que Paul dit-il de rejeter, avec la colère et la méchanceté ?",
+   "options": [
+    "La calomnie et les paroles déshonnêtes",
+    "Le travail des mains",
+    "La prière",
+    "Le jeûne"
+   ],
+   "explain": "« …renoncez à la colère, la méchanceté, la calomnie, les paroles déshonnêtes. » (Colossiens 3:8)"
+  },
+  "en": {
+   "q": "What does Paul say to put off, along with anger and malice?",
+   "options": [
+    "Slander and filthy talk",
+    "Work of the hands",
+    "Prayer",
+    "Fasting"
+   ],
+   "explain": "“…put off anger, malice, slander, and filthy talk.” (Colossians 3:8)"
+  }
+ },
+ {
+  "id": "morality-hard-066",
+  "ref": {
+   "fr": "1 Corinthiens 6:10",
+   "en": "1 Corinthians 6:10"
+  },
+  "fr": {
+   "q": "Selon la liste de Paul, qui n’héritera pas le royaume de Dieu ?",
+   "options": [
+    "Ni voleurs, ni ivrognes, ni ravisseurs",
+    "Ni pauvres, ni malades",
+    "Ni étrangers, ni veuves",
+    "Ni enfants, ni vieillards"
+   ],
+   "explain": "« Ni les voleurs, ni les ivrognes… n’hériteront le royaume de Dieu. » (1 Corinthiens 6:10)"
+  },
+  "en": {
+   "q": "By Paul’s list, who will not inherit the kingdom of God?",
+   "options": [
+    "Nor thieves, nor drunkards, nor swindlers",
+    "Nor the poor, nor the sick",
+    "Nor strangers, nor widows",
+    "Nor children, nor the old"
+   ],
+   "explain": "“Nor thieves, nor drunkards, nor swindlers will inherit the kingdom.” (1 Corinthians 6:10)"
+  }
+ },
+ {
+  "id": "morality-hard-067",
+  "ref": {
+   "fr": "1 Corinthiens 13:13",
+   "en": "1 Corinthians 13:13"
+  },
+  "fr": {
+   "q": "Quelle est la plus grande des trois vertus qui demeurent ?",
+   "options": [
+    "La charité (l’amour)",
+    "La foi",
+    "L’espérance",
+    "La connaissance"
+   ],
+   "explain": "« …la foi, l’espérance, la charité ; mais la plus grande, c’est la charité. » (1 Corinthiens 13:13)"
+  },
+  "en": {
+   "q": "Which is the greatest of the three virtues that remain?",
+   "options": [
+    "Love (charity)",
+    "Faith",
+    "Hope",
+    "Knowledge"
+   ],
+   "explain": "“…faith, hope, love; but the greatest of these is love.” (1 Corinthians 13:13)"
+  }
+ },
+ {
+  "id": "morality-hard-068",
+  "ref": {
+   "fr": "Romains 1:29",
+   "en": "Romans 1:29"
+  },
+  "fr": {
+   "q": "De quoi Paul dit-il que les hommes sont remplis dans sa liste des vices ?",
+   "options": [
+    "D’injustice, de méchanceté, de cupidité",
+    "De sagesse et de paix",
+    "De joie et de force",
+    "De crainte et de pudeur"
+   ],
+   "explain": "« …remplis de toute espèce d’injustice, de méchanceté, de cupidité. » (Romains 1:29)"
+  },
+  "en": {
+   "q": "With what does Paul say people are filled in his vice list?",
+   "options": [
+    "Unrighteousness, wickedness, greed",
+    "Wisdom and peace",
+    "Joy and strength",
+    "Fear and modesty"
+   ],
+   "explain": "“…filled with all unrighteousness, wickedness, covetousness.” (Romans 1:29)"
+  }
+ },
+ {
+  "id": "morality-hard-069",
+  "ref": {
+   "fr": "1 Timothée 1:9",
+   "en": "1 Timothy 1:9"
+  },
+  "fr": {
+   "q": "Pour qui la loi est-elle faite, selon Paul ?",
+   "options": [
+    "Pour les méchants et les rebelles",
+    "Pour les justes",
+    "Pour les sages",
+    "Pour les riches"
+   ],
+   "explain": "« La loi n’est pas faite pour le juste, mais pour les méchants et les rebelles. » (1 Timothée 1:9)"
+  },
+  "en": {
+   "q": "For whom is the law made, according to Paul?",
+   "options": [
+    "For the lawless and rebellious",
+    "For the righteous",
+    "For the wise",
+    "For the rich"
+   ],
+   "explain": "“The law is not made for the righteous, but for the lawless and rebellious.” (1 Timothy 1:9)"
+  }
+ },
+ {
+  "id": "morality-hard-070",
+  "ref": {
+   "fr": "Proverbes 3:9",
+   "en": "Proverbs 3:9"
+  },
+  "fr": {
+   "q": "Avec quoi Salomon dit-il d’honorer l’Éternel ?",
+   "options": [
+    "Ses biens et les prémices de son revenu",
+    "Ses paroles",
+    "Ses chants",
+    "Ses jeûnes"
+   ],
+   "explain": "« Honore l’Éternel avec tes biens et les prémices de tout ton revenu. » (Proverbes 3:9)"
+  },
+  "en": {
+   "q": "With what does Solomon say to honor the LORD?",
+   "options": [
+    "Your wealth and the firstfruits",
+    "Your words",
+    "Your songs",
+    "Your fasts"
+   ],
+   "explain": "“Honor the LORD with your wealth and the firstfruits of your produce.” (Proverbs 3:9)"
+  }
+ },
+ {
+  "id": "morality-hard-071",
+  "ref": {
+   "fr": "Proverbes 6:6",
+   "en": "Proverbs 6:6"
+  },
+  "fr": {
+   "q": "Vers quel animal le paresseux est-il envoyé pour devenir sage ?",
+   "options": [
+    "La fourmi",
+    "L’abeille",
+    "Le bœuf",
+    "L’aigle"
+   ],
+   "explain": "« Va vers la fourmi, paresseux ; considère ses voies, et deviens sage. » (Proverbes 6:6)"
+  },
+  "en": {
+   "q": "To which creature is the sluggard sent to become wise?",
+   "options": [
+    "The ant",
+    "The bee",
+    "The ox",
+    "The eagle"
+   ],
+   "explain": "“Go to the ant, you sluggard; consider her ways, and be wise.” (Proverbs 6:6)"
+  }
+ },
+ {
+  "id": "morality-hard-072",
+  "ref": {
+   "fr": "Proverbes 11:1",
+   "en": "Proverbs 11:1"
+  },
+  "fr": {
+   "q": "Qu’est-ce qui est en horreur à l’Éternel dans le commerce ?",
+   "options": [
+    "La balance fausse",
+    "Le prix élevé",
+    "La dette",
+    "L’emprunt"
+   ],
+   "explain": "« La balance fausse est en horreur à l’Éternel. » (Proverbes 11:1)"
+  },
+  "en": {
+   "q": "What is an abomination to the LORD in trade?",
+   "options": [
+    "A false balance",
+    "A high price",
+    "A debt",
+    "A loan"
+   ],
+   "explain": "“A false balance is an abomination to the LORD.” (Proverbs 11:1)"
+  }
+ },
+ {
+  "id": "morality-hard-073",
+  "ref": {
+   "fr": "Proverbes 14:31",
+   "en": "Proverbs 14:31"
+  },
+  "fr": {
+   "q": "Qui outrage son créateur, selon ce proverbe ?",
+   "options": [
+    "Celui qui opprime le pauvre",
+    "Celui qui travaille",
+    "Celui qui prête",
+    "Celui qui donne"
+   ],
+   "explain": "« Opprimer le pauvre, c’est outrager celui qui l’a fait. » (Proverbes 14:31)"
+  },
+  "en": {
+   "q": "Who insults his Maker, according to this proverb?",
+   "options": [
+    "He who oppresses the poor",
+    "He who works",
+    "He who lends",
+    "He who gives"
+   ],
+   "explain": "“Whoever oppresses the poor insults his Maker.” (Proverbs 14:31)"
+  }
+ },
+ {
+  "id": "morality-hard-074",
+  "ref": {
+   "fr": "Proverbes 22:9",
+   "en": "Proverbs 22:9"
+  },
+  "fr": {
+   "q": "Qui sera béni selon ce proverbe sur le regard généreux ?",
+   "options": [
+    "Celui qui a l’œil bienveillant",
+    "Celui qui a l’œil dur",
+    "Celui qui a l’œil fermé",
+    "Celui qui a l’œil jaloux"
+   ],
+   "explain": "« L’homme dont le regard est bienveillant sera béni. » (Proverbes 22:9)"
+  },
+  "en": {
+   "q": "Who will be blessed, per this proverb on a generous eye?",
+   "options": [
+    "He who has a bountiful eye",
+    "He who has a hard eye",
+    "He who has a closed eye",
+    "He who has a jealous eye"
+   ],
+   "explain": "“He who has a generous eye will be blessed.” (Proverbs 22:9)"
+  }
+ },
+ {
+  "id": "morality-hard-075",
+  "ref": {
+   "fr": "Proverbes 24:17",
+   "en": "Proverbs 24:17"
+  },
+  "fr": {
+   "q": "Que défend ce proverbe quand ton ennemi tombe ?",
+   "options": [
+    "Ne pas s’en réjouir",
+    "S’en réjouir",
+    "S’en moquer",
+    "L’oublier"
+   ],
+   "explain": "« Ne te réjouis pas de la chute de ton ennemi. » (Proverbes 24:17)"
+  },
+  "en": {
+   "q": "What does this proverb forbid when your enemy falls?",
+   "options": [
+    "Do not rejoice",
+    "Rejoice",
+    "Mock him",
+    "Forget him"
+   ],
+   "explain": "“Do not rejoice when your enemy falls.” (Proverbs 24:17)"
+  }
+ },
+ {
+  "id": "morality-hard-076",
+  "ref": {
+   "fr": "Proverbes 20:22",
+   "en": "Proverbs 20:22"
+  },
+  "fr": {
+   "q": "Que ce proverbe conseille-t-il de ne pas dire après un tort subi ?",
+   "options": [
+    "Je rendrai le mal",
+    "Je pardonne",
+    "Je me tais",
+    "Je pleure"
+   ],
+   "explain": "« Ne dis pas : Je rendrai le mal. Espère en l’Éternel. » (Proverbes 20:22)"
+  },
+  "en": {
+   "q": "What does this proverb say not to declare after a wrong?",
+   "options": [
+    "I will repay evil",
+    "I forgive",
+    "I stay silent",
+    "I weep"
+   ],
+   "explain": "“Do not say, ‘I will repay evil.’ Wait for the LORD.” (Proverbs 20:22)"
+  }
+ },
+ {
+  "id": "morality-hard-077",
+  "ref": {
+   "fr": "Proverbes 23:10",
+   "en": "Proverbs 23:10"
+  },
+  "fr": {
+   "q": "Quelle borne ce proverbe défend-il de déplacer ?",
+   "options": [
+    "L’ancienne borne, dans le champ des orphelins",
+    "La borne du roi",
+    "La borne du temple",
+    "La borne du marché"
+   ],
+   "explain": "« Ne déplace pas la borne ancienne, et n’entre pas dans le champ des orphelins. » (Proverbes 23:10)"
+  },
+  "en": {
+   "q": "What landmark does this proverb forbid moving?",
+   "options": [
+    "The ancient one, in the orphans’ field",
+    "The king’s landmark",
+    "The temple’s landmark",
+    "The market’s landmark"
+   ],
+   "explain": "“Do not move the ancient landmark or enter the fields of the fatherless.” (Proverbs 23:10)"
+  }
+ },
+ {
+  "id": "morality-hard-078",
+  "ref": {
+   "fr": "Proverbes 28:27",
+   "en": "Proverbs 28:27"
+  },
+  "fr": {
+   "q": "Que n’éprouve pas celui qui donne au pauvre, selon ce proverbe ?",
+   "options": [
+    "La disette (le manque)",
+    "La joie",
+    "La paix",
+    "La gloire"
+   ],
+   "explain": "« Celui qui donne au pauvre n’éprouve pas la disette. » (Proverbes 28:27)"
+  },
+  "en": {
+   "q": "What does the one who gives to the poor not suffer, per this proverb?",
+   "options": [
+    "Lack (want)",
+    "Joy",
+    "Peace",
+    "Glory"
+   ],
+   "explain": "“Whoever gives to the poor will not want.” (Proverbs 28:27)"
+  }
+ },
+ {
+  "id": "morality-hard-079",
+  "ref": {
+   "fr": "Lévitique 19:13",
+   "en": "Leviticus 19:13"
+  },
+  "fr": {
+   "q": "Jusqu’à quand ne pas retenir le salaire du journalier, selon la loi ?",
+   "options": [
+    "Pas jusqu’au lendemain matin",
+    "Pas plus de sept jours",
+    "Pas plus d’un mois",
+    "Pas plus d’un an"
+   ],
+   "explain": "« Le salaire du mercenaire ne restera point chez toi jusqu’au lendemain. » (Lévitique 19:13)"
+  },
+  "en": {
+   "q": "How long may a hired worker’s wages not be withheld, per the law?",
+   "options": [
+    "Not until the next morning",
+    "Not beyond seven days",
+    "Not beyond a month",
+    "Not beyond a year"
+   ],
+   "explain": "“The wages of a hired worker shall not remain with you all night until morning.” (Leviticus 19:13)"
+  }
+ },
+ {
+  "id": "morality-hard-080",
+  "ref": {
+   "fr": "Lévitique 19:32",
+   "en": "Leviticus 19:32"
+  },
+  "fr": {
+   "q": "Devant qui faut-il se lever par respect, selon la loi ?",
+   "options": [
+    "Les cheveux blancs (le vieillard)",
+    "Le riche",
+    "Le prince",
+    "Le prêtre"
+   ],
+   "explain": "« Tu te lèveras devant les cheveux blancs, et tu honoreras le vieillard. » (Lévitique 19:32)"
+  },
+  "en": {
+   "q": "Before whom must one rise in respect, per the law?",
+   "options": [
+    "Gray hair (the aged)",
+    "The rich",
+    "The prince",
+    "The priest"
+   ],
+   "explain": "“You shall rise before the gray head and honor the aged.” (Leviticus 19:32)"
+  }
+ },
+ {
+  "id": "morality-hard-081",
+  "ref": {
+   "fr": "Lévitique 19:9-10",
+   "en": "Leviticus 19:9-10"
+  },
+  "fr": {
+   "q": "Que faut-il laisser au pauvre et à l’étranger dans les champs ?",
+   "options": [
+    "Les bords du champ et la glanure",
+    "La première gerbe",
+    "La dîme entière",
+    "Un agneau"
+   ],
+   "explain": "« Tu laisseras cela au pauvre et à l’étranger. » (Lévitique 19:9-10)"
+  },
+  "en": {
+   "q": "What must be left for the poor and the stranger in the fields?",
+   "options": [
+    "The field’s edges and the gleanings",
+    "The first sheaf",
+    "The whole tithe",
+    "A lamb"
+   ],
+   "explain": "“You shall leave them for the poor and the sojourner.” (Leviticus 19:9-10)"
+  }
+ },
+ {
+  "id": "morality-hard-082",
+  "ref": {
+   "fr": "Deutéronome 15:7",
+   "en": "Deuteronomy 15:7"
+  },
+  "fr": {
+   "q": "Comment ne pas se comporter envers son frère pauvre, selon la loi ?",
+   "options": [
+    "Ne pas endurcir son cœur ni fermer sa main",
+    "L’ignorer",
+    "L’exiler",
+    "Le taxer"
+   ],
+   "explain": "« Tu n’endurciras point ton cœur et tu ne fermeras point ta main. » (Deutéronome 15:7)"
+  },
+  "en": {
+   "q": "How must one not act toward a poor brother, per the law?",
+   "options": [
+    "Do not harden the heart or shut the hand",
+    "Ignore him",
+    "Exile him",
+    "Tax him"
+   ],
+   "explain": "“You shall not harden your heart or shut your hand against your poor brother.” (Deuteronomy 15:7)"
+  }
+ },
+ {
+  "id": "morality-hard-083",
+  "ref": {
+   "fr": "Deutéronome 24:14",
+   "en": "Deuteronomy 24:14"
+  },
+  "fr": {
+   "q": "Quel travailleur ne faut-il pas opprimer, selon la loi ?",
+   "options": [
+    "Le mercenaire pauvre et indigent",
+    "Le riche marchand",
+    "Le prince",
+    "Le prêtre"
+   ],
+   "explain": "« Tu n’opprimeras point le mercenaire pauvre et indigent. » (Deutéronome 24:14)"
+  },
+  "en": {
+   "q": "Which worker must not be oppressed, per the law?",
+   "options": [
+    "The poor and needy hired servant",
+    "The rich merchant",
+    "The prince",
+    "The priest"
+   ],
+   "explain": "“You shall not oppress a hired servant who is poor and needy.” (Deuteronomy 24:14)"
+  }
+ },
+ {
+  "id": "morality-hard-084",
+  "ref": {
+   "fr": "Deutéronome 25:13",
+   "en": "Deuteronomy 25:13"
+  },
+  "fr": {
+   "q": "Que la loi défend-elle d’avoir dans son sac ?",
+   "options": [
+    "Deux sortes de poids",
+    "Deux clés",
+    "Deux épées",
+    "Deux manteaux"
+   ],
+   "explain": "« Tu n’auras point dans ton sac deux sortes de poids. » (Deutéronome 25:13)"
+  },
+  "en": {
+   "q": "What does the law forbid keeping in one’s bag?",
+   "options": [
+    "Two kinds of weights",
+    "Two keys",
+    "Two swords",
+    "Two cloaks"
+   ],
+   "explain": "“You shall not have in your bag two kinds of weights.” (Deuteronomy 25:13)"
+  }
+ },
+ {
+  "id": "morality-hard-085",
+  "ref": {
+   "fr": "Zacharie 7:10",
+   "en": "Zechariah 7:10"
+  },
+  "fr": {
+   "q": "Qui Zacharie dit-il de ne pas opprimer ?",
+   "options": [
+    "La veuve, l’orphelin et l’étranger",
+    "Le roi et le prince",
+    "Le prêtre et le lévite",
+    "Le juge et le chef"
+   ],
+   "explain": "« N’opprimez pas la veuve et l’orphelin, l’étranger et le pauvre. » (Zacharie 7:10)"
+  },
+  "en": {
+   "q": "Whom does Zechariah say not to oppress?",
+   "options": [
+    "The widow, orphan, and stranger",
+    "The king and prince",
+    "The priest and Levite",
+    "The judge and chief"
+   ],
+   "explain": "“Do not oppress the widow, the fatherless, the sojourner, or the poor.” (Zechariah 7:10)"
+  }
+ },
+ {
+  "id": "morality-hard-086",
+  "ref": {
+   "fr": "Ézéchiel 18:8",
+   "en": "Ezekiel 18:8"
+  },
+  "fr": {
+   "q": "Quelle pratique le juste évite-t-il, selon Ézéchiel ?",
+   "options": [
+    "Prêter à intérêt et prendre de l’usure",
+    "Donner l’aumône",
+    "Rendre le gage",
+    "Juger avec droiture"
+   ],
+   "explain": "« …qui ne prête pas à intérêt et ne tire point d’usure. » (Ézéchiel 18:8)"
+  },
+  "en": {
+   "q": "What practice does the righteous man avoid, per Ezekiel?",
+   "options": [
+    "Lending at interest and taking usury",
+    "Giving alms",
+    "Returning the pledge",
+    "Judging uprightly"
+   ],
+   "explain": "“…who does not lend at interest or take any profit.” (Ezekiel 18:8)"
+  }
+ },
+ {
+  "id": "morality-hard-087",
+  "ref": {
+   "fr": "Matthieu 23:23",
+   "en": "Matthew 23:23"
+  },
+  "fr": {
+   "q": "Quelles trois choses plus importantes de la loi les pharisiens négligent-ils ?",
+   "options": [
+    "La justice, la miséricorde et la fidélité",
+    "La dîme, le jeûne et la prière",
+    "Les offrandes et les fêtes",
+    "Le sabbat et la circoncision"
+   ],
+   "explain": "« …vous laissez la justice, la miséricorde et la fidélité. » (Matthieu 23:23)"
+  },
+  "en": {
+   "q": "What three weightier matters of the law do the Pharisees neglect?",
+   "options": [
+    "Justice, mercy, and faithfulness",
+    "Tithe, fasting, and prayer",
+    "Offerings and feasts",
+    "Sabbath and circumcision"
+   ],
+   "explain": "“…you have neglected justice, mercy, and faithfulness.” (Matthew 23:23)"
+  }
+ },
+ {
+  "id": "morality-hard-088",
+  "ref": {
+   "fr": "Matthieu 15:4",
+   "en": "Matthew 15:4"
+  },
+  "fr": {
+   "q": "Quel commandement Jésus reproche-t-il aux pharisiens d’annuler par leur tradition ?",
+   "options": [
+    "Honore ton père et ta mère",
+    "Tu ne tueras point",
+    "Garde le sabbat",
+    "Tu ne jureras point"
+   ],
+   "explain": "« Car Dieu a dit : Honore ton père et ta mère. » (Matthieu 15:4)"
+  },
+  "en": {
+   "q": "Which commandment does Jesus rebuke the Pharisees for nullifying by tradition?",
+   "options": [
+    "Honor your father and mother",
+    "You shall not kill",
+    "Keep the Sabbath",
+    "You shall not swear"
+   ],
+   "explain": "“For God said, ‘Honor your father and your mother.’” (Matthew 15:4)"
+  }
+ },
+ {
+  "id": "morality-hard-089",
+  "ref": {
+   "fr": "Matthieu 25:35",
+   "en": "Matthew 25:35"
+  },
+  "fr": {
+   "q": "Quel acte envers l’étranger Jésus loue-t-il au jugement ?",
+   "options": [
+    "Vous m’avez recueilli",
+    "Vous m’avez craint",
+    "Vous m’avez fui",
+    "Vous m’avez jugé"
+   ],
+   "explain": "« J’étais étranger, et vous m’avez recueilli. » (Matthieu 25:35)"
+  },
+  "en": {
+   "q": "What act toward the stranger does Jesus commend at judgment?",
+   "options": [
+    "You took me in",
+    "You feared me",
+    "You fled me",
+    "You judged me"
+   ],
+   "explain": "“I was a stranger and you took me in.” (Matthew 25:35)"
+  }
+ },
+ {
+  "id": "morality-hard-090",
+  "ref": {
+   "fr": "Luc 6:35",
+   "en": "Luke 6:35"
+  },
+  "fr": {
+   "q": "Comment prêter à ceux dont on n’attend rien, selon Jésus ?",
+   "options": [
+    "Sans rien espérer en retour",
+    "Avec intérêt",
+    "Avec une garantie",
+    "Une seule fois"
+   ],
+   "explain": "« Prêtez sans rien espérer, et votre récompense sera grande. » (Luc 6:35)"
+  },
+  "en": {
+   "q": "How should one lend to those from whom nothing is expected, per Jesus?",
+   "options": [
+    "Expecting nothing back",
+    "With interest",
+    "With a guarantee",
+    "Only once"
+   ],
+   "explain": "“Lend, expecting nothing back, and your reward will be great.” (Luke 6:35)"
+  }
+ },
+ {
+  "id": "morality-hard-091",
+  "ref": {
+   "fr": "Luc 14:13",
+   "en": "Luke 14:13"
+  },
+  "fr": {
+   "q": "Qui faut-il inviter à son festin, selon Jésus ?",
+   "options": [
+    "Des pauvres, estropiés, boiteux, aveugles",
+    "Ses amis riches",
+    "Ses parents",
+    "Ses voisins fortunés"
+   ],
+   "explain": "« …invite des pauvres, des estropiés, des boiteux, des aveugles. » (Luc 14:13)"
+  },
+  "en": {
+   "q": "Whom should one invite to a feast, according to Jesus?",
+   "options": [
+    "The poor, maimed, lame, blind",
+    "Rich friends",
+    "Relatives",
+    "Wealthy neighbors"
+   ],
+   "explain": "“…invite the poor, the maimed, the lame, the blind.” (Luke 14:13)"
+  }
+ },
+ {
+  "id": "morality-hard-092",
+  "ref": {
+   "fr": "Jean 8:7",
+   "en": "John 8:7"
+  },
+  "fr": {
+   "q": "Que dit Jésus à ceux qui veulent lapider la femme adultère ?",
+   "options": [
+    "Que le sans péché jette la première pierre",
+    "Lapidez-la selon la loi",
+    "Laissez-la partir en paix",
+    "Jugez-la publiquement"
+   ],
+   "explain": "« Que celui qui est sans péché jette le premier la pierre. » (Jean 8:7)"
+  },
+  "en": {
+   "q": "What does Jesus say to those who would stone the adulterous woman?",
+   "options": [
+    "Let the sinless cast the first stone",
+    "Stone her by the law",
+    "Let her go in peace",
+    "Judge her publicly"
+   ],
+   "explain": "“Let him who is without sin cast the first stone.” (John 8:7)"
+  }
+ },
+ {
+  "id": "morality-hard-093",
+  "ref": {
+   "fr": "Jean 8:11",
+   "en": "John 8:11"
+  },
+  "fr": {
+   "q": "Que Jésus dit-il à la femme adultère après l’avoir graciée ?",
+   "options": [
+    "Va, et ne pèche plus",
+    "Retourne chez toi",
+    "Offre un sacrifice",
+    "Sois bénie et pars"
+   ],
+   "explain": "« Je ne te condamne pas non plus ; va, et ne pèche plus. » (Jean 8:11)"
+  },
+  "en": {
+   "q": "What does Jesus tell the adulterous woman after sparing her?",
+   "options": [
+    "Go, and sin no more",
+    "Return home",
+    "Offer a sacrifice",
+    "Be blessed and depart"
+   ],
+   "explain": "“Neither do I condemn you; go, and sin no more.” (John 8:11)"
+  }
+ },
+ {
+  "id": "morality-hard-094",
+  "ref": {
+   "fr": "Romains 13:9",
+   "en": "Romans 13:9"
+  },
+  "fr": {
+   "q": "Par quelle parole Paul résume-t-il tous les commandements ?",
+   "options": [
+    "Tu aimeras ton prochain comme toi-même",
+    "Crains Dieu",
+    "Honore le roi",
+    "Rends à chacun son dû"
+   ],
+   "explain": "« …se résument dans cette parole : Tu aimeras ton prochain comme toi-même. » (Romains 13:9)"
+  },
+  "en": {
+   "q": "In what word does Paul sum up all the commandments?",
+   "options": [
+    "Love your neighbor as yourself",
+    "Fear God",
+    "Honor the king",
+    "Give each his due"
+   ],
+   "explain": "“…summed up in this: You shall love your neighbor as yourself.” (Romans 13:9)"
+  }
+ },
+ {
+  "id": "morality-hard-095",
+  "ref": {
+   "fr": "1 Corinthiens 5:11",
+   "en": "1 Corinthians 5:11"
+  },
+  "fr": {
+   "q": "Avec quel « frère » Paul dit-il de ne pas même manger ?",
+   "options": [
+    "Un frère impudique, cupide ou ivrogne",
+    "Un frère pauvre",
+    "Un frère malade",
+    "Un frère étranger"
+   ],
+   "explain": "« …quelqu’un qui, se nommant frère, est impudique ou cupide… n’en mangez pas. » (1 Corinthiens 5:11)"
+  },
+  "en": {
+   "q": "With which “brother” does Paul say not even to eat?",
+   "options": [
+    "A brother immoral, greedy, or drunk",
+    "A poor brother",
+    "A sick brother",
+    "A foreign brother"
+   ],
+   "explain": "“…anyone called a brother who is sexually immoral or greedy… do not eat.” (1 Corinthians 5:11)"
+  }
+ },
+ {
+  "id": "morality-hard-096",
+  "ref": {
+   "fr": "Galates 6:1",
+   "en": "Galatians 6:1"
+  },
+  "fr": {
+   "q": "Comment redresser celui qui a commis une faute, selon Paul ?",
+   "options": [
+    "Avec un esprit de douceur",
+    "Avec sévérité",
+    "Publiquement",
+    "Par une amende"
+   ],
+   "explain": "« …redressez-le avec un esprit de douceur. » (Galates 6:1)"
+  },
+  "en": {
+   "q": "How should one restore someone caught in a fault, per Paul?",
+   "options": [
+    "In a spirit of gentleness",
+    "With severity",
+    "Publicly",
+    "By a fine"
+   ],
+   "explain": "“…restore him in a spirit of gentleness.” (Galatians 6:1)"
+  }
+ },
+ {
+  "id": "morality-hard-097",
+  "ref": {
+   "fr": "Éphésiens 5:11",
+   "en": "Ephesians 5:11"
+  },
+  "fr": {
+   "q": "Que Paul dit-il de faire des œuvres des ténèbres ?",
+   "options": [
+    "Ne pas y participer, mais les reprendre",
+    "Les imiter",
+    "Les cacher",
+    "Les excuser"
+   ],
+   "explain": "« Ne prenez point part aux œuvres des ténèbres, mais plutôt condamnez-les. » (Éphésiens 5:11)"
+  },
+  "en": {
+   "q": "What does Paul say to do with the works of darkness?",
+   "options": [
+    "Take no part, but expose them",
+    "Imitate them",
+    "Hide them",
+    "Excuse them"
+   ],
+   "explain": "“Take no part in the works of darkness, but rather expose them.” (Ephesians 5:11)"
+  }
+ },
+ {
+  "id": "morality-hard-098",
+  "ref": {
+   "fr": "1 Thessaloniciens 4:11",
+   "en": "1 Thessalonians 4:11"
+  },
+  "fr": {
+   "q": "Quel genre de vie Paul recommande-t-il aux croyants ?",
+   "options": [
+    "Vivre tranquille et travailler de ses mains",
+    "Chercher les honneurs",
+    "S’enrichir vite",
+    "Voyager sans cesse"
+   ],
+   "explain": "« …vivre tranquilles… et travailler de vos mains. » (1 Thessaloniciens 4:11)"
+  },
+  "en": {
+   "q": "What kind of life does Paul commend to believers?",
+   "options": [
+    "Living quietly and working with your hands",
+    "Seeking honors",
+    "Getting rich quickly",
+    "Traveling ceaselessly"
+   ],
+   "explain": "“…to live quietly… and work with your hands.” (1 Thessalonians 4:11)"
+  }
+ },
+ {
+  "id": "morality-hard-099",
+  "ref": {
+   "fr": "2 Thessaloniciens 3:10",
+   "en": "2 Thessalonians 3:10"
+  },
+  "fr": {
+   "q": "Quelle règle Paul donne-t-il sur le travail et la nourriture ?",
+   "options": [
+    "Qui ne veut pas travailler ne doit pas manger",
+    "Chacun mange à sa faim",
+    "Le riche nourrit le pauvre",
+    "Nul ne travaille le sabbat"
+   ],
+   "explain": "« Si quelqu’un ne veut pas travailler, qu’il ne mange pas non plus. » (2 Thess. 3:10)"
+  },
+  "en": {
+   "q": "What rule does Paul give on work and food?",
+   "options": [
+    "If one won’t work, he shall not eat",
+    "Each eats his fill",
+    "The rich feed the poor",
+    "None works on the Sabbath"
+   ],
+   "explain": "“If anyone is not willing to work, let him not eat.” (2 Thessalonians 3:10)"
+  }
+ },
+ {
+  "id": "morality-hard-100",
+  "ref": {
+   "fr": "Jacques 5:12",
+   "en": "James 5:12"
+  },
+  "fr": {
+   "q": "Que Jacques dit-il avant tout au sujet des serments ?",
+   "options": [
+    "Ne jurez ni par le ciel ni par la terre",
+    "Jurez toujours vrai",
+    "Jurez par le temple",
+    "Jurez avec prudence"
+   ],
+   "explain": "« Ne jurez ni par le ciel, ni par la terre… que votre oui soit oui. » (Jacques 5:12)"
+  },
+  "en": {
+   "q": "What does James say above all about oaths?",
+   "options": [
+    "Do not swear by heaven or by earth",
+    "Always swear truly",
+    "Swear by the temple",
+    "Swear cautiously"
+   ],
+   "explain": "“Do not swear, by heaven or by earth… let your yes be yes.” (James 5:12)"
+  }
+ }
+]

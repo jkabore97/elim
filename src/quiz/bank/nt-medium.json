@@ -1,0 +1,2702 @@
+[
+ {
+  "id": "nt-medium-001",
+  "ref": {
+   "fr": "Jean 18:10",
+   "en": "John 18:10"
+  },
+  "fr": {
+   "q": "Comment s’appelait le serviteur du souverain sacrificateur dont Pierre coupa l’oreille ?",
+   "options": [
+    "Malchus",
+    "Barabbas",
+    "Alexandre",
+    "Démas"
+   ],
+   "explain": "Pierre frappa Malchus, serviteur du souverain sacrificateur. (Jean 18:10)"
+  },
+  "en": {
+   "q": "What was the name of the high priest’s servant whose ear Peter cut off?",
+   "options": [
+    "Malchus",
+    "Barabbas",
+    "Alexander",
+    "Demas"
+   ],
+   "explain": "Peter struck Malchus, the high priest’s servant. (John 18:10)"
+  }
+ },
+ {
+  "id": "nt-medium-002",
+  "ref": {
+   "fr": "Jean 1:46",
+   "en": "John 1:46"
+  },
+  "fr": {
+   "q": "Qui demanda : « Peut-il venir de Nazareth quelque chose de bon ? »",
+   "options": [
+    "Nathanaël",
+    "Philippe",
+    "Thomas",
+    "André"
+   ],
+   "explain": "Nathanaël douta d’abord de Jésus de Nazareth. (Jean 1:46)"
+  },
+  "en": {
+   "q": "Who asked, “Can anything good come out of Nazareth?”",
+   "options": [
+    "Nathanael",
+    "Philip",
+    "Thomas",
+    "Andrew"
+   ],
+   "explain": "Nathanael first doubted Jesus of Nazareth. (John 1:46)"
+  }
+ },
+ {
+  "id": "nt-medium-003",
+  "ref": {
+   "fr": "Jean 11:16",
+   "en": "John 11:16"
+  },
+  "fr": {
+   "q": "Quel disciple était surnommé Didyme, c’est-à-dire « le jumeau » ?",
+   "options": [
+    "Thomas",
+    "Jude",
+    "Simon",
+    "Barthélemy"
+   ],
+   "explain": "Thomas, appelé Didyme, proposa d’aller mourir avec Jésus. (Jean 11:16)"
+  },
+  "en": {
+   "q": "Which disciple was called Didymus, meaning “the twin”?",
+   "options": [
+    "Thomas",
+    "Jude",
+    "Simon",
+    "Bartholomew"
+   ],
+   "explain": "Thomas, called Didymus, urged the others to go die with Jesus. (John 11:16)"
+  }
+ },
+ {
+  "id": "nt-medium-004",
+  "ref": {
+   "fr": "Luc 2:36",
+   "en": "Luke 2:36"
+  },
+  "fr": {
+   "q": "De quelle tribu était la prophétesse Anne qui vit l’enfant Jésus au temple ?",
+   "options": [
+    "Aser",
+    "Juda",
+    "Lévi",
+    "Benjamin"
+   ],
+   "explain": "Anne, fille de Phanuel, était de la tribu d’Aser. (Luc 2:36)"
+  },
+  "en": {
+   "q": "From which tribe was Anna the prophetess who saw the child Jesus in the temple?",
+   "options": [
+    "Asher",
+    "Judah",
+    "Levi",
+    "Benjamin"
+   ],
+   "explain": "Anna, daughter of Phanuel, was of the tribe of Asher. (Luke 2:36)"
+  }
+ },
+ {
+  "id": "nt-medium-005",
+  "ref": {
+   "fr": "Luc 2:28-29",
+   "en": "Luke 2:28-29"
+  },
+  "fr": {
+   "q": "Quel vieillard tint l’enfant Jésus au temple, bénissant Dieu de le laisser partir en paix ?",
+   "options": [
+    "Siméon",
+    "Zacharie",
+    "Gamaliel",
+    "Nicodème"
+   ],
+   "explain": "Siméon prit l’enfant dans ses bras et bénit Dieu. (Luc 2:28-29)"
+  },
+  "en": {
+   "q": "Which old man held the child Jesus in the temple, blessing God to depart in peace?",
+   "options": [
+    "Simeon",
+    "Zacharias",
+    "Gamaliel",
+    "Nicodemus"
+   ],
+   "explain": "Simeon took the child in his arms and blessed God. (Luke 2:28-29)"
+  }
+ },
+ {
+  "id": "nt-medium-006",
+  "ref": {
+   "fr": "Jean 19:39",
+   "en": "John 19:39"
+  },
+  "fr": {
+   "q": "Qui apporta environ cent livres de myrrhe et d’aloès pour la sépulture de Jésus ?",
+   "options": [
+    "Nicodème",
+    "Joseph d’Arimathée",
+    "Lazare",
+    "Simon"
+   ],
+   "explain": "Nicodème apporta environ cent livres de myrrhe et d’aloès. (Jean 19:39)"
+  },
+  "en": {
+   "q": "Who brought about a hundred pounds of myrrh and aloes for Jesus’ burial?",
+   "options": [
+    "Nicodemus",
+    "Joseph of Arimathea",
+    "Lazarus",
+    "Simon"
+   ],
+   "explain": "Nicodemus brought about a hundred pounds of myrrh and aloes. (John 19:39)"
+  }
+ },
+ {
+  "id": "nt-medium-007",
+  "ref": {
+   "fr": "Jean 5:5",
+   "en": "John 5:5"
+  },
+  "fr": {
+   "q": "Depuis combien d’années l’infirme de la piscine de Béthesda était-il malade ?",
+   "options": [
+    "Trente-huit ans",
+    "Douze ans",
+    "Dix-huit ans",
+    "Quarante ans"
+   ],
+   "explain": "Il était malade depuis trente-huit ans. (Jean 5:5)"
+  },
+  "en": {
+   "q": "For how many years had the sick man at the pool of Bethesda been ill?",
+   "options": [
+    "Thirty-eight years",
+    "Twelve years",
+    "Eighteen years",
+    "Forty years"
+   ],
+   "explain": "He had been ill for thirty-eight years. (John 5:5)"
+  }
+ },
+ {
+  "id": "nt-medium-008",
+  "ref": {
+   "fr": "Jean 9:7",
+   "en": "John 9:7"
+  },
+  "fr": {
+   "q": "Dans quelle piscine Jésus envoya-t-il l’aveugle-né se laver pour être guéri ?",
+   "options": [
+    "Siloé",
+    "Béthesda",
+    "Bethsaïda",
+    "Salim"
+   ],
+   "explain": "« Va te laver au réservoir de Siloé. » (Jean 9:7)"
+  },
+  "en": {
+   "q": "In which pool did Jesus send the man born blind to wash and be healed?",
+   "options": [
+    "Siloam",
+    "Bethesda",
+    "Bethsaida",
+    "Salim"
+   ],
+   "explain": "“Go, wash in the pool of Siloam.” (John 9:7)"
+  }
+ },
+ {
+  "id": "nt-medium-009",
+  "ref": {
+   "fr": "Marc 12:31",
+   "en": "Mark 12:31"
+  },
+  "fr": {
+   "q": "Quel est le second commandement que Jésus place après l’amour de Dieu ?",
+   "options": [
+    "Aimer son prochain comme soi-même",
+    "Garder le sabbat",
+    "Payer la dîme",
+    "Prier sans cesse"
+   ],
+   "explain": "« Tu aimeras ton prochain comme toi-même. » (Marc 12:31)"
+  },
+  "en": {
+   "q": "What is the second commandment Jesus places after loving God?",
+   "options": [
+    "Love your neighbor as yourself",
+    "Keep the Sabbath",
+    "Pay the tithe",
+    "Pray always"
+   ],
+   "explain": "“You shall love your neighbor as yourself.” (Mark 12:31)"
+  }
+ },
+ {
+  "id": "nt-medium-010",
+  "ref": {
+   "fr": "Luc 24:18",
+   "en": "Luke 24:18"
+  },
+  "fr": {
+   "q": "Comment se nommait l’un des deux disciples sur le chemin d’Emmaüs ?",
+   "options": [
+    "Cléopas",
+    "Nathanaël",
+    "Barnabas",
+    "Silas"
+   ],
+   "explain": "L’un d’eux, nommé Cléopas, parla à Jésus. (Luc 24:18)"
+  },
+  "en": {
+   "q": "What was the name of one of the two disciples on the road to Emmaus?",
+   "options": [
+    "Cleopas",
+    "Nathanael",
+    "Barnabas",
+    "Silas"
+   ],
+   "explain": "One of them, named Cleopas, spoke to Jesus. (Luke 24:18)"
+  }
+ },
+ {
+  "id": "nt-medium-011",
+  "ref": {
+   "fr": "Jean 11:44",
+   "en": "John 11:44"
+  },
+  "fr": {
+   "q": "Que criait Jésus pour appeler Lazare hors du tombeau ?",
+   "options": [
+    "« Lazare, sors ! »",
+    "« Lève-toi ! »",
+    "« Reviens ! »",
+    "« Marche ! »"
+   ],
+   "explain": "« Il cria d’une voix forte : Lazare, sors ! » (Jean 11:43-44)"
+  },
+  "en": {
+   "q": "What did Jesus cry to call Lazarus out of the tomb?",
+   "options": [
+    "“Lazarus, come out!”",
+    "“Arise!”",
+    "“Return!”",
+    "“Walk!”"
+   ],
+   "explain": "“He cried with a loud voice, Lazarus, come out!” (John 11:43-44)"
+  }
+ },
+ {
+  "id": "nt-medium-012",
+  "ref": {
+   "fr": "Luc 10:1",
+   "en": "Luke 10:1"
+  },
+  "fr": {
+   "q": "Combien de disciples Jésus envoya-t-il deux à deux devant lui, outre les douze ?",
+   "options": [
+    "Soixante-dix",
+    "Cinquante",
+    "Douze",
+    "Cent vingt"
+   ],
+   "explain": "Le Seigneur en désigna soixante-dix autres. (Luc 10:1)"
+  },
+  "en": {
+   "q": "How many disciples did Jesus send out two by two, besides the twelve?",
+   "options": [
+    "Seventy",
+    "Fifty",
+    "Twelve",
+    "One hundred twenty"
+   ],
+   "explain": "The Lord appointed seventy others. (Luke 10:1)"
+  }
+ },
+ {
+  "id": "nt-medium-013",
+  "ref": {
+   "fr": "Marc 5:9",
+   "en": "Mark 5:9"
+  },
+  "fr": {
+   "q": "Quel nom donna l’esprit impur du démoniaque gérasénien ?",
+   "options": [
+    "Légion",
+    "Béelzébul",
+    "Abaddon",
+    "Moloch"
+   ],
+   "explain": "« Mon nom est Légion, car nous sommes plusieurs. » (Marc 5:9)"
+  },
+  "en": {
+   "q": "What name did the unclean spirit of the Gerasene demoniac give?",
+   "options": [
+    "Legion",
+    "Beelzebul",
+    "Abaddon",
+    "Moloch"
+   ],
+   "explain": "“My name is Legion, for we are many.” (Mark 5:9)"
+  }
+ },
+ {
+  "id": "nt-medium-014",
+  "ref": {
+   "fr": "Marc 6:21-27",
+   "en": "Mark 6:21-27"
+  },
+  "fr": {
+   "q": "À l’occasion de quel événement Hérode fit-il décapiter Jean-Baptiste ?",
+   "options": [
+    "Son anniversaire",
+    "Une victoire",
+    "Un mariage",
+    "La Pâque"
+   ],
+   "explain": "Ce fut lors du festin d’anniversaire d’Hérode. (Marc 6:21-27)"
+  },
+  "en": {
+   "q": "On what occasion did Herod have John the Baptist beheaded?",
+   "options": [
+    "His birthday",
+    "A victory",
+    "A wedding",
+    "The Passover"
+   ],
+   "explain": "It was at Herod’s birthday banquet. (Mark 6:21-27)"
+  }
+ },
+ {
+  "id": "nt-medium-015",
+  "ref": {
+   "fr": "Matthieu 1:17",
+   "en": "Matthew 1:17"
+  },
+  "fr": {
+   "q": "Selon Matthieu, combien de générations comptent chaque période, d’Abraham au Christ ?",
+   "options": [
+    "Quatorze",
+    "Douze",
+    "Dix",
+    "Sept"
+   ],
+   "explain": "Quatorze générations d’Abraham à David, et ainsi de suite. (Matthieu 1:17)"
+  },
+  "en": {
+   "q": "According to Matthew, how many generations are in each period from Abraham to Christ?",
+   "options": [
+    "Fourteen",
+    "Twelve",
+    "Ten",
+    "Seven"
+   ],
+   "explain": "Fourteen generations from Abraham to David, and so on. (Matthew 1:17)"
+  }
+ },
+ {
+  "id": "nt-medium-016",
+  "ref": {
+   "fr": "Matthieu 17:4",
+   "en": "Matthew 17:4"
+  },
+  "fr": {
+   "q": "Combien de tentes Pierre proposa-t-il de dresser lors de la transfiguration ?",
+   "options": [
+    "Trois",
+    "Deux",
+    "Sept",
+    "Douze"
+   ],
+   "explain": "« Dressons ici trois tentes. » (Matthieu 17:4)"
+  },
+  "en": {
+   "q": "How many shelters did Peter offer to build at the transfiguration?",
+   "options": [
+    "Three",
+    "Two",
+    "Seven",
+    "Twelve"
+   ],
+   "explain": "“Let us make three shelters here.” (Matthew 17:4)"
+  }
+ },
+ {
+  "id": "nt-medium-017",
+  "ref": {
+   "fr": "Jean 12:3",
+   "en": "John 12:3"
+  },
+  "fr": {
+   "q": "Avec quel parfum de grand prix Marie oignit-elle les pieds de Jésus à Béthanie ?",
+   "options": [
+    "Nard pur",
+    "Myrrhe",
+    "Encens",
+    "Aloès"
+   ],
+   "explain": "Marie prit un parfum de nard pur de grand prix. (Jean 12:3)"
+  },
+  "en": {
+   "q": "With what costly perfume did Mary anoint Jesus’ feet at Bethany?",
+   "options": [
+    "Pure nard",
+    "Myrrh",
+    "Frankincense",
+    "Aloes"
+   ],
+   "explain": "Mary took a pound of costly pure nard. (John 12:3)"
+  }
+ },
+ {
+  "id": "nt-medium-018",
+  "ref": {
+   "fr": "Jean 12:4-5",
+   "en": "John 12:4-5"
+  },
+  "fr": {
+   "q": "Quel disciple s’indigna du parfum répandu, disant qu’on aurait dû le vendre ?",
+   "options": [
+    "Judas Iscariot",
+    "Pierre",
+    "Thomas",
+    "Matthieu"
+   ],
+   "explain": "Judas dit qu’on aurait pu le vendre trois cents deniers. (Jean 12:4-5)"
+  },
+  "en": {
+   "q": "Which disciple objected to the poured-out perfume, saying it should be sold?",
+   "options": [
+    "Judas Iscariot",
+    "Peter",
+    "Thomas",
+    "Matthew"
+   ],
+   "explain": "Judas said it could have been sold for three hundred denarii. (John 12:4-5)"
+  }
+ },
+ {
+  "id": "nt-medium-019",
+  "ref": {
+   "fr": "Matthieu 27:54",
+   "en": "Matthew 27:54"
+  },
+  "fr": {
+   "q": "Que déclara le centenier en voyant Jésus expirer sur la croix ?",
+   "options": [
+    "« Cet homme était Fils de Dieu »",
+    "« Je ne le connais pas »",
+    "« Que ferai-je de lui ? »",
+    "« Béni soit le roi »"
+   ],
+   "explain": "« Assurément, cet homme était Fils de Dieu. » (Matthieu 27:54)"
+  },
+  "en": {
+   "q": "What did the centurion declare as he saw Jesus die on the cross?",
+   "options": [
+    "“Truly this was the Son of God”",
+    "“I do not know him”",
+    "“What shall I do with him?”",
+    "“Blessed is the king”"
+   ],
+   "explain": "“Truly this was the Son of God.” (Matthew 27:54)"
+  }
+ },
+ {
+  "id": "nt-medium-020",
+  "ref": {
+   "fr": "Marc 10:35-37",
+   "en": "Mark 10:35-37"
+  },
+  "fr": {
+   "q": "Quels deux frères demandèrent à siéger à la droite et à la gauche de Jésus dans sa gloire ?",
+   "options": [
+    "Jacques et Jean",
+    "Pierre et André",
+    "Philippe et Barthélemy",
+    "Simon et Jude"
+   ],
+   "explain": "Jacques et Jean, fils de Zébédée, firent cette demande. (Marc 10:35-37)"
+  },
+  "en": {
+   "q": "Which two brothers asked to sit at Jesus’ right and left in his glory?",
+   "options": [
+    "James and John",
+    "Peter and Andrew",
+    "Philip and Bartholomew",
+    "Simon and Jude"
+   ],
+   "explain": "James and John, sons of Zebedee, made this request. (Mark 10:35-37)"
+  }
+ },
+ {
+  "id": "nt-medium-021",
+  "ref": {
+   "fr": "Matthieu 5:13",
+   "en": "Matthew 5:13"
+  },
+  "fr": {
+   "q": "Jésus dit à ses disciples : « Vous êtes le sel de la… » quoi ?",
+   "options": [
+    "terre",
+    "mer",
+    "maison",
+    "moisson"
+   ],
+   "explain": "« Vous êtes le sel de la terre. » (Matthieu 5:13)"
+  },
+  "en": {
+   "q": "Jesus told his disciples: “You are the salt of the…” what?",
+   "options": [
+    "earth",
+    "sea",
+    "house",
+    "harvest"
+   ],
+   "explain": "“You are the salt of the earth.” (Matthew 5:13)"
+  }
+ },
+ {
+  "id": "nt-medium-022",
+  "ref": {
+   "fr": "Matthieu 5:5",
+   "en": "Matthew 5:5"
+  },
+  "fr": {
+   "q": "Selon les Béatitudes, que recevront en héritage les doux ?",
+   "options": [
+    "La terre",
+    "Le ciel",
+    "Une couronne",
+    "Le repos"
+   ],
+   "explain": "« Heureux les débonnaires, car ils hériteront la terre ! » (Matthieu 5:5)"
+  },
+  "en": {
+   "q": "According to the Beatitudes, what will the meek inherit?",
+   "options": [
+    "The earth",
+    "Heaven",
+    "A crown",
+    "Rest"
+   ],
+   "explain": "“Blessed are the meek, for they shall inherit the earth.” (Matthew 5:5)"
+  }
+ },
+ {
+  "id": "nt-medium-023",
+  "ref": {
+   "fr": "Matthieu 6:24",
+   "en": "Matthew 6:24"
+  },
+  "fr": {
+   "q": "Selon Jésus, on ne peut servir Dieu et… quoi ?",
+   "options": [
+    "Mamon",
+    "César",
+    "la loi",
+    "le monde"
+   ],
+   "explain": "« Vous ne pouvez servir Dieu et Mamon. » (Matthieu 6:24)"
+  },
+  "en": {
+   "q": "According to Jesus, you cannot serve God and… what?",
+   "options": [
+    "Mammon",
+    "Caesar",
+    "the law",
+    "the world"
+   ],
+   "explain": "“You cannot serve God and mammon.” (Matthew 6:24)"
+  }
+ },
+ {
+  "id": "nt-medium-024",
+  "ref": {
+   "fr": "Marc 11:14",
+   "en": "Mark 11:14"
+  },
+  "fr": {
+   "q": "Quel arbre Jésus maudit-il parce qu’il ne portait pas de fruit ?",
+   "options": [
+    "Le figuier",
+    "L’olivier",
+    "Le sycomore",
+    "La vigne"
+   ],
+   "explain": "Jésus dit au figuier : « Que personne ne mange de ton fruit ! » (Marc 11:14)"
+  },
+  "en": {
+   "q": "Which tree did Jesus curse because it bore no fruit?",
+   "options": [
+    "The fig tree",
+    "The olive tree",
+    "The sycamore",
+    "The vine"
+   ],
+   "explain": "Jesus said to the fig tree, “May no one eat fruit from you.” (Mark 11:14)"
+  }
+ },
+ {
+  "id": "nt-medium-025",
+  "ref": {
+   "fr": "Luc 19:8",
+   "en": "Luke 19:8"
+  },
+  "fr": {
+   "q": "Quelle part de ses biens Zachée promit-il de donner aux pauvres ?",
+   "options": [
+    "La moitié",
+    "Le dixième",
+    "Le quart",
+    "La totalité"
+   ],
+   "explain": "« Je donne la moitié de mes biens aux pauvres. » (Luc 19:8)"
+  },
+  "en": {
+   "q": "What portion of his goods did Zacchaeus promise to give the poor?",
+   "options": [
+    "Half",
+    "A tenth",
+    "A quarter",
+    "All"
+   ],
+   "explain": "“I give half of my goods to the poor.” (Luke 19:8)"
+  }
+ },
+ {
+  "id": "nt-medium-026",
+  "ref": {
+   "fr": "Jean 1:1",
+   "en": "John 1:1"
+  },
+  "fr": {
+   "q": "Quel Évangile commence par : « Au commencement était la Parole » ?",
+   "options": [
+    "Jean",
+    "Marc",
+    "Luc",
+    "Matthieu"
+   ],
+   "explain": "« Au commencement était la Parole. » (Jean 1:1)"
+  },
+  "en": {
+   "q": "Which Gospel begins with “In the beginning was the Word”?",
+   "options": [
+    "John",
+    "Mark",
+    "Luke",
+    "Matthew"
+   ],
+   "explain": "“In the beginning was the Word.” (John 1:1)"
+  }
+ },
+ {
+  "id": "nt-medium-027",
+  "ref": {
+   "fr": "Luc 1:3",
+   "en": "Luke 1:3"
+  },
+  "fr": {
+   "q": "À quel homme l’Évangile de Luc et les Actes sont-ils adressés ?",
+   "options": [
+    "Théophile",
+    "Timothée",
+    "Gaïus",
+    "Philémon"
+   ],
+   "explain": "Luc écrit « à toi, excellent Théophile ». (Luc 1:3)"
+  },
+  "en": {
+   "q": "To which man are the Gospel of Luke and Acts addressed?",
+   "options": [
+    "Theophilus",
+    "Timothy",
+    "Gaius",
+    "Philemon"
+   ],
+   "explain": "Luke writes “to you, most excellent Theophilus.” (Luke 1:3)"
+  }
+ },
+ {
+  "id": "nt-medium-028",
+  "ref": {
+   "fr": "Luc 1:63",
+   "en": "Luke 1:63"
+  },
+  "fr": {
+   "q": "Que fit Zacharie, muet, pour confirmer le nom de son fils Jean ?",
+   "options": [
+    "Il l’écrivit sur une tablette",
+    "Il fit un signe",
+    "Il pria tout haut",
+    "Il chanta"
+   ],
+   "explain": "Il écrivit : « Jean est son nom. » (Luc 1:63)"
+  },
+  "en": {
+   "q": "How did the mute Zacharias confirm the name of his son John?",
+   "options": [
+    "He wrote it on a tablet",
+    "He made a sign",
+    "He prayed aloud",
+    "He sang"
+   ],
+   "explain": "He wrote, “His name is John.” (Luke 1:63)"
+  }
+ },
+ {
+  "id": "nt-medium-029",
+  "ref": {
+   "fr": "Actes 5:1-2",
+   "en": "Acts 5:1-2"
+  },
+  "fr": {
+   "q": "Sur quoi Ananias et Saphira mentirent-ils au Saint-Esprit ?",
+   "options": [
+    "Le prix d’un champ vendu",
+    "Un héritage",
+    "Une dette",
+    "Un sacrifice"
+   ],
+   "explain": "Ils gardèrent une part du prix du champ vendu. (Actes 5:1-2)"
+  },
+  "en": {
+   "q": "About what did Ananias and Sapphira lie to the Holy Spirit?",
+   "options": [
+    "The price of a sold field",
+    "An inheritance",
+    "A debt",
+    "A sacrifice"
+   ],
+   "explain": "They kept back part of the price of the field. (Acts 5:1-2)"
+  }
+ },
+ {
+  "id": "nt-medium-030",
+  "ref": {
+   "fr": "Actes 5:34",
+   "en": "Acts 5:34"
+  },
+  "fr": {
+   "q": "Quel docteur de la loi conseilla au sanhédrin de laisser les apôtres tranquilles ?",
+   "options": [
+    "Gamaliel",
+    "Caïphe",
+    "Nicodème",
+    "Anne"
+   ],
+   "explain": "Gamaliel, docteur de la loi respecté, calma le conseil. (Actes 5:34)"
+  },
+  "en": {
+   "q": "Which teacher of the law advised the Sanhedrin to leave the apostles alone?",
+   "options": [
+    "Gamaliel",
+    "Caiaphas",
+    "Nicodemus",
+    "Annas"
+   ],
+   "explain": "Gamaliel, a respected teacher of the law, calmed the council. (Acts 5:34)"
+  }
+ },
+ {
+  "id": "nt-medium-031",
+  "ref": {
+   "fr": "Actes 8:18-19",
+   "en": "Acts 8:18-19"
+  },
+  "fr": {
+   "q": "Qui, en Samarie, offrit de l’argent pour recevoir le pouvoir de donner l’Esprit ?",
+   "options": [
+    "Simon le magicien",
+    "Bar-Jésus",
+    "Démétrius",
+    "Alexandre"
+   ],
+   "explain": "Simon offrit de l’argent aux apôtres. (Actes 8:18-19)"
+  },
+  "en": {
+   "q": "Who in Samaria offered money to receive the power to give the Spirit?",
+   "options": [
+    "Simon the sorcerer",
+    "Bar-Jesus",
+    "Demetrius",
+    "Alexander"
+   ],
+   "explain": "Simon offered money to the apostles. (Acts 8:18-19)"
+  }
+ },
+ {
+  "id": "nt-medium-032",
+  "ref": {
+   "fr": "Actes 10:11-12",
+   "en": "Acts 10:11-12"
+  },
+  "fr": {
+   "q": "Que vit Pierre descendre du ciel dans sa vision à Joppé ?",
+   "options": [
+    "Une grande nappe pleine d’animaux",
+    "Une échelle d’anges",
+    "Un char de feu",
+    "Un rouleau"
+   ],
+   "explain": "Une nappe descendait, remplie d’animaux de toute espèce. (Actes 10:11-12)"
+  },
+  "en": {
+   "q": "What did Peter see coming down from heaven in his vision at Joppa?",
+   "options": [
+    "A great sheet full of animals",
+    "A ladder of angels",
+    "A chariot of fire",
+    "A scroll"
+   ],
+   "explain": "A sheet descended, full of all kinds of animals. (Acts 10:11-12)"
+  }
+ },
+ {
+  "id": "nt-medium-033",
+  "ref": {
+   "fr": "Actes 12:23",
+   "en": "Acts 12:23"
+  },
+  "fr": {
+   "q": "Comment mourut Hérode après avoir accepté d’être acclamé comme un dieu ?",
+   "options": [
+    "Rongé par les vers",
+    "Noyé",
+    "Par l’épée",
+    "Foudroyé"
+   ],
+   "explain": "Un ange le frappa et il fut rongé par les vers. (Actes 12:23)"
+  },
+  "en": {
+   "q": "How did Herod die after accepting praise as a god?",
+   "options": [
+    "Eaten by worms",
+    "Drowned",
+    "By the sword",
+    "Struck by lightning"
+   ],
+   "explain": "An angel struck him and he was eaten by worms. (Acts 12:23)"
+  }
+ },
+ {
+  "id": "nt-medium-034",
+  "ref": {
+   "fr": "Actes 13:8-11",
+   "en": "Acts 13:8-11"
+  },
+  "fr": {
+   "q": "Quel magicien Paul frappa-t-il de cécité à Paphos, dans l’île de Chypre ?",
+   "options": [
+    "Élymas",
+    "Simon",
+    "Démétrius",
+    "Sceva"
+   ],
+   "explain": "Élymas, le magicien, devint aveugle pour un temps. (Actes 13:8-11)"
+  },
+  "en": {
+   "q": "Which sorcerer did Paul strike blind at Paphos on the island of Cyprus?",
+   "options": [
+    "Elymas",
+    "Simon",
+    "Demetrius",
+    "Sceva"
+   ],
+   "explain": "Elymas the sorcerer was blinded for a time. (Acts 13:8-11)"
+  }
+ },
+ {
+  "id": "nt-medium-035",
+  "ref": {
+   "fr": "Actes 14:12",
+   "en": "Acts 14:12"
+  },
+  "fr": {
+   "q": "À Lystre, pour quel dieu la foule prit-elle Paul, qui portait la parole ?",
+   "options": [
+    "Mercure",
+    "Jupiter",
+    "Apollon",
+    "Mars"
+   ],
+   "explain": "Ils appelaient Paul Mercure, et Barnabas Jupiter. (Actes 14:12)"
+  },
+  "en": {
+   "q": "At Lystra, for which god did the crowd mistake Paul, the chief speaker?",
+   "options": [
+    "Hermes",
+    "Zeus",
+    "Apollo",
+    "Ares"
+   ],
+   "explain": "They called Paul Hermes and Barnabas Zeus. (Acts 14:12)"
+  }
+ },
+ {
+  "id": "nt-medium-036",
+  "ref": {
+   "fr": "Actes 16:9",
+   "en": "Acts 16:9"
+  },
+  "fr": {
+   "q": "Quelle vision poussa Paul à passer en Macédoine ?",
+   "options": [
+    "Un Macédonien l’appelant à l’aide",
+    "Un ange à l’épée",
+    "Une lumière du ciel",
+    "Une échelle"
+   ],
+   "explain": "Un homme macédonien le priait : « Passe et secours-nous ! » (Actes 16:9)"
+  },
+  "en": {
+   "q": "What vision led Paul to cross over into Macedonia?",
+   "options": [
+    "A Macedonian pleading for help",
+    "An angel with a sword",
+    "A light from heaven",
+    "A ladder"
+   ],
+   "explain": "A Macedonian man begged, “Come over and help us!” (Acts 16:9)"
+  }
+ },
+ {
+  "id": "nt-medium-037",
+  "ref": {
+   "fr": "Actes 16:30",
+   "en": "Acts 16:30"
+  },
+  "fr": {
+   "q": "Quelle question posa le geôlier de Philippes à Paul et Silas ?",
+   "options": [
+    "« Que faut-il que je fasse pour être sauvé ? »",
+    "« Qui es-tu, Seigneur ? »",
+    "« Où est le Christ ? »",
+    "« Puis-je vous suivre ? »"
+   ],
+   "explain": "« Que faut-il que je fasse pour être sauvé ? » (Actes 16:30)"
+  },
+  "en": {
+   "q": "What question did the Philippian jailer ask Paul and Silas?",
+   "options": [
+    "“What must I do to be saved?”",
+    "“Who are you, Lord?”",
+    "“Where is the Christ?”",
+    "“May I follow you?”"
+   ],
+   "explain": "“What must I do to be saved?” (Acts 16:30)"
+  }
+ },
+ {
+  "id": "nt-medium-038",
+  "ref": {
+   "fr": "Actes 17:22",
+   "en": "Acts 17:22"
+  },
+  "fr": {
+   "q": "Dans quelle ville Paul prêcha-t-il devant l’aréopage au sujet du « dieu inconnu » ?",
+   "options": [
+    "Athènes",
+    "Corinthe",
+    "Éphèse",
+    "Thessalonique"
+   ],
+   "explain": "Paul se tint au milieu de l’Aréopage à Athènes. (Actes 17:22)"
+  },
+  "en": {
+   "q": "In which city did Paul preach before the Areopagus about the “unknown god”?",
+   "options": [
+    "Athens",
+    "Corinth",
+    "Ephesus",
+    "Thessalonica"
+   ],
+   "explain": "Paul stood in the midst of the Areopagus in Athens. (Acts 17:22)"
+  }
+ },
+ {
+  "id": "nt-medium-039",
+  "ref": {
+   "fr": "Actes 19:24",
+   "en": "Acts 19:24"
+  },
+  "fr": {
+   "q": "Quel orfèvre d’Éphèse souleva une émeute pour la déesse Diane ?",
+   "options": [
+    "Démétrius",
+    "Alexandre",
+    "Sceva",
+    "Tyrannus"
+   ],
+   "explain": "Démétrius fabriquait des temples d’argent de Diane. (Actes 19:24)"
+  },
+  "en": {
+   "q": "Which silversmith of Ephesus stirred up a riot for the goddess Diana?",
+   "options": [
+    "Demetrius",
+    "Alexander",
+    "Sceva",
+    "Tyrannus"
+   ],
+   "explain": "Demetrius made silver shrines of Diana. (Acts 19:24)"
+  }
+ },
+ {
+  "id": "nt-medium-040",
+  "ref": {
+   "fr": "Actes 20:9-10",
+   "en": "Acts 20:9-10"
+  },
+  "fr": {
+   "q": "Quel jeune homme tomba d’un troisième étage pendant le long discours de Paul à Troas ?",
+   "options": [
+    "Eutychus",
+    "Trophime",
+    "Tychique",
+    "Gaïus"
+   ],
+   "explain": "Eutychus, endormi, tomba et fut relevé vivant. (Actes 20:9-10)"
+  },
+  "en": {
+   "q": "Which young man fell from a third-story window during Paul’s long sermon at Troas?",
+   "options": [
+    "Eutychus",
+    "Trophimus",
+    "Tychicus",
+    "Gaius"
+   ],
+   "explain": "Eutychus fell asleep, fell down, and was taken up alive. (Acts 20:9-10)"
+  }
+ },
+ {
+  "id": "nt-medium-041",
+  "ref": {
+   "fr": "Actes 25:11",
+   "en": "Acts 25:11"
+  },
+  "fr": {
+   "q": "À qui Paul en appela-t-il pour être jugé, en tant que citoyen romain ?",
+   "options": [
+    "À César",
+    "Au sanhédrin",
+    "Au roi Agrippa",
+    "Au gouverneur Félix"
+   ],
+   "explain": "« J’en appelle à César. » (Actes 25:11)"
+  },
+  "en": {
+   "q": "To whom did Paul appeal to be judged as a Roman citizen?",
+   "options": [
+    "To Caesar",
+    "To the Sanhedrin",
+    "To King Agrippa",
+    "To Governor Felix"
+   ],
+   "explain": "“I appeal to Caesar.” (Acts 25:11)"
+  }
+ },
+ {
+  "id": "nt-medium-042",
+  "ref": {
+   "fr": "Actes 26:28",
+   "en": "Acts 26:28"
+  },
+  "fr": {
+   "q": "Quel roi dit à Paul : « Tu vas bientôt me persuader de devenir chrétien » ?",
+   "options": [
+    "Agrippa",
+    "Hérode Antipas",
+    "Félix",
+    "Festus"
+   ],
+   "explain": "Le roi Agrippa répondit ainsi à Paul. (Actes 26:28)"
+  },
+  "en": {
+   "q": "Which king told Paul, “You almost persuade me to become a Christian”?",
+   "options": [
+    "Agrippa",
+    "Herod Antipas",
+    "Felix",
+    "Festus"
+   ],
+   "explain": "King Agrippa answered Paul this way. (Acts 26:28)"
+  }
+ },
+ {
+  "id": "nt-medium-043",
+  "ref": {
+   "fr": "Actes 18:24",
+   "en": "Acts 18:24"
+  },
+  "fr": {
+   "q": "De quelle ville était originaire Apollos, l’éloquent prédicateur ?",
+   "options": [
+    "Alexandrie",
+    "Tarse",
+    "Antioche",
+    "Corinthe"
+   ],
+   "explain": "Apollos, Juif d’Alexandrie, était éloquent. (Actes 18:24)"
+  },
+  "en": {
+   "q": "From which city did Apollos, the eloquent preacher, come?",
+   "options": [
+    "Alexandria",
+    "Tarsus",
+    "Antioch",
+    "Corinth"
+   ],
+   "explain": "Apollos, a Jew from Alexandria, was eloquent. (Acts 18:24)"
+  }
+ },
+ {
+  "id": "nt-medium-044",
+  "ref": {
+   "fr": "Actes 18:26",
+   "en": "Acts 18:26"
+  },
+  "fr": {
+   "q": "Quel couple expliqua plus exactement la voie de Dieu à Apollos ?",
+   "options": [
+    "Aquilas et Priscille",
+    "Ananias et Saphira",
+    "Barnabas et Marc",
+    "André et Pierre"
+   ],
+   "explain": "Priscille et Aquilas l’instruisirent plus exactement. (Actes 18:26)"
+  },
+  "en": {
+   "q": "Which couple explained the way of God more accurately to Apollos?",
+   "options": [
+    "Aquila and Priscilla",
+    "Ananias and Sapphira",
+    "Barnabas and Mark",
+    "Andrew and Peter"
+   ],
+   "explain": "Priscilla and Aquila taught him more accurately. (Acts 18:26)"
+  }
+ },
+ {
+  "id": "nt-medium-045",
+  "ref": {
+   "fr": "Actes 22:3",
+   "en": "Acts 22:3"
+  },
+  "fr": {
+   "q": "Dans quelle ville de Cilicie l’apôtre Paul était-il né ?",
+   "options": [
+    "Tarse",
+    "Antioche",
+    "Damas",
+    "Éphèse"
+   ],
+   "explain": "« Je suis Juif, né à Tarse en Cilicie. » (Actes 22:3)"
+  },
+  "en": {
+   "q": "In which city of Cilicia was the apostle Paul born?",
+   "options": [
+    "Tarsus",
+    "Antioch",
+    "Damascus",
+    "Ephesus"
+   ],
+   "explain": "“I am a Jew, born in Tarsus of Cilicia.” (Acts 22:3)"
+  }
+ },
+ {
+  "id": "nt-medium-046",
+  "ref": {
+   "fr": "Romains 1:17",
+   "en": "Romans 1:17"
+  },
+  "fr": {
+   "q": "Selon l’épître aux Romains, comment le juste vivra-t-il ?",
+   "options": [
+    "Par la foi",
+    "Par la loi",
+    "Par les œuvres",
+    "Par la sagesse"
+   ],
+   "explain": "« Le juste vivra par la foi. » (Romains 1:17)"
+  },
+  "en": {
+   "q": "According to Romans, how shall the righteous live?",
+   "options": [
+    "By faith",
+    "By the law",
+    "By works",
+    "By wisdom"
+   ],
+   "explain": "“The righteous shall live by faith.” (Romans 1:17)"
+  }
+ },
+ {
+  "id": "nt-medium-047",
+  "ref": {
+   "fr": "Romains 3:23",
+   "en": "Romans 3:23"
+  },
+  "fr": {
+   "q": "Selon Romains 3:23, qui a péché et est privé de la gloire de Dieu ?",
+   "options": [
+    "Tous",
+    "Les païens seulement",
+    "Les riches",
+    "Peu de gens"
+   ],
+   "explain": "« Tous ont péché et sont privés de la gloire de Dieu. » (Romains 3:23)"
+  },
+  "en": {
+   "q": "According to Romans 3:23, who has sinned and falls short of God’s glory?",
+   "options": [
+    "All",
+    "Only the Gentiles",
+    "The rich",
+    "A few"
+   ],
+   "explain": "“All have sinned and fall short of the glory of God.” (Romans 3:23)"
+  }
+ },
+ {
+  "id": "nt-medium-048",
+  "ref": {
+   "fr": "Romains 12:1",
+   "en": "Romans 12:1"
+  },
+  "fr": {
+   "q": "Que Paul demande-t-il d’offrir en sacrifice vivant selon Romains 12 ?",
+   "options": [
+    "Nos corps",
+    "Nos biens",
+    "Nos paroles",
+    "Des agneaux"
+   ],
+   "explain": "« Offrez vos corps comme un sacrifice vivant. » (Romains 12:1)"
+  },
+  "en": {
+   "q": "What does Paul ask believers to offer as a living sacrifice in Romans 12?",
+   "options": [
+    "Our bodies",
+    "Our possessions",
+    "Our words",
+    "Lambs"
+   ],
+   "explain": "“Present your bodies as a living sacrifice.” (Romans 12:1)"
+  }
+ },
+ {
+  "id": "nt-medium-049",
+  "ref": {
+   "fr": "1 Corinthiens 6:19",
+   "en": "1 Corinthians 6:19"
+  },
+  "fr": {
+   "q": "Selon 1 Corinthiens 6, de qui notre corps est-il le temple ?",
+   "options": [
+    "Du Saint-Esprit",
+    "Des anges",
+    "De la loi",
+    "De la sagesse"
+   ],
+   "explain": "« Votre corps est le temple du Saint-Esprit. » (1 Corinthiens 6:19)"
+  },
+  "en": {
+   "q": "According to 1 Corinthians 6, our body is the temple of whom?",
+   "options": [
+    "The Holy Spirit",
+    "The angels",
+    "The law",
+    "Wisdom"
+   ],
+   "explain": "“Your body is a temple of the Holy Spirit.” (1 Corinthians 6:19)"
+  }
+ },
+ {
+  "id": "nt-medium-050",
+  "ref": {
+   "fr": "2 Corinthiens 9:7",
+   "en": "2 Corinthians 9:7"
+  },
+  "fr": {
+   "q": "Selon 2 Corinthiens 9, quel donateur Dieu aime-t-il ?",
+   "options": [
+    "Celui qui donne avec joie",
+    "Celui qui donne beaucoup",
+    "Le plus riche",
+    "Le plus pauvre"
+   ],
+   "explain": "« Dieu aime celui qui donne avec joie. » (2 Corinthiens 9:7)"
+  },
+  "en": {
+   "q": "According to 2 Corinthians 9, what kind of giver does God love?",
+   "options": [
+    "A cheerful giver",
+    "A generous giver",
+    "The richest",
+    "The poorest"
+   ],
+   "explain": "“God loves a cheerful giver.” (2 Corinthians 9:7)"
+  }
+ },
+ {
+  "id": "nt-medium-051",
+  "ref": {
+   "fr": "Galates 2:20",
+   "en": "Galatians 2:20"
+  },
+  "fr": {
+   "q": "Comment Paul décrit-il sa vie nouvelle en Galates 2:20 ?",
+   "options": [
+    "« Christ vit en moi »",
+    "« Je suis libre »",
+    "« Je cours la course »",
+    "« La loi me suffit »"
+   ],
+   "explain": "« Ce n’est plus moi qui vis, c’est Christ qui vit en moi. » (Galates 2:20)"
+  },
+  "en": {
+   "q": "How does Paul describe his new life in Galatians 2:20?",
+   "options": [
+    "“Christ lives in me”",
+    "“I am free”",
+    "“I run the race”",
+    "“The law is enough”"
+   ],
+   "explain": "“It is no longer I who live, but Christ lives in me.” (Galatians 2:20)"
+  }
+ },
+ {
+  "id": "nt-medium-052",
+  "ref": {
+   "fr": "Éphésiens 2:8",
+   "en": "Ephesians 2:8"
+  },
+  "fr": {
+   "q": "Selon Éphésiens 2:8, par quel moyen sommes-nous sauvés par la grâce ?",
+   "options": [
+    "Par la foi",
+    "Par les œuvres",
+    "Par la loi",
+    "Par le baptême"
+   ],
+   "explain": "« C’est par la grâce que vous êtes sauvés, par le moyen de la foi. » (Éphésiens 2:8)"
+  },
+  "en": {
+   "q": "According to Ephesians 2:8, through what are we saved by grace?",
+   "options": [
+    "Through faith",
+    "Through works",
+    "Through the law",
+    "Through baptism"
+   ],
+   "explain": "“By grace you are saved, through faith.” (Ephesians 2:8)"
+  }
+ },
+ {
+  "id": "nt-medium-053",
+  "ref": {
+   "fr": "Philippiens 4:13",
+   "en": "Philippians 4:13"
+  },
+  "fr": {
+   "q": "Comment Paul termine-t-il : « Je puis tout par celui qui me… » ?",
+   "options": [
+    "fortifie",
+    "aime",
+    "appelle",
+    "connaît"
+   ],
+   "explain": "« Je puis tout par celui qui me fortifie. » (Philippiens 4:13)"
+  },
+  "en": {
+   "q": "How does Paul finish: “I can do all things through him who… me”?",
+   "options": [
+    "strengthens",
+    "loves",
+    "calls",
+    "knows"
+   ],
+   "explain": "“I can do all things through Christ who strengthens me.” (Philippians 4:13)"
+  }
+ },
+ {
+  "id": "nt-medium-054",
+  "ref": {
+   "fr": "Philippiens 2:10",
+   "en": "Philippians 2:10"
+  },
+  "fr": {
+   "q": "Selon Philippiens 2, devant le nom de Jésus, que fera tout genou ?",
+   "options": [
+    "Il fléchira",
+    "Il tremblera",
+    "Il se lèvera",
+    "Il dansera"
+   ],
+   "explain": "« Au nom de Jésus tout genou fléchisse. » (Philippiens 2:10)"
+  },
+  "en": {
+   "q": "According to Philippians 2, at the name of Jesus, what will every knee do?",
+   "options": [
+    "Bow",
+    "Tremble",
+    "Rise",
+    "Dance"
+   ],
+   "explain": "“At the name of Jesus every knee should bow.” (Philippians 2:10)"
+  }
+ },
+ {
+  "id": "nt-medium-055",
+  "ref": {
+   "fr": "Colossiens 1:15",
+   "en": "Colossians 1:15"
+  },
+  "fr": {
+   "q": "Selon Colossiens 1:15, de quoi Christ est-il l’image ?",
+   "options": [
+    "Du Dieu invisible",
+    "De la loi",
+    "Du temple",
+    "De la sagesse"
+   ],
+   "explain": "« Il est l’image du Dieu invisible. » (Colossiens 1:15)"
+  },
+  "en": {
+   "q": "According to Colossians 1:15, Christ is the image of what?",
+   "options": [
+    "The invisible God",
+    "The law",
+    "The temple",
+    "Wisdom"
+   ],
+   "explain": "“He is the image of the invisible God.” (Colossians 1:15)"
+  }
+ },
+ {
+  "id": "nt-medium-056",
+  "ref": {
+   "fr": "1 Thessaloniciens 4:16",
+   "en": "1 Thessalonians 4:16"
+  },
+  "fr": {
+   "q": "Selon 1 Thessaloniciens 4, qui ressuscitera premièrement au retour du Seigneur ?",
+   "options": [
+    "Les morts en Christ",
+    "Les vivants",
+    "Les anges",
+    "Les justes d’Israël"
+   ],
+   "explain": "« Ceux qui sont morts en Christ ressusciteront premièrement. » (1 Thess. 4:16)"
+  },
+  "en": {
+   "q": "According to 1 Thessalonians 4, who will rise first at the Lord’s return?",
+   "options": [
+    "The dead in Christ",
+    "The living",
+    "The angels",
+    "The righteous of Israel"
+   ],
+   "explain": "“The dead in Christ will rise first.” (1 Thessalonians 4:16)"
+  }
+ },
+ {
+  "id": "nt-medium-057",
+  "ref": {
+   "fr": "1 Timothée 6:10",
+   "en": "1 Timothy 6:10"
+  },
+  "fr": {
+   "q": "Selon 1 Timothée 6:10, quelle est une racine de tous les maux ?",
+   "options": [
+    "L’amour de l’argent",
+    "L’orgueil",
+    "La paresse",
+    "La colère"
+   ],
+   "explain": "« L’amour de l’argent est une racine de tous les maux. » (1 Timothée 6:10)"
+  },
+  "en": {
+   "q": "According to 1 Timothy 6:10, what is a root of all kinds of evil?",
+   "options": [
+    "The love of money",
+    "Pride",
+    "Laziness",
+    "Anger"
+   ],
+   "explain": "“The love of money is a root of all kinds of evil.” (1 Timothy 6:10)"
+  }
+ },
+ {
+  "id": "nt-medium-058",
+  "ref": {
+   "fr": "2 Timothée 3:16",
+   "en": "2 Timothy 3:16"
+  },
+  "fr": {
+   "q": "Selon 2 Timothée 3:16, d’où vient toute Écriture ?",
+   "options": [
+    "Elle est inspirée de Dieu",
+    "Des prophètes",
+    "Des sages",
+    "Des anciens"
+   ],
+   "explain": "« Toute Écriture est inspirée de Dieu. » (2 Timothée 3:16)"
+  },
+  "en": {
+   "q": "According to 2 Timothy 3:16, what is the source of all Scripture?",
+   "options": [
+    "It is inspired by God",
+    "The prophets",
+    "The wise",
+    "The elders"
+   ],
+   "explain": "“All Scripture is breathed out by God.” (2 Timothy 3:16)"
+  }
+ },
+ {
+  "id": "nt-medium-059",
+  "ref": {
+   "fr": "Philémon 1:10",
+   "en": "Philemon 1:10"
+  },
+  "fr": {
+   "q": "Au sujet de quel esclave fugitif Paul écrivit-il à Philémon ?",
+   "options": [
+    "Onésime",
+    "Tychique",
+    "Épaphras",
+    "Démas"
+   ],
+   "explain": "Paul intercède pour Onésime, devenu son enfant dans la foi. (Philémon 1:10)"
+  },
+  "en": {
+   "q": "Concerning which runaway slave did Paul write to Philemon?",
+   "options": [
+    "Onesimus",
+    "Tychicus",
+    "Epaphras",
+    "Demas"
+   ],
+   "explain": "Paul pleads for Onesimus, his child in the faith. (Philemon 1:10)"
+  }
+ },
+ {
+  "id": "nt-medium-060",
+  "ref": {
+   "fr": "Hébreux 11:1",
+   "en": "Hebrews 11:1"
+  },
+  "fr": {
+   "q": "Selon Hébreux 11:1, la foi est une ferme assurance des choses qu’on…",
+   "options": [
+    "espère",
+    "voit",
+    "possède",
+    "mérite"
+   ],
+   "explain": "« La foi est une ferme assurance des choses qu’on espère. » (Hébreux 11:1)"
+  },
+  "en": {
+   "q": "According to Hebrews 11:1, faith is the assurance of things…",
+   "options": [
+    "hoped for",
+    "seen",
+    "owned",
+    "earned"
+   ],
+   "explain": "“Faith is the assurance of things hoped for.” (Hebrews 11:1)"
+  }
+ },
+ {
+  "id": "nt-medium-061",
+  "ref": {
+   "fr": "Hébreux 9:27",
+   "en": "Hebrews 9:27"
+  },
+  "fr": {
+   "q": "Selon Hébreux 9:27, qu’est-il réservé aux hommes une seule fois ?",
+   "options": [
+    "De mourir",
+    "De pécher",
+    "De se marier",
+    "De juger"
+   ],
+   "explain": "« Il est réservé aux hommes de mourir une seule fois. » (Hébreux 9:27)"
+  },
+  "en": {
+   "q": "According to Hebrews 9:27, what is appointed for man once?",
+   "options": [
+    "To die",
+    "To sin",
+    "To marry",
+    "To judge"
+   ],
+   "explain": "“It is appointed for man to die once.” (Hebrews 9:27)"
+  }
+ },
+ {
+  "id": "nt-medium-062",
+  "ref": {
+   "fr": "Jacques 2:26",
+   "en": "James 2:26"
+  },
+  "fr": {
+   "q": "Selon Jacques 2, une foi sans œuvres est comparée à quoi ?",
+   "options": [
+    "Un corps mort",
+    "Une lampe éteinte",
+    "Un champ stérile",
+    "Un arbre sec"
+   ],
+   "explain": "« La foi sans les œuvres est morte. » (Jacques 2:26)"
+  },
+  "en": {
+   "q": "According to James 2, faith without works is compared to what?",
+   "options": [
+    "A dead body",
+    "An unlit lamp",
+    "A barren field",
+    "A dry tree"
+   ],
+   "explain": "“Faith without works is dead.” (James 2:26)"
+  }
+ },
+ {
+  "id": "nt-medium-063",
+  "ref": {
+   "fr": "Jacques 3:6",
+   "en": "James 3:6"
+  },
+  "fr": {
+   "q": "À quel élément Jacques compare-t-il la langue, difficile à maîtriser ?",
+   "options": [
+    "Au feu",
+    "À l’eau",
+    "Au vent",
+    "À la pierre"
+   ],
+   "explain": "« La langue aussi est un feu. » (Jacques 3:6)"
+  },
+  "en": {
+   "q": "To what element does James compare the untamable tongue?",
+   "options": [
+    "Fire",
+    "Water",
+    "Wind",
+    "Stone"
+   ],
+   "explain": "“The tongue is a fire.” (James 3:6)"
+  }
+ },
+ {
+  "id": "nt-medium-064",
+  "ref": {
+   "fr": "1 Pierre 5:8",
+   "en": "1 Peter 5:8"
+  },
+  "fr": {
+   "q": "À quel animal Pierre compare-t-il le diable qui rôde ?",
+   "options": [
+    "Un lion rugissant",
+    "Un serpent",
+    "Un loup",
+    "Un aigle"
+   ],
+   "explain": "« Votre adversaire, le diable, rôde comme un lion rugissant. » (1 Pierre 5:8)"
+  },
+  "en": {
+   "q": "To what animal does Peter compare the prowling devil?",
+   "options": [
+    "A roaring lion",
+    "A serpent",
+    "A wolf",
+    "An eagle"
+   ],
+   "explain": "“Your adversary the devil prowls like a roaring lion.” (1 Peter 5:8)"
+  }
+ },
+ {
+  "id": "nt-medium-065",
+  "ref": {
+   "fr": "1 Pierre 2:9",
+   "en": "1 Peter 2:9"
+  },
+  "fr": {
+   "q": "Comment 1 Pierre 2:9 nomme-t-il les croyants : « une race élue, un sacerdoce… » ?",
+   "options": [
+    "royal",
+    "saint",
+    "ancien",
+    "céleste"
+   ],
+   "explain": "« Un sacerdoce royal, une nation sainte. » (1 Pierre 2:9)"
+  },
+  "en": {
+   "q": "How does 1 Peter 2:9 call believers: “a chosen race, a royal…”?",
+   "options": [
+    "priesthood",
+    "kingdom",
+    "nation",
+    "temple"
+   ],
+   "explain": "“A royal priesthood, a holy nation.” (1 Peter 2:9)"
+  }
+ },
+ {
+  "id": "nt-medium-066",
+  "ref": {
+   "fr": "1 Jean 4:8",
+   "en": "1 John 4:8"
+  },
+  "fr": {
+   "q": "Selon 1 Jean 4:8, qu’est Dieu en son essence ?",
+   "options": [
+    "Amour",
+    "Lumière seulement",
+    "Juge",
+    "Roi"
+   ],
+   "explain": "« Dieu est amour. » (1 Jean 4:8)"
+  },
+  "en": {
+   "q": "According to 1 John 4:8, what is God in his essence?",
+   "options": [
+    "Love",
+    "Only light",
+    "Judge",
+    "King"
+   ],
+   "explain": "“God is love.” (1 John 4:8)"
+  }
+ },
+ {
+  "id": "nt-medium-067",
+  "ref": {
+   "fr": "1 Jean 1:9",
+   "en": "1 John 1:9"
+  },
+  "fr": {
+   "q": "Selon 1 Jean 1:9, si nous confessons nos péchés, que fait Dieu ?",
+   "options": [
+    "Il pardonne et purifie",
+    "Il oublie",
+    "Il éprouve",
+    "Il attend"
+   ],
+   "explain": "« Si nous confessons nos péchés, il est fidèle pour les pardonner. » (1 Jean 1:9)"
+  },
+  "en": {
+   "q": "According to 1 John 1:9, if we confess our sins, what does God do?",
+   "options": [
+    "Forgives and cleanses",
+    "Forgets",
+    "Tests us",
+    "Waits"
+   ],
+   "explain": "“If we confess our sins, he is faithful to forgive.” (1 John 1:9)"
+  }
+ },
+ {
+  "id": "nt-medium-068",
+  "ref": {
+   "fr": "Jude 1:9",
+   "en": "Jude 1:9"
+  },
+  "fr": {
+   "q": "Quel archange disputa avec le diable au sujet du corps de Moïse, selon Jude ?",
+   "options": [
+    "Michel",
+    "Gabriel",
+    "Raphaël",
+    "Uriel"
+   ],
+   "explain": "L’archange Michel contesta au sujet du corps de Moïse. (Jude 1:9)"
+  },
+  "en": {
+   "q": "Which archangel disputed with the devil over the body of Moses, according to Jude?",
+   "options": [
+    "Michael",
+    "Gabriel",
+    "Raphael",
+    "Uriel"
+   ],
+   "explain": "The archangel Michael contended over the body of Moses. (Jude 1:9)"
+  }
+ },
+ {
+  "id": "nt-medium-069",
+  "ref": {
+   "fr": "Apocalypse 1:11",
+   "en": "Revelation 1:11"
+  },
+  "fr": {
+   "q": "À combien d’Églises d’Asie Jean adresse-t-il les lettres de l’Apocalypse ?",
+   "options": [
+    "Sept",
+    "Trois",
+    "Douze",
+    "Dix"
+   ],
+   "explain": "« Écris dans un livre… aux sept Églises. » (Apocalypse 1:11)"
+  },
+  "en": {
+   "q": "To how many churches of Asia does John address the letters of Revelation?",
+   "options": [
+    "Seven",
+    "Three",
+    "Twelve",
+    "Ten"
+   ],
+   "explain": "“Write in a book… to the seven churches.” (Revelation 1:11)"
+  }
+ },
+ {
+  "id": "nt-medium-070",
+  "ref": {
+   "fr": "Apocalypse 3:16",
+   "en": "Revelation 3:16"
+  },
+  "fr": {
+   "q": "Quelle Église de l’Apocalypse est reprise parce qu’elle est « tiède » ?",
+   "options": [
+    "Laodicée",
+    "Éphèse",
+    "Smyrne",
+    "Philadelphie"
+   ],
+   "explain": "« Parce que tu es tiède… je te vomirai. » (Apocalypse 3:16)"
+  },
+  "en": {
+   "q": "Which church in Revelation is rebuked for being “lukewarm”?",
+   "options": [
+    "Laodicea",
+    "Ephesus",
+    "Smyrna",
+    "Philadelphia"
+   ],
+   "explain": "“Because you are lukewarm… I will spit you out.” (Revelation 3:16)"
+  }
+ },
+ {
+  "id": "nt-medium-071",
+  "ref": {
+   "fr": "Apocalypse 3:20",
+   "en": "Revelation 3:20"
+  },
+  "fr": {
+   "q": "Dans l’Apocalypse, où Jésus dit-il se tenir et frapper ?",
+   "options": [
+    "À la porte",
+    "Au trône",
+    "Au temple",
+    "Sur la montagne"
+   ],
+   "explain": "« Je me tiens à la porte, et je frappe. » (Apocalypse 3:20)"
+  },
+  "en": {
+   "q": "In Revelation, where does Jesus say he stands and knocks?",
+   "options": [
+    "At the door",
+    "At the throne",
+    "At the temple",
+    "On the mountain"
+   ],
+   "explain": "“I stand at the door and knock.” (Revelation 3:20)"
+  }
+ },
+ {
+  "id": "nt-medium-072",
+  "ref": {
+   "fr": "Apocalypse 5:1",
+   "en": "Revelation 5:1"
+  },
+  "fr": {
+   "q": "Combien de sceaux fermaient le livre que seul l’Agneau pouvait ouvrir ?",
+   "options": [
+    "Sept",
+    "Trois",
+    "Douze",
+    "Quatre"
+   ],
+   "explain": "Un livre scellé de sept sceaux. (Apocalypse 5:1)"
+  },
+  "en": {
+   "q": "How many seals closed the scroll that only the Lamb could open?",
+   "options": [
+    "Seven",
+    "Three",
+    "Twelve",
+    "Four"
+   ],
+   "explain": "A scroll sealed with seven seals. (Revelation 5:1)"
+  }
+ },
+ {
+  "id": "nt-medium-073",
+  "ref": {
+   "fr": "Apocalypse 6:2",
+   "en": "Revelation 6:2"
+  },
+  "fr": {
+   "q": "De quelle couleur était le premier cheval de l’Apocalypse à l’ouverture des sceaux ?",
+   "options": [
+    "Blanc",
+    "Rouge",
+    "Noir",
+    "Pâle"
+   ],
+   "explain": "Parut un cheval blanc. (Apocalypse 6:2)"
+  },
+  "en": {
+   "q": "What color was the first horse of Revelation as the seals were opened?",
+   "options": [
+    "White",
+    "Red",
+    "Black",
+    "Pale"
+   ],
+   "explain": "A white horse appeared. (Revelation 6:2)"
+  }
+ },
+ {
+  "id": "nt-medium-074",
+  "ref": {
+   "fr": "Apocalypse 13:18",
+   "en": "Revelation 13:18"
+  },
+  "fr": {
+   "q": "Quel est le nombre de la bête selon l’Apocalypse ?",
+   "options": [
+    "666",
+    "777",
+    "616",
+    "144"
+   ],
+   "explain": "« Son nombre est six cent soixante-six. » (Apocalypse 13:18)"
+  },
+  "en": {
+   "q": "What is the number of the beast according to Revelation?",
+   "options": [
+    "666",
+    "777",
+    "616",
+    "144"
+   ],
+   "explain": "“His number is six hundred sixty-six.” (Revelation 13:18)"
+  }
+ },
+ {
+  "id": "nt-medium-075",
+  "ref": {
+   "fr": "Apocalypse 20:2",
+   "en": "Revelation 20:2"
+  },
+  "fr": {
+   "q": "Pour combien de temps Satan est-il lié selon Apocalypse 20 ?",
+   "options": [
+    "Mille ans",
+    "Cent ans",
+    "Sept ans",
+    "Trois ans"
+   ],
+   "explain": "Il le lia pour mille ans. (Apocalypse 20:2)"
+  },
+  "en": {
+   "q": "For how long is Satan bound according to Revelation 20?",
+   "options": [
+    "A thousand years",
+    "A hundred years",
+    "Seven years",
+    "Three years"
+   ],
+   "explain": "He bound him for a thousand years. (Revelation 20:2)"
+  }
+ },
+ {
+  "id": "nt-medium-076",
+  "ref": {
+   "fr": "Apocalypse 21:4",
+   "en": "Revelation 21:4"
+  },
+  "fr": {
+   "q": "Selon Apocalypse 21, que Dieu essuiera-t-il de tous les yeux ?",
+   "options": [
+    "Toute larme",
+    "La poussière",
+    "Le sang",
+    "Le sommeil"
+   ],
+   "explain": "« Il essuiera toute larme de leurs yeux. » (Apocalypse 21:4)"
+  },
+  "en": {
+   "q": "According to Revelation 21, what will God wipe from every eye?",
+   "options": [
+    "Every tear",
+    "All dust",
+    "Blood",
+    "Sleep"
+   ],
+   "explain": "“He will wipe away every tear from their eyes.” (Revelation 21:4)"
+  }
+ },
+ {
+  "id": "nt-medium-077",
+  "ref": {
+   "fr": "Apocalypse 21:21",
+   "en": "Revelation 21:21"
+  },
+  "fr": {
+   "q": "De quelle matière étaient faites les douze portes de la nouvelle Jérusalem ?",
+   "options": [
+    "De perles",
+    "D’or",
+    "De jaspe",
+    "De bronze"
+   ],
+   "explain": "Les douze portes étaient douze perles. (Apocalypse 21:21)"
+  },
+  "en": {
+   "q": "Of what were the twelve gates of the new Jerusalem made?",
+   "options": [
+    "Pearls",
+    "Gold",
+    "Jasper",
+    "Bronze"
+   ],
+   "explain": "The twelve gates were twelve pearls. (Revelation 21:21)"
+  }
+ },
+ {
+  "id": "nt-medium-078",
+  "ref": {
+   "fr": "Actes 1:26",
+   "en": "Acts 1:26"
+  },
+  "fr": {
+   "q": "Qui fut choisi pour remplacer Judas parmi les douze apôtres ?",
+   "options": [
+    "Matthias",
+    "Barnabas",
+    "Étienne",
+    "Silas"
+   ],
+   "explain": "Le sort tomba sur Matthias, ajouté aux onze apôtres. (Actes 1:26)"
+  },
+  "en": {
+   "q": "Who was chosen to replace Judas among the twelve apostles?",
+   "options": [
+    "Matthias",
+    "Barnabas",
+    "Stephen",
+    "Silas"
+   ],
+   "explain": "The lot fell on Matthias, added to the eleven. (Acts 1:26)"
+  }
+ },
+ {
+  "id": "nt-medium-079",
+  "ref": {
+   "fr": "Jean 13:23",
+   "en": "John 13:23"
+  },
+  "fr": {
+   "q": "Quel apôtre est désigné comme « le disciple que Jésus aimait » ?",
+   "options": [
+    "Jean",
+    "Pierre",
+    "Jacques",
+    "André"
+   ],
+   "explain": "Le disciple que Jésus aimait s’appuya sur sa poitrine. (Jean 13:23; 21:20)"
+  },
+  "en": {
+   "q": "Which apostle is called “the disciple whom Jesus loved”?",
+   "options": [
+    "John",
+    "Peter",
+    "James",
+    "Andrew"
+   ],
+   "explain": "The disciple Jesus loved leaned on his breast. (John 13:23; 21:20)"
+  }
+ },
+ {
+  "id": "nt-medium-080",
+  "ref": {
+   "fr": "Jean 13:5",
+   "en": "John 13:5"
+  },
+  "fr": {
+   "q": "Que fit Jésus à ses disciples avant le dernier repas, en signe d’humilité ?",
+   "options": [
+    "Il leur lava les pieds",
+    "Il rompit le pain",
+    "Il pria seul",
+    "Il chanta un cantique"
+   ],
+   "explain": "Jésus se mit à laver les pieds des disciples. (Jean 13:5)"
+  },
+  "en": {
+   "q": "What did Jesus do for his disciples before the last supper, as a sign of humility?",
+   "options": [
+    "He washed their feet",
+    "He broke bread",
+    "He prayed alone",
+    "He sang a hymn"
+   ],
+   "explain": "Jesus began to wash the disciples’ feet. (John 13:5)"
+  }
+ },
+ {
+  "id": "nt-medium-081",
+  "ref": {
+   "fr": "Actes 4:36",
+   "en": "Acts 4:36"
+  },
+  "fr": {
+   "q": "Que signifie le surnom Barnabas donné par les apôtres ?",
+   "options": [
+    "Fils d’encouragement",
+    "Fils du tonnerre",
+    "Fils de la promesse",
+    "Rocher"
+   ],
+   "explain": "Barnabas signifie « fils d’encouragement ». (Actes 4:36)"
+  },
+  "en": {
+   "q": "What does the name Barnabas, given by the apostles, mean?",
+   "options": [
+    "Son of encouragement",
+    "Son of thunder",
+    "Son of promise",
+    "Rock"
+   ],
+   "explain": "Barnabas means “son of encouragement.” (Acts 4:36)"
+  }
+ },
+ {
+  "id": "nt-medium-082",
+  "ref": {
+   "fr": "Marc 3:17",
+   "en": "Mark 3:17"
+  },
+  "fr": {
+   "q": "Quel surnom, « fils du tonnerre », Jésus donna-t-il à Jacques et Jean ?",
+   "options": [
+    "Boanergès",
+    "Céphas",
+    "Didyme",
+    "Iscariot"
+   ],
+   "explain": "Il les surnomma Boanergès, fils du tonnerre. (Marc 3:17)"
+  },
+  "en": {
+   "q": "What surname, “sons of thunder”, did Jesus give James and John?",
+   "options": [
+    "Boanerges",
+    "Cephas",
+    "Didymus",
+    "Iscariot"
+   ],
+   "explain": "He surnamed them Boanerges, sons of thunder. (Mark 3:17)"
+  }
+ },
+ {
+  "id": "nt-medium-083",
+  "ref": {
+   "fr": "Jean 1:42",
+   "en": "John 1:42"
+  },
+  "fr": {
+   "q": "Quel nouveau nom Jésus donna-t-il à Simon, signifiant « pierre » ?",
+   "options": [
+    "Céphas",
+    "Boanergès",
+    "Didyme",
+    "Barjonas"
+   ],
+   "explain": "« Tu seras appelé Céphas », ce qui signifie Pierre. (Jean 1:42)"
+  },
+  "en": {
+   "q": "What new name did Jesus give Simon, meaning “rock”?",
+   "options": [
+    "Cephas",
+    "Boanerges",
+    "Didymus",
+    "Barjona"
+   ],
+   "explain": "“You shall be called Cephas,” which means Peter. (John 1:42)"
+  }
+ },
+ {
+  "id": "nt-medium-084",
+  "ref": {
+   "fr": "Marc 14:13",
+   "en": "Mark 14:13"
+  },
+  "fr": {
+   "q": "Quel signe devaient suivre les disciples pour trouver la salle de la Pâque ?",
+   "options": [
+    "Un homme portant une cruche d’eau",
+    "Une étoile",
+    "Un âne attaché",
+    "Une lampe allumée"
+   ],
+   "explain": "Un homme portant une cruche d’eau les conduirait. (Marc 14:13)"
+  },
+  "en": {
+   "q": "What sign were the disciples to follow to find the Passover room?",
+   "options": [
+    "A man carrying a jar of water",
+    "A star",
+    "A tied donkey",
+    "A lit lamp"
+   ],
+   "explain": "A man carrying a jar of water would lead them. (Mark 14:13)"
+  }
+ },
+ {
+  "id": "nt-medium-085",
+  "ref": {
+   "fr": "Matthieu 27:5",
+   "en": "Matthew 27:5"
+  },
+  "fr": {
+   "q": "Que fit Judas des trente pièces d’argent après avoir livré Jésus ?",
+   "options": [
+    "Il les jeta dans le temple",
+    "Il les donna aux pauvres",
+    "Il les cacha",
+    "Il les rendit à Pilate"
+   ],
+   "explain": "Judas jeta les pièces dans le temple, puis s’étrangla. (Matthieu 27:5)"
+  },
+  "en": {
+   "q": "What did Judas do with the thirty pieces of silver after betraying Jesus?",
+   "options": [
+    "Threw them in the temple",
+    "Gave them to the poor",
+    "Hid them",
+    "Returned them to Pilate"
+   ],
+   "explain": "Judas threw the pieces into the temple, then hanged himself. (Matthew 27:5)"
+  }
+ },
+ {
+  "id": "nt-medium-086",
+  "ref": {
+   "fr": "Matthieu 27:8",
+   "en": "Matthew 27:8"
+  },
+  "fr": {
+   "q": "Comment fut nommé le champ acheté avec l’argent de Judas ?",
+   "options": [
+    "Le champ du sang",
+    "Le champ des oliviers",
+    "Le champ du repos",
+    "Le champ du roi"
+   ],
+   "explain": "On l’appela « le champ du sang ». (Matthieu 27:8; Actes 1:19)"
+  },
+  "en": {
+   "q": "What was the field bought with Judas’ money called?",
+   "options": [
+    "The Field of Blood",
+    "The Olive Field",
+    "The Field of Rest",
+    "The King’s Field"
+   ],
+   "explain": "It was called “the Field of Blood.” (Matthew 27:8; Acts 1:19)"
+  }
+ },
+ {
+  "id": "nt-medium-087",
+  "ref": {
+   "fr": "Actes 2:3",
+   "en": "Acts 2:3"
+  },
+  "fr": {
+   "q": "Sous quelle forme le Saint-Esprit se posa-t-il sur les disciples à la Pentecôte ?",
+   "options": [
+    "Des langues de feu",
+    "Une colombe",
+    "Une nuée",
+    "Un éclair"
+   ],
+   "explain": "Des langues, comme de feu, se posèrent sur eux. (Actes 2:3)"
+  },
+  "en": {
+   "q": "In what form did the Holy Spirit rest on the disciples at Pentecost?",
+   "options": [
+    "Tongues of fire",
+    "A dove",
+    "A cloud",
+    "Lightning"
+   ],
+   "explain": "Tongues, as of fire, rested on each of them. (Acts 2:3)"
+  }
+ },
+ {
+  "id": "nt-medium-088",
+  "ref": {
+   "fr": "Actes 9:17-18",
+   "en": "Acts 9:17-18"
+  },
+  "fr": {
+   "q": "Quel disciple de Damas imposa les mains à Saul pour lui rendre la vue ?",
+   "options": [
+    "Ananias",
+    "Barnabas",
+    "Étienne",
+    "Corneille"
+   ],
+   "explain": "Ananias posa les mains sur Saul, et il recouvra la vue. (Actes 9:17-18)"
+  },
+  "en": {
+   "q": "Which disciple in Damascus laid hands on Saul to restore his sight?",
+   "options": [
+    "Ananias",
+    "Barnabas",
+    "Stephen",
+    "Cornelius"
+   ],
+   "explain": "Ananias laid hands on Saul, and his sight returned. (Acts 9:17-18)"
+  }
+ },
+ {
+  "id": "nt-medium-089",
+  "ref": {
+   "fr": "Actes 9:25",
+   "en": "Acts 9:25"
+  },
+  "fr": {
+   "q": "Comment les disciples firent-ils échapper Saul de Damas ?",
+   "options": [
+    "Descendu dans une corbeille par la muraille",
+    "Caché dans un char",
+    "Déguisé en soldat",
+    "Par un tunnel"
+   ],
+   "explain": "On le descendit de nuit dans une corbeille. (Actes 9:25)"
+  },
+  "en": {
+   "q": "How did the disciples help Saul escape from Damascus?",
+   "options": [
+    "Lowered in a basket over the wall",
+    "Hidden in a chariot",
+    "Disguised as a soldier",
+    "Through a tunnel"
+   ],
+   "explain": "They let him down by night in a basket. (Acts 9:25)"
+  }
+ },
+ {
+  "id": "nt-medium-090",
+  "ref": {
+   "fr": "Actes 17:11",
+   "en": "Acts 17:11"
+  },
+  "fr": {
+   "q": "Quels habitants examinaient chaque jour les Écritures pour vérifier la parole de Paul ?",
+   "options": [
+    "Les Béréens",
+    "Les Athéniens",
+    "Les Corinthiens",
+    "Les Éphésiens"
+   ],
+   "explain": "Les Juifs de Bérée examinaient les Écritures chaque jour. (Actes 17:11)"
+  },
+  "en": {
+   "q": "Which people examined the Scriptures daily to check Paul’s message?",
+   "options": [
+    "The Bereans",
+    "The Athenians",
+    "The Corinthians",
+    "The Ephesians"
+   ],
+   "explain": "The Jews of Berea searched the Scriptures daily. (Acts 17:11)"
+  }
+ },
+ {
+  "id": "nt-medium-091",
+  "ref": {
+   "fr": "2 Timothée 1:5",
+   "en": "2 Timothy 1:5"
+  },
+  "fr": {
+   "q": "Comment se nommait la mère de Timothée, femme d’une foi sincère ?",
+   "options": [
+    "Eunice",
+    "Loïs",
+    "Priscille",
+    "Phœbé"
+   ],
+   "explain": "La foi habita sa grand-mère Loïs et sa mère Eunice. (2 Timothée 1:5)"
+  },
+  "en": {
+   "q": "What was the name of Timothy’s mother, a woman of sincere faith?",
+   "options": [
+    "Eunice",
+    "Lois",
+    "Priscilla",
+    "Phoebe"
+   ],
+   "explain": "Faith dwelt in his grandmother Lois and mother Eunice. (2 Timothy 1:5)"
+  }
+ },
+ {
+  "id": "nt-medium-092",
+  "ref": {
+   "fr": "Romains 16:1",
+   "en": "Romans 16:1"
+  },
+  "fr": {
+   "q": "Quelle femme, servante de l’Église de Cenchrées, Paul recommande-t-il aux Romains ?",
+   "options": [
+    "Phœbé",
+    "Lydie",
+    "Dorcas",
+    "Marthe"
+   ],
+   "explain": "Paul recommande Phœbé, diaconesse de Cenchrées. (Romains 16:1)"
+  },
+  "en": {
+   "q": "Which woman, a servant of the church at Cenchreae, does Paul commend to the Romans?",
+   "options": [
+    "Phoebe",
+    "Lydia",
+    "Dorcas",
+    "Martha"
+   ],
+   "explain": "Paul commends Phoebe, a servant of the church at Cenchreae. (Romans 16:1)"
+  }
+ },
+ {
+  "id": "nt-medium-093",
+  "ref": {
+   "fr": "Actes 6:3-5",
+   "en": "Acts 6:3-5"
+  },
+  "fr": {
+   "q": "Combien d’hommes furent choisis pour servir aux tables dans Actes 6 ?",
+   "options": [
+    "Sept",
+    "Douze",
+    "Trois",
+    "Dix"
+   ],
+   "explain": "On choisit sept hommes remplis d’Esprit. (Actes 6:3-5)"
+  },
+  "en": {
+   "q": "How many men were chosen to serve tables in Acts 6?",
+   "options": [
+    "Seven",
+    "Twelve",
+    "Three",
+    "Ten"
+   ],
+   "explain": "Seven men full of the Spirit were chosen. (Acts 6:3-5)"
+  }
+ },
+ {
+  "id": "nt-medium-094",
+  "ref": {
+   "fr": "Actes 15:13-19",
+   "en": "Acts 15:13-19"
+  },
+  "fr": {
+   "q": "Quel homme prononça la décision finale au concile de Jérusalem ?",
+   "options": [
+    "Jacques",
+    "Pierre",
+    "Paul",
+    "Barnabas"
+   ],
+   "explain": "Jacques conclut : « C’est pourquoi je suis d’avis… » (Actes 15:13-19)"
+  },
+  "en": {
+   "q": "Which man gave the final decision at the council of Jerusalem?",
+   "options": [
+    "James",
+    "Peter",
+    "Paul",
+    "Barnabas"
+   ],
+   "explain": "James concluded, “Therefore my judgment is…” (Acts 15:13-19)"
+  }
+ },
+ {
+  "id": "nt-medium-095",
+  "ref": {
+   "fr": "Actes 15:37-39",
+   "en": "Acts 15:37-39"
+  },
+  "fr": {
+   "q": "Au sujet de quel jeune homme Paul et Barnabas se séparèrent-ils ?",
+   "options": [
+    "Jean surnommé Marc",
+    "Timothée",
+    "Tite",
+    "Silas"
+   ],
+   "explain": "Le désaccord portait sur Jean, surnommé Marc. (Actes 15:37-39)"
+  },
+  "en": {
+   "q": "Over which young man did Paul and Barnabas part ways?",
+   "options": [
+    "John called Mark",
+    "Timothy",
+    "Titus",
+    "Silas"
+   ],
+   "explain": "The dispute was about John, called Mark. (Acts 15:37-39)"
+  }
+ },
+ {
+  "id": "nt-medium-096",
+  "ref": {
+   "fr": "Actes 7:58",
+   "en": "Acts 7:58"
+  },
+  "fr": {
+   "q": "Qui gardait les vêtements des témoins pendant la lapidation d’Étienne ?",
+   "options": [
+    "Saul",
+    "Gamaliel",
+    "Barnabas",
+    "Corneille"
+   ],
+   "explain": "Les témoins déposèrent leurs vêtements aux pieds de Saul. (Actes 7:58)"
+  },
+  "en": {
+   "q": "Who guarded the clothes of the witnesses during Stephen’s stoning?",
+   "options": [
+    "Saul",
+    "Gamaliel",
+    "Barnabas",
+    "Cornelius"
+   ],
+   "explain": "The witnesses laid their clothes at Saul’s feet. (Acts 7:58)"
+  }
+ },
+ {
+  "id": "nt-medium-097",
+  "ref": {
+   "fr": "Apocalypse 22:1",
+   "en": "Revelation 22:1"
+  },
+  "fr": {
+   "q": "Que Jean vit-il couler du trône de Dieu dans la nouvelle Jérusalem ?",
+   "options": [
+    "Un fleuve d’eau de la vie",
+    "Un torrent de feu",
+    "Une mer de cristal",
+    "Une source d’huile"
+   ],
+   "explain": "Un fleuve d’eau de la vie, limpide comme le cristal. (Apocalypse 22:1)"
+  },
+  "en": {
+   "q": "What did John see flowing from God’s throne in the new Jerusalem?",
+   "options": [
+    "A river of the water of life",
+    "A stream of fire",
+    "A sea of crystal",
+    "A spring of oil"
+   ],
+   "explain": "A river of the water of life, clear as crystal. (Revelation 22:1)"
+  }
+ },
+ {
+  "id": "nt-medium-098",
+  "ref": {
+   "fr": "Philippiens 1:21",
+   "en": "Philippians 1:21"
+  },
+  "fr": {
+   "q": "Comment Paul complète-t-il : « Christ est ma vie, et la mort m’est un… » ?",
+   "options": [
+    "gain",
+    "repos",
+    "honneur",
+    "salaire"
+   ],
+   "explain": "« Christ est ma vie, et la mort m’est un gain. » (Philippiens 1:21)"
+  },
+  "en": {
+   "q": "How does Paul complete: “To live is Christ, and to die is…”?",
+   "options": [
+    "gain",
+    "rest",
+    "honor",
+    "reward"
+   ],
+   "explain": "“To live is Christ, and to die is gain.” (Philippians 1:21)"
+  }
+ },
+ {
+  "id": "nt-medium-099",
+  "ref": {
+   "fr": "Hébreux 12:1",
+   "en": "Hebrews 12:1"
+  },
+  "fr": {
+   "q": "Selon Hébreux 12, entourés d’une nuée de témoins, que devons-nous courir ?",
+   "options": [
+    "La course qui nous est proposée",
+    "Vers le temple",
+    "Loin du danger",
+    "Après la richesse"
+   ],
+   "explain": "« Courons avec persévérance la course qui nous est proposée. » (Hébreux 12:1)"
+  },
+  "en": {
+   "q": "According to Hebrews 12, surrounded by a cloud of witnesses, what should we run?",
+   "options": [
+    "The race set before us",
+    "To the temple",
+    "From danger",
+    "After riches"
+   ],
+   "explain": "“Let us run with perseverance the race set before us.” (Hebrews 12:1)"
+  }
+ },
+ {
+  "id": "nt-medium-100",
+  "ref": {
+   "fr": "1 Corinthiens 15:26",
+   "en": "1 Corinthians 15:26"
+  },
+  "fr": {
+   "q": "Selon 1 Corinthiens 15, quel est le dernier ennemi qui sera détruit ?",
+   "options": [
+    "La mort",
+    "Le péché",
+    "Satan",
+    "La loi"
+   ],
+   "explain": "« Le dernier ennemi qui sera détruit, c’est la mort. » (1 Corinthiens 15:26)"
+  },
+  "en": {
+   "q": "According to 1 Corinthians 15, what is the last enemy to be destroyed?",
+   "options": [
+    "Death",
+    "Sin",
+    "Satan",
+    "The law"
+   ],
+   "explain": "“The last enemy to be destroyed is death.” (1 Corinthians 15:26)"
+  }
+ }
+]
