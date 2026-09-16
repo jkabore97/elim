@@ -1,6 +1,4 @@
 // Lead-only transcription UI:
-//  - PostScriptButton: a small "Script" button under an audio post that opens
-//    the transcript large, with Copy-all. Transcribes on first open, caches.
 //  - TranscribeTool: the Read-tab tool where a lead uploads an audio/video file
 //    and gets its transcript; the upload is deleted server-side once done.
 import { useEffect, useRef, useState } from 'react'
@@ -9,8 +7,7 @@ import { Portal } from './Portal'
 import { useLanguage } from './i18n'
 import type { AppUser } from './types'
 import {
-  subscribeTranscript, requestPostTranscript, subscribeJob,
-  uploadForTranscription, startUploadTranscription, clearJob,
+  subscribeJob, uploadForTranscription, startUploadTranscription, clearJob,
   type TranscriptDoc,
 } from './transcribe'
 
@@ -25,71 +22,6 @@ function CopyAllButton({ text }: { text: string }) {
       className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-affirm-600 text-white text-sm font-semibold">
       {copied ? <Check size={15} /> : <Copy size={15} />} {copied ? t('script.copied') : t('script.copyAll')}
     </button>
-  )
-}
-
-// ---- Feed audio post: "Script" button + transcript modal --------------------
-export function PostScriptButton({ postId }: { postId: string }) {
-  const { t } = useLanguage()
-  const [open, setOpen] = useState(false)
-  const [tr, setTr] = useState<TranscriptDoc | null>(null)
-
-  // Watch the cached transcript whenever the modal is open.
-  useEffect(() => {
-    if (!open) return
-    const unsub = subscribeTranscript(postId, setTr)
-    return unsub
-  }, [open, postId])
-
-  const openPanel = () => {
-    setOpen(true)
-    // Kick off transcription; if a done transcript already exists the function
-    // returns it without re-spending. The subscription shows the result.
-    requestPostTranscript(postId)
-  }
-
-  const status = tr?.status
-  return (
-    <>
-      <button onClick={openPanel}
-        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 text-xs font-semibold">
-        <ScrollText size={14} /> {t('script.button')}
-      </button>
-
-      {open && (
-        <Portal>
-          <div className="fixed inset-0 z-[60] bg-black/50 backdrop-blur-sm flex items-end sm:items-center justify-center" onClick={() => setOpen(false)}>
-            <div onClick={e => e.stopPropagation()}
-              className="glass-bar w-full max-w-lg rounded-t-3xl sm:rounded-3xl max-h-[88vh] flex flex-col shadow-2xl">
-              <div className="sticky top-0 bg-white/90 backdrop-blur border-b border-slate-100 px-5 py-4 flex items-center justify-between">
-                <h2 className="font-bold text-lg flex items-center gap-2"><ScrollText size={19} /> {t('script.title')}</h2>
-                <button onClick={() => setOpen(false)} className="p-1.5 rounded-full hover:bg-slate-100"><X size={20} /></button>
-              </div>
-              <div className="p-5 overflow-y-auto">
-                {status === 'done' ? (
-                  <>
-                    <div className="mb-4"><CopyAllButton text={tr?.text || ''} /></div>
-                    <p className="whitespace-pre-wrap text-[15px] leading-relaxed text-slate-800">{tr?.text || t('script.empty')}</p>
-                  </>
-                ) : status === 'error' ? (
-                  <div className="text-center py-8">
-                    <p className="text-sm text-red-500 mb-4">{t('script.error')}</p>
-                    <button onClick={() => requestPostTranscript(postId)}
-                      className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-slate-100 text-slate-600 text-sm font-semibold"><RotateCcw size={15} /> {t('script.retry')}</button>
-                  </div>
-                ) : (
-                  <div className="text-center py-10 text-slate-500">
-                    <Loader2 size={28} className="animate-spin mx-auto mb-3 text-affirm-500" />
-                    <p className="text-sm font-medium">{t('script.working')}</p>
-                    <p className="text-xs text-slate-400 mt-1">{t('script.workingHint')}</p>
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
-        </Portal>
-      )}
-    </>
   )
 }
 

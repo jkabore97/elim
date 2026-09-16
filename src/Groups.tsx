@@ -10,7 +10,10 @@ import { useLanguage } from './i18n'
 import type { AppUser, Group } from './types'
 import {
   createGroup, updateGroup, deleteGroup, setLead, removeLead, bulkAssignAuthorToGroup,
+  setGroupPerm,
 } from './groups'
+
+const PERM_KEYS = ['post', 'sante', 'books', 'transcribe'] as const
 
 interface DirUser { uid: string; name: string }
 
@@ -110,6 +113,22 @@ function GroupCard({ group, users }: { group: Group; users: DirUser[] }) {
           {savingMeta ? <Loader2 size={13} className="animate-spin" /> : <Check size={13} />} {t('groups.save')}
         </button>
       )}
+
+      {/* Permissions this group grants its leads. */}
+      <div>
+        <p className="text-[11px] font-bold uppercase tracking-wide text-slate-400 mb-1.5">{t('groups.permsTitle')}</p>
+        <div className="flex flex-wrap gap-2">
+          {PERM_KEYS.map(key => {
+            const on = !!group.perms?.[key]
+            return (
+              <button key={key} onClick={() => setGroupPerm(group.id, key, !on)}
+                className={`text-xs font-semibold px-3 py-1.5 rounded-full border transition ${on ? 'bg-affirm-600 text-white border-affirm-500' : 'bg-white text-slate-500 border-slate-200'}`}>
+                {on ? '✓ ' : ''}{t(`groups.perm.${key}` as any)}
+              </button>
+            )
+          })}
+        </div>
+      </div>
 
       {/* Leads */}
       <div>
