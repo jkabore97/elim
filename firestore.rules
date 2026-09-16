@@ -410,5 +410,49 @@ service cloud.firestore {
       allow delete: if isSignedIn() && (resource.data.userId == request.auth.uid || isAdmin());
       allow update: if false;
     }
+
+    // ---- Bible quiz player profiles ----
+    // One doc per player (docId == uid): points, streaks, badges, weekly
+    // score. Everyone signed in may READ the collection - that is what powers
+    // the weekly leaderboard (names + weekPoints are meant to be seen by the
+    // congregation). A player may only write their OWN document, and the
+    // stored uid must match, so nobody can inflate someone else's score.
+    // Scores are self-reported (the game runs on the client); this is a
+    // friendly church game, not gambling, so that trade-off is acceptable and
+    // matches how the donations/lightweight collections already work.
+    match /quizProfiles/{uid} {
+      allow read: if isSignedIn();
+      allow write: if isSignedIn()
+                   && request.auth.uid == uid
+                   && request.resource.data.uid == uid;
+    }
+
+    // ---- Bible quiz weekly leaderboards (adults) ----
+    // One doc per (week, league, player); league is a category id or 'grand'.
+    // World-readable (the congregation sees the ranking); a player may only
+    // write rows carrying their own uid. Points are self-reported, same
+    // trade-off as quizProfiles above.
+    match /quizWeekly/{docId} {
+      allow read: if isSignedIn();
+      allow write: if isSignedIn() && request.resource.data.uid == request.auth.uid;
+    }
+
+    // ---- Bible quiz kids league ----
+    // Keyed by parent account + child name. The parent (owner) writes their
+    // children's rows; everyone may read them for the kids ranking and the
+    // Sunday-school prize.
+    match /quizKids/{docId} {
+      allow read: if isSignedIn();
+      allow write: if isSignedIn() && request.resource.data.uid == request.auth.uid;
+    }
+
+    // ---- Bible quiz champions (Hall of Fame) ----
+    // Written ONLY by Cloud Functions at week close (the Admin SDK bypasses
+    // these rules), so no client can forge a championship. Everyone may read
+    // the Palmarès.
+    match /quizChampions/{docId} {
+      allow read: if isSignedIn();
+      allow write: if false;
+    }
   }
 }

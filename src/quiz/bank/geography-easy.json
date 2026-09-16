@@ -1,0 +1,2702 @@
+[
+ {
+  "id": "geography-easy-001",
+  "ref": {
+   "fr": "Luc 2:4-7",
+   "en": "Luke 2:4-7"
+  },
+  "fr": {
+   "q": "En quelle localité l’enfant Jésus vint-il au monde ?",
+   "options": [
+    "Bethléem",
+    "Nazareth",
+    "Jérusalem",
+    "Capernaüm"
+   ],
+   "explain": "Jésus naquit à Bethléem de Judée. (Luc 2:4-7)"
+  },
+  "en": {
+   "q": "In what place was the child Jesus born?",
+   "options": [
+    "Bethlehem",
+    "Nazareth",
+    "Jerusalem",
+    "Capernaum"
+   ],
+   "explain": "Jesus was born in Bethlehem of Judea. (Luke 2:4-7)"
+  }
+ },
+ {
+  "id": "geography-easy-002",
+  "ref": {
+   "fr": "Matthieu 2:23",
+   "en": "Matthew 2:23"
+  },
+  "fr": {
+   "q": "Dans quelle ville Jésus a-t-il grandi ?",
+   "options": [
+    "Nazareth",
+    "Bethléem",
+    "Jéricho",
+    "Bethsaïda"
+   ],
+   "explain": "Jésus habita à Nazareth et fut appelé Nazaréen. (Matthieu 2:23)"
+  },
+  "en": {
+   "q": "In which town did Jesus grow up?",
+   "options": [
+    "Nazareth",
+    "Bethlehem",
+    "Jericho",
+    "Bethsaida"
+   ],
+   "explain": "Jesus lived in Nazareth and was called a Nazarene. (Matthew 2:23)"
+  }
+ },
+ {
+  "id": "geography-easy-003",
+  "ref": {
+   "fr": "Matthieu 3:13",
+   "en": "Matthew 3:13"
+  },
+  "fr": {
+   "q": "Dans quel fleuve Jésus fut-il baptisé ?",
+   "options": [
+    "Le Jourdain",
+    "Le Nil",
+    "L’Euphrate",
+    "Le Tigre"
+   ],
+   "explain": "Jésus vint au Jourdain se faire baptiser par Jean. (Matthieu 3:13)"
+  },
+  "en": {
+   "q": "In which river was Jesus baptized?",
+   "options": [
+    "The Jordan",
+    "The Nile",
+    "The Euphrates",
+    "The Tigris"
+   ],
+   "explain": "Jesus came to the Jordan to be baptized by John. (Matthew 3:13)"
+  }
+ },
+ {
+  "id": "geography-easy-004",
+  "ref": {
+   "fr": "Exode 14:22",
+   "en": "Exodus 14:22"
+  },
+  "fr": {
+   "q": "Quelle mer les Israélites traversèrent-ils à pied sec ?",
+   "options": [
+    "La mer Rouge",
+    "La mer Morte",
+    "La mer de Galilée",
+    "La Méditerranée"
+   ],
+   "explain": "Israël passa au milieu de la mer Rouge à sec. (Exode 14:22)"
+  },
+  "en": {
+   "q": "Which sea did the Israelites cross on dry ground?",
+   "options": [
+    "The Red Sea",
+    "The Dead Sea",
+    "The Sea of Galilee",
+    "The Mediterranean"
+   ],
+   "explain": "Israel walked through the Red Sea on dry ground. (Exodus 14:22)"
+  }
+ },
+ {
+  "id": "geography-easy-005",
+  "ref": {
+   "fr": "Exode 19-20",
+   "en": "Exodus 19-20"
+  },
+  "fr": {
+   "q": "Sur quelle montagne Moïse reçut-il les dix commandements ?",
+   "options": [
+    "Le mont Sinaï",
+    "Le mont Carmel",
+    "Le mont des Oliviers",
+    "Le mont Nébo"
+   ],
+   "explain": "Dieu donna la loi à Moïse au mont Sinaï. (Exode 19:20)"
+  },
+  "en": {
+   "q": "On which mountain did Moses receive the Ten Commandments?",
+   "options": [
+    "Mount Sinai",
+    "Mount Carmel",
+    "The Mount of Olives",
+    "Mount Nebo"
+   ],
+   "explain": "God gave the law to Moses at Mount Sinai. (Exodus 19:20)"
+  }
+ },
+ {
+  "id": "geography-easy-006",
+  "ref": {
+   "fr": "Exode 1:11",
+   "en": "Exodus 1:11"
+  },
+  "fr": {
+   "q": "Dans quel pays les Israélites furent-ils esclaves ?",
+   "options": [
+    "L’Égypte",
+    "L’Assyrie",
+    "Babylone",
+    "La Perse"
+   ],
+   "explain": "Israël fut réduit en esclavage en Égypte. (Exode 1:11)"
+  },
+  "en": {
+   "q": "In which country were the Israelites enslaved?",
+   "options": [
+    "Egypt",
+    "Assyria",
+    "Babylon",
+    "Persia"
+   ],
+   "explain": "Israel was made to serve as slaves in Egypt. (Exodus 1:11)"
+  }
+ },
+ {
+  "id": "geography-easy-007",
+  "ref": {
+   "fr": "Josué 6:20",
+   "en": "Joshua 6:20"
+  },
+  "fr": {
+   "q": "De quelle ville les murailles tombèrent-elles au son des trompettes ?",
+   "options": [
+    "Jéricho",
+    "Aï",
+    "Gabaon",
+    "Béthel"
+   ],
+   "explain": "Les murailles de Jéricho s’écroulèrent. (Josué 6:20)"
+  },
+  "en": {
+   "q": "Which city’s walls fell at the sound of the trumpets?",
+   "options": [
+    "Jericho",
+    "Ai",
+    "Gibeon",
+    "Bethel"
+   ],
+   "explain": "The walls of Jericho fell down flat. (Joshua 6:20)"
+  }
+ },
+ {
+  "id": "geography-easy-008",
+  "ref": {
+   "fr": "Genèse 2:8",
+   "en": "Genesis 2:8"
+  },
+  "fr": {
+   "q": "Dans quel jardin Dieu plaça-t-il Adam et Ève ?",
+   "options": [
+    "Le jardin d’Éden",
+    "Gethsémané",
+    "Le Carmel",
+    "Canaan"
+   ],
+   "explain": "Dieu plaça l’homme dans le jardin d’Éden. (Genèse 2:8)"
+  },
+  "en": {
+   "q": "In which garden did God place Adam and Eve?",
+   "options": [
+    "The garden of Eden",
+    "Gethsemane",
+    "Carmel",
+    "Canaan"
+   ],
+   "explain": "God put the man in the garden of Eden. (Genesis 2:8)"
+  }
+ },
+ {
+  "id": "geography-easy-009",
+  "ref": {
+   "fr": "Marc 4:39",
+   "en": "Mark 4:39"
+  },
+  "fr": {
+   "q": "Sur quelle mer Jésus apaisa-t-il la tempête ?",
+   "options": [
+    "La mer de Galilée",
+    "La mer Rouge",
+    "La mer Morte",
+    "La Méditerranée"
+   ],
+   "explain": "Jésus calma la tempête sur la mer de Galilée. (Marc 4:39)"
+  },
+  "en": {
+   "q": "On which sea did Jesus calm the storm?",
+   "options": [
+    "The Sea of Galilee",
+    "The Red Sea",
+    "The Dead Sea",
+    "The Mediterranean"
+   ],
+   "explain": "Jesus stilled the storm on the Sea of Galilee. (Mark 4:39)"
+  }
+ },
+ {
+  "id": "geography-easy-010",
+  "ref": {
+   "fr": "Jean 19:17",
+   "en": "John 19:17"
+  },
+  "fr": {
+   "q": "En quel lieu Jésus fut-il crucifié ?",
+   "options": [
+    "Golgotha",
+    "Béthanie",
+    "Emmaüs",
+    "Silo"
+   ],
+   "explain": "Jésus fut crucifié à Golgotha, le lieu du crâne. (Jean 19:17)"
+  },
+  "en": {
+   "q": "At what place was Jesus crucified?",
+   "options": [
+    "Golgotha",
+    "Bethany",
+    "Emmaus",
+    "Shiloh"
+   ],
+   "explain": "Jesus was crucified at Golgotha, the place of a skull. (John 19:17)"
+  }
+ },
+ {
+  "id": "geography-easy-011",
+  "ref": {
+   "fr": "Actes 1:12",
+   "en": "Acts 1:12"
+  },
+  "fr": {
+   "q": "De quelle montagne Jésus monta-t-il au ciel ?",
+   "options": [
+    "Le mont des Oliviers",
+    "Le mont Sinaï",
+    "Le mont Carmel",
+    "Le mont Horeb"
+   ],
+   "explain": "Jésus fut élevé au ciel depuis le mont des Oliviers. (Actes 1:12)"
+  },
+  "en": {
+   "q": "From which mountain did Jesus ascend to heaven?",
+   "options": [
+    "The Mount of Olives",
+    "Mount Sinai",
+    "Mount Carmel",
+    "Mount Horeb"
+   ],
+   "explain": "Jesus ascended from the Mount of Olives. (Acts 1:12)"
+  }
+ },
+ {
+  "id": "geography-easy-012",
+  "ref": {
+   "fr": "Jonas 1:2",
+   "en": "Jonah 1:2"
+  },
+  "fr": {
+   "q": "Dans quelle ville Dieu envoya-t-il Jonas prêcher ?",
+   "options": [
+    "Ninive",
+    "Tarsis",
+    "Babylone",
+    "Sodome"
+   ],
+   "explain": "Dieu envoya Jonas prêcher à Ninive. (Jonas 1:2)"
+  },
+  "en": {
+   "q": "To which city did God send Jonah to preach?",
+   "options": [
+    "Nineveh",
+    "Tarshish",
+    "Babylon",
+    "Sodom"
+   ],
+   "explain": "God sent Jonah to preach against Nineveh. (Jonah 1:2)"
+  }
+ },
+ {
+  "id": "geography-easy-013",
+  "ref": {
+   "fr": "Jonas 1:3",
+   "en": "Jonah 1:3"
+  },
+  "fr": {
+   "q": "Vers quelle ville Jonas s’enfuit-il loin de l’Éternel ?",
+   "options": [
+    "Tarsis",
+    "Ninive",
+    "Jérusalem",
+    "Damas"
+   ],
+   "explain": "Jonas s’embarqua pour fuir à Tarsis. (Jonas 1:3)"
+  },
+  "en": {
+   "q": "Toward which place did Jonah flee from the LORD?",
+   "options": [
+    "Tarshish",
+    "Nineveh",
+    "Jerusalem",
+    "Damascus"
+   ],
+   "explain": "Jonah set sail to flee to Tarshish. (Jonah 1:3)"
+  }
+ },
+ {
+  "id": "geography-easy-014",
+  "ref": {
+   "fr": "Genèse 19:24",
+   "en": "Genesis 19:24"
+  },
+  "fr": {
+   "q": "Quelle ville fut détruite par le feu avec Gomorrhe ?",
+   "options": [
+    "Sodome",
+    "Ninive",
+    "Babylone",
+    "Tyr"
+   ],
+   "explain": "L’Éternel fit pleuvoir le feu sur Sodome et Gomorrhe. (Genèse 19:24)"
+  },
+  "en": {
+   "q": "Which city was destroyed by fire along with Gomorrah?",
+   "options": [
+    "Sodom",
+    "Nineveh",
+    "Babylon",
+    "Tyre"
+   ],
+   "explain": "The LORD rained fire on Sodom and Gomorrah. (Genesis 19:24)"
+  }
+ },
+ {
+  "id": "geography-easy-015",
+  "ref": {
+   "fr": "Genèse 11:31",
+   "en": "Genesis 11:31"
+  },
+  "fr": {
+   "q": "De quelle ville Abraham partit-il pour aller en Canaan ?",
+   "options": [
+    "Ur en Chaldée",
+    "Babylone",
+    "Hébron",
+    "Sichem"
+   ],
+   "explain": "Abram partit d’Ur en Chaldée. (Genèse 11:31)"
+  },
+  "en": {
+   "q": "From which city did Abraham set out for Canaan?",
+   "options": [
+    "Ur of the Chaldees",
+    "Babylon",
+    "Hebron",
+    "Shechem"
+   ],
+   "explain": "Abram left Ur of the Chaldees. (Genesis 11:31)"
+  }
+ },
+ {
+  "id": "geography-easy-016",
+  "ref": {
+   "fr": "Genèse 12:5",
+   "en": "Genesis 12:5"
+  },
+  "fr": {
+   "q": "Quel pays Dieu promit-il de donner à Abraham et à sa descendance ?",
+   "options": [
+    "Canaan",
+    "L’Égypte",
+    "Madian",
+    "Aram"
+   ],
+   "explain": "Abram arriva au pays de Canaan que Dieu lui promit. (Genèse 12:5)"
+  },
+  "en": {
+   "q": "Which land did God promise to Abraham and his descendants?",
+   "options": [
+    "Canaan",
+    "Egypt",
+    "Midian",
+    "Aram"
+   ],
+   "explain": "Abram came to the land of Canaan God promised him. (Genesis 12:5)"
+  }
+ },
+ {
+  "id": "geography-easy-017",
+  "ref": {
+   "fr": "2 Samuel 5:7",
+   "en": "2 Samuel 5:7"
+  },
+  "fr": {
+   "q": "Quelle ville David prit-il pour en faire sa capitale ?",
+   "options": [
+    "Jérusalem",
+    "Bethléem",
+    "Samarie",
+    "Sichem"
+   ],
+   "explain": "David prit la forteresse de Sion, la cité de David. (2 Samuel 5:7)"
+  },
+  "en": {
+   "q": "Which city did David take as his capital?",
+   "options": [
+    "Jerusalem",
+    "Bethlehem",
+    "Samaria",
+    "Shechem"
+   ],
+   "explain": "David took the stronghold of Zion, the city of David. (2 Samuel 5:7)"
+  }
+ },
+ {
+  "id": "geography-easy-018",
+  "ref": {
+   "fr": "1 Rois 6:1",
+   "en": "1 Kings 6:1"
+  },
+  "fr": {
+   "q": "Dans quelle ville Salomon bâtit-il le temple ?",
+   "options": [
+    "Jérusalem",
+    "Béthel",
+    "Silo",
+    "Gabaon"
+   ],
+   "explain": "Salomon bâtit la maison de l’Éternel à Jérusalem. (1 Rois 6:1)"
+  },
+  "en": {
+   "q": "In which city did Solomon build the temple?",
+   "options": [
+    "Jerusalem",
+    "Bethel",
+    "Shiloh",
+    "Gibeon"
+   ],
+   "explain": "Solomon built the house of the LORD in Jerusalem. (1 Kings 6:1)"
+  }
+ },
+ {
+  "id": "geography-easy-019",
+  "ref": {
+   "fr": "1 Rois 18:19",
+   "en": "1 Kings 18:19"
+  },
+  "fr": {
+   "q": "Sur quelle montagne Élie défia-t-il les prophètes de Baal ?",
+   "options": [
+    "Le mont Carmel",
+    "Le mont Sinaï",
+    "Le mont des Oliviers",
+    "Le mont Thabor"
+   ],
+   "explain": "Élie rassembla Israël au mont Carmel. (1 Rois 18:19)"
+  },
+  "en": {
+   "q": "On which mountain did Elijah challenge the prophets of Baal?",
+   "options": [
+    "Mount Carmel",
+    "Mount Sinai",
+    "The Mount of Olives",
+    "Mount Tabor"
+   ],
+   "explain": "Elijah gathered Israel on Mount Carmel. (1 Kings 18:19)"
+  }
+ },
+ {
+  "id": "geography-easy-020",
+  "ref": {
+   "fr": "2 Rois 5:14",
+   "en": "2 Kings 5:14"
+  },
+  "fr": {
+   "q": "Dans quel fleuve Naaman se lava-t-il pour guérir de la lèpre ?",
+   "options": [
+    "Le Jourdain",
+    "Le Nil",
+    "L’Abana",
+    "L’Euphrate"
+   ],
+   "explain": "Naaman se plongea sept fois dans le Jourdain et fut guéri. (2 Rois 5:14)"
+  },
+  "en": {
+   "q": "In which river did Naaman wash to be healed of leprosy?",
+   "options": [
+    "The Jordan",
+    "The Nile",
+    "The Abanah",
+    "The Euphrates"
+   ],
+   "explain": "Naaman dipped seven times in the Jordan and was healed. (2 Kings 5:14)"
+  }
+ },
+ {
+  "id": "geography-easy-021",
+  "ref": {
+   "fr": "Daniel 1:1",
+   "en": "Daniel 1:1"
+  },
+  "fr": {
+   "q": "Dans quelle ville Daniel fut-il emmené captif ?",
+   "options": [
+    "Babylone",
+    "Ninive",
+    "Rome",
+    "Athènes"
+   ],
+   "explain": "Daniel fut emmené captif à Babylone. (Daniel 1:1)"
+  },
+  "en": {
+   "q": "To which city was Daniel carried away captive?",
+   "options": [
+    "Babylon",
+    "Nineveh",
+    "Rome",
+    "Athens"
+   ],
+   "explain": "Daniel was carried captive to Babylon. (Daniel 1:1)"
+  }
+ },
+ {
+  "id": "geography-easy-022",
+  "ref": {
+   "fr": "Matthieu 26:36",
+   "en": "Matthew 26:36"
+  },
+  "fr": {
+   "q": "Dans quel jardin Jésus pria-t-il avant son arrestation ?",
+   "options": [
+    "Gethsémané",
+    "Éden",
+    "Béthanie",
+    "Emmaüs"
+   ],
+   "explain": "Jésus pria à Gethsémané avant d’être livré. (Matthieu 26:36)"
+  },
+  "en": {
+   "q": "In which garden did Jesus pray before his arrest?",
+   "options": [
+    "Gethsemane",
+    "Eden",
+    "Bethany",
+    "Emmaus"
+   ],
+   "explain": "Jesus prayed in Gethsemane before he was betrayed. (Matthew 26:36)"
+  }
+ },
+ {
+  "id": "geography-easy-023",
+  "ref": {
+   "fr": "Jean 2:1",
+   "en": "John 2:1"
+  },
+  "fr": {
+   "q": "Dans quelle ville Jésus changea-t-il l’eau en vin ?",
+   "options": [
+    "Cana",
+    "Capernaüm",
+    "Bethléem",
+    "Naïn"
+   ],
+   "explain": "Le premier miracle de Jésus eut lieu à Cana en Galilée. (Jean 2:1)"
+  },
+  "en": {
+   "q": "In which town did Jesus turn water into wine?",
+   "options": [
+    "Cana",
+    "Capernaum",
+    "Bethlehem",
+    "Nain"
+   ],
+   "explain": "Jesus’ first sign took place at Cana in Galilee. (John 2:1)"
+  }
+ },
+ {
+  "id": "geography-easy-024",
+  "ref": {
+   "fr": "Jean 11:1",
+   "en": "John 11:1"
+  },
+  "fr": {
+   "q": "Dans quel village vivaient Lazare, Marie et Marthe ?",
+   "options": [
+    "Béthanie",
+    "Cana",
+    "Jéricho",
+    "Emmaüs"
+   ],
+   "explain": "Lazare était de Béthanie, le village de Marie et Marthe. (Jean 11:1)"
+  },
+  "en": {
+   "q": "In which village did Lazarus, Mary and Martha live?",
+   "options": [
+    "Bethany",
+    "Cana",
+    "Jericho",
+    "Emmaus"
+   ],
+   "explain": "Lazarus was of Bethany, the village of Mary and Martha. (John 11:1)"
+  }
+ },
+ {
+  "id": "geography-easy-025",
+  "ref": {
+   "fr": "Luc 24:13",
+   "en": "Luke 24:13"
+  },
+  "fr": {
+   "q": "Vers quel village allaient les deux disciples quand Jésus ressuscité les rejoignit ?",
+   "options": [
+    "Emmaüs",
+    "Béthanie",
+    "Damas",
+    "Gaza"
+   ],
+   "explain": "Deux disciples allaient à Emmaüs quand Jésus les rejoignit. (Luc 24:13)"
+  },
+  "en": {
+   "q": "To which village were the two disciples going when the risen Jesus joined them?",
+   "options": [
+    "Emmaus",
+    "Bethany",
+    "Damascus",
+    "Gaza"
+   ],
+   "explain": "Two disciples were going to Emmaus when Jesus joined them. (Luke 24:13)"
+  }
+ },
+ {
+  "id": "geography-easy-026",
+  "ref": {
+   "fr": "Actes 9:3",
+   "en": "Acts 9:3"
+  },
+  "fr": {
+   "q": "Sur la route de quelle ville Saul fut-il converti ?",
+   "options": [
+    "Damas",
+    "Antioche",
+    "Éphèse",
+    "Rome"
+   ],
+   "explain": "Saul rencontra le Seigneur sur le chemin de Damas. (Actes 9:3)"
+  },
+  "en": {
+   "q": "On the road to which city was Saul converted?",
+   "options": [
+    "Damascus",
+    "Antioch",
+    "Ephesus",
+    "Rome"
+   ],
+   "explain": "Saul met the Lord on the road to Damascus. (Acts 9:3)"
+  }
+ },
+ {
+  "id": "geography-easy-027",
+  "ref": {
+   "fr": "Genèse 8:4",
+   "en": "Genesis 8:4"
+  },
+  "fr": {
+   "q": "Sur quelle montagne l’arche de Noé s’arrêta-t-elle ?",
+   "options": [
+    "Le mont Ararat",
+    "Le mont Sinaï",
+    "Le mont Nébo",
+    "Le mont Carmel"
+   ],
+   "explain": "L’arche se posa sur les montagnes d’Ararat. (Genèse 8:4)"
+  },
+  "en": {
+   "q": "On which mountain did Noah’s ark come to rest?",
+   "options": [
+    "Mount Ararat",
+    "Mount Sinai",
+    "Mount Nebo",
+    "Mount Carmel"
+   ],
+   "explain": "The ark rested on the mountains of Ararat. (Genesis 8:4)"
+  }
+ },
+ {
+  "id": "geography-easy-028",
+  "ref": {
+   "fr": "Deutéronome 34:1",
+   "en": "Deuteronomy 34:1"
+  },
+  "fr": {
+   "q": "De quelle montagne Moïse contempla-t-il la Terre promise ?",
+   "options": [
+    "Le mont Nébo",
+    "Le mont Sinaï",
+    "Le mont Carmel",
+    "Le mont Thabor"
+   ],
+   "explain": "Moïse monta sur le mont Nébo et vit le pays. (Deutéronome 34:1)"
+  },
+  "en": {
+   "q": "From which mountain did Moses view the Promised Land?",
+   "options": [
+    "Mount Nebo",
+    "Mount Sinai",
+    "Mount Carmel",
+    "Mount Tabor"
+   ],
+   "explain": "Moses went up Mount Nebo and saw the land. (Deuteronomy 34:1)"
+  }
+ },
+ {
+  "id": "geography-easy-029",
+  "ref": {
+   "fr": "Matthieu 3:1",
+   "en": "Matthew 3:1"
+  },
+  "fr": {
+   "q": "Dans quel désert Jean-Baptiste prêchait-il ?",
+   "options": [
+    "Le désert de Judée",
+    "Le désert du Sinaï",
+    "Le désert de Madian",
+    "Le désert de Paran"
+   ],
+   "explain": "Jean-Baptiste prêchait dans le désert de Judée. (Matthieu 3:1)"
+  },
+  "en": {
+   "q": "In which wilderness did John the Baptist preach?",
+   "options": [
+    "The wilderness of Judea",
+    "The wilderness of Sinai",
+    "The wilderness of Midian",
+    "The wilderness of Paran"
+   ],
+   "explain": "John the Baptist preached in the wilderness of Judea. (Matthew 3:1)"
+  }
+ },
+ {
+  "id": "geography-easy-030",
+  "ref": {
+   "fr": "Matthieu 4:1",
+   "en": "Matthew 4:1"
+  },
+  "fr": {
+   "q": "En quel lieu Jésus fut-il tenté pendant quarante jours ?",
+   "options": [
+    "Le désert",
+    "Le temple",
+    "La montagne",
+    "Le jardin"
+   ],
+   "explain": "Jésus fut conduit au désert pour être tenté. (Matthieu 4:1)"
+  },
+  "en": {
+   "q": "Where was Jesus tempted for forty days?",
+   "options": [
+    "The wilderness",
+    "The temple",
+    "The mountain",
+    "The garden"
+   ],
+   "explain": "Jesus was led into the wilderness to be tempted. (Matthew 4:1)"
+  }
+ },
+ {
+  "id": "geography-easy-031",
+  "ref": {
+   "fr": "Matthieu 2:13",
+   "en": "Matthew 2:13"
+  },
+  "fr": {
+   "q": "Dans quel pays Joseph et Marie fuirent-ils avec l’enfant Jésus ?",
+   "options": [
+    "L’Égypte",
+    "Babylone",
+    "La Syrie",
+    "La Grèce"
+   ],
+   "explain": "Ils s’enfuirent en Égypte pour protéger Jésus. (Matthieu 2:13)"
+  },
+  "en": {
+   "q": "To which country did Joseph and Mary flee with baby Jesus?",
+   "options": [
+    "Egypt",
+    "Babylon",
+    "Syria",
+    "Greece"
+   ],
+   "explain": "They fled to Egypt to protect Jesus. (Matthew 2:13)"
+  }
+ },
+ {
+  "id": "geography-easy-032",
+  "ref": {
+   "fr": "Matthieu 4:23",
+   "en": "Matthew 4:23"
+  },
+  "fr": {
+   "q": "Dans quelle région Jésus exerça-t-il l’essentiel de son ministère ?",
+   "options": [
+    "La Galilée",
+    "La Judée",
+    "La Samarie",
+    "L’Idumée"
+   ],
+   "explain": "Jésus parcourait toute la Galilée en enseignant. (Matthieu 4:23)"
+  },
+  "en": {
+   "q": "In which region did Jesus carry out most of his ministry?",
+   "options": [
+    "Galilee",
+    "Judea",
+    "Samaria",
+    "Idumea"
+   ],
+   "explain": "Jesus went about all Galilee teaching. (Matthew 4:23)"
+  }
+ },
+ {
+  "id": "geography-easy-033",
+  "ref": {
+   "fr": "Jean 4:5",
+   "en": "John 4:5"
+  },
+  "fr": {
+   "q": "Près de quelle ville Jésus parla-t-il à la Samaritaine au puits ?",
+   "options": [
+    "Sychar",
+    "Cana",
+    "Béthanie",
+    "Jéricho"
+   ],
+   "explain": "Jésus vint près de Sychar, en Samarie, au puits de Jacob. (Jean 4:5)"
+  },
+  "en": {
+   "q": "Near which town did Jesus speak with the Samaritan woman at the well?",
+   "options": [
+    "Sychar",
+    "Cana",
+    "Bethany",
+    "Jericho"
+   ],
+   "explain": "Jesus came near Sychar in Samaria, to Jacob’s well. (John 4:5)"
+  }
+ },
+ {
+  "id": "geography-easy-034",
+  "ref": {
+   "fr": "Marc 10:46",
+   "en": "Mark 10:46"
+  },
+  "fr": {
+   "q": "Près de quelle ville Jésus guérit-il l’aveugle Bartimée ?",
+   "options": [
+    "Jéricho",
+    "Béthanie",
+    "Capernaüm",
+    "Naïn"
+   ],
+   "explain": "Bartimée fut guéri à la sortie de Jéricho. (Marc 10:46)"
+  },
+  "en": {
+   "q": "Near which city did Jesus heal blind Bartimaeus?",
+   "options": [
+    "Jericho",
+    "Bethany",
+    "Capernaum",
+    "Nain"
+   ],
+   "explain": "Bartimaeus was healed as Jesus left Jericho. (Mark 10:46)"
+  }
+ },
+ {
+  "id": "geography-easy-035",
+  "ref": {
+   "fr": "Matthieu 4:13",
+   "en": "Matthew 4:13"
+  },
+  "fr": {
+   "q": "Dans quelle ville au bord du lac Jésus établit-il son ministère ?",
+   "options": [
+    "Capernaüm",
+    "Bethléem",
+    "Nazareth",
+    "Hébron"
+   ],
+   "explain": "Jésus vint habiter à Capernaüm, au bord de la mer. (Matthieu 4:13)"
+  },
+  "en": {
+   "q": "In which lakeside town did Jesus base his ministry?",
+   "options": [
+    "Capernaum",
+    "Bethlehem",
+    "Nazareth",
+    "Hebron"
+   ],
+   "explain": "Jesus came and dwelt in Capernaum by the sea. (Matthew 4:13)"
+  }
+ },
+ {
+  "id": "geography-easy-036",
+  "ref": {
+   "fr": "Actes 28:1",
+   "en": "Acts 28:1"
+  },
+  "fr": {
+   "q": "Sur quelle île Paul fit-il naufrage ?",
+   "options": [
+    "Malte",
+    "Chypre",
+    "Patmos",
+    "Crète"
+   ],
+   "explain": "Après le naufrage, on apprit que l’île s’appelait Malte. (Actes 28:1)"
+  },
+  "en": {
+   "q": "On which island was Paul shipwrecked?",
+   "options": [
+    "Malta",
+    "Cyprus",
+    "Patmos",
+    "Crete"
+   ],
+   "explain": "After the shipwreck they learned the island was called Malta. (Acts 28:1)"
+  }
+ },
+ {
+  "id": "geography-easy-037",
+  "ref": {
+   "fr": "Apocalypse 1:9",
+   "en": "Revelation 1:9"
+  },
+  "fr": {
+   "q": "Sur quelle île Jean reçut-il l’Apocalypse ?",
+   "options": [
+    "Patmos",
+    "Malte",
+    "Chypre",
+    "Rhodes"
+   ],
+   "explain": "Jean était dans l’île de Patmos à cause de la Parole. (Apocalypse 1:9)"
+  },
+  "en": {
+   "q": "On which island did John receive the Revelation?",
+   "options": [
+    "Patmos",
+    "Malta",
+    "Cyprus",
+    "Rhodes"
+   ],
+   "explain": "John was on the island of Patmos for the word of God. (Revelation 1:9)"
+  }
+ },
+ {
+  "id": "geography-easy-038",
+  "ref": {
+   "fr": "Actes 11:26",
+   "en": "Acts 11:26"
+  },
+  "fr": {
+   "q": "Dans quelle ville les disciples furent-ils appelés chrétiens pour la première fois ?",
+   "options": [
+    "Antioche",
+    "Jérusalem",
+    "Rome",
+    "Éphèse"
+   ],
+   "explain": "Ce fut à Antioche que les disciples furent nommés chrétiens. (Actes 11:26)"
+  },
+  "en": {
+   "q": "In which city were the disciples first called Christians?",
+   "options": [
+    "Antioch",
+    "Jerusalem",
+    "Rome",
+    "Ephesus"
+   ],
+   "explain": "It was in Antioch that the disciples were first called Christians. (Acts 11:26)"
+  }
+ },
+ {
+  "id": "geography-easy-039",
+  "ref": {
+   "fr": "Actes 2:1-5",
+   "en": "Acts 2:1-5"
+  },
+  "fr": {
+   "q": "Dans quelle ville le Saint-Esprit fut-il répandu à la Pentecôte ?",
+   "options": [
+    "Jérusalem",
+    "Antioche",
+    "Rome",
+    "Damas"
+   ],
+   "explain": "À la Pentecôte, l’Esprit descendit sur les disciples à Jérusalem. (Actes 2:1-5)"
+  },
+  "en": {
+   "q": "In which city was the Holy Spirit poured out at Pentecost?",
+   "options": [
+    "Jerusalem",
+    "Antioch",
+    "Rome",
+    "Damascus"
+   ],
+   "explain": "At Pentecost the Spirit came upon the disciples in Jerusalem. (Acts 2:1-5)"
+  }
+ },
+ {
+  "id": "geography-easy-040",
+  "ref": {
+   "fr": "Josué 3:17",
+   "en": "Joshua 3:17"
+  },
+  "fr": {
+   "q": "Quel fleuve Israël traversa-t-il pour entrer en Terre promise ?",
+   "options": [
+    "Le Jourdain",
+    "Le Nil",
+    "L’Euphrate",
+    "L’Arnon"
+   ],
+   "explain": "Israël traversa le Jourdain à sec pour entrer en Canaan. (Josué 3:17)"
+  },
+  "en": {
+   "q": "Which river did Israel cross to enter the Promised Land?",
+   "options": [
+    "The Jordan",
+    "The Nile",
+    "The Euphrates",
+    "The Arnon"
+   ],
+   "explain": "Israel crossed the Jordan on dry ground into Canaan. (Joshua 3:17)"
+  }
+ },
+ {
+  "id": "geography-easy-041",
+  "ref": {
+   "fr": "Exode 32:19",
+   "en": "Exodus 32:19"
+  },
+  "fr": {
+   "q": "Au pied de quelle montagne le peuple fit-il le veau d’or ?",
+   "options": [
+    "Le mont Sinaï",
+    "Le mont Carmel",
+    "Le mont Nébo",
+    "Le mont Thabor"
+   ],
+   "explain": "Le veau d’or fut fait au pied du mont Sinaï. (Exode 32:19)"
+  },
+  "en": {
+   "q": "At the foot of which mountain did the people make the golden calf?",
+   "options": [
+    "Mount Sinai",
+    "Mount Carmel",
+    "Mount Nebo",
+    "Mount Tabor"
+   ],
+   "explain": "The golden calf was made at the foot of Mount Sinai. (Exodus 32:19)"
+  }
+ },
+ {
+  "id": "geography-easy-042",
+  "ref": {
+   "fr": "Genèse 14:3",
+   "en": "Genesis 14:3"
+  },
+  "fr": {
+   "q": "Quelle mer est aussi appelée la mer Salée, le point le plus bas de la terre ?",
+   "options": [
+    "La mer Morte",
+    "La mer Rouge",
+    "La mer de Galilée",
+    "La Méditerranée"
+   ],
+   "explain": "La vallée de Siddim, c’est la mer Salée. (Genèse 14:3)"
+  },
+  "en": {
+   "q": "Which sea is also called the Salt Sea, the lowest place on earth?",
+   "options": [
+    "The Dead Sea",
+    "The Red Sea",
+    "The Sea of Galilee",
+    "The Mediterranean"
+   ],
+   "explain": "The Valley of Siddim is the Salt Sea. (Genesis 14:3)"
+  }
+ },
+ {
+  "id": "geography-easy-043",
+  "ref": {
+   "fr": "Luc 10:30",
+   "en": "Luke 10:30"
+  },
+  "fr": {
+   "q": "Dans la parabole, l’homme descendait de Jérusalem vers quelle ville ?",
+   "options": [
+    "Jéricho",
+    "Béthanie",
+    "Emmaüs",
+    "Cana"
+   ],
+   "explain": "Un homme descendait de Jérusalem à Jéricho. (Luc 10:30)"
+  },
+  "en": {
+   "q": "In the parable, the man was going down from Jerusalem to which city?",
+   "options": [
+    "Jericho",
+    "Bethany",
+    "Emmaus",
+    "Cana"
+   ],
+   "explain": "A man was going down from Jerusalem to Jericho. (Luke 10:30)"
+  }
+ },
+ {
+  "id": "geography-easy-044",
+  "ref": {
+   "fr": "1 Samuel 16:1",
+   "en": "1 Samuel 16:1"
+  },
+  "fr": {
+   "q": "Dans quelle ville David naquit-il ?",
+   "options": [
+    "Bethléem",
+    "Jérusalem",
+    "Hébron",
+    "Gabaon"
+   ],
+   "explain": "Samuel fut envoyé à Bethléem chez Isaï, père de David. (1 Samuel 16:1)"
+  },
+  "en": {
+   "q": "In which town was David born?",
+   "options": [
+    "Bethlehem",
+    "Jerusalem",
+    "Hebron",
+    "Gibeon"
+   ],
+   "explain": "Samuel was sent to Bethlehem to Jesse, David’s father. (1 Samuel 16:1)"
+  }
+ },
+ {
+  "id": "geography-easy-045",
+  "ref": {
+   "fr": "Ruth 1:4",
+   "en": "Ruth 1:4"
+  },
+  "fr": {
+   "q": "De quel pays Ruth était-elle originaire ?",
+   "options": [
+    "Moab",
+    "Édom",
+    "Canaan",
+    "L’Égypte"
+   ],
+   "explain": "Ruth était une femme de Moab. (Ruth 1:4)"
+  },
+  "en": {
+   "q": "From which country did Ruth come?",
+   "options": [
+    "Moab",
+    "Edom",
+    "Canaan",
+    "Egypt"
+   ],
+   "explain": "Ruth was a woman of Moab. (Ruth 1:4)"
+  }
+ },
+ {
+  "id": "geography-easy-046",
+  "ref": {
+   "fr": "1 Samuel 1:3",
+   "en": "1 Samuel 1:3"
+  },
+  "fr": {
+   "q": "Dans quelle ville se trouvait le tabernacle au temps du jeune Samuel ?",
+   "options": [
+    "Silo",
+    "Jérusalem",
+    "Béthel",
+    "Gabaon"
+   ],
+   "explain": "On adorait l’Éternel à Silo, où était le tabernacle. (1 Samuel 1:3)"
+  },
+  "en": {
+   "q": "In which town was the tabernacle in the days of young Samuel?",
+   "options": [
+    "Shiloh",
+    "Jerusalem",
+    "Bethel",
+    "Gibeon"
+   ],
+   "explain": "The LORD was worshiped at Shiloh, where the tabernacle stood. (1 Samuel 1:3)"
+  }
+ },
+ {
+  "id": "geography-easy-047",
+  "ref": {
+   "fr": "Genèse 28:19",
+   "en": "Genesis 28:19"
+  },
+  "fr": {
+   "q": "En quel lieu Jacob rêva-t-il d’une échelle atteignant le ciel ?",
+   "options": [
+    "Béthel",
+    "Sichem",
+    "Hébron",
+    "Silo"
+   ],
+   "explain": "Jacob nomma ce lieu Béthel, maison de Dieu. (Genèse 28:19)"
+  },
+  "en": {
+   "q": "At what place did Jacob dream of a ladder reaching heaven?",
+   "options": [
+    "Bethel",
+    "Shechem",
+    "Hebron",
+    "Shiloh"
+   ],
+   "explain": "Jacob named that place Bethel, the house of God. (Genesis 28:19)"
+  }
+ },
+ {
+  "id": "geography-easy-048",
+  "ref": {
+   "fr": "Genèse 22:2",
+   "en": "Genesis 22:2"
+  },
+  "fr": {
+   "q": "Sur quelle montagne Abraham devait-il offrir Isaac ?",
+   "options": [
+    "Le mont Morija",
+    "Le mont Sinaï",
+    "Le mont Carmel",
+    "Le mont Nébo"
+   ],
+   "explain": "Dieu envoya Abraham au pays de Morija. (Genèse 22:2)"
+  },
+  "en": {
+   "q": "On which mountain was Abraham to offer Isaac?",
+   "options": [
+    "Mount Moriah",
+    "Mount Sinai",
+    "Mount Carmel",
+    "Mount Nebo"
+   ],
+   "explain": "God sent Abraham to the land of Moriah. (Genesis 22:2)"
+  }
+ },
+ {
+  "id": "geography-easy-049",
+  "ref": {
+   "fr": "1 Rois 10:1",
+   "en": "1 Kings 10:1"
+  },
+  "fr": {
+   "q": "De quel pays vint la reine qui rendit visite à Salomon ?",
+   "options": [
+    "Séba",
+    "L’Égypte",
+    "La Perse",
+    "Tyr"
+   ],
+   "explain": "La reine de Séba vint éprouver Salomon. (1 Rois 10:1)"
+  },
+  "en": {
+   "q": "From which land came the queen who visited Solomon?",
+   "options": [
+    "Sheba",
+    "Egypt",
+    "Persia",
+    "Tyre"
+   ],
+   "explain": "The queen of Sheba came to test Solomon. (1 Kings 10:1)"
+  }
+ },
+ {
+  "id": "geography-easy-050",
+  "ref": {
+   "fr": "2 Rois 19:36",
+   "en": "2 Kings 19:36"
+  },
+  "fr": {
+   "q": "De quelle nation Ninive était-elle la capitale ?",
+   "options": [
+    "L’Assyrie",
+    "Babylone",
+    "La Perse",
+    "L’Égypte"
+   ],
+   "explain": "Sanchérib, roi d’Assyrie, demeura à Ninive. (2 Rois 19:36)"
+  },
+  "en": {
+   "q": "Nineveh was the capital of which nation?",
+   "options": [
+    "Assyria",
+    "Babylon",
+    "Persia",
+    "Egypt"
+   ],
+   "explain": "Sennacherib king of Assyria dwelt at Nineveh. (2 Kings 19:36)"
+  }
+ },
+ {
+  "id": "geography-easy-051",
+  "ref": {
+   "fr": "Actes 17:22",
+   "en": "Acts 17:22"
+  },
+  "fr": {
+   "q": "Dans quelle ville Paul prêcha-t-il devant l’Aréopage ?",
+   "options": [
+    "Athènes",
+    "Corinthe",
+    "Rome",
+    "Éphèse"
+   ],
+   "explain": "Paul se tint au milieu de l’Aréopage à Athènes. (Actes 17:22)"
+  },
+  "en": {
+   "q": "In which city did Paul preach at the Areopagus?",
+   "options": [
+    "Athens",
+    "Corinth",
+    "Rome",
+    "Ephesus"
+   ],
+   "explain": "Paul stood in the midst of the Areopagus in Athens. (Acts 17:22)"
+  }
+ },
+ {
+  "id": "geography-easy-052",
+  "ref": {
+   "fr": "Actes 19:28",
+   "en": "Acts 19:28"
+  },
+  "fr": {
+   "q": "Dans quelle ville se trouvait le grand temple de Diane (Artémis) ?",
+   "options": [
+    "Éphèse",
+    "Corinthe",
+    "Philippes",
+    "Thessalonique"
+   ],
+   "explain": "La foule d’Éphèse criait : Grande est la Diane des Éphésiens ! (Actes 19:28)"
+  },
+  "en": {
+   "q": "In which city stood the great temple of Diana (Artemis)?",
+   "options": [
+    "Ephesus",
+    "Corinth",
+    "Philippi",
+    "Thessalonica"
+   ],
+   "explain": "The crowd of Ephesus cried, Great is Diana of the Ephesians! (Acts 19:28)"
+  }
+ },
+ {
+  "id": "geography-easy-053",
+  "ref": {
+   "fr": "Actes 16:12",
+   "en": "Acts 16:12"
+  },
+  "fr": {
+   "q": "Quelle fut la première ville d’Europe où Paul annonça l’Évangile ?",
+   "options": [
+    "Philippes",
+    "Athènes",
+    "Corinthe",
+    "Rome"
+   ],
+   "explain": "Paul vint à Philippes, une ville de Macédoine. (Actes 16:12)"
+  },
+  "en": {
+   "q": "What was the first European city where Paul preached the gospel?",
+   "options": [
+    "Philippi",
+    "Athens",
+    "Corinth",
+    "Rome"
+   ],
+   "explain": "Paul came to Philippi, a city of Macedonia. (Acts 16:12)"
+  }
+ },
+ {
+  "id": "geography-easy-054",
+  "ref": {
+   "fr": "Actes 28:16",
+   "en": "Acts 28:16"
+  },
+  "fr": {
+   "q": "Dans quelle capitale Paul fut-il emprisonné à la fin des Actes ?",
+   "options": [
+    "Rome",
+    "Athènes",
+    "Jérusalem",
+    "Antioche"
+   ],
+   "explain": "Paul arriva à Rome et y fut gardé prisonnier. (Actes 28:16)"
+  },
+  "en": {
+   "q": "In which capital was Paul imprisoned at the end of Acts?",
+   "options": [
+    "Rome",
+    "Athens",
+    "Jerusalem",
+    "Antioch"
+   ],
+   "explain": "Paul came to Rome and was kept a prisoner there. (Acts 28:16)"
+  }
+ },
+ {
+  "id": "geography-easy-055",
+  "ref": {
+   "fr": "Jean 4:4",
+   "en": "John 4:4"
+  },
+  "fr": {
+   "q": "Quelle région séparait la Judée de la Galilée et que les Juifs évitaient ?",
+   "options": [
+    "La Samarie",
+    "L’Idumée",
+    "La Décapole",
+    "La Pérée"
+   ],
+   "explain": "Il fallait que Jésus traversât la Samarie. (Jean 4:4)"
+  },
+  "en": {
+   "q": "Which region lay between Judea and Galilee and was avoided by Jews?",
+   "options": [
+    "Samaria",
+    "Idumea",
+    "Decapolis",
+    "Perea"
+   ],
+   "explain": "Jesus had to pass through Samaria. (John 4:4)"
+  }
+ },
+ {
+  "id": "geography-easy-056",
+  "ref": {
+   "fr": "Genèse 11:9",
+   "en": "Genesis 11:9"
+  },
+  "fr": {
+   "q": "Dans quelle ville les hommes bâtirent-ils une tour pour atteindre le ciel ?",
+   "options": [
+    "Babel",
+    "Ninive",
+    "Ur",
+    "Sodome"
+   ],
+   "explain": "On l’appela Babel, car Dieu y confondit le langage. (Genèse 11:9)"
+  },
+  "en": {
+   "q": "In which city did men build a tower to reach heaven?",
+   "options": [
+    "Babel",
+    "Nineveh",
+    "Ur",
+    "Sodom"
+   ],
+   "explain": "It was called Babel, because God confused the language there. (Genesis 11:9)"
+  }
+ },
+ {
+  "id": "geography-easy-057",
+  "ref": {
+   "fr": "Genèse 4:16",
+   "en": "Genesis 4:16"
+  },
+  "fr": {
+   "q": "Dans quel pays, à l’orient d’Éden, Caïn alla-t-il habiter ?",
+   "options": [
+    "Le pays de Nod",
+    "Canaan",
+    "Madian",
+    "Gosen"
+   ],
+   "explain": "Caïn habita dans le pays de Nod, à l’orient d’Éden. (Genèse 4:16)"
+  },
+  "en": {
+   "q": "In which land, east of Eden, did Cain go to live?",
+   "options": [
+    "The land of Nod",
+    "Canaan",
+    "Midian",
+    "Goshen"
+   ],
+   "explain": "Cain lived in the land of Nod, east of Eden. (Genesis 4:16)"
+  }
+ },
+ {
+  "id": "geography-easy-058",
+  "ref": {
+   "fr": "Genèse 47:6",
+   "en": "Genesis 47:6"
+  },
+  "fr": {
+   "q": "Dans quelle région d’Égypte la famille de Jacob s’installa-t-elle ?",
+   "options": [
+    "Gosen",
+    "Canaan",
+    "Madian",
+    "Le Sinaï"
+   ],
+   "explain": "Pharaon donna à Israël le pays de Gosen. (Genèse 47:6)"
+  },
+  "en": {
+   "q": "In which region of Egypt did Jacob’s family settle?",
+   "options": [
+    "Goshen",
+    "Canaan",
+    "Midian",
+    "Sinai"
+   ],
+   "explain": "Pharaoh gave Israel the land of Goshen. (Genesis 47:6)"
+  }
+ },
+ {
+  "id": "geography-easy-059",
+  "ref": {
+   "fr": "Exode 2:15",
+   "en": "Exodus 2:15"
+  },
+  "fr": {
+   "q": "Dans quel pays Moïse s’enfuit-il et devint berger ?",
+   "options": [
+    "Madian",
+    "L’Égypte",
+    "Canaan",
+    "Édom"
+   ],
+   "explain": "Moïse s’enfuit au pays de Madian. (Exode 2:15)"
+  },
+  "en": {
+   "q": "To which land did Moses flee and become a shepherd?",
+   "options": [
+    "Midian",
+    "Egypt",
+    "Canaan",
+    "Edom"
+   ],
+   "explain": "Moses fled to the land of Midian. (Exodus 2:15)"
+  }
+ },
+ {
+  "id": "geography-easy-060",
+  "ref": {
+   "fr": "Exode 3:1",
+   "en": "Exodus 3:1"
+  },
+  "fr": {
+   "q": "Près de quelle montagne Moïse vit-il le buisson ardent ?",
+   "options": [
+    "Le mont Horeb",
+    "Le mont Carmel",
+    "Le mont Nébo",
+    "Le mont Thabor"
+   ],
+   "explain": "Moïse arriva à Horeb, la montagne de Dieu. (Exode 3:1)"
+  },
+  "en": {
+   "q": "Near which mountain did Moses see the burning bush?",
+   "options": [
+    "Mount Horeb",
+    "Mount Carmel",
+    "Mount Nebo",
+    "Mount Tabor"
+   ],
+   "explain": "Moses came to Horeb, the mountain of God. (Exodus 3:1)"
+  }
+ },
+ {
+  "id": "geography-easy-061",
+  "ref": {
+   "fr": "Genèse 13:12",
+   "en": "Genesis 13:12"
+  },
+  "fr": {
+   "q": "Près de quelle ville Lot alla-t-il dresser ses tentes dans la plaine ?",
+   "options": [
+    "Sodome",
+    "Béthel",
+    "Hébron",
+    "Jéricho"
+   ],
+   "explain": "Lot dressa ses tentes jusqu’à Sodome. (Genèse 13:12)"
+  },
+  "en": {
+   "q": "Near which city did Lot pitch his tents in the plain?",
+   "options": [
+    "Sodom",
+    "Bethel",
+    "Hebron",
+    "Jericho"
+   ],
+   "explain": "Lot pitched his tent toward Sodom. (Genesis 13:12)"
+  }
+ },
+ {
+  "id": "geography-easy-062",
+  "ref": {
+   "fr": "Genèse 23:19",
+   "en": "Genesis 23:19"
+  },
+  "fr": {
+   "q": "Dans quelle ville Abraham et Sara furent-ils enterrés ?",
+   "options": [
+    "Hébron",
+    "Bethléem",
+    "Sichem",
+    "Béer-Schéba"
+   ],
+   "explain": "Abraham enterra Sara dans la caverne de Macpéla, à Hébron. (Genèse 23:19)"
+  },
+  "en": {
+   "q": "In which town were Abraham and Sarah buried?",
+   "options": [
+    "Hebron",
+    "Bethlehem",
+    "Shechem",
+    "Beersheba"
+   ],
+   "explain": "Abraham buried Sarah in the cave of Machpelah at Hebron. (Genesis 23:19)"
+  }
+ },
+ {
+  "id": "geography-easy-063",
+  "ref": {
+   "fr": "Genèse 26:33",
+   "en": "Genesis 26:33"
+  },
+  "fr": {
+   "q": "Dans quel lieu Isaac creusa-t-il des puits et fit-il alliance ?",
+   "options": [
+    "Béer-Schéba",
+    "Hébron",
+    "Sichem",
+    "Béthel"
+   ],
+   "explain": "Isaac appela le puits Schiba ; d’où le nom de Béer-Schéba. (Genèse 26:33)"
+  },
+  "en": {
+   "q": "At which place did Isaac dig wells and make a covenant?",
+   "options": [
+    "Beersheba",
+    "Hebron",
+    "Shechem",
+    "Bethel"
+   ],
+   "explain": "Isaac called the well Shibah; so the city is Beersheba. (Genesis 26:33)"
+  }
+ },
+ {
+  "id": "geography-easy-064",
+  "ref": {
+   "fr": "Jean 5:2",
+   "en": "John 5:2"
+  },
+  "fr": {
+   "q": "Dans quelle piscine de Jérusalem Jésus guérit-il un paralytique ?",
+   "options": [
+    "Béthesda",
+    "Siloé",
+    "Le Jourdain",
+    "La mer de Galilée"
+   ],
+   "explain": "Il y avait à Jérusalem la piscine de Béthesda. (Jean 5:2)"
+  },
+  "en": {
+   "q": "At which pool in Jerusalem did Jesus heal a paralytic?",
+   "options": [
+    "Bethesda",
+    "Siloam",
+    "The Jordan",
+    "The Sea of Galilee"
+   ],
+   "explain": "In Jerusalem there was the pool of Bethesda. (John 5:2)"
+  }
+ },
+ {
+  "id": "geography-easy-065",
+  "ref": {
+   "fr": "Jean 9:7",
+   "en": "John 9:7"
+  },
+  "fr": {
+   "q": "Dans quelle piscine l’aveugle-né alla-t-il se laver pour voir ?",
+   "options": [
+    "Siloé",
+    "Béthesda",
+    "Le Jourdain",
+    "Cana"
+   ],
+   "explain": "Jésus lui dit : Va te laver à la piscine de Siloé. (Jean 9:7)"
+  },
+  "en": {
+   "q": "In which pool did the man born blind wash to receive sight?",
+   "options": [
+    "Siloam",
+    "Bethesda",
+    "The Jordan",
+    "Cana"
+   ],
+   "explain": "Jesus told him: Go, wash in the pool of Siloam. (John 9:7)"
+  }
+ },
+ {
+  "id": "geography-easy-066",
+  "ref": {
+   "fr": "Jean 1:44",
+   "en": "John 1:44"
+  },
+  "fr": {
+   "q": "De quelle ville étaient Philippe, André et Pierre ?",
+   "options": [
+    "Bethsaïda",
+    "Nazareth",
+    "Cana",
+    "Béthanie"
+   ],
+   "explain": "Philippe était de Bethsaïda, la ville d’André et de Pierre. (Jean 1:44)"
+  },
+  "en": {
+   "q": "From which town were Philip, Andrew and Peter?",
+   "options": [
+    "Bethsaida",
+    "Nazareth",
+    "Cana",
+    "Bethany"
+   ],
+   "explain": "Philip was from Bethsaida, the city of Andrew and Peter. (John 1:44)"
+  }
+ },
+ {
+  "id": "geography-easy-067",
+  "ref": {
+   "fr": "Luc 5:1",
+   "en": "Luke 5:1"
+  },
+  "fr": {
+   "q": "Quelle mer est aussi appelée lac de Génésareth ?",
+   "options": [
+    "La mer de Galilée",
+    "La mer Morte",
+    "La mer Rouge",
+    "La Méditerranée"
+   ],
+   "explain": "Jésus enseignait au bord du lac de Génésareth. (Luc 5:1)"
+  },
+  "en": {
+   "q": "Which sea is also called the Lake of Gennesaret?",
+   "options": [
+    "The Sea of Galilee",
+    "The Dead Sea",
+    "The Red Sea",
+    "The Mediterranean"
+   ],
+   "explain": "Jesus taught by the Lake of Gennesaret. (Luke 5:1)"
+  }
+ },
+ {
+  "id": "geography-easy-068",
+  "ref": {
+   "fr": "Matthieu 2:1",
+   "en": "Matthew 2:1"
+  },
+  "fr": {
+   "q": "D’où venaient les mages qui cherchaient l’enfant Jésus ?",
+   "options": [
+    "De l’Orient",
+    "De l’Égypte",
+    "De Rome",
+    "De Grèce"
+   ],
+   "explain": "Des mages d’Orient arrivèrent à Jérusalem. (Matthieu 2:1)"
+  },
+  "en": {
+   "q": "From where did the wise men who sought Jesus come?",
+   "options": [
+    "From the East",
+    "From Egypt",
+    "From Rome",
+    "From Greece"
+   ],
+   "explain": "Wise men from the East came to Jerusalem. (Matthew 2:1)"
+  }
+ },
+ {
+  "id": "geography-easy-069",
+  "ref": {
+   "fr": "Matthieu 2:3",
+   "en": "Matthew 2:3"
+  },
+  "fr": {
+   "q": "Dans quelle ville régnait le roi Hérode à la venue des mages ?",
+   "options": [
+    "Jérusalem",
+    "Bethléem",
+    "Nazareth",
+    "Jéricho"
+   ],
+   "explain": "Le roi Hérode fut troublé, et tout Jérusalem avec lui. (Matthieu 2:3)"
+  },
+  "en": {
+   "q": "In which city did King Herod rule when the wise men came?",
+   "options": [
+    "Jerusalem",
+    "Bethlehem",
+    "Nazareth",
+    "Jericho"
+   ],
+   "explain": "King Herod was troubled, and all Jerusalem with him. (Matthew 2:3)"
+  }
+ },
+ {
+  "id": "geography-easy-070",
+  "ref": {
+   "fr": "Exode 16:14",
+   "en": "Exodus 16:14"
+  },
+  "fr": {
+   "q": "En quel lieu Dieu donna-t-il la manne à Israël ?",
+   "options": [
+    "Dans le désert",
+    "Dans la mer",
+    "Dans la ville",
+    "Sur la montagne"
+   ],
+   "explain": "La manne apparut sur le sol du désert. (Exode 16:14)"
+  },
+  "en": {
+   "q": "Where did God give Israel the manna?",
+   "options": [
+    "In the wilderness",
+    "In the sea",
+    "In the city",
+    "On the mountain"
+   ],
+   "explain": "The manna appeared on the ground in the wilderness. (Exodus 16:14)"
+  }
+ },
+ {
+  "id": "geography-easy-071",
+  "ref": {
+   "fr": "2 Rois 17:6",
+   "en": "2 Kings 17:6"
+  },
+  "fr": {
+   "q": "Quelle nation emmena le royaume du Nord (Israël) en captivité ?",
+   "options": [
+    "L’Assyrie",
+    "Babylone",
+    "L’Égypte",
+    "La Perse"
+   ],
+   "explain": "Le roi d’Assyrie emmena Israël captif. (2 Rois 17:6)"
+  },
+  "en": {
+   "q": "Which nation carried the northern kingdom of Israel into captivity?",
+   "options": [
+    "Assyria",
+    "Babylon",
+    "Egypt",
+    "Persia"
+   ],
+   "explain": "The king of Assyria carried Israel away captive. (2 Kings 17:6)"
+  }
+ },
+ {
+  "id": "geography-easy-072",
+  "ref": {
+   "fr": "2 Rois 25:11",
+   "en": "2 Kings 25:11"
+  },
+  "fr": {
+   "q": "Vers quelle ville Juda fut-il emmené en captivité ?",
+   "options": [
+    "Babylone",
+    "Ninive",
+    "Rome",
+    "Suse"
+   ],
+   "explain": "Le reste du peuple fut déporté à Babylone. (2 Rois 25:11)"
+  },
+  "en": {
+   "q": "To which city was Judah carried into captivity?",
+   "options": [
+    "Babylon",
+    "Nineveh",
+    "Rome",
+    "Susa"
+   ],
+   "explain": "The rest of the people were carried away to Babylon. (2 Kings 25:11)"
+  }
+ },
+ {
+  "id": "geography-easy-073",
+  "ref": {
+   "fr": "Esdras 1:1-2",
+   "en": "Ezra 1:1-2"
+  },
+  "fr": {
+   "q": "De quel empire venait Cyrus, qui laissa revenir les Juifs ?",
+   "options": [
+    "La Perse",
+    "Babylone",
+    "L’Égypte",
+    "La Grèce"
+   ],
+   "explain": "Cyrus, roi de Perse, permit le retour des exilés. (Esdras 1:1-2)"
+  },
+  "en": {
+   "q": "From which empire came Cyrus, who let the Jews return?",
+   "options": [
+    "Persia",
+    "Babylon",
+    "Egypt",
+    "Greece"
+   ],
+   "explain": "Cyrus king of Persia let the exiles return. (Ezra 1:1-2)"
+  }
+ },
+ {
+  "id": "geography-easy-074",
+  "ref": {
+   "fr": "1 Rois 16:24",
+   "en": "1 Kings 16:24"
+  },
+  "fr": {
+   "q": "Quelle ville était la capitale du royaume du Nord ?",
+   "options": [
+    "Samarie",
+    "Jérusalem",
+    "Béthel",
+    "Sichem"
+   ],
+   "explain": "Omri bâtit Samarie et en fit la capitale d’Israël. (1 Rois 16:24)"
+  },
+  "en": {
+   "q": "Which city was the capital of the northern kingdom?",
+   "options": [
+    "Samaria",
+    "Jerusalem",
+    "Bethel",
+    "Shechem"
+   ],
+   "explain": "Omri built Samaria as the capital of Israel. (1 Kings 16:24)"
+  }
+ },
+ {
+  "id": "geography-easy-075",
+  "ref": {
+   "fr": "1 Rois 14:21",
+   "en": "1 Kings 14:21"
+  },
+  "fr": {
+   "q": "Quelle ville était la capitale du royaume de Juda ?",
+   "options": [
+    "Jérusalem",
+    "Samarie",
+    "Hébron",
+    "Béthel"
+   ],
+   "explain": "Roboam régna sur Juda à Jérusalem. (1 Rois 14:21)"
+  },
+  "en": {
+   "q": "Which city was the capital of the kingdom of Judah?",
+   "options": [
+    "Jerusalem",
+    "Samaria",
+    "Hebron",
+    "Bethel"
+   ],
+   "explain": "Rehoboam reigned over Judah in Jerusalem. (1 Kings 14:21)"
+  }
+ },
+ {
+  "id": "geography-easy-076",
+  "ref": {
+   "fr": "Actes 8:26",
+   "en": "Acts 8:26"
+  },
+  "fr": {
+   "q": "Sur la route de quelle ville Philippe rencontra-t-il l’Éthiopien ?",
+   "options": [
+    "Gaza",
+    "Damas",
+    "Jéricho",
+    "Emmaüs"
+   ],
+   "explain": "Un ange envoya Philippe sur le chemin de Gaza. (Actes 8:26)"
+  },
+  "en": {
+   "q": "On the road to which city did Philip meet the Ethiopian?",
+   "options": [
+    "Gaza",
+    "Damascus",
+    "Jericho",
+    "Emmaus"
+   ],
+   "explain": "An angel sent Philip to the road to Gaza. (Acts 8:26)"
+  }
+ },
+ {
+  "id": "geography-easy-077",
+  "ref": {
+   "fr": "Actes 8:27",
+   "en": "Acts 8:27"
+  },
+  "fr": {
+   "q": "De quel pays venait l’eunuque baptisé par Philippe ?",
+   "options": [
+    "L’Éthiopie",
+    "L’Égypte",
+    "La Libye",
+    "L’Arabie"
+   ],
+   "explain": "C’était un eunuque éthiopien, ministre de la reine. (Actes 8:27)"
+  },
+  "en": {
+   "q": "From which country was the eunuch baptized by Philip?",
+   "options": [
+    "Ethiopia",
+    "Egypt",
+    "Libya",
+    "Arabia"
+   ],
+   "explain": "He was an Ethiopian eunuch, a minister of the queen. (Acts 8:27)"
+  }
+ },
+ {
+  "id": "geography-easy-078",
+  "ref": {
+   "fr": "Actes 10:1",
+   "en": "Acts 10:1"
+  },
+  "fr": {
+   "q": "Dans quelle ville vivait le centurion Corneille ?",
+   "options": [
+    "Césarée",
+    "Joppé",
+    "Jérusalem",
+    "Antioche"
+   ],
+   "explain": "Corneille était centurion à Césarée. (Actes 10:1)"
+  },
+  "en": {
+   "q": "In which city did the centurion Cornelius live?",
+   "options": [
+    "Caesarea",
+    "Joppa",
+    "Jerusalem",
+    "Antioch"
+   ],
+   "explain": "Cornelius was a centurion in Caesarea. (Acts 10:1)"
+  }
+ },
+ {
+  "id": "geography-easy-079",
+  "ref": {
+   "fr": "Actes 9:36",
+   "en": "Acts 9:36"
+  },
+  "fr": {
+   "q": "Dans quelle ville Pierre ressuscita-t-il Tabitha (Dorcas) ?",
+   "options": [
+    "Joppé",
+    "Césarée",
+    "Lydde",
+    "Jérusalem"
+   ],
+   "explain": "À Joppé, Pierre rappela Tabitha à la vie. (Actes 9:36)"
+  },
+  "en": {
+   "q": "In which city did Peter raise Tabitha (Dorcas)?",
+   "options": [
+    "Joppa",
+    "Caesarea",
+    "Lydda",
+    "Jerusalem"
+   ],
+   "explain": "In Joppa, Peter raised Tabitha back to life. (Acts 9:36)"
+  }
+ },
+ {
+  "id": "geography-easy-080",
+  "ref": {
+   "fr": "Jonas 1:3",
+   "en": "Jonah 1:3"
+  },
+  "fr": {
+   "q": "De quel port Jonas s’embarqua-t-il pour fuir ?",
+   "options": [
+    "Joppé",
+    "Tarsis",
+    "Tyr",
+    "Sidon"
+   ],
+   "explain": "Jonas descendit à Joppé et y trouva un navire. (Jonas 1:3)"
+  },
+  "en": {
+   "q": "From which port did Jonah set sail to flee?",
+   "options": [
+    "Joppa",
+    "Tarshish",
+    "Tyre",
+    "Sidon"
+   ],
+   "explain": "Jonah went down to Joppa and found a ship. (Jonah 1:3)"
+  }
+ },
+ {
+  "id": "geography-easy-081",
+  "ref": {
+   "fr": "Marc 7:31",
+   "en": "Mark 7:31"
+  },
+  "fr": {
+   "q": "Quelles deux villes phéniciennes Jésus visita-t-il ?",
+   "options": [
+    "Tyr et Sidon",
+    "Sodome et Gomorrhe",
+    "Ninive et Babylone",
+    "Athènes et Rome"
+   ],
+   "explain": "Jésus se rendit dans le territoire de Tyr et de Sidon. (Marc 7:31)"
+  },
+  "en": {
+   "q": "Which two Phoenician cities did Jesus visit?",
+   "options": [
+    "Tyre and Sidon",
+    "Sodom and Gomorrah",
+    "Nineveh and Babylon",
+    "Athens and Rome"
+   ],
+   "explain": "Jesus went into the region of Tyre and Sidon. (Mark 7:31)"
+  }
+ },
+ {
+  "id": "geography-easy-082",
+  "ref": {
+   "fr": "Marc 5:20",
+   "en": "Mark 5:20"
+  },
+  "fr": {
+   "q": "Dans quelle région des dix villes Jésus délivra-t-il un démoniaque ?",
+   "options": [
+    "La Décapole",
+    "La Samarie",
+    "L’Idumée",
+    "La Galilée"
+   ],
+   "explain": "L’homme guéri publia dans la Décapole ce que Jésus avait fait. (Marc 5:20)"
+  },
+  "en": {
+   "q": "In which region of ten cities did Jesus free a demon-possessed man?",
+   "options": [
+    "The Decapolis",
+    "Samaria",
+    "Idumea",
+    "Galilee"
+   ],
+   "explain": "The healed man proclaimed in the Decapolis what Jesus had done. (Mark 5:20)"
+  }
+ },
+ {
+  "id": "geography-easy-083",
+  "ref": {
+   "fr": "Exode 7:20",
+   "en": "Exodus 7:20"
+  },
+  "fr": {
+   "q": "Quel grand fleuve d’Égypte fut changé en sang ?",
+   "options": [
+    "Le Nil",
+    "Le Jourdain",
+    "L’Euphrate",
+    "Le Tigre"
+   ],
+   "explain": "Les eaux du fleuve furent changées en sang. (Exode 7:20)"
+  },
+  "en": {
+   "q": "Which great river of Egypt was turned to blood?",
+   "options": [
+    "The Nile",
+    "The Jordan",
+    "The Euphrates",
+    "The Tigris"
+   ],
+   "explain": "The waters of the river were turned to blood. (Exodus 7:20)"
+  }
+ },
+ {
+  "id": "geography-easy-084",
+  "ref": {
+   "fr": "Genèse 2:14",
+   "en": "Genesis 2:14"
+  },
+  "fr": {
+   "q": "Quel grand fleuve, sorti d’Éden, marque une limite de la Terre promise ?",
+   "options": [
+    "L’Euphrate",
+    "Le Nil",
+    "Le Jourdain",
+    "Le Tigre"
+   ],
+   "explain": "Le quatrième fleuve, c’est l’Euphrate. (Genèse 2:14)"
+  },
+  "en": {
+   "q": "Which great river from Eden marks a border of the Promised Land?",
+   "options": [
+    "The Euphrates",
+    "The Nile",
+    "The Jordan",
+    "The Tigris"
+   ],
+   "explain": "The fourth river is the Euphrates. (Genesis 2:14)"
+  }
+ },
+ {
+  "id": "geography-easy-085",
+  "ref": {
+   "fr": "Juges 16:30",
+   "en": "Judges 16:30"
+  },
+  "fr": {
+   "q": "Dans quelle ville philistine Samson mourut-il en renversant le temple ?",
+   "options": [
+    "Gaza",
+    "Ashdod",
+    "Jéricho",
+    "Silo"
+   ],
+   "explain": "Samson fit tomber le temple à Gaza. (Juges 16:30)"
+  },
+  "en": {
+   "q": "In which Philistine city did Samson die pulling down the temple?",
+   "options": [
+    "Gaza",
+    "Ashdod",
+    "Jericho",
+    "Shiloh"
+   ],
+   "explain": "Samson pulled down the temple at Gaza. (Judges 16:30)"
+  }
+ },
+ {
+  "id": "geography-easy-086",
+  "ref": {
+   "fr": "Luc 3:1",
+   "en": "Luke 3:1"
+  },
+  "fr": {
+   "q": "De quelle province Ponce Pilate était-il gouverneur ?",
+   "options": [
+    "La Judée",
+    "La Galilée",
+    "La Samarie",
+    "La Syrie"
+   ],
+   "explain": "Ponce Pilate était gouverneur de la Judée. (Luc 3:1)"
+  },
+  "en": {
+   "q": "Of which province was Pontius Pilate governor?",
+   "options": [
+    "Judea",
+    "Galilee",
+    "Samaria",
+    "Syria"
+   ],
+   "explain": "Pontius Pilate was governor of Judea. (Luke 3:1)"
+  }
+ },
+ {
+  "id": "geography-easy-087",
+  "ref": {
+   "fr": "Luc 3:1",
+   "en": "Luke 3:1"
+  },
+  "fr": {
+   "q": "De quelle région Hérode Antipas était-il tétrarque ?",
+   "options": [
+    "La Galilée",
+    "La Judée",
+    "La Samarie",
+    "L’Idumée"
+   ],
+   "explain": "Hérode était tétrarque de la Galilée. (Luc 3:1)"
+  },
+  "en": {
+   "q": "Of which region was Herod Antipas tetrarch?",
+   "options": [
+    "Galilee",
+    "Judea",
+    "Samaria",
+    "Idumea"
+   ],
+   "explain": "Herod was tetrarch of Galilee. (Luke 3:1)"
+  }
+ },
+ {
+  "id": "geography-easy-088",
+  "ref": {
+   "fr": "Luc 2:22",
+   "en": "Luke 2:22"
+  },
+  "fr": {
+   "q": "Dans quelle ville l’enfant Jésus fut-il présenté au temple ?",
+   "options": [
+    "Jérusalem",
+    "Bethléem",
+    "Nazareth",
+    "Cana"
+   ],
+   "explain": "On porta Jésus à Jérusalem pour le présenter au Seigneur. (Luc 2:22)"
+  },
+  "en": {
+   "q": "In which city was baby Jesus presented at the temple?",
+   "options": [
+    "Jerusalem",
+    "Bethlehem",
+    "Nazareth",
+    "Cana"
+   ],
+   "explain": "Jesus was brought to Jerusalem to present him to the Lord. (Luke 2:22)"
+  }
+ },
+ {
+  "id": "geography-easy-089",
+  "ref": {
+   "fr": "Luc 19:1-4",
+   "en": "Luke 19:1-4"
+  },
+  "fr": {
+   "q": "Dans quelle ville Zachée monta-t-il sur un sycomore pour voir Jésus ?",
+   "options": [
+    "Jéricho",
+    "Béthanie",
+    "Capernaüm",
+    "Naïn"
+   ],
+   "explain": "Zachée, à Jéricho, monta sur un sycomore. (Luc 19:1-4)"
+  },
+  "en": {
+   "q": "In which city did Zacchaeus climb a sycamore to see Jesus?",
+   "options": [
+    "Jericho",
+    "Bethany",
+    "Capernaum",
+    "Nain"
+   ],
+   "explain": "Zacchaeus, at Jericho, climbed a sycamore tree. (Luke 19:1-4)"
+  }
+ },
+ {
+  "id": "geography-easy-090",
+  "ref": {
+   "fr": "Luc 7:11",
+   "en": "Luke 7:11"
+  },
+  "fr": {
+   "q": "Dans quelle ville Jésus ressuscita-t-il le fils d’une veuve ?",
+   "options": [
+    "Naïn",
+    "Capernaüm",
+    "Cana",
+    "Béthanie"
+   ],
+   "explain": "À la porte de Naïn, Jésus rendit son fils à une veuve. (Luc 7:11)"
+  },
+  "en": {
+   "q": "In which town did Jesus raise a widow’s son?",
+   "options": [
+    "Nain",
+    "Capernaum",
+    "Cana",
+    "Bethany"
+   ],
+   "explain": "At the gate of Nain, Jesus gave a widow back her son. (Luke 7:11)"
+  }
+ },
+ {
+  "id": "geography-easy-091",
+  "ref": {
+   "fr": "Marc 14:16",
+   "en": "Mark 14:16"
+  },
+  "fr": {
+   "q": "Dans quelle ville la Cène (le dernier repas) eut-elle lieu ?",
+   "options": [
+    "Jérusalem",
+    "Bethléem",
+    "Béthanie",
+    "Emmaüs"
+   ],
+   "explain": "Les disciples préparèrent la Pâque dans une chambre à Jérusalem. (Marc 14:16)"
+  },
+  "en": {
+   "q": "In which city did the Last Supper take place?",
+   "options": [
+    "Jerusalem",
+    "Bethlehem",
+    "Bethany",
+    "Emmaus"
+   ],
+   "explain": "The disciples prepared the Passover in a room in Jerusalem. (Mark 14:16)"
+  }
+ },
+ {
+  "id": "geography-easy-092",
+  "ref": {
+   "fr": "Ruth 1:22",
+   "en": "Ruth 1:22"
+  },
+  "fr": {
+   "q": "Dans quelle ville Ruth glana-t-elle et s’établit-elle avec Naomi ?",
+   "options": [
+    "Bethléem",
+    "Moab",
+    "Jéricho",
+    "Silo"
+   ],
+   "explain": "Ruth et Naomi arrivèrent à Bethléem au temps de la moisson. (Ruth 1:22)"
+  },
+  "en": {
+   "q": "In which town did Ruth glean and settle with Naomi?",
+   "options": [
+    "Bethlehem",
+    "Moab",
+    "Jericho",
+    "Shiloh"
+   ],
+   "explain": "Ruth and Naomi came to Bethlehem at harvest time. (Ruth 1:22)"
+  }
+ },
+ {
+  "id": "geography-easy-093",
+  "ref": {
+   "fr": "Actes 22:3",
+   "en": "Acts 22:3"
+  },
+  "fr": {
+   "q": "De quelle ville l’apôtre Paul était-il originaire ?",
+   "options": [
+    "Tarse",
+    "Rome",
+    "Athènes",
+    "Jérusalem"
+   ],
+   "explain": "Paul dit : Je suis Juif, né à Tarse en Cilicie. (Actes 22:3)"
+  },
+  "en": {
+   "q": "From which city did the apostle Paul come?",
+   "options": [
+    "Tarsus",
+    "Rome",
+    "Athens",
+    "Jerusalem"
+   ],
+   "explain": "Paul said: I am a Jew, born in Tarsus of Cilicia. (Acts 22:3)"
+  }
+ },
+ {
+  "id": "geography-easy-094",
+  "ref": {
+   "fr": "Actes 18:1",
+   "en": "Acts 18:1"
+  },
+  "fr": {
+   "q": "Dans quelle ville grecque de commerce Paul demeura-t-il chez Aquilas ?",
+   "options": [
+    "Corinthe",
+    "Éphèse",
+    "Rome",
+    "Antioche"
+   ],
+   "explain": "Paul se rendit de Athènes à Corinthe. (Actes 18:1)"
+  },
+  "en": {
+   "q": "In which Greek trading city did Paul stay with Aquila?",
+   "options": [
+    "Corinth",
+    "Ephesus",
+    "Rome",
+    "Antioch"
+   ],
+   "explain": "Paul went from Athens to Corinth. (Acts 18:1)"
+  }
+ },
+ {
+  "id": "geography-easy-095",
+  "ref": {
+   "fr": "Daniel 10:4",
+   "en": "Daniel 10:4"
+  },
+  "fr": {
+   "q": "Au bord de quel grand fleuve Daniel eut-il une vision ?",
+   "options": [
+    "Le Tigre",
+    "Le Nil",
+    "Le Jourdain",
+    "L’Euphrate"
+   ],
+   "explain": "Daniel était au bord du grand fleuve, le Hiddékel (Tigre). (Daniel 10:4)"
+  },
+  "en": {
+   "q": "By which great river did Daniel have a vision?",
+   "options": [
+    "The Tigris",
+    "The Nile",
+    "The Jordan",
+    "The Euphrates"
+   ],
+   "explain": "Daniel was by the great river, the Hiddekel (Tigris). (Daniel 10:4)"
+  }
+ },
+ {
+  "id": "geography-easy-096",
+  "ref": {
+   "fr": "Job 1:1",
+   "en": "Job 1:1"
+  },
+  "fr": {
+   "q": "Dans quel pays vivait Job ?",
+   "options": [
+    "Le pays d’Uts",
+    "Canaan",
+    "L’Égypte",
+    "Madian"
+   ],
+   "explain": "Il y avait dans le pays d’Uts un homme nommé Job. (Job 1:1)"
+  },
+  "en": {
+   "q": "In which land did Job live?",
+   "options": [
+    "The land of Uz",
+    "Canaan",
+    "Egypt",
+    "Midian"
+   ],
+   "explain": "There was a man in the land of Uz whose name was Job. (Job 1:1)"
+  }
+ },
+ {
+  "id": "geography-easy-097",
+  "ref": {
+   "fr": "1 Rois 17:9",
+   "en": "1 Kings 17:9"
+  },
+  "fr": {
+   "q": "Dans quelle ville Élie fut-il nourri par une veuve ?",
+   "options": [
+    "Sarepta",
+    "Béthel",
+    "Silo",
+    "Hébron"
+   ],
+   "explain": "Dieu envoya Élie à Sarepta chez une veuve. (1 Rois 17:9)"
+  },
+  "en": {
+   "q": "In which town was Elijah fed by a widow?",
+   "options": [
+    "Zarephath",
+    "Bethel",
+    "Shiloh",
+    "Hebron"
+   ],
+   "explain": "God sent Elijah to Zarephath to a widow. (1 Kings 17:9)"
+  }
+ },
+ {
+  "id": "geography-easy-098",
+  "ref": {
+   "fr": "Juges 4:6",
+   "en": "Judges 4:6"
+  },
+  "fr": {
+   "q": "Près de quelle montagne Barak rassembla-t-il l’armée avec Débora ?",
+   "options": [
+    "Le mont Thabor",
+    "Le mont Carmel",
+    "Le mont Sinaï",
+    "Le mont Nébo"
+   ],
+   "explain": "Barak monta au mont Thabor avec dix mille hommes. (Juges 4:6)"
+  },
+  "en": {
+   "q": "Near which mountain did Barak gather the army with Deborah?",
+   "options": [
+    "Mount Tabor",
+    "Mount Carmel",
+    "Mount Sinai",
+    "Mount Nebo"
+   ],
+   "explain": "Barak went up to Mount Tabor with ten thousand men. (Judges 4:6)"
+  }
+ },
+ {
+  "id": "geography-easy-099",
+  "ref": {
+   "fr": "Luc 1:26",
+   "en": "Luke 1:26"
+  },
+  "fr": {
+   "q": "Dans quelle région se trouvait la ville de Nazareth ?",
+   "options": [
+    "La Galilée",
+    "La Judée",
+    "La Samarie",
+    "L’Égypte"
+   ],
+   "explain": "L’ange fut envoyé à Nazareth, une ville de Galilée. (Luc 1:26)"
+  },
+  "en": {
+   "q": "In which region was the town of Nazareth located?",
+   "options": [
+    "Galilee",
+    "Judea",
+    "Samaria",
+    "Egypt"
+   ],
+   "explain": "The angel was sent to Nazareth, a city of Galilee. (Luke 1:26)"
+  }
+ },
+ {
+  "id": "geography-easy-100",
+  "ref": {
+   "fr": "Apocalypse 21:2",
+   "en": "Revelation 21:2"
+  },
+  "fr": {
+   "q": "Quelle ville sainte descend du ciel dans l’Apocalypse ?",
+   "options": [
+    "La nouvelle Jérusalem",
+    "Babylone",
+    "Ninive",
+    "Rome"
+   ],
+   "explain": "Jean vit descendre du ciel la nouvelle Jérusalem. (Apocalypse 21:2)"
+  },
+  "en": {
+   "q": "Which holy city comes down from heaven in Revelation?",
+   "options": [
+    "The new Jerusalem",
+    "Babylon",
+    "Nineveh",
+    "Rome"
+   ],
+   "explain": "John saw the new Jerusalem coming down out of heaven. (Revelation 21:2)"
+  }
+ }
+]

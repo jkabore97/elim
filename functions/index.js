@@ -1,5 +1,6 @@
 const { onDocumentCreated } = require('firebase-functions/v2/firestore');
 const { onCall, onRequest, HttpsError } = require('firebase-functions/v2/https');
+const { onSchedule } = require('firebase-functions/v2/scheduler');
 const { defineSecret } = require('firebase-functions/params');
 const { initializeApp } = require('firebase-admin/app');
 const { getFirestore, FieldValue } = require('firebase-admin/firestore');
@@ -34,6 +35,73 @@ function chunk(arr, size) {
   const out = [];
   for (let i = 0; i < arr.length; i += size) out.push(arr.slice(i, i + size));
   return out;
+}
+
+// The church is in Burkina Faso (UTC+0, no DST). Day/time keys for the quiz
+// use this zone so "today" on the server matches "today" on a member's phone.
+const CHURCH_TZ = 'Africa/Ouagadougou';
+function churchDayKey(d = new Date()) {
+  // en-CA formats as YYYY-MM-DD, matching the client's todayKey().
+  return new Intl.DateTimeFormat('en-CA', {
+    timeZone: CHURCH_TZ, year: 'numeric', month: '2-digit', day: '2-digit',
+  }).format(d);
+}
+
+// Send one notification to every user who has push enabled. Mirrors the
+// per-event senders: multicast in batches of 500, then prune dead tokens.
+async function broadcastPush(db, { title, body, data }) {
+  const usersSnap = await db.collection('users').where('notificationsEnabled', '==', true).get();
+  const tokens = [];
+  usersSnap.forEach((doc) => {
+    const arr = doc.data().fcmTokens;
+    if (Array.isArray(arr)) tokens.push(...arr);
+  });
+  if (tokens.length === 0) return;
+
+  const messaging = getMessaging();
+  const batches = chunk(tokens, 500);
+  const results = await Promise.allSettled(
+    batches.map((batchTokens) =>
+      messaging.sendEachForMulticast({
+        tokens: batchTokens,
+        notification: { title, body },
+        data: data || {},
+        webpush: {
+          notification: { icon: 'https://ccelim.com/elim-logo-mark.png' },
+          fcmOptions: { link: 'https://ccelim.com/?quiz=1' },
+        },
+        android: {
+          priority: 'high',
+          notification: {
+            color: '#f97316',
+            channelId: 'elim-default',
+            icon: 'ic_stat_notify',
+            defaultSound: true,
+          },
+        },
+      })
+    )
+  );
+
+  const deadTokens = [];
+  results.forEach((result, i) => {
+    if (result.status !== 'fulfilled') return;
+    result.value.responses.forEach((res, j) => {
+      if (!res.success && ['messaging/registration-token-not-registered', 'messaging/invalid-registration-token'].includes(res.error?.code)) {
+        deadTokens.push(batches[i][j]);
+      }
+    });
+  });
+  if (deadTokens.length > 0) {
+    const deadSet = new Set(deadTokens);
+    await Promise.all(
+      usersSnap.docs
+        .filter((doc) => (doc.data().fcmTokens || []).some((t) => deadSet.has(t)))
+        .map((doc) => doc.ref.update({
+          fcmTokens: (doc.data().fcmTokens || []).filter((t) => !deadSet.has(t)),
+        }))
+    );
+  }
 }
 
 exports.notifyOnNewPost = onDocumentCreated('posts/{postId}', async (event) => {
@@ -701,4 +769,158 @@ exports.squareWebhook = onRequest(
       return res.status(200).send('error-logged');
     }
   },
+);
+
+
+// ==================== BIBLE QUIZ PUSH ====================
+
+// Morning nudge: remind everyone the daily challenge is ready. Fires once a
+// day at 08:00 church time. Body is French (the congregation's language).
+exports.dailyQuizReminder = onSchedule(
+  { schedule: '0 8 * * *', timeZone: CHURCH_TZ, region: 'us-central1' },
+  async () => {
+    const db = getFirestore();
+    await broadcastPush(db, {
+      title: 'Quiz Biblique 🏆',
+      body: "Le défi du jour t'attend : 5 questions, +50 points et un badge !",
+      data: { kind: 'quiz' },
+    });
+  }
+);
+
+// Evening recap: announce who holds the top score today, to spark friendly
+// competition. Fires at 20:00 church time. Skips quietly if nobody played.
+exports.dailyTopScore = onSchedule(
+  { schedule: '0 20 * * *', timeZone: CHURCH_TZ, region: 'us-central1' },
+  async () => {
+    const db = getFirestore();
+    const dayId = churchDayKey();
+    const snap = await db.collection('quizProfiles')
+      .where('dayId', '==', dayId)
+      .orderBy('dayPoints', 'desc')
+      .limit(1)
+      .get();
+    if (snap.empty) return;
+    const top = snap.docs[0].data();
+    const pts = top.dayPoints || 0;
+    if (pts <= 0) return;
+    const name = (top.displayName || 'Un membre').toString().slice(0, 40);
+    await broadcastPush(db, {
+      title: "🏆 Meilleur score du jour",
+      body: `${name} est en tête avec ${pts} points aujourd'hui. Rejoue pour le dépasser !`,
+      data: { kind: 'quiz' },
+    });
+  }
+);
+
+// ==================== BIBLE QUIZ WEEKLY CHAMPIONS ====================
+
+const QUIZ_ADULT_CATEGORIES = ['ot', 'nt', 'parables', 'people', 'verses', 'miracles', 'geography', 'business', 'morality'];
+
+// ISO week id (Mon-Sun), computed in church time (UTC+0). Matches the client.
+function isoWeekKey(now) {
+  const date = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()));
+  const day = date.getUTCDay() || 7;
+  date.setUTCDate(date.getUTCDate() + 4 - day);
+  const yearStart = new Date(Date.UTC(date.getUTCFullYear(), 0, 1));
+  const week = Math.ceil((((date.getTime() - yearStart.getTime()) / 86400000) + 1) / 7);
+  return `${date.getUTCFullYear()}-W${String(week).padStart(2, '0')}`;
+}
+
+// Kids week id (Sunday-based), church time. Matches the client's kidsWeekKey.
+function kidsWeekKeyUTC(now) {
+  const day = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()));
+  day.setUTCDate(day.getUTCDate() - day.getUTCDay());
+  const yearStart = new Date(Date.UTC(day.getUTCFullYear(), 0, 1));
+  const week = Math.floor((day.getTime() - yearStart.getTime()) / (7 * 86400000)) + 1;
+  return `${day.getUTCFullYear()}-K${String(week).padStart(2, '0')}`;
+}
+
+function frDate(d) {
+  return new Intl.DateTimeFormat('fr-FR', { timeZone: CHURCH_TZ, day: '2-digit', month: '2-digit', year: 'numeric' }).format(d);
+}
+
+async function topOfLeague(db, weekId, league) {
+  const snap = await db.collection('quizWeekly')
+    .where('weekId', '==', weekId).where('league', '==', league)
+    .orderBy('points', 'desc').limit(1).get();
+  if (snap.empty) return null;
+  const v = snap.docs[0].data();
+  if (!(v.points > 0)) return null;
+  return { uid: v.uid, name: (v.name || 'Un membre').toString().slice(0, 60), points: v.points };
+}
+
+// Monday 08:00 church time: snapshot last week's category + grand champions
+// into the Palmarès, bump the grand champion's crown, and announce it.
+exports.weeklyCategoryChampions = onSchedule(
+  { schedule: '0 8 * * 1', timeZone: CHURCH_TZ, region: 'us-central1' },
+  async () => {
+    const db = getFirestore();
+    const yesterday = new Date(Date.now() - 24 * 3600 * 1000);
+    const weekId = isoWeekKey(yesterday);
+    const champRef = db.collection('quizChampions').doc(weekId);
+    if ((await champRef.get()).exists) return; // already recorded
+
+    const grand = await topOfLeague(db, weekId, 'grand');
+    if (!grand) return; // nobody played
+
+    const categories = {};
+    for (const cat of QUIZ_ADULT_CATEGORIES) {
+      const w = await topOfLeague(db, weekId, cat);
+      if (w) categories[cat] = w;
+    }
+
+    await champRef.set({
+      kind: 'adult', weekId, weekLabel: `Semaine du ${frDate(yesterday)}`,
+      endedAt: FieldValue.serverTimestamp(), grand, categories,
+    });
+
+    // The grand champion earns a crown (weeksWon++).
+    try {
+      await db.collection('quizProfiles').doc(grand.uid).set(
+        { weeksWon: FieldValue.increment(1) }, { merge: true });
+    } catch (_e) { /* profile may not exist yet; ignore */ }
+
+    const catCount = Object.keys(categories).length;
+    await broadcastPush(db, {
+      title: '🏆 Champion de la semaine',
+      body: `${grand.name} est le Grand Champion ! Bravo aussi à nos ${catCount} champions par catégorie. Nouvelle semaine, à toi de jouer !`,
+      data: { kind: 'quiz' },
+    });
+  }
+);
+
+// Sunday 08:00 church time: crown the kids champion of the week that just
+// ended (Saturday night) and announce the FULL name for the Sunday-school
+// prize.
+exports.kidsWeeklyChampion = onSchedule(
+  { schedule: '0 8 * * 0', timeZone: CHURCH_TZ, region: 'us-central1' },
+  async () => {
+    const db = getFirestore();
+    const yesterday = new Date(Date.now() - 24 * 3600 * 1000); // Saturday
+    const kidsWeekId = kidsWeekKeyUTC(yesterday);
+    const champRef = db.collection('quizChampions').doc(`kids-${kidsWeekId}`);
+    if ((await champRef.get()).exists) return;
+
+    const snap = await db.collection('quizKids')
+      .where('kidsWeekId', '==', kidsWeekId)
+      .orderBy('points', 'desc').limit(1).get();
+    if (snap.empty) return;
+    const v = snap.docs[0].data();
+    if (!(v.points > 0)) return;
+    const childName = (v.childName || 'Un enfant').toString().slice(0, 60);
+    const parentName = (v.parentName || '').toString().slice(0, 60);
+
+    await champRef.set({
+      kind: 'kids', kidsWeekId, weekLabel: `Semaine du ${frDate(yesterday)}`,
+      endedAt: FieldValue.serverTimestamp(),
+      winner: { uid: v.uid, childName, parentName, points: v.points },
+    });
+
+    await broadcastPush(db, {
+      title: '🎉 Champion du Quiz Enfants',
+      body: `Bravo ${childName} ! Champion des enfants cette semaine. Récompense aujourd'hui à l'école du dimanche. 👏`,
+      data: { kind: 'quiz' },
+    });
+  }
 );

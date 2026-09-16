@@ -1,0 +1,2702 @@
+[
+ {
+  "id": "nt-easy-001",
+  "ref": {
+   "fr": "Luc 2",
+   "en": "Luke 2"
+  },
+  "fr": {
+   "q": "Dans quelle ville Jésus est-il né ?",
+   "options": [
+    "Bethléhem",
+    "Nazareth",
+    "Jérusalem",
+    "Capernaüm"
+   ],
+   "explain": "Jésus naquit à Bethléhem de Judée. (Luc 2:4-7)"
+  },
+  "en": {
+   "q": "In which town was Jesus born?",
+   "options": [
+    "Bethlehem",
+    "Nazareth",
+    "Jerusalem",
+    "Capernaum"
+   ],
+   "explain": "Jesus was born in Bethlehem of Judea. (Luke 2:4-7)"
+  }
+ },
+ {
+  "id": "nt-easy-002",
+  "ref": {
+   "fr": "Matthieu 3",
+   "en": "Matthew 3"
+  },
+  "fr": {
+   "q": "Qui baptisa Jésus dans le Jourdain ?",
+   "options": [
+    "Jean-Baptiste",
+    "Pierre",
+    "André",
+    "Élie"
+   ],
+   "explain": "Jean-Baptiste baptisa Jésus dans le Jourdain. (Matthieu 3:13-16)"
+  },
+  "en": {
+   "q": "Who baptized Jesus in the Jordan?",
+   "options": [
+    "John the Baptist",
+    "Peter",
+    "Andrew",
+    "Elijah"
+   ],
+   "explain": "John the Baptist baptized Jesus in the Jordan. (Matthew 3:13-16)"
+  }
+ },
+ {
+  "id": "nt-easy-003",
+  "ref": {
+   "fr": "Matthieu 10",
+   "en": "Matthew 10"
+  },
+  "fr": {
+   "q": "Combien d’apôtres Jésus choisit-il ?",
+   "options": [
+    "Douze",
+    "Sept",
+    "Dix",
+    "Soixante-dix"
+   ],
+   "explain": "Jésus choisit douze apôtres. (Matthieu 10:1-4)"
+  },
+  "en": {
+   "q": "How many apostles did Jesus choose?",
+   "options": [
+    "Twelve",
+    "Seven",
+    "Ten",
+    "Seventy"
+   ],
+   "explain": "Jesus chose twelve apostles. (Matthew 10:1-4)"
+  }
+ },
+ {
+  "id": "nt-easy-004",
+  "ref": {
+   "fr": "Jean 11",
+   "en": "John 11"
+  },
+  "fr": {
+   "q": "Qui Jésus ressuscita-t-il d’entre les morts à Béthanie ?",
+   "options": [
+    "Lazare",
+    "Jaïrus",
+    "Nicodème",
+    "Zachée"
+   ],
+   "explain": "Jésus appela Lazare hors du tombeau. (Jean 11:43-44)"
+  },
+  "en": {
+   "q": "Whom did Jesus raise from the dead at Bethany?",
+   "options": [
+    "Lazarus",
+    "Jairus",
+    "Nicodemus",
+    "Zacchaeus"
+   ],
+   "explain": "Jesus called Lazarus out of the tomb. (John 11:43-44)"
+  }
+ },
+ {
+  "id": "nt-easy-005",
+  "ref": {
+   "fr": "Jean 6",
+   "en": "John 6"
+  },
+  "fr": {
+   "q": "Avec quoi Jésus nourrit-il cinq mille personnes ?",
+   "options": [
+    "Cinq pains et deux poissons",
+    "Sept pains",
+    "Douze pains",
+    "Du pain seulement"
+   ],
+   "explain": "Il multiplia cinq pains et deux poissons. (Jean 6:9-11)"
+  },
+  "en": {
+   "q": "With what did Jesus feed five thousand?",
+   "options": [
+    "Five loaves and two fish",
+    "Seven loaves",
+    "Twelve loaves",
+    "Bread only"
+   ],
+   "explain": "He multiplied five loaves and two fish. (John 6:9-11)"
+  }
+ },
+ {
+  "id": "nt-easy-006",
+  "ref": {
+   "fr": "Matthieu 4:19",
+   "en": "Matthew 4:19"
+  },
+  "fr": {
+   "q": "Quel métier exerçaient Pierre et André avant de suivre Jésus ?",
+   "options": [
+    "Pêcheurs",
+    "Charpentiers",
+    "Bergers",
+    "Publicains"
+   ],
+   "explain": "Jésus dit : « Je vous ferai pêcheurs d’hommes. » (Matthieu 4:19)"
+  },
+  "en": {
+   "q": "What was the trade of Peter and Andrew before following Jesus?",
+   "options": [
+    "Fishermen",
+    "Carpenters",
+    "Shepherds",
+    "Tax collectors"
+   ],
+   "explain": "Jesus said, “I will make you fishers of men.” (Matthew 4:19)"
+  }
+ },
+ {
+  "id": "nt-easy-007",
+  "ref": {
+   "fr": "Luc 19",
+   "en": "Luke 19"
+  },
+  "fr": {
+   "q": "Qui monta dans un sycomore pour voir Jésus ?",
+   "options": [
+    "Zachée",
+    "Nicodème",
+    "Barthélemy",
+    "Simon"
+   ],
+   "explain": "Zachée, petit de taille, monta sur un sycomore. (Luc 19:3-4)"
+  },
+  "en": {
+   "q": "Who climbed a sycamore tree to see Jesus?",
+   "options": [
+    "Zacchaeus",
+    "Nicodemus",
+    "Bartholomew",
+    "Simon"
+   ],
+   "explain": "Zacchaeus, short in stature, climbed a sycamore. (Luke 19:3-4)"
+  }
+ },
+ {
+  "id": "nt-easy-008",
+  "ref": {
+   "fr": "Jean 2",
+   "en": "John 2"
+  },
+  "fr": {
+   "q": "Quel fut le premier miracle de Jésus à Cana ?",
+   "options": [
+    "Changer l’eau en vin",
+    "Guérir un aveugle",
+    "Marcher sur l’eau",
+    "Calmer la tempête"
+   ],
+   "explain": "Il changea l’eau en vin aux noces de Cana. (Jean 2:9-11)"
+  },
+  "en": {
+   "q": "What was Jesus’ first miracle at Cana?",
+   "options": [
+    "Turning water into wine",
+    "Healing a blind man",
+    "Walking on water",
+    "Calming a storm"
+   ],
+   "explain": "He turned water into wine at the wedding in Cana. (John 2:9-11)"
+  }
+ },
+ {
+  "id": "nt-easy-009",
+  "ref": {
+   "fr": "Matthieu 28",
+   "en": "Matthew 28"
+  },
+  "fr": {
+   "q": "Que célèbre-t-on à Pâques concernant Jésus ?",
+   "options": [
+    "Sa résurrection",
+    "Sa naissance",
+    "Son baptême",
+    "Sa transfiguration"
+   ],
+   "explain": "Jésus ressuscita le troisième jour. (Matthieu 28:6)"
+  },
+  "en": {
+   "q": "What does Easter celebrate about Jesus?",
+   "options": [
+    "His resurrection",
+    "His birth",
+    "His baptism",
+    "His transfiguration"
+   ],
+   "explain": "Jesus rose on the third day. (Matthew 28:6)"
+  }
+ },
+ {
+  "id": "nt-easy-010",
+  "ref": {
+   "fr": "Actes 9",
+   "en": "Acts 9"
+  },
+  "fr": {
+   "q": "Sur quel chemin Saul rencontra-t-il Jésus et fut converti ?",
+   "options": [
+    "Le chemin de Damas",
+    "Le chemin d’Emmaüs",
+    "La route de Jéricho",
+    "Le chemin de Gaza"
+   ],
+   "explain": "Une lumière l’enveloppa sur le chemin de Damas. (Actes 9:3)"
+  },
+  "en": {
+   "q": "On which road did Saul meet Jesus and convert?",
+   "options": [
+    "The road to Damascus",
+    "The road to Emmaus",
+    "The Jericho road",
+    "The road to Gaza"
+   ],
+   "explain": "A light shone on him on the road to Damascus. (Acts 9:3)"
+  }
+ },
+ {
+  "id": "nt-easy-011",
+  "ref": {
+   "fr": "Luc 1",
+   "en": "Luke 1"
+  },
+  "fr": {
+   "q": "Quel ange annonça à Marie la naissance de Jésus ?",
+   "options": [
+    "Gabriel",
+    "Michel",
+    "Raphaël",
+    "Uriel"
+   ],
+   "explain": "L’ange Gabriel fut envoyé vers Marie. (Luc 1:26-31)"
+  },
+  "en": {
+   "q": "Which angel told Mary of Jesus’ birth?",
+   "options": [
+    "Gabriel",
+    "Michael",
+    "Raphael",
+    "Uriel"
+   ],
+   "explain": "The angel Gabriel was sent to Mary. (Luke 1:26-31)"
+  }
+ },
+ {
+  "id": "nt-easy-012",
+  "ref": {
+   "fr": "Matthieu 14",
+   "en": "Matthew 14"
+  },
+  "fr": {
+   "q": "Que fit Jésus sur la mer de Galilée qui étonna ses disciples ?",
+   "options": [
+    "Il marcha sur l’eau",
+    "Il pêcha seul",
+    "Il dormit trois jours",
+    "Il construisit un pont"
+   ],
+   "explain": "Jésus marcha sur la mer vers ses disciples. (Matthieu 14:25)"
+  },
+  "en": {
+   "q": "What did Jesus do on the Sea of Galilee that amazed the disciples?",
+   "options": [
+    "He walked on the water",
+    "He fished alone",
+    "He slept three days",
+    "He built a bridge"
+   ],
+   "explain": "Jesus walked on the sea toward his disciples. (Matthew 14:25)"
+  }
+ },
+ {
+  "id": "nt-easy-013",
+  "ref": {
+   "fr": "Matthieu 26",
+   "en": "Matthew 26"
+  },
+  "fr": {
+   "q": "Quel disciple trahit Jésus ?",
+   "options": [
+    "Judas Iscariot",
+    "Thomas",
+    "Philippe",
+    "Barthélemy"
+   ],
+   "explain": "Judas Iscariot livra Jésus. (Matthieu 26:14-16)"
+  },
+  "en": {
+   "q": "Which disciple betrayed Jesus?",
+   "options": [
+    "Judas Iscariot",
+    "Thomas",
+    "Philip",
+    "Bartholomew"
+   ],
+   "explain": "Judas Iscariot handed Jesus over. (Matthew 26:14-16)"
+  }
+ },
+ {
+  "id": "nt-easy-014",
+  "ref": {
+   "fr": "Luc 22",
+   "en": "Luke 22"
+  },
+  "fr": {
+   "q": "Qui renia Jésus trois fois avant le chant du coq ?",
+   "options": [
+    "Pierre",
+    "Jean",
+    "Jacques",
+    "André"
+   ],
+   "explain": "Pierre renia Jésus trois fois avant le chant du coq. (Luc 22:61)"
+  },
+  "en": {
+   "q": "Who denied Jesus three times before the cock crowed?",
+   "options": [
+    "Peter",
+    "John",
+    "James",
+    "Andrew"
+   ],
+   "explain": "Peter denied Jesus three times before the cock crowed. (Luke 22:61)"
+  }
+ },
+ {
+  "id": "nt-easy-015",
+  "ref": {
+   "fr": "Matthieu 1",
+   "en": "Matthew 1"
+  },
+  "fr": {
+   "q": "Comment s’appelait l’époux de Marie, père adoptif de Jésus ?",
+   "options": [
+    "Joseph",
+    "Zacharie",
+    "Siméon",
+    "Nathan"
+   ],
+   "explain": "Joseph, le charpentier, était l’époux de Marie. (Matthieu 1:16)"
+  },
+  "en": {
+   "q": "What was the name of Mary’s husband, Jesus’ earthly father?",
+   "options": [
+    "Joseph",
+    "Zacharias",
+    "Simeon",
+    "Nathan"
+   ],
+   "explain": "Joseph the carpenter was Mary’s husband. (Matthew 1:16)"
+  }
+ },
+ {
+  "id": "nt-easy-016",
+  "ref": {
+   "fr": "Luc 2",
+   "en": "Luke 2"
+  },
+  "fr": {
+   "q": "Dans quelle ville Jésus grandit-il ?",
+   "options": [
+    "Nazareth",
+    "Bethléhem",
+    "Jéricho",
+    "Hébron"
+   ],
+   "explain": "Jésus grandit à Nazareth en Galilée. (Luc 2:39-40)"
+  },
+  "en": {
+   "q": "In which town did Jesus grow up?",
+   "options": [
+    "Nazareth",
+    "Bethlehem",
+    "Jericho",
+    "Hebron"
+   ],
+   "explain": "Jesus grew up in Nazareth of Galilee. (Luke 2:39-40)"
+  }
+ },
+ {
+  "id": "nt-easy-017",
+  "ref": {
+   "fr": "Matthieu 1",
+   "en": "Matthew 1"
+  },
+  "fr": {
+   "q": "Quel est le premier livre du Nouveau Testament ?",
+   "options": [
+    "Matthieu",
+    "Marc",
+    "Actes",
+    "Romains"
+   ],
+   "explain": "L’Évangile selon Matthieu ouvre le Nouveau Testament."
+  },
+  "en": {
+   "q": "What is the first book of the New Testament?",
+   "options": [
+    "Matthew",
+    "Mark",
+    "Acts",
+    "Romans"
+   ],
+   "explain": "The Gospel of Matthew opens the New Testament."
+  }
+ },
+ {
+  "id": "nt-easy-018",
+  "ref": {
+   "fr": "Apocalypse 1",
+   "en": "Revelation 1"
+  },
+  "fr": {
+   "q": "Quel est le dernier livre de la Bible ?",
+   "options": [
+    "l’Apocalypse",
+    "les Actes",
+    "Jude",
+    "Malachie"
+   ],
+   "explain": "L’Apocalypse clôt la Bible."
+  },
+  "en": {
+   "q": "What is the last book of the Bible?",
+   "options": [
+    "Revelation",
+    "Acts",
+    "Jude",
+    "Malachi"
+   ],
+   "explain": "Revelation is the final book of the Bible."
+  }
+ },
+ {
+  "id": "nt-easy-019",
+  "ref": {
+   "fr": "Apocalypse 1:9",
+   "en": "Revelation 1:9"
+  },
+  "fr": {
+   "q": "Sur quelle île Jean était-il exilé lorsqu’il écrivit l’Apocalypse ?",
+   "options": [
+    "Patmos",
+    "Chypre",
+    "Malte",
+    "Crète"
+   ],
+   "explain": "Jean était dans l’île de Patmos. (Apocalypse 1:9)"
+  },
+  "en": {
+   "q": "On which island was John exiled when he wrote Revelation?",
+   "options": [
+    "Patmos",
+    "Cyprus",
+    "Malta",
+    "Crete"
+   ],
+   "explain": "John was on the island of Patmos. (Revelation 1:9)"
+  }
+ },
+ {
+  "id": "nt-easy-020",
+  "ref": {
+   "fr": "Matthieu 27",
+   "en": "Matthew 27"
+  },
+  "fr": {
+   "q": "Quel gouverneur romain condamna Jésus à la croix ?",
+   "options": [
+    "Ponce Pilate",
+    "Hérode",
+    "Félix",
+    "César"
+   ],
+   "explain": "Ponce Pilate livra Jésus pour être crucifié. (Matthieu 27:26)"
+  },
+  "en": {
+   "q": "Which Roman governor condemned Jesus to the cross?",
+   "options": [
+    "Pontius Pilate",
+    "Herod",
+    "Felix",
+    "Caesar"
+   ],
+   "explain": "Pontius Pilate delivered Jesus to be crucified. (Matthew 27:26)"
+  }
+ },
+ {
+  "id": "nt-easy-021",
+  "ref": {
+   "fr": "Jean 19:17",
+   "en": "John 19:17"
+  },
+  "fr": {
+   "q": "Comment s’appelait le lieu où Jésus fut crucifié ?",
+   "options": [
+    "Golgotha",
+    "Béthanie",
+    "Silo",
+    "Gethsémané"
+   ],
+   "explain": "On le mena au lieu appelé Golgotha. (Jean 19:17)"
+  },
+  "en": {
+   "q": "What was the name of the place where Jesus was crucified?",
+   "options": [
+    "Golgotha",
+    "Bethany",
+    "Shiloh",
+    "Gethsemane"
+   ],
+   "explain": "He was led to the place called Golgotha. (John 19:17)"
+  }
+ },
+ {
+  "id": "nt-easy-022",
+  "ref": {
+   "fr": "Marc 15:21",
+   "en": "Mark 15:21"
+  },
+  "fr": {
+   "q": "Quel homme de Cyrène dut porter la croix jusqu’au Golgotha ?",
+   "options": [
+    "Simon de Cyrène",
+    "Nicodème",
+    "Joseph d’Arimathée",
+    "Barabbas"
+   ],
+   "explain": "On força Simon de Cyrène à porter la croix. (Marc 15:21)"
+  },
+  "en": {
+   "q": "Which man from Cyrene had to carry the cross to Golgotha?",
+   "options": [
+    "Simon of Cyrene",
+    "Nicodemus",
+    "Joseph of Arimathea",
+    "Barabbas"
+   ],
+   "explain": "They forced Simon of Cyrene to carry the cross. (Mark 15:21)"
+  }
+ },
+ {
+  "id": "nt-easy-023",
+  "ref": {
+   "fr": "Jean 19:38",
+   "en": "John 19:38"
+  },
+  "fr": {
+   "q": "Quel membre du conseil obtint le corps de Jésus pour l’ensevelir ?",
+   "options": [
+    "Joseph d’Arimathée",
+    "Pierre",
+    "Jean",
+    "Lazare"
+   ],
+   "explain": "Joseph d’Arimathée demanda le corps de Jésus. (Jean 19:38)"
+  },
+  "en": {
+   "q": "Which council member obtained Jesus’ body to bury him?",
+   "options": [
+    "Joseph of Arimathea",
+    "Peter",
+    "John",
+    "Lazarus"
+   ],
+   "explain": "Joseph of Arimathea asked for the body of Jesus. (John 19:38)"
+  }
+ },
+ {
+  "id": "nt-easy-024",
+  "ref": {
+   "fr": "Jean 20",
+   "en": "John 20"
+  },
+  "fr": {
+   "q": "Qui trouva la première le tombeau vide de Jésus ?",
+   "options": [
+    "Marie de Magdala",
+    "Marthe",
+    "Salomé",
+    "Jeanne"
+   ],
+   "explain": "Marie de Magdala vint au sépulcre et le trouva ouvert. (Jean 20:1)"
+  },
+  "en": {
+   "q": "Who first found Jesus’ empty tomb?",
+   "options": [
+    "Mary Magdalene",
+    "Martha",
+    "Salome",
+    "Joanna"
+   ],
+   "explain": "Mary Magdalene came to the tomb and found it open. (John 20:1)"
+  }
+ },
+ {
+  "id": "nt-easy-025",
+  "ref": {
+   "fr": "Actes 2",
+   "en": "Acts 2"
+  },
+  "fr": {
+   "q": "Qui descendit sur les disciples à la Pentecôte ?",
+   "options": [
+    "le Saint-Esprit",
+    "un ange",
+    "Élie",
+    "Moïse"
+   ],
+   "explain": "Ils furent tous remplis du Saint-Esprit. (Actes 2:4)"
+  },
+  "en": {
+   "q": "Who came upon the disciples at Pentecost?",
+   "options": [
+    "the Holy Spirit",
+    "an angel",
+    "Elijah",
+    "Moses"
+   ],
+   "explain": "They were all filled with the Holy Spirit. (Acts 2:4)"
+  }
+ },
+ {
+  "id": "nt-easy-026",
+  "ref": {
+   "fr": "Actes 2:14",
+   "en": "Acts 2:14"
+  },
+  "fr": {
+   "q": "Quel apôtre prêcha à la foule le jour de la Pentecôte ?",
+   "options": [
+    "Pierre",
+    "Étienne",
+    "Jacques",
+    "Thomas"
+   ],
+   "explain": "Pierre se leva et prit la parole. (Actes 2:14)"
+  },
+  "en": {
+   "q": "Which apostle preached to the crowd on Pentecost?",
+   "options": [
+    "Peter",
+    "Stephen",
+    "James",
+    "Thomas"
+   ],
+   "explain": "Peter stood up and lifted his voice. (Acts 2:14)"
+  }
+ },
+ {
+  "id": "nt-easy-027",
+  "ref": {
+   "fr": "Matthieu 9:9",
+   "en": "Matthew 9:9"
+  },
+  "fr": {
+   "q": "Quel apôtre était collecteur d’impôts avant de suivre Jésus ?",
+   "options": [
+    "Matthieu",
+    "Pierre",
+    "Jean",
+    "Philippe"
+   ],
+   "explain": "Jésus vit Matthieu au bureau des péages. (Matthieu 9:9)"
+  },
+  "en": {
+   "q": "Which apostle was a tax collector before following Jesus?",
+   "options": [
+    "Matthew",
+    "Peter",
+    "John",
+    "Philip"
+   ],
+   "explain": "Jesus saw Matthew at the tax office. (Matthew 9:9)"
+  }
+ },
+ {
+  "id": "nt-easy-028",
+  "ref": {
+   "fr": "Colossiens 4:14",
+   "en": "Colossians 4:14"
+  },
+  "fr": {
+   "q": "Quel compagnon de Paul était médecin et écrivit un Évangile ?",
+   "options": [
+    "Luc",
+    "Marc",
+    "Tite",
+    "Silas"
+   ],
+   "explain": "Paul parle de « Luc, le médecin bien-aimé ». (Colossiens 4:14)"
+  },
+  "en": {
+   "q": "Which companion of Paul was a physician and wrote a Gospel?",
+   "options": [
+    "Luke",
+    "Mark",
+    "Titus",
+    "Silas"
+   ],
+   "explain": "Paul calls him “Luke, the beloved physician.” (Colossians 4:14)"
+  }
+ },
+ {
+  "id": "nt-easy-029",
+  "ref": {
+   "fr": "Romains 1:1",
+   "en": "Romans 1:1"
+  },
+  "fr": {
+   "q": "Quel apôtre écrivit la plupart des lettres du Nouveau Testament ?",
+   "options": [
+    "Paul",
+    "Pierre",
+    "Jean",
+    "Jacques"
+   ],
+   "explain": "Paul écrivit aux Romains, Corinthiens, Éphésiens et d’autres. (Romains 1:1)"
+  },
+  "en": {
+   "q": "Which apostle wrote most of the New Testament letters?",
+   "options": [
+    "Paul",
+    "Peter",
+    "John",
+    "James"
+   ],
+   "explain": "Paul wrote to the Romans, Corinthians, Ephesians and others. (Romans 1:1)"
+  }
+ },
+ {
+  "id": "nt-easy-030",
+  "ref": {
+   "fr": "1 Corinthiens 13:13",
+   "en": "1 Corinthians 13:13"
+  },
+  "fr": {
+   "q": "Selon 1 Corinthiens 13, quelle est la plus grande de ces trois ?",
+   "options": [
+    "la charité",
+    "la foi",
+    "l’espérance",
+    "la sagesse"
+   ],
+   "explain": "« La plus grande de ces choses, c’est la charité. » (1 Corinthiens 13:13)"
+  },
+  "en": {
+   "q": "According to 1 Corinthians 13, which is the greatest of the three?",
+   "options": [
+    "love",
+    "faith",
+    "hope",
+    "wisdom"
+   ],
+   "explain": "“The greatest of these is love.” (1 Corinthians 13:13)"
+  }
+ },
+ {
+  "id": "nt-easy-031",
+  "ref": {
+   "fr": "Jean 3:16",
+   "en": "John 3:16"
+  },
+  "fr": {
+   "q": "Dans quel Évangile lit-on « Car Dieu a tant aimé le monde » ?",
+   "options": [
+    "Jean",
+    "Matthieu",
+    "Marc",
+    "Luc"
+   ],
+   "explain": "« Car Dieu a tant aimé le monde… » (Jean 3:16)"
+  },
+  "en": {
+   "q": "In which Gospel do we read “For God so loved the world”?",
+   "options": [
+    "John",
+    "Matthew",
+    "Mark",
+    "Luke"
+   ],
+   "explain": "“For God so loved the world…” (John 3:16)"
+  }
+ },
+ {
+  "id": "nt-easy-032",
+  "ref": {
+   "fr": "Jean 3",
+   "en": "John 3"
+  },
+  "fr": {
+   "q": "Quel chef juif vint s’entretenir avec Jésus pendant la nuit ?",
+   "options": [
+    "Nicodème",
+    "Gamaliel",
+    "Caïphe",
+    "Joseph d’Arimathée"
+   ],
+   "explain": "Nicodème vint de nuit auprès de Jésus. (Jean 3:1-2)"
+  },
+  "en": {
+   "q": "Which Jewish leader came to speak with Jesus during the night?",
+   "options": [
+    "Nicodemus",
+    "Gamaliel",
+    "Caiaphas",
+    "Joseph of Arimathea"
+   ],
+   "explain": "Nicodemus came to Jesus by night. (John 3:1-2)"
+  }
+ },
+ {
+  "id": "nt-easy-033",
+  "ref": {
+   "fr": "Jean 4",
+   "en": "John 4"
+  },
+  "fr": {
+   "q": "De quelle région était la femme rencontrée par Jésus au puits ?",
+   "options": [
+    "Samarie",
+    "Galilée",
+    "Judée",
+    "Phénicie"
+   ],
+   "explain": "Une femme de Samarie vint puiser de l’eau. (Jean 4:7)"
+  },
+  "en": {
+   "q": "From which region was the woman Jesus met at the well?",
+   "options": [
+    "Samaria",
+    "Galilee",
+    "Judea",
+    "Phoenicia"
+   ],
+   "explain": "A woman of Samaria came to draw water. (John 4:7)"
+  }
+ },
+ {
+  "id": "nt-easy-034",
+  "ref": {
+   "fr": "Matthieu 26:15",
+   "en": "Matthew 26:15"
+  },
+  "fr": {
+   "q": "Pour combien de pièces d’argent Judas livra-t-il Jésus ?",
+   "options": [
+    "Trente",
+    "Vingt",
+    "Cinquante",
+    "Cent"
+   ],
+   "explain": "Ils lui comptèrent trente pièces d’argent. (Matthieu 26:15)"
+  },
+  "en": {
+   "q": "For how many pieces of silver did Judas betray Jesus?",
+   "options": [
+    "Thirty",
+    "Twenty",
+    "Fifty",
+    "One hundred"
+   ],
+   "explain": "They weighed out thirty pieces of silver. (Matthew 26:15)"
+  }
+ },
+ {
+  "id": "nt-easy-035",
+  "ref": {
+   "fr": "Matthieu 26:36",
+   "en": "Matthew 26:36"
+  },
+  "fr": {
+   "q": "Où Jésus alla-t-il prier la nuit où il fut arrêté ?",
+   "options": [
+    "Gethsémané",
+    "Éden",
+    "Béthanie",
+    "Siloé"
+   ],
+   "explain": "Jésus alla prier au jardin de Gethsémané. (Matthieu 26:36)"
+  },
+  "en": {
+   "q": "Where did Jesus go to pray the night he was arrested?",
+   "options": [
+    "Gethsemane",
+    "Eden",
+    "Bethany",
+    "Siloam"
+   ],
+   "explain": "Jesus went to pray in the garden of Gethsemane. (Matthew 26:36)"
+  }
+ },
+ {
+  "id": "nt-easy-036",
+  "ref": {
+   "fr": "Jean 20:25",
+   "en": "John 20:25"
+  },
+  "fr": {
+   "q": "Quel disciple douta jusqu’à voir les plaies de Jésus ?",
+   "options": [
+    "Thomas",
+    "Pierre",
+    "Jacques",
+    "Nathanaël"
+   ],
+   "explain": "Thomas voulut voir la marque des clous. (Jean 20:25)"
+  },
+  "en": {
+   "q": "Which disciple doubted until he saw Jesus’ wounds?",
+   "options": [
+    "Thomas",
+    "Peter",
+    "James",
+    "Nathanael"
+   ],
+   "explain": "Thomas wanted to see the mark of the nails. (John 20:25)"
+  }
+ },
+ {
+  "id": "nt-easy-037",
+  "ref": {
+   "fr": "Luc 24:13",
+   "en": "Luke 24:13"
+  },
+  "fr": {
+   "q": "Vers quel village allaient les deux disciples qui virent Jésus ressuscité ?",
+   "options": [
+    "Emmaüs",
+    "Béthanie",
+    "Naïn",
+    "Cana"
+   ],
+   "explain": "Deux disciples allaient à Emmaüs. (Luc 24:13)"
+  },
+  "en": {
+   "q": "To which village were the two disciples going when they met the risen Jesus?",
+   "options": [
+    "Emmaus",
+    "Bethany",
+    "Nain",
+    "Cana"
+   ],
+   "explain": "Two disciples were going to Emmaus. (Luke 24:13)"
+  }
+ },
+ {
+  "id": "nt-easy-038",
+  "ref": {
+   "fr": "Luc 1:13",
+   "en": "Luke 1:13"
+  },
+  "fr": {
+   "q": "Jean-Baptiste était le fils de Zacharie et de quelle femme ?",
+   "options": [
+    "Élisabeth",
+    "Anne",
+    "Marie",
+    "Marthe"
+   ],
+   "explain": "Élisabeth enfanta Jean. (Luc 1:13, 57)"
+  },
+  "en": {
+   "q": "John the Baptist was the son of Zacharias and which woman?",
+   "options": [
+    "Elizabeth",
+    "Anna",
+    "Mary",
+    "Martha"
+   ],
+   "explain": "Elizabeth gave birth to John. (Luke 1:13, 57)"
+  }
+ },
+ {
+  "id": "nt-easy-039",
+  "ref": {
+   "fr": "Matthieu 2:11",
+   "en": "Matthew 2:11"
+  },
+  "fr": {
+   "q": "Quels présents les mages offrirent-ils à l’enfant Jésus ?",
+   "options": [
+    "Or, encens et myrrhe",
+    "Or, argent et bronze",
+    "Pain, huile et vin",
+    "Blé, encens et sel"
+   ],
+   "explain": "Ils offrirent de l’or, de l’encens et de la myrrhe. (Matthieu 2:11)"
+  },
+  "en": {
+   "q": "What gifts did the wise men give the child Jesus?",
+   "options": [
+    "Gold, frankincense and myrrh",
+    "Gold, silver and bronze",
+    "Bread, oil and wine",
+    "Wheat, incense and salt"
+   ],
+   "explain": "They offered gold, frankincense and myrrh. (Matthew 2:11)"
+  }
+ },
+ {
+  "id": "nt-easy-040",
+  "ref": {
+   "fr": "Matthieu 2:14",
+   "en": "Matthew 2:14"
+  },
+  "fr": {
+   "q": "Dans quel pays la famille de Jésus s’enfuit-elle pour échapper à Hérode ?",
+   "options": [
+    "l’Égypte",
+    "la Syrie",
+    "Babylone",
+    "la Grèce"
+   ],
+   "explain": "Joseph emmena l’enfant en Égypte. (Matthieu 2:14)"
+  },
+  "en": {
+   "q": "To which country did Jesus’ family flee to escape Herod?",
+   "options": [
+    "Egypt",
+    "Syria",
+    "Babylon",
+    "Greece"
+   ],
+   "explain": "Joseph took the child into Egypt. (Matthew 2:14)"
+  }
+ },
+ {
+  "id": "nt-easy-041",
+  "ref": {
+   "fr": "Matthieu 21:7",
+   "en": "Matthew 21:7"
+  },
+  "fr": {
+   "q": "Sur quel animal Jésus entra-t-il à Jérusalem ?",
+   "options": [
+    "Un ânon",
+    "Un cheval",
+    "Un chameau",
+    "Un mulet"
+   ],
+   "explain": "Jésus s’assit sur l’ânon pour entrer à Jérusalem. (Matthieu 21:7)"
+  },
+  "en": {
+   "q": "On which animal did Jesus ride into Jerusalem?",
+   "options": [
+    "A donkey",
+    "A horse",
+    "A camel",
+    "A mule"
+   ],
+   "explain": "Jesus sat on the donkey and entered Jerusalem. (Matthew 21:7)"
+  }
+ },
+ {
+  "id": "nt-easy-042",
+  "ref": {
+   "fr": "Jean 12:13",
+   "en": "John 12:13"
+  },
+  "fr": {
+   "q": "Que la foule tenait-elle pour acclamer Jésus entrant à Jérusalem ?",
+   "options": [
+    "Des branches de palmier",
+    "Des torches",
+    "Des drapeaux",
+    "Des épées"
+   ],
+   "explain": "Ils prirent des branches de palmiers. (Jean 12:13)"
+  },
+  "en": {
+   "q": "What did the crowd hold to welcome Jesus into Jerusalem?",
+   "options": [
+    "Palm branches",
+    "Torches",
+    "Flags",
+    "Swords"
+   ],
+   "explain": "They took branches of palm trees. (John 12:13)"
+  }
+ },
+ {
+  "id": "nt-easy-043",
+  "ref": {
+   "fr": "Matthieu 17:3",
+   "en": "Matthew 17:3"
+  },
+  "fr": {
+   "q": "Quels deux hommes apparurent avec Jésus lors de la transfiguration ?",
+   "options": [
+    "Moïse et Élie",
+    "Abraham et David",
+    "Noé et Josué",
+    "Élie et Élisée"
+   ],
+   "explain": "Moïse et Élie s’entretenaient avec Jésus. (Matthieu 17:3)"
+  },
+  "en": {
+   "q": "Which two men appeared with Jesus at the transfiguration?",
+   "options": [
+    "Moses and Elijah",
+    "Abraham and David",
+    "Noah and Joshua",
+    "Elijah and Elisha"
+   ],
+   "explain": "Moses and Elijah were talking with Jesus. (Matthew 17:3)"
+  }
+ },
+ {
+  "id": "nt-easy-044",
+  "ref": {
+   "fr": "Actes 1:26",
+   "en": "Acts 1:26"
+  },
+  "fr": {
+   "q": "Qui fut choisi pour remplacer Judas parmi les douze ?",
+   "options": [
+    "Matthias",
+    "Barnabas",
+    "Étienne",
+    "Silas"
+   ],
+   "explain": "Le sort tomba sur Matthias. (Actes 1:26)"
+  },
+  "en": {
+   "q": "Who was chosen to replace Judas among the twelve?",
+   "options": [
+    "Matthias",
+    "Barnabas",
+    "Stephen",
+    "Silas"
+   ],
+   "explain": "The lot fell on Matthias. (Acts 1:26)"
+  }
+ },
+ {
+  "id": "nt-easy-045",
+  "ref": {
+   "fr": "Actes 7",
+   "en": "Acts 7"
+  },
+  "fr": {
+   "q": "Quel diacre fut lapidé, devenant le premier martyr de l’Église ?",
+   "options": [
+    "Étienne",
+    "Jacques",
+    "Philippe",
+    "Ananias"
+   ],
+   "explain": "Étienne fut lapidé en priant pour ses bourreaux. (Actes 7:59-60)"
+  },
+  "en": {
+   "q": "Which deacon was stoned, becoming the church’s first martyr?",
+   "options": [
+    "Stephen",
+    "James",
+    "Philip",
+    "Ananias"
+   ],
+   "explain": "Stephen was stoned while praying for his killers. (Acts 7:59-60)"
+  }
+ },
+ {
+  "id": "nt-easy-046",
+  "ref": {
+   "fr": "Actes 8:27",
+   "en": "Acts 8:27"
+  },
+  "fr": {
+   "q": "Quel officier Philippe baptisa-t-il sur le chemin de Gaza ?",
+   "options": [
+    "Un eunuque éthiopien",
+    "Un centurion romain",
+    "Un scribe juif",
+    "Un marchand grec"
+   ],
+   "explain": "Philippe annonça Jésus à l’eunuque éthiopien. (Actes 8:27-38)"
+  },
+  "en": {
+   "q": "Which official did Philip baptize on the Gaza road?",
+   "options": [
+    "An Ethiopian eunuch",
+    "A Roman centurion",
+    "A Jewish scribe",
+    "A Greek merchant"
+   ],
+   "explain": "Philip preached Jesus to the Ethiopian eunuch. (Acts 8:27-38)"
+  }
+ },
+ {
+  "id": "nt-easy-047",
+  "ref": {
+   "fr": "Actes 10",
+   "en": "Acts 10"
+  },
+  "fr": {
+   "q": "Quel centurion romain fut l’un des premiers païens à croire ?",
+   "options": [
+    "Corneille",
+    "Jules",
+    "Cornélius le tribun",
+    "Claude"
+   ],
+   "explain": "Corneille et sa maison reçurent l’Évangile par Pierre. (Actes 10:1-2)"
+  },
+  "en": {
+   "q": "Which Roman centurion was among the first Gentiles to believe?",
+   "options": [
+    "Cornelius",
+    "Julius",
+    "Lysias",
+    "Claudius"
+   ],
+   "explain": "Cornelius and his house received the gospel through Peter. (Acts 10:1-2)"
+  }
+ },
+ {
+  "id": "nt-easy-048",
+  "ref": {
+   "fr": "Actes 28:1",
+   "en": "Acts 28:1"
+  },
+  "fr": {
+   "q": "Sur quelle île Paul fit-il naufrage en allant à Rome ?",
+   "options": [
+    "Malte",
+    "Chypre",
+    "Patmos",
+    "Rhodes"
+   ],
+   "explain": "Une fois sauvés, ils surent que l’île s’appelait Malte. (Actes 28:1)"
+  },
+  "en": {
+   "q": "On which island was Paul shipwrecked on the way to Rome?",
+   "options": [
+    "Malta",
+    "Cyprus",
+    "Patmos",
+    "Rhodes"
+   ],
+   "explain": "Once safe they learned the island was called Malta. (Acts 28:1)"
+  }
+ },
+ {
+  "id": "nt-easy-049",
+  "ref": {
+   "fr": "2 Timothée 1:2",
+   "en": "2 Timothy 1:2"
+  },
+  "fr": {
+   "q": "Quel jeune compagnon Paul appelait-il « mon enfant » dans la foi ?",
+   "options": [
+    "Timothée",
+    "Tite",
+    "Démas",
+    "Onésime"
+   ],
+   "explain": "Paul écrivit « à Timothée, mon enfant bien-aimé ». (2 Timothée 1:2)"
+  },
+  "en": {
+   "q": "Which young companion did Paul call his “child” in the faith?",
+   "options": [
+    "Timothy",
+    "Titus",
+    "Demas",
+    "Onesimus"
+   ],
+   "explain": "Paul wrote “to Timothy, my beloved child.” (2 Timothy 1:2)"
+  }
+ },
+ {
+  "id": "nt-easy-050",
+  "ref": {
+   "fr": "Actes 16:14",
+   "en": "Acts 16:14"
+  },
+  "fr": {
+   "q": "Quelle marchande de pourpre fut convertie par Paul à Philippes ?",
+   "options": [
+    "Lydie",
+    "Priscille",
+    "Dorcas",
+    "Phœbé"
+   ],
+   "explain": "Lydie, marchande de pourpre, ouvrit son cœur. (Actes 16:14)"
+  },
+  "en": {
+   "q": "Which seller of purple was converted by Paul at Philippi?",
+   "options": [
+    "Lydia",
+    "Priscilla",
+    "Dorcas",
+    "Phoebe"
+   ],
+   "explain": "Lydia, a seller of purple, opened her heart. (Acts 16:14)"
+  }
+ },
+ {
+  "id": "nt-easy-051",
+  "ref": {
+   "fr": "Actes 11:26",
+   "en": "Acts 11:26"
+  },
+  "fr": {
+   "q": "En quel lieu les croyants reçurent-ils d’abord le nom de « chrétiens » ?",
+   "options": [
+    "Antioche",
+    "Jérusalem",
+    "Éphèse",
+    "Corinthe"
+   ],
+   "explain": "Ce fut à Antioche que les disciples furent nommés chrétiens. (Actes 11:26)"
+  },
+  "en": {
+   "q": "Where were the believers first given the name “Christians”?",
+   "options": [
+    "Antioch",
+    "Jerusalem",
+    "Ephesus",
+    "Corinth"
+   ],
+   "explain": "It was at Antioch that the disciples were first called Christians. (Acts 11:26)"
+  }
+ },
+ {
+  "id": "nt-easy-052",
+  "ref": {
+   "fr": "Jean 10:11",
+   "en": "John 10:11"
+  },
+  "fr": {
+   "q": "Comment Jésus se décrit-il en Jean 10 : « Je suis le bon… » ?",
+   "options": [
+    "berger",
+    "roi",
+    "pêcheur",
+    "semeur"
+   ],
+   "explain": "« Je suis le bon berger. » (Jean 10:11)"
+  },
+  "en": {
+   "q": "How does Jesus describe himself in John 10: “I am the good…”?",
+   "options": [
+    "shepherd",
+    "king",
+    "fisherman",
+    "sower"
+   ],
+   "explain": "“I am the good shepherd.” (John 10:11)"
+  }
+ },
+ {
+  "id": "nt-easy-053",
+  "ref": {
+   "fr": "Jean 6:35",
+   "en": "John 6:35"
+  },
+  "fr": {
+   "q": "Jésus déclara : « Je suis le pain de… » quoi ?",
+   "options": [
+    "la vie",
+    "chaque jour",
+    "la maison",
+    "l’offrande"
+   ],
+   "explain": "« Je suis le pain de vie. » (Jean 6:35)"
+  },
+  "en": {
+   "q": "Jesus said: “I am the bread of…” what?",
+   "options": [
+    "life",
+    "each day",
+    "the house",
+    "the offering"
+   ],
+   "explain": "“I am the bread of life.” (John 6:35)"
+  }
+ },
+ {
+  "id": "nt-easy-054",
+  "ref": {
+   "fr": "Jean 8:12",
+   "en": "John 8:12"
+  },
+  "fr": {
+   "q": "Jésus dit : « Je suis la lumière du… » quoi ?",
+   "options": [
+    "monde",
+    "temple",
+    "matin",
+    "ciel"
+   ],
+   "explain": "« Je suis la lumière du monde. » (Jean 8:12)"
+  },
+  "en": {
+   "q": "Jesus said: “I am the light of the…” what?",
+   "options": [
+    "world",
+    "temple",
+    "morning",
+    "heavens"
+   ],
+   "explain": "“I am the light of the world.” (John 8:12)"
+  }
+ },
+ {
+  "id": "nt-easy-055",
+  "ref": {
+   "fr": "Jean 14:6",
+   "en": "John 14:6"
+  },
+  "fr": {
+   "q": "Jésus dit : « Je suis le chemin, la vérité et la… » quoi ?",
+   "options": [
+    "vie",
+    "paix",
+    "porte",
+    "gloire"
+   ],
+   "explain": "« Je suis le chemin, la vérité et la vie. » (Jean 14:6)"
+  },
+  "en": {
+   "q": "Jesus said: “I am the way, the truth and the…” what?",
+   "options": [
+    "life",
+    "peace",
+    "door",
+    "glory"
+   ],
+   "explain": "“I am the way, the truth and the life.” (John 14:6)"
+  }
+ },
+ {
+  "id": "nt-easy-056",
+  "ref": {
+   "fr": "Galates 5:22",
+   "en": "Galatians 5:22"
+  },
+  "fr": {
+   "q": "Comment Galates 5 nomme-t-il l’amour, la joie et la paix ?",
+   "options": [
+    "le fruit de l’Esprit",
+    "les dons de l’Esprit",
+    "les béatitudes",
+    "les vertus de la loi"
+   ],
+   "explain": "« Le fruit de l’Esprit, c’est l’amour, la joie, la paix… » (Galates 5:22)"
+  },
+  "en": {
+   "q": "What does Galatians 5 call love, joy and peace?",
+   "options": [
+    "the fruit of the Spirit",
+    "the gifts of the Spirit",
+    "the beatitudes",
+    "the virtues of the law"
+   ],
+   "explain": "“The fruit of the Spirit is love, joy, peace…” (Galatians 5:22)"
+  }
+ },
+ {
+  "id": "nt-easy-057",
+  "ref": {
+   "fr": "Éphésiens 6:11",
+   "en": "Ephesians 6:11"
+  },
+  "fr": {
+   "q": "Que Paul demande-t-il de revêtir en Éphésiens 6 ?",
+   "options": [
+    "les armes de Dieu",
+    "le manteau du prophète",
+    "la robe blanche",
+    "la couronne de vie"
+   ],
+   "explain": "« Revêtez-vous de toutes les armes de Dieu. » (Éphésiens 6:11)"
+  },
+  "en": {
+   "q": "What does Paul tell believers to put on in Ephesians 6?",
+   "options": [
+    "the armor of God",
+    "the prophet’s mantle",
+    "the white robe",
+    "the crown of life"
+   ],
+   "explain": "“Put on the whole armor of God.” (Ephesians 6:11)"
+  }
+ },
+ {
+  "id": "nt-easy-058",
+  "ref": {
+   "fr": "Luc 24:44",
+   "en": "Luke 24:44"
+  },
+  "fr": {
+   "q": "Combien de livres compte le Nouveau Testament ?",
+   "options": [
+    "27",
+    "39",
+    "12",
+    "66"
+   ],
+   "explain": "Le Nouveau Testament compte vingt-sept livres."
+  },
+  "en": {
+   "q": "How many books are in the New Testament?",
+   "options": [
+    "27",
+    "39",
+    "12",
+    "66"
+   ],
+   "explain": "The New Testament has twenty-seven books."
+  }
+ },
+ {
+  "id": "nt-easy-059",
+  "ref": {
+   "fr": "Marc 1:1",
+   "en": "Mark 1:1"
+  },
+  "fr": {
+   "q": "Quel Évangile suit celui de Matthieu ?",
+   "options": [
+    "Marc",
+    "Luc",
+    "Jean",
+    "Actes"
+   ],
+   "explain": "L’Évangile selon Marc suit celui de Matthieu."
+  },
+  "en": {
+   "q": "Which Gospel comes right after Matthew?",
+   "options": [
+    "Mark",
+    "Luke",
+    "John",
+    "Acts"
+   ],
+   "explain": "The Gospel of Mark follows Matthew."
+  }
+ },
+ {
+  "id": "nt-easy-060",
+  "ref": {
+   "fr": "Luc 10:39",
+   "en": "Luke 10:39"
+  },
+  "fr": {
+   "q": "Quelle sœur de Marthe s’assit aux pieds de Jésus pour l’écouter ?",
+   "options": [
+    "Marie",
+    "Jeanne",
+    "Salomé",
+    "Suzanne"
+   ],
+   "explain": "Marie, assise aux pieds du Seigneur, écoutait sa parole. (Luc 10:39)"
+  },
+  "en": {
+   "q": "Which sister of Martha sat at Jesus’ feet to listen?",
+   "options": [
+    "Mary",
+    "Joanna",
+    "Salome",
+    "Susanna"
+   ],
+   "explain": "Mary sat at the Lord’s feet and heard his word. (Luke 10:39)"
+  }
+ },
+ {
+  "id": "nt-easy-061",
+  "ref": {
+   "fr": "Marc 2:4",
+   "en": "Mark 2:4"
+  },
+  "fr": {
+   "q": "Comment un paralytique fut-il présenté à Jésus dans une maison bondée ?",
+   "options": [
+    "Descendu par le toit",
+    "Porté par un âne",
+    "Amené en barque",
+    "Conduit par un ange"
+   ],
+   "explain": "On le descendit par une ouverture du toit. (Marc 2:4)"
+  },
+  "en": {
+   "q": "How was a paralytic brought to Jesus in a crowded house?",
+   "options": [
+    "Lowered through the roof",
+    "Carried by a donkey",
+    "Brought by boat",
+    "Led by an angel"
+   ],
+   "explain": "They lowered him through an opening in the roof. (Mark 2:4)"
+  }
+ },
+ {
+  "id": "nt-easy-062",
+  "ref": {
+   "fr": "Marc 5:27",
+   "en": "Mark 5:27"
+  },
+  "fr": {
+   "q": "Que toucha une femme malade pour être guérie par Jésus ?",
+   "options": [
+    "Le bord de son vêtement",
+    "Ses mains",
+    "Sa tête",
+    "Ses pieds"
+   ],
+   "explain": "Elle toucha le bord de son vêtement et fut guérie. (Marc 5:27-29)"
+  },
+  "en": {
+   "q": "What did a sick woman touch to be healed by Jesus?",
+   "options": [
+    "The hem of his garment",
+    "His hands",
+    "His head",
+    "His feet"
+   ],
+   "explain": "She touched the edge of his cloak and was healed. (Mark 5:27-29)"
+  }
+ },
+ {
+  "id": "nt-easy-063",
+  "ref": {
+   "fr": "Marc 10:22",
+   "en": "Mark 10:22"
+  },
+  "fr": {
+   "q": "Comment repartit le jeune homme riche à qui Jésus dit de tout donner ?",
+   "options": [
+    "Triste",
+    "Joyeux",
+    "En colère",
+    "Reconnaissant"
+   ],
+   "explain": "Il s’en alla tout triste, car il avait de grands biens. (Marc 10:22)"
+  },
+  "en": {
+   "q": "How did the rich young man leave after Jesus told him to give all?",
+   "options": [
+    "Sorrowful",
+    "Joyful",
+    "Angry",
+    "Thankful"
+   ],
+   "explain": "He went away sad, for he had great possessions. (Mark 10:22)"
+  }
+ },
+ {
+  "id": "nt-easy-064",
+  "ref": {
+   "fr": "Marc 12:42",
+   "en": "Mark 12:42"
+  },
+  "fr": {
+   "q": "Que mit une pauvre veuve dans le tronc du temple, louée par Jésus ?",
+   "options": [
+    "Deux petites pièces",
+    "Un sac d’or",
+    "Un agneau",
+    "Une pièce d’argent"
+   ],
+   "explain": "Une pauvre veuve mit deux petites pièces. (Marc 12:42)"
+  },
+  "en": {
+   "q": "What did a poor widow put in the temple treasury, praised by Jesus?",
+   "options": [
+    "Two small coins",
+    "A bag of gold",
+    "A lamb",
+    "A silver coin"
+   ],
+   "explain": "A poor widow put in two small coins. (Mark 12:42)"
+  }
+ },
+ {
+  "id": "nt-easy-065",
+  "ref": {
+   "fr": "Marc 10:46",
+   "en": "Mark 10:46"
+  },
+  "fr": {
+   "q": "Quel aveugle Jésus guérit-il près de Jéricho ?",
+   "options": [
+    "Bartimée",
+    "Zachée",
+    "Malchus",
+    "Lazare"
+   ],
+   "explain": "L’aveugle Bartimée cria vers Jésus et fut guéri. (Marc 10:46-52)"
+  },
+  "en": {
+   "q": "Which blind man did Jesus heal near Jericho?",
+   "options": [
+    "Bartimaeus",
+    "Zacchaeus",
+    "Malchus",
+    "Lazarus"
+   ],
+   "explain": "Blind Bartimaeus cried out to Jesus and was healed. (Mark 10:46-52)"
+  }
+ },
+ {
+  "id": "nt-easy-066",
+  "ref": {
+   "fr": "Luc 17:17",
+   "en": "Luke 17:17"
+  },
+  "fr": {
+   "q": "Sur dix lépreux guéris, combien revinrent remercier Jésus ?",
+   "options": [
+    "Un seul",
+    "Trois",
+    "Cinq",
+    "Tous"
+   ],
+   "explain": "Un seul revint glorifier Dieu. (Luc 17:15-17)"
+  },
+  "en": {
+   "q": "Of ten lepers healed, how many returned to thank Jesus?",
+   "options": [
+    "Only one",
+    "Three",
+    "Five",
+    "All"
+   ],
+   "explain": "Only one came back to glorify God. (Luke 17:15-17)"
+  }
+ },
+ {
+  "id": "nt-easy-067",
+  "ref": {
+   "fr": "Marc 5:22",
+   "en": "Mark 5:22"
+  },
+  "fr": {
+   "q": "De quel chef de synagogue Jésus ressuscita-t-il la fille ?",
+   "options": [
+    "Jaïrus",
+    "Nicodème",
+    "Gamaliel",
+    "Simon"
+   ],
+   "explain": "Jaïrus, chef de la synagogue, vit sa fille ranimée. (Marc 5:22-42)"
+  },
+  "en": {
+   "q": "Whose daughter did Jesus raise, a synagogue ruler?",
+   "options": [
+    "Jairus",
+    "Nicodemus",
+    "Gamaliel",
+    "Simon"
+   ],
+   "explain": "Jairus, a synagogue ruler, saw his daughter restored. (Mark 5:22-42)"
+  }
+ },
+ {
+  "id": "nt-easy-068",
+  "ref": {
+   "fr": "Matthieu 26:57",
+   "en": "Matthew 26:57"
+  },
+  "fr": {
+   "q": "Quel souverain sacrificateur jugea Jésus la nuit de son arrestation ?",
+   "options": [
+    "Caïphe",
+    "Anne le scribe",
+    "Gamaliel",
+    "Nicodème"
+   ],
+   "explain": "On mena Jésus chez Caïphe, le souverain sacrificateur. (Matthieu 26:57)"
+  },
+  "en": {
+   "q": "Which high priest judged Jesus the night of his arrest?",
+   "options": [
+    "Caiaphas",
+    "Gamaliel",
+    "Nicodemus",
+    "Barabbas"
+   ],
+   "explain": "They led Jesus to Caiaphas the high priest. (Matthew 26:57)"
+  }
+ },
+ {
+  "id": "nt-easy-069",
+  "ref": {
+   "fr": "Jean 2:15",
+   "en": "John 2:15"
+  },
+  "fr": {
+   "q": "Qui Jésus chassa-t-il du temple avec un fouet ?",
+   "options": [
+    "Les marchands et changeurs",
+    "Les pharisiens",
+    "Les soldats romains",
+    "Les lépreux"
+   ],
+   "explain": "Il chassa les marchands et renversa les tables des changeurs. (Jean 2:15)"
+  },
+  "en": {
+   "q": "Whom did Jesus drive from the temple with a whip?",
+   "options": [
+    "The merchants and money changers",
+    "The Pharisees",
+    "The Roman soldiers",
+    "The lepers"
+   ],
+   "explain": "He drove out the merchants and overturned the money changers’ tables. (John 2:15)"
+  }
+ },
+ {
+  "id": "nt-easy-070",
+  "ref": {
+   "fr": "Jean 19:2",
+   "en": "John 19:2"
+  },
+  "fr": {
+   "q": "Quelle couronne les soldats posèrent-ils sur la tête de Jésus ?",
+   "options": [
+    "Une couronne d’épines",
+    "Une couronne d’or",
+    "Une couronne de laurier",
+    "Une couronne de fleurs"
+   ],
+   "explain": "Les soldats tressèrent une couronne d’épines. (Jean 19:2)"
+  },
+  "en": {
+   "q": "What crown did the soldiers place on Jesus’ head?",
+   "options": [
+    "A crown of thorns",
+    "A crown of gold",
+    "A crown of laurel",
+    "A crown of flowers"
+   ],
+   "explain": "The soldiers twisted a crown of thorns. (John 19:2)"
+  }
+ },
+ {
+  "id": "nt-easy-071",
+  "ref": {
+   "fr": "Jean 19:19",
+   "en": "John 19:19"
+  },
+  "fr": {
+   "q": "Quelle inscription fut placée au-dessus de Jésus sur la croix ?",
+   "options": [
+    "Roi des Juifs",
+    "Fils de David",
+    "Prophète de Galilée",
+    "Ami des pécheurs"
+   ],
+   "explain": "L’écriteau portait : « Jésus de Nazareth, roi des Juifs. » (Jean 19:19)"
+  },
+  "en": {
+   "q": "What inscription was placed above Jesus on the cross?",
+   "options": [
+    "King of the Jews",
+    "Son of David",
+    "Prophet of Galilee",
+    "Friend of sinners"
+   ],
+   "explain": "The sign read: “Jesus of Nazareth, King of the Jews.” (John 19:19)"
+  }
+ },
+ {
+  "id": "nt-easy-072",
+  "ref": {
+   "fr": "Actes 1:9",
+   "en": "Acts 1:9"
+  },
+  "fr": {
+   "q": "Où Jésus monta-t-il quarante jours après sa résurrection ?",
+   "options": [
+    "Au ciel",
+    "Sur une montagne",
+    "À Bethléhem",
+    "Au temple"
+   ],
+   "explain": "Une nuée le déroba aux regards vers le ciel. (Actes 1:9)"
+  },
+  "en": {
+   "q": "Where did Jesus go forty days after his resurrection?",
+   "options": [
+    "Into heaven",
+    "Onto a mountain",
+    "To Bethlehem",
+    "To the temple"
+   ],
+   "explain": "A cloud received him out of their sight into heaven. (Acts 1:9)"
+  }
+ },
+ {
+  "id": "nt-easy-073",
+  "ref": {
+   "fr": "Matthieu 4:2",
+   "en": "Matthew 4:2"
+  },
+  "fr": {
+   "q": "Combien de jours Jésus jeûna-t-il au désert avant d’être tenté ?",
+   "options": [
+    "Quarante",
+    "Sept",
+    "Trois",
+    "Dix"
+   ],
+   "explain": "Après avoir jeûné quarante jours, il eut faim. (Matthieu 4:2)"
+  },
+  "en": {
+   "q": "How many days did Jesus fast in the wilderness before being tempted?",
+   "options": [
+    "Forty",
+    "Seven",
+    "Three",
+    "Ten"
+   ],
+   "explain": "After fasting forty days, he was hungry. (Matthew 4:2)"
+  }
+ },
+ {
+  "id": "nt-easy-074",
+  "ref": {
+   "fr": "Matthieu 4:1",
+   "en": "Matthew 4:1"
+  },
+  "fr": {
+   "q": "Qui tenta Jésus dans le désert ?",
+   "options": [
+    "Le diable",
+    "Un pharisien",
+    "Hérode",
+    "Un faux prophète"
+   ],
+   "explain": "Jésus fut tenté par le diable au désert. (Matthieu 4:1)"
+  },
+  "en": {
+   "q": "Who tempted Jesus in the wilderness?",
+   "options": [
+    "The devil",
+    "A Pharisee",
+    "Herod",
+    "A false prophet"
+   ],
+   "explain": "Jesus was tempted by the devil in the wilderness. (Matthew 4:1)"
+  }
+ },
+ {
+  "id": "nt-easy-075",
+  "ref": {
+   "fr": "Matthieu 5",
+   "en": "Matthew 5"
+  },
+  "fr": {
+   "q": "Où Jésus prononça-t-il le grand sermon des Béatitudes ?",
+   "options": [
+    "Sur une montagne",
+    "Dans une barque",
+    "Au temple",
+    "Dans le désert"
+   ],
+   "explain": "Jésus monta sur la montagne pour enseigner. (Matthieu 5:1-2)"
+  },
+  "en": {
+   "q": "Where did Jesus give the great sermon of the Beatitudes?",
+   "options": [
+    "On a mountain",
+    "In a boat",
+    "In the temple",
+    "In the wilderness"
+   ],
+   "explain": "Jesus went up on the mountain to teach. (Matthew 5:1-2)"
+  }
+ },
+ {
+  "id": "nt-easy-076",
+  "ref": {
+   "fr": "Matthieu 6:9",
+   "en": "Matthew 6:9"
+  },
+  "fr": {
+   "q": "Par quels mots commence le « Notre Père » enseigné par Jésus ?",
+   "options": [
+    "Notre Père qui es aux cieux",
+    "Gloire à Dieu",
+    "Seigneur, aie pitié",
+    "Béni soit ton nom"
+   ],
+   "explain": "« Notre Père qui es aux cieux… » (Matthieu 6:9)"
+  },
+  "en": {
+   "q": "How does the Lord’s Prayer taught by Jesus begin?",
+   "options": [
+    "Our Father who art in heaven",
+    "Glory to God",
+    "Lord, have mercy",
+    "Blessed be your name"
+   ],
+   "explain": "“Our Father who art in heaven…” (Matthew 6:9)"
+  }
+ },
+ {
+  "id": "nt-easy-077",
+  "ref": {
+   "fr": "Marc 12:30",
+   "en": "Mark 12:30"
+  },
+  "fr": {
+   "q": "Selon Jésus, quel est le premier et grand commandement ?",
+   "options": [
+    "Aimer Dieu de tout son cœur",
+    "Ne pas mentir",
+    "Honorer ses parents",
+    "Observer le sabbat"
+   ],
+   "explain": "« Tu aimeras le Seigneur ton Dieu de tout ton cœur. » (Marc 12:30)"
+  },
+  "en": {
+   "q": "According to Jesus, what is the first and great commandment?",
+   "options": [
+    "Love God with all your heart",
+    "Do not lie",
+    "Honor your parents",
+    "Keep the Sabbath"
+   ],
+   "explain": "“Love the Lord your God with all your heart.” (Mark 12:30)"
+  }
+ },
+ {
+  "id": "nt-easy-078",
+  "ref": {
+   "fr": "Marc 16:9",
+   "en": "Mark 16:9"
+  },
+  "fr": {
+   "q": "Le matin de quel jour Jésus sortit-il du tombeau ?",
+   "options": [
+    "Le premier jour",
+    "Le sabbat",
+    "Le sixième jour",
+    "Le troisième mois"
+   ],
+   "explain": "Jésus ressuscita le matin du premier jour de la semaine. (Marc 16:9)"
+  },
+  "en": {
+   "q": "On the morning of which day did Jesus come out of the tomb?",
+   "options": [
+    "The first day",
+    "The Sabbath",
+    "The sixth day",
+    "The third month"
+   ],
+   "explain": "Jesus rose early the first day of the week. (Mark 16:9)"
+  }
+ },
+ {
+  "id": "nt-easy-079",
+  "ref": {
+   "fr": "Apocalypse 1:1",
+   "en": "Revelation 1:1"
+  },
+  "fr": {
+   "q": "Quel apôtre écrivit le livre de l’Apocalypse ?",
+   "options": [
+    "Jean",
+    "Pierre",
+    "Paul",
+    "Jacques"
+   ],
+   "explain": "La révélation fut donnée à son serviteur Jean. (Apocalypse 1:1)"
+  },
+  "en": {
+   "q": "Which apostle wrote the book of Revelation?",
+   "options": [
+    "John",
+    "Peter",
+    "Paul",
+    "James"
+   ],
+   "explain": "The revelation was given to his servant John. (Revelation 1:1)"
+  }
+ },
+ {
+  "id": "nt-easy-080",
+  "ref": {
+   "fr": "Jean 11:1",
+   "en": "John 11:1"
+  },
+  "fr": {
+   "q": "Dans quel village habitaient Marie, Marthe et Lazare ?",
+   "options": [
+    "Béthanie",
+    "Cana",
+    "Naïn",
+    "Emmaüs"
+   ],
+   "explain": "Lazare de Béthanie, le village de Marie et de Marthe. (Jean 11:1)"
+  },
+  "en": {
+   "q": "In which village did Mary, Martha and Lazarus live?",
+   "options": [
+    "Bethany",
+    "Cana",
+    "Nain",
+    "Emmaus"
+   ],
+   "explain": "Lazarus of Bethany, the village of Mary and Martha. (John 11:1)"
+  }
+ },
+ {
+  "id": "nt-easy-081",
+  "ref": {
+   "fr": "Luc 2:8",
+   "en": "Luke 2:8"
+  },
+  "fr": {
+   "q": "À qui les anges annoncèrent-ils d’abord la naissance de Jésus ?",
+   "options": [
+    "Aux bergers",
+    "Aux mages",
+    "Aux prêtres",
+    "Aux rois"
+   ],
+   "explain": "Des bergers veillaient quand l’ange leur parut. (Luc 2:8-11)"
+  },
+  "en": {
+   "q": "To whom did the angels first announce Jesus’ birth?",
+   "options": [
+    "The shepherds",
+    "The wise men",
+    "The priests",
+    "The kings"
+   ],
+   "explain": "Shepherds were keeping watch when the angel appeared. (Luke 2:8-11)"
+  }
+ },
+ {
+  "id": "nt-easy-082",
+  "ref": {
+   "fr": "Luc 2:46",
+   "en": "Luke 2:46"
+  },
+  "fr": {
+   "q": "Où retrouva-t-on Jésus enfant à l’âge de douze ans ?",
+   "options": [
+    "Dans le temple",
+    "Au marché",
+    "Sur une montagne",
+    "Au bord du lac"
+   ],
+   "explain": "On le trouva dans le temple, au milieu des docteurs. (Luc 2:46)"
+  },
+  "en": {
+   "q": "Where was the boy Jesus found at age twelve?",
+   "options": [
+    "In the temple",
+    "At the market",
+    "On a mountain",
+    "By the lake"
+   ],
+   "explain": "They found him in the temple among the teachers. (Luke 2:46)"
+  }
+ },
+ {
+  "id": "nt-easy-083",
+  "ref": {
+   "fr": "Matthieu 2:16",
+   "en": "Matthew 2:16"
+  },
+  "fr": {
+   "q": "Quel roi chercha à faire mourir l’enfant Jésus ?",
+   "options": [
+    "Hérode",
+    "Pilate",
+    "César",
+    "Agrippa"
+   ],
+   "explain": "Hérode, jaloux, chercha à faire périr l’enfant. (Matthieu 2:16)"
+  },
+  "en": {
+   "q": "Which king sought to kill the child Jesus?",
+   "options": [
+    "Herod",
+    "Pilate",
+    "Caesar",
+    "Agrippa"
+   ],
+   "explain": "Herod, jealous, sought to destroy the child. (Matthew 2:16)"
+  }
+ },
+ {
+  "id": "nt-easy-084",
+  "ref": {
+   "fr": "Matthieu 27:26",
+   "en": "Matthew 27:26"
+  },
+  "fr": {
+   "q": "Quel prisonnier fut relâché à la place de Jésus ?",
+   "options": [
+    "Barabbas",
+    "Malchus",
+    "Silas",
+    "Bartimée"
+   ],
+   "explain": "Pilate relâcha Barabbas et livra Jésus. (Matthieu 27:26)"
+  },
+  "en": {
+   "q": "Which prisoner was released instead of Jesus?",
+   "options": [
+    "Barabbas",
+    "Malchus",
+    "Silas",
+    "Bartimaeus"
+   ],
+   "explain": "Pilate released Barabbas and delivered Jesus. (Matthew 27:26)"
+  }
+ },
+ {
+  "id": "nt-easy-085",
+  "ref": {
+   "fr": "Marc 3:17",
+   "en": "Mark 3:17"
+  },
+  "fr": {
+   "q": "De quel père étaient fils les apôtres Jacques et Jean ?",
+   "options": [
+    "Zébédée",
+    "Jonas",
+    "Alphée",
+    "Cléopas"
+   ],
+   "explain": "Jacques et Jean, fils de Zébédée, laissèrent leurs filets. (Marc 3:17)"
+  },
+  "en": {
+   "q": "Whose sons were the apostles James and John?",
+   "options": [
+    "Zebedee",
+    "Jonah",
+    "Alphaeus",
+    "Cleopas"
+   ],
+   "explain": "James and John, sons of Zebedee, left their nets. (Mark 3:17)"
+  }
+ },
+ {
+  "id": "nt-easy-086",
+  "ref": {
+   "fr": "Jean 1:40",
+   "en": "John 1:40"
+  },
+  "fr": {
+   "q": "De quel apôtre André était-il le frère ?",
+   "options": [
+    "Simon Pierre",
+    "Jean",
+    "Philippe",
+    "Jacques"
+   ],
+   "explain": "André, frère de Simon Pierre, suivit Jésus. (Jean 1:40)"
+  },
+  "en": {
+   "q": "Whose brother was the apostle Andrew?",
+   "options": [
+    "Simon Peter",
+    "John",
+    "Philip",
+    "James"
+   ],
+   "explain": "Andrew, Simon Peter’s brother, followed Jesus. (John 1:40)"
+  }
+ },
+ {
+  "id": "nt-easy-087",
+  "ref": {
+   "fr": "Jean 1:29",
+   "en": "John 1:29"
+  },
+  "fr": {
+   "q": "Comment Jean-Baptiste appela-t-il Jésus en le voyant venir ?",
+   "options": [
+    "l’Agneau de Dieu",
+    "le Bon Berger",
+    "le Roi des rois",
+    "le Fils de l’homme"
+   ],
+   "explain": "« Voici l’Agneau de Dieu, qui ôte le péché du monde. » (Jean 1:29)"
+  },
+  "en": {
+   "q": "What did John the Baptist call Jesus when he saw him coming?",
+   "options": [
+    "the Lamb of God",
+    "the Good Shepherd",
+    "the King of kings",
+    "the Son of Man"
+   ],
+   "explain": "“Behold, the Lamb of God, who takes away the sin of the world.” (John 1:29)"
+  }
+ },
+ {
+  "id": "nt-easy-088",
+  "ref": {
+   "fr": "Matthieu 28:19",
+   "en": "Matthew 28:19"
+  },
+  "fr": {
+   "q": "Que Jésus ordonna-t-il à ses disciples avant de monter au ciel ?",
+   "options": [
+    "Faire de toutes les nations des disciples",
+    "Rester à Jérusalem",
+    "Reconstruire le temple",
+    "Garder le silence"
+   ],
+   "explain": "« Allez, faites de toutes les nations des disciples. » (Matthieu 28:19)"
+  },
+  "en": {
+   "q": "What did Jesus command his disciples before ascending?",
+   "options": [
+    "Make disciples of all nations",
+    "Stay in Jerusalem",
+    "Rebuild the temple",
+    "Keep silent"
+   ],
+   "explain": "“Go and make disciples of all nations.” (Matthew 28:19)"
+  }
+ },
+ {
+  "id": "nt-easy-089",
+  "ref": {
+   "fr": "1 Corinthiens 13:13",
+   "en": "1 Corinthians 13:13"
+  },
+  "fr": {
+   "q": "Quelles trois choses demeurent selon 1 Corinthiens 13 ?",
+   "options": [
+    "La foi, l’espérance, la charité",
+    "La loi, les prophètes, les psaumes",
+    "La justice, la paix, la joie",
+    "Le père, le fils, l’esprit"
+   ],
+   "explain": "« Ces trois choses demeurent : la foi, l’espérance, la charité. » (1 Corinthiens 13:13)"
+  },
+  "en": {
+   "q": "What three things remain according to 1 Corinthians 13?",
+   "options": [
+    "Faith, hope, love",
+    "Law, prophets, psalms",
+    "Justice, peace, joy",
+    "Body, soul, spirit"
+   ],
+   "explain": "“These three remain: faith, hope, love.” (1 Corinthians 13:13)"
+  }
+ },
+ {
+  "id": "nt-easy-090",
+  "ref": {
+   "fr": "Romains 6:23",
+   "en": "Romans 6:23"
+  },
+  "fr": {
+   "q": "Selon Romains 6:23, quel est le salaire du péché ?",
+   "options": [
+    "La mort",
+    "La pauvreté",
+    "L’exil",
+    "La honte"
+   ],
+   "explain": "« Le salaire du péché, c’est la mort. » (Romains 6:23)"
+  },
+  "en": {
+   "q": "According to Romans 6:23, what is the wages of sin?",
+   "options": [
+    "Death",
+    "Poverty",
+    "Exile",
+    "Shame"
+   ],
+   "explain": "“The wages of sin is death.” (Romans 6:23)"
+  }
+ },
+ {
+  "id": "nt-easy-091",
+  "ref": {
+   "fr": "Actes 13:2",
+   "en": "Acts 13:2"
+  },
+  "fr": {
+   "q": "Quel compagnon voyagea avec Paul lors de son premier voyage missionnaire ?",
+   "options": [
+    "Barnabas",
+    "Luc",
+    "Tite",
+    "Apollos"
+   ],
+   "explain": "L’Esprit mit à part Barnabas et Saul pour l’œuvre. (Actes 13:2)"
+  },
+  "en": {
+   "q": "Which companion traveled with Paul on his first missionary journey?",
+   "options": [
+    "Barnabas",
+    "Luke",
+    "Titus",
+    "Apollos"
+   ],
+   "explain": "The Spirit set apart Barnabas and Saul for the work. (Acts 13:2)"
+  }
+ },
+ {
+  "id": "nt-easy-092",
+  "ref": {
+   "fr": "Actes 16:25",
+   "en": "Acts 16:25"
+  },
+  "fr": {
+   "q": "Quel compagnon chantait avec Paul en prison à Philippes ?",
+   "options": [
+    "Silas",
+    "Barnabas",
+    "Marc",
+    "Timothée"
+   ],
+   "explain": "Paul et Silas priaient et chantaient à minuit. (Actes 16:25)"
+  },
+  "en": {
+   "q": "Which companion sang with Paul in the Philippian jail?",
+   "options": [
+    "Silas",
+    "Barnabas",
+    "Mark",
+    "Timothy"
+   ],
+   "explain": "Paul and Silas prayed and sang at midnight. (Acts 16:25)"
+  }
+ },
+ {
+  "id": "nt-easy-093",
+  "ref": {
+   "fr": "Actes 18:3",
+   "en": "Acts 18:3"
+  },
+  "fr": {
+   "q": "Quel était le métier manuel de l’apôtre Paul ?",
+   "options": [
+    "Fabricant de tentes",
+    "Pêcheur",
+    "Charpentier",
+    "Berger"
+   ],
+   "explain": "Paul travaillait de ses mains, faiseur de tentes. (Actes 18:3)"
+  },
+  "en": {
+   "q": "What was the apostle Paul’s trade?",
+   "options": [
+    "Tentmaker",
+    "Fisherman",
+    "Carpenter",
+    "Shepherd"
+   ],
+   "explain": "Paul worked with his hands as a tentmaker. (Acts 18:3)"
+  }
+ },
+ {
+  "id": "nt-easy-094",
+  "ref": {
+   "fr": "Marc 1:1",
+   "en": "Mark 1:1"
+  },
+  "fr": {
+   "q": "Que signifie le mot « évangile » ?",
+   "options": [
+    "Bonne nouvelle",
+    "Livre saint",
+    "Prière du soir",
+    "Loi ancienne"
+   ],
+   "explain": "« Évangile » signifie « bonne nouvelle ». (Marc 1:1)"
+  },
+  "en": {
+   "q": "What does the word “gospel” mean?",
+   "options": [
+    "Good news",
+    "Holy book",
+    "Evening prayer",
+    "Ancient law"
+   ],
+   "explain": "“Gospel” means “good news.” (Mark 1:1)"
+  }
+ },
+ {
+  "id": "nt-easy-095",
+  "ref": {
+   "fr": "Jean 1:14",
+   "en": "John 1:14"
+  },
+  "fr": {
+   "q": "Selon Jean 1, qu’est devenue la Parole ?",
+   "options": [
+    "Elle a été faite chair",
+    "Elle a disparu",
+    "Elle est restée cachée",
+    "Elle est devenue loi"
+   ],
+   "explain": "« La Parole a été faite chair, et elle a habité parmi nous. » (Jean 1:14)"
+  },
+  "en": {
+   "q": "According to John 1, what did the Word become?",
+   "options": [
+    "It became flesh",
+    "It vanished",
+    "It stayed hidden",
+    "It became law"
+   ],
+   "explain": "“The Word became flesh and dwelt among us.” (John 1:14)"
+  }
+ },
+ {
+  "id": "nt-easy-096",
+  "ref": {
+   "fr": "Apocalypse 22:13",
+   "en": "Revelation 22:13"
+  },
+  "fr": {
+   "q": "Comment Jésus se nomme-t-il dans l’Apocalypse : « Je suis l’Alpha et… » ?",
+   "options": [
+    "l’Oméga",
+    "le Sabbat",
+    "l’Agneau",
+    "le Jour"
+   ],
+   "explain": "« Je suis l’Alpha et l’Oméga, le premier et le dernier. » (Apocalypse 22:13)"
+  },
+  "en": {
+   "q": "How does Jesus name himself in Revelation: “I am the Alpha and…”?",
+   "options": [
+    "the Omega",
+    "the Sabbath",
+    "the Lamb",
+    "the Day"
+   ],
+   "explain": "“I am the Alpha and the Omega, the first and the last.” (Revelation 22:13)"
+  }
+ },
+ {
+  "id": "nt-easy-097",
+  "ref": {
+   "fr": "Actes 9:36",
+   "en": "Acts 9:36"
+  },
+  "fr": {
+   "q": "Quelle femme charitable Pierre ressuscita-t-il à Joppé ?",
+   "options": [
+    "Tabitha",
+    "Lydie",
+    "Priscille",
+    "Marthe"
+   ],
+   "explain": "Tabitha, appelée Dorcas, fut ramenée à la vie. (Actes 9:36-40)"
+  },
+  "en": {
+   "q": "Which charitable woman did Peter raise at Joppa?",
+   "options": [
+    "Tabitha",
+    "Lydia",
+    "Priscilla",
+    "Martha"
+   ],
+   "explain": "Tabitha, called Dorcas, was brought back to life. (Acts 9:36-40)"
+  }
+ },
+ {
+  "id": "nt-easy-098",
+  "ref": {
+   "fr": "Matthieu 8:8",
+   "en": "Matthew 8:8"
+  },
+  "fr": {
+   "q": "Jésus guérit à distance le serviteur de quel homme de foi ?",
+   "options": [
+    "Un centurion",
+    "Un pharisien",
+    "Un scribe",
+    "Un publicain"
+   ],
+   "explain": "Le centurion crut, et son serviteur fut guéri. (Matthieu 8:8-13)"
+  },
+  "en": {
+   "q": "Jesus healed from afar the servant of which man of faith?",
+   "options": [
+    "A centurion",
+    "A Pharisee",
+    "A scribe",
+    "A tax collector"
+   ],
+   "explain": "The centurion believed, and his servant was healed. (Matthew 8:8-13)"
+  }
+ },
+ {
+  "id": "nt-easy-099",
+  "ref": {
+   "fr": "Actes 9:11",
+   "en": "Acts 9:11"
+  },
+  "fr": {
+   "q": "Quel était le nom de Paul avant sa conversion ?",
+   "options": [
+    "Saul",
+    "Silas",
+    "Simon",
+    "Étienne"
+   ],
+   "explain": "Il s’appelait Saul de Tarse avant de devenir Paul. (Actes 9:11)"
+  },
+  "en": {
+   "q": "What was Paul’s name before his conversion?",
+   "options": [
+    "Saul",
+    "Silas",
+    "Simon",
+    "Stephen"
+   ],
+   "explain": "He was called Saul of Tarsus before becoming Paul. (Acts 9:11)"
+  }
+ },
+ {
+  "id": "nt-easy-100",
+  "ref": {
+   "fr": "Actes 12:7",
+   "en": "Acts 12:7"
+  },
+  "fr": {
+   "q": "Qui fit tomber les chaînes de Pierre et le sortit de prison ?",
+   "options": [
+    "Un ange",
+    "Un soldat",
+    "Barnabas",
+    "Un tremblement de terre"
+   ],
+   "explain": "Un ange du Seigneur fit tomber les chaînes de Pierre. (Actes 12:7)"
+  },
+  "en": {
+   "q": "Who made Peter’s chains fall off and led him out of prison?",
+   "options": [
+    "An angel",
+    "A soldier",
+    "Barnabas",
+    "An earthquake"
+   ],
+   "explain": "An angel of the Lord made Peter’s chains fall off. (Acts 12:7)"
+  }
+ }
+]

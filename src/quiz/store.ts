@@ -1,0 +1,176 @@
+// Firestore persistence for the Bible quiz.
+//
+// Collections:
+//  - quizProfiles/{uid}  : a player's permanent career (points, level, badges,
+//    the set of questions they've mastered, weeks won). World-readable so the
+//    crown/weeks-won can be shown; only the owner writes.
+//  - quizWeekly/{weekId__league__uid} : adult weekly race entries, one per
+//    (week, league, player). league is a category id or 'grand'. Points here
+//    are LEARNING points (new questions only) and reset each week simply
+//    because the query filters by the current weekId.
+//  - quizKids/{kidsWeekId__uid__childSlug} : the kids league, keyed by parent
+//    account + child name; a Sunday-Saturday week; points count each question
+//    once per week (weekly-distinct) so children are rewarded for covering
+//    ground, not for replaying.
+//  - quizChampions/{...} : weekly champion snapshots, written only by Cloud
+//    Functions at week close; world-readable for the Palmarès.
+import {
+  doc, collection, onSnapshot, setDoc, getDoc, query, where, orderBy, limit,
+  getDocs, serverTimestamp, increment, writeBatch,
+} from 'firebase/firestore'
+import { db } from '../firebase'
+import {
+  emptyProfile, weekKey, kidsWeekKey, pointsFor,
+  type QuizProfile, type QuizCategory,
+} from './engine'
+
+const PROFILES = 'quizProfiles'
+const WEEKLY = 'quizWeekly'
+const KIDS = 'quizKids'
+const CHAMPIONS = 'quizChampions'
+
+// Firestore rejects `undefined` values; strip them before writing.
+function clean<T extends object>(o: T): T {
+  return Object.fromEntries(Object.entries(o).filter(([, v]) => v !== undefined)) as T
+}
+
+// A short, stable key for a child's name (accents/case/space-insensitive), so
+// the same child keeps the same weekly row even with minor typing differences.
+export function childSlug(name: string): string {
+  return (name || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '')
+    .replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 40) || 'x'
+}
+
+// ---- Career profile ---------------------------------------------------------
+export function subscribeProfile(
+  uid: string, displayName: string, avatar: string | undefined,
+  cb: (p: QuizProfile) => void,
+  onError?: (e: unknown) => void,
+): () => void {
+  return onSnapshot(doc(db, PROFILES, uid), snap => {
+    if (!snap.exists()) { cb(emptyProfile(uid, displayName, avatar)); return }
+    const d = snap.data() as Partial<QuizProfile>
+    cb({
+      ...emptyProfile(uid, displayName, avatar),
+      ...d,
+      uid,
+      badges: Array.isArray(d.badges) ? d.badges : [],
+      best: d.best && typeof d.best === 'object' ? d.best : {},
+      mastered: d.mastered && typeof d.mastered === 'object' ? d.mastered : {},
+      weeksWon: d.weeksWon || 0,
+    })
+  }, e => onError?.(e))
+}
+
+// Commit a finished ADULT game: save the career profile and add the game's
+// learning points to the weekly leaderboards (grand + each category that had
+// new questions). One batch, so it also works offline (queued until online).
+export async function commitAdultGame(
+  next: QuizProfile,
+  perCategoryLearning: Partial<Record<QuizCategory, number>>,
+  learningTotal: number,
+): Promise<void> {
+  const batch = writeBatch(db)
+  batch.set(doc(db, PROFILES, next.uid), clean({ ...next, updatedAt: serverTimestamp() }), { merge: true })
+
+  if (learningTotal > 0) {
+    const wk = weekKey()
+    const base = { weekId: wk, uid: next.uid, name: next.displayName, avatar: next.avatar, updatedAt: serverTimestamp() }
+    batch.set(doc(db, WEEKLY, `${wk}__grand__${next.uid}`),
+      clean({ ...base, league: 'grand', points: increment(learningTotal) }), { merge: true })
+    for (const [cat, pts] of Object.entries(perCategoryLearning)) {
+      if (!pts) continue
+      batch.set(doc(db, WEEKLY, `${wk}__${cat}__${next.uid}`),
+        clean({ ...base, league: cat, points: increment(pts) }), { merge: true })
+    }
+  }
+  await batch.commit()
+}
+
+// ---- Leaderboards -----------------------------------------------------------
+export interface LeaderRow { uid: string; name: string; avatar?: string; points: number; weeksWon?: number }
+
+async function fetchLeague(league: string, top: number): Promise<LeaderRow[]> {
+  const q = query(collection(db, WEEKLY),
+    where('weekId', '==', weekKey()), where('league', '==', league),
+    orderBy('points', 'desc'), limit(top))
+  const snap = await getDocs(q)
+  return snap.docs.map(d => {
+    const v = d.data() as any
+    return { uid: v.uid, name: v.name || '—', avatar: v.avatar, points: v.points ?? 0 }
+  })
+}
+
+export const fetchGrandLeaders = (top = 20) => fetchLeague('grand', top)
+export const fetchCategoryLeaders = (category: QuizCategory, top = 20) => fetchLeague(category, top)
+
+// Home banner: this week's Grand champion (null if nobody has scored yet).
+export interface TopScorer { uid: string; name: string; points: number; scope: 'week' }
+export async function fetchTopScorer(): Promise<TopScorer | null> {
+  try {
+    const rows = await fetchLeague('grand', 1)
+    if (rows[0] && rows[0].points > 0) return { uid: rows[0].uid, name: rows[0].name, points: rows[0].points, scope: 'week' }
+  } catch { /* index building or offline */ }
+  return null
+}
+
+// ---- Kids league ------------------------------------------------------------
+export interface KidRow { id: string; childName: string; parentName: string; points: number }
+
+export async function fetchKidsLeaders(top = 20): Promise<KidRow[]> {
+  const q = query(collection(db, KIDS),
+    where('kidsWeekId', '==', kidsWeekKey()), orderBy('points', 'desc'), limit(top))
+  const snap = await getDocs(q)
+  return snap.docs.map(d => {
+    const v = d.data() as any
+    return { id: d.id, childName: v.childName || '—', parentName: v.parentName || '', points: v.points ?? 0 }
+  })
+}
+
+// Commit a finished KIDS game. Points count each question once per kids-week
+// (weekly-distinct): we read the child's entry, add only questions not already
+// answered this week, and store the running set. Returns points gained.
+export async function commitKidsGame(
+  uid: string, parentName: string, childName: string, correctIds: string[],
+): Promise<number> {
+  const kw = kidsWeekKey()
+  const ref = doc(db, KIDS, `${kw}__${uid}__${childSlug(childName)}`)
+  let seen: Record<string, true> = {}
+  try {
+    const snap = await getDoc(ref)
+    if (snap.exists()) seen = (snap.data() as any).seen || {}
+  } catch { /* offline: treat as fresh; merge below still adds points */ }
+  let gained = 0
+  const addSeen: Record<string, true> = {}
+  for (const id of correctIds) {
+    if (!seen[id] && !addSeen[id]) { addSeen[id] = true; gained += pointsFor('easy') }
+  }
+  const seenUpdate: Record<string, true> = {}
+  for (const id of Object.keys(addSeen)) seenUpdate[`seen.${id}`] = true
+  await setDoc(ref, clean({
+    kidsWeekId: kw, uid, parentName, childName,
+    points: increment(gained),
+    ...seenUpdate,
+    updatedAt: serverTimestamp(),
+  }), { merge: true })
+  return gained
+}
+
+// ---- Palmarès (Hall of Fame) ------------------------------------------------
+export interface ChampionDoc {
+  id: string
+  kind: 'adult' | 'kids'
+  weekLabel?: string
+  endedAt?: any
+  grand?: { uid: string; name: string; points: number }
+  categories?: Record<string, { uid: string; name: string; points: number }>
+  winner?: { uid: string; childName: string; parentName: string; points: number }
+}
+
+export async function fetchChampions(top = 12): Promise<ChampionDoc[]> {
+  try {
+    const q = query(collection(db, CHAMPIONS), orderBy('endedAt', 'desc'), limit(top))
+    const snap = await getDocs(q)
+    return snap.docs.map(d => ({ id: d.id, ...(d.data() as any) }))
+  } catch { return [] }
+}

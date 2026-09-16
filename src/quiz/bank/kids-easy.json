@@ -1,0 +1,2702 @@
+[
+ {
+  "id": "kids-easy-001",
+  "ref": {
+   "fr": "Genèse 1",
+   "en": "Genesis 1"
+  },
+  "fr": {
+   "q": "Qui a créé le monde ?",
+   "options": [
+    "Dieu",
+    "Un roi",
+    "Les hommes",
+    "Le soleil"
+   ],
+   "explain": "C’est Dieu qui a tout créé. (Genèse 1:1)"
+  },
+  "en": {
+   "q": "Who created the world?",
+   "options": [
+    "God",
+    "A king",
+    "People",
+    "The sun"
+   ],
+   "explain": "God created everything. (Genesis 1:1)"
+  }
+ },
+ {
+  "id": "kids-easy-002",
+  "ref": {
+   "fr": "Genèse 7",
+   "en": "Genesis 7"
+  },
+  "fr": {
+   "q": "Noé a mis les animaux dans quoi ?",
+   "options": [
+    "Un grand bateau (l’arche)",
+    "Une maison",
+    "Une grotte",
+    "Un jardin"
+   ],
+   "explain": "Noé a mis les animaux dans l’arche. (Genèse 7:9)"
+  },
+  "en": {
+   "q": "Noah put the animals into what?",
+   "options": [
+    "A big boat (the ark)",
+    "A house",
+    "A cave",
+    "A garden"
+   ],
+   "explain": "Noah put the animals into the ark. (Genesis 7:9)"
+  }
+ },
+ {
+  "id": "kids-easy-003",
+  "ref": {
+   "fr": "Luc 2",
+   "en": "Luke 2"
+  },
+  "fr": {
+   "q": "Le bébé Jésus a été couché dans quoi ?",
+   "options": [
+    "Une mangeoire (crèche)",
+    "Un lit d’or",
+    "Un panier",
+    "Une barque"
+   ],
+   "explain": "On coucha Jésus dans une crèche. (Luc 2:7)"
+  },
+  "en": {
+   "q": "Baby Jesus was laid in what?",
+   "options": [
+    "A manger",
+    "A golden bed",
+    "A basket",
+    "A boat"
+   ],
+   "explain": "Jesus was laid in a manger. (Luke 2:7)"
+  }
+ },
+ {
+  "id": "kids-easy-004",
+  "ref": {
+   "fr": "1 Samuel 17",
+   "en": "1 Samuel 17"
+  },
+  "fr": {
+   "q": "Le petit David a vaincu le géant avec quoi ?",
+   "options": [
+    "Une fronde et une pierre",
+    "Une épée",
+    "Un arc",
+    "Un bâton"
+   ],
+   "explain": "David a lancé une pierre avec sa fronde. (1 Samuel 17:49)"
+  },
+  "en": {
+   "q": "Little David beat the giant with what?",
+   "options": [
+    "A sling and a stone",
+    "A sword",
+    "A bow",
+    "A stick"
+   ],
+   "explain": "David slung a stone. (1 Samuel 17:49)"
+  }
+ },
+ {
+  "id": "kids-easy-005",
+  "ref": {
+   "fr": "Jonas 1",
+   "en": "Jonah 1"
+  },
+  "fr": {
+   "q": "Jonas a été avalé par quoi ?",
+   "options": [
+    "Un grand poisson",
+    "Un lion",
+    "Un oiseau",
+    "Un serpent"
+   ],
+   "explain": "Un grand poisson a avalé Jonas. (Jonas 1:17)"
+  },
+  "en": {
+   "q": "Jonah was swallowed by what?",
+   "options": [
+    "A big fish",
+    "A lion",
+    "A bird",
+    "A snake"
+   ],
+   "explain": "A big fish swallowed Jonah. (Jonah 1:17)"
+  }
+ },
+ {
+  "id": "kids-easy-006",
+  "ref": {
+   "fr": "Daniel 6",
+   "en": "Daniel 6"
+  },
+  "fr": {
+   "q": "Daniel a été protégé parmi quels animaux ?",
+   "options": [
+    "Les lions",
+    "Les loups",
+    "Les ours",
+    "Les serpents"
+   ],
+   "explain": "Dieu a fermé la gueule des lions. (Daniel 6:22)"
+  },
+  "en": {
+   "q": "Daniel was kept safe among which animals?",
+   "options": [
+    "Lions",
+    "Wolves",
+    "Bears",
+    "Snakes"
+   ],
+   "explain": "God shut the lions’ mouths. (Daniel 6:22)"
+  }
+ },
+ {
+  "id": "kids-easy-007",
+  "ref": {
+   "fr": "Exode 2",
+   "en": "Exodus 2"
+  },
+  "fr": {
+   "q": "Le bébé Moïse a été caché dans un panier sur quel fleuve ?",
+   "options": [
+    "Le Nil",
+    "Le Jourdain",
+    "La mer Rouge",
+    "L’Euphrate"
+   ],
+   "explain": "Sa mère l’a caché sur le Nil. (Exode 2:3)"
+  },
+  "en": {
+   "q": "Baby Moses was hidden in a basket on which river?",
+   "options": [
+    "The Nile",
+    "The Jordan",
+    "The Red Sea",
+    "The Euphrates"
+   ],
+   "explain": "His mother hid him on the Nile. (Exodus 2:3)"
+  }
+ },
+ {
+  "id": "kids-easy-008",
+  "ref": {
+   "fr": "Jean 6",
+   "en": "John 6"
+  },
+  "fr": {
+   "q": "Jésus a nourri la foule avec cinq pains et combien de poissons ?",
+   "options": [
+    "Deux",
+    "Cinq",
+    "Sept",
+    "Dix"
+   ],
+   "explain": "Cinq pains et deux poissons. (Jean 6:9)"
+  },
+  "en": {
+   "q": "Jesus fed the crowd with five loaves and how many fish?",
+   "options": [
+    "Two",
+    "Five",
+    "Seven",
+    "Ten"
+   ],
+   "explain": "Five loaves and two fish. (John 6:9)"
+  }
+ },
+ {
+  "id": "kids-easy-009",
+  "ref": {
+   "fr": "Genèse 1",
+   "en": "Genesis 1"
+  },
+  "fr": {
+   "q": "En combien de jours Dieu a-t-il créé le monde ?",
+   "options": [
+    "Six jours",
+    "Trois jours",
+    "Dix jours",
+    "Un jour"
+   ],
+   "explain": "Dieu créa en six jours et se reposa le septième. (Genèse 1-2)"
+  },
+  "en": {
+   "q": "In how many days did God create the world?",
+   "options": [
+    "Six days",
+    "Three days",
+    "Ten days",
+    "One day"
+   ],
+   "explain": "God created in six days and rested on the seventh. (Genesis 1-2)"
+  }
+ },
+ {
+  "id": "kids-easy-010",
+  "ref": {
+   "fr": "Luc 2",
+   "en": "Luke 2"
+  },
+  "fr": {
+   "q": "Qui est la maman de Jésus ?",
+   "options": [
+    "Marie",
+    "Marthe",
+    "Ruth",
+    "Sara"
+   ],
+   "explain": "Marie est la mère de Jésus. (Luc 2:5-7)"
+  },
+  "en": {
+   "q": "Who is Jesus’ mother?",
+   "options": [
+    "Mary",
+    "Martha",
+    "Ruth",
+    "Sarah"
+   ],
+   "explain": "Mary is the mother of Jesus. (Luke 2:5-7)"
+  }
+ },
+ {
+  "id": "kids-easy-011",
+  "ref": {
+   "fr": "Matthieu 2",
+   "en": "Matthew 2"
+  },
+  "fr": {
+   "q": "Qui a suivi une étoile pour trouver Jésus ?",
+   "options": [
+    "Les mages",
+    "Des rois soldats",
+    "Des bergers seuls",
+    "Des pêcheurs"
+   ],
+   "explain": "Les mages ont suivi l’étoile. (Matthieu 2:2)"
+  },
+  "en": {
+   "q": "Who followed a star to find Jesus?",
+   "options": [
+    "The wise men",
+    "Soldier kings",
+    "Only shepherds",
+    "Fishermen"
+   ],
+   "explain": "The wise men followed the star. (Matthew 2:2)"
+  }
+ },
+ {
+  "id": "kids-easy-012",
+  "ref": {
+   "fr": "Genèse 6",
+   "en": "Genesis 6"
+  },
+  "fr": {
+   "q": "Combien de chaque animal Noé a-t-il gardé (au moins) ?",
+   "options": [
+    "Deux",
+    "Un",
+    "Cinq",
+    "Dix"
+   ],
+   "explain": "Deux de chaque, mâle et femelle. (Genèse 6:19)"
+  },
+  "en": {
+   "q": "How many of each animal did Noah keep (at least)?",
+   "options": [
+    "Two",
+    "One",
+    "Five",
+    "Ten"
+   ],
+   "explain": "Two of each, male and female. (Genesis 6:19)"
+  }
+ },
+ {
+  "id": "kids-easy-013",
+  "ref": {
+   "fr": "Genèse 1:3",
+   "en": "Genesis 1:3"
+  },
+  "fr": {
+   "q": "Qu’est-ce que Dieu a créé en premier ?",
+   "options": [
+    "La lumière",
+    "Les poissons",
+    "Les arbres",
+    "Les étoiles"
+   ],
+   "explain": "Dieu dit : Que la lumière soit ! (Genèse 1:3)"
+  },
+  "en": {
+   "q": "What did God create first?",
+   "options": [
+    "Light",
+    "Fish",
+    "Trees",
+    "Stars"
+   ],
+   "explain": "God said, Let there be light! (Genesis 1:3)"
+  }
+ },
+ {
+  "id": "kids-easy-014",
+  "ref": {
+   "fr": "Genèse 2:7",
+   "en": "Genesis 2:7"
+  },
+  "fr": {
+   "q": "Comment s’appelle le premier homme ?",
+   "options": [
+    "Adam",
+    "Noé",
+    "Moïse",
+    "David"
+   ],
+   "explain": "Dieu forma Adam, le premier homme. (Genèse 2:7)"
+  },
+  "en": {
+   "q": "What is the first man’s name?",
+   "options": [
+    "Adam",
+    "Noah",
+    "Moses",
+    "David"
+   ],
+   "explain": "God formed Adam, the first man. (Genesis 2:7)"
+  }
+ },
+ {
+  "id": "kids-easy-015",
+  "ref": {
+   "fr": "Genèse 3:20",
+   "en": "Genesis 3:20"
+  },
+  "fr": {
+   "q": "Comment s’appelle la première femme ?",
+   "options": [
+    "Ève",
+    "Marie",
+    "Ruth",
+    "Anne"
+   ],
+   "explain": "Ève est la première femme. (Genèse 3:20)"
+  },
+  "en": {
+   "q": "What is the first woman’s name?",
+   "options": [
+    "Eve",
+    "Mary",
+    "Ruth",
+    "Anna"
+   ],
+   "explain": "Eve is the first woman. (Genesis 3:20)"
+  }
+ },
+ {
+  "id": "kids-easy-016",
+  "ref": {
+   "fr": "Genèse 2:8",
+   "en": "Genesis 2:8"
+  },
+  "fr": {
+   "q": "Où Dieu a-t-il placé Adam et Ève ?",
+   "options": [
+    "Dans un jardin",
+    "Dans un bateau",
+    "Dans une ville",
+    "Dans le désert"
+   ],
+   "explain": "Dieu les mit dans le jardin d’Éden. (Genèse 2:8)"
+  },
+  "en": {
+   "q": "Where did God put Adam and Eve?",
+   "options": [
+    "In a garden",
+    "In a boat",
+    "In a city",
+    "In the desert"
+   ],
+   "explain": "God put them in the garden of Eden. (Genesis 2:8)"
+  }
+ },
+ {
+  "id": "kids-easy-017",
+  "ref": {
+   "fr": "Genèse 1:16",
+   "en": "Genesis 1:16"
+  },
+  "fr": {
+   "q": "Qu’est-ce que Dieu a mis dans le ciel pour la nuit ?",
+   "options": [
+    "La lune",
+    "La pluie",
+    "Le vent",
+    "Les nuages"
+   ],
+   "explain": "Dieu fit la lune pour la nuit. (Genèse 1:16)"
+  },
+  "en": {
+   "q": "What did God put in the sky for the night?",
+   "options": [
+    "The moon",
+    "The rain",
+    "The wind",
+    "The clouds"
+   ],
+   "explain": "God made the moon for the night. (Genesis 1:16)"
+  }
+ },
+ {
+  "id": "kids-easy-018",
+  "ref": {
+   "fr": "Genèse 2:2",
+   "en": "Genesis 2:2"
+  },
+  "fr": {
+   "q": "Quel jour Dieu s’est-il reposé ?",
+   "options": [
+    "Le septième jour",
+    "Le premier jour",
+    "Le troisième jour",
+    "Le cinquième jour"
+   ],
+   "explain": "Dieu se reposa le septième jour. (Genèse 2:2)"
+  },
+  "en": {
+   "q": "On which day did God rest?",
+   "options": [
+    "The seventh day",
+    "The first day",
+    "The third day",
+    "The fifth day"
+   ],
+   "explain": "God rested on the seventh day. (Genesis 2:2)"
+  }
+ },
+ {
+  "id": "kids-easy-019",
+  "ref": {
+   "fr": "Genèse 1:20",
+   "en": "Genesis 1:20"
+  },
+  "fr": {
+   "q": "Dieu a créé les oiseaux pour faire quoi ?",
+   "options": [
+    "Voler",
+    "Nager",
+    "Ramper",
+    "Courir"
+   ],
+   "explain": "Dieu créa les oiseaux qui volent. (Genèse 1:20)"
+  },
+  "en": {
+   "q": "God made the birds to do what?",
+   "options": [
+    "Fly",
+    "Swim",
+    "Crawl",
+    "Run"
+   ],
+   "explain": "God made the birds that fly. (Genesis 1:20)"
+  }
+ },
+ {
+  "id": "kids-easy-020",
+  "ref": {
+   "fr": "Genèse 3:6",
+   "en": "Genesis 3:6"
+  },
+  "fr": {
+   "q": "Qu’est-ce qu’Ève a mangé sans obéir à Dieu ?",
+   "options": [
+    "Un fruit",
+    "Du pain",
+    "Un poisson",
+    "Du miel"
+   ],
+   "explain": "Ève mangea le fruit défendu. (Genèse 3:6)"
+  },
+  "en": {
+   "q": "What did Eve eat when she did not obey God?",
+   "options": [
+    "A fruit",
+    "Bread",
+    "A fish",
+    "Honey"
+   ],
+   "explain": "Eve ate the forbidden fruit. (Genesis 3:6)"
+  }
+ },
+ {
+  "id": "kids-easy-021",
+  "ref": {
+   "fr": "Genèse 6:14",
+   "en": "Genesis 6:14"
+  },
+  "fr": {
+   "q": "Que Dieu a-t-il demandé à Noé de construire ?",
+   "options": [
+    "Une arche",
+    "Une tour",
+    "Un pont",
+    "Une maison"
+   ],
+   "explain": "Dieu dit à Noé de bâtir une arche. (Genèse 6:14)"
+  },
+  "en": {
+   "q": "What did God ask Noah to build?",
+   "options": [
+    "An ark",
+    "A tower",
+    "A bridge",
+    "A house"
+   ],
+   "explain": "God told Noah to build an ark. (Genesis 6:14)"
+  }
+ },
+ {
+  "id": "kids-easy-022",
+  "ref": {
+   "fr": "Genèse 7:12",
+   "en": "Genesis 7:12"
+  },
+  "fr": {
+   "q": "Qu’est-ce qui est tombé pendant quarante jours ?",
+   "options": [
+    "La pluie",
+    "La neige",
+    "Le sable",
+    "Les feuilles"
+   ],
+   "explain": "La pluie tomba quarante jours. (Genèse 7:12)"
+  },
+  "en": {
+   "q": "What fell for forty days?",
+   "options": [
+    "The rain",
+    "The snow",
+    "The sand",
+    "The leaves"
+   ],
+   "explain": "Rain fell for forty days. (Genesis 7:12)"
+  }
+ },
+ {
+  "id": "kids-easy-023",
+  "ref": {
+   "fr": "Genèse 8:11",
+   "en": "Genesis 8:11"
+  },
+  "fr": {
+   "q": "Quel oiseau Noé a-t-il envoyé de l’arche ?",
+   "options": [
+    "Une colombe",
+    "Un aigle",
+    "Un corbeau blanc",
+    "Une poule"
+   ],
+   "explain": "Noé envoya une colombe. (Genèse 8:11)"
+  },
+  "en": {
+   "q": "Which bird did Noah send from the ark?",
+   "options": [
+    "A dove",
+    "An eagle",
+    "A white crow",
+    "A hen"
+   ],
+   "explain": "Noah sent out a dove. (Genesis 8:11)"
+  }
+ },
+ {
+  "id": "kids-easy-024",
+  "ref": {
+   "fr": "Genèse 9:13",
+   "en": "Genesis 9:13"
+  },
+  "fr": {
+   "q": "Quel beau signe Dieu a-t-il mis dans le ciel ?",
+   "options": [
+    "Un arc-en-ciel",
+    "Une croix",
+    "Une étoile",
+    "Un cœur"
+   ],
+   "explain": "Dieu plaça un arc-en-ciel comme promesse. (Genèse 9:13)"
+  },
+  "en": {
+   "q": "What beautiful sign did God put in the sky?",
+   "options": [
+    "A rainbow",
+    "A cross",
+    "A star",
+    "A heart"
+   ],
+   "explain": "God set a rainbow as a promise. (Genesis 9:13)"
+  }
+ },
+ {
+  "id": "kids-easy-025",
+  "ref": {
+   "fr": "Genèse 8:11",
+   "en": "Genesis 8:11"
+  },
+  "fr": {
+   "q": "Que la colombe a-t-elle rapporté à Noé ?",
+   "options": [
+    "Une feuille d’olivier",
+    "Un poisson",
+    "Une fleur",
+    "Une pierre"
+   ],
+   "explain": "La colombe rapporta une feuille d’olivier. (Genèse 8:11)"
+  },
+  "en": {
+   "q": "What did the dove bring back to Noah?",
+   "options": [
+    "An olive leaf",
+    "A fish",
+    "A flower",
+    "A stone"
+   ],
+   "explain": "The dove brought back an olive leaf. (Genesis 8:11)"
+  }
+ },
+ {
+  "id": "kids-easy-026",
+  "ref": {
+   "fr": "Genèse 15:5",
+   "en": "Genesis 15:5"
+  },
+  "fr": {
+   "q": "Dieu a demandé à Abraham de compter quoi dans le ciel ?",
+   "options": [
+    "Les étoiles",
+    "Les nuages",
+    "Les oiseaux",
+    "Les gouttes"
+   ],
+   "explain": "Dieu lui dit de compter les étoiles. (Genèse 15:5)"
+  },
+  "en": {
+   "q": "God asked Abraham to count what in the sky?",
+   "options": [
+    "The stars",
+    "The clouds",
+    "The birds",
+    "The raindrops"
+   ],
+   "explain": "God told him to count the stars. (Genesis 15:5)"
+  }
+ },
+ {
+  "id": "kids-easy-027",
+  "ref": {
+   "fr": "Genèse 17:15",
+   "en": "Genesis 17:15"
+  },
+  "fr": {
+   "q": "Comment s’appelle la femme d’Abraham ?",
+   "options": [
+    "Sara",
+    "Marie",
+    "Rébecca",
+    "Léa"
+   ],
+   "explain": "La femme d’Abraham s’appelle Sara. (Genèse 17:15)"
+  },
+  "en": {
+   "q": "What is Abraham’s wife’s name?",
+   "options": [
+    "Sarah",
+    "Mary",
+    "Rebekah",
+    "Leah"
+   ],
+   "explain": "Abraham’s wife is named Sarah. (Genesis 17:15)"
+  }
+ },
+ {
+  "id": "kids-easy-028",
+  "ref": {
+   "fr": "Genèse 21:3",
+   "en": "Genesis 21:3"
+  },
+  "fr": {
+   "q": "Comment s’appelle le fils d’Abraham et Sara ?",
+   "options": [
+    "Isaac",
+    "Jacob",
+    "Joseph",
+    "Samuel"
+   ],
+   "explain": "Leur fils s’appelle Isaac. (Genèse 21:3)"
+  },
+  "en": {
+   "q": "What is the name of Abraham and Sarah’s son?",
+   "options": [
+    "Isaac",
+    "Jacob",
+    "Joseph",
+    "Samuel"
+   ],
+   "explain": "Their son is named Isaac. (Genesis 21:3)"
+  }
+ },
+ {
+  "id": "kids-easy-029",
+  "ref": {
+   "fr": "Genèse 12:1",
+   "en": "Genesis 12:1"
+  },
+  "fr": {
+   "q": "Abraham a obéi à Dieu et a quitté quoi ?",
+   "options": [
+    "Son pays",
+    "Son bateau",
+    "Son roi",
+    "Son âne"
+   ],
+   "explain": "Abraham quitta son pays pour suivre Dieu. (Genèse 12:1)"
+  },
+  "en": {
+   "q": "Abraham obeyed God and left what?",
+   "options": [
+    "His country",
+    "His boat",
+    "His king",
+    "His donkey"
+   ],
+   "explain": "Abraham left his country to follow God. (Genesis 12:1)"
+  }
+ },
+ {
+  "id": "kids-easy-030",
+  "ref": {
+   "fr": "Genèse 18:14",
+   "en": "Genesis 18:14"
+  },
+  "fr": {
+   "q": "Pour Dieu, quelque chose est-il trop difficile ?",
+   "options": [
+    "Non, rien",
+    "Oui, beaucoup",
+    "Parfois",
+    "Souvent"
+   ],
+   "explain": "Rien n’est trop difficile pour Dieu. (Genèse 18:14)"
+  },
+  "en": {
+   "q": "Is anything too hard for God?",
+   "options": [
+    "No, nothing",
+    "Yes, a lot",
+    "Sometimes",
+    "Often"
+   ],
+   "explain": "Nothing is too hard for God. (Genesis 18:14)"
+  }
+ },
+ {
+  "id": "kids-easy-031",
+  "ref": {
+   "fr": "Genèse 37:3",
+   "en": "Genesis 37:3"
+  },
+  "fr": {
+   "q": "Quel cadeau le papa de Joseph lui a-t-il donné ?",
+   "options": [
+    "Une belle tunique",
+    "Une couronne",
+    "Un cheval",
+    "Une flûte"
+   ],
+   "explain": "Son père lui donna une belle tunique. (Genèse 37:3)"
+  },
+  "en": {
+   "q": "What gift did Joseph’s father give him?",
+   "options": [
+    "A beautiful coat",
+    "A crown",
+    "A horse",
+    "A flute"
+   ],
+   "explain": "His father gave him a beautiful coat. (Genesis 37:3)"
+  }
+ },
+ {
+  "id": "kids-easy-032",
+  "ref": {
+   "fr": "Genèse 37:28",
+   "en": "Genesis 37:28"
+  },
+  "fr": {
+   "q": "Où Joseph a-t-il été emmené par des marchands ?",
+   "options": [
+    "En Égypte",
+    "À Rome",
+    "À Babylone",
+    "En Grèce"
+   ],
+   "explain": "Joseph fut emmené en Égypte. (Genèse 37:28)"
+  },
+  "en": {
+   "q": "Where did merchants take Joseph?",
+   "options": [
+    "To Egypt",
+    "To Rome",
+    "To Babylon",
+    "To Greece"
+   ],
+   "explain": "Joseph was taken to Egypt. (Genesis 37:28)"
+  }
+ },
+ {
+  "id": "kids-easy-033",
+  "ref": {
+   "fr": "Genèse 41:15",
+   "en": "Genesis 41:15"
+  },
+  "fr": {
+   "q": "Avec l’aide de Dieu, Joseph savait expliquer quoi ?",
+   "options": [
+    "Les rêves",
+    "Les chansons",
+    "Les cartes",
+    "Les nombres"
+   ],
+   "explain": "Dieu aidait Joseph à expliquer les rêves. (Genèse 41:15-16)"
+  },
+  "en": {
+   "q": "With God’s help, what could Joseph explain?",
+   "options": [
+    "Dreams",
+    "Songs",
+    "Maps",
+    "Numbers"
+   ],
+   "explain": "God helped Joseph explain dreams. (Genesis 41:15-16)"
+  }
+ },
+ {
+  "id": "kids-easy-034",
+  "ref": {
+   "fr": "Genèse 41:41",
+   "en": "Genesis 41:41"
+  },
+  "fr": {
+   "q": "En Égypte, Joseph est devenu un grand quoi ?",
+   "options": [
+    "Chef",
+    "Berger",
+    "Pêcheur",
+    "Soldat"
+   ],
+   "explain": "Joseph devint chef en Égypte. (Genèse 41:41)"
+  },
+  "en": {
+   "q": "In Egypt, Joseph became a great what?",
+   "options": [
+    "Ruler",
+    "Shepherd",
+    "Fisherman",
+    "Soldier"
+   ],
+   "explain": "Joseph became a ruler in Egypt. (Genesis 41:41)"
+  }
+ },
+ {
+  "id": "kids-easy-035",
+  "ref": {
+   "fr": "Genèse 45:15",
+   "en": "Genesis 45:15"
+  },
+  "fr": {
+   "q": "Joseph a montré un grand cœur en pardonnant à qui ?",
+   "options": [
+    "Ses frères",
+    "Le roi",
+    "Les soldats",
+    "Les voisins"
+   ],
+   "explain": "Joseph pardonna à ses frères. (Genèse 45:15)"
+  },
+  "en": {
+   "q": "Joseph showed a kind heart by forgiving whom?",
+   "options": [
+    "His brothers",
+    "The king",
+    "The soldiers",
+    "The neighbours"
+   ],
+   "explain": "Joseph forgave his brothers. (Genesis 45:15)"
+  }
+ },
+ {
+  "id": "kids-easy-036",
+  "ref": {
+   "fr": "Exode 2:10",
+   "en": "Exodus 2:10"
+  },
+  "fr": {
+   "q": "Qui a recueilli le bébé Moïse près du fleuve ?",
+   "options": [
+    "La fille du pharaon",
+    "Une bergère",
+    "Une reine d’or",
+    "Une voisine"
+   ],
+   "explain": "La fille du pharaon recueillit Moïse. (Exode 2:10)"
+  },
+  "en": {
+   "q": "Who took baby Moses from the river?",
+   "options": [
+    "Pharaoh’s daughter",
+    "A shepherdess",
+    "A golden queen",
+    "A neighbour"
+   ],
+   "explain": "Pharaoh’s daughter took Moses. (Exodus 2:10)"
+  }
+ },
+ {
+  "id": "kids-easy-037",
+  "ref": {
+   "fr": "Exode 3:2",
+   "en": "Exodus 3:2"
+  },
+  "fr": {
+   "q": "Moïse a vu un buisson en feu qui ne faisait pas quoi ?",
+   "options": [
+    "Brûler",
+    "Fleurir",
+    "Grandir",
+    "Tomber"
+   ],
+   "explain": "Le buisson brûlait sans se consumer. (Exode 3:2)"
+  },
+  "en": {
+   "q": "Moses saw a bush on fire that did not do what?",
+   "options": [
+    "Burn up",
+    "Bloom",
+    "Grow",
+    "Fall"
+   ],
+   "explain": "The bush was on fire but not burned up. (Exodus 3:2)"
+  }
+ },
+ {
+  "id": "kids-easy-038",
+  "ref": {
+   "fr": "Exode 4:14",
+   "en": "Exodus 4:14"
+  },
+  "fr": {
+   "q": "Comment s’appelle le frère de Moïse ?",
+   "options": [
+    "Aaron",
+    "Joseph",
+    "Josué",
+    "Caleb"
+   ],
+   "explain": "Aaron est le frère de Moïse. (Exode 4:14)"
+  },
+  "en": {
+   "q": "What is the name of Moses’ brother?",
+   "options": [
+    "Aaron",
+    "Joseph",
+    "Joshua",
+    "Caleb"
+   ],
+   "explain": "Aaron is Moses’ brother. (Exodus 4:14)"
+  }
+ },
+ {
+  "id": "kids-easy-039",
+  "ref": {
+   "fr": "Exode 14:21",
+   "en": "Exodus 14:21"
+  },
+  "fr": {
+   "q": "Quelle mer Dieu a-t-il ouverte pour son peuple ?",
+   "options": [
+    "La mer Rouge",
+    "La mer Morte",
+    "La mer de Galilée",
+    "La mer Noire"
+   ],
+   "explain": "Dieu ouvrit la mer Rouge. (Exode 14:21)"
+  },
+  "en": {
+   "q": "Which sea did God open for his people?",
+   "options": [
+    "The Red Sea",
+    "The Dead Sea",
+    "The Sea of Galilee",
+    "The Black Sea"
+   ],
+   "explain": "God opened the Red Sea. (Exodus 14:21)"
+  }
+ },
+ {
+  "id": "kids-easy-040",
+  "ref": {
+   "fr": "Exode 14:22",
+   "en": "Exodus 14:22"
+  },
+  "fr": {
+   "q": "Comment le peuple a-t-il traversé la mer ?",
+   "options": [
+    "À pied au sec",
+    "En bateau",
+    "À la nage",
+    "Sur un pont"
+   ],
+   "explain": "Ils passèrent à pied sec au milieu de la mer. (Exode 14:22)"
+  },
+  "en": {
+   "q": "How did the people cross the sea?",
+   "options": [
+    "On dry ground",
+    "In a boat",
+    "By swimming",
+    "On a bridge"
+   ],
+   "explain": "They walked on dry ground through the sea. (Exodus 14:22)"
+  }
+ },
+ {
+  "id": "kids-easy-041",
+  "ref": {
+   "fr": "Exode 16:15",
+   "en": "Exodus 16:15"
+  },
+  "fr": {
+   "q": "Quel pain du ciel Dieu a-t-il donné au peuple ?",
+   "options": [
+    "La manne",
+    "Le gâteau",
+    "Le riz",
+    "Le maïs"
+   ],
+   "explain": "Dieu donna la manne à manger. (Exode 16:15)"
+  },
+  "en": {
+   "q": "What bread from heaven did God give the people?",
+   "options": [
+    "Manna",
+    "Cake",
+    "Rice",
+    "Corn"
+   ],
+   "explain": "God gave them manna to eat. (Exodus 16:15)"
+  }
+ },
+ {
+  "id": "kids-easy-042",
+  "ref": {
+   "fr": "Exode 20:1",
+   "en": "Exodus 20:1"
+  },
+  "fr": {
+   "q": "Combien de commandements Dieu a-t-il donnés à Moïse ?",
+   "options": [
+    "Dix",
+    "Cinq",
+    "Deux",
+    "Vingt"
+   ],
+   "explain": "Dieu donna dix commandements. (Exode 20)"
+  },
+  "en": {
+   "q": "How many commandments did God give Moses?",
+   "options": [
+    "Ten",
+    "Five",
+    "Two",
+    "Twenty"
+   ],
+   "explain": "God gave ten commandments. (Exodus 20)"
+  }
+ },
+ {
+  "id": "kids-easy-043",
+  "ref": {
+   "fr": "1 Samuel 16:11",
+   "en": "1 Samuel 16:11"
+  },
+  "fr": {
+   "q": "Quand il était jeune, David gardait quoi ?",
+   "options": [
+    "Les brebis",
+    "Les chèvres du roi",
+    "Les chameaux",
+    "Les poules"
+   ],
+   "explain": "David gardait les brebis de son père. (1 Samuel 16:11)"
+  },
+  "en": {
+   "q": "When he was young, what did David keep?",
+   "options": [
+    "The sheep",
+    "The king’s goats",
+    "The camels",
+    "The hens"
+   ],
+   "explain": "David kept his father’s sheep. (1 Samuel 16:11)"
+  }
+ },
+ {
+  "id": "kids-easy-044",
+  "ref": {
+   "fr": "1 Samuel 16:23",
+   "en": "1 Samuel 16:23"
+  },
+  "fr": {
+   "q": "De quel instrument David jouait-il ?",
+   "options": [
+    "La harpe",
+    "Le tambour",
+    "La trompette",
+    "La flûte"
+   ],
+   "explain": "David jouait de la harpe. (1 Samuel 16:23)"
+  },
+  "en": {
+   "q": "Which instrument did David play?",
+   "options": [
+    "The harp",
+    "The drum",
+    "The trumpet",
+    "The flute"
+   ],
+   "explain": "David played the harp. (1 Samuel 16:23)"
+  }
+ },
+ {
+  "id": "kids-easy-045",
+  "ref": {
+   "fr": "1 Samuel 17:4",
+   "en": "1 Samuel 17:4"
+  },
+  "fr": {
+   "q": "Comment s’appelle le géant que David a affronté ?",
+   "options": [
+    "Goliath",
+    "Saül",
+    "Pharaon",
+    "Hérode"
+   ],
+   "explain": "Le géant s’appelait Goliath. (1 Samuel 17:4)"
+  },
+  "en": {
+   "q": "What is the name of the giant David faced?",
+   "options": [
+    "Goliath",
+    "Saul",
+    "Pharaoh",
+    "Herod"
+   ],
+   "explain": "The giant was named Goliath. (1 Samuel 17:4)"
+  }
+ },
+ {
+  "id": "kids-easy-046",
+  "ref": {
+   "fr": "2 Samuel 5:3",
+   "en": "2 Samuel 5:3"
+  },
+  "fr": {
+   "q": "Quand il fut grand, David est devenu quoi ?",
+   "options": [
+    "Roi",
+    "Berger",
+    "Pêcheur",
+    "Charpentier"
+   ],
+   "explain": "David devint roi d’Israël. (2 Samuel 5:3)"
+  },
+  "en": {
+   "q": "When he grew up, David became what?",
+   "options": [
+    "King",
+    "Shepherd",
+    "Fisherman",
+    "Carpenter"
+   ],
+   "explain": "David became king of Israel. (2 Samuel 5:3)"
+  }
+ },
+ {
+  "id": "kids-easy-047",
+  "ref": {
+   "fr": "Psaume 23:1",
+   "en": "Psalm 23:1"
+  },
+  "fr": {
+   "q": "David a dit : « L’Éternel est mon… » quoi ?",
+   "options": [
+    "Berger",
+    "Roi",
+    "Ami",
+    "Rocher"
+   ],
+   "explain": "L’Éternel est mon berger. (Psaume 23:1)"
+  },
+  "en": {
+   "q": "David said: “The Lord is my…” what?",
+   "options": [
+    "Shepherd",
+    "King",
+    "Friend",
+    "Rock"
+   ],
+   "explain": "The Lord is my shepherd. (Psalm 23:1)"
+  }
+ },
+ {
+  "id": "kids-easy-048",
+  "ref": {
+   "fr": "Daniel 6:10",
+   "en": "Daniel 6:10"
+  },
+  "fr": {
+   "q": "Qu’est-ce que Daniel aimait faire chaque jour ?",
+   "options": [
+    "Prier Dieu",
+    "Chanter fort",
+    "Courir",
+    "Dormir"
+   ],
+   "explain": "Daniel priait Dieu chaque jour. (Daniel 6:10)"
+  },
+  "en": {
+   "q": "What did Daniel love to do every day?",
+   "options": [
+    "Pray to God",
+    "Sing loudly",
+    "Run",
+    "Sleep"
+   ],
+   "explain": "Daniel prayed to God every day. (Daniel 6:10)"
+  }
+ },
+ {
+  "id": "kids-easy-049",
+  "ref": {
+   "fr": "Daniel 6:22",
+   "en": "Daniel 6:22"
+  },
+  "fr": {
+   "q": "Qui a fermé la gueule des lions pour Daniel ?",
+   "options": [
+    "Un ange de Dieu",
+    "Un gardien",
+    "Le roi",
+    "Un lion gentil"
+   ],
+   "explain": "Dieu envoya son ange fermer la gueule des lions. (Daniel 6:22)"
+  },
+  "en": {
+   "q": "Who shut the lions’ mouths for Daniel?",
+   "options": [
+    "An angel of God",
+    "A guard",
+    "The king",
+    "A kind lion"
+   ],
+   "explain": "God sent his angel to shut the lions’ mouths. (Daniel 6:22)"
+  }
+ },
+ {
+  "id": "kids-easy-050",
+  "ref": {
+   "fr": "Daniel 3:20",
+   "en": "Daniel 3:20"
+  },
+  "fr": {
+   "q": "Où les trois amis de Daniel ont-ils été jetés ?",
+   "options": [
+    "Dans un four de feu",
+    "Dans un puits",
+    "Dans la mer",
+    "Dans une grotte"
+   ],
+   "explain": "Les trois amis furent jetés dans la fournaise. (Daniel 3:20)"
+  },
+  "en": {
+   "q": "Where were Daniel’s three friends thrown?",
+   "options": [
+    "Into a fiery furnace",
+    "Into a well",
+    "Into the sea",
+    "Into a cave"
+   ],
+   "explain": "The three friends were thrown into the furnace. (Daniel 3:20)"
+  }
+ },
+ {
+  "id": "kids-easy-051",
+  "ref": {
+   "fr": "Daniel 3:25",
+   "en": "Daniel 3:25"
+  },
+  "fr": {
+   "q": "Qui protégeait les trois amis dans le feu ?",
+   "options": [
+    "Dieu était avec eux",
+    "Un pompier",
+    "Le vent",
+    "Le roi"
+   ],
+   "explain": "Un quatrième, semblable à un fils de Dieu, était là. (Daniel 3:25)"
+  },
+  "en": {
+   "q": "Who kept the three friends safe in the fire?",
+   "options": [
+    "God was with them",
+    "A firefighter",
+    "The wind",
+    "The king"
+   ],
+   "explain": "A fourth, like a son of God, was with them. (Daniel 3:25)"
+  }
+ },
+ {
+  "id": "kids-easy-052",
+  "ref": {
+   "fr": "Jonas 1:2",
+   "en": "Jonah 1:2"
+  },
+  "fr": {
+   "q": "Dans quelle ville Dieu a-t-il envoyé Jonas ?",
+   "options": [
+    "Ninive",
+    "Jérusalem",
+    "Bethléem",
+    "Le Caire"
+   ],
+   "explain": "Dieu envoya Jonas à Ninive. (Jonas 1:2)"
+  },
+  "en": {
+   "q": "To which city did God send Jonah?",
+   "options": [
+    "Nineveh",
+    "Jerusalem",
+    "Bethlehem",
+    "Cairo"
+   ],
+   "explain": "God sent Jonah to Nineveh. (Jonah 1:2)"
+  }
+ },
+ {
+  "id": "kids-easy-053",
+  "ref": {
+   "fr": "Jonas 1:3",
+   "en": "Jonah 1:3"
+  },
+  "fr": {
+   "q": "Pour fuir, Jonas est monté sur quoi ?",
+   "options": [
+    "Un bateau",
+    "Un âne",
+    "Un char",
+    "Un chameau"
+   ],
+   "explain": "Jonas monta sur un bateau pour fuir. (Jonas 1:3)"
+  },
+  "en": {
+   "q": "To run away, Jonah got onto what?",
+   "options": [
+    "A ship",
+    "A donkey",
+    "A chariot",
+    "A camel"
+   ],
+   "explain": "Jonah got on a ship to run away. (Jonah 1:3)"
+  }
+ },
+ {
+  "id": "kids-easy-054",
+  "ref": {
+   "fr": "Jonas 1:17",
+   "en": "Jonah 1:17"
+  },
+  "fr": {
+   "q": "Combien de jours Jonas est-il resté dans le poisson ?",
+   "options": [
+    "Trois jours",
+    "Un jour",
+    "Sept jours",
+    "Dix jours"
+   ],
+   "explain": "Jonas resta trois jours dans le poisson. (Jonas 1:17)"
+  },
+  "en": {
+   "q": "How many days was Jonah inside the fish?",
+   "options": [
+    "Three days",
+    "One day",
+    "Seven days",
+    "Ten days"
+   ],
+   "explain": "Jonah was three days inside the fish. (Jonah 1:17)"
+  }
+ },
+ {
+  "id": "kids-easy-055",
+  "ref": {
+   "fr": "Jonas 2:1",
+   "en": "Jonah 2:1"
+  },
+  "fr": {
+   "q": "Qu’a fait Jonas dans le ventre du poisson ?",
+   "options": [
+    "Il a prié Dieu",
+    "Il a dormi",
+    "Il a chanté",
+    "Il a pleuré"
+   ],
+   "explain": "Jonas pria Dieu dans le poisson. (Jonas 2:1)"
+  },
+  "en": {
+   "q": "What did Jonah do inside the fish?",
+   "options": [
+    "He prayed to God",
+    "He slept",
+    "He sang",
+    "He cried"
+   ],
+   "explain": "Jonah prayed to God inside the fish. (Jonah 2:1)"
+  }
+ },
+ {
+  "id": "kids-easy-056",
+  "ref": {
+   "fr": "Jonas 3:5",
+   "en": "Jonah 3:5"
+  },
+  "fr": {
+   "q": "Après le message de Jonas, qu’ont fait les gens de Ninive ?",
+   "options": [
+    "Ils se sont tournés vers Dieu",
+    "Ils ont fui",
+    "Ils ont ri",
+    "Ils ont dormi"
+   ],
+   "explain": "Les gens de Ninive crurent Dieu. (Jonas 3:5)"
+  },
+  "en": {
+   "q": "After Jonah’s message, what did Nineveh’s people do?",
+   "options": [
+    "They turned to God",
+    "They ran away",
+    "They laughed",
+    "They slept"
+   ],
+   "explain": "The people of Nineveh believed God. (Jonah 3:5)"
+  }
+ },
+ {
+  "id": "kids-easy-057",
+  "ref": {
+   "fr": "Luc 2:4",
+   "en": "Luke 2:4"
+  },
+  "fr": {
+   "q": "Le petit Jésus est né dans quelle ville ?",
+   "options": [
+    "Bethléem",
+    "Nazareth",
+    "Jérusalem",
+    "Jéricho"
+   ],
+   "explain": "Jésus naquit à Bethléem. (Luc 2:4-7)"
+  },
+  "en": {
+   "q": "In which town was little Jesus born?",
+   "options": [
+    "Bethlehem",
+    "Nazareth",
+    "Jerusalem",
+    "Jericho"
+   ],
+   "explain": "Jesus was born in Bethlehem. (Luke 2:4-7)"
+  }
+ },
+ {
+  "id": "kids-easy-058",
+  "ref": {
+   "fr": "Luc 1:26",
+   "en": "Luke 1:26"
+  },
+  "fr": {
+   "q": "Comment s’appelle l’ange qui a parlé à Marie ?",
+   "options": [
+    "Gabriel",
+    "Michel",
+    "Pierre",
+    "Jean"
+   ],
+   "explain": "L’ange Gabriel parla à Marie. (Luc 1:26)"
+  },
+  "en": {
+   "q": "What is the name of the angel who spoke to Mary?",
+   "options": [
+    "Gabriel",
+    "Michael",
+    "Peter",
+    "John"
+   ],
+   "explain": "The angel Gabriel spoke to Mary. (Luke 1:26)"
+  }
+ },
+ {
+  "id": "kids-easy-059",
+  "ref": {
+   "fr": "Matthieu 1:24",
+   "en": "Matthew 1:24"
+  },
+  "fr": {
+   "q": "Comment s’appelle le papa de Jésus sur la terre ?",
+   "options": [
+    "Joseph",
+    "Zacharie",
+    "Simon",
+    "André"
+   ],
+   "explain": "Joseph prit soin de Jésus. (Matthieu 1:24-25)"
+  },
+  "en": {
+   "q": "What is the name of Jesus’ father on earth?",
+   "options": [
+    "Joseph",
+    "Zechariah",
+    "Simon",
+    "Andrew"
+   ],
+   "explain": "Joseph cared for Jesus. (Matthew 1:24-25)"
+  }
+ },
+ {
+  "id": "kids-easy-060",
+  "ref": {
+   "fr": "Luc 2:8",
+   "en": "Luke 2:8"
+  },
+  "fr": {
+   "q": "Qui gardait les troupeaux la nuit de la naissance de Jésus ?",
+   "options": [
+    "Des bergers",
+    "Des rois",
+    "Des soldats",
+    "Des marchands"
+   ],
+   "explain": "Des bergers gardaient leurs troupeaux la nuit. (Luc 2:8)"
+  },
+  "en": {
+   "q": "Who watched their flocks the night Jesus was born?",
+   "options": [
+    "Shepherds",
+    "Kings",
+    "Soldiers",
+    "Merchants"
+   ],
+   "explain": "Shepherds were watching their flocks at night. (Luke 2:8)"
+  }
+ },
+ {
+  "id": "kids-easy-061",
+  "ref": {
+   "fr": "Luc 2:13",
+   "en": "Luke 2:13"
+  },
+  "fr": {
+   "q": "Qui a chanté dans le ciel pour les bergers ?",
+   "options": [
+    "Des anges",
+    "Des oiseaux",
+    "Des rois",
+    "Des enfants"
+   ],
+   "explain": "Une multitude d’anges louait Dieu. (Luc 2:13)"
+  },
+  "en": {
+   "q": "Who sang in the sky for the shepherds?",
+   "options": [
+    "Angels",
+    "Birds",
+    "Kings",
+    "Children"
+   ],
+   "explain": "A crowd of angels praised God. (Luke 2:13)"
+  }
+ },
+ {
+  "id": "kids-easy-062",
+  "ref": {
+   "fr": "Matthieu 2:11",
+   "en": "Matthew 2:11"
+  },
+  "fr": {
+   "q": "Quel beau cadeau les mages ont-ils offert à Jésus ?",
+   "options": [
+    "De l’or",
+    "Du pain",
+    "Un jouet",
+    "Un livre"
+   ],
+   "explain": "Les mages offrirent de l’or à Jésus. (Matthieu 2:11)"
+  },
+  "en": {
+   "q": "What beautiful gift did the wise men give Jesus?",
+   "options": [
+    "Gold",
+    "Bread",
+    "A toy",
+    "A book"
+   ],
+   "explain": "The wise men gave Jesus gold. (Matthew 2:11)"
+  }
+ },
+ {
+  "id": "kids-easy-063",
+  "ref": {
+   "fr": "Matthieu 1:21",
+   "en": "Matthew 1:21"
+  },
+  "fr": {
+   "q": "Quel nom l’ange a-t-il dit de donner au bébé ?",
+   "options": [
+    "Jésus",
+    "Jean",
+    "Jacques",
+    "Isaac"
+   ],
+   "explain": "Tu lui donneras le nom de Jésus. (Matthieu 1:21)"
+  },
+  "en": {
+   "q": "What name did the angel say to give the baby?",
+   "options": [
+    "Jesus",
+    "John",
+    "James",
+    "Isaac"
+   ],
+   "explain": "You shall call his name Jesus. (Matthew 1:21)"
+  }
+ },
+ {
+  "id": "kids-easy-064",
+  "ref": {
+   "fr": "Luc 2:51",
+   "en": "Luke 2:51"
+  },
+  "fr": {
+   "q": "Le petit Jésus a passé son enfance dans quelle ville ?",
+   "options": [
+    "Nazareth",
+    "Bethléem",
+    "Le Caire",
+    "Rome"
+   ],
+   "explain": "Jésus grandit à Nazareth. (Luc 2:51)"
+  },
+  "en": {
+   "q": "In which town did little Jesus spend his childhood?",
+   "options": [
+    "Nazareth",
+    "Bethlehem",
+    "Cairo",
+    "Rome"
+   ],
+   "explain": "Jesus grew up in Nazareth. (Luke 2:51)"
+  }
+ },
+ {
+  "id": "kids-easy-065",
+  "ref": {
+   "fr": "Marc 3:14",
+   "en": "Mark 3:14"
+  },
+  "fr": {
+   "q": "Combien de disciples Jésus a-t-il choisis ?",
+   "options": [
+    "Douze",
+    "Trois",
+    "Sept",
+    "Vingt"
+   ],
+   "explain": "Jésus choisit douze disciples. (Marc 3:14)"
+  },
+  "en": {
+   "q": "How many disciples did Jesus choose?",
+   "options": [
+    "Twelve",
+    "Three",
+    "Seven",
+    "Twenty"
+   ],
+   "explain": "Jesus chose twelve disciples. (Mark 3:14)"
+  }
+ },
+ {
+  "id": "kids-easy-066",
+  "ref": {
+   "fr": "Matthieu 14:25",
+   "en": "Matthew 14:25"
+  },
+  "fr": {
+   "q": "Sur quoi Jésus a-t-il marché ?",
+   "options": [
+    "Sur l’eau",
+    "Sur le sable",
+    "Sur un pont",
+    "Sur un mur"
+   ],
+   "explain": "Jésus marcha sur l’eau. (Matthieu 14:25)"
+  },
+  "en": {
+   "q": "What did Jesus walk on?",
+   "options": [
+    "On the water",
+    "On the sand",
+    "On a bridge",
+    "On a wall"
+   ],
+   "explain": "Jesus walked on the water. (Matthew 14:25)"
+  }
+ },
+ {
+  "id": "kids-easy-067",
+  "ref": {
+   "fr": "Marc 4:39",
+   "en": "Mark 4:39"
+  },
+  "fr": {
+   "q": "Jésus a calmé quoi d’une seule parole ?",
+   "options": [
+    "La tempête",
+    "Un lion",
+    "Un feu",
+    "Un géant"
+   ],
+   "explain": "Jésus dit à la tempête de se taire. (Marc 4:39)"
+  },
+  "en": {
+   "q": "What did Jesus calm with just a word?",
+   "options": [
+    "The storm",
+    "A lion",
+    "A fire",
+    "A giant"
+   ],
+   "explain": "Jesus told the storm to be still. (Mark 4:39)"
+  }
+ },
+ {
+  "id": "kids-easy-068",
+  "ref": {
+   "fr": "Jean 2:9",
+   "en": "John 2:9"
+  },
+  "fr": {
+   "q": "À une fête, Jésus a changé l’eau en quoi ?",
+   "options": [
+    "En vin",
+    "En miel",
+    "En huile",
+    "En lait"
+   ],
+   "explain": "Jésus changea l’eau en vin. (Jean 2:9)"
+  },
+  "en": {
+   "q": "At a feast, Jesus turned water into what?",
+   "options": [
+    "Into wine",
+    "Into honey",
+    "Into oil",
+    "Into milk"
+   ],
+   "explain": "Jesus turned water into wine. (John 2:9)"
+  }
+ },
+ {
+  "id": "kids-easy-069",
+  "ref": {
+   "fr": "Jean 9:7",
+   "en": "John 9:7"
+  },
+  "fr": {
+   "q": "Jésus a guéri un homme qui ne pouvait pas quoi ?",
+   "options": [
+    "Voir",
+    "Entendre",
+    "Parler",
+    "Manger"
+   ],
+   "explain": "L’aveugle put voir grâce à Jésus. (Jean 9:7)"
+  },
+  "en": {
+   "q": "Jesus healed a man who could not do what?",
+   "options": [
+    "See",
+    "Hear",
+    "Speak",
+    "Eat"
+   ],
+   "explain": "The blind man could see because of Jesus. (John 9:7)"
+  }
+ },
+ {
+  "id": "kids-easy-070",
+  "ref": {
+   "fr": "Jean 11:43",
+   "en": "John 11:43"
+  },
+  "fr": {
+   "q": "Quel ami Jésus a-t-il ramené à la vie ?",
+   "options": [
+    "Lazare",
+    "Thomas",
+    "Philippe",
+    "Matthieu"
+   ],
+   "explain": "Jésus dit : Lazare, sors ! (Jean 11:43)"
+  },
+  "en": {
+   "q": "Which friend did Jesus bring back to life?",
+   "options": [
+    "Lazarus",
+    "Thomas",
+    "Philip",
+    "Matthew"
+   ],
+   "explain": "Jesus said, Lazarus, come out! (John 11:43)"
+  }
+ },
+ {
+  "id": "kids-easy-071",
+  "ref": {
+   "fr": "Luc 10:38",
+   "en": "Luke 10:38"
+  },
+  "fr": {
+   "q": "Quelle amie a reçu Jésus dans sa maison ?",
+   "options": [
+    "Marthe",
+    "Sara",
+    "Rachel",
+    "Débora"
+   ],
+   "explain": "Marthe reçut Jésus dans sa maison. (Luc 10:38)"
+  },
+  "en": {
+   "q": "Which friend welcomed Jesus into her house?",
+   "options": [
+    "Martha",
+    "Sarah",
+    "Rachel",
+    "Deborah"
+   ],
+   "explain": "Martha welcomed Jesus into her home. (Luke 10:38)"
+  }
+ },
+ {
+  "id": "kids-easy-072",
+  "ref": {
+   "fr": "Luc 19:4",
+   "en": "Luke 19:4"
+  },
+  "fr": {
+   "q": "Le petit Zachée est monté où pour voir Jésus ?",
+   "options": [
+    "Dans un arbre",
+    "Sur un toit",
+    "Sur un mur",
+    "Sur un âne"
+   ],
+   "explain": "Zachée monta sur un arbre. (Luc 19:4)"
+  },
+  "en": {
+   "q": "Where did little Zacchaeus climb to see Jesus?",
+   "options": [
+    "Into a tree",
+    "Onto a roof",
+    "Onto a wall",
+    "Onto a donkey"
+   ],
+   "explain": "Zacchaeus climbed up a tree. (Luke 19:4)"
+  }
+ },
+ {
+  "id": "kids-easy-073",
+  "ref": {
+   "fr": "Marc 10:14",
+   "en": "Mark 10:14"
+  },
+  "fr": {
+   "q": "Jésus a dit : « Laissez venir à moi les… » qui ?",
+   "options": [
+    "Petits enfants",
+    "Grands rois",
+    "Riches marchands",
+    "Vieux soldats"
+   ],
+   "explain": "Laissez venir à moi les petits enfants. (Marc 10:14)"
+  },
+  "en": {
+   "q": "Jesus said: “Let the little… come to me.” Who?",
+   "options": [
+    "Little children",
+    "Great kings",
+    "Rich merchants",
+    "Old soldiers"
+   ],
+   "explain": "Let the little children come to me. (Mark 10:14)"
+  }
+ },
+ {
+  "id": "kids-easy-074",
+  "ref": {
+   "fr": "Jean 10:11",
+   "en": "John 10:11"
+  },
+  "fr": {
+   "q": "Jésus dit qu’il est le bon quoi ?",
+   "options": [
+    "Berger",
+    "Roi",
+    "Pêcheur",
+    "Maître"
+   ],
+   "explain": "Je suis le bon berger. (Jean 10:11)"
+  },
+  "en": {
+   "q": "Jesus says he is the good what?",
+   "options": [
+    "Shepherd",
+    "King",
+    "Fisherman",
+    "Teacher"
+   ],
+   "explain": "I am the good shepherd. (John 10:11)"
+  }
+ },
+ {
+  "id": "kids-easy-075",
+  "ref": {
+   "fr": "Matthieu 4:18",
+   "en": "Matthew 4:18"
+  },
+  "fr": {
+   "q": "Avant de suivre Jésus, Pierre était quoi ?",
+   "options": [
+    "Pêcheur",
+    "Berger",
+    "Roi",
+    "Boulanger"
+   ],
+   "explain": "Pierre était pêcheur avant de suivre Jésus. (Matthieu 4:18)"
+  },
+  "en": {
+   "q": "Before following Jesus, Peter was what?",
+   "options": [
+    "A fisherman",
+    "A shepherd",
+    "A king",
+    "A baker"
+   ],
+   "explain": "Peter was a fisherman before following Jesus. (Matthew 4:18)"
+  }
+ },
+ {
+  "id": "kids-easy-076",
+  "ref": {
+   "fr": "Marc 1:41",
+   "en": "Mark 1:41"
+  },
+  "fr": {
+   "q": "Jésus a touché un homme malade et l’a rendu quoi ?",
+   "options": [
+    "Guéri",
+    "Riche",
+    "Grand",
+    "Fort seulement"
+   ],
+   "explain": "Jésus le toucha et il fut guéri. (Marc 1:41-42)"
+  },
+  "en": {
+   "q": "Jesus touched a sick man and made him what?",
+   "options": [
+    "Well",
+    "Rich",
+    "Tall",
+    "Only strong"
+   ],
+   "explain": "Jesus touched him and he was healed. (Mark 1:41-42)"
+  }
+ },
+ {
+  "id": "kids-easy-077",
+  "ref": {
+   "fr": "Marc 5:41",
+   "en": "Mark 5:41"
+  },
+  "fr": {
+   "q": "Jésus a dit à une petite fille endormie de faire quoi ?",
+   "options": [
+    "De se lever",
+    "De chanter",
+    "De manger",
+    "De courir"
+   ],
+   "explain": "Jésus dit : Jeune fille, lève-toi ! (Marc 5:41)"
+  },
+  "en": {
+   "q": "Jesus told a sleeping little girl to do what?",
+   "options": [
+    "Get up",
+    "Sing",
+    "Eat",
+    "Run"
+   ],
+   "explain": "Jesus said, Little girl, get up! (Mark 5:41)"
+  }
+ },
+ {
+  "id": "kids-easy-078",
+  "ref": {
+   "fr": "Marc 4:2",
+   "en": "Mark 4:2"
+  },
+  "fr": {
+   "q": "Comment appelle-t-on les belles histoires que Jésus racontait ?",
+   "options": [
+    "Des paraboles",
+    "Des chansons",
+    "Des poèmes",
+    "Des lettres"
+   ],
+   "explain": "Jésus enseignait par des paraboles. (Marc 4:2)"
+  },
+  "en": {
+   "q": "What do we call the lovely stories Jesus told?",
+   "options": [
+    "Parables",
+    "Songs",
+    "Poems",
+    "Letters"
+   ],
+   "explain": "Jesus taught in parables. (Mark 4:2)"
+  }
+ },
+ {
+  "id": "kids-easy-079",
+  "ref": {
+   "fr": "Luc 15:4",
+   "en": "Luke 15:4"
+  },
+  "fr": {
+   "q": "Dans l’histoire, le berger est parti chercher quoi ?",
+   "options": [
+    "Sa brebis perdue",
+    "Son âne",
+    "Sa maison",
+    "Son argent"
+   ],
+   "explain": "Le berger cherche la brebis perdue. (Luc 15:4)"
+  },
+  "en": {
+   "q": "In the story, the shepherd went to look for what?",
+   "options": [
+    "His lost sheep",
+    "His donkey",
+    "His house",
+    "His money"
+   ],
+   "explain": "The shepherd looks for the lost sheep. (Luke 15:4)"
+  }
+ },
+ {
+  "id": "kids-easy-080",
+  "ref": {
+   "fr": "Jean 8:12",
+   "en": "John 8:12"
+  },
+  "fr": {
+   "q": "Jésus a dit : « Je suis la lumière du… » quoi ?",
+   "options": [
+    "Monde",
+    "Soleil",
+    "Ciel",
+    "Jour"
+   ],
+   "explain": "Je suis la lumière du monde. (Jean 8:12)"
+  },
+  "en": {
+   "q": "Jesus said: “I am the light of the…” what?",
+   "options": [
+    "World",
+    "Sun",
+    "Sky",
+    "Day"
+   ],
+   "explain": "I am the light of the world. (John 8:12)"
+  }
+ },
+ {
+  "id": "kids-easy-081",
+  "ref": {
+   "fr": "Marc 2:4",
+   "en": "Mark 2:4"
+  },
+  "fr": {
+   "q": "Des amis ont descendu un homme par le toit pour le faire quoi ?",
+   "options": [
+    "Guérir",
+    "Chanter",
+    "Manger",
+    "Dormir"
+   ],
+   "explain": "Ils le descendirent devant Jésus pour être guéri. (Marc 2:4-5)"
+  },
+  "en": {
+   "q": "Friends lowered a man through the roof so he could be what?",
+   "options": [
+    "Healed",
+    "Singing",
+    "Fed",
+    "Asleep"
+   ],
+   "explain": "They lowered him to Jesus to be healed. (Mark 2:4-5)"
+  }
+ },
+ {
+  "id": "kids-easy-082",
+  "ref": {
+   "fr": "Matthieu 21:7",
+   "en": "Matthew 21:7"
+  },
+  "fr": {
+   "q": "Sur quel animal Jésus est-il entré dans Jérusalem ?",
+   "options": [
+    "Un ânon",
+    "Un cheval",
+    "Un chameau",
+    "Un éléphant"
+   ],
+   "explain": "Jésus entra monté sur un ânon. (Matthieu 21:7)"
+  },
+  "en": {
+   "q": "On which animal did Jesus ride into Jerusalem?",
+   "options": [
+    "A donkey",
+    "A horse",
+    "A camel",
+    "An elephant"
+   ],
+   "explain": "Jesus rode in on a donkey. (Matthew 21:7)"
+  }
+ },
+ {
+  "id": "kids-easy-083",
+  "ref": {
+   "fr": "Matthieu 4:23",
+   "en": "Matthew 4:23"
+  },
+  "fr": {
+   "q": "Jésus a montré son amour en guérissant les gens qui étaient quoi ?",
+   "options": [
+    "Malades",
+    "Riches",
+    "Grands",
+    "Rois"
+   ],
+   "explain": "Jésus guérissait les malades. (Matthieu 4:23)"
+  },
+  "en": {
+   "q": "Jesus showed his love by healing people who were what?",
+   "options": [
+    "Sick",
+    "Rich",
+    "Tall",
+    "Kings"
+   ],
+   "explain": "Jesus healed the sick. (Matthew 4:23)"
+  }
+ },
+ {
+  "id": "kids-easy-084",
+  "ref": {
+   "fr": "Matthieu 22:37",
+   "en": "Matthew 22:37"
+  },
+  "fr": {
+   "q": "Jésus a dit d’aimer Dieu de tout notre quoi ?",
+   "options": [
+    "Cœur",
+    "Argent",
+    "Temps libre",
+    "Jardin"
+   ],
+   "explain": "Tu aimeras Dieu de tout ton cœur. (Matthieu 22:37)"
+  },
+  "en": {
+   "q": "Jesus said to love God with all our what?",
+   "options": [
+    "Heart",
+    "Money",
+    "Free time",
+    "Garden"
+   ],
+   "explain": "Love God with all your heart. (Matthew 22:37)"
+  }
+ },
+ {
+  "id": "kids-easy-085",
+  "ref": {
+   "fr": "Matthieu 5:44",
+   "en": "Matthew 5:44"
+  },
+  "fr": {
+   "q": "Jésus a dit d’aimer même qui ?",
+   "options": [
+    "Nos ennemis",
+    "Nos jouets",
+    "Les rois",
+    "L’argent"
+   ],
+   "explain": "Aimez vos ennemis. (Matthieu 5:44)"
+  },
+  "en": {
+   "q": "Jesus said to love even whom?",
+   "options": [
+    "Our enemies",
+    "Our toys",
+    "The kings",
+    "The money"
+   ],
+   "explain": "Love your enemies. (Matthew 5:44)"
+  }
+ },
+ {
+  "id": "kids-easy-086",
+  "ref": {
+   "fr": "Jean 19:18",
+   "en": "John 19:18"
+  },
+  "fr": {
+   "q": "Sur quoi Jésus est-il mort pour nous ?",
+   "options": [
+    "Une croix",
+    "Un bateau",
+    "Un rocher",
+    "Une montagne"
+   ],
+   "explain": "Jésus mourut sur une croix. (Jean 19:18)"
+  },
+  "en": {
+   "q": "On what did Jesus die for us?",
+   "options": [
+    "A cross",
+    "A boat",
+    "A rock",
+    "A mountain"
+   ],
+   "explain": "Jesus died on a cross. (John 19:18)"
+  }
+ },
+ {
+  "id": "kids-easy-087",
+  "ref": {
+   "fr": "Luc 24:6",
+   "en": "Luke 24:6"
+  },
+  "fr": {
+   "q": "Après trois jours, qu’est-il arrivé de merveilleux à Jésus ?",
+   "options": [
+    "Il est revenu à la vie",
+    "Il a dormi",
+    "Il a voyagé",
+    "Il a mangé"
+   ],
+   "explain": "Il n’est pas ici, il est ressuscité. (Luc 24:6)"
+  },
+  "en": {
+   "q": "After three days, what wonderful thing happened to Jesus?",
+   "options": [
+    "He came back to life",
+    "He slept",
+    "He travelled",
+    "He ate"
+   ],
+   "explain": "He is not here, he is risen. (Luke 24:6)"
+  }
+ },
+ {
+  "id": "kids-easy-088",
+  "ref": {
+   "fr": "Matthieu 28:2",
+   "en": "Matthew 28:2"
+  },
+  "fr": {
+   "q": "Qui a roulé la pierre du tombeau de Jésus ?",
+   "options": [
+    "Un ange",
+    "Un soldat",
+    "Un jardinier",
+    "Un roi"
+   ],
+   "explain": "Un ange roula la pierre. (Matthieu 28:2)"
+  },
+  "en": {
+   "q": "Who rolled away the stone of Jesus’ tomb?",
+   "options": [
+    "An angel",
+    "A soldier",
+    "A gardener",
+    "A king"
+   ],
+   "explain": "An angel rolled away the stone. (Matthew 28:2)"
+  }
+ },
+ {
+  "id": "kids-easy-089",
+  "ref": {
+   "fr": "Luc 24:3",
+   "en": "Luke 24:3"
+  },
+  "fr": {
+   "q": "Comment ont-ils trouvé le tombeau de Jésus le matin de Pâques ?",
+   "options": [
+    "Vide",
+    "Fermé à clé",
+    "Plein d’or",
+    "Sous l’eau"
+   ],
+   "explain": "Le tombeau était vide. (Luc 24:3)"
+  },
+  "en": {
+   "q": "How did they find Jesus’ tomb on Easter morning?",
+   "options": [
+    "Empty",
+    "Locked shut",
+    "Full of gold",
+    "Under water"
+   ],
+   "explain": "The tomb was empty. (Luke 24:3)"
+  }
+ },
+ {
+  "id": "kids-easy-090",
+  "ref": {
+   "fr": "Jean 20:1",
+   "en": "John 20:1"
+  },
+  "fr": {
+   "q": "Qui est venue au tombeau très tôt le matin de Pâques ?",
+   "options": [
+    "Marie de Magdala",
+    "La reine de Saba",
+    "Débora",
+    "Rachel"
+   ],
+   "explain": "Marie de Magdala vint au tombeau. (Jean 20:1)"
+  },
+  "en": {
+   "q": "Who came to the tomb early on Easter morning?",
+   "options": [
+    "Mary Magdalene",
+    "The queen of Sheba",
+    "Deborah",
+    "Rachel"
+   ],
+   "explain": "Mary Magdalene came to the tomb. (John 20:1)"
+  }
+ },
+ {
+  "id": "kids-easy-091",
+  "ref": {
+   "fr": "Marc 16:9",
+   "en": "Mark 16:9"
+  },
+  "fr": {
+   "q": "Quel jour de la semaine Jésus est-il ressuscité ?",
+   "options": [
+    "Le premier jour",
+    "Le quatrième jour",
+    "Le sixième jour",
+    "Le septième jour"
+   ],
+   "explain": "Jésus ressuscita le premier jour de la semaine. (Marc 16:9)"
+  },
+  "en": {
+   "q": "On which day of the week did Jesus rise?",
+   "options": [
+    "The first day",
+    "The fourth day",
+    "The sixth day",
+    "The seventh day"
+   ],
+   "explain": "Jesus rose on the first day of the week. (Mark 16:9)"
+  }
+ },
+ {
+  "id": "kids-easy-092",
+  "ref": {
+   "fr": "Actes 1:9",
+   "en": "Acts 1:9"
+  },
+  "fr": {
+   "q": "Après Pâques, où Jésus est-il monté ?",
+   "options": [
+    "Au ciel",
+    "Sur une montagne",
+    "Dans un bateau",
+    "Dans un temple"
+   ],
+   "explain": "Jésus fut élevé au ciel. (Actes 1:9)"
+  },
+  "en": {
+   "q": "After Easter, where did Jesus go up to?",
+   "options": [
+    "To heaven",
+    "Onto a mountain",
+    "Into a boat",
+    "Into a temple"
+   ],
+   "explain": "Jesus was taken up to heaven. (Acts 1:9)"
+  }
+ },
+ {
+  "id": "kids-easy-093",
+  "ref": {
+   "fr": "Jean 3:16",
+   "en": "John 3:16"
+  },
+  "fr": {
+   "q": "Dieu nous aime tant qu’il a donné qui ?",
+   "options": [
+    "Son Fils Jésus",
+    "Un trésor",
+    "Une maison",
+    "Un jardin"
+   ],
+   "explain": "Dieu a tant aimé qu’il a donné son Fils. (Jean 3:16)"
+  },
+  "en": {
+   "q": "God loves us so much that he gave whom?",
+   "options": [
+    "His Son Jesus",
+    "A treasure",
+    "A house",
+    "A garden"
+   ],
+   "explain": "God so loved that he gave his Son. (John 3:16)"
+  }
+ },
+ {
+  "id": "kids-easy-094",
+  "ref": {
+   "fr": "Matthieu 6:9",
+   "en": "Matthew 6:9"
+  },
+  "fr": {
+   "q": "Comment Jésus nous a-t-il appris à parler à Dieu ?",
+   "options": [
+    "En priant",
+    "En courant",
+    "En dormant",
+    "En chantant fort"
+   ],
+   "explain": "Jésus nous apprit à prier. (Matthieu 6:9)"
+  },
+  "en": {
+   "q": "How did Jesus teach us to talk to God?",
+   "options": [
+    "By praying",
+    "By running",
+    "By sleeping",
+    "By singing loudly"
+   ],
+   "explain": "Jesus taught us to pray. (Matthew 6:9)"
+  }
+ },
+ {
+  "id": "kids-easy-095",
+  "ref": {
+   "fr": "Matthieu 3:16",
+   "en": "Matthew 3:16"
+  },
+  "fr": {
+   "q": "Où Jean a-t-il baptisé Jésus ?",
+   "options": [
+    "Dans le fleuve",
+    "Dans la mer",
+    "Dans un puits",
+    "Dans un lac gelé"
+   ],
+   "explain": "Jésus fut baptisé dans le Jourdain. (Matthieu 3:16)"
+  },
+  "en": {
+   "q": "Where did John baptize Jesus?",
+   "options": [
+    "In the river",
+    "In the sea",
+    "In a well",
+    "In a frozen lake"
+   ],
+   "explain": "Jesus was baptized in the Jordan river. (Matthew 3:16)"
+  }
+ },
+ {
+  "id": "kids-easy-096",
+  "ref": {
+   "fr": "Genèse 1:1",
+   "en": "Genesis 1:1"
+  },
+  "fr": {
+   "q": "Quel est le tout premier livre de la Bible ?",
+   "options": [
+    "La Genèse",
+    "Les Psaumes",
+    "Matthieu",
+    "Jean"
+   ],
+   "explain": "La Bible commence par la Genèse. (Genèse 1:1)"
+  },
+  "en": {
+   "q": "What is the very first book of the Bible?",
+   "options": [
+    "Genesis",
+    "Psalms",
+    "Matthew",
+    "John"
+   ],
+   "explain": "The Bible begins with Genesis. (Genesis 1:1)"
+  }
+ },
+ {
+  "id": "kids-easy-097",
+  "ref": {
+   "fr": "Genèse 1:16",
+   "en": "Genesis 1:16"
+  },
+  "fr": {
+   "q": "Qu’est-ce que Dieu a mis dans le ciel pour le jour ?",
+   "options": [
+    "Le soleil",
+    "La lune",
+    "La pluie",
+    "La neige"
+   ],
+   "explain": "Dieu fit le soleil pour le jour. (Genèse 1:16)"
+  },
+  "en": {
+   "q": "What did God put in the sky for the day?",
+   "options": [
+    "The sun",
+    "The moon",
+    "The rain",
+    "The snow"
+   ],
+   "explain": "God made the sun for the day. (Genesis 1:16)"
+  }
+ },
+ {
+  "id": "kids-easy-098",
+  "ref": {
+   "fr": "Genèse 1:25",
+   "en": "Genesis 1:25"
+  },
+  "fr": {
+   "q": "Qui a fait tous les animaux, du lion à la fourmi ?",
+   "options": [
+    "Dieu",
+    "Un chasseur",
+    "Un roi",
+    "Un fermier"
+   ],
+   "explain": "Dieu fit tous les animaux. (Genèse 1:25)"
+  },
+  "en": {
+   "q": "Who made all the animals, from lion to ant?",
+   "options": [
+    "God",
+    "A hunter",
+    "A king",
+    "A farmer"
+   ],
+   "explain": "God made all the animals. (Genesis 1:25)"
+  }
+ },
+ {
+  "id": "kids-easy-099",
+  "ref": {
+   "fr": "Jean 6:9",
+   "en": "John 6:9"
+  },
+  "fr": {
+   "q": "Qui a donné son repas de pains et de poissons à Jésus ?",
+   "options": [
+    "Un petit garçon",
+    "Un roi",
+    "Un soldat",
+    "Un marchand"
+   ],
+   "explain": "Un jeune garçon avait cinq pains et deux poissons. (Jean 6:9)"
+  },
+  "en": {
+   "q": "Who gave his meal of loaves and fish to Jesus?",
+   "options": [
+    "A little boy",
+    "A king",
+    "A soldier",
+    "A merchant"
+   ],
+   "explain": "A young boy had five loaves and two fish. (John 6:9)"
+  }
+ },
+ {
+  "id": "kids-easy-100",
+  "ref": {
+   "fr": "1 Jean 4:8",
+   "en": "1 John 4:8"
+  },
+  "fr": {
+   "q": "La Bible nous dit que Dieu est quoi ?",
+   "options": [
+    "Amour",
+    "Loin",
+    "Fâché",
+    "Fatigué"
+   ],
+   "explain": "Dieu est amour. (1 Jean 4:8)"
+  },
+  "en": {
+   "q": "The Bible tells us that God is what?",
+   "options": [
+    "Love",
+    "Far away",
+    "Angry",
+    "Tired"
+   ],
+   "explain": "God is love. (1 John 4:8)"
+  }
+ }
+]

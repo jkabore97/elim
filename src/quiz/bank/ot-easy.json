@@ -1,0 +1,2702 @@
+[
+ {
+  "id": "ot-easy-001",
+  "ref": {
+   "fr": "Genèse 1:1",
+   "en": "Genesis 1:1"
+  },
+  "fr": {
+   "q": "Que Dieu créa-t-il au commencement ?",
+   "options": [
+    "Les cieux et la terre",
+    "Les anges",
+    "Les animaux",
+    "La lumière seulement"
+   ],
+   "explain": "« Au commencement, Dieu créa les cieux et la terre. » (Genèse 1:1)"
+  },
+  "en": {
+   "q": "What did God create in the beginning?",
+   "options": [
+    "The heavens and the earth",
+    "The angels",
+    "The animals",
+    "Light only"
+   ],
+   "explain": "“In the beginning God created the heavens and the earth.” (Genesis 1:1)"
+  }
+ },
+ {
+  "id": "ot-easy-002",
+  "ref": {
+   "fr": "Genèse 6-7",
+   "en": "Genesis 6-7"
+  },
+  "fr": {
+   "q": "Qui construisit l’arche pour survivre au déluge ?",
+   "options": [
+    "Noé",
+    "Abraham",
+    "Moïse",
+    "Loth"
+   ],
+   "explain": "Dieu ordonna à Noé de construire l’arche. (Genèse 6:14)"
+  },
+  "en": {
+   "q": "Who built the ark to survive the flood?",
+   "options": [
+    "Noah",
+    "Abraham",
+    "Moses",
+    "Lot"
+   ],
+   "explain": "God told Noah to build the ark. (Genesis 6:14)"
+  }
+ },
+ {
+  "id": "ot-easy-003",
+  "ref": {
+   "fr": "Exode 14",
+   "en": "Exodus 14"
+  },
+  "fr": {
+   "q": "Quelle mer Dieu ouvrit-il pour laisser passer Israël ?",
+   "options": [
+    "La mer Rouge",
+    "La mer Morte",
+    "le lac de Galilée",
+    "Le Jourdain"
+   ],
+   "explain": "Dieu ouvrit la mer Rouge devant Israël. (Exode 14:21)"
+  },
+  "en": {
+   "q": "Which sea did God part for Israel to cross?",
+   "options": [
+    "The Red Sea",
+    "The Dead Sea",
+    "the Sea of Galilee",
+    "The Jordan"
+   ],
+   "explain": "God parted the Red Sea before Israel. (Exodus 14:21)"
+  }
+ },
+ {
+  "id": "ot-easy-004",
+  "ref": {
+   "fr": "1 Samuel 17",
+   "en": "1 Samuel 17"
+  },
+  "fr": {
+   "q": "Qui vainquit le géant Goliath ?",
+   "options": [
+    "David",
+    "Saül",
+    "Jonathan",
+    "Samuel"
+   ],
+   "explain": "David abattit Goliath avec une fronde et une pierre. (1 Samuel 17:50)"
+  },
+  "en": {
+   "q": "Who defeated the giant Goliath?",
+   "options": [
+    "David",
+    "Saul",
+    "Jonathan",
+    "Samuel"
+   ],
+   "explain": "David struck Goliath with a sling and a stone. (1 Samuel 17:50)"
+  }
+ },
+ {
+  "id": "ot-easy-005",
+  "ref": {
+   "fr": "Daniel 6",
+   "en": "Daniel 6"
+  },
+  "fr": {
+   "q": "Où Daniel fut-il jeté et protégé par Dieu ?",
+   "options": [
+    "Dans la fosse aux lions",
+    "Dans une fournaise",
+    "En prison",
+    "Dans un puits"
+   ],
+   "explain": "Dieu ferma la gueule des lions. (Daniel 6:22)"
+  },
+  "en": {
+   "q": "Where was Daniel thrown and kept safe by God?",
+   "options": [
+    "In the lions’ den",
+    "In a furnace",
+    "In prison",
+    "In a well"
+   ],
+   "explain": "God shut the lions’ mouths. (Daniel 6:22)"
+  }
+ },
+ {
+  "id": "ot-easy-006",
+  "ref": {
+   "fr": "Jonas 1-2",
+   "en": "Jonah 1-2"
+  },
+  "fr": {
+   "q": "Quel grand animal avala Jonas ?",
+   "options": [
+    "Un grand poisson",
+    "Une baleine bleue",
+    "Un requin",
+    "Un crocodile"
+   ],
+   "explain": "« L’Éternel fit venir un grand poisson pour engloutir Jonas. » (Jonas 1:17)"
+  },
+  "en": {
+   "q": "What large creature swallowed Jonah?",
+   "options": [
+    "A great fish",
+    "A blue whale",
+    "A shark",
+    "A crocodile"
+   ],
+   "explain": "“The LORD prepared a great fish to swallow Jonah.” (Jonah 1:17)"
+  }
+ },
+ {
+  "id": "ot-easy-007",
+  "ref": {
+   "fr": "Genèse 2:19",
+   "en": "Genesis 2:19"
+  },
+  "fr": {
+   "q": "Qui donna un nom à tous les animaux ?",
+   "options": [
+    "Adam",
+    "Ève",
+    "Noé",
+    "Caïn"
+   ],
+   "explain": "Adam nomma tous les animaux. (Genèse 2:19-20)"
+  },
+  "en": {
+   "q": "Who named all the animals?",
+   "options": [
+    "Adam",
+    "Eve",
+    "Noah",
+    "Cain"
+   ],
+   "explain": "Adam gave names to all the animals. (Genesis 2:19-20)"
+  }
+ },
+ {
+  "id": "ot-easy-008",
+  "ref": {
+   "fr": "Exode 20",
+   "en": "Exodus 20"
+  },
+  "fr": {
+   "q": "Combien de commandements Dieu donna-t-il à Moïse ?",
+   "options": [
+    "Dix",
+    "Sept",
+    "Douze",
+    "Cinq"
+   ],
+   "explain": "Dieu donna les dix commandements au mont Sinaï. (Exode 20)"
+  },
+  "en": {
+   "q": "How many commandments did God give Moses?",
+   "options": [
+    "Ten",
+    "Seven",
+    "Twelve",
+    "Five"
+   ],
+   "explain": "God gave the Ten Commandments at Mount Sinai. (Exodus 20)"
+  }
+ },
+ {
+  "id": "ot-easy-009",
+  "ref": {
+   "fr": "Genèse 37",
+   "en": "Genesis 37"
+  },
+  "fr": {
+   "q": "Que reçut Joseph de son père Jacob ?",
+   "options": [
+    "Une tunique de plusieurs couleurs",
+    "Une couronne",
+    "Une épée",
+    "Un anneau"
+   ],
+   "explain": "Jacob fit à Joseph une tunique de plusieurs couleurs. (Genèse 37:3)"
+  },
+  "en": {
+   "q": "What did Joseph receive from his father Jacob?",
+   "options": [
+    "A coat of many colors",
+    "A crown",
+    "A sword",
+    "A ring"
+   ],
+   "explain": "Jacob made Joseph a coat of many colors. (Genesis 37:3)"
+  }
+ },
+ {
+  "id": "ot-easy-010",
+  "ref": {
+   "fr": "Josué 6",
+   "en": "Joshua 6"
+  },
+  "fr": {
+   "q": "Quelles murailles tombèrent après que le peuple eut marché autour ?",
+   "options": [
+    "Jéricho",
+    "Babylone",
+    "Jérusalem",
+    "Ninive"
+   ],
+   "explain": "Les murailles de Jéricho tombèrent. (Josué 6:20)"
+  },
+  "en": {
+   "q": "Which walls fell after the people marched around them?",
+   "options": [
+    "Jericho",
+    "Babylon",
+    "Jerusalem",
+    "Nineveh"
+   ],
+   "explain": "The walls of Jericho fell down. (Joshua 6:20)"
+  }
+ },
+ {
+  "id": "ot-easy-011",
+  "ref": {
+   "fr": "Genèse 3",
+   "en": "Genesis 3"
+  },
+  "fr": {
+   "q": "Quel fruit défendu Adam et Ève mangèrent-ils ?",
+   "options": [
+    "Le fruit de l’arbre défendu",
+    "Une figue",
+    "Une grenade",
+    "Un raisin"
+   ],
+   "explain": "Ils mangèrent de l’arbre que Dieu avait défendu. (Genèse 3:6)"
+  },
+  "en": {
+   "q": "What forbidden fruit did Adam and Eve eat?",
+   "options": [
+    "The fruit of the forbidden tree",
+    "A fig",
+    "A pomegranate",
+    "A grape"
+   ],
+   "explain": "They ate from the tree God had forbidden. (Genesis 3:6)"
+  }
+ },
+ {
+  "id": "ot-easy-012",
+  "ref": {
+   "fr": "1 Rois 3",
+   "en": "1 Kings 3"
+  },
+  "fr": {
+   "q": "Quel roi Dieu rendit-il très sage ?",
+   "options": [
+    "Salomon",
+    "David",
+    "Saül",
+    "Ézéchias"
+   ],
+   "explain": "Dieu donna à Salomon une grande sagesse. (1 Rois 3:12)"
+  },
+  "en": {
+   "q": "Which king did God make very wise?",
+   "options": [
+    "Solomon",
+    "David",
+    "Saul",
+    "Hezekiah"
+   ],
+   "explain": "God gave Solomon great wisdom. (1 Kings 3:12)"
+  }
+ },
+ {
+  "id": "ot-easy-013",
+  "ref": {
+   "fr": "Genèse 1:3",
+   "en": "Genesis 1:3"
+  },
+  "fr": {
+   "q": "Que Dieu créa-t-il le premier jour ?",
+   "options": [
+    "La lumière",
+    "Le soleil",
+    "Les étoiles",
+    "Les plantes"
+   ],
+   "explain": "« Que la lumière soit ! Et la lumière fut. » (Genèse 1:3)"
+  },
+  "en": {
+   "q": "What did God create on the first day?",
+   "options": [
+    "Light",
+    "The sun",
+    "The stars",
+    "The plants"
+   ],
+   "explain": "“Let there be light: and there was light.” (Genesis 1:3)"
+  }
+ },
+ {
+  "id": "ot-easy-014",
+  "ref": {
+   "fr": "Genèse 2:2",
+   "en": "Genesis 2:2"
+  },
+  "fr": {
+   "q": "Quel jour Dieu se reposa-t-il de son œuvre ?",
+   "options": [
+    "Le septième jour",
+    "Le sixième jour",
+    "Le premier jour",
+    "Le dixième jour"
+   ],
+   "explain": "Dieu se reposa le septième jour de toute son œuvre. (Genèse 2:2)"
+  },
+  "en": {
+   "q": "On which day did God rest from his work?",
+   "options": [
+    "The seventh day",
+    "The sixth day",
+    "The first day",
+    "The tenth day"
+   ],
+   "explain": "God rested on the seventh day from all his work. (Genesis 2:2)"
+  }
+ },
+ {
+  "id": "ot-easy-015",
+  "ref": {
+   "fr": "Genèse 2:7",
+   "en": "Genesis 2:7"
+  },
+  "fr": {
+   "q": "Avec quoi Dieu forma-t-il le premier homme ?",
+   "options": [
+    "La poussière de la terre",
+    "De l'eau",
+    "De l'argile cuite",
+    "Du bois"
+   ],
+   "explain": "« L'Éternel forma l'homme de la poussière de la terre. » (Genèse 2:7)"
+  },
+  "en": {
+   "q": "From what did God form the first man?",
+   "options": [
+    "The dust of the ground",
+    "Water",
+    "Baked clay",
+    "Wood"
+   ],
+   "explain": "“The LORD formed man of the dust of the ground.” (Genesis 2:7)"
+  }
+ },
+ {
+  "id": "ot-easy-016",
+  "ref": {
+   "fr": "Genèse 2:8",
+   "en": "Genesis 2:8"
+  },
+  "fr": {
+   "q": "Comment s'appelait le jardin où Dieu plaça l'homme ?",
+   "options": [
+    "Le jardin d'Éden",
+    "Le jardin de Babylone",
+    "Getsémané",
+    "Le jardin de Canaan"
+   ],
+   "explain": "Dieu planta un jardin en Éden et y mit l'homme. (Genèse 2:8)"
+  },
+  "en": {
+   "q": "What was the garden where God placed the man?",
+   "options": [
+    "The garden of Eden",
+    "The garden of Babylon",
+    "Gethsemane",
+    "The garden of Canaan"
+   ],
+   "explain": "God planted a garden in Eden and put the man there. (Genesis 2:8)"
+  }
+ },
+ {
+  "id": "ot-easy-017",
+  "ref": {
+   "fr": "Genèse 3:1",
+   "en": "Genesis 3:1"
+  },
+  "fr": {
+   "q": "Quel animal tenta Ève dans le jardin ?",
+   "options": [
+    "Le serpent",
+    "Un lion",
+    "Un corbeau",
+    "Un aigle"
+   ],
+   "explain": "Le serpent était le plus rusé et tenta la femme. (Genèse 3:1)"
+  },
+  "en": {
+   "q": "Which creature tempted Eve in the garden?",
+   "options": [
+    "The serpent",
+    "A lion",
+    "A raven",
+    "An eagle"
+   ],
+   "explain": "The serpent was the most cunning and tempted the woman. (Genesis 3:1)"
+  }
+ },
+ {
+  "id": "ot-easy-018",
+  "ref": {
+   "fr": "Genèse 9:13",
+   "en": "Genesis 9:13"
+  },
+  "fr": {
+   "q": "Quel signe Dieu plaça-t-il dans le ciel comme alliance après le déluge ?",
+   "options": [
+    "L'arc-en-ciel",
+    "Une étoile",
+    "La lune",
+    "Un nuage de feu"
+   ],
+   "explain": "« Je mets mon arc dans la nue. » signe de l'alliance. (Genèse 9:13)"
+  },
+  "en": {
+   "q": "What sign did God set in the sky as a covenant after the flood?",
+   "options": [
+    "The rainbow",
+    "A star",
+    "The moon",
+    "A cloud of fire"
+   ],
+   "explain": "“I set my rainbow in the cloud,” the sign of the covenant. (Genesis 9:13)"
+  }
+ },
+ {
+  "id": "ot-easy-019",
+  "ref": {
+   "fr": "Genèse 6:10",
+   "en": "Genesis 6:10"
+  },
+  "fr": {
+   "q": "Combien de fils Noé avait-il ?",
+   "options": [
+    "Trois",
+    "Deux",
+    "Quatre",
+    "Sept"
+   ],
+   "explain": "Noé eut trois fils : Sem, Cham et Japhet. (Genèse 6:10)"
+  },
+  "en": {
+   "q": "How many sons did Noah have?",
+   "options": [
+    "Three",
+    "Two",
+    "Four",
+    "Seven"
+   ],
+   "explain": "Noah had three sons: Shem, Ham, and Japheth. (Genesis 6:10)"
+  }
+ },
+ {
+  "id": "ot-easy-020",
+  "ref": {
+   "fr": "Genèse 11:4",
+   "en": "Genesis 11:4"
+  },
+  "fr": {
+   "q": "Quelle tour les hommes bâtirent-ils pour atteindre le ciel ?",
+   "options": [
+    "La tour de Babel",
+    "La tour de David",
+    "La tour de Siloé",
+    "La tour de garde"
+   ],
+   "explain": "Ils bâtirent une tour à Babel pour se faire un nom. (Genèse 11:4)"
+  },
+  "en": {
+   "q": "What tower did people build to reach the heavens?",
+   "options": [
+    "The tower of Babel",
+    "The tower of David",
+    "The tower of Siloam",
+    "The watchtower"
+   ],
+   "explain": "They built a tower at Babel to make a name for themselves. (Genesis 11:4)"
+  }
+ },
+ {
+  "id": "ot-easy-021",
+  "ref": {
+   "fr": "Genèse 21:3",
+   "en": "Genesis 21:3"
+  },
+  "fr": {
+   "q": "Comment s'appelait le fils qu'Abraham eut de Sara ?",
+   "options": [
+    "Isaac",
+    "Ismaël",
+    "Jacob",
+    "Ésaü"
+   ],
+   "explain": "Sara enfanta un fils qu'Abraham nomma Isaac. (Genèse 21:3)"
+  },
+  "en": {
+   "q": "What was the name of the son Abraham had with Sarah?",
+   "options": [
+    "Isaac",
+    "Ishmael",
+    "Jacob",
+    "Esau"
+   ],
+   "explain": "Sarah bore a son whom Abraham named Isaac. (Genesis 21:3)"
+  }
+ },
+ {
+  "id": "ot-easy-022",
+  "ref": {
+   "fr": "Genèse 25:24-26",
+   "en": "Genesis 25:24-26"
+  },
+  "fr": {
+   "q": "Comment s'appelaient les fils jumeaux d'Isaac ?",
+   "options": [
+    "Ésaü et Jacob",
+    "Caïn et Abel",
+    "Sem et Cham",
+    "Moïse et Aaron"
+   ],
+   "explain": "Rebecca enfanta des jumeaux : Ésaü et Jacob. (Genèse 25:24-26)"
+  },
+  "en": {
+   "q": "What were the names of Isaac's twin sons?",
+   "options": [
+    "Esau and Jacob",
+    "Cain and Abel",
+    "Shem and Ham",
+    "Moses and Aaron"
+   ],
+   "explain": "Rebekah bore twins: Esau and Jacob. (Genesis 25:24-26)"
+  }
+ },
+ {
+  "id": "ot-easy-023",
+  "ref": {
+   "fr": "Genèse 35:22",
+   "en": "Genesis 35:22"
+  },
+  "fr": {
+   "q": "Combien de fils Jacob eut-il, pères des tribus d'Israël ?",
+   "options": [
+    "Douze",
+    "Dix",
+    "Sept",
+    "Quatorze"
+   ],
+   "explain": "Jacob eut douze fils, à l'origine des douze tribus. (Genèse 35:22-26)"
+  },
+  "en": {
+   "q": "How many sons did Jacob have, fathers of the tribes of Israel?",
+   "options": [
+    "Twelve",
+    "Ten",
+    "Seven",
+    "Fourteen"
+   ],
+   "explain": "Jacob had twelve sons, from whom came the twelve tribes. (Genesis 35:22-26)"
+  }
+ },
+ {
+  "id": "ot-easy-024",
+  "ref": {
+   "fr": "Genèse 28:12",
+   "en": "Genesis 28:12"
+  },
+  "fr": {
+   "q": "Que vit Jacob en songe à Béthel ?",
+   "options": [
+    "Une échelle atteignant le ciel",
+    "Un char de feu",
+    "Une mer agitée",
+    "Une roue ardente"
+   ],
+   "explain": "Jacob vit une échelle dressée vers le ciel. (Genèse 28:12)"
+  },
+  "en": {
+   "q": "What did Jacob see in a dream at Bethel?",
+   "options": [
+    "A ladder reaching to heaven",
+    "A chariot of fire",
+    "A stormy sea",
+    "A fiery wheel"
+   ],
+   "explain": "Jacob saw a ladder set up to heaven. (Genesis 28:12)"
+  }
+ },
+ {
+  "id": "ot-easy-025",
+  "ref": {
+   "fr": "Genèse 37:28",
+   "en": "Genesis 37:28"
+  },
+  "fr": {
+   "q": "Que firent les frères de Joseph pour se débarrasser de lui ?",
+   "options": [
+    "Ils le vendirent comme esclave",
+    "Ils le couronnèrent roi",
+    "Ils l'exilèrent au désert",
+    "Ils l'enfermèrent chez leur père"
+   ],
+   "explain": "Les frères vendirent Joseph à des marchands pour l'Égypte. (Genèse 37:28)"
+  },
+  "en": {
+   "q": "What did Joseph's brothers do to get rid of him?",
+   "options": [
+    "They sold him as a slave",
+    "They crowned him king",
+    "They exiled him to the desert",
+    "They locked him in their father's house"
+   ],
+   "explain": "The brothers sold Joseph to merchants bound for Egypt. (Genesis 37:28)"
+  }
+ },
+ {
+  "id": "ot-easy-026",
+  "ref": {
+   "fr": "Genèse 41:41",
+   "en": "Genesis 41:41"
+  },
+  "fr": {
+   "q": "En Égypte, Joseph devint le second après qui ?",
+   "options": [
+    "Pharaon",
+    "César",
+    "Nebucadnetsar",
+    "Le roi Hérode"
+   ],
+   "explain": "Pharaon établit Joseph sur tout le pays d'Égypte. (Genèse 41:41)"
+  },
+  "en": {
+   "q": "In Egypt, Joseph became second in command after whom?",
+   "options": [
+    "Pharaoh",
+    "Caesar",
+    "Nebuchadnezzar",
+    "King Herod"
+   ],
+   "explain": "Pharaoh set Joseph over all the land of Egypt. (Genesis 41:41)"
+  }
+ },
+ {
+  "id": "ot-easy-027",
+  "ref": {
+   "fr": "Exode 2:3",
+   "en": "Exodus 2:3"
+  },
+  "fr": {
+   "q": "Dans quoi le bébé Moïse fut-il caché sur le Nil ?",
+   "options": [
+    "Une corbeille de jonc",
+    "Un tonneau",
+    "Une barque de bois",
+    "Un grand filet"
+   ],
+   "explain": "Sa mère le mit dans une caisse de jonc sur le fleuve. (Exode 2:3)"
+  },
+  "en": {
+   "q": "In what was baby Moses hidden on the Nile?",
+   "options": [
+    "A basket of reeds",
+    "A barrel",
+    "A wooden boat",
+    "A large net"
+   ],
+   "explain": "His mother placed him in a basket of reeds on the river. (Exodus 2:3)"
+  }
+ },
+ {
+  "id": "ot-easy-028",
+  "ref": {
+   "fr": "Exode 3:2",
+   "en": "Exodus 3:2"
+  },
+  "fr": {
+   "q": "Comment Dieu apparut-il à Moïse dans le désert ?",
+   "options": [
+    "Dans un buisson en feu",
+    "Dans une colonne de glace",
+    "Sous la forme d'un aigle",
+    "Dans un grand arbre"
+   ],
+   "explain": "Dieu parla depuis un buisson qui brûlait sans se consumer. (Exode 3:2)"
+  },
+  "en": {
+   "q": "How did God appear to Moses in the desert?",
+   "options": [
+    "In a burning bush",
+    "In a pillar of ice",
+    "As a great eagle",
+    "In a tall tree"
+   ],
+   "explain": "God spoke from a bush that burned without being consumed. (Exodus 3:2)"
+  }
+ },
+ {
+  "id": "ot-easy-029",
+  "ref": {
+   "fr": "Exode 7-12",
+   "en": "Exodus 7-12"
+  },
+  "fr": {
+   "q": "Combien de plaies Dieu envoya-t-il sur l'Égypte ?",
+   "options": [
+    "Dix",
+    "Sept",
+    "Douze",
+    "Trois"
+   ],
+   "explain": "Dieu frappa l'Égypte de dix plaies avant la délivrance. (Exode 7-12)"
+  },
+  "en": {
+   "q": "How many plagues did God send on Egypt?",
+   "options": [
+    "Ten",
+    "Seven",
+    "Twelve",
+    "Three"
+   ],
+   "explain": "God struck Egypt with ten plagues before the deliverance. (Exodus 7-12)"
+  }
+ },
+ {
+  "id": "ot-easy-030",
+  "ref": {
+   "fr": "Exode 12:29",
+   "en": "Exodus 12:29"
+  },
+  "fr": {
+   "q": "Quelle fut la dernière plaie d'Égypte ?",
+   "options": [
+    "La mort des premiers-nés",
+    "La grêle",
+    "Les sauterelles",
+    "Les ténèbres"
+   ],
+   "explain": "L'Éternel frappa tous les premiers-nés d'Égypte. (Exode 12:29)"
+  },
+  "en": {
+   "q": "What was the last plague on Egypt?",
+   "options": [
+    "The death of the firstborn",
+    "Hail",
+    "Locusts",
+    "Darkness"
+   ],
+   "explain": "The LORD struck all the firstborn of Egypt. (Exodus 12:29)"
+  }
+ },
+ {
+  "id": "ot-easy-031",
+  "ref": {
+   "fr": "Exode 12:11",
+   "en": "Exodus 12:11"
+  },
+  "fr": {
+   "q": "Quelle fête rappelle la sortie d'Israël hors d'Égypte ?",
+   "options": [
+    "La Pâque",
+    "La Pentecôte",
+    "Les Tabernacles",
+    "La nouvelle lune"
+   ],
+   "explain": "La Pâque commémore la délivrance d'Égypte. (Exode 12:11)"
+  },
+  "en": {
+   "q": "Which feast remembers Israel's exit from Egypt?",
+   "options": [
+    "The Passover",
+    "Pentecost",
+    "Tabernacles",
+    "The new moon"
+   ],
+   "explain": "The Passover commemorates the deliverance from Egypt. (Exodus 12:11)"
+  }
+ },
+ {
+  "id": "ot-easy-032",
+  "ref": {
+   "fr": "Exode 13:21",
+   "en": "Exodus 13:21"
+  },
+  "fr": {
+   "q": "Qu'est-ce qui guidait Israël la nuit dans le désert ?",
+   "options": [
+    "Une colonne de feu",
+    "La lune",
+    "Une étoile",
+    "Un grand flambeau"
+   ],
+   "explain": "Dieu allait devant eux la nuit dans une colonne de feu. (Exode 13:21)"
+  },
+  "en": {
+   "q": "What guided Israel by night in the desert?",
+   "options": [
+    "A pillar of fire",
+    "The moon",
+    "A star",
+    "A great torch"
+   ],
+   "explain": "God went before them by night in a pillar of fire. (Exodus 13:21)"
+  }
+ },
+ {
+  "id": "ot-easy-033",
+  "ref": {
+   "fr": "Exode 16:15",
+   "en": "Exodus 16:15"
+  },
+  "fr": {
+   "q": "Quel pain Dieu fit-il tomber du ciel dans le désert ?",
+   "options": [
+    "La manne",
+    "Du pain cuit",
+    "Des figues",
+    "Du riz"
+   ],
+   "explain": "Dieu donna la manne pour nourrir le peuple. (Exode 16:15)"
+  },
+  "en": {
+   "q": "What bread did God rain from heaven in the desert?",
+   "options": [
+    "Manna",
+    "Baked bread",
+    "Figs",
+    "Rice"
+   ],
+   "explain": "God gave manna to feed the people. (Exodus 16:15)"
+  }
+ },
+ {
+  "id": "ot-easy-034",
+  "ref": {
+   "fr": "Exode 16:13",
+   "en": "Exodus 16:13"
+  },
+  "fr": {
+   "q": "Quel oiseau Dieu envoya-t-il aussi pour nourrir Israël ?",
+   "options": [
+    "Des cailles",
+    "Des colombes",
+    "Des aigles",
+    "Des corbeaux"
+   ],
+   "explain": "Le soir, des cailles couvrirent le camp. (Exode 16:13)"
+  },
+  "en": {
+   "q": "What bird did God also send to feed Israel?",
+   "options": [
+    "Quail",
+    "Doves",
+    "Eagles",
+    "Ravens"
+   ],
+   "explain": "In the evening quail covered the camp. (Exodus 16:13)"
+  }
+ },
+ {
+  "id": "ot-easy-035",
+  "ref": {
+   "fr": "Exode 17:6",
+   "en": "Exodus 17:6"
+  },
+  "fr": {
+   "q": "D'où sortit l'eau quand Moïse frappa avec son bâton ?",
+   "options": [
+    "D'un rocher",
+    "D'un arbre",
+    "Du sable",
+    "D'un vieux puits"
+   ],
+   "explain": "Moïse frappa le rocher et il en sortit de l'eau. (Exode 17:6)"
+  },
+  "en": {
+   "q": "From what did water come when Moses struck it with his staff?",
+   "options": [
+    "A rock",
+    "A tree",
+    "The sand",
+    "An old well"
+   ],
+   "explain": "Moses struck the rock and water came out of it. (Exodus 17:6)"
+  }
+ },
+ {
+  "id": "ot-easy-036",
+  "ref": {
+   "fr": "Exode 19:20",
+   "en": "Exodus 19:20"
+  },
+  "fr": {
+   "q": "Sur quelle montagne Moïse reçut-il la loi ?",
+   "options": [
+    "Le mont Sinaï",
+    "Le mont Carmel",
+    "Le mont des Oliviers",
+    "Le mont Ararat"
+   ],
+   "explain": "L'Éternel descendit sur le mont Sinaï. (Exode 19:20)"
+  },
+  "en": {
+   "q": "On which mountain did Moses receive the Law?",
+   "options": [
+    "Mount Sinai",
+    "Mount Carmel",
+    "The Mount of Olives",
+    "Mount Ararat"
+   ],
+   "explain": "The LORD came down upon Mount Sinai. (Exodus 19:20)"
+  }
+ },
+ {
+  "id": "ot-easy-037",
+  "ref": {
+   "fr": "Exode 32:4",
+   "en": "Exodus 32:4"
+  },
+  "fr": {
+   "q": "Quelle idole d'or Israël se fit-il au pied du Sinaï ?",
+   "options": [
+    "Un veau d'or",
+    "Un serpent d'or",
+    "Un aigle d'or",
+    "Un taureau d'argent"
+   ],
+   "explain": "Aaron fit un veau de métal fondu. (Exode 32:4)"
+  },
+  "en": {
+   "q": "What golden idol did Israel make at the foot of Sinai?",
+   "options": [
+    "A golden calf",
+    "A golden serpent",
+    "A golden eagle",
+    "A silver bull"
+   ],
+   "explain": "Aaron made a calf of molten metal. (Exodus 32:4)"
+  }
+ },
+ {
+  "id": "ot-easy-038",
+  "ref": {
+   "fr": "Exode 7:10",
+   "en": "Exodus 7:10"
+  },
+  "fr": {
+   "q": "En quoi le bâton de Moïse se changea-t-il devant Pharaon ?",
+   "options": [
+    "En serpent",
+    "En lion",
+    "En colombe",
+    "En bâton d'or"
+   ],
+   "explain": "Le bâton d'Aaron devint un serpent devant Pharaon. (Exode 7:10)"
+  },
+  "en": {
+   "q": "What did Moses' staff become before Pharaoh?",
+   "options": [
+    "A serpent",
+    "A lion",
+    "A dove",
+    "A golden rod"
+   ],
+   "explain": "Aaron's staff became a serpent before Pharaoh. (Exodus 7:10)"
+  }
+ },
+ {
+  "id": "ot-easy-039",
+  "ref": {
+   "fr": "Exode 7:20",
+   "en": "Exodus 7:20"
+  },
+  "fr": {
+   "q": "En quoi l'eau du Nil se changea-t-elle lors de la première plaie ?",
+   "options": [
+    "En sang",
+    "En glace",
+    "En sable",
+    "En feu"
+   ],
+   "explain": "Les eaux du fleuve furent changées en sang. (Exode 7:20)"
+  },
+  "en": {
+   "q": "What did the Nile's water turn into in the first plague?",
+   "options": [
+    "Blood",
+    "Ice",
+    "Sand",
+    "Fire"
+   ],
+   "explain": "The waters of the river were turned to blood. (Exodus 7:20)"
+  }
+ },
+ {
+  "id": "ot-easy-040",
+  "ref": {
+   "fr": "Exode 12:7",
+   "en": "Exodus 12:7"
+  },
+  "fr": {
+   "q": "Que les Israélites mirent-ils sur leurs portes le soir de la Pâque ?",
+   "options": [
+    "Le sang d'un agneau",
+    "De l'huile",
+    "De la cendre",
+    "De l'eau"
+   ],
+   "explain": "Ils mirent du sang de l'agneau sur les poteaux des portes. (Exode 12:7)"
+  },
+  "en": {
+   "q": "What did the Israelites put on their doorposts on Passover night?",
+   "options": [
+    "The blood of a lamb",
+    "Oil",
+    "Ashes",
+    "Water"
+   ],
+   "explain": "They put lamb's blood on the doorposts. (Exodus 12:7)"
+  }
+ },
+ {
+  "id": "ot-easy-041",
+  "ref": {
+   "fr": "Exode 20:12",
+   "en": "Exodus 20:12"
+  },
+  "fr": {
+   "q": "Quel commandement demande de respecter ses parents ?",
+   "options": [
+    "Honore ton père et ta mère",
+    "Tu ne voleras point",
+    "Tu ne mentiras point",
+    "Souviens-toi du sabbat"
+   ],
+   "explain": "« Honore ton père et ta mère. » (Exode 20:12)"
+  },
+  "en": {
+   "q": "Which commandment tells us to respect our parents?",
+   "options": [
+    "Honor your father and mother",
+    "You shall not steal",
+    "You shall not lie",
+    "Remember the Sabbath"
+   ],
+   "explain": "“Honor your father and your mother.” (Exodus 20:12)"
+  }
+ },
+ {
+  "id": "ot-easy-042",
+  "ref": {
+   "fr": "Exode 20:8",
+   "en": "Exodus 20:8"
+  },
+  "fr": {
+   "q": "Quel jour Dieu demande-t-il de sanctifier ?",
+   "options": [
+    "Le jour du sabbat",
+    "Le premier jour",
+    "Le jour de la nouvelle lune",
+    "Le dixième jour"
+   ],
+   "explain": "« Souviens-toi du jour du repos, pour le sanctifier. » (Exode 20:8)"
+  },
+  "en": {
+   "q": "Which day does God command us to keep holy?",
+   "options": [
+    "The Sabbath day",
+    "The first day",
+    "The new moon day",
+    "The tenth day"
+   ],
+   "explain": "“Remember the Sabbath day, to keep it holy.” (Exodus 20:8)"
+  }
+ },
+ {
+  "id": "ot-easy-043",
+  "ref": {
+   "fr": "Exode 31:18",
+   "en": "Exodus 31:18"
+  },
+  "fr": {
+   "q": "Sur quoi Dieu écrivit-il les dix commandements ?",
+   "options": [
+    "Des tables de pierre",
+    "Du papyrus",
+    "Des planches de bois",
+    "Un rouleau de cuir"
+   ],
+   "explain": "Dieu donna deux tables de pierre écrites de son doigt. (Exode 31:18)"
+  },
+  "en": {
+   "q": "On what did God write the Ten Commandments?",
+   "options": [
+    "Tablets of stone",
+    "Papyrus",
+    "Wooden boards",
+    "A leather scroll"
+   ],
+   "explain": "God gave two tablets of stone written by his finger. (Exodus 31:18)"
+  }
+ },
+ {
+  "id": "ot-easy-044",
+  "ref": {
+   "fr": "Deutéronome 10:5",
+   "en": "Deuteronomy 10:5"
+  },
+  "fr": {
+   "q": "Où les tables de la loi furent-elles déposées ?",
+   "options": [
+    "Dans l'arche de l'alliance",
+    "Dans une grotte",
+    "Sous l'autel",
+    "Dans le palais du roi"
+   ],
+   "explain": "Moïse plaça les tables dans l'arche. (Deutéronome 10:5)"
+  },
+  "en": {
+   "q": "Where were the tablets of the Law kept?",
+   "options": [
+    "In the ark of the covenant",
+    "In a cave",
+    "Under the altar",
+    "In the king's palace"
+   ],
+   "explain": "Moses placed the tablets in the ark. (Deuteronomy 10:5)"
+  }
+ },
+ {
+  "id": "ot-easy-045",
+  "ref": {
+   "fr": "Nombres 13:23",
+   "en": "Numbers 13:23"
+  },
+  "fr": {
+   "q": "Que les espions rapportèrent-ils du pays de Canaan ?",
+   "options": [
+    "Une énorme grappe de raisin",
+    "De l'or",
+    "Un jeune lion",
+    "Des épées"
+   ],
+   "explain": "Ils coupèrent une grappe si grande qu'il fallut deux hommes. (Nombres 13:23)"
+  },
+  "en": {
+   "q": "What did the spies bring back from the land of Canaan?",
+   "options": [
+    "A huge cluster of grapes",
+    "Gold",
+    "A young lion",
+    "Swords"
+   ],
+   "explain": "They cut a cluster so large it took two men to carry. (Numbers 13:23)"
+  }
+ },
+ {
+  "id": "ot-easy-046",
+  "ref": {
+   "fr": "Nombres 14:34",
+   "en": "Numbers 14:34"
+  },
+  "fr": {
+   "q": "Combien d'années Israël erra-t-il dans le désert ?",
+   "options": [
+    "Quarante ans",
+    "Dix ans",
+    "Sept ans",
+    "Cent ans"
+   ],
+   "explain": "Israël marcha quarante ans dans le désert. (Nombres 14:34)"
+  },
+  "en": {
+   "q": "How many years did Israel wander in the desert?",
+   "options": [
+    "Forty years",
+    "Ten years",
+    "Seven years",
+    "A hundred years"
+   ],
+   "explain": "Israel wandered forty years in the desert. (Numbers 14:34)"
+  }
+ },
+ {
+  "id": "ot-easy-047",
+  "ref": {
+   "fr": "Nombres 21:9",
+   "en": "Numbers 21:9"
+  },
+  "fr": {
+   "q": "Que Moïse éleva-t-il pour guérir les morsures de serpents ?",
+   "options": [
+    "Un serpent d'airain",
+    "Une croix",
+    "Un bâton fleuri",
+    "Une lampe d'or"
+   ],
+   "explain": "Quiconque regardait le serpent d'airain vivait. (Nombres 21:9)"
+  },
+  "en": {
+   "q": "What did Moses lift up to heal snakebites?",
+   "options": [
+    "A bronze serpent",
+    "A cross",
+    "A budding staff",
+    "A golden lamp"
+   ],
+   "explain": "Whoever looked at the bronze serpent lived. (Numbers 21:9)"
+  }
+ },
+ {
+  "id": "ot-easy-048",
+  "ref": {
+   "fr": "Nombres 22:28",
+   "en": "Numbers 22:28"
+  },
+  "fr": {
+   "q": "Quel animal parla au prophète Balaam ?",
+   "options": [
+    "Son ânesse",
+    "Un corbeau",
+    "Un lion",
+    "Un aigle"
+   ],
+   "explain": "L'Éternel ouvrit la bouche de l'ânesse qui parla. (Nombres 22:28)"
+  },
+  "en": {
+   "q": "What animal spoke to the prophet Balaam?",
+   "options": [
+    "His donkey",
+    "A raven",
+    "A lion",
+    "An eagle"
+   ],
+   "explain": "The LORD opened the donkey's mouth and it spoke. (Numbers 22:28)"
+  }
+ },
+ {
+  "id": "ot-easy-049",
+  "ref": {
+   "fr": "Deutéronome 6:5",
+   "en": "Deuteronomy 6:5"
+  },
+  "fr": {
+   "q": "Selon la loi, que devons-nous faire d'abord envers Dieu ?",
+   "options": [
+    "L'aimer de tout notre cœur",
+    "Lui offrir de l'or",
+    "Honorer le roi",
+    "Jeûner souvent"
+   ],
+   "explain": "« Tu aimeras l'Éternel de tout ton cœur. » (Deutéronome 6:5)"
+  },
+  "en": {
+   "q": "According to the Law, what must we first do toward God?",
+   "options": [
+    "Love him with all our heart",
+    "Offer him gold",
+    "Honor the king",
+    "Fast often"
+   ],
+   "explain": "“You shall love the LORD with all your heart.” (Deuteronomy 6:5)"
+  }
+ },
+ {
+  "id": "ot-easy-050",
+  "ref": {
+   "fr": "Josué 3:17",
+   "en": "Joshua 3:17"
+  },
+  "fr": {
+   "q": "Quel fleuve Israël traversa-t-il pour entrer en Canaan ?",
+   "options": [
+    "Le Jourdain",
+    "Le Nil",
+    "L'Euphrate",
+    "Le Tigre"
+   ],
+   "explain": "Le peuple traversa le Jourdain à sec. (Josué 3:17)"
+  },
+  "en": {
+   "q": "Which river did Israel cross to enter Canaan?",
+   "options": [
+    "The Jordan",
+    "The Nile",
+    "The Euphrates",
+    "The Tigris"
+   ],
+   "explain": "The people crossed the Jordan on dry ground. (Joshua 3:17)"
+  }
+ },
+ {
+  "id": "ot-easy-051",
+  "ref": {
+   "fr": "Josué 6:15",
+   "en": "Joshua 6:15"
+  },
+  "fr": {
+   "q": "Combien de fois Israël fit-il le tour de Jéricho le septième jour ?",
+   "options": [
+    "Sept fois",
+    "Trois fois",
+    "Une fois",
+    "Douze fois"
+   ],
+   "explain": "Le septième jour, ils firent sept fois le tour de la ville. (Josué 6:15)"
+  },
+  "en": {
+   "q": "How many times did Israel march around Jericho on the seventh day?",
+   "options": [
+    "Seven times",
+    "Three times",
+    "Once",
+    "Twelve times"
+   ],
+   "explain": "On the seventh day they marched around the city seven times. (Joshua 6:15)"
+  }
+ },
+ {
+  "id": "ot-easy-052",
+  "ref": {
+   "fr": "Juges 4:4",
+   "en": "Judges 4:4"
+  },
+  "fr": {
+   "q": "Quelle femme fut juge et prophétesse en Israël ?",
+   "options": [
+    "Débora",
+    "Ruth",
+    "Anne",
+    "Rébecca"
+   ],
+   "explain": "Débora jugeait Israël en ce temps-là. (Juges 4:4)"
+  },
+  "en": {
+   "q": "Which woman was a judge and prophetess in Israel?",
+   "options": [
+    "Deborah",
+    "Ruth",
+    "Hannah",
+    "Rebekah"
+   ],
+   "explain": "Deborah was judging Israel at that time. (Judges 4:4)"
+  }
+ },
+ {
+  "id": "ot-easy-053",
+  "ref": {
+   "fr": "Juges 7:20",
+   "en": "Judges 7:20"
+  },
+  "fr": {
+   "q": "Avec quoi Gédéon vainquit-il Madian de nuit ?",
+   "options": [
+    "Des trompettes et des torches",
+    "Des chars de fer",
+    "Des arcs et des flèches",
+    "Des lances longues"
+   ],
+   "explain": "Les 300 hommes sonnèrent des trompettes avec des torches. (Juges 7:20)"
+  },
+  "en": {
+   "q": "With what did Gideon defeat Midian by night?",
+   "options": [
+    "Trumpets and torches",
+    "Iron chariots",
+    "Bows and arrows",
+    "Long spears"
+   ],
+   "explain": "The 300 men blew trumpets holding torches. (Judges 7:20)"
+  }
+ },
+ {
+  "id": "ot-easy-054",
+  "ref": {
+   "fr": "Juges 15:15",
+   "en": "Judges 15:15"
+  },
+  "fr": {
+   "q": "Avec quel objet Samson tua-t-il mille Philistins ?",
+   "options": [
+    "Une mâchoire d'âne",
+    "Une épée",
+    "Une fronde",
+    "Une longue lance"
+   ],
+   "explain": "Samson frappa mille hommes avec une mâchoire d'âne. (Juges 15:15)"
+  },
+  "en": {
+   "q": "With what object did Samson kill a thousand Philistines?",
+   "options": [
+    "A donkey's jawbone",
+    "A sword",
+    "A sling",
+    "A long spear"
+   ],
+   "explain": "Samson struck a thousand men with a donkey's jawbone. (Judges 15:15)"
+  }
+ },
+ {
+  "id": "ot-easy-055",
+  "ref": {
+   "fr": "Ruth 2:3",
+   "en": "Ruth 2:3"
+  },
+  "fr": {
+   "q": "Dans le champ de qui Ruth glana-t-elle des épis ?",
+   "options": [
+    "Booz",
+    "Élimélec",
+    "Isaï",
+    "Obed"
+   ],
+   "explain": "Ruth glana dans le champ de Booz. (Ruth 2:3)"
+  },
+  "en": {
+   "q": "In whose field did Ruth glean grain?",
+   "options": [
+    "Boaz",
+    "Elimelech",
+    "Jesse",
+    "Obed"
+   ],
+   "explain": "Ruth gleaned in the field of Boaz. (Ruth 2:3)"
+  }
+ },
+ {
+  "id": "ot-easy-056",
+  "ref": {
+   "fr": "1 Samuel 1:20",
+   "en": "1 Samuel 1:20"
+  },
+  "fr": {
+   "q": "Quelle femme pria Dieu pour avoir un fils, et eut Samuel ?",
+   "options": [
+    "Anne",
+    "Ruth",
+    "Rachel",
+    "Marie"
+   ],
+   "explain": "Anne pria l'Éternel et enfanta Samuel. (1 Samuel 1:20)"
+  },
+  "en": {
+   "q": "Which woman prayed to God for a son and had Samuel?",
+   "options": [
+    "Hannah",
+    "Ruth",
+    "Rachel",
+    "Mary"
+   ],
+   "explain": "Hannah prayed to the LORD and bore Samuel. (1 Samuel 1:20)"
+  }
+ },
+ {
+  "id": "ot-easy-057",
+  "ref": {
+   "fr": "1 Samuel 15:23",
+   "en": "1 Samuel 15:23"
+  },
+  "fr": {
+   "q": "Quel roi Dieu rejeta-t-il à cause de sa désobéissance ?",
+   "options": [
+    "Saül",
+    "David",
+    "Salomon",
+    "Roboam"
+   ],
+   "explain": "Parce qu'il rejeta la parole de Dieu, Saül fut rejeté. (1 Samuel 15:23)"
+  },
+  "en": {
+   "q": "Which king did God reject because of his disobedience?",
+   "options": [
+    "Saul",
+    "David",
+    "Solomon",
+    "Rehoboam"
+   ],
+   "explain": "Because he rejected God's word, Saul was rejected. (1 Samuel 15:23)"
+  }
+ },
+ {
+  "id": "ot-easy-058",
+  "ref": {
+   "fr": "1 Samuel 16:23",
+   "en": "1 Samuel 16:23"
+  },
+  "fr": {
+   "q": "De quel instrument David jouait-il pour apaiser le roi Saül ?",
+   "options": [
+    "La harpe",
+    "La trompette",
+    "Le tambourin",
+    "La flûte"
+   ],
+   "explain": "David prenait la harpe et Saül se trouvait soulagé. (1 Samuel 16:23)"
+  },
+  "en": {
+   "q": "What instrument did David play to soothe King Saul?",
+   "options": [
+    "The harp",
+    "The trumpet",
+    "The tambourine",
+    "The flute"
+   ],
+   "explain": "David took the harp and Saul was refreshed. (1 Samuel 16:23)"
+  }
+ },
+ {
+  "id": "ot-easy-059",
+  "ref": {
+   "fr": "1 Samuel 17:40",
+   "en": "1 Samuel 17:40"
+  },
+  "fr": {
+   "q": "Combien de pierres David ramassa-t-il pour affronter Goliath ?",
+   "options": [
+    "Cinq",
+    "Trois",
+    "Une seule",
+    "Dix"
+   ],
+   "explain": "David choisit cinq pierres polies dans le torrent. (1 Samuel 17:40)"
+  },
+  "en": {
+   "q": "How many stones did David gather to face Goliath?",
+   "options": [
+    "Five",
+    "Three",
+    "Just one",
+    "Ten"
+   ],
+   "explain": "David chose five smooth stones from the brook. (1 Samuel 17:40)"
+  }
+ },
+ {
+  "id": "ot-easy-060",
+  "ref": {
+   "fr": "Genèse 22:13",
+   "en": "Genesis 22:13"
+  },
+  "fr": {
+   "q": "Que Dieu donna-t-il à Abraham pour l'offrir à la place d'Isaac ?",
+   "options": [
+    "Un bélier",
+    "Un agneau",
+    "Une colombe",
+    "Un taureau"
+   ],
+   "explain": "Abraham offrit un bélier retenu par les cornes dans un buisson. (Genèse 22:13)"
+  },
+  "en": {
+   "q": "What did God give Abraham to offer in place of Isaac?",
+   "options": [
+    "A ram",
+    "A lamb",
+    "A dove",
+    "A bull"
+   ],
+   "explain": "Abraham offered a ram caught by its horns in a thicket. (Genesis 22:13)"
+  }
+ },
+ {
+  "id": "ot-easy-061",
+  "ref": {
+   "fr": "1 Samuel 16:1",
+   "en": "1 Samuel 16:1"
+  },
+  "fr": {
+   "q": "Dans quelle ville David gardait-il les brebis de son père ?",
+   "options": [
+    "Bethléem",
+    "Jérusalem",
+    "Hébron",
+    "Nazareth"
+   ],
+   "explain": "Dieu envoya Samuel chez Isaï, de Bethléem. (1 Samuel 16:1)"
+  },
+  "en": {
+   "q": "In which town did David keep his father's sheep?",
+   "options": [
+    "Bethlehem",
+    "Jerusalem",
+    "Hebron",
+    "Nazareth"
+   ],
+   "explain": "God sent Samuel to Jesse of Bethlehem. (1 Samuel 16:1)"
+  }
+ },
+ {
+  "id": "ot-easy-062",
+  "ref": {
+   "fr": "2 Samuel 5:7",
+   "en": "2 Samuel 5:7"
+  },
+  "fr": {
+   "q": "Quelle ville David fit-il sa capitale ?",
+   "options": [
+    "Jérusalem",
+    "Hébron",
+    "Bethléem",
+    "Samarie"
+   ],
+   "explain": "David prit la forteresse de Sion, la cité de David. (2 Samuel 5:7)"
+  },
+  "en": {
+   "q": "Which city did David make his capital?",
+   "options": [
+    "Jerusalem",
+    "Hebron",
+    "Bethlehem",
+    "Samaria"
+   ],
+   "explain": "David took the stronghold of Zion, the city of David. (2 Samuel 5:7)"
+  }
+ },
+ {
+  "id": "ot-easy-063",
+  "ref": {
+   "fr": "2 Samuel 12:7",
+   "en": "2 Samuel 12:7"
+  },
+  "fr": {
+   "q": "Quel prophète reprit le roi David au sujet de son péché ?",
+   "options": [
+    "Nathan",
+    "Samuel",
+    "Élie",
+    "Gad"
+   ],
+   "explain": "Nathan dit à David : « Tu es cet homme ! » (2 Samuel 12:7)"
+  },
+  "en": {
+   "q": "Which prophet rebuked King David about his sin?",
+   "options": [
+    "Nathan",
+    "Samuel",
+    "Elijah",
+    "Gad"
+   ],
+   "explain": "Nathan said to David, “You are the man!” (2 Samuel 12:7)"
+  }
+ },
+ {
+  "id": "ot-easy-064",
+  "ref": {
+   "fr": "1 Rois 3:9",
+   "en": "1 Kings 3:9"
+  },
+  "fr": {
+   "q": "Que demanda Salomon à Dieu plutôt que la richesse ?",
+   "options": [
+    "La sagesse",
+    "L'argent",
+    "Une longue vie",
+    "La victoire"
+   ],
+   "explain": "Salomon demanda un cœur intelligent pour juger le peuple. (1 Rois 3:9)"
+  },
+  "en": {
+   "q": "What did Solomon ask God for instead of riches?",
+   "options": [
+    "Wisdom",
+    "Silver",
+    "Long life",
+    "Victory"
+   ],
+   "explain": "Solomon asked for an understanding heart to judge the people. (1 Kings 3:9)"
+  }
+ },
+ {
+  "id": "ot-easy-065",
+  "ref": {
+   "fr": "Jonas 1:17",
+   "en": "Jonah 1:17"
+  },
+  "fr": {
+   "q": "Combien de temps Jonas resta-t-il dans le ventre du poisson ?",
+   "options": [
+    "Trois jours et trois nuits",
+    "Sept jours",
+    "Un seul jour",
+    "Quarante jours"
+   ],
+   "explain": "Jonas fut trois jours et trois nuits dans le ventre du poisson. (Jonas 1:17)"
+  },
+  "en": {
+   "q": "How long did Jonah stay in the belly of the fish?",
+   "options": [
+    "Three days and three nights",
+    "Seven days",
+    "A single day",
+    "Forty days"
+   ],
+   "explain": "Jonah was three days and three nights in the belly of the fish. (Jonah 1:17)"
+  }
+ },
+ {
+  "id": "ot-easy-066",
+  "ref": {
+   "fr": "1 Rois 10:1",
+   "en": "1 Kings 10:1"
+  },
+  "fr": {
+   "q": "Quelle reine vint éprouver la sagesse de Salomon ?",
+   "options": [
+    "La reine de Séba",
+    "La reine Vasthi",
+    "La reine Athalie",
+    "La reine Bethsabée"
+   ],
+   "explain": "La reine de Séba vint éprouver Salomon par des énigmes. (1 Rois 10:1)"
+  },
+  "en": {
+   "q": "Which queen came to test Solomon's wisdom?",
+   "options": [
+    "The Queen of Sheba",
+    "Queen Vashti",
+    "Queen Athaliah",
+    "Queen Bathsheba"
+   ],
+   "explain": "The Queen of Sheba came to test Solomon with riddles. (1 Kings 10:1)"
+  }
+ },
+ {
+  "id": "ot-easy-067",
+  "ref": {
+   "fr": "1 Rois 17:6",
+   "en": "1 Kings 17:6"
+  },
+  "fr": {
+   "q": "Quel prophète fut nourri par des corbeaux ?",
+   "options": [
+    "Élie",
+    "Élisée",
+    "Ésaïe",
+    "Jérémie"
+   ],
+   "explain": "Les corbeaux apportaient du pain et de la viande à Élie. (1 Rois 17:6)"
+  },
+  "en": {
+   "q": "Which prophet was fed by ravens?",
+   "options": [
+    "Elijah",
+    "Elisha",
+    "Isaiah",
+    "Jeremiah"
+   ],
+   "explain": "The ravens brought Elijah bread and meat. (1 Kings 17:6)"
+  }
+ },
+ {
+  "id": "ot-easy-068",
+  "ref": {
+   "fr": "1 Rois 18:39",
+   "en": "1 Kings 18:39"
+  },
+  "fr": {
+   "q": "Sur le mont Carmel, Élie confondit les prophètes de quel dieu ?",
+   "options": [
+    "Baal",
+    "Dagon",
+    "Moloch",
+    "Astarté"
+   ],
+   "explain": "Le feu de l'Éternel tomba, confondant les prophètes de Baal. (1 Rois 18:38-39)"
+  },
+  "en": {
+   "q": "On Mount Carmel, Elijah defeated the prophets of which god?",
+   "options": [
+    "Baal",
+    "Dagon",
+    "Molech",
+    "Ashtoreth"
+   ],
+   "explain": "The fire of the LORD fell, defeating the prophets of Baal. (1 Kings 18:38-39)"
+  }
+ },
+ {
+  "id": "ot-easy-069",
+  "ref": {
+   "fr": "2 Rois 2:11",
+   "en": "2 Kings 2:11"
+  },
+  "fr": {
+   "q": "Qu'apparut-il pour emporter Élie au ciel ?",
+   "options": [
+    "Un char de feu",
+    "Un aigle géant",
+    "Une nuée d'or",
+    "Un vent doux"
+   ],
+   "explain": "Un char de feu sépara Élie d'Élisée. (2 Rois 2:11)"
+  },
+  "en": {
+   "q": "What appeared to take Elijah up to heaven?",
+   "options": [
+    "A chariot of fire",
+    "A giant eagle",
+    "A cloud of gold",
+    "A gentle wind"
+   ],
+   "explain": "A chariot of fire parted Elijah from Elisha. (2 Kings 2:11)"
+  }
+ },
+ {
+  "id": "ot-easy-070",
+  "ref": {
+   "fr": "2 Rois 5:14",
+   "en": "2 Kings 5:14"
+  },
+  "fr": {
+   "q": "Quel chef étranger Élisée guérit-il de la lèpre dans le Jourdain ?",
+   "options": [
+    "Naaman",
+    "Sisera",
+    "Nebucadnetsar",
+    "Goliath"
+   ],
+   "explain": "Naaman se lava sept fois dans le Jourdain et fut guéri. (2 Rois 5:14)"
+  },
+  "en": {
+   "q": "Which foreign commander did Elisha heal of leprosy in the Jordan?",
+   "options": [
+    "Naaman",
+    "Sisera",
+    "Nebuchadnezzar",
+    "Goliath"
+   ],
+   "explain": "Naaman washed seven times in the Jordan and was healed. (2 Kings 5:14)"
+  }
+ },
+ {
+  "id": "ot-easy-071",
+  "ref": {
+   "fr": "2 Rois 25:11",
+   "en": "2 Kings 25:11"
+  },
+  "fr": {
+   "q": "Quel peuple emmena Juda en captivité loin de Jérusalem ?",
+   "options": [
+    "Les Babyloniens",
+    "Les Égyptiens",
+    "Les Romains",
+    "Les Philistins"
+   ],
+   "explain": "Nebucadnetsar de Babylone déporta le peuple de Juda. (2 Rois 25:11)"
+  },
+  "en": {
+   "q": "Which people carried Judah away captive from Jerusalem?",
+   "options": [
+    "The Babylonians",
+    "The Egyptians",
+    "The Romans",
+    "The Philistines"
+   ],
+   "explain": "Nebuchadnezzar of Babylon carried Judah into exile. (2 Kings 25:11)"
+  }
+ },
+ {
+  "id": "ot-easy-072",
+  "ref": {
+   "fr": "Esdras 1:2",
+   "en": "Ezra 1:2"
+  },
+  "fr": {
+   "q": "Quel roi permit aux Juifs de retourner rebâtir le temple ?",
+   "options": [
+    "Cyrus",
+    "Nebucadnetsar",
+    "Pharaon",
+    "Hérode"
+   ],
+   "explain": "Cyrus, roi de Perse, laissa le peuple rebâtir la maison de Dieu. (Esdras 1:2)"
+  },
+  "en": {
+   "q": "Which king allowed the Jews to return and rebuild the temple?",
+   "options": [
+    "Cyrus",
+    "Nebuchadnezzar",
+    "Pharaoh",
+    "Herod"
+   ],
+   "explain": "Cyrus, king of Persia, let the people rebuild God's house. (Ezra 1:2)"
+  }
+ },
+ {
+  "id": "ot-easy-073",
+  "ref": {
+   "fr": "Esther 3:6",
+   "en": "Esther 3:6"
+  },
+  "fr": {
+   "q": "Quel homme complota pour détruire tous les Juifs ?",
+   "options": [
+    "Haman",
+    "Goliath",
+    "Pharaon",
+    "Sanballat"
+   ],
+   "explain": "Haman chercha à faire périr tous les Juifs du royaume. (Esther 3:6)"
+  },
+  "en": {
+   "q": "Which man plotted to destroy all the Jews?",
+   "options": [
+    "Haman",
+    "Goliath",
+    "Pharaoh",
+    "Sanballat"
+   ],
+   "explain": "Haman sought to destroy all the Jews in the kingdom. (Esther 3:6)"
+  }
+ },
+ {
+  "id": "ot-easy-074",
+  "ref": {
+   "fr": "Job 1:21",
+   "en": "Job 1:21"
+  },
+  "fr": {
+   "q": "Qui dit : « L'Éternel a donné, l'Éternel a ôté » dans l'épreuve ?",
+   "options": [
+    "Job",
+    "David",
+    "Salomon",
+    "Moïse"
+   ],
+   "explain": "Dans le malheur, Job bénit le nom de l'Éternel. (Job 1:21)"
+  },
+  "en": {
+   "q": "Who said in his trial, “The LORD gave and the LORD has taken away”?",
+   "options": [
+    "Job",
+    "David",
+    "Solomon",
+    "Moses"
+   ],
+   "explain": "In his suffering, Job blessed the name of the LORD. (Job 1:21)"
+  }
+ },
+ {
+  "id": "ot-easy-075",
+  "ref": {
+   "fr": "Psaume 23:1",
+   "en": "Psalm 23:1"
+  },
+  "fr": {
+   "q": "Qui écrivit de nombreux psaumes, dont « L'Éternel est mon berger » ?",
+   "options": [
+    "David",
+    "Salomon",
+    "Asaph",
+    "Moïse"
+   ],
+   "explain": "« L'Éternel est mon berger », psaume de David. (Psaume 23:1)"
+  },
+  "en": {
+   "q": "Who wrote many psalms, including “The LORD is my shepherd”?",
+   "options": [
+    "David",
+    "Solomon",
+    "Asaph",
+    "Moses"
+   ],
+   "explain": "“The LORD is my shepherd,” a psalm of David. (Psalm 23:1)"
+  }
+ },
+ {
+  "id": "ot-easy-076",
+  "ref": {
+   "fr": "Proverbes 1:1",
+   "en": "Proverbs 1:1"
+  },
+  "fr": {
+   "q": "Quel livre rassemble surtout les sages paroles de Salomon ?",
+   "options": [
+    "Les Proverbes",
+    "Les Psaumes",
+    "L'Ecclésiaste",
+    "Le Cantique des cantiques"
+   ],
+   "explain": "Les Proverbes de Salomon, fils de David. (Proverbes 1:1)"
+  },
+  "en": {
+   "q": "Which book mostly gathers the wise sayings of Solomon?",
+   "options": [
+    "Proverbs",
+    "Psalms",
+    "Ecclesiastes",
+    "Song of Songs"
+   ],
+   "explain": "The proverbs of Solomon, son of David. (Proverbs 1:1)"
+  }
+ },
+ {
+  "id": "ot-easy-077",
+  "ref": {
+   "fr": "Proverbes 9:10",
+   "en": "Proverbs 9:10"
+  },
+  "fr": {
+   "q": "Selon les Proverbes, quel est le commencement de la sagesse ?",
+   "options": [
+    "La crainte de l'Éternel",
+    "La richesse",
+    "Le savoir",
+    "L'expérience"
+   ],
+   "explain": "« Le commencement de la sagesse, c'est la crainte de l'Éternel. » (Proverbes 9:10)"
+  },
+  "en": {
+   "q": "According to Proverbs, what is the beginning of wisdom?",
+   "options": [
+    "The fear of the LORD",
+    "Riches",
+    "Knowledge",
+    "Experience"
+   ],
+   "explain": "“The fear of the LORD is the beginning of wisdom.” (Proverbs 9:10)"
+  }
+ },
+ {
+  "id": "ot-easy-078",
+  "ref": {
+   "fr": "Ésaïe 6:1",
+   "en": "Isaiah 6:1"
+  },
+  "fr": {
+   "q": "Quel prophète vit le Seigneur assis sur un trône élevé dans le temple ?",
+   "options": [
+    "Ésaïe",
+    "Jérémie",
+    "Ézéchiel",
+    "Daniel"
+   ],
+   "explain": "Ésaïe vit le Seigneur assis sur un trône très élevé. (Ésaïe 6:1)"
+  },
+  "en": {
+   "q": "Which prophet saw the Lord seated on a high throne in the temple?",
+   "options": [
+    "Isaiah",
+    "Jeremiah",
+    "Ezekiel",
+    "Daniel"
+   ],
+   "explain": "Isaiah saw the Lord sitting on a throne, high and lifted up. (Isaiah 6:1)"
+  }
+ },
+ {
+  "id": "ot-easy-079",
+  "ref": {
+   "fr": "Lamentations 1:1",
+   "en": "Lamentations 1:1"
+  },
+  "fr": {
+   "q": "Quel prophète pleura sur Jérusalem et écrivit les Lamentations ?",
+   "options": [
+    "Jérémie",
+    "Ésaïe",
+    "Amos",
+    "Osée"
+   ],
+   "explain": "Jérémie pleura sur la ruine de Jérusalem. (Lamentations 1:1)"
+  },
+  "en": {
+   "q": "Which prophet wept over Jerusalem and wrote Lamentations?",
+   "options": [
+    "Jeremiah",
+    "Isaiah",
+    "Amos",
+    "Hosea"
+   ],
+   "explain": "Jeremiah wept over the ruin of Jerusalem. (Lamentations 1:1)"
+  }
+ },
+ {
+  "id": "ot-easy-080",
+  "ref": {
+   "fr": "Ézéchiel 37:1-10",
+   "en": "Ezekiel 37:1-10"
+  },
+  "fr": {
+   "q": "Quel prophète vit une vallée d'ossements desséchés reprendre vie ?",
+   "options": [
+    "Ézéchiel",
+    "Daniel",
+    "Ésaïe",
+    "Osée"
+   ],
+   "explain": "Ézéchiel vit les ossements se couvrir de chair et revivre. (Ézéchiel 37:1-10)"
+  },
+  "en": {
+   "q": "Which prophet saw a valley of dry bones come back to life?",
+   "options": [
+    "Ezekiel",
+    "Daniel",
+    "Isaiah",
+    "Hosea"
+   ],
+   "explain": "Ezekiel saw the bones covered with flesh and live again. (Ezekiel 37:1-10)"
+  }
+ },
+ {
+  "id": "ot-easy-081",
+  "ref": {
+   "fr": "Daniel 2:1",
+   "en": "Daniel 2:1"
+  },
+  "fr": {
+   "q": "De quel roi Daniel interpréta-t-il les songes à Babylone ?",
+   "options": [
+    "Nebucadnetsar",
+    "Pharaon",
+    "Cyrus",
+    "Hérode"
+   ],
+   "explain": "Daniel révéla le songe du roi Nebucadnetsar. (Daniel 2)"
+  },
+  "en": {
+   "q": "Whose dreams did Daniel interpret in Babylon?",
+   "options": [
+    "Nebuchadnezzar's",
+    "Pharaoh's",
+    "Cyrus's",
+    "Herod's"
+   ],
+   "explain": "Daniel made known King Nebuchadnezzar's dream. (Daniel 2)"
+  }
+ },
+ {
+  "id": "ot-easy-082",
+  "ref": {
+   "fr": "Daniel 5:5",
+   "en": "Daniel 5:5"
+  },
+  "fr": {
+   "q": "Que vit le roi Belschatsar pendant son festin ?",
+   "options": [
+    "Une main qui écrivait sur le mur",
+    "Un lion rugissant",
+    "Un ange de feu",
+    "Un grand serpent"
+   ],
+   "explain": "Des doigts d'une main écrivirent sur la muraille. (Daniel 5:5)"
+  },
+  "en": {
+   "q": "What did King Belshazzar see during his feast?",
+   "options": [
+    "A hand writing on the wall",
+    "A roaring lion",
+    "An angel of fire",
+    "A great serpent"
+   ],
+   "explain": "Fingers of a hand wrote on the wall. (Daniel 5:5)"
+  }
+ },
+ {
+  "id": "ot-easy-083",
+  "ref": {
+   "fr": "Jonas 1:3",
+   "en": "Jonah 1:3"
+  },
+  "fr": {
+   "q": "Comment Jonas essaya-t-il de fuir loin de l'Éternel ?",
+   "options": [
+    "Il monta sur un navire",
+    "Il se cacha dans une grotte",
+    "Il partit dans le désert",
+    "Il grimpa sur une montagne"
+   ],
+   "explain": "Jonas s'embarqua pour Tarsis, loin de la face de l'Éternel. (Jonas 1:3)"
+  },
+  "en": {
+   "q": "How did Jonah try to flee from the LORD?",
+   "options": [
+    "He boarded a ship",
+    "He hid in a cave",
+    "He went into the desert",
+    "He climbed a mountain"
+   ],
+   "explain": "Jonah took a ship to Tarshish, away from the LORD. (Jonah 1:3)"
+  }
+ },
+ {
+  "id": "ot-easy-084",
+  "ref": {
+   "fr": "Malachie 4",
+   "en": "Malachi 4"
+  },
+  "fr": {
+   "q": "Quel est le dernier livre de l'Ancien Testament ?",
+   "options": [
+    "Malachie",
+    "Genèse",
+    "Matthieu",
+    "L'Apocalypse"
+   ],
+   "explain": "Malachie clôt l'Ancien Testament. (livre de Malachie)"
+  },
+  "en": {
+   "q": "What is the last book of the Old Testament?",
+   "options": [
+    "Malachi",
+    "Genesis",
+    "Matthew",
+    "Revelation"
+   ],
+   "explain": "Malachi closes the Old Testament. (book of Malachi)"
+  }
+ },
+ {
+  "id": "ot-easy-085",
+  "ref": {
+   "fr": "Genèse 1",
+   "en": "Genesis 1"
+  },
+  "fr": {
+   "q": "Quel est le premier livre de la Bible ?",
+   "options": [
+    "La Genèse",
+    "L'Exode",
+    "Les Psaumes",
+    "Matthieu"
+   ],
+   "explain": "La Genèse ouvre la Bible par la création. (livre de la Genèse)"
+  },
+  "en": {
+   "q": "What is the first book of the Bible?",
+   "options": [
+    "Genesis",
+    "Exodus",
+    "Psalms",
+    "Matthew"
+   ],
+   "explain": "Genesis opens the Bible with the creation. (book of Genesis)"
+  }
+ },
+ {
+  "id": "ot-easy-086",
+  "ref": {
+   "fr": "Genèse 19:26",
+   "en": "Genesis 19:26"
+  },
+  "fr": {
+   "q": "Que devint la femme de Loth quand elle regarda en arrière ?",
+   "options": [
+    "Une statue de sel",
+    "Un oiseau",
+    "Un arbre",
+    "Une pierre noire"
+   ],
+   "explain": "La femme de Loth devint une statue de sel. (Genèse 19:26)"
+  },
+  "en": {
+   "q": "What did Lot's wife become when she looked back?",
+   "options": [
+    "A pillar of salt",
+    "A bird",
+    "A tree",
+    "A black stone"
+   ],
+   "explain": "Lot's wife became a pillar of salt. (Genesis 19:26)"
+  }
+ },
+ {
+  "id": "ot-easy-087",
+  "ref": {
+   "fr": "Genèse 19:24",
+   "en": "Genesis 19:24"
+  },
+  "fr": {
+   "q": "Quelles deux villes Dieu détruisit-il par le feu ?",
+   "options": [
+    "Sodome et Gomorrhe",
+    "Ninive et Babylone",
+    "Tyr et Sidon",
+    "Jéricho et Aï"
+   ],
+   "explain": "L'Éternel fit pleuvoir le feu sur Sodome et Gomorrhe. (Genèse 19:24)"
+  },
+  "en": {
+   "q": "Which two cities did God destroy with fire?",
+   "options": [
+    "Sodom and Gomorrah",
+    "Nineveh and Babylon",
+    "Tyre and Sidon",
+    "Jericho and Ai"
+   ],
+   "explain": "The LORD rained fire on Sodom and Gomorrah. (Genesis 19:24)"
+  }
+ },
+ {
+  "id": "ot-easy-088",
+  "ref": {
+   "fr": "Genèse 29:20",
+   "en": "Genesis 29:20"
+  },
+  "fr": {
+   "q": "Quelle femme Jacob servit-il sept ans pour épouser ?",
+   "options": [
+    "Rachel",
+    "Léa",
+    "Rébecca",
+    "Sara"
+   ],
+   "explain": "Jacob servit sept ans pour Rachel qu'il aimait. (Genèse 29:20)"
+  },
+  "en": {
+   "q": "Which woman did Jacob serve seven years to marry?",
+   "options": [
+    "Rachel",
+    "Leah",
+    "Rebekah",
+    "Sarah"
+   ],
+   "explain": "Jacob served seven years for Rachel whom he loved. (Genesis 29:20)"
+  }
+ },
+ {
+  "id": "ot-easy-089",
+  "ref": {
+   "fr": "Genèse 24:67",
+   "en": "Genesis 24:67"
+  },
+  "fr": {
+   "q": "Quelle femme devint l'épouse d'Isaac ?",
+   "options": [
+    "Rébecca",
+    "Rachel",
+    "Léa",
+    "Sara"
+   ],
+   "explain": "Isaac prit Rébecca pour femme et l'aima. (Genèse 24:67)"
+  },
+  "en": {
+   "q": "Which woman became Isaac's wife?",
+   "options": [
+    "Rebekah",
+    "Rachel",
+    "Leah",
+    "Sarah"
+   ],
+   "explain": "Isaac took Rebekah as his wife and loved her. (Genesis 24:67)"
+  }
+ },
+ {
+  "id": "ot-easy-090",
+  "ref": {
+   "fr": "Genèse 13:5",
+   "en": "Genesis 13:5"
+  },
+  "fr": {
+   "q": "Quel neveu voyagea avec Abraham vers Canaan ?",
+   "options": [
+    "Loth",
+    "Isaac",
+    "Ismaël",
+    "Éliézer"
+   ],
+   "explain": "Loth, neveu d'Abraham, allait avec lui. (Genèse 13:1-5)"
+  },
+  "en": {
+   "q": "Which nephew journeyed with Abraham to Canaan?",
+   "options": [
+    "Lot",
+    "Isaac",
+    "Ishmael",
+    "Eliezer"
+   ],
+   "explain": "Lot, Abraham's nephew, went with him. (Genesis 13:1-5)"
+  }
+ },
+ {
+  "id": "ot-easy-091",
+  "ref": {
+   "fr": "Genèse 37:7",
+   "en": "Genesis 37:7"
+  },
+  "fr": {
+   "q": "Dans le songe de Joseph, que se prosternaient devant sa gerbe ?",
+   "options": [
+    "Les gerbes de ses frères",
+    "Des lions",
+    "Des étoiles seulement",
+    "De grands arbres"
+   ],
+   "explain": "Les gerbes des frères se prosternèrent devant celle de Joseph. (Genèse 37:7)"
+  },
+  "en": {
+   "q": "In Joseph's dream, what bowed down before his sheaf?",
+   "options": [
+    "His brothers' sheaves",
+    "Lions",
+    "Stars only",
+    "Tall trees"
+   ],
+   "explain": "The brothers' sheaves bowed to Joseph's sheaf. (Genesis 37:7)"
+  }
+ },
+ {
+  "id": "ot-easy-092",
+  "ref": {
+   "fr": "Genèse 45:15",
+   "en": "Genesis 45:15"
+  },
+  "fr": {
+   "q": "Que fit Joseph à ses frères venus en Égypte ?",
+   "options": [
+    "Il leur pardonna",
+    "Il les emprisonna",
+    "Il les chassa",
+    "Il les oublia"
+   ],
+   "explain": "Joseph embrassa ses frères et les consola. (Genèse 45:15)"
+  },
+  "en": {
+   "q": "What did Joseph do to his brothers who came to Egypt?",
+   "options": [
+    "He forgave them",
+    "He imprisoned them",
+    "He drove them away",
+    "He forgot them"
+   ],
+   "explain": "Joseph kissed his brothers and comforted them. (Genesis 45:15)"
+  }
+ },
+ {
+  "id": "ot-easy-093",
+  "ref": {
+   "fr": "Genèse 8:11",
+   "en": "Genesis 8:11"
+  },
+  "fr": {
+   "q": "Quel oiseau rapporta à Noé une feuille d'olivier ?",
+   "options": [
+    "Une colombe",
+    "Un corbeau",
+    "Un aigle",
+    "Un moineau"
+   ],
+   "explain": "La colombe revint avec une feuille d'olivier. (Genèse 8:11)"
+  },
+  "en": {
+   "q": "Which bird brought Noah an olive leaf?",
+   "options": [
+    "A dove",
+    "A raven",
+    "An eagle",
+    "A sparrow"
+   ],
+   "explain": "The dove came back with an olive leaf. (Genesis 8:11)"
+  }
+ },
+ {
+  "id": "ot-easy-094",
+  "ref": {
+   "fr": "Genèse 7:12",
+   "en": "Genesis 7:12"
+  },
+  "fr": {
+   "q": "Combien de temps la pluie tomba-t-elle pendant le déluge ?",
+   "options": [
+    "Quarante jours et quarante nuits",
+    "Sept jours",
+    "Cent jours",
+    "Une année"
+   ],
+   "explain": "La pluie tomba quarante jours et quarante nuits. (Genèse 7:12)"
+  },
+  "en": {
+   "q": "How long did the rain fall during the flood?",
+   "options": [
+    "Forty days and forty nights",
+    "Seven days",
+    "A hundred days",
+    "One year"
+   ],
+   "explain": "The rain fell forty days and forty nights. (Genesis 7:12)"
+  }
+ },
+ {
+  "id": "ot-easy-095",
+  "ref": {
+   "fr": "Genèse 8:4",
+   "en": "Genesis 8:4"
+  },
+  "fr": {
+   "q": "Sur quelles montagnes l'arche de Noé s'arrêta-t-elle ?",
+   "options": [
+    "Les montagnes d'Ararat",
+    "Le mont Sinaï",
+    "Le mont Carmel",
+    "Le mont des Oliviers"
+   ],
+   "explain": "L'arche s'arrêta sur les montagnes d'Ararat. (Genèse 8:4)"
+  },
+  "en": {
+   "q": "On which mountains did Noah's ark come to rest?",
+   "options": [
+    "The mountains of Ararat",
+    "Mount Sinai",
+    "Mount Carmel",
+    "The Mount of Olives"
+   ],
+   "explain": "The ark rested on the mountains of Ararat. (Genesis 8:4)"
+  }
+ },
+ {
+  "id": "ot-easy-096",
+  "ref": {
+   "fr": "Genèse 9:11",
+   "en": "Genesis 9:11"
+  },
+  "fr": {
+   "q": "Que Dieu promit-il de ne plus faire après le déluge ?",
+   "options": [
+    "Détruire la terre par les eaux",
+    "Créer des animaux",
+    "Parler aux hommes",
+    "Envoyer la pluie"
+   ],
+   "explain": "Dieu promit qu'un déluge ne détruirait plus la terre. (Genèse 9:11)"
+  },
+  "en": {
+   "q": "What did God promise never to do again after the flood?",
+   "options": [
+    "Destroy the earth with water",
+    "Create animals",
+    "Speak to people",
+    "Send rain"
+   ],
+   "explain": "God promised no flood would destroy the earth again. (Genesis 9:11)"
+  }
+ },
+ {
+  "id": "ot-easy-097",
+  "ref": {
+   "fr": "Genèse 1:16",
+   "en": "Genesis 1:16"
+  },
+  "fr": {
+   "q": "Que Dieu plaça-t-il dans le ciel pour éclairer le jour et la nuit ?",
+   "options": [
+    "Le soleil, la lune et les étoiles",
+    "Les nuages",
+    "Les oiseaux",
+    "Les arbres"
+   ],
+   "explain": "Dieu fit les deux grands luminaires et les étoiles. (Genèse 1:16)"
+  },
+  "en": {
+   "q": "What did God set in the sky to light the day and the night?",
+   "options": [
+    "The sun, moon, and stars",
+    "The clouds",
+    "The birds",
+    "The trees"
+   ],
+   "explain": "God made the two great lights and the stars. (Genesis 1:16)"
+  }
+ },
+ {
+  "id": "ot-easy-098",
+  "ref": {
+   "fr": "Genèse 2:7",
+   "en": "Genesis 2:7"
+  },
+  "fr": {
+   "q": "Que Dieu souffla-t-il dans les narines de l'homme ?",
+   "options": [
+    "Le souffle de vie",
+    "De l'eau vive",
+    "Un vent chaud",
+    "Une flamme"
+   ],
+   "explain": "Dieu souffla le souffle de vie et l'homme devint vivant. (Genèse 2:7)"
+  },
+  "en": {
+   "q": "What did God breathe into the man's nostrils?",
+   "options": [
+    "The breath of life",
+    "Living water",
+    "A warm wind",
+    "A flame"
+   ],
+   "explain": "God breathed the breath of life and man became living. (Genesis 2:7)"
+  }
+ },
+ {
+  "id": "ot-easy-099",
+  "ref": {
+   "fr": "Genèse 4:4",
+   "en": "Genesis 4:4"
+  },
+  "fr": {
+   "q": "Dieu regarda avec faveur l'offrande de Caïn ou d'Abel ?",
+   "options": [
+    "Celle d'Abel",
+    "Celle de Caïn",
+    "Celle de Seth",
+    "Aucune des deux"
+   ],
+   "explain": "L'Éternel porta un regard favorable sur Abel et son offrande. (Genèse 4:4)"
+  },
+  "en": {
+   "q": "Whose offering did God look on with favor, Cain's or Abel's?",
+   "options": [
+    "Abel's",
+    "Cain's",
+    "Seth's",
+    "Neither one"
+   ],
+   "explain": "The LORD looked with favor on Abel and his offering. (Genesis 4:4)"
+  }
+ },
+ {
+  "id": "ot-easy-100",
+  "ref": {
+   "fr": "Ruth 4:17",
+   "en": "Ruth 4:17"
+  },
+  "fr": {
+   "q": "Comment s'appelait le fils de Ruth, grand-père du roi David ?",
+   "options": [
+    "Obed",
+    "Isaï",
+    "Booz",
+    "Salmon"
+   ],
+   "explain": "Obed, fils de Ruth, fut le père d'Isaï, père de David. (Ruth 4:17)"
+  },
+  "en": {
+   "q": "What was the name of Ruth's son, grandfather of King David?",
+   "options": [
+    "Obed",
+    "Jesse",
+    "Boaz",
+    "Salmon"
+   ],
+   "explain": "Obed, son of Ruth, was the father of Jesse, David's father. (Ruth 4:17)"
+  }
+ }
+]

@@ -1,0 +1,2702 @@
+[
+ {
+  "id": "verses-easy-001",
+  "ref": {
+   "fr": "Jean 3:16",
+   "en": "John 3:16"
+  },
+  "fr": {
+   "q": "Complétez : « Car Dieu a tant aimé le monde qu’il a donné son Fils unique, afin que quiconque croit en lui... ait ______. »",
+   "options": [
+    "la vie éternelle",
+    "la paix",
+    "le salut du roi",
+    "la joie"
+   ],
+   "explain": "« ...ait la vie éternelle. » (Jean 3:16)"
+  },
+  "en": {
+   "q": "Complete: “For God so loved the world, that he gave his one and only Son, that whoever believes in him... should have ______.”",
+   "options": [
+    "eternal life",
+    "peace",
+    "the king’s salvation",
+    "joy"
+   ],
+   "explain": "“...have eternal life.” (John 3:16)"
+  }
+ },
+ {
+  "id": "verses-easy-002",
+  "ref": {
+   "fr": "Genèse 1:1",
+   "en": "Genesis 1:1"
+  },
+  "fr": {
+   "q": "Complétez : « Au commencement, Dieu créa ______. »",
+   "options": [
+    "les cieux et la terre",
+    "la lumière",
+    "les animaux",
+    "l’homme"
+   ],
+   "explain": "« Au commencement, Dieu créa les cieux et la terre. » (Genèse 1:1)"
+  },
+  "en": {
+   "q": "Complete: “In the beginning God created ______.”",
+   "options": [
+    "the heavens and the earth",
+    "the light",
+    "the animals",
+    "man"
+   ],
+   "explain": "“In the beginning God created the heavens and the earth.” (Genesis 1:1)"
+  }
+ },
+ {
+  "id": "verses-easy-003",
+  "ref": {
+   "fr": "Psaume 23:1",
+   "en": "Psalm 23:1"
+  },
+  "fr": {
+   "q": "Complétez : « L’Éternel est ______ : je ne manquerai de rien. »",
+   "options": [
+    "mon berger",
+    "mon rocher",
+    "mon bouclier",
+    "mon refuge"
+   ],
+   "explain": "« L’Éternel est mon berger : je ne manquerai de rien. » (Psaume 23:1)"
+  },
+  "en": {
+   "q": "Complete: “The LORD is ______; I shall not want.”",
+   "options": [
+    "my shepherd",
+    "my rock",
+    "my shield",
+    "my refuge"
+   ],
+   "explain": "“The LORD is my shepherd; I shall not want.” (Psalm 23:1)"
+  }
+ },
+ {
+  "id": "verses-easy-004",
+  "ref": {
+   "fr": "Philippiens 4:13",
+   "en": "Philippians 4:13"
+  },
+  "fr": {
+   "q": "Complétez : « Je puis ______ par celui qui me fortifie. »",
+   "options": [
+    "tout",
+    "rien",
+    "peu",
+    "un peu"
+   ],
+   "explain": "« Je puis tout par celui qui me fortifie. » (Philippiens 4:13)"
+  },
+  "en": {
+   "q": "Complete: “I can do ______ through Christ which strengtheneth me.”",
+   "options": [
+    "all things",
+    "nothing",
+    "little",
+    "a few things"
+   ],
+   "explain": "“I can do all things through Christ which strengtheneth me.” (Philippians 4:13)"
+  }
+ },
+ {
+  "id": "verses-easy-005",
+  "ref": {
+   "fr": "Romains 8:28",
+   "en": "Romans 8:28"
+  },
+  "fr": {
+   "q": "Complétez : « ...toutes choses concourent ______ de ceux qui aiment Dieu. »",
+   "options": [
+    "au bien",
+    "au mal",
+    "à la ruine",
+    "au hasard"
+   ],
+   "explain": "« ...toutes choses concourent au bien de ceux qui aiment Dieu. » (Romains 8:28)"
+  },
+  "en": {
+   "q": "Complete: “...all things work together for ______ to them that love God.”",
+   "options": [
+    "good",
+    "evil",
+    "ruin",
+    "chance"
+   ],
+   "explain": "“...all things work together for good to them that love God.” (Romans 8:28)"
+  }
+ },
+ {
+  "id": "verses-easy-006",
+  "ref": {
+   "fr": "Proverbes 3:5",
+   "en": "Proverbs 3:5"
+  },
+  "fr": {
+   "q": "Complétez : « Confie-toi en l’Éternel de tout ton cœur, et ne t’appuie pas sur ______. »",
+   "options": [
+    "ta sagesse",
+    "ta force",
+    "ta richesse",
+    "tes amis"
+   ],
+   "explain": "« ...ne t’appuie pas sur ta sagesse. » (Proverbes 3:5)"
+  },
+  "en": {
+   "q": "Complete: “Trust in the LORD with all thine heart; and lean not unto ______.”",
+   "options": [
+    "thine own understanding",
+    "thy strength",
+    "thy riches",
+    "thy friends"
+   ],
+   "explain": "“...lean not unto thine own understanding.” (Proverbs 3:5)"
+  }
+ },
+ {
+  "id": "verses-easy-007",
+  "ref": {
+   "fr": "Jean 14:6",
+   "en": "John 14:6"
+  },
+  "fr": {
+   "q": "Complétez : « Je suis ______ ; nul ne vient au Père que par moi. »",
+   "options": [
+    "le chemin, la vérité et la vie",
+    "le pain et l’eau",
+    "la porte et le berger",
+    "la lumière et le sel"
+   ],
+   "explain": "« Je suis le chemin, la vérité et la vie. » (Jean 14:6)"
+  },
+  "en": {
+   "q": "Complete: “I am ______; no man cometh unto the Father, but by me.”",
+   "options": [
+    "the way, the truth, and the life",
+    "the bread and the water",
+    "the door and the shepherd",
+    "the light and the salt"
+   ],
+   "explain": "“I am the way, the truth, and the life.” (John 14:6)"
+  }
+ },
+ {
+  "id": "verses-easy-008",
+  "ref": {
+   "fr": "Genèse 1:3",
+   "en": "Genesis 1:3"
+  },
+  "fr": {
+   "q": "Complétez : « Dieu dit : Que ______ soit ! Et elle fut. »",
+   "options": [
+    "la lumière",
+    "le ciel",
+    "le jour",
+    "le soleil"
+   ],
+   "explain": "« Que la lumière soit ! Et la lumière fut. » (Genèse 1:3)"
+  },
+  "en": {
+   "q": "Complete: “God said, Let there be ______: and there was.”",
+   "options": [
+    "light",
+    "the sky",
+    "the day",
+    "the sun"
+   ],
+   "explain": "“Let there be light: and there was light.” (Genesis 1:3)"
+  }
+ },
+ {
+  "id": "verses-easy-009",
+  "ref": {
+   "fr": "Psaume 119:105",
+   "en": "Psalm 119:105"
+  },
+  "fr": {
+   "q": "Complétez : « Ta parole est ______ à mes pieds, et une lumière sur mon sentier. »",
+   "options": [
+    "une lampe",
+    "une épée",
+    "un rocher",
+    "un bouclier"
+   ],
+   "explain": "« Ta parole est une lampe à mes pieds... » (Psaume 119:105)"
+  },
+  "en": {
+   "q": "Complete: “Thy word is ______ unto my feet, and a light unto my path.”",
+   "options": [
+    "a lamp",
+    "a sword",
+    "a rock",
+    "a shield"
+   ],
+   "explain": "“Thy word is a lamp unto my feet...” (Psalm 119:105)"
+  }
+ },
+ {
+  "id": "verses-easy-010",
+  "ref": {
+   "fr": "Matthieu 5:14",
+   "en": "Matthew 5:14"
+  },
+  "fr": {
+   "q": "Complétez : « Vous êtes ______ ; une ville située sur une montagne ne peut être cachée. »",
+   "options": [
+    "la lumière du monde",
+    "le sel de la terre",
+    "le levain",
+    "la semence"
+   ],
+   "explain": "« Vous êtes la lumière du monde. » (Matthieu 5:14)"
+  },
+  "en": {
+   "q": "Complete: “Ye are ______: a city that is set on an hill cannot be hid.”",
+   "options": [
+    "the light of the world",
+    "the salt of the earth",
+    "the leaven",
+    "the seed"
+   ],
+   "explain": "“Ye are the light of the world.” (Matthew 5:14)"
+  }
+ },
+ {
+  "id": "verses-easy-011",
+  "ref": {
+   "fr": "Matthieu 5:13",
+   "en": "Matthew 5:13"
+  },
+  "fr": {
+   "q": "Complétez : « Vous êtes ______ de la terre. »",
+   "options": [
+    "le sel",
+    "la lumière",
+    "le levain",
+    "le pain"
+   ],
+   "explain": "« Vous êtes le sel de la terre. » (Matthieu 5:13)"
+  },
+  "en": {
+   "q": "Complete: “Ye are ______ of the earth.”",
+   "options": [
+    "the salt",
+    "the light",
+    "the leaven",
+    "the bread"
+   ],
+   "explain": "“Ye are the salt of the earth.” (Matthew 5:13)"
+  }
+ },
+ {
+  "id": "verses-easy-012",
+  "ref": {
+   "fr": "Ésaïe 41:10",
+   "en": "Isaiah 41:10"
+  },
+  "fr": {
+   "q": "Complétez : « Ne crains rien, car ______ ; ne promène pas des regards inquiets. »",
+   "options": [
+    "je suis avec toi",
+    "tu es fort",
+    "je te punirai",
+    "je t’oublie"
+   ],
+   "explain": "« Ne crains rien, car je suis avec toi. » (Ésaïe 41:10)"
+  },
+  "en": {
+   "q": "Complete: “Fear thou not; for ______: be not dismayed.”",
+   "options": [
+    "I am with thee",
+    "thou art strong",
+    "I will punish thee",
+    "I forget thee"
+   ],
+   "explain": "“Fear thou not; for I am with thee.” (Isaiah 41:10)"
+  }
+ },
+ {
+  "id": "verses-easy-013",
+  "ref": {
+   "fr": "Josué 1:9",
+   "en": "Joshua 1:9"
+  },
+  "fr": {
+   "q": "Complétez : « Fortifie-toi et ______, car l’Éternel, ton Dieu, est avec toi. »",
+   "options": [
+    "prends courage",
+    "aie peur",
+    "repose-toi",
+    "attends"
+   ],
+   "explain": "« Fortifie-toi et prends courage. » (Josué 1:9)"
+  },
+  "en": {
+   "q": "Complete: “Be strong and ______: for the LORD thy God is with thee.”",
+   "options": [
+    "of a good courage",
+    "afraid",
+    "at rest",
+    "patient"
+   ],
+   "explain": "“Be strong and of a good courage.” (Joshua 1:9)"
+  }
+ },
+ {
+  "id": "verses-easy-014",
+  "ref": {
+   "fr": "Jérémie 29:11",
+   "en": "Jeremiah 29:11"
+  },
+  "fr": {
+   "q": "Complétez : « ...je pense à vous des pensées ______, et non de malheur. »",
+   "options": [
+    "de paix",
+    "de guerre",
+    "de colère",
+    "de crainte"
+   ],
+   "explain": "« ...des pensées de paix, et non de malheur. » (Jérémie 29:11)"
+  },
+  "en": {
+   "q": "Complete: “...thoughts ______, and not of evil, to give you an expected end.”",
+   "options": [
+    "of peace",
+    "of war",
+    "of anger",
+    "of fear"
+   ],
+   "explain": "“...thoughts of peace, and not of evil.” (Jeremiah 29:11)"
+  }
+ },
+ {
+  "id": "verses-easy-015",
+  "ref": {
+   "fr": "Psaume 46:2",
+   "en": "Psalm 46:1"
+  },
+  "fr": {
+   "q": "Complétez : « Dieu est pour nous ______ et un appui, un secours toujours présent. »",
+   "options": [
+    "un refuge",
+    "un juge",
+    "un ennemi",
+    "un étranger"
+   ],
+   "explain": "« Dieu est pour nous un refuge et un appui. » (Psaume 46:2)"
+  },
+  "en": {
+   "q": "Complete: “God is our ______ and strength, a very present help in trouble.”",
+   "options": [
+    "refuge",
+    "judge",
+    "enemy",
+    "stranger"
+   ],
+   "explain": "“God is our refuge and strength.” (Psalm 46:1)"
+  }
+ },
+ {
+  "id": "verses-easy-016",
+  "ref": {
+   "fr": "Matthieu 6:33",
+   "en": "Matthew 6:33"
+  },
+  "fr": {
+   "q": "Complétez : « Cherchez premièrement ______ et la justice de Dieu. »",
+   "options": [
+    "le royaume",
+    "la richesse",
+    "la gloire",
+    "le pouvoir"
+   ],
+   "explain": "« Cherchez premièrement le royaume et la justice de Dieu. » (Matthieu 6:33)"
+  },
+  "en": {
+   "q": "Complete: “Seek ye first ______ of God, and his righteousness.”",
+   "options": [
+    "the kingdom",
+    "the riches",
+    "the glory",
+    "the power"
+   ],
+   "explain": "“Seek ye first the kingdom of God, and his righteousness.” (Matthew 6:33)"
+  }
+ },
+ {
+  "id": "verses-easy-017",
+  "ref": {
+   "fr": "Proverbes 1:7",
+   "en": "Proverbs 1:7"
+  },
+  "fr": {
+   "q": "Complétez : « La crainte de l’Éternel est le commencement ______. »",
+   "options": [
+    "de la science",
+    "de la richesse",
+    "du malheur",
+    "de la fin"
+   ],
+   "explain": "« La crainte de l’Éternel est le commencement de la science. » (Proverbes 1:7)"
+  },
+  "en": {
+   "q": "Complete: “The fear of the LORD is the beginning ______.”",
+   "options": [
+    "of knowledge",
+    "of riches",
+    "of sorrow",
+    "of the end"
+   ],
+   "explain": "“The fear of the LORD is the beginning of knowledge.” (Proverbs 1:7)"
+  }
+ },
+ {
+  "id": "verses-easy-018",
+  "ref": {
+   "fr": "Romains 3:23",
+   "en": "Romans 3:23"
+  },
+  "fr": {
+   "q": "Complétez : « ...tous ______ et sont privés de la gloire de Dieu. »",
+   "options": [
+    "ont péché",
+    "sont sauvés",
+    "sont justes",
+    "sont forts"
+   ],
+   "explain": "« ...tous ont péché et sont privés de la gloire de Dieu. » (Romains 3:23)"
+  },
+  "en": {
+   "q": "Complete: “...all ______, and come short of the glory of God.”",
+   "options": [
+    "have sinned",
+    "are saved",
+    "are righteous",
+    "are strong"
+   ],
+   "explain": "“...all have sinned, and come short of the glory of God.” (Romans 3:23)"
+  }
+ },
+ {
+  "id": "verses-easy-019",
+  "ref": {
+   "fr": "Romains 6:23",
+   "en": "Romans 6:23"
+  },
+  "fr": {
+   "q": "Complétez : « Car le salaire du péché, c’est ______. »",
+   "options": [
+    "la mort",
+    "la vie",
+    "la joie",
+    "la paix"
+   ],
+   "explain": "« Car le salaire du péché, c’est la mort. » (Romains 6:23)"
+  },
+  "en": {
+   "q": "Complete: “For the wages of sin is ______.”",
+   "options": [
+    "death",
+    "life",
+    "joy",
+    "peace"
+   ],
+   "explain": "“For the wages of sin is death.” (Romans 6:23)"
+  }
+ },
+ {
+  "id": "verses-easy-020",
+  "ref": {
+   "fr": "Jean 1:1",
+   "en": "John 1:1"
+  },
+  "fr": {
+   "q": "Complétez : « Au commencement était ______, et elle était avec Dieu. »",
+   "options": [
+    "la Parole",
+    "la lumière",
+    "la vie",
+    "l’homme"
+   ],
+   "explain": "« Au commencement était la Parole. » (Jean 1:1)"
+  },
+  "en": {
+   "q": "Complete: “In the beginning was ______, and the Word was with God.”",
+   "options": [
+    "the Word",
+    "the light",
+    "life",
+    "man"
+   ],
+   "explain": "“In the beginning was the Word.” (John 1:1)"
+  }
+ },
+ {
+  "id": "verses-easy-021",
+  "ref": {
+   "fr": "Matthieu 28:19",
+   "en": "Matthew 28:19"
+  },
+  "fr": {
+   "q": "Complétez : « Allez, faites de toutes les nations ______. »",
+   "options": [
+    "des disciples",
+    "des rois",
+    "des serviteurs",
+    "des amis"
+   ],
+   "explain": "« ...faites de toutes les nations des disciples. » (Matthieu 28:19)"
+  },
+  "en": {
+   "q": "Complete: “Go therefore, and make ______ of all nations.”",
+   "options": [
+    "disciples",
+    "kings",
+    "servants",
+    "friends"
+   ],
+   "explain": "“...make disciples of all nations.” (Matthew 28:19)"
+  }
+ },
+ {
+  "id": "verses-easy-022",
+  "ref": {
+   "fr": "Actes 1:8",
+   "en": "Acts 1:8"
+  },
+  "fr": {
+   "q": "Complétez : « ...vous serez ______ jusqu’aux extrémités de la terre. »",
+   "options": [
+    "mes témoins",
+    "mes juges",
+    "mes rois",
+    "mes anges"
+   ],
+   "explain": "« ...vous serez mes témoins. » (Actes 1:8)"
+  },
+  "en": {
+   "q": "Complete: “...ye shall be ______ unto the uttermost part of the earth.”",
+   "options": [
+    "my witnesses",
+    "my judges",
+    "my kings",
+    "my angels"
+   ],
+   "explain": "“...ye shall be witnesses unto me.” (Acts 1:8)"
+  }
+ },
+ {
+  "id": "verses-easy-023",
+  "ref": {
+   "fr": "1 Jean 4:8",
+   "en": "1 John 4:8"
+  },
+  "fr": {
+   "q": "Complétez : « ...car Dieu est ______. »",
+   "options": [
+    "amour",
+    "saint",
+    "fort",
+    "juste"
+   ],
+   "explain": "« Dieu est amour. » (1 Jean 4:8)"
+  },
+  "en": {
+   "q": "Complete: “...for God is ______.”",
+   "options": [
+    "love",
+    "holy",
+    "strong",
+    "just"
+   ],
+   "explain": "“God is love.” (1 John 4:8)"
+  }
+ },
+ {
+  "id": "verses-easy-024",
+  "ref": {
+   "fr": "1 Jean 1:5",
+   "en": "1 John 1:5"
+  },
+  "fr": {
+   "q": "Complétez : « Dieu est ______, et il n’y a point en lui de ténèbres. »",
+   "options": [
+    "lumière",
+    "amour",
+    "feu",
+    "roi"
+   ],
+   "explain": "« Dieu est lumière. » (1 Jean 1:5)"
+  },
+  "en": {
+   "q": "Complete: “God is ______, and in him is no darkness at all.”",
+   "options": [
+    "light",
+    "love",
+    "fire",
+    "king"
+   ],
+   "explain": "“God is light.” (1 John 1:5)"
+  }
+ },
+ {
+  "id": "verses-easy-025",
+  "ref": {
+   "fr": "Psaume 100:2",
+   "en": "Psalm 100:2"
+  },
+  "fr": {
+   "q": "Complétez : « Servez l’Éternel ______, venez avec allégresse en sa présence. »",
+   "options": [
+    "avec joie",
+    "avec crainte",
+    "en secret",
+    "sans cesse"
+   ],
+   "explain": "« Servez l’Éternel avec joie. » (Psaume 100:2)"
+  },
+  "en": {
+   "q": "Complete: “Serve the LORD ______: come before his presence with singing.”",
+   "options": [
+    "with gladness",
+    "with fear",
+    "in secret",
+    "without ceasing"
+   ],
+   "explain": "“Serve the LORD with gladness.” (Psalm 100:2)"
+  }
+ },
+ {
+  "id": "verses-easy-026",
+  "ref": {
+   "fr": "Matthieu 11:28",
+   "en": "Matthew 11:28"
+  },
+  "fr": {
+   "q": "Complétez : « Venez à moi, vous tous qui êtes fatigués..., et je vous donnerai ______. »",
+   "options": [
+    "du repos",
+    "de l’or",
+    "la gloire",
+    "un trône"
+   ],
+   "explain": "« ...et je vous donnerai du repos. » (Matthieu 11:28)"
+  },
+  "en": {
+   "q": "Complete: “Come unto me, all ye that labour..., and I will give you ______.”",
+   "options": [
+    "rest",
+    "gold",
+    "glory",
+    "a throne"
+   ],
+   "explain": "“...and I will give you rest.” (Matthew 11:28)"
+  }
+ },
+ {
+  "id": "verses-easy-027",
+  "ref": {
+   "fr": "Jean 10:11",
+   "en": "John 10:11"
+  },
+  "fr": {
+   "q": "Complétez : « Je suis ______ ; le bon berger donne sa vie pour ses brebis. »",
+   "options": [
+    "le bon berger",
+    "la porte",
+    "le cep",
+    "le pain"
+   ],
+   "explain": "« Je suis le bon berger. » (Jean 10:11)"
+  },
+  "en": {
+   "q": "Complete: “I am ______: the good shepherd giveth his life for the sheep.”",
+   "options": [
+    "the good shepherd",
+    "the door",
+    "the vine",
+    "the bread"
+   ],
+   "explain": "“I am the good shepherd.” (John 10:11)"
+  }
+ },
+ {
+  "id": "verses-easy-028",
+  "ref": {
+   "fr": "Jean 6:35",
+   "en": "John 6:35"
+  },
+  "fr": {
+   "q": "Complétez : « Je suis ______ ; celui qui vient à moi n’aura jamais faim. »",
+   "options": [
+    "le pain de vie",
+    "l’eau vive",
+    "la vigne",
+    "la porte"
+   ],
+   "explain": "« Je suis le pain de vie. » (Jean 6:35)"
+  },
+  "en": {
+   "q": "Complete: “I am ______: he that cometh to me shall never hunger.”",
+   "options": [
+    "the bread of life",
+    "the living water",
+    "the vine",
+    "the door"
+   ],
+   "explain": "“I am the bread of life.” (John 6:35)"
+  }
+ },
+ {
+  "id": "verses-easy-029",
+  "ref": {
+   "fr": "Jean 11:25",
+   "en": "John 11:25"
+  },
+  "fr": {
+   "q": "Complétez : « Je suis ______ ; celui qui croit en moi vivra, quand même il serait mort. »",
+   "options": [
+    "la résurrection et la vie",
+    "le chemin",
+    "le berger",
+    "la porte"
+   ],
+   "explain": "« Je suis la résurrection et la vie. » (Jean 11:25)"
+  },
+  "en": {
+   "q": "Complete: “I am ______: he that believeth in me... shall he live.”",
+   "options": [
+    "the resurrection, and the life",
+    "the way",
+    "the shepherd",
+    "the door"
+   ],
+   "explain": "“I am the resurrection, and the life.” (John 11:25)"
+  }
+ },
+ {
+  "id": "verses-easy-030",
+  "ref": {
+   "fr": "Psaume 27:1",
+   "en": "Psalm 27:1"
+  },
+  "fr": {
+   "q": "Complétez : « L’Éternel est ______ : de qui aurais-je crainte ? »",
+   "options": [
+    "ma lumière et mon salut",
+    "ma crainte et mon effroi",
+    "ma richesse et ma gloire",
+    "mon guide et mon roi"
+   ],
+   "explain": "« L’Éternel est ma lumière et mon salut. » (Psaume 27:1)"
+  },
+  "en": {
+   "q": "Complete: “The LORD is ______: whom shall I fear?”",
+   "options": [
+    "my light and my salvation",
+    "my fear and my dread",
+    "my riches and my glory",
+    "my guide and my king"
+   ],
+   "explain": "“The LORD is my light and my salvation.” (Psalm 27:1)"
+  }
+ },
+ {
+  "id": "verses-easy-031",
+  "ref": {
+   "fr": "Psaume 121:1-2",
+   "en": "Psalm 121:1-2"
+  },
+  "fr": {
+   "q": "Complétez : « Je lève mes yeux vers les montagnes... D’où me viendra ______ ? »",
+   "options": [
+    "le secours",
+    "la richesse",
+    "la gloire",
+    "la paix"
+   ],
+   "explain": "« ...D’où me viendra le secours ? Le secours vient de l’Éternel. » (Psaume 121:1-2)"
+  },
+  "en": {
+   "q": "Complete: “I will lift up mine eyes unto the hills, from whence cometh ______?”",
+   "options": [
+    "my help",
+    "my wealth",
+    "my glory",
+    "my peace"
+   ],
+   "explain": "“...from whence cometh my help.” (Psalm 121:1)"
+  }
+ },
+ {
+  "id": "verses-easy-032",
+  "ref": {
+   "fr": "Proverbes 22:6",
+   "en": "Proverbs 22:6"
+  },
+  "fr": {
+   "q": "Complétez : « Instruis ______ selon la voie qu’il doit suivre. »",
+   "options": [
+    "l’enfant",
+    "le roi",
+    "l’insensé",
+    "le vieillard"
+   ],
+   "explain": "« Instruis l’enfant selon la voie qu’il doit suivre. » (Proverbes 22:6)"
+  },
+  "en": {
+   "q": "Complete: “Train up ______ in the way he should go.”",
+   "options": [
+    "a child",
+    "a king",
+    "a fool",
+    "an old man"
+   ],
+   "explain": "“Train up a child in the way he should go.” (Proverbs 22:6)"
+  }
+ },
+ {
+  "id": "verses-easy-033",
+  "ref": {
+   "fr": "Ecclésiaste 3:1",
+   "en": "Ecclesiastes 3:1"
+  },
+  "fr": {
+   "q": "Complétez : « Il y a ______ pour tout, un temps pour toute chose sous les cieux. »",
+   "options": [
+    "un temps",
+    "une place",
+    "un roi",
+    "une loi"
+   ],
+   "explain": "« Il y a un temps pour tout... » (Ecclésiaste 3:1)"
+  },
+  "en": {
+   "q": "Complete: “To every thing there is ______, and a time to every purpose.”",
+   "options": [
+    "a season",
+    "a place",
+    "a king",
+    "a law"
+   ],
+   "explain": "“To every thing there is a season.” (Ecclesiastes 3:1)"
+  }
+ },
+ {
+  "id": "verses-easy-034",
+  "ref": {
+   "fr": "Ésaïe 40:31",
+   "en": "Isaiah 40:31"
+  },
+  "fr": {
+   "q": "Complétez : « Ceux qui se confient en l’Éternel renouvellent ______. »",
+   "options": [
+    "leur force",
+    "leur richesse",
+    "leur gloire",
+    "leur crainte"
+   ],
+   "explain": "« ...renouvellent leur force. » (Ésaïe 40:31)"
+  },
+  "en": {
+   "q": "Complete: “...they that wait upon the LORD shall renew ______.”",
+   "options": [
+    "their strength",
+    "their riches",
+    "their glory",
+    "their fear"
+   ],
+   "explain": "“...shall renew their strength.” (Isaiah 40:31)"
+  }
+ },
+ {
+  "id": "verses-easy-035",
+  "ref": {
+   "fr": "Michée 6:8",
+   "en": "Micah 6:8"
+  },
+  "fr": {
+   "q": "Complétez : « ...pratiquer la justice, aimer ______, et marcher humblement avec ton Dieu. »",
+   "options": [
+    "la miséricorde",
+    "la richesse",
+    "la guerre",
+    "le pouvoir"
+   ],
+   "explain": "« ...aimer la miséricorde... » (Michée 6:8)"
+  },
+  "en": {
+   "q": "Complete: “...to do justly, and to love ______, and to walk humbly with thy God.”",
+   "options": [
+    "mercy",
+    "riches",
+    "war",
+    "power"
+   ],
+   "explain": "“...to love mercy...” (Micah 6:8)"
+  }
+ },
+ {
+  "id": "verses-easy-036",
+  "ref": {
+   "fr": "Matthieu 7:7",
+   "en": "Matthew 7:7"
+  },
+  "fr": {
+   "q": "Complétez : « Demandez, et l’on vous ______ ; cherchez, et vous trouverez. »",
+   "options": [
+    "donnera",
+    "refusera",
+    "jugera",
+    "oubliera"
+   ],
+   "explain": "« Demandez, et l’on vous donnera. » (Matthieu 7:7)"
+  },
+  "en": {
+   "q": "Complete: “Ask, and it shall be ______ you; seek, and ye shall find.”",
+   "options": [
+    "given",
+    "refused",
+    "judged",
+    "forgotten"
+   ],
+   "explain": "“Ask, and it shall be given you.” (Matthew 7:7)"
+  }
+ },
+ {
+  "id": "verses-easy-037",
+  "ref": {
+   "fr": "Galates 5:22",
+   "en": "Galatians 5:22"
+  },
+  "fr": {
+   "q": "Complétez : « Mais le fruit de l’Esprit, c’est ______, la joie, la paix... »",
+   "options": [
+    "l’amour",
+    "la richesse",
+    "la loi",
+    "la crainte"
+   ],
+   "explain": "« ...le fruit de l’Esprit, c’est l’amour, la joie, la paix... » (Galates 5:22)"
+  },
+  "en": {
+   "q": "Complete: “But the fruit of the Spirit is ______, joy, peace...”",
+   "options": [
+    "love",
+    "riches",
+    "law",
+    "fear"
+   ],
+   "explain": "“...the fruit of the Spirit is love, joy, peace...” (Galatians 5:22)"
+  }
+ },
+ {
+  "id": "verses-easy-038",
+  "ref": {
+   "fr": "Hébreux 11:1",
+   "en": "Hebrews 11:1"
+  },
+  "fr": {
+   "q": "Complétez : « Or ______ est une ferme assurance des choses qu’on espère. »",
+   "options": [
+    "la foi",
+    "l’espérance",
+    "la charité",
+    "la crainte"
+   ],
+   "explain": "« Or la foi est une ferme assurance des choses qu’on espère. » (Hébreux 11:1)"
+  },
+  "en": {
+   "q": "Complete: “Now ______ is the substance of things hoped for.”",
+   "options": [
+    "faith",
+    "hope",
+    "charity",
+    "fear"
+   ],
+   "explain": "“Now faith is the substance of things hoped for.” (Hebrews 11:1)"
+  }
+ },
+ {
+  "id": "verses-easy-039",
+  "ref": {
+   "fr": "Psaume 91:1",
+   "en": "Psalm 91:1"
+  },
+  "fr": {
+   "q": "Complétez : « Celui qui demeure sous l’abri ______ repose à l’ombre du Tout-Puissant. »",
+   "options": [
+    "du Très-Haut",
+    "du roi",
+    "du juge",
+    "de l’ennemi"
+   ],
+   "explain": "« Celui qui demeure sous l’abri du Très-Haut... » (Psaume 91:1)"
+  },
+  "en": {
+   "q": "Complete: “He that dwelleth in the secret place of ______ shall abide under the shadow of the Almighty.”",
+   "options": [
+    "the most High",
+    "the king",
+    "the judge",
+    "the enemy"
+   ],
+   "explain": "“He that dwelleth in the secret place of the most High...” (Psalm 91:1)"
+  }
+ },
+ {
+  "id": "verses-easy-040",
+  "ref": {
+   "fr": "Matthieu 22:37",
+   "en": "Matthew 22:37"
+  },
+  "fr": {
+   "q": "Complétez : « Tu aimeras le Seigneur, ton Dieu, ______, de toute ton âme et de toute ta pensée. »",
+   "options": [
+    "de tout ton cœur",
+    "avec crainte",
+    "en secret",
+    "un seul jour"
+   ],
+   "explain": "« Tu aimeras le Seigneur, ton Dieu, de tout ton cœur... » (Matthieu 22:37)"
+  },
+  "en": {
+   "q": "Complete: “Thou shalt love the Lord thy God ______, and with all thy soul...”",
+   "options": [
+    "with all thy heart",
+    "with fear",
+    "in secret",
+    "for one day"
+   ],
+   "explain": "“Thou shalt love the Lord thy God with all thy heart...” (Matthew 22:37)"
+  }
+ },
+ {
+  "id": "verses-easy-041",
+  "ref": {
+   "fr": "Marc 12:31",
+   "en": "Mark 12:31"
+  },
+  "fr": {
+   "q": "Complétez : « Tu aimeras ______ comme toi-même. »",
+   "options": [
+    "ton prochain",
+    "ton roi",
+    "ton maître",
+    "ton ennemi"
+   ],
+   "explain": "« Tu aimeras ton prochain comme toi-même. » (Marc 12:31)"
+  },
+  "en": {
+   "q": "Complete: “Thou shalt love ______ as thyself.”",
+   "options": [
+    "thy neighbour",
+    "thy king",
+    "thy master",
+    "thine enemy"
+   ],
+   "explain": "“Thou shalt love thy neighbour as thyself.” (Mark 12:31)"
+  }
+ },
+ {
+  "id": "verses-easy-042",
+  "ref": {
+   "fr": "Jean 13:34",
+   "en": "John 13:34"
+  },
+  "fr": {
+   "q": "Complétez : « Je vous donne un commandement nouveau : Aimez-vous ______. »",
+   "options": [
+    "les uns les autres",
+    "les rois seulement",
+    "vos ennemis en secret",
+    "vous-mêmes seulement"
+   ],
+   "explain": "« ...Aimez-vous les uns les autres. » (Jean 13:34)"
+  },
+  "en": {
+   "q": "Complete: “A new commandment I give unto you, That ye love ______.”",
+   "options": [
+    "one another",
+    "the kings only",
+    "your enemies in secret",
+    "yourselves only"
+   ],
+   "explain": "“...That ye love one another.” (John 13:34)"
+  }
+ },
+ {
+  "id": "verses-easy-043",
+  "ref": {
+   "fr": "Psaume 118:24",
+   "en": "Psalm 118:24"
+  },
+  "fr": {
+   "q": "Complétez : « C’est ici la journée que ______ ; qu’elle soit pour nous un sujet d’allégresse. »",
+   "options": [
+    "l’Éternel a faite",
+    "l’homme a choisie",
+    "le roi a bénie",
+    "nous avons créée"
+   ],
+   "explain": "« C’est ici la journée que l’Éternel a faite. » (Psaume 118:24)"
+  },
+  "en": {
+   "q": "Complete: “This is the day which ______; we will rejoice and be glad in it.”",
+   "options": [
+    "the LORD hath made",
+    "man hath chosen",
+    "the king hath blessed",
+    "we have created"
+   ],
+   "explain": "“This is the day which the LORD hath made.” (Psalm 118:24)"
+  }
+ },
+ {
+  "id": "verses-easy-044",
+  "ref": {
+   "fr": "Ésaïe 9:6",
+   "en": "Isaiah 9:6"
+  },
+  "fr": {
+   "q": "Complétez : « Car un enfant nous est né, ______ nous est donné. »",
+   "options": [
+    "un fils",
+    "un roi",
+    "un prophète",
+    "un ange"
+   ],
+   "explain": "« ...un fils nous est donné. » (Ésaïe 9:6)"
+  },
+  "en": {
+   "q": "Complete: “For unto us a child is born, unto us ______ is given.”",
+   "options": [
+    "a son",
+    "a king",
+    "a prophet",
+    "an angel"
+   ],
+   "explain": "“...unto us a son is given.” (Isaiah 9:6)"
+  }
+ },
+ {
+  "id": "verses-easy-045",
+  "ref": {
+   "fr": "Luc 2:11",
+   "en": "Luke 2:11"
+  },
+  "fr": {
+   "q": "Complétez : « ...il vous est né aujourd’hui ______, qui est le Christ, le Seigneur. »",
+   "options": [
+    "un Sauveur",
+    "un prophète",
+    "un roi",
+    "un juge"
+   ],
+   "explain": "« ...il vous est né un Sauveur, qui est le Christ. » (Luc 2:11)"
+  },
+  "en": {
+   "q": "Complete: “...unto you is born this day ______, which is Christ the Lord.”",
+   "options": [
+    "a Saviour",
+    "a prophet",
+    "a king",
+    "a judge"
+   ],
+   "explain": "“...unto you is born this day a Saviour...” (Luke 2:11)"
+  }
+ },
+ {
+  "id": "verses-easy-046",
+  "ref": {
+   "fr": "Matthieu 1:21",
+   "en": "Matthew 1:21"
+  },
+  "fr": {
+   "q": "Complétez : « ...et tu lui donneras le nom de ______, car il sauvera son peuple. »",
+   "options": [
+    "Jésus",
+    "Jean",
+    "Emmanuel",
+    "Joseph"
+   ],
+   "explain": "« ...tu lui donneras le nom de Jésus. » (Matthieu 1:21)"
+  },
+  "en": {
+   "q": "Complete: “...and thou shalt call his name ______: for he shall save his people.”",
+   "options": [
+    "JESUS",
+    "John",
+    "Emmanuel",
+    "Joseph"
+   ],
+   "explain": "“...thou shalt call his name JESUS.” (Matthew 1:21)"
+  }
+ },
+ {
+  "id": "verses-easy-047",
+  "ref": {
+   "fr": "Jean 14:27",
+   "en": "John 14:27"
+  },
+  "fr": {
+   "q": "Complétez : « Je vous laisse ______, je vous donne ma paix. »",
+   "options": [
+    "la paix",
+    "la richesse",
+    "la gloire",
+    "la loi"
+   ],
+   "explain": "« Je vous laisse la paix, je vous donne ma paix. » (Jean 14:27)"
+  },
+  "en": {
+   "q": "Complete: “______ I leave with you, my peace I give unto you.”",
+   "options": [
+    "Peace",
+    "Riches",
+    "Glory",
+    "Law"
+   ],
+   "explain": "“Peace I leave with you, my peace I give unto you.” (John 14:27)"
+  }
+ },
+ {
+  "id": "verses-easy-048",
+  "ref": {
+   "fr": "Romains 5:8",
+   "en": "Romans 5:8"
+  },
+  "fr": {
+   "q": "Complétez : « ...lorsque nous étions encore des pécheurs, ______ est mort pour nous. »",
+   "options": [
+    "Christ",
+    "Moïse",
+    "Pierre",
+    "Jean"
+   ],
+   "explain": "« ...Christ est mort pour nous. » (Romains 5:8)"
+  },
+  "en": {
+   "q": "Complete: “...while we were yet sinners, ______ died for us.”",
+   "options": [
+    "Christ",
+    "Moses",
+    "Peter",
+    "John"
+   ],
+   "explain": "“...while we were yet sinners, Christ died for us.” (Romans 5:8)"
+  }
+ },
+ {
+  "id": "verses-easy-049",
+  "ref": {
+   "fr": "1 Corinthiens 13:13",
+   "en": "1 Corinthians 13:13"
+  },
+  "fr": {
+   "q": "Complétez : « ...mais la plus grande de ces choses, c’est ______. »",
+   "options": [
+    "la charité",
+    "la foi",
+    "l’espérance",
+    "la crainte"
+   ],
+   "explain": "« ...la plus grande de ces choses, c’est la charité. » (1 Corinthiens 13:13)"
+  },
+  "en": {
+   "q": "Complete: “...but the greatest of these is ______.”",
+   "options": [
+    "charity",
+    "faith",
+    "hope",
+    "fear"
+   ],
+   "explain": "“...the greatest of these is charity.” (1 Corinthians 13:13)"
+  }
+ },
+ {
+  "id": "verses-easy-050",
+  "ref": {
+   "fr": "1 Corinthiens 13:4",
+   "en": "1 Corinthians 13:4"
+  },
+  "fr": {
+   "q": "Complétez : « La charité est ______, elle est pleine de bonté. »",
+   "options": [
+    "patiente",
+    "jalouse",
+    "orgueilleuse",
+    "méchante"
+   ],
+   "explain": "« La charité est patiente, elle est pleine de bonté. » (1 Corinthiens 13:4)"
+  },
+  "en": {
+   "q": "Complete: “Charity ______, and is kind.”",
+   "options": [
+    "suffereth long",
+    "envieth",
+    "is proud",
+    "is unkind"
+   ],
+   "explain": "“Charity suffereth long, and is kind.” (1 Corinthians 13:4)"
+  }
+ },
+ {
+  "id": "verses-easy-051",
+  "ref": {
+   "fr": "Psaume 23:4",
+   "en": "Psalm 23:4"
+  },
+  "fr": {
+   "q": "Complétez : « Quand je marche dans la vallée de l’ombre de la mort, je ne crains ______. »",
+   "options": [
+    "aucun mal",
+    "la mort",
+    "l’ennemi",
+    "la nuit"
+   ],
+   "explain": "« ...je ne crains aucun mal, car tu es avec moi. » (Psaume 23:4)"
+  },
+  "en": {
+   "q": "Complete: “Yea, though I walk through the valley of the shadow of death, I will fear ______.”",
+   "options": [
+    "no evil",
+    "death",
+    "the enemy",
+    "the night"
+   ],
+   "explain": "“...I will fear no evil: for thou art with me.” (Psalm 23:4)"
+  }
+ },
+ {
+  "id": "verses-easy-052",
+  "ref": {
+   "fr": "Psaume 23:2",
+   "en": "Psalm 23:2"
+  },
+  "fr": {
+   "q": "Complétez : « Il me fait reposer dans ______ ; il me dirige près des eaux paisibles. »",
+   "options": [
+    "de verts pâturages",
+    "le désert",
+    "la montagne",
+    "la vallée"
+   ],
+   "explain": "« Il me fait reposer dans de verts pâturages. » (Psaume 23:2)"
+  },
+  "en": {
+   "q": "Complete: “He maketh me to lie down in ______: he leadeth me beside the still waters.”",
+   "options": [
+    "green pastures",
+    "the desert",
+    "the mountain",
+    "the valley"
+   ],
+   "explain": "“He maketh me to lie down in green pastures.” (Psalm 23:2)"
+  }
+ },
+ {
+  "id": "verses-easy-053",
+  "ref": {
+   "fr": "Genèse 1:27",
+   "en": "Genesis 1:27"
+  },
+  "fr": {
+   "q": "Complétez : « Dieu créa l’homme ______, il le créa à l’image de Dieu. »",
+   "options": [
+    "à son image",
+    "de la poussière",
+    "du limon",
+    "de rien"
+   ],
+   "explain": "« Dieu créa l’homme à son image. » (Genèse 1:27)"
+  },
+  "en": {
+   "q": "Complete: “So God created man ______, in the image of God created he him.”",
+   "options": [
+    "in his own image",
+    "from the dust",
+    "from the clay",
+    "from nothing"
+   ],
+   "explain": "“So God created man in his own image.” (Genesis 1:27)"
+  }
+ },
+ {
+  "id": "verses-easy-054",
+  "ref": {
+   "fr": "Genèse 2:7",
+   "en": "Genesis 2:7"
+  },
+  "fr": {
+   "q": "Complétez : « L’Éternel Dieu forma l’homme ______ de la terre. »",
+   "options": [
+    "de la poussière",
+    "de l’eau",
+    "du feu",
+    "du bois"
+   ],
+   "explain": "« ...forma l’homme de la poussière de la terre. » (Genèse 2:7)"
+  },
+  "en": {
+   "q": "Complete: “...the LORD God formed man of ______ of the ground.”",
+   "options": [
+    "the dust",
+    "the water",
+    "the fire",
+    "the wood"
+   ],
+   "explain": "“...formed man of the dust of the ground.” (Genesis 2:7)"
+  }
+ },
+ {
+  "id": "verses-easy-055",
+  "ref": {
+   "fr": "Exode 20:3",
+   "en": "Exodus 20:3"
+  },
+  "fr": {
+   "q": "Complétez : « Tu n’auras pas ______ devant ma face. »",
+   "options": [
+    "d’autres dieux",
+    "d’idoles seulement",
+    "de rois",
+    "de crainte"
+   ],
+   "explain": "« Tu n’auras pas d’autres dieux devant ma face. » (Exode 20:3)"
+  },
+  "en": {
+   "q": "Complete: “Thou shalt have ______ before me.”",
+   "options": [
+    "no other gods",
+    "no idols only",
+    "no kings",
+    "no fear"
+   ],
+   "explain": "“Thou shalt have no other gods before me.” (Exodus 20:3)"
+  }
+ },
+ {
+  "id": "verses-easy-056",
+  "ref": {
+   "fr": "Exode 20:13",
+   "en": "Exodus 20:13"
+  },
+  "fr": {
+   "q": "Complétez : « Tu ne ______ point. »",
+   "options": [
+    "tueras",
+    "voleras",
+    "mentiras",
+    "convoiteras"
+   ],
+   "explain": "« Tu ne tueras point. » (Exode 20:13)"
+  },
+  "en": {
+   "q": "Complete: “Thou shalt not ______.”",
+   "options": [
+    "kill",
+    "steal",
+    "bear false witness",
+    "covet"
+   ],
+   "explain": "“Thou shalt not kill.” (Exodus 20:13)"
+  }
+ },
+ {
+  "id": "verses-easy-057",
+  "ref": {
+   "fr": "Deutéronome 31:6",
+   "en": "Deuteronomy 31:6"
+  },
+  "fr": {
+   "q": "Complétez : « ...c’est l’Éternel qui marche avec toi ; il ne te ______. »",
+   "options": [
+    "délaissera point",
+    "punira",
+    "oubliera",
+    "jugera"
+   ],
+   "explain": "« ...il ne te délaissera point et ne t’abandonnera point. » (Deutéronome 31:6)"
+  },
+  "en": {
+   "q": "Complete: “...the LORD thy God... will not ______ thee, nor forsake thee.”",
+   "options": [
+    "fail",
+    "punish",
+    "forget",
+    "judge"
+   ],
+   "explain": "“...he will not fail thee, nor forsake thee.” (Deuteronomy 31:6)"
+  }
+ },
+ {
+  "id": "verses-easy-058",
+  "ref": {
+   "fr": "Nombres 6:24",
+   "en": "Numbers 6:24"
+  },
+  "fr": {
+   "q": "Complétez : « Que l’Éternel te ______ et qu’il te garde ! »",
+   "options": [
+    "bénisse",
+    "juge",
+    "punisse",
+    "oublie"
+   ],
+   "explain": "« Que l’Éternel te bénisse et qu’il te garde ! » (Nombres 6:24)"
+  },
+  "en": {
+   "q": "Complete: “The LORD ______ thee, and keep thee.”",
+   "options": [
+    "bless",
+    "judge",
+    "punish",
+    "forget"
+   ],
+   "explain": "“The LORD bless thee, and keep thee.” (Numbers 6:24)"
+  }
+ },
+ {
+  "id": "verses-easy-059",
+  "ref": {
+   "fr": "Psaume 19:1",
+   "en": "Psalm 19:1"
+  },
+  "fr": {
+   "q": "Complétez : « Les cieux racontent ______ de Dieu, et l’étendue manifeste l’œuvre de ses mains. »",
+   "options": [
+    "la gloire",
+    "la colère",
+    "la sagesse",
+    "la loi"
+   ],
+   "explain": "« Les cieux racontent la gloire de Dieu. » (Psaume 19:1)"
+  },
+  "en": {
+   "q": "Complete: “The heavens declare ______ of God; and the firmament sheweth his handywork.”",
+   "options": [
+    "the glory",
+    "the anger",
+    "the wisdom",
+    "the law"
+   ],
+   "explain": "“The heavens declare the glory of God.” (Psalm 19:1)"
+  }
+ },
+ {
+  "id": "verses-easy-060",
+  "ref": {
+   "fr": "Psaume 51:12",
+   "en": "Psalm 51:10"
+  },
+  "fr": {
+   "q": "Complétez : « Ô Dieu ! crée en moi ______, renouvelle en moi un esprit bien disposé. »",
+   "options": [
+    "un cœur pur",
+    "une maison",
+    "un royaume",
+    "une armée"
+   ],
+   "explain": "« Ô Dieu ! crée en moi un cœur pur. » (Psaume 51:12)"
+  },
+  "en": {
+   "q": "Complete: “Create in me ______, O God; and renew a right spirit within me.”",
+   "options": [
+    "a clean heart",
+    "a house",
+    "a kingdom",
+    "an army"
+   ],
+   "explain": "“Create in me a clean heart, O God.” (Psalm 51:10)"
+  }
+ },
+ {
+  "id": "verses-easy-061",
+  "ref": {
+   "fr": "Psaume 133:1",
+   "en": "Psalm 133:1"
+  },
+  "fr": {
+   "q": "Complétez : « Voici, oh ! qu’il est agréable... pour ______ de demeurer ensemble ! »",
+   "options": [
+    "des frères",
+    "des rois",
+    "des étrangers",
+    "des ennemis"
+   ],
+   "explain": "« ...qu’il est agréable pour des frères de demeurer ensemble ! » (Psaume 133:1)"
+  },
+  "en": {
+   "q": "Complete: “Behold, how good... it is for ______ to dwell together in unity!”",
+   "options": [
+    "brethren",
+    "kings",
+    "strangers",
+    "enemies"
+   ],
+   "explain": "“...for brethren to dwell together in unity.” (Psalm 133:1)"
+  }
+ },
+ {
+  "id": "verses-easy-062",
+  "ref": {
+   "fr": "Psaume 150:6",
+   "en": "Psalm 150:6"
+  },
+  "fr": {
+   "q": "Complétez : « Que tout ce qui respire ______ ! Louez l’Éternel ! »",
+   "options": [
+    "loue l’Éternel",
+    "se taise",
+    "dorme",
+    "craigne"
+   ],
+   "explain": "« Que tout ce qui respire loue l’Éternel ! » (Psaume 150:6)"
+  },
+  "en": {
+   "q": "Complete: “Let every thing that hath breath ______. Praise ye the LORD.”",
+   "options": [
+    "praise the LORD",
+    "keep silent",
+    "sleep",
+    "fear"
+   ],
+   "explain": "“Let every thing that hath breath praise the LORD.” (Psalm 150:6)"
+  }
+ },
+ {
+  "id": "verses-easy-063",
+  "ref": {
+   "fr": "Proverbes 3:6",
+   "en": "Proverbs 3:6"
+  },
+  "fr": {
+   "q": "Complétez : « Reconnais-le dans toutes tes voies, et il aplanira ______. »",
+   "options": [
+    "tes sentiers",
+    "tes ennemis",
+    "tes richesses",
+    "tes jours"
+   ],
+   "explain": "« ...et il aplanira tes sentiers. » (Proverbes 3:6)"
+  },
+  "en": {
+   "q": "Complete: “In all thy ways acknowledge him, and he shall direct ______.”",
+   "options": [
+    "thy paths",
+    "thine enemies",
+    "thy riches",
+    "thy days"
+   ],
+   "explain": "“...he shall direct thy paths.” (Proverbs 3:6)"
+  }
+ },
+ {
+  "id": "verses-easy-064",
+  "ref": {
+   "fr": "Proverbes 16:3",
+   "en": "Proverbs 16:3"
+  },
+  "fr": {
+   "q": "Complétez : « Recommande à l’Éternel ______, et tes projets réussiront. »",
+   "options": [
+    "tes œuvres",
+    "tes ennemis",
+    "tes richesses",
+    "tes craintes"
+   ],
+   "explain": "« Recommande à l’Éternel tes œuvres. » (Proverbes 16:3)"
+  },
+  "en": {
+   "q": "Complete: “Commit ______ unto the LORD, and thy thoughts shall be established.”",
+   "options": [
+    "thy works",
+    "thine enemies",
+    "thy riches",
+    "thy fears"
+   ],
+   "explain": "“Commit thy works unto the LORD.” (Proverbs 16:3)"
+  }
+ },
+ {
+  "id": "verses-easy-065",
+  "ref": {
+   "fr": "Proverbes 17:17",
+   "en": "Proverbs 17:17"
+  },
+  "fr": {
+   "q": "Complétez : « ______ aime en tout temps, et dans le malheur il se montre un frère. »",
+   "options": [
+    "L’ami",
+    "Le roi",
+    "Le sage",
+    "L’insensé"
+   ],
+   "explain": "« L’ami aime en tout temps. » (Proverbes 17:17)"
+  },
+  "en": {
+   "q": "Complete: “______ loveth at all times, and a brother is born for adversity.”",
+   "options": [
+    "A friend",
+    "A king",
+    "A wise man",
+    "A fool"
+   ],
+   "explain": "“A friend loveth at all times.” (Proverbs 17:17)"
+  }
+ },
+ {
+  "id": "verses-easy-066",
+  "ref": {
+   "fr": "Ésaïe 53:5",
+   "en": "Isaiah 53:5"
+  },
+  "fr": {
+   "q": "Complétez : « ...et c’est par ses meurtrissures que nous sommes ______. »",
+   "options": [
+    "guéris",
+    "jugés",
+    "perdus",
+    "punis"
+   ],
+   "explain": "« ...par ses meurtrissures que nous sommes guéris. » (Ésaïe 53:5)"
+  },
+  "en": {
+   "q": "Complete: “...and with his stripes we are ______.”",
+   "options": [
+    "healed",
+    "judged",
+    "lost",
+    "punished"
+   ],
+   "explain": "“...with his stripes we are healed.” (Isaiah 53:5)"
+  }
+ },
+ {
+  "id": "verses-easy-067",
+  "ref": {
+   "fr": "Ésaïe 55:8",
+   "en": "Isaiah 55:8"
+  },
+  "fr": {
+   "q": "Complétez : « Car ______ ne sont pas vos pensées, dit l’Éternel. »",
+   "options": [
+    "mes pensées",
+    "ma loi",
+    "ma crainte",
+    "ma gloire"
+   ],
+   "explain": "« Car mes pensées ne sont pas vos pensées. » (Ésaïe 55:8)"
+  },
+  "en": {
+   "q": "Complete: “For ______ are not your thoughts, saith the LORD.”",
+   "options": [
+    "my thoughts",
+    "my law",
+    "my fear",
+    "my glory"
+   ],
+   "explain": "“For my thoughts are not your thoughts.” (Isaiah 55:8)"
+  }
+ },
+ {
+  "id": "verses-easy-068",
+  "ref": {
+   "fr": "Jérémie 33:3",
+   "en": "Jeremiah 33:3"
+  },
+  "fr": {
+   "q": "Complétez : « Invoque-moi, et ______, je t’annoncerai de grandes choses. »",
+   "options": [
+    "je te répondrai",
+    "je me tairai",
+    "je te punirai",
+    "je m’en irai"
+   ],
+   "explain": "« Invoque-moi, et je te répondrai. » (Jérémie 33:3)"
+  },
+  "en": {
+   "q": "Complete: “Call unto me, and ______, and I will shew thee great things.”",
+   "options": [
+    "I will answer thee",
+    "I will be silent",
+    "I will punish thee",
+    "I will depart"
+   ],
+   "explain": "“Call unto me, and I will answer thee.” (Jeremiah 33:3)"
+  }
+ },
+ {
+  "id": "verses-easy-069",
+  "ref": {
+   "fr": "Lamentations 3:23",
+   "en": "Lamentations 3:23"
+  },
+  "fr": {
+   "q": "Complétez : « Les bontés de l’Éternel... se renouvellent ______. »",
+   "options": [
+    "chaque matin",
+    "chaque année",
+    "une seule fois",
+    "jamais"
+   ],
+   "explain": "« ...se renouvellent chaque matin. » (Lamentations 3:23)"
+  },
+  "en": {
+   "q": "Complete: “...his compassions fail not. They are new ______.”",
+   "options": [
+    "every morning",
+    "every year",
+    "once",
+    "never"
+   ],
+   "explain": "“They are new every morning.” (Lamentations 3:23)"
+  }
+ },
+ {
+  "id": "verses-easy-070",
+  "ref": {
+   "fr": "Ézéchiel 36:26",
+   "en": "Ezekiel 36:26"
+  },
+  "fr": {
+   "q": "Complétez : « Je vous donnerai ______ et je mettrai en vous un esprit nouveau. »",
+   "options": [
+    "un cœur nouveau",
+    "une maison",
+    "un royaume",
+    "une terre"
+   ],
+   "explain": "« Je vous donnerai un cœur nouveau. » (Ézéchiel 36:26)"
+  },
+  "en": {
+   "q": "Complete: “A new heart also will I give you... and I will take away the stony heart.”",
+   "options": [
+    "a new heart",
+    "a house",
+    "a kingdom",
+    "a land"
+   ],
+   "explain": "“A new heart also will I give you.” (Ezekiel 36:26)"
+  }
+ },
+ {
+  "id": "verses-easy-071",
+  "ref": {
+   "fr": "Malachie 3:10",
+   "en": "Malachi 3:10"
+  },
+  "fr": {
+   "q": "Complétez : « Apportez à la maison du trésor toutes ______. »",
+   "options": [
+    "les dîmes",
+    "les richesses",
+    "les prières",
+    "les armes"
+   ],
+   "explain": "« Apportez à la maison du trésor toutes les dîmes. » (Malachie 3:10)"
+  },
+  "en": {
+   "q": "Complete: “Bring ye all ______ into the storehouse.”",
+   "options": [
+    "the tithes",
+    "the riches",
+    "the prayers",
+    "the weapons"
+   ],
+   "explain": "“Bring ye all the tithes into the storehouse.” (Malachi 3:10)"
+  }
+ },
+ {
+  "id": "verses-easy-072",
+  "ref": {
+   "fr": "Matthieu 4:4",
+   "en": "Matthew 4:4"
+  },
+  "fr": {
+   "q": "Complétez : « L’homme ne vivra pas ______, mais de toute parole qui sort de la bouche de Dieu. »",
+   "options": [
+    "de pain seulement",
+    "d’eau",
+    "de viande",
+    "de fruits"
+   ],
+   "explain": "« L’homme ne vivra pas de pain seulement... » (Matthieu 4:4)"
+  },
+  "en": {
+   "q": "Complete: “Man shall not live by ______, but by every word... of God.”",
+   "options": [
+    "bread alone",
+    "water",
+    "meat",
+    "fruit"
+   ],
+   "explain": "“Man shall not live by bread alone.” (Matthew 4:4)"
+  }
+ },
+ {
+  "id": "verses-easy-073",
+  "ref": {
+   "fr": "Matthieu 5:9",
+   "en": "Matthew 5:9"
+  },
+  "fr": {
+   "q": "Complétez : « Heureux ceux qui procurent ______, car ils seront appelés fils de Dieu ! »",
+   "options": [
+    "la paix",
+    "la guerre",
+    "la richesse",
+    "la gloire"
+   ],
+   "explain": "« Heureux ceux qui procurent la paix ! » (Matthieu 5:9)"
+  },
+  "en": {
+   "q": "Complete: “Blessed are the ______: for they shall be called the children of God.”",
+   "options": [
+    "peacemakers",
+    "warmakers",
+    "rich",
+    "glorious"
+   ],
+   "explain": "“Blessed are the peacemakers.” (Matthew 5:9)"
+  }
+ },
+ {
+  "id": "verses-easy-074",
+  "ref": {
+   "fr": "Matthieu 5:3",
+   "en": "Matthew 5:3"
+  },
+  "fr": {
+   "q": "Complétez : « Heureux ______, car le royaume des cieux est à eux ! »",
+   "options": [
+    "les pauvres en esprit",
+    "les riches",
+    "les puissants",
+    "les sages"
+   ],
+   "explain": "« Heureux les pauvres en esprit ! » (Matthieu 5:3)"
+  },
+  "en": {
+   "q": "Complete: “Blessed are ______: for theirs is the kingdom of heaven.”",
+   "options": [
+    "the poor in spirit",
+    "the rich",
+    "the mighty",
+    "the wise"
+   ],
+   "explain": "“Blessed are the poor in spirit.” (Matthew 5:3)"
+  }
+ },
+ {
+  "id": "verses-easy-075",
+  "ref": {
+   "fr": "Matthieu 6:9",
+   "en": "Matthew 6:9"
+  },
+  "fr": {
+   "q": "Complétez : « Notre Père qui es ______ ! Que ton nom soit sanctifié. »",
+   "options": [
+    "aux cieux",
+    "dans le temple",
+    "sur la montagne",
+    "parmi le peuple"
+   ],
+   "explain": "« Notre Père qui es aux cieux ! » (Matthieu 6:9)"
+  },
+  "en": {
+   "q": "Complete: “Our Father which art ______, Hallowed be thy name.”",
+   "options": [
+    "in heaven",
+    "in the temple",
+    "on the mountain",
+    "among the people"
+   ],
+   "explain": "“Our Father which art in heaven.” (Matthew 6:9)"
+  }
+ },
+ {
+  "id": "verses-easy-076",
+  "ref": {
+   "fr": "Matthieu 19:14",
+   "en": "Matthew 19:14"
+  },
+  "fr": {
+   "q": "Complétez : « Laissez ______ venir à moi, et ne les en empêchez pas. »",
+   "options": [
+    "les petits enfants",
+    "les riches",
+    "les rois",
+    "les pharisiens"
+   ],
+   "explain": "« Laissez les petits enfants venir à moi. » (Matthieu 19:14)"
+  },
+  "en": {
+   "q": "Complete: “Suffer ______ to come unto me, and forbid them not.”",
+   "options": [
+    "the little children",
+    "the rich",
+    "the kings",
+    "the Pharisees"
+   ],
+   "explain": "“Suffer little children... to come unto me.” (Matthew 19:14)"
+  }
+ },
+ {
+  "id": "verses-easy-077",
+  "ref": {
+   "fr": "Matthieu 16:16",
+   "en": "Matthew 16:16"
+  },
+  "fr": {
+   "q": "Complétez : « Tu es ______, le Fils du Dieu vivant. »",
+   "options": [
+    "le Christ",
+    "un prophète",
+    "Élie",
+    "Jean-Baptiste"
+   ],
+   "explain": "« Tu es le Christ, le Fils du Dieu vivant. » (Matthieu 16:16)"
+  },
+  "en": {
+   "q": "Complete: “Thou art ______, the Son of the living God.”",
+   "options": [
+    "the Christ",
+    "a prophet",
+    "Elijah",
+    "John the Baptist"
+   ],
+   "explain": "“Thou art the Christ, the Son of the living God.” (Matthew 16:16)"
+  }
+ },
+ {
+  "id": "verses-easy-078",
+  "ref": {
+   "fr": "Marc 16:15",
+   "en": "Mark 16:15"
+  },
+  "fr": {
+   "q": "Complétez : « Allez par tout le monde, et prêchez ______ à toute la création. »",
+   "options": [
+    "la bonne nouvelle",
+    "la loi",
+    "la crainte",
+    "la richesse"
+   ],
+   "explain": "« ...prêchez la bonne nouvelle à toute la création. » (Marc 16:15)"
+  },
+  "en": {
+   "q": "Complete: “Go ye into all the world, and preach ______ to every creature.”",
+   "options": [
+    "the gospel",
+    "the law",
+    "fear",
+    "the riches"
+   ],
+   "explain": "“...preach the gospel to every creature.” (Mark 16:15)"
+  }
+ },
+ {
+  "id": "verses-easy-079",
+  "ref": {
+   "fr": "Luc 1:37",
+   "en": "Luke 1:37"
+  },
+  "fr": {
+   "q": "Complétez : « Car rien n’est ______ à Dieu. »",
+   "options": [
+    "impossible",
+    "caché",
+    "difficile",
+    "inconnu"
+   ],
+   "explain": "« Car rien n’est impossible à Dieu. » (Luc 1:37)"
+  },
+  "en": {
+   "q": "Complete: “For with God nothing shall be ______.”",
+   "options": [
+    "impossible",
+    "hidden",
+    "difficult",
+    "unknown"
+   ],
+   "explain": "“For with God nothing shall be impossible.” (Luke 1:37)"
+  }
+ },
+ {
+  "id": "verses-easy-080",
+  "ref": {
+   "fr": "Luc 19:10",
+   "en": "Luke 19:10"
+  },
+  "fr": {
+   "q": "Complétez : « Car le Fils de l’homme est venu chercher et sauver ______. »",
+   "options": [
+    "ce qui était perdu",
+    "les riches",
+    "les justes",
+    "les rois"
+   ],
+   "explain": "« ...chercher et sauver ce qui était perdu. » (Luc 19:10)"
+  },
+  "en": {
+   "q": "Complete: “For the Son of man is come to seek and to save ______.”",
+   "options": [
+    "that which was lost",
+    "the rich",
+    "the righteous",
+    "the kings"
+   ],
+   "explain": "“...to seek and to save that which was lost.” (Luke 19:10)"
+  }
+ },
+ {
+  "id": "verses-easy-081",
+  "ref": {
+   "fr": "Jean 1:29",
+   "en": "John 1:29"
+  },
+  "fr": {
+   "q": "Complétez : « Voici ______, qui ôte le péché du monde. »",
+   "options": [
+    "l’Agneau de Dieu",
+    "le Roi des Juifs",
+    "le prophète",
+    "le serviteur"
+   ],
+   "explain": "« Voici l’Agneau de Dieu, qui ôte le péché du monde. » (Jean 1:29)"
+  },
+  "en": {
+   "q": "Complete: “Behold ______, which taketh away the sin of the world.”",
+   "options": [
+    "the Lamb of God",
+    "the King of the Jews",
+    "the prophet",
+    "the servant"
+   ],
+   "explain": "“Behold the Lamb of God.” (John 1:29)"
+  }
+ },
+ {
+  "id": "verses-easy-082",
+  "ref": {
+   "fr": "Jean 15:5",
+   "en": "John 15:5"
+  },
+  "fr": {
+   "q": "Complétez : « Je suis ______, vous êtes les sarments. »",
+   "options": [
+    "le cep",
+    "le berger",
+    "la porte",
+    "le pain"
+   ],
+   "explain": "« Je suis le cep, vous êtes les sarments. » (Jean 15:5)"
+  },
+  "en": {
+   "q": "Complete: “I am ______, ye are the branches.”",
+   "options": [
+    "the vine",
+    "the shepherd",
+    "the door",
+    "the bread"
+   ],
+   "explain": "“I am the vine, ye are the branches.” (John 15:5)"
+  }
+ },
+ {
+  "id": "verses-easy-083",
+  "ref": {
+   "fr": "Actes 4:12",
+   "en": "Acts 4:12"
+  },
+  "fr": {
+   "q": "Complétez : « Il n’y a ______ en aucun autre ; il n’y a sous le ciel aucun autre nom. »",
+   "options": [
+    "de salut",
+    "de richesse",
+    "de gloire",
+    "de paix"
+   ],
+   "explain": "« Il n’y a de salut en aucun autre. » (Actes 4:12)"
+  },
+  "en": {
+   "q": "Complete: “Neither is there ______ in any other: for there is none other name...”",
+   "options": [
+    "salvation",
+    "riches",
+    "glory",
+    "peace"
+   ],
+   "explain": "“Neither is there salvation in any other.” (Acts 4:12)"
+  }
+ },
+ {
+  "id": "verses-easy-084",
+  "ref": {
+   "fr": "Actes 16:31",
+   "en": "Acts 16:31"
+  },
+  "fr": {
+   "q": "Complétez : « Crois au Seigneur Jésus, et ______, toi et ta famille. »",
+   "options": [
+    "tu seras sauvé",
+    "tu seras riche",
+    "tu seras roi",
+    "tu seras fort"
+   ],
+   "explain": "« Crois au Seigneur Jésus, et tu seras sauvé. » (Actes 16:31)"
+  },
+  "en": {
+   "q": "Complete: “Believe on the Lord Jesus Christ, and ______, and thy house.”",
+   "options": [
+    "thou shalt be saved",
+    "thou shalt be rich",
+    "thou shalt be king",
+    "thou shalt be strong"
+   ],
+   "explain": "“Believe on the Lord Jesus Christ, and thou shalt be saved.” (Acts 16:31)"
+  }
+ },
+ {
+  "id": "verses-easy-085",
+  "ref": {
+   "fr": "Romains 12:2",
+   "en": "Romans 12:2"
+  },
+  "fr": {
+   "q": "Complétez : « ...mais soyez ______ par le renouvellement de l’intelligence. »",
+   "options": [
+    "transformés",
+    "jugés",
+    "punis",
+    "oubliés"
+   ],
+   "explain": "« ...soyez transformés par le renouvellement de l’intelligence. » (Romains 12:2)"
+  },
+  "en": {
+   "q": "Complete: “...but be ye ______ by the renewing of your mind.”",
+   "options": [
+    "transformed",
+    "judged",
+    "punished",
+    "forgotten"
+   ],
+   "explain": "“...be ye transformed by the renewing of your mind.” (Romans 12:2)"
+  }
+ },
+ {
+  "id": "verses-easy-086",
+  "ref": {
+   "fr": "Romains 12:21",
+   "en": "Romans 12:21"
+  },
+  "fr": {
+   "q": "Complétez : « Ne te laisse pas vaincre par le mal, mais surmonte le mal ______. »",
+   "options": [
+    "par le bien",
+    "par la force",
+    "par l’argent",
+    "par la loi"
+   ],
+   "explain": "« ...surmonte le mal par le bien. » (Romains 12:21)"
+  },
+  "en": {
+   "q": "Complete: “Be not overcome of evil, but overcome evil ______.”",
+   "options": [
+    "with good",
+    "with force",
+    "with money",
+    "with law"
+   ],
+   "explain": "“...overcome evil with good.” (Romans 12:21)"
+  }
+ },
+ {
+  "id": "verses-easy-087",
+  "ref": {
+   "fr": "2 Corinthiens 5:17",
+   "en": "2 Corinthians 5:17"
+  },
+  "fr": {
+   "q": "Complétez : « Si quelqu’un est en Christ, il est ______ ; les choses anciennes sont passées. »",
+   "options": [
+    "une nouvelle créature",
+    "un roi",
+    "un prophète",
+    "un ange"
+   ],
+   "explain": "« ...si quelqu’un est en Christ, il est une nouvelle créature. » (2 Corinthiens 5:17)"
+  },
+  "en": {
+   "q": "Complete: “If any man be in Christ, he is ______: old things are passed away.”",
+   "options": [
+    "a new creature",
+    "a king",
+    "a prophet",
+    "an angel"
+   ],
+   "explain": "“If any man be in Christ, he is a new creature.” (2 Corinthians 5:17)"
+  }
+ },
+ {
+  "id": "verses-easy-088",
+  "ref": {
+   "fr": "Galates 2:20",
+   "en": "Galatians 2:20"
+  },
+  "fr": {
+   "q": "Complétez : « J’ai été crucifié ______ ; et si je vis, ce n’est plus moi qui vis. »",
+   "options": [
+    "avec Christ",
+    "avec Pierre",
+    "pour le roi",
+    "en vain"
+   ],
+   "explain": "« J’ai été crucifié avec Christ. » (Galates 2:20)"
+  },
+  "en": {
+   "q": "Complete: “I am crucified ______: nevertheless I live; yet not I.”",
+   "options": [
+    "with Christ",
+    "with Peter",
+    "for the king",
+    "in vain"
+   ],
+   "explain": "“I am crucified with Christ.” (Galatians 2:20)"
+  }
+ },
+ {
+  "id": "verses-easy-089",
+  "ref": {
+   "fr": "Éphésiens 2:8",
+   "en": "Ephesians 2:8"
+  },
+  "fr": {
+   "q": "Complétez : « Car c’est par ______ que vous êtes sauvés, par le moyen de la foi. »",
+   "options": [
+    "la grâce",
+    "la loi",
+    "les œuvres",
+    "la richesse"
+   ],
+   "explain": "« ...c’est par la grâce que vous êtes sauvés, par le moyen de la foi. » (Éphésiens 2:8)"
+  },
+  "en": {
+   "q": "Complete: “For by ______ are ye saved through faith.”",
+   "options": [
+    "grace",
+    "the law",
+    "works",
+    "riches"
+   ],
+   "explain": "“For by grace are ye saved through faith.” (Ephesians 2:8)"
+  }
+ },
+ {
+  "id": "verses-easy-090",
+  "ref": {
+   "fr": "Éphésiens 6:1",
+   "en": "Ephesians 6:1"
+  },
+  "fr": {
+   "q": "Complétez : « Enfants, obéissez ______ selon le Seigneur, car cela est juste. »",
+   "options": [
+    "à vos parents",
+    "au roi",
+    "aux prêtres",
+    "aux anciens"
+   ],
+   "explain": "« Enfants, obéissez à vos parents. » (Éphésiens 6:1)"
+  },
+  "en": {
+   "q": "Complete: “Children, obey ______ in the Lord: for this is right.”",
+   "options": [
+    "your parents",
+    "the king",
+    "the priests",
+    "the elders"
+   ],
+   "explain": "“Children, obey your parents in the Lord.” (Ephesians 6:1)"
+  }
+ },
+ {
+  "id": "verses-easy-091",
+  "ref": {
+   "fr": "Philippiens 4:6",
+   "en": "Philippians 4:6"
+  },
+  "fr": {
+   "q": "Complétez : « Ne vous inquiétez ______ ; mais en toute chose faites connaître vos besoins à Dieu. »",
+   "options": [
+    "de rien",
+    "du roi",
+    "de la loi",
+    "du temps"
+   ],
+   "explain": "« Ne vous inquiétez de rien... » (Philippiens 4:6)"
+  },
+  "en": {
+   "q": "Complete: “Be careful for ______; but in every thing... let your requests be made known unto God.”",
+   "options": [
+    "nothing",
+    "the king",
+    "the law",
+    "the time"
+   ],
+   "explain": "“Be careful for nothing.” (Philippians 4:6)"
+  }
+ },
+ {
+  "id": "verses-easy-092",
+  "ref": {
+   "fr": "Philippiens 4:19",
+   "en": "Philippians 4:19"
+  },
+  "fr": {
+   "q": "Complétez : « Mon Dieu pourvoira ______ selon sa richesse. »",
+   "options": [
+    "à tous vos besoins",
+    "à vos ennemis",
+    "à vos rois",
+    "à vos craintes"
+   ],
+   "explain": "« Mon Dieu pourvoira à tous vos besoins. » (Philippiens 4:19)"
+  },
+  "en": {
+   "q": "Complete: “My God shall supply ______ according to his riches in glory.”",
+   "options": [
+    "all your need",
+    "your enemies",
+    "your kings",
+    "your fears"
+   ],
+   "explain": "“My God shall supply all your need.” (Philippians 4:19)"
+  }
+ },
+ {
+  "id": "verses-easy-093",
+  "ref": {
+   "fr": "Colossiens 3:23",
+   "en": "Colossians 3:23"
+  },
+  "fr": {
+   "q": "Complétez : « Tout ce que vous faites, faites-le de bon cœur, comme ______. »",
+   "options": [
+    "pour le Seigneur",
+    "pour l’argent",
+    "pour les hommes",
+    "pour le roi"
+   ],
+   "explain": "« ...faites-le de bon cœur, comme pour le Seigneur. » (Colossiens 3:23)"
+  },
+  "en": {
+   "q": "Complete: “...do it heartily, as ______, and not unto men.”",
+   "options": [
+    "to the Lord",
+    "for money",
+    "to men",
+    "for the king"
+   ],
+   "explain": "“...do it heartily, as to the Lord.” (Colossians 3:23)"
+  }
+ },
+ {
+  "id": "verses-easy-094",
+  "ref": {
+   "fr": "1 Thessaloniciens 5:17",
+   "en": "1 Thessalonians 5:17"
+  },
+  "fr": {
+   "q": "Complétez : « Priez ______. »",
+   "options": [
+    "sans cesse",
+    "une seule fois",
+    "en secret",
+    "le matin"
+   ],
+   "explain": "« Priez sans cesse. » (1 Thessaloniciens 5:17)"
+  },
+  "en": {
+   "q": "Complete: “Pray ______.”",
+   "options": [
+    "without ceasing",
+    "once",
+    "in secret",
+    "in the morning"
+   ],
+   "explain": "“Pray without ceasing.” (1 Thessalonians 5:17)"
+  }
+ },
+ {
+  "id": "verses-easy-095",
+  "ref": {
+   "fr": "2 Timothée 1:7",
+   "en": "2 Timothy 1:7"
+  },
+  "fr": {
+   "q": "Complétez : « Car Dieu ne nous a pas donné un esprit ______, mais de force, d’amour et de sagesse. »",
+   "options": [
+    "de timidité",
+    "de force",
+    "de joie",
+    "de paix"
+   ],
+   "explain": "« ...un esprit de timidité, mais de force, d’amour et de sagesse. » (2 Timothée 1:7)"
+  },
+  "en": {
+   "q": "Complete: “For God hath not given us the spirit ______; but of power, and of love...”",
+   "options": [
+    "of fear",
+    "of power",
+    "of joy",
+    "of peace"
+   ],
+   "explain": "“...not given us the spirit of fear.” (2 Timothy 1:7)"
+  }
+ },
+ {
+  "id": "verses-easy-096",
+  "ref": {
+   "fr": "Hébreux 13:8",
+   "en": "Hebrews 13:8"
+  },
+  "fr": {
+   "q": "Complétez : « Jésus-Christ est ______ hier, aujourd’hui, et éternellement. »",
+   "options": [
+    "le même",
+    "plus grand",
+    "absent",
+    "changeant"
+   ],
+   "explain": "« Jésus-Christ est le même hier, aujourd’hui, et éternellement. » (Hébreux 13:8)"
+  },
+  "en": {
+   "q": "Complete: “Jesus Christ ______ yesterday, and to day, and for ever.”",
+   "options": [
+    "the same",
+    "greater",
+    "absent",
+    "changing"
+   ],
+   "explain": "“Jesus Christ the same yesterday, and to day, and for ever.” (Hebrews 13:8)"
+  }
+ },
+ {
+  "id": "verses-easy-097",
+  "ref": {
+   "fr": "Jacques 1:5",
+   "en": "James 1:5"
+  },
+  "fr": {
+   "q": "Complétez : « Si quelqu’un manque ______, qu’il la demande à Dieu. »",
+   "options": [
+    "de sagesse",
+    "de richesse",
+    "de force",
+    "de pain"
+   ],
+   "explain": "« Si quelqu’un manque de sagesse, qu’il la demande à Dieu. » (Jacques 1:5)"
+  },
+  "en": {
+   "q": "Complete: “If any of you lack ______, let him ask of God.”",
+   "options": [
+    "wisdom",
+    "riches",
+    "strength",
+    "bread"
+   ],
+   "explain": "“If any of you lack wisdom, let him ask of God.” (James 1:5)"
+  }
+ },
+ {
+  "id": "verses-easy-098",
+  "ref": {
+   "fr": "1 Pierre 5:7",
+   "en": "1 Peter 5:7"
+  },
+  "fr": {
+   "q": "Complétez : « ...déchargez-vous sur lui de tous ______, car lui-même prend soin de vous. »",
+   "options": [
+    "vos soucis",
+    "vos richesses",
+    "vos armes",
+    "vos dettes"
+   ],
+   "explain": "« ...déchargez-vous sur lui de tous vos soucis. » (1 Pierre 5:7)"
+  },
+  "en": {
+   "q": "Complete: “Casting all ______ upon him; for he careth for you.”",
+   "options": [
+    "your care",
+    "your riches",
+    "your weapons",
+    "your debts"
+   ],
+   "explain": "“Casting all your care upon him.” (1 Peter 5:7)"
+  }
+ },
+ {
+  "id": "verses-easy-099",
+  "ref": {
+   "fr": "1 Jean 1:9",
+   "en": "1 John 1:9"
+  },
+  "fr": {
+   "q": "Complétez : « Si nous confessons ______, il est fidèle et juste pour nous les pardonner. »",
+   "options": [
+    "nos péchés",
+    "nos richesses",
+    "nos craintes",
+    "nos ennemis"
+   ],
+   "explain": "« Si nous confessons nos péchés... » (1 Jean 1:9)"
+  },
+  "en": {
+   "q": "Complete: “If we confess ______, he is faithful and just to forgive us.”",
+   "options": [
+    "our sins",
+    "our riches",
+    "our fears",
+    "our enemies"
+   ],
+   "explain": "“If we confess our sins...” (1 John 1:9)"
+  }
+ },
+ {
+  "id": "verses-easy-100",
+  "ref": {
+   "fr": "Apocalypse 3:20",
+   "en": "Revelation 3:20"
+  },
+  "fr": {
+   "q": "Complétez : « Voici, je me tiens ______, et je frappe. »",
+   "options": [
+    "à la porte",
+    "au temple",
+    "au ciel",
+    "au marché"
+   ],
+   "explain": "« Voici, je me tiens à la porte, et je frappe. » (Apocalypse 3:20)"
+  },
+  "en": {
+   "q": "Complete: “Behold, I stand ______, and knock.”",
+   "options": [
+    "at the door",
+    "at the temple",
+    "in heaven",
+    "at the market"
+   ],
+   "explain": "“Behold, I stand at the door, and knock.” (Revelation 3:20)"
+  }
+ }
+]
