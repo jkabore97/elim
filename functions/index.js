@@ -510,57 +510,91 @@ function storageObjectPath(mediaUrl) {
   return null;
 }
 
-// Download -> ffmpeg to FLAC -> stage in GCS -> long-running recognize ->
-// clean up. Returns the joined transcript text. Throws on failure; callers
-// record the error on the job/transcript doc.
+// How long each transcription chunk is. A single recognize request over a full
+// 45-minute sermon can come back incomplete, so we split the audio into fixed
+// segments, transcribe each, and stitch them in order - which reliably covers
+// the whole file however long it is.
+const CHUNK_SECONDS = 480; // 8 minutes per chunk
+
+// Transcribe one already-staged FLAC chunk in GCS. Returns its transcript text.
+async function recognizeChunk(bucket, stagedPath) {
+  const [operation] = await speechClient.longRunningRecognize({
+    config: {
+      encoding: 'FLAC',
+      sampleRateHertz: 16000,
+      audioChannelCount: 1,
+      languageCode: 'fr-FR',
+      alternativeLanguageCodes: ['en-US'],
+      enableAutomaticPunctuation: true,
+      model: 'latest_long',
+    },
+    audio: { uri: `gs://${bucket.name}/${stagedPath}` },
+  });
+  const [response] = await operation.promise();
+  return (response.results || [])
+    .map((r) => (r.alternatives && r.alternatives[0] && r.alternatives[0].transcript) || '')
+    .filter(Boolean)
+    .join(' ')
+    .trim();
+}
+
+// Download -> ffmpeg to 16 kHz mono FLAC, split into fixed-length chunks ->
+// transcribe each chunk from GCS -> stitch in order -> clean up. Returns the
+// joined transcript. Throws on failure; callers record the error.
 async function runTranscription(objectPath) {
   const bucket = getStorage().bucket();
   const id = crypto.randomUUID();
   const localIn = path.join(os.tmpdir(), `stt-in-${id}`);
-  const localOut = path.join(os.tmpdir(), `stt-out-${id}.flac`);
-  const stagedPath = `transcribe-temp/${id}.flac`;
+  const chunkPattern = path.join(os.tmpdir(), `stt-${id}-%03d.flac`);
+  const stagedPrefix = `transcribe-temp/${id}/`;
+
+  const localChunks = () => {
+    try {
+      return fs.readdirSync(os.tmpdir())
+        .filter((f) => f.startsWith(`stt-${id}-`) && f.endsWith('.flac'))
+        .sort()
+        .map((f) => path.join(os.tmpdir(), f));
+    } catch (_e) { return []; }
+  };
 
   const cleanup = async () => {
-    for (const f of [localIn, localOut]) { try { fs.existsSync(f) && fs.unlinkSync(f); } catch (_e) { /* ignore */ } }
-    try { await bucket.file(stagedPath).delete({ ignoreNotFound: true }); } catch (_e) { /* ignore */ }
+    try { fs.existsSync(localIn) && fs.unlinkSync(localIn); } catch (_e) { /* ignore */ }
+    for (const f of localChunks()) { try { fs.unlinkSync(f); } catch (_e) { /* ignore */ } }
+    try { await bucket.deleteFiles({ prefix: stagedPrefix, force: true }); } catch (_e) { /* ignore */ }
   };
 
   try {
     await bucket.file(objectPath).download({ destination: localIn });
-    // -vn drops any video stream; take one 16 kHz mono FLAC audio track.
+    // -vn drops any video stream; take one 16 kHz mono FLAC track, split into
+    // CHUNK_SECONDS segments with timestamps reset so each is self-contained.
     await new Promise((resolve, reject) => {
       ffmpeg(localIn)
         .noVideo()
         .audioChannels(1)
         .audioFrequency(16000)
         .audioCodec('flac')
-        .format('flac')
+        .format('segment')
+        .outputOptions([`-segment_time`, String(CHUNK_SECONDS), '-reset_timestamps', '1'])
         .on('end', resolve)
         .on('error', reject)
-        .save(localOut);
+        .save(chunkPattern);
     });
-    await bucket.upload(localOut, { destination: stagedPath, resumable: false });
 
-    const [operation] = await speechClient.longRunningRecognize({
-      config: {
-        encoding: 'FLAC',
-        sampleRateHertz: 16000,
-        audioChannelCount: 1,
-        languageCode: 'fr-FR',
-        alternativeLanguageCodes: ['en-US'],
-        enableAutomaticPunctuation: true,
-        model: 'latest_long',
-      },
-      audio: { uri: `gs://${bucket.name}/${stagedPath}` },
-    });
-    const [response] = await operation.promise();
-    const text = (response.results || [])
-      .map((r) => (r.alternatives && r.alternatives[0] && r.alternatives[0].transcript) || '')
-      .filter(Boolean)
-      .join(' ')
-      .trim();
+    const chunks = localChunks();
+    if (chunks.length === 0) { await cleanup(); return ''; }
+
+    const parts = [];
+    // Sequential: one chunk in memory/GCS at a time keeps a long file well
+    // within the function's memory and avoids hammering the STT quota.
+    for (let i = 0; i < chunks.length; i++) {
+      const staged = `${stagedPrefix}${String(i).padStart(3, '0')}.flac`;
+      await bucket.upload(chunks[i], { destination: staged, resumable: false });
+      parts.push(await recognizeChunk(bucket, staged));
+      try { await bucket.file(staged).delete({ ignoreNotFound: true }); } catch (_e) { /* ignore */ }
+      try { fs.unlinkSync(chunks[i]); } catch (_e) { /* ignore */ }
+    }
     await cleanup();
-    return text;
+    return parts.filter(Boolean).join(' ').trim();
   } catch (err) {
     await cleanup();
     throw err;
