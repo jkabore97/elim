@@ -24,7 +24,44 @@ import {
 } from './quiz/store'
 
 const PLAY_URL = 'https://play.google.com/store/apps/details?id=com.elim.app'
+// The remembered child profiles for this device. Each kid is just a name, so a
+// parent with several children can pick one or add another before playing.
+// (KID_NAME_KEY is the old single-name storage, still read once for migration.)
 const KID_NAME_KEY = 'elim-quiz-kidname'
+const KID_NAMES_KEY = 'elim-quiz-kidnames'
+
+// A loose key so "Djemi" and "djemi " count as the same saved child.
+function kidKey(name: string): string {
+  return name.trim().toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '')
+}
+
+function loadKidNames(): string[] {
+  const out: string[] = []
+  const seen = new Set<string>()
+  try {
+    const raw = storageGet(KID_NAMES_KEY)
+    if (raw) for (const n of JSON.parse(raw)) {
+      if (typeof n === 'string' && n.trim() && !seen.has(kidKey(n))) { seen.add(kidKey(n)); out.push(n) }
+    }
+  } catch { /* corrupt/empty: start fresh */ }
+  // Migrate the previous single-name storage so an existing kid isn't lost.
+  const legacy = storageGet(KID_NAME_KEY)
+  if (legacy && legacy.trim() && !seen.has(kidKey(legacy))) out.unshift(legacy)
+  return out
+}
+
+function rememberKidName(name: string): void {
+  const clean = name.trim()
+  if (!clean) return
+  const list = loadKidNames().filter(n => kidKey(n) !== kidKey(clean))
+  list.unshift(clean)
+  try { storageSet(KID_NAMES_KEY, JSON.stringify(list.slice(0, 12))) } catch { /* storage full/blocked */ }
+}
+
+function forgetKidName(name: string): void {
+  const list = loadKidNames().filter(n => kidKey(n) !== kidKey(name))
+  try { storageSet(KID_NAMES_KEY, JSON.stringify(list)) } catch { /* ignore */ }
+}
 
 type Screen = 'home' | 'difficulty' | 'kidname' | 'playing' | 'results' | 'trophies' | 'leaders' | 'palmares'
 
@@ -98,7 +135,7 @@ export default function BibleQuiz({ user, onClose }: { user: AppUser; onClose: (
   }
 
   async function startKids(childName: string) {
-    storageSet(KID_NAME_KEY, childName)
+    rememberKidName(childName)
     setLoading(true)
     const diff: QuizDifficulty = bankAvailable('kids', 'easy') ? 'easy' : bankAvailable('kids', 'medium') ? 'medium' : 'hard'
     const questions = await buildGame('kids', diff, lang)
@@ -403,8 +440,15 @@ function KidNameScreen({ loading, onBack, onStart }: {
   loading: boolean; onBack: () => void; onStart: (name: string) => void
 }) {
   const { t } = useLanguage()
-  const [name, setName] = useState(() => storageGet(KID_NAME_KEY) || '')
+  const [saved, setSaved] = useState<string[]>(() => loadKidNames())
+  // Start on the "add a child" form only when there are no saved kids yet;
+  // otherwise show the picker so a returning family lands on their children.
+  const [adding, setAdding] = useState(() => saved.length === 0)
+  const [name, setName] = useState('')
   const ok = name.trim().length >= 2
+
+  const remove = (n: string) => { forgetKidName(n); const next = loadKidNames(); setSaved(next); if (next.length === 0) setAdding(true) }
+
   return (
     <div className="px-4 pt-4 pb-10 safe-top flex flex-col min-h-full">
       <button onClick={onBack} className="p-2 -ml-2 rounded-full text-white/90 hover:bg-white/10 flex items-center gap-1 text-sm font-semibold">
@@ -413,16 +457,50 @@ function KidNameScreen({ loading, onBack, onStart }: {
       <div className="flex-1 flex flex-col items-center justify-center text-center">
         <div className="text-7xl mb-3 quiz-anim-bounce">🎈</div>
         <h1 className="text-2xl font-extrabold text-white mb-1">{t('quiz.kidsTitle')}</h1>
-        <p className="text-on-bg mb-6">{t('quiz.kidNamePrompt')} 😊</p>
-        <input
-          value={name} onChange={e => setName(e.target.value)}
-          placeholder={t('quiz.kidNamePlaceholder')} autoFocus maxLength={40}
-          className="w-full max-w-xs text-center text-lg font-bold rounded-2xl bg-white text-slate-800 px-4 py-4 shadow-lg focus:outline-none focus:ring-4 focus:ring-white/50 mb-2" />
-        <p className="text-on-bg text-xs mb-6">{t('quiz.kidNameHint')}</p>
-        <button onClick={() => ok && onStart(name.trim())} disabled={!ok || loading}
-          className="quiz-shine w-full max-w-xs rounded-2xl bg-gradient-to-r from-pink-500 to-violet-500 text-white font-extrabold text-lg py-4 shadow-xl disabled:opacity-60 flex items-center justify-center gap-2">
-          {loading ? <Loader2 className="animate-spin" size={20} /> : <>{t('quiz.kidStart')} 🎉</>}
-        </button>
+
+        {!adding && saved.length > 0 ? (
+          <>
+            <p className="text-on-bg mb-5">{t('quiz.kidWhoPlaying')} 😊</p>
+            <div className="w-full max-w-xs space-y-2 mb-5">
+              {saved.map(n => (
+                <div key={n} className="flex items-center gap-2">
+                  <button onClick={() => !loading && onStart(n)} disabled={loading}
+                    className="quiz-shine flex-1 rounded-2xl bg-white text-slate-800 font-extrabold text-lg py-4 px-4 shadow-lg flex items-center justify-center gap-2 disabled:opacity-60 truncate">
+                    🎈 <span className="truncate">{n}</span>
+                  </button>
+                  <button onClick={() => remove(n)} aria-label={t('quiz.kidRemove')}
+                    className="shrink-0 w-11 h-11 rounded-2xl bg-white/15 text-white flex items-center justify-center hover:bg-white/25">
+                    <X size={18} />
+                  </button>
+                </div>
+              ))}
+            </div>
+            <button onClick={() => { setName(''); setAdding(true) }}
+              className="w-full max-w-xs rounded-2xl border-2 border-white/50 text-white font-bold text-base py-3.5 hover:bg-white/10">
+              ➕ {t('quiz.kidAddAnother')}
+            </button>
+          </>
+        ) : (
+          <>
+            <p className="text-on-bg mb-6">{t('quiz.kidNamePrompt')} 😊</p>
+            <input
+              value={name} onChange={e => setName(e.target.value)}
+              placeholder={t('quiz.kidNamePlaceholder')} autoFocus maxLength={40}
+              onKeyDown={e => { if (e.key === 'Enter' && ok && !loading) onStart(name.trim()) }}
+              className="w-full max-w-xs text-center text-lg font-bold rounded-2xl bg-white text-slate-800 px-4 py-4 shadow-lg focus:outline-none focus:ring-4 focus:ring-white/50 mb-2" />
+            <p className="text-on-bg text-xs mb-6">{t('quiz.kidNameHint')}</p>
+            <button onClick={() => ok && onStart(name.trim())} disabled={!ok || loading}
+              className="quiz-shine w-full max-w-xs rounded-2xl bg-gradient-to-r from-pink-500 to-violet-500 text-white font-extrabold text-lg py-4 shadow-xl disabled:opacity-60 flex items-center justify-center gap-2">
+              {loading ? <Loader2 className="animate-spin" size={20} /> : <>{t('quiz.kidStart')} 🎉</>}
+            </button>
+            {saved.length > 0 && (
+              <button onClick={() => setAdding(false)}
+                className="mt-3 text-white/90 text-sm font-semibold hover:underline">
+                {t('quiz.kidBackToList')}
+              </button>
+            )}
+          </>
+        )}
       </div>
     </div>
   )

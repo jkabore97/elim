@@ -221,6 +221,16 @@ service cloud.firestore {
       allow write: if isAdmin();
     }
 
+    // ---- Publishing groups ----
+    // Ministries / departments a post can be attributed to. Readable by any
+    // signed-in user (a lead's composer lists the groups they may publish
+    // under; membership is the `leads` map). Only admins/pastors create, edit,
+    // assign leads, or delete — leads never edit the group itself.
+    match /groups/{groupId} {
+      allow read: if isSignedIn();
+      allow write: if isAdmin();
+    }
+
     // ---- Posts ----
     match /posts/{postId} {
       allow read: if isSignedIn();
