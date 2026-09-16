@@ -76,10 +76,17 @@ export async function loadBank(cat: QuizCategory, diff: QuizDifficulty): Promise
   if (hit) return hit
   const loader = bankModules[key]
   if (!loader) return []
-  const mod = await loader()
-  const arr = Array.isArray(mod.default) ? mod.default : []
-  bankCache.set(key, arr)
-  return arr
+  try {
+    const mod = await loader()
+    const arr = Array.isArray(mod.default) ? mod.default : []
+    bankCache.set(key, arr)
+    return arr
+  } catch {
+    // A dynamic import() can reject if the chunk was never cached while online
+    // (web/PWA). Return empty rather than throwing, so the caller shows an
+    // empty state instead of hanging on a spinner forever.
+    return []
+  }
 }
 
 // ---- Random helpers ---------------------------------------------------------
@@ -106,8 +113,21 @@ function shuffle<T>(arr: T[], rnd: () => number = Math.random): T[] {
   return a
 }
 
+// The church is in Burkina Faso (UTC+0, no DST). All competition day/week keys
+// are computed in CHURCH time so every member - including the diaspora - shares
+// the same day and week boundaries the server (which runs in UTC) closes on.
+const CHURCH_TZ = 'Africa/Ouagadougou'
+function churchYMD(d = new Date()): [number, number, number] {
+  // en-CA formats as YYYY-MM-DD in the target timezone.
+  const s = new Intl.DateTimeFormat('en-CA', {
+    timeZone: CHURCH_TZ, year: 'numeric', month: '2-digit', day: '2-digit',
+  }).format(d)
+  return s.split('-').map(Number) as [number, number, number]
+}
+
 export function todayKey(d = new Date()): string {
-  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
+  const [y, m, day] = churchYMD(d)
+  return `${y}-${String(m).padStart(2, '0')}-${String(day).padStart(2, '0')}`
 }
 
 // Adult competition categories - every category except Kids, which runs its
@@ -115,10 +135,10 @@ export function todayKey(d = new Date()): string {
 export const ADULT_CATEGORIES = QUIZ_CATEGORIES.filter(c => c !== 'kids') as Exclude<QuizCategory, 'kids'>[]
 
 // ISO-8601 week id, e.g. "2026-W38". Adult weekly leaderboards use this
-// (Monday-Sunday). Computed from the LOCAL date, which on a Burkina Faso
-// phone (UTC+0) matches the server.
+// (Monday-Sunday), computed in church time to match the server's isoWeekKey.
 export function weekKey(d = new Date()): string {
-  const date = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()))
+  const [y, m, dd] = churchYMD(d)
+  const date = new Date(Date.UTC(y, m - 1, dd))
   const day = date.getUTCDay() || 7
   date.setUTCDate(date.getUTCDate() + 4 - day)
   const yearStart = new Date(Date.UTC(date.getUTCFullYear(), 0, 1))
@@ -129,13 +149,15 @@ export function weekKey(d = new Date()): string {
 // Kids league week id, SUNDAY-based (Sunday 00:00 -> Saturday 23:59), so the
 // week closes Saturday night and the winner is known for the Sunday-school
 // prize. Format "2026-K38": the year and the index of the week's Sunday.
+// Computed in church time to match the server's kidsWeekKeyUTC.
 export function kidsWeekKey(d = new Date()): string {
-  const day = new Date(d.getFullYear(), d.getMonth(), d.getDate())
+  const [y, m, dd] = churchYMD(d)
+  const day = new Date(Date.UTC(y, m - 1, dd))
   // Roll back to this week's Sunday.
-  day.setDate(day.getDate() - day.getDay())
-  const yearStart = new Date(day.getFullYear(), 0, 1)
+  day.setUTCDate(day.getUTCDate() - day.getUTCDay())
+  const yearStart = new Date(Date.UTC(day.getUTCFullYear(), 0, 1))
   const week = Math.floor((day.getTime() - yearStart.getTime()) / (7 * 86400000)) + 1
-  return `${day.getFullYear()}-K${String(week).padStart(2, '0')}`
+  return `${day.getUTCFullYear()}-K${String(week).padStart(2, '0')}`
 }
 
 function toPlay(q: BankQuestion, cat: QuizCategory, diff: QuizDifficulty, lang: QuizLang, rnd: () => number): PlayQuestion {
@@ -321,10 +343,14 @@ export function applyResult(p: QuizProfile, r: GameResult, day = todayKey()): { 
     const k = `${r.category}-${r.difficulty}`
     next.best[k] = Math.max(next.best[k] ?? 0, r.correct)
   } else if (p.lastDailyDate !== day) {
-    // Daily streak: consecutive days with a completed challenge.
+    // Daily streak: consecutive days with a completed challenge. The +50 daily
+    // bonus is awarded HERE, gated to the first completion of the day, so
+    // replaying the daily can't farm it (it used to be added unconditionally
+    // by the caller on every daily game).
     const y = new Date(); y.setDate(y.getDate() - 1)
     next.dailyStreak = p.lastDailyDate === todayKey(y) ? p.dailyStreak + 1 : 1
     next.lastDailyDate = day
+    next.points += DAILY_BONUS
   }
 
   const unlocked: BadgeId[] = []

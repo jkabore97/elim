@@ -708,6 +708,7 @@ const en = {
   "quiz.kidNamePrompt": "What's your name?",
   "quiz.kidNamePlaceholder": 'Your name',
   "quiz.kidNameHint": 'Your name appears on the kids ranking.',
+  "quiz.loadFailed": 'Could not load the questions. Check your connection and try again.',
   "quiz.kidStart": "Let's play",
   "quiz.kidFriend": 'Friend',
   "quiz.kidWhoPlaying": 'Who is playing today?',

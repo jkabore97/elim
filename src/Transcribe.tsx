@@ -52,13 +52,19 @@ export function TranscribeTool({ user }: { user: AppUser }) {
     try {
       const path = await uploadForTranscription(user.uid, file, setProgress)
       setPhase('processing')
-      const jobId = await startUploadTranscription(user.uid, path)
+      let settled = false
+      const finish = (fn: () => void) => { if (!settled) { settled = true; fn() } }
+      const { jobId, done } = await startUploadTranscription(user.uid, path)
       jobRef.current = jobId
       unsubRef.current = subscribeJob(jobId, (j: TranscriptDoc | null) => {
         if (!j) return
-        if (j.status === 'done') { setText(j.text || ''); setPhase('done') }
-        else if (j.status === 'error') { setErrMsg(j.error || ''); setPhase('error') }
+        if (j.status === 'done') finish(() => { setText(j.text || ''); setPhase('done') })
+        else if (j.status === 'error') finish(() => { setErrMsg(j.error || ''); setPhase('error') })
       })
+      // If the callable itself rejects (auth/permission thrown before a status
+      // is written, or a timeout), surface it rather than spinning forever. The
+      // job-doc 'done' above wins the race when the function completes normally.
+      done.catch((err: any) => finish(() => { setErrMsg(err?.message || String(err)); setPhase('error') }))
     } catch (err: any) {
       setErrMsg(err?.message || String(err)); setPhase('error')
     }
