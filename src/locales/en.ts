@@ -671,6 +671,7 @@ const en = {
   "quiz.rankingWeek": 'Ranking this week',
   "quiz.seeAll": 'See all',
   "quiz.beFirst": 'No champion yet — be the first this week!',
+  "quiz.general": 'General',
 }
 
 export default en

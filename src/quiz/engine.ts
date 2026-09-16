@@ -45,7 +45,7 @@ export const CATEGORY_META: Record<QuizCategory, { emoji: string; tint: string }
   verses:    { emoji: '📖', tint: 'bg-sky-100' },
   miracles:  { emoji: '✨', tint: 'bg-yellow-100' },
   geography: { emoji: '🗺️', tint: 'bg-lime-100' },
-  kids:      { emoji: '🧒🏿', tint: 'bg-pink-100' },
+  kids:      { emoji: '🎈', tint: 'bg-pink-100' },
   business:  { emoji: '💼', tint: 'bg-orange-100' },
   morality:  { emoji: '⚖️', tint: 'bg-violet-100' },
 }
@@ -262,7 +262,7 @@ export const BADGE_EMOJI: Record<BadgeId, string> = {
   first_game: '🥉', perfect: '💯', daily_first: '⭐', daily_7: '🔥', daily_30: '🏅',
   games_50: '🎯', level_5: '🥈', level_10: '👑',
   master_ot: '📜', master_nt: '✝️', master_parables: '🌾', master_people: '🧑🏿‍🤝‍🧑🏿', master_verses: '📖',
-  master_miracles: '✨', master_geography: '🗺️', master_kids: '🧒🏿', master_business: '💼', master_morality: '⚖️',
+  master_miracles: '✨', master_geography: '🗺️', master_kids: '🎈', master_business: '💼', master_morality: '⚖️',
 }
 
 export interface GameResult {
