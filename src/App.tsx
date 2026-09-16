@@ -43,7 +43,9 @@ import BibleQuiz from './BibleQuiz'
 import { App as CapApp } from '@capacitor/app'
 import { subscribeProfile as subscribeQuizProfile } from './quiz/store'
 import { todayKey as quizTodayKey } from './quiz/engine'
-import type { Post, Comment, AppUser, ActivityLog, AppNotification, DonationConfig, DonationProvider, Report, DonationType, Donation } from './types'
+import { subscribeGroups } from './groups'
+import { GroupsPanel } from './Groups'
+import type { Post, Comment, AppUser, ActivityLog, AppNotification, DonationConfig, DonationProvider, Report, DonationType, Donation, Group } from './types'
 import { LanguageProvider, useLanguage, LANGUAGES, type Language } from './i18n'
 
 function timeAgo(date: any) {
@@ -1074,6 +1076,7 @@ function AppInner() {
   const [authLoading, setAuthLoading] = useState(true)
   const [activeTab, setActiveTab] = useState('feed')
   const [posts, setPosts] = useState<Post[]>([])
+  const [groups, setGroups] = useState<Group[]>([])
   const [comments, setComments] = useState<Comment[]>([])
   const [showCreate, setShowCreate] = useState(false)
   const [editingPost, setEditingPost] = useState<Post | null>(null)
@@ -1112,7 +1115,7 @@ function AppInner() {
   const [musiqueSearch, setMusiqueSearch] = useState('')
   const [showCreateMusique, setShowCreateMusique] = useState(false)
   const [showBulkMusique, setShowBulkMusique] = useState(false)
-  const [adminSection, setAdminSection] = useState<'approvals' | 'reports' | 'dons' | 'logs' | 'data'>(
+  const [adminSection, setAdminSection] = useState<'approvals' | 'groups' | 'reports' | 'dons' | 'logs' | 'data'>(
     user?.role === 'church' ? 'data' : 'approvals'
   )
   // user is null at mount, so the initializer above always resolves to
@@ -1320,6 +1323,13 @@ function AppInner() {
     return unsub
   }, [user])
 
+  // Publishing groups (ministries/departments). Small collection, world-
+  // readable; needed by the composer (a lead's "my groups") and the admin panel.
+  useEffect(() => {
+    if (!user || user.role === 'pending_church') return
+    return subscribeGroups(setGroups, () => setGroups([]))
+  }, [user])
+
   // The current user's likes — kept as its own collection (one doc per
   // postId+userId) rather than a field on the post itself, since a post
   // has no way to know "did *this* user like it" otherwise. This is what
@@ -1391,6 +1401,14 @@ function AppInner() {
   }, [user])
 
   const canPost = user?.role === 'church' || user?.role === 'admin' || user?.role === 'pastor'
+  // Groups this account may publish under: its own lead groups, plus every
+  // group for staff (admins/pastors can post as any group). Drives the
+  // composer's "publish under" picker.
+  const myGroups = useMemo(() => {
+    if (!user) return []
+    const staff = user.role === 'admin' || user.role === 'pastor'
+    return groups.filter(g => staff || !!g.leads[user.uid])
+  }, [groups, user])
 
   const handleLogout = async () => {
     // Detach this device's push token BEFORE signing out (the write needs the
@@ -1414,7 +1432,7 @@ function AppInner() {
     logActivity(user, 'post_edited', content.slice(0, 80))
   }
 
-  const handleCreatePost = async (data: { type: Post['type']; content: string; mediaUrl?: string; coverUrl?: string; fileName?: string; section?: 'feed' | 'sante' | 'musique'; category?: string }) => {
+  const handleCreatePost = async (data: { type: Post['type']; content: string; mediaUrl?: string; coverUrl?: string; fileName?: string; section?: 'feed' | 'sante' | 'musique'; category?: string; groupId?: string }) => {
     let finalType = data.type
     // Only auto-detect YouTube/Facebook links when the user didn't explicitly pick
     // a distinct media type (audio/document posts can otherwise get silently reclassified).
@@ -1422,12 +1440,25 @@ function AppInner() {
       if (getYoutubeId(data.mediaUrl)) finalType = 'youtube'
       else if (isFacebookVideo(data.mediaUrl)) finalType = 'facebook'
     }
+    // Attribute to a group only if the author actually leads it (or is staff);
+    // a featured lead's own name shows big, everyone else shows group-first.
+    const group = data.groupId ? groups.find(g => g.id === data.groupId) : undefined
+    const canUseGroup = group && (group.leads[user!.uid] || user!.role === 'admin' || user!.role === 'pastor')
+    const groupFields = canUseGroup
+      ? {
+          groupId: group!.id,
+          groupName: group!.name,
+          groupAvatar: group!.avatar || null,
+          featured: !!group!.leads[user!.uid]?.featured,
+        }
+      : {}
     await addDoc(collection(db, 'posts'), {
       churchId: user!.uid,
       churchName: user!.churchName || CHURCH_NAME,
       authorId: user!.uid,
       authorName: user!.displayName,
       churchAvatar: user!.avatar || null,
+      ...groupFields,
       type: finalType,
       content: data.content,
       mediaUrl: data.mediaUrl || null,
@@ -1993,6 +2024,7 @@ function AppInner() {
                 <div className="flex gap-2 overflow-x-auto pb-1">
                   {[
                     ...(isStaffUser ? [{ id: 'approvals' as const, label: t('admin.subApprovals') }] : []),
+                    ...(isStaffUser ? [{ id: 'groups' as const, label: t('groups.tab') }] : []),
                     ...(isStaffUser ? [{ id: 'reports' as const, label: t('reports.tab') }] : []),
                     ...(isStaffUser ? [{ id: 'dons' as const, label: t('dons.tab') }] : []),
                     ...(isStaffUser ? [{ id: 'logs' as const, label: t('nav.logs') }] : []),
@@ -2011,6 +2043,7 @@ function AppInner() {
                 {adminSection === 'approvals' && isStaffUser && (
                   <AdminPanel pendingChurches={pendingChurches} onApprove={handleApproveChurch} onDeny={handleDenyChurch} />
                 )}
+                {adminSection === 'groups' && isStaffUser && <GroupsPanel user={user} groups={groups} />}
                 {adminSection === 'reports' && isStaffUser && <ReportsPanel user={user} />}
                 {adminSection === 'dons' && isStaffUser && <DonationsPanel user={user} />}
                 {adminSection === 'logs' && isStaffUser && <LogsPanel />}
@@ -2108,7 +2141,7 @@ function AppInner() {
 
       {MUSIQUE_ENABLED && showCreateMusique && canPost && (
         <CreatePostModal onClose={() => setShowCreateMusique(false)} onSubmit={handleCreatePost}
-          uploaderUid={user.uid} section="musique" />
+          uploaderUid={user.uid} section="musique" myGroups={myGroups} />
       )}
 
       {MUSIQUE_ENABLED && showBulkMusique && canPost && (
@@ -2117,11 +2150,11 @@ function AppInner() {
 
       {showCreateSante && canPostSante && (
         <CreatePostModal onClose={() => setShowCreateSante(false)} onSubmit={handleCreatePost}
-          uploaderUid={user.uid} section="sante" />
+          uploaderUid={user.uid} section="sante" myGroups={myGroups} />
       )}
 
       {showCreate && canPost && (
-        <CreatePostModal onClose={() => setShowCreate(false)} onSubmit={handleCreatePost} uploaderUid={user.uid} />
+        <CreatePostModal onClose={() => setShowCreate(false)} onSubmit={handleCreatePost} uploaderUid={user.uid} myGroups={myGroups} />
       )}
       {editingPost && (
         <EditPostModal post={editingPost} onClose={() => setEditingPost(null)} onSave={handleEditPost} />
@@ -2868,6 +2901,28 @@ function PostCard({ post, onLike, onOpenComments, currentUser, isLiked, onEdit, 
 
   const isOwner = post.churchId === currentUserUid
 
+  // Attribution shown on the card. A group post leads with the GROUP name and
+  // shows the author small — unless the author is a featured lead (the pastor),
+  // whose own name leads instead, with the group as the subtitle. Posts with no
+  // group keep the original author-first layout.
+  const author = post.authorName || post.churchName || t('common.church')
+  let bigName: string, subName: string, headAvatar: string | undefined, headInitial: string
+  if (post.groupId && post.groupName) {
+    if (post.featured) {
+      // Pastor-forward: their own name and photo lead, group as the subtitle.
+      bigName = author; subName = post.groupName; headInitial = author.charAt(0)
+      headAvatar = post.churchAvatar || post.groupAvatar || undefined
+    } else {
+      bigName = post.groupName; subName = post.authorName || ''; headInitial = post.groupName.charAt(0)
+      headAvatar = post.groupAvatar || undefined
+    }
+  } else {
+    headAvatar = post.churchAvatar
+    bigName = author
+    subName = post.authorName ? (post.churchName || CHURCH_NAME) : ''
+    headInitial = (post.authorName || post.churchName || 'C').charAt(0)
+  }
+
   const handleLikeClick = async () => {
     setLikeError(false)
     try {
@@ -2884,21 +2939,20 @@ function PostCard({ post, onLike, onOpenComments, currentUser, isLiked, onEdit, 
   return (
     <article className="glass rounded-3xl shadow-sm border border-slate-100/80 overflow-hidden">
       <div className="flex items-center gap-3 p-4">
-        {post.churchAvatar ? (
-          <img src={post.churchAvatar} alt="" className="w-11 h-11 rounded-full object-cover shrink-0" />
+        {headAvatar ? (
+          <img src={headAvatar} alt="" className="w-11 h-11 rounded-full object-cover shrink-0" />
         ) : (
           <div className="w-11 h-11 rounded-full bg-gradient-to-br from-affirm-400 to-teal-500 flex items-center justify-center text-white font-bold text-sm shrink-0">
-            {(post.authorName || post.churchName || 'C').charAt(0)}
+            {headInitial}
           </div>
         )}
         <div className="flex-1 min-w-0">
-          {/* Older posts predate authorName, so churchName is the fallback
-              rather than showing nothing. */}
+          {/* Group name (or author) leads; the smaller line carries the other. */}
           <h3 className="font-semibold text-slate-900 truncate">
-            {post.authorName || post.churchName || t('common.church')}
+            {bigName}
           </h3>
           <p className="text-xs text-slate-400 truncate">
-            {post.authorName ? `${post.churchName || CHURCH_NAME} · ` : ''}{timeAgo(post.createdAt)}
+            {subName ? `${subName} · ` : ''}{timeAgo(post.createdAt)}
           </p>
         </div>
         {isOwner && (
@@ -3225,11 +3279,12 @@ function BulkMusicModal({ user, onClose }: { user: AppUser; onClose: () => void 
   )
 }
 
-function CreatePostModal({ onClose, onSubmit, uploaderUid, section = 'feed' }: {
+function CreatePostModal({ onClose, onSubmit, uploaderUid, section = 'feed', myGroups = [] }: {
   onClose: () => void
-  onSubmit: (data: { type: Post['type']; content: string; mediaUrl?: string; coverUrl?: string; fileName?: string; section?: 'feed' | 'sante' | 'musique'; category?: string }) => void | Promise<void>
+  onSubmit: (data: { type: Post['type']; content: string; mediaUrl?: string; coverUrl?: string; fileName?: string; section?: 'feed' | 'sante' | 'musique'; category?: string; groupId?: string }) => void | Promise<void>
   uploaderUid: string
   section?: 'feed' | 'sante' | 'musique'
+  myGroups?: Group[]
 }) {
   const { t } = useLanguage()
   const [type, setType] = useState<Post['type']>('text-image')
@@ -3242,6 +3297,9 @@ function CreatePostModal({ onClose, onSubmit, uploaderUid, section = 'feed' }: {
   const [uploadError, setUploadError] = useState('')
   const [publishing, setPublishing] = useState(false)
   const [santeCategory, setSanteCategory] = useState(SANTE_CATEGORIES[0])
+  // Which group to publish under. Preselect when the lead has exactly one group;
+  // with several they choose one (or "just me"), per the church's request.
+  const [groupId, setGroupId] = useState(() => myGroups.length === 1 ? myGroups[0].id : '')
 
   const canUploadDirectly = type === 'text-image' || type === 'audio' || type === 'video' || type === 'document'
   const rule = UPLOAD_RULES[type]
@@ -3297,7 +3355,8 @@ function CreatePostModal({ onClose, onSubmit, uploaderUid, section = 'feed' }: {
                   coverUrl: (type === 'audio' && coverUrl) ? coverUrl : undefined,
                   fileName: (type === 'document' && fileName) ? fileName : undefined,
                   section,
-                  ...(section === 'sante' ? { category: santeCategory } : {})
+                  ...(section === 'sante' ? { category: santeCategory } : {}),
+                  ...(groupId ? { groupId } : {})
                 })
                 onClose()
               } catch (err: any) {
@@ -3316,6 +3375,17 @@ function CreatePostModal({ onClose, onSubmit, uploaderUid, section = 'feed' }: {
               className="w-full px-4 py-3 rounded-2xl border border-slate-200 text-[15px] bg-white focus:outline-none focus:ring-2 focus:ring-affirm-400">
               {SANTE_CATEGORIES.map(cat => <option key={cat} value={cat}>{cat}</option>)}
             </select>
+          )}
+
+          {myGroups.length > 0 && (
+            <div>
+              <label className="block text-xs font-semibold text-slate-500 mb-1.5">{t('groups.publishUnder')}</label>
+              <select value={groupId} onChange={e => setGroupId(e.target.value)}
+                className="w-full px-4 py-3 rounded-2xl border border-slate-200 text-[15px] bg-white focus:outline-none focus:ring-2 focus:ring-affirm-400">
+                <option value="">{t('groups.justMe')}</option>
+                {myGroups.map(g => <option key={g.id} value={g.id}>{g.name}</option>)}
+              </select>
+            </div>
           )}
 
           <div className="grid grid-cols-3 gap-2">

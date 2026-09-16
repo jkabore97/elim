@@ -47,6 +47,26 @@ export interface ChurchProfile {
   ownerId?: string;
 }
 
+// A publishing group (ministry / department / the church itself), created and
+// edited by an admin. Posts are attributed to a group: the group name shows
+// large and the author small — unless the author is a "featured" lead of that
+// group (e.g. the pastor), whose own name shows large instead.
+export interface GroupLead {
+  name: string;      // denormalized display name, so the admin list needs no user lookup
+  featured?: boolean; // true => this lead's name is shown big on their group posts
+}
+export interface Group {
+  id: string;
+  name: string;
+  avatar?: string;
+  // Leads keyed by uid. Only leads may publish under the group; leadIds mirrors
+  // the keys so the composer can find "my groups" with an array-contains query.
+  leads: Record<string, GroupLead>;
+  leadIds: string[];
+  createdAt?: any;
+  updatedAt?: any;
+}
+
 export interface Post {
   // The individual who published, kept alongside churchName. With one church
   // every post would otherwise carry an identical name, so nothing on screen
@@ -63,6 +83,14 @@ export interface Post {
   churchId: string;
   churchName?: string;
   churchAvatar?: string;
+  // Group attribution (optional). When set, the post is shown under the group:
+  // groupName big + author small, or — when `featured` — the author's name big
+  // and the group as the subtitle. churchId still identifies the owning account
+  // for ownership/permission checks; these fields only drive display.
+  groupId?: string;
+  groupName?: string;
+  groupAvatar?: string;
+  featured?: boolean;
   type: "text-image" | "audio" | "video" | "youtube" | "facebook" | "document";
   content: string;
   mediaUrl?: string;
