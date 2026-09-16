@@ -3,6 +3,11 @@ import { PushNotifications } from '@capacitor/push-notifications'
 import { getMessaging, getToken, onMessage, deleteToken } from 'firebase/messaging'
 import { doc, updateDoc, arrayUnion, arrayRemove } from 'firebase/firestore'
 import { app, db } from './firebase'
+import { storageGet, storageSet } from './safeStorage'
+
+// This device's push token, persisted so logout can detach it even after a
+// page reload / restored session where the in-memory copy was never set.
+const TOKEN_KEY = 'elim-fcm-token'
 
 // From Firebase console -> Project settings -> Cloud Messaging -> Web
 // Push certificates. Needed only for the web (browser) notification path -
@@ -16,6 +21,7 @@ let lastKnownToken: string | null = null
 
 async function saveToken(uid: string, token: string) {
   lastKnownToken = token
+  try { storageSet(TOKEN_KEY, token) } catch { /* storage blocked */ }
   await updateDoc(doc(db, 'users', uid), {
     fcmTokens: arrayUnion(token),
     notificationsEnabled: true
@@ -31,9 +37,18 @@ async function saveToken(uid: string, token: string) {
 // someone else logs in. Best-effort: a failed cleanup must never block logout.
 export async function cleanupPushForLogout(uid: string) {
   try {
-    if (lastKnownToken) {
+    // Fall back to the persisted token: on a restored session the user may never
+    // have re-enabled notifications this run, so lastKnownToken is null even
+    // though their fcmTokens still holds this device's token.
+    let token = lastKnownToken
+    if (!token) { try { token = storageGet(TOKEN_KEY) } catch { token = null } }
+    if (!token && !Capacitor.isNativePlatform()) {
+      // Web: derive the current token directly so we can detach it.
+      try { token = await getToken(getMessaging(app), { vapidKey: VAPID_KEY }) } catch { token = null }
+    }
+    if (token) {
       await updateDoc(doc(db, 'users', uid), {
-        fcmTokens: arrayRemove(lastKnownToken)
+        fcmTokens: arrayRemove(token)
       }).catch(() => {})
     }
     if (!Capacitor.isNativePlatform()) {
@@ -46,6 +61,7 @@ export async function cleanupPushForLogout(uid: string) {
   } finally {
     pendingTokenUid.clear()
     lastKnownToken = null
+    try { storageSet(TOKEN_KEY, '') } catch { /* ignore */ }
   }
 }
 
