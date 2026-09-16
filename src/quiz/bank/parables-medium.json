@@ -610,7 +610,7 @@
    "explain": "« La pierre qu’ont rejetée ceux qui bâtissaient est devenue la principale de l’angle. » (Matthieu 21:42)"
   },
   "en": {
-   "q": "After the parable of the tenants, what rejected stone becomes the chief, per Jesus?",
+   "q": "After the parable of the tenants, what rejected stone becomes the chief, according to Jesus?",
    "options": [
     "The stone the builders rejected",
     "The altar stone",
@@ -1042,9 +1042,9 @@
    "explain": "« On demandera beaucoup à qui l’on a beaucoup donné. » (Luc 12:48)"
   },
   "en": {
-   "q": "What word concludes the faithful manager parable about responsibility?",
+   "q": "What saying concludes the faithful manager parable about responsibility?",
    "options": [
-    "Much is required of him given much",
+    "Much is required of the one given much",
     "The rich are blessed",
     "Rest comes first",
     "No one is responsible"
@@ -2270,8 +2270,8 @@
  {
   "id": "parables-medium-085",
   "ref": {
-   "fr": "Matthieu 18:14",
-   "en": "Matthew 18:14"
+   "fr": "Matthieu 18:10",
+   "en": "Matthew 18:10"
   },
   "fr": {
    "q": "En Matthieu, la parabole de la brebis perdue enseigne à ne pas mépriser qui ?",
@@ -2281,7 +2281,7 @@
     "Les étrangers",
     "Les bergers"
    ],
-   "explain": "« … que l’un de ces petits ne se perde. » (Matthieu 18:14)"
+   "explain": "« Gardez-vous de mépriser un seul de ces petits. » (Matthieu 18:10)"
   },
   "en": {
    "q": "In Matthew, the parable of the lost sheep teaches not to despise whom?",
@@ -2291,7 +2291,7 @@
     "Strangers",
     "Shepherds"
    ],
-   "explain": "“…that one of these little ones should perish.” (Matthew 18:14)"
+   "explain": "“See that you don’t despise one of these little ones.” (Matthew 18:10)"
   }
  },
  {
@@ -2689,7 +2689,7 @@
    "explain": "« J’ouvrirai ma bouche en paraboles, je publierai des choses cachées. » (Matthieu 13:35)"
   },
   "en": {
-   "q": "Per Matthew, Jesus’ parables fulfill the word: “I will open my mouth in…” what?",
+   "q": "According to Matthew, Jesus’ parables fulfill the word: “I will open my mouth in…” what?",
    "options": [
     "In parables",
     "In songs",

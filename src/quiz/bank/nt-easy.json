@@ -1252,7 +1252,7 @@
    "options": [
     "Corneille",
     "Jules",
-    "Cornélius le tribun",
+    "Lysias",
     "Claude"
    ],
    "explain": "Corneille et sa maison reçurent l’Évangile par Pierre. (Actes 10:1-2)"
@@ -1818,9 +1818,9 @@
    "q": "Quel souverain sacrificateur jugea Jésus la nuit de son arrestation ?",
    "options": [
     "Caïphe",
-    "Anne le scribe",
     "Gamaliel",
-    "Nicodème"
+    "Nicodème",
+    "Barabbas"
    ],
    "explain": "On mena Jésus chez Caïphe, le souverain sacrificateur. (Matthieu 26:57)"
   },

@@ -64,7 +64,7 @@
    "options": [
     "La mer Rouge",
     "La mer Morte",
-    "le lac de Galilée",
+    "Le lac de Galilée",
     "Le Jourdain"
    ],
    "explain": "Dieu ouvrit la mer Rouge devant Israël. (Exode 14:21)"
@@ -74,7 +74,7 @@
    "options": [
     "The Red Sea",
     "The Dead Sea",
-    "the Sea of Galilee",
+    "The Sea of Galilee",
     "The Jordan"
    ],
    "explain": "God parted the Red Sea before Israel. (Exodus 14:21)"
@@ -249,7 +249,7 @@
    "en": "Joshua 6"
   },
   "fr": {
-   "q": "Quelles murailles tombèrent après que le peuple eut marché autour ?",
+   "q": "Quelles murailles tombèrent quand le peuple marcha tout autour ?",
    "options": [
     "Jéricho",
     "Babylone",
@@ -1005,7 +1005,7 @@
    "en": "Exodus 7:10"
   },
   "fr": {
-   "q": "En quoi le bâton de Moïse se changea-t-il devant Pharaon ?",
+   "q": "En quoi le bâton d'Aaron se changea-t-il devant Pharaon ?",
    "options": [
     "En serpent",
     "En lion",
@@ -1015,7 +1015,7 @@
    "explain": "Le bâton d'Aaron devint un serpent devant Pharaon. (Exode 7:10)"
   },
   "en": {
-   "q": "What did Moses' staff become before Pharaoh?",
+   "q": "What did Aaron's staff become before Pharaoh?",
    "options": [
     "A serpent",
     "A lion",
@@ -2436,7 +2436,7 @@
    "en": "Genesis 37:7"
   },
   "fr": {
-   "q": "Dans le songe de Joseph, que se prosternaient devant sa gerbe ?",
+   "q": "Dans le songe de Joseph, qu'est-ce qui se prosterna devant sa gerbe ?",
    "options": [
     "Les gerbes de ses frères",
     "Des lions",
@@ -2652,7 +2652,7 @@
    "en": "Genesis 4:4"
   },
   "fr": {
-   "q": "Dieu regarda avec faveur l'offrande de Caïn ou d'Abel ?",
+   "q": "L'offrande de qui Dieu regarda-t-il avec faveur : Caïn ou Abel ?",
    "options": [
     "Celle d'Abel",
     "Celle de Caïn",

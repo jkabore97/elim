@@ -1115,12 +1115,12 @@
   "fr": {
    "q": "Chez quel homme de métier Pierre logea-t-il à Joppé ?",
    "options": [
-    "Simon le corroyeur",
+    "Simon le tanneur",
     "Simon le magicien",
     "Simon de Cyrène",
     "Simon le pharisien"
    ],
-   "explain": "Pierre demeura assez longtemps à Joppé chez Simon, corroyeur. (Actes 9:43)"
+   "explain": "Pierre demeura longtemps à Joppé chez Simon, un tanneur. (Actes 9:43)"
   },
   "en": {
    "q": "With which tradesman did Peter lodge at Joppa?",

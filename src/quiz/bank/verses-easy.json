@@ -583,12 +583,12 @@
    "explain": "« ...vous serez mes témoins. » (Actes 1:8)"
   },
   "en": {
-   "q": "Complete: “...ye shall be ______ unto the uttermost part of the earth.”",
+   "q": "Complete: “...ye shall be ______, ... unto the uttermost part of the earth.”",
    "options": [
-    "my witnesses",
-    "my judges",
-    "my kings",
-    "my angels"
+    "witnesses unto me",
+    "judges of Israel",
+    "kings of the earth",
+    "angels of heaven"
    ],
    "explain": "“...ye shall be witnesses unto me.” (Acts 1:8)"
   }
@@ -1494,9 +1494,9 @@
    "q": "Complétez : « Tu ne ______ point. »",
    "options": [
     "tueras",
-    "voleras",
-    "mentiras",
-    "convoiteras"
+    "craindras",
+    "faibliras",
+    "reculeras"
    ],
    "explain": "« Tu ne tueras point. » (Exode 20:13)"
   },
@@ -1504,9 +1504,9 @@
    "q": "Complete: “Thou shalt not ______.”",
    "options": [
     "kill",
-    "steal",
-    "bear false witness",
-    "covet"
+    "be afraid",
+    "grow weak",
+    "turn back"
    ],
    "explain": "“Thou shalt not kill.” (Exodus 20:13)"
   }

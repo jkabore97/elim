@@ -117,9 +117,9 @@
    "q": "Dans quelle caverne Abraham enterra-t-il Sara ?",
    "options": [
     "La caverne de Macpéla",
-    "La grotte d'Adullam",
+    "La caverne d'Adullam",
     "La caverne du Carmel",
-    "La grotte de Makkéda"
+    "La caverne de Makkéda"
    ],
    "explain": "Abraham enterra Sara dans la caverne de Macpéla. (Genèse 23:19)"
   },
@@ -929,7 +929,7 @@
     "Éhud",
     "Othniel",
     "Barak",
-    "Aod le Kénizien"
+    "Tola"
    ],
    "explain": "Éhud, homme gaucher, enfonça son épée dans Églon. (Juges 3:15-21)"
   },
@@ -1923,7 +1923,7 @@
    "en": "2 Kings 2:9"
   },
   "fr": {
-   "q": "Que demanda Élisée à Élie avant son enlèvement ?",
+   "q": "Que demanda Élisée à Élie avant qu'il soit enlevé au ciel ?",
    "options": [
     "Une double portion de son esprit",
     "Un char de feu",
@@ -1933,7 +1933,7 @@
    "explain": "Élisée demanda une double portion de l'esprit d'Élie. (2 Rois 2:9)"
   },
   "en": {
-   "q": "What did Elisha ask of Elijah before his being taken up?",
+   "q": "What did Elisha ask of Elijah before he was taken up to heaven?",
    "options": [
     "A double portion of his spirit",
     "A chariot of fire",
