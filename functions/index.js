@@ -990,8 +990,11 @@ exports.dailyQuizReminder = onSchedule(
   }
 );
 
-// Evening recap: announce who holds the top score today, to spark friendly
-// competition. Fires at 20:00 church time. Skips quietly if nobody played.
+// Evening encouragement: gently celebrate the member who studied the most
+// today, to encourage everyone to keep learning the Bible - not a competitive
+// scoreboard. Fires at 20:00 church time. Skips quietly if nobody played.
+// (No raw points in the message: the daily figure is a subset of the weekly
+// total shown in the ranking, so surfacing it only confused people.)
 exports.dailyTopScore = onSchedule(
   { schedule: '0 20 * * *', timeZone: CHURCH_TZ, region: 'us-central1' },
   async () => {
@@ -1008,8 +1011,8 @@ exports.dailyTopScore = onSchedule(
     if (pts <= 0) return;
     const name = (top.displayName || 'Un membre').toString().slice(0, 40);
     await broadcastPush(db, {
-      title: "🏆 Meilleur score du jour",
-      body: `${name} est en tête avec ${pts} points aujourd'hui. Rejoue pour le dépasser !`,
+      title: '📖 On apprend la Bible ensemble',
+      body: `Aujourd'hui, ${name} a pris le temps d'étudier la Parole. Et toi, quel verset vas-tu découvrir ce soir ? 📖🙏`,
       data: { kind: 'quiz' },
     });
   }
@@ -1097,7 +1100,7 @@ exports.weeklyCategoryChampions = onSchedule(
     const catCount = Object.keys(categories).length;
     await broadcastPush(db, {
       title: '🏆 Champion de la semaine',
-      body: `${grand.name} est le Grand Champion ! Bravo aussi à nos ${catCount} champions par catégorie. Nouvelle semaine, à toi de jouer !`,
+      body: `Bravo à ${grand.name} et à nos ${catCount} champions par catégorie pour tout ce qu'ils ont appris dans la Parole cette semaine ! Une nouvelle semaine pour grandir dans la Bible commence. 📖`,
       data: { kind: 'quiz' },
     });
   }
