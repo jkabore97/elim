@@ -117,7 +117,7 @@
    "q": "Comment s’appelle le jardin où vivaient Adam et Ève ?",
    "options": [
     "Éden",
-    "Guéthsémané",
+    "Gethsémané",
     "Canaan",
     "Sinaï"
    ],
@@ -2247,7 +2247,7 @@
    "en": "Matthew 1:1"
   },
   "fr": {
-   "q": "Quel évangile est placé en tout premier dans la Bible ?",
+   "q": "Quel évangile vient en tout premier dans le Nouveau Testament ?",
    "options": [
     "Matthieu",
     "Genèse",
@@ -2257,7 +2257,7 @@
    "explain": "Le Nouveau Testament commence par Matthieu. (Matthieu 1:1)"
   },
   "en": {
-   "q": "Which gospel is placed the very first in the Bible?",
+   "q": "Which gospel comes the very first in the New Testament?",
    "options": [
     "Matthew",
     "Genesis",
