@@ -9,6 +9,12 @@ import { storageGet, storageSet } from './safeStorage'
 // page reload / restored session where the in-memory copy was never set.
 const TOKEN_KEY = 'elim-fcm-token'
 
+// When we last proactively re-registered the token (persisted). reconcile runs
+// on every launch/auth change; without this it would re-register + write
+// fcmTokens every single time. Once a day is plenty to catch a rotated token.
+const REG_AT_KEY = 'elim-fcm-reg-at'
+const REG_THROTTLE_MS = 24 * 60 * 60 * 1000
+
 // From Firebase console -> Project settings -> Cloud Messaging -> Web
 // Push certificates. Needed only for the web (browser) notification path -
 // native Android doesn't use this at all.
@@ -22,6 +28,7 @@ let lastKnownToken: string | null = null
 async function saveToken(uid: string, token: string) {
   lastKnownToken = token
   try { storageSet(TOKEN_KEY, token) } catch { /* storage blocked */ }
+  try { storageSet(REG_AT_KEY, String(Date.now())) } catch { /* storage blocked */ }
   await updateDoc(doc(db, 'users', uid), {
     fcmTokens: arrayUnion(token),
     notificationsEnabled: true
@@ -232,8 +239,14 @@ export async function reconcileNotificationState(uid: string, storedEnabled: boo
   }
   // Permission is granted and the flag agrees - but the token may have been
   // rotated or cleared (OS reinstall, cleared data), so re-register to be safe.
+  // Throttled to once a day: reconcile runs on every launch, and re-registering
+  // (getToken + an fcmTokens write) each time is wasted work when nothing changed.
   if (storedEnabled && actual === 'granted') {
-    enableNotifications(uid).catch(() => {})
+    let last = 0
+    try { last = Number(storageGet(REG_AT_KEY)) || 0 } catch { last = 0 }
+    if (Date.now() - last > REG_THROTTLE_MS) {
+      enableNotifications(uid).catch(() => {})
+    }
   }
   return storedEnabled && actual === 'granted'
 }
