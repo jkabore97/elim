@@ -1,0 +1,2702 @@
+[
+ {
+  "id": "business-hard-001",
+  "ref": {
+   "fr": "Matthieu 25:16",
+   "en": "Matthew 25:16"
+  },
+  "fr": {
+   "q": "Dans la parabole des talents, combien le serviteur aux cinq talents en gagna-t-il de plus ?",
+   "options": [
+    "Cinq",
+    "Deux",
+    "Dix",
+    "Un"
+   ],
+   "explain": "« Celui qui avait reçu les cinq talents... gagna cinq autres talents. » (Matthieu 25:16)"
+  },
+  "en": {
+   "q": "In the parable of the talents, how many more did the servant with five talents gain?",
+   "options": [
+    "Five",
+    "Two",
+    "Ten",
+    "One"
+   ],
+   "explain": "“He who received the five talents... made five more talents.” (Matthew 25:16)"
+  }
+ },
+ {
+  "id": "business-hard-002",
+  "ref": {
+   "fr": "Matthieu 25:17",
+   "en": "Matthew 25:17"
+  },
+  "fr": {
+   "q": "Dans la parabole des talents, combien le serviteur aux deux talents en gagna-t-il de plus ?",
+   "options": [
+    "Deux",
+    "Cinq",
+    "Un",
+    "Quatre"
+   ],
+   "explain": "« Celui qui avait reçu les deux talents en gagna deux autres. » (Matthieu 25:17)"
+  },
+  "en": {
+   "q": "In the parable of the talents, how many more did the servant with two talents gain?",
+   "options": [
+    "Two",
+    "Five",
+    "One",
+    "Four"
+   ],
+   "explain": "“He who received the two talents... gained two more.” (Matthew 25:17)"
+  }
+ },
+ {
+  "id": "business-hard-003",
+  "ref": {
+   "fr": "Matthieu 25:18",
+   "en": "Matthew 25:18"
+  },
+  "fr": {
+   "q": "Dans la parabole des talents, que fit le serviteur qui n’avait reçu qu’un talent ?",
+   "options": [
+    "Il l’enfouit dans la terre",
+    "Il le prêta à intérêt",
+    "Il le donna aux pauvres",
+    "Il le rendit aussitôt"
+   ],
+   "explain": "« Celui qui n’en avait reçu qu’un alla faire un creux dans la terre, et y cacha l’argent. » (Matthieu 25:18)"
+  },
+  "en": {
+   "q": "In the parable of the talents, what did the servant with one talent do?",
+   "options": [
+    "He hid it in the ground",
+    "He lent it at interest",
+    "He gave it to the poor",
+    "He returned it at once"
+   ],
+   "explain": "“He who received the one... dug in the earth and hid his lord’s money.” (Matthew 25:18)"
+  }
+ },
+ {
+  "id": "business-hard-004",
+  "ref": {
+   "fr": "Matthieu 25:27",
+   "en": "Matthew 25:27"
+  },
+  "fr": {
+   "q": "Dans la parabole des talents, où le maître dit-il que le serviteur aurait dû placer l’argent ?",
+   "options": [
+    "Chez les banquiers, pour un intérêt",
+    "Dans un champ",
+    "Au temple",
+    "Chez un ami"
+   ],
+   "explain": "« Il te fallait donc remettre mon argent aux banquiers. » (Matthieu 25:27)"
+  },
+  "en": {
+   "q": "In the parable of the talents, where does the master say the servant should have placed the money?",
+   "options": [
+    "With the bankers, to earn interest",
+    "In a field",
+    "At the temple",
+    "With a friend"
+   ],
+   "explain": "“You ought therefore to have deposited my money with the bankers.” (Matthew 25:27)"
+  }
+ },
+ {
+  "id": "business-hard-005",
+  "ref": {
+   "fr": "Matthieu 25:28",
+   "en": "Matthew 25:28"
+  },
+  "fr": {
+   "q": "Dans la parabole des talents, à qui fut donné le talent ôté au mauvais serviteur ?",
+   "options": [
+    "À celui qui avait dix talents",
+    "Aux pauvres",
+    "Au maître seul",
+    "À celui qui en avait deux"
+   ],
+   "explain": "« Ôtez-lui donc le talent, et donnez-le à celui qui a les dix talents. » (Matthieu 25:28)"
+  },
+  "en": {
+   "q": "In the parable of the talents, to whom was the wicked servant’s talent given?",
+   "options": [
+    "To the one who had ten talents",
+    "To the poor",
+    "To the master alone",
+    "To the one with two"
+   ],
+   "explain": "“Take away therefore the talent from him, and give it to him who has the ten talents.” (Matthew 25:28)"
+  }
+ },
+ {
+  "id": "business-hard-006",
+  "ref": {
+   "fr": "Matthieu 25:19",
+   "en": "Matthew 25:19"
+  },
+  "fr": {
+   "q": "Dans la parabole des talents, au bout de combien de temps le maître revint-il régler les comptes ?",
+   "options": [
+    "Longtemps après",
+    "Le lendemain",
+    "Après un an jour pour jour",
+    "Après une semaine"
+   ],
+   "explain": "« Longtemps après, le maître de ces serviteurs revint, et leur fit rendre compte. » (Matthieu 25:19)"
+  },
+  "en": {
+   "q": "In the parable of the talents, after how long did the master return to settle accounts?",
+   "options": [
+    "After a long time",
+    "The next day",
+    "After exactly one year",
+    "After a week"
+   ],
+   "explain": "“After a long time the lord of those servants came, and settled accounts with them.” (Matthew 25:19)"
+  }
+ },
+ {
+  "id": "business-hard-007",
+  "ref": {
+   "fr": "Luc 19:13",
+   "en": "Luke 19:13"
+  },
+  "fr": {
+   "q": "Dans la parabole des mines, combien de serviteurs le maître appela-t-il pour leur confier son argent ?",
+   "options": [
+    "Dix",
+    "Trois",
+    "Sept",
+    "Douze"
+   ],
+   "explain": "« Il appela dix de ses serviteurs, leur donna dix mines. » (Luc 19:13)"
+  },
+  "en": {
+   "q": "In the parable of the minas, how many servants did the master call to entrust his money?",
+   "options": [
+    "Ten",
+    "Three",
+    "Seven",
+    "Twelve"
+   ],
+   "explain": "“He called ten servants of his, and gave them ten minas.” (Luke 19:13)"
+  }
+ },
+ {
+  "id": "business-hard-008",
+  "ref": {
+   "fr": "Luc 19:16",
+   "en": "Luke 19:16"
+  },
+  "fr": {
+   "q": "Dans la parabole des mines, combien de mines la première rapporta-t-elle ?",
+   "options": [
+    "Dix",
+    "Cinq",
+    "Deux",
+    "Vingt"
+   ],
+   "explain": "« Seigneur, ta mine a rapporté dix mines. » (Luc 19:16)"
+  },
+  "en": {
+   "q": "In the parable of the minas, how many minas did the first one earn?",
+   "options": [
+    "Ten",
+    "Five",
+    "Two",
+    "Twenty"
+   ],
+   "explain": "“Lord, your mina has made ten minas more.” (Luke 19:16)"
+  }
+ },
+ {
+  "id": "business-hard-009",
+  "ref": {
+   "fr": "Luc 19:18",
+   "en": "Luke 19:18"
+  },
+  "fr": {
+   "q": "Dans la parabole des mines, combien de mines rapporta celle du deuxième serviteur ?",
+   "options": [
+    "Cinq",
+    "Dix",
+    "Deux",
+    "Trois"
+   ],
+   "explain": "« Seigneur, ta mine a produit cinq mines. » (Luc 19:18)"
+  },
+  "en": {
+   "q": "In the parable of the minas, how many minas did the second servant’s mina earn?",
+   "options": [
+    "Five",
+    "Ten",
+    "Two",
+    "Three"
+   ],
+   "explain": "“Your mina, Lord, has made five minas.” (Luke 19:18)"
+  }
+ },
+ {
+  "id": "business-hard-010",
+  "ref": {
+   "fr": "Luc 19:17",
+   "en": "Luke 19:17"
+  },
+  "fr": {
+   "q": "Dans la parabole des mines, sur combien de villes le bon serviteur reçut-il autorité ?",
+   "options": [
+    "Dix",
+    "Cinq",
+    "Trois",
+    "Cent"
+   ],
+   "explain": "« Tu auras le gouvernement de dix villes. » (Luc 19:17)"
+  },
+  "en": {
+   "q": "In the parable of the minas, over how many cities did the good servant receive authority?",
+   "options": [
+    "Ten",
+    "Five",
+    "Three",
+    "A hundred"
+   ],
+   "explain": "“Have authority over ten cities.” (Luke 19:17)"
+  }
+ },
+ {
+  "id": "business-hard-011",
+  "ref": {
+   "fr": "Luc 19:19",
+   "en": "Luke 19:19"
+  },
+  "fr": {
+   "q": "Dans la parabole des mines, sur combien de villes le deuxième serviteur fut-il établi ?",
+   "options": [
+    "Cinq",
+    "Dix",
+    "Deux",
+    "Sept"
+   ],
+   "explain": "« Toi aussi, sois établi sur cinq villes. » (Luc 19:19)"
+  },
+  "en": {
+   "q": "In the parable of the minas, over how many cities was the second servant set?",
+   "options": [
+    "Five",
+    "Ten",
+    "Two",
+    "Seven"
+   ],
+   "explain": "“You also be over five cities.” (Luke 19:19)"
+  }
+ },
+ {
+  "id": "business-hard-012",
+  "ref": {
+   "fr": "Luc 19:20",
+   "en": "Luke 19:20"
+  },
+  "fr": {
+   "q": "Dans la parabole des mines, dans quoi le mauvais serviteur avait-il gardé sa mine ?",
+   "options": [
+    "Dans un linge",
+    "Dans un coffre",
+    "Dans la terre",
+    "Dans sa ceinture"
+   ],
+   "explain": "« Voici ta mine, que j’ai gardée dans un linge. » (Luc 19:20)"
+  },
+  "en": {
+   "q": "In the parable of the minas, in what had the wicked servant kept his mina?",
+   "options": [
+    "In a cloth",
+    "In a chest",
+    "In the ground",
+    "In his belt"
+   ],
+   "explain": "“Here is your mina, which I kept laid away in a handkerchief.” (Luke 19:20)"
+  }
+ },
+ {
+  "id": "business-hard-013",
+  "ref": {
+   "fr": "Luc 19:23",
+   "en": "Luke 19:23"
+  },
+  "fr": {
+   "q": "Dans la parabole des mines, où le maître dit-il que l’argent aurait dû être placé ?",
+   "options": [
+    "À la banque, pour un intérêt",
+    "Dans un champ",
+    "Au marché",
+    "Chez le maître"
+   ],
+   "explain": "« Pourquoi n’as-tu pas mis mon argent dans une banque ? » (Luc 19:23)"
+  },
+  "en": {
+   "q": "In the parable of the minas, where does the master say the money should have gone?",
+   "options": [
+    "In the bank, to earn interest",
+    "In a field",
+    "At the market",
+    "With the master"
+   ],
+   "explain": "“Why didn’t you deposit my money in the bank...?” (Luke 19:23)"
+  }
+ },
+ {
+  "id": "business-hard-014",
+  "ref": {
+   "fr": "Luc 16:6",
+   "en": "Luke 16:6"
+  },
+  "fr": {
+   "q": "Dans la parabole de l’économe, le débiteur de cent mesures d’huile fut invité à en écrire combien ?",
+   "options": [
+    "Cinquante",
+    "Quatre-vingts",
+    "Soixante",
+    "Quarante"
+   ],
+   "explain": "« Prends ton billet... écris cinquante. » (Luc 16:6)"
+  },
+  "en": {
+   "q": "In the parable of the steward, the debtor of a hundred measures of oil was told to write how many?",
+   "options": [
+    "Fifty",
+    "Eighty",
+    "Sixty",
+    "Forty"
+   ],
+   "explain": "“Take your bill... write fifty.” (Luke 16:6)"
+  }
+ },
+ {
+  "id": "business-hard-015",
+  "ref": {
+   "fr": "Luc 16:7",
+   "en": "Luke 16:7"
+  },
+  "fr": {
+   "q": "Dans la parabole de l’économe, le débiteur de cent mesures de blé fut invité à en écrire combien ?",
+   "options": [
+    "Quatre-vingts",
+    "Cinquante",
+    "Soixante",
+    "Quatre-vingt-dix"
+   ],
+   "explain": "« Prends ton billet, et écris quatre-vingts. » (Luc 16:7)"
+  },
+  "en": {
+   "q": "In the parable of the steward, the debtor of a hundred measures of wheat was told to write how many?",
+   "options": [
+    "Eighty",
+    "Fifty",
+    "Sixty",
+    "Ninety"
+   ],
+   "explain": "“Take your bill, and write eighty.” (Luke 16:7)"
+  }
+ },
+ {
+  "id": "business-hard-016",
+  "ref": {
+   "fr": "Luc 16:8",
+   "en": "Luke 16:8"
+  },
+  "fr": {
+   "q": "Dans la parabole de l’économe infidèle, pourquoi le maître le loua-t-il ?",
+   "options": [
+    "Parce qu’il avait agi avec habileté",
+    "Parce qu’il était honnête",
+    "Parce qu’il travaillait dur",
+    "Parce qu’il donnait aux pauvres"
+   ],
+   "explain": "« Le maître loua l’économe infidèle de ce qu’il avait agi prudemment. » (Luc 16:8)"
+  },
+  "en": {
+   "q": "In the parable of the dishonest steward, why did the master praise him?",
+   "options": [
+    "Because he had acted shrewdly",
+    "Because he was honest",
+    "Because he worked hard",
+    "Because he gave to the poor"
+   ],
+   "explain": "“His lord commended the dishonest manager because he had done wisely.” (Luke 16:8)"
+  }
+ },
+ {
+  "id": "business-hard-017",
+  "ref": {
+   "fr": "Luc 16:12",
+   "en": "Luke 16:12"
+  },
+  "fr": {
+   "q": "Selon Luc 16:12, si l’on n’est pas fidèle dans le bien d’autrui, que se passe-t-il ?",
+   "options": [
+    "On ne recevra pas le nôtre",
+    "On sera renvoyé",
+    "On paiera une amende",
+    "On perdra la foi"
+   ],
+   "explain": "« Et si vous n’avez pas été fidèles dans ce qui est à autrui, qui vous donnera ce qui est à vous ? » (Luc 16:12)"
+  },
+  "en": {
+   "q": "According to Luke 16:12, if we are not faithful with what belongs to another, what follows?",
+   "options": [
+    "We won’t be given our own",
+    "We will be dismissed",
+    "We will pay a fine",
+    "We will lose our faith"
+   ],
+   "explain": "“If you have not been faithful in that which is another’s, who will give you that which is your own?” (Luke 16:12)"
+  }
+ },
+ {
+  "id": "business-hard-018",
+  "ref": {
+   "fr": "Deutéronome 24:6",
+   "en": "Deuteronomy 24:6"
+  },
+  "fr": {
+   "q": "Selon Deutéronome 24:6, pourquoi ne pas prendre en gage la meule d’un homme ?",
+   "options": [
+    "Ce serait prendre sa vie en gage",
+    "Elle vaut trop cher",
+    "Elle est trop lourde",
+    "Elle appartient au roi"
+   ],
+   "explain": "« ...car ce serait prendre pour gage la vie même. » (Deutéronome 24:6)"
+  },
+  "en": {
+   "q": "According to Deuteronomy 24:6, why must you not take a man’s millstone in pledge?",
+   "options": [
+    "It would take his life in pledge",
+    "It is worth too much",
+    "It is too heavy",
+    "It belongs to the king"
+   ],
+   "explain": "“...for he takes a life in pledge.” (Deuteronomy 24:6)"
+  }
+ },
+ {
+  "id": "business-hard-019",
+  "ref": {
+   "fr": "Deutéronome 24:10",
+   "en": "Deuteronomy 24:10"
+  },
+  "fr": {
+   "q": "Selon Deutéronome 24:10, que ne doit pas faire celui qui prête pour prendre le gage ?",
+   "options": [
+    "Entrer dans la maison de l’emprunteur",
+    "Le réclamer au marché",
+    "Attendre la moisson",
+    "Appeler un juge"
+   ],
+   "explain": "« ...tu n’entreras point dans sa maison pour te saisir de son gage. » (Deutéronome 24:10)"
+  },
+  "en": {
+   "q": "According to Deuteronomy 24:10, what must a lender not do to take the pledge?",
+   "options": [
+    "Enter the borrower’s house",
+    "Claim it at the market",
+    "Wait for harvest",
+    "Call a judge"
+   ],
+   "explain": "“...you shall not go into his house to get his pledge.” (Deuteronomy 24:10)"
+  }
+ },
+ {
+  "id": "business-hard-020",
+  "ref": {
+   "fr": "Deutéronome 24:13",
+   "en": "Deuteronomy 24:13"
+  },
+  "fr": {
+   "q": "Selon Deutéronome 24:13, quand rendre le vêtement pris en gage à un pauvre ?",
+   "options": [
+    "Avant le coucher du soleil",
+    "Au bout d’un an",
+    "À la moisson",
+    "Au jubilé"
+   ],
+   "explain": "« Tu le lui rendras au coucher du soleil, afin qu’il couche dans son vêtement. » (Deutéronome 24:13)"
+  },
+  "en": {
+   "q": "According to Deuteronomy 24:13, when must a poor man’s pledged garment be returned?",
+   "options": [
+    "Before sunset",
+    "After a year",
+    "At harvest",
+    "At the Jubilee"
+   ],
+   "explain": "“You shall surely restore to him the pledge when the sun goes down.” (Deuteronomy 24:13)"
+  }
+ },
+ {
+  "id": "business-hard-021",
+  "ref": {
+   "fr": "Deutéronome 24:17",
+   "en": "Deuteronomy 24:17"
+  },
+  "fr": {
+   "q": "Selon Deutéronome 24:17, quel gage est-il interdit de prendre ?",
+   "options": [
+    "Le vêtement de la veuve",
+    "Le champ du pauvre",
+    "Le bœuf du lévite",
+    "La maison de l’étranger"
+   ],
+   "explain": "« ...et tu ne prendras point en gage le vêtement de la veuve. » (Deutéronome 24:17)"
+  },
+  "en": {
+   "q": "According to Deuteronomy 24:17, what pledge is forbidden to take?",
+   "options": [
+    "A widow’s garment",
+    "A poor man’s field",
+    "A Levite’s ox",
+    "A stranger’s house"
+   ],
+   "explain": "“...nor take a widow’s clothing to pledge.” (Deuteronomy 24:17)"
+  }
+ },
+ {
+  "id": "business-hard-022",
+  "ref": {
+   "fr": "Job 24:3",
+   "en": "Job 24:3"
+  },
+  "fr": {
+   "q": "Selon Job 24:3, quel bien de la veuve les méchants prennent-ils en gage ?",
+   "options": [
+    "Son bœuf",
+    "Son champ",
+    "Sa maison",
+    "Son manteau"
+   ],
+   "explain": "« Ils prennent pour gage le bœuf de la veuve. » (Job 24:3)"
+  },
+  "en": {
+   "q": "According to Job 24:3, what of the widow’s do the wicked take in pledge?",
+   "options": [
+    "Her ox",
+    "Her field",
+    "Her house",
+    "Her cloak"
+   ],
+   "explain": "“They take the widow’s ox for a pledge.” (Job 24:3)"
+  }
+ },
+ {
+  "id": "business-hard-023",
+  "ref": {
+   "fr": "Néhémie 5:7",
+   "en": "Nehemiah 5:7"
+  },
+  "fr": {
+   "q": "Selon Néhémie 5:7, de quoi Néhémie reprocha-t-il aux notables d’accabler leurs frères ?",
+   "options": [
+    "Ils exigeaient des intérêts",
+    "Ils volaient les récoltes",
+    "Ils fermaient le temple",
+    "Ils refusaient le sabbat"
+   ],
+   "explain": "« Quoi ! vous prêtez à intérêt à vos frères ! » (Néhémie 5:7)"
+  },
+  "en": {
+   "q": "According to Nehemiah 5:7, what did Nehemiah rebuke the nobles for imposing on their brothers?",
+   "options": [
+    "They were charging interest",
+    "They stole harvests",
+    "They closed the temple",
+    "They refused the Sabbath"
+   ],
+   "explain": "“You are charging interest, each to his brother!” (Nehemiah 5:7)"
+  }
+ },
+ {
+  "id": "business-hard-024",
+  "ref": {
+   "fr": "Néhémie 5:11",
+   "en": "Nehemiah 5:11"
+  },
+  "fr": {
+   "q": "Selon Néhémie 5:11, que demanda-t-il de rendre aux emprunteurs, avec leurs champs ?",
+   "options": [
+    "Le centième de l’argent prêté",
+    "Le double",
+    "La dîme",
+    "Rien de plus"
+   ],
+   "explain": "« Rendez-leur... le centième de l’argent, du blé, du moût et de l’huile. » (Néhémie 5:11)"
+  },
+  "en": {
+   "q": "According to Nehemiah 5:11, what did he ask them to return, along with the fields?",
+   "options": [
+    "The hundredth part of the money",
+    "Double the amount",
+    "The tithe",
+    "Nothing more"
+   ],
+   "explain": "“Restore... the hundredth part of the money... you exact of them.” (Nehemiah 5:11)"
+  }
+ },
+ {
+  "id": "business-hard-025",
+  "ref": {
+   "fr": "Ézéchiel 22:12",
+   "en": "Ezekiel 22:12"
+  },
+  "fr": {
+   "q": "Selon Ézéchiel 22:12, de quoi Jérusalem se rendait-elle coupable en affaires ?",
+   "options": [
+    "Prendre intérêt et usure",
+    "Fermer les marchés",
+    "Brûler les récoltes",
+    "Refuser la dîme"
+   ],
+   "explain": "« Chez toi, l’on reçoit... un intérêt et une usure. » (Ézéchiel 22:12)"
+  },
+  "en": {
+   "q": "According to Ezekiel 22:12, what was Jerusalem guilty of in business?",
+   "options": [
+    "Taking interest and usury",
+    "Closing the markets",
+    "Burning harvests",
+    "Refusing the tithe"
+   ],
+   "explain": "“In you they have taken interest and increase.” (Ezekiel 22:12)"
+  }
+ },
+ {
+  "id": "business-hard-026",
+  "ref": {
+   "fr": "Lévitique 25:37",
+   "en": "Leviticus 25:37"
+  },
+  "fr": {
+   "q": "Selon Lévitique 25:37, comment ne faut-il pas donner ses vivres à un frère appauvri ?",
+   "options": [
+    "Contre un intérêt",
+    "En cachette",
+    "Sans peser",
+    "Avant le sabbat"
+   ],
+   "explain": "« Tu ne lui prêteras point ton argent à intérêt, et tu ne lui donneras point tes vivres à usure. » (Lévitique 25:37)"
+  },
+  "en": {
+   "q": "According to Leviticus 25:37, how must you not give food to an impoverished brother?",
+   "options": [
+    "At interest",
+    "In secret",
+    "Without weighing",
+    "Before the Sabbath"
+   ],
+   "explain": "“...nor lend him your food for profit.” (Leviticus 25:37)"
+  }
+ },
+ {
+  "id": "business-hard-027",
+  "ref": {
+   "fr": "Lévitique 25:4",
+   "en": "Leviticus 25:4"
+  },
+  "fr": {
+   "q": "Selon Lévitique 25:4, quelle année la terre devait-elle observer un repos, sans être ensemencée ?",
+   "options": [
+    "La septième",
+    "La troisième",
+    "La dixième",
+    "La cinquantième"
+   ],
+   "explain": "« La septième année sera un sabbat, un temps de repos pour la terre. » (Lévitique 25:4)"
+  },
+  "en": {
+   "q": "According to Leviticus 25:4, in which year was the land to rest and not be sown?",
+   "options": [
+    "The seventh",
+    "The third",
+    "The tenth",
+    "The fiftieth"
+   ],
+   "explain": "“In the seventh year there shall be a Sabbath of solemn rest for the land.” (Leviticus 25:4)"
+  }
+ },
+ {
+  "id": "business-hard-028",
+  "ref": {
+   "fr": "Lévitique 25:8",
+   "en": "Leviticus 25:8"
+  },
+  "fr": {
+   "q": "Selon Lévitique 25:8, après combien d’années arrivait l’année du jubilé ?",
+   "options": [
+    "Quarante-neuf ans",
+    "Sept ans",
+    "Soixante-dix ans",
+    "Cent ans"
+   ],
+   "explain": "« ...les jours de ces sept sabbats d’années feront quarante-neuf ans. » (Lévitique 25:8)"
+  },
+  "en": {
+   "q": "According to Leviticus 25:8, after how many years did the Jubilee come?",
+   "options": [
+    "Forty-nine years",
+    "Seven years",
+    "Seventy years",
+    "A hundred years"
+   ],
+   "explain": "“...seven Sabbaths of years... shall be to you forty-nine years.” (Leviticus 25:8)"
+  }
+ },
+ {
+  "id": "business-hard-029",
+  "ref": {
+   "fr": "Lévitique 25:11",
+   "en": "Leviticus 25:11"
+  },
+  "fr": {
+   "q": "Selon Lévitique 25:11, que ne devait-on pas faire pendant l’année du jubilé ?",
+   "options": [
+    "Ni semer ni moissonner",
+    "Ni prier ni jeûner",
+    "Ni acheter ni vendre",
+    "Ni voyager"
+   ],
+   "explain": "« ...vous ne sèmerez point, vous ne moissonnerez point ce que les champs produiront d’eux-mêmes. » (Lévitique 25:11)"
+  },
+  "en": {
+   "q": "According to Leviticus 25:11, what was not to be done during the Jubilee year?",
+   "options": [
+    "Neither sow nor reap",
+    "Neither pray nor fast",
+    "Neither buy nor sell",
+    "Not travel"
+   ],
+   "explain": "“You shall not sow, neither reap that which grows of itself.” (Leviticus 25:11)"
+  }
+ },
+ {
+  "id": "business-hard-030",
+  "ref": {
+   "fr": "Lévitique 25:15",
+   "en": "Leviticus 25:15"
+  },
+  "fr": {
+   "q": "Selon Lévitique 25:15, d’après quoi fixait-on le prix d’une terre achetée ?",
+   "options": [
+    "Le nombre d’années jusqu’au jubilé",
+    "Le poids de l’argent",
+    "La taille du champ",
+    "La volonté du roi"
+   ],
+   "explain": "« Tu achèteras de ton prochain, en comptant les années depuis le jubilé. » (Lévitique 25:15)"
+  },
+  "en": {
+   "q": "According to Leviticus 25:15, what set the price of land that was bought?",
+   "options": [
+    "The years remaining until the Jubilee",
+    "The weight of the silver",
+    "The size of the field",
+    "The king’s will"
+   ],
+   "explain": "“According to the number of years... you shall buy from your neighbor.” (Leviticus 25:15)"
+  }
+ },
+ {
+  "id": "business-hard-031",
+  "ref": {
+   "fr": "Lévitique 25:21",
+   "en": "Leviticus 25:21"
+  },
+  "fr": {
+   "q": "Selon Lévitique 25:21, pour combien d’années la sixième année produirait-elle, par la bénédiction de Dieu ?",
+   "options": [
+    "Trois ans",
+    "Deux ans",
+    "Sept ans",
+    "Cinq ans"
+   ],
+   "explain": "« ...ma bénédiction... et la terre donnera des produits pour trois ans. » (Lévitique 25:21)"
+  },
+  "en": {
+   "q": "According to Leviticus 25:21, for how many years would the sixth year yield, by God’s blessing?",
+   "options": [
+    "Three years",
+    "Two years",
+    "Seven years",
+    "Five years"
+   ],
+   "explain": "“I will command my blessing... it shall bring forth fruit for three years.” (Leviticus 25:21)"
+  }
+ },
+ {
+  "id": "business-hard-032",
+  "ref": {
+   "fr": "Deutéronome 15:2",
+   "en": "Deuteronomy 15:2"
+  },
+  "fr": {
+   "q": "Selon Deutéronome 15:2, que devait faire tout créancier l’année de relâche ?",
+   "options": [
+    "Remettre ce qu’il avait prêté",
+    "Doubler la dette",
+    "Vendre le gage",
+    "Réclamer aussitôt"
+   ],
+   "explain": "« Tout créancier... relâchera son droit et ne pressera pas son prochain. » (Deutéronome 15:2)"
+  },
+  "en": {
+   "q": "According to Deuteronomy 15:2, what was every creditor to do in the year of release?",
+   "options": [
+    "Release what he had lent",
+    "Double the debt",
+    "Sell the pledge",
+    "Demand it at once"
+   ],
+   "explain": "“Every creditor shall release that which he has lent to his neighbor.” (Deuteronomy 15:2)"
+  }
+ },
+ {
+  "id": "business-hard-033",
+  "ref": {
+   "fr": "Deutéronome 15:9",
+   "en": "Deuteronomy 15:9"
+  },
+  "fr": {
+   "q": "Selon Deutéronome 15:9, contre quelle mauvaise pensée met-on en garde quand l’année de relâche approche ?",
+   "options": [
+    "Refuser de prêter au pauvre",
+    "Vendre à haut prix",
+    "Cacher sa récolte",
+    "Fuir le pays"
+   ],
+   "explain": "« ...la septième année, l’année du relâche, approche ! et ton œil serait sans pitié pour ton frère pauvre. » (Deutéronome 15:9)"
+  },
+  "en": {
+   "q": "According to Deuteronomy 15:9, what wicked thought is warned against as the year of release nears?",
+   "options": [
+    "Refusing to lend to the poor",
+    "Selling at high prices",
+    "Hiding one’s harvest",
+    "Fleeing the land"
+   ],
+   "explain": "“...the seventh year, the year of release, is at hand; and your eye be evil against your poor brother.” (Deuteronomy 15:9)"
+  }
+ },
+ {
+  "id": "business-hard-034",
+  "ref": {
+   "fr": "Deutéronome 15:12",
+   "en": "Deuteronomy 15:12"
+  },
+  "fr": {
+   "q": "Selon Deutéronome 15:12, combien d’années un serviteur hébreu servait-il avant d’être libéré ?",
+   "options": [
+    "Six ans",
+    "Sept ans",
+    "Trois ans",
+    "Dix ans"
+   ],
+   "explain": "« ...il te servira six années ; mais la septième année, tu le renverras libre. » (Deutéronome 15:12)"
+  },
+  "en": {
+   "q": "According to Deuteronomy 15:12, how many years did a Hebrew servant serve before going free?",
+   "options": [
+    "Six years",
+    "Seven years",
+    "Three years",
+    "Ten years"
+   ],
+   "explain": "“...he shall serve you six years; and in the seventh year you shall let him go free.” (Deuteronomy 15:12)"
+  }
+ },
+ {
+  "id": "business-hard-035",
+  "ref": {
+   "fr": "Deutéronome 15:13",
+   "en": "Deuteronomy 15:13"
+  },
+  "fr": {
+   "q": "Selon Deutéronome 15:13, comment ne fallait-il pas renvoyer le serviteur libéré ?",
+   "options": [
+    "Les mains vides",
+    "En secret",
+    "Sans témoin",
+    "Avant le sabbat"
+   ],
+   "explain": "« Et quand tu le renverras libre de chez toi, tu ne le renverras point à vide. » (Deutéronome 15:13)"
+  },
+  "en": {
+   "q": "According to Deuteronomy 15:13, how must the freed servant not be sent away?",
+   "options": [
+    "Empty-handed",
+    "In secret",
+    "Without a witness",
+    "Before the Sabbath"
+   ],
+   "explain": "“When you let him go free... you shall not let him go empty.” (Deuteronomy 15:13)"
+  }
+ },
+ {
+  "id": "business-hard-036",
+  "ref": {
+   "fr": "Exode 23:11",
+   "en": "Exodus 23:11"
+  },
+  "fr": {
+   "q": "Selon Exode 23:11, pourquoi laisser la terre en repos la septième année ?",
+   "options": [
+    "Pour que les pauvres en mangent",
+    "Pour honorer le roi",
+    "Pour vendre plus cher",
+    "Pour changer de culture"
+   ],
+   "explain": "« Mais la septième, tu lui donneras du relâche... et les pauvres de ton peuple en jouiront. » (Exode 23:11)"
+  },
+  "en": {
+   "q": "According to Exodus 23:11, why let the land rest in the seventh year?",
+   "options": [
+    "So the poor may eat from it",
+    "To honor the king",
+    "To sell for more",
+    "To change the crop"
+   ],
+   "explain": "“...the seventh year you shall let it rest... that the poor of your people may eat.” (Exodus 23:11)"
+  }
+ },
+ {
+  "id": "business-hard-037",
+  "ref": {
+   "fr": "Lévitique 25:5",
+   "en": "Leviticus 25:5"
+  },
+  "fr": {
+   "q": "Selon Lévitique 25:5, que ne devait-on pas récolter l’année de repos de la terre ?",
+   "options": [
+    "Ce qui pousse de soi-même",
+    "Le blé semé",
+    "Les figues",
+    "Les olives du roi"
+   ],
+   "explain": "« Tu ne moissonneras point ce qui proviendra des grains tombés de ta moisson. » (Lévitique 25:5)"
+  },
+  "en": {
+   "q": "According to Leviticus 25:5, what was not to be harvested in the land’s year of rest?",
+   "options": [
+    "What grows of itself",
+    "The sown wheat",
+    "The figs",
+    "The king’s olives"
+   ],
+   "explain": "“That which grows of itself of your harvest you shall not reap.” (Leviticus 25:5)"
+  }
+ },
+ {
+  "id": "business-hard-038",
+  "ref": {
+   "fr": "Exode 30:13",
+   "en": "Exodus 30:13"
+  },
+  "fr": {
+   "q": "Selon Exode 30:13, quelle somme chacun devait-il donner pour le service du sanctuaire ?",
+   "options": [
+    "Un demi-sicle",
+    "Un sicle entier",
+    "Dix sicles",
+    "Un talent"
+   ],
+   "explain": "« ...la moitié d’un sicle... comme offrande à l’Éternel. » (Exode 30:13)"
+  },
+  "en": {
+   "q": "According to Exodus 30:13, what amount was each to give for the sanctuary service?",
+   "options": [
+    "Half a shekel",
+    "A whole shekel",
+    "Ten shekels",
+    "A talent"
+   ],
+   "explain": "“...half a shekel... as an offering to the LORD.” (Exodus 30:13)"
+  }
+ },
+ {
+  "id": "business-hard-039",
+  "ref": {
+   "fr": "Exode 30:13",
+   "en": "Exodus 30:13"
+  },
+  "fr": {
+   "q": "Selon Exode 30:13, combien de guéras vaut un sicle du sanctuaire ?",
+   "options": [
+    "Vingt",
+    "Dix",
+    "Cinquante",
+    "Cent"
+   ],
+   "explain": "« Le sicle est de vingt guéras. » (Exode 30:13)"
+  },
+  "en": {
+   "q": "According to Exodus 30:13, how many gerahs are in a sanctuary shekel?",
+   "options": [
+    "Twenty",
+    "Ten",
+    "Fifty",
+    "A hundred"
+   ],
+   "explain": "“...the shekel is twenty gerahs.” (Exodus 30:13)"
+  }
+ },
+ {
+  "id": "business-hard-040",
+  "ref": {
+   "fr": "Genèse 23:16",
+   "en": "Genesis 23:16"
+  },
+  "fr": {
+   "q": "Combien de sicles d’argent Abraham paya-t-il pour le champ et la caverne de Macpéla ?",
+   "options": [
+    "Quatre cents",
+    "Trente",
+    "Cent",
+    "Mille"
+   ],
+   "explain": "« Abraham pesa... quatre cents sicles d’argent. » (Genèse 23:16)"
+  },
+  "en": {
+   "q": "How many shekels of silver did Abraham pay for the field and cave of Machpelah?",
+   "options": [
+    "Four hundred",
+    "Thirty",
+    "One hundred",
+    "A thousand"
+   ],
+   "explain": "“Abraham weighed... four hundred shekels of silver.” (Genesis 23:16)"
+  }
+ },
+ {
+  "id": "business-hard-041",
+  "ref": {
+   "fr": "Genèse 37:28",
+   "en": "Genesis 37:28"
+  },
+  "fr": {
+   "q": "Pour combien de pièces d’argent Joseph fut-il vendu aux Ismaélites ?",
+   "options": [
+    "Vingt",
+    "Trente",
+    "Dix",
+    "Cinquante"
+   ],
+   "explain": "« ...ils vendirent Joseph pour vingt sicles d’argent. » (Genèse 37:28)"
+  },
+  "en": {
+   "q": "For how many pieces of silver was Joseph sold to the Ishmaelites?",
+   "options": [
+    "Twenty",
+    "Thirty",
+    "Ten",
+    "Fifty"
+   ],
+   "explain": "“...they sold Joseph... for twenty pieces of silver.” (Genesis 37:28)"
+  }
+ },
+ {
+  "id": "business-hard-042",
+  "ref": {
+   "fr": "Jérémie 32:9",
+   "en": "Jeremiah 32:9"
+  },
+  "fr": {
+   "q": "Combien de sicles d’argent Jérémie paya-t-il pour le champ d’Anathoth ?",
+   "options": [
+    "Dix-sept",
+    "Quatre cents",
+    "Trente",
+    "Cinquante"
+   ],
+   "explain": "« ...je lui pesai l’argent, dix-sept sicles d’argent. » (Jérémie 32:9)"
+  },
+  "en": {
+   "q": "How many shekels of silver did Jeremiah pay for the field at Anathoth?",
+   "options": [
+    "Seventeen",
+    "Four hundred",
+    "Thirty",
+    "Fifty"
+   ],
+   "explain": "“...weighed him the money, seventeen shekels of silver.” (Jeremiah 32:9)"
+  }
+ },
+ {
+  "id": "business-hard-043",
+  "ref": {
+   "fr": "2 Samuel 24:24",
+   "en": "2 Samuel 24:24"
+  },
+  "fr": {
+   "q": "Combien de sicles d’argent David paya-t-il pour l’aire et les bœufs d’Aravna ?",
+   "options": [
+    "Cinquante",
+    "Vingt",
+    "Cent",
+    "Six cents"
+   ],
+   "explain": "« David acheta l’aire et les bœufs pour cinquante sicles d’argent. » (2 Samuel 24:24)"
+  },
+  "en": {
+   "q": "How many shekels of silver did David pay for Araunah’s threshing floor and oxen?",
+   "options": [
+    "Fifty",
+    "Twenty",
+    "One hundred",
+    "Six hundred"
+   ],
+   "explain": "“So David bought the threshing floor and the oxen for fifty shekels of silver.” (2 Samuel 24:24)"
+  }
+ },
+ {
+  "id": "business-hard-044",
+  "ref": {
+   "fr": "1 Rois 10:29",
+   "en": "1 Kings 10:29"
+  },
+  "fr": {
+   "q": "Selon 1 Rois 10:29, combien coûtait un char importé d’Égypte au temps de Salomon ?",
+   "options": [
+    "Six cents sicles d’argent",
+    "Cent cinquante sicles",
+    "Cinquante sicles",
+    "Mille sicles"
+   ],
+   "explain": "« Un char montait... pour six cents sicles d’argent, et un cheval pour cent cinquante. » (1 Rois 10:29)"
+  },
+  "en": {
+   "q": "According to 1 Kings 10:29, what did a chariot imported from Egypt cost in Solomon’s day?",
+   "options": [
+    "Six hundred shekels of silver",
+    "A hundred fifty shekels",
+    "Fifty shekels",
+    "A thousand shekels"
+   ],
+   "explain": "“A chariot came up... for six hundred shekels of silver, and a horse for a hundred fifty.” (1 Kings 10:29)"
+  }
+ },
+ {
+  "id": "business-hard-045",
+  "ref": {
+   "fr": "Zacharie 11:12",
+   "en": "Zechariah 11:12"
+  },
+  "fr": {
+   "q": "Selon Zacharie 11:12, quel salaire fut pesé au berger, annonçant la trahison de Jésus ?",
+   "options": [
+    "Trente sicles d’argent",
+    "Vingt sicles",
+    "Cent deniers",
+    "Trois cents deniers"
+   ],
+   "explain": "« ...ils pesèrent pour mon salaire trente sicles d’argent. » (Zacharie 11:12)"
+  },
+  "en": {
+   "q": "According to Zechariah 11:12, what wage was weighed to the shepherd, foretelling Jesus’ betrayal?",
+   "options": [
+    "Thirty pieces of silver",
+    "Twenty pieces",
+    "A hundred denarii",
+    "Three hundred denarii"
+   ],
+   "explain": "“...they weighed for my price thirty pieces of silver.” (Zechariah 11:12)"
+  }
+ },
+ {
+  "id": "business-hard-046",
+  "ref": {
+   "fr": "Matthieu 26:15",
+   "en": "Matthew 26:15"
+  },
+  "fr": {
+   "q": "Combien les principaux sacrificateurs promirent-ils à Judas pour livrer Jésus ?",
+   "options": [
+    "Trente pièces d’argent",
+    "Vingt pièces",
+    "Cent deniers",
+    "Cinquante sicles"
+   ],
+   "explain": "« ...ils lui payèrent trente pièces d’argent. » (Matthieu 26:15)"
+  },
+  "en": {
+   "q": "How much did the chief priests promise Judas to betray Jesus?",
+   "options": [
+    "Thirty pieces of silver",
+    "Twenty pieces",
+    "A hundred denarii",
+    "Fifty shekels"
+   ],
+   "explain": "“...they weighed out to him thirty pieces of silver.” (Matthew 26:15)"
+  }
+ },
+ {
+  "id": "business-hard-047",
+  "ref": {
+   "fr": "Matthieu 27:7",
+   "en": "Matthew 27:7"
+  },
+  "fr": {
+   "q": "Selon Matthieu 27:7, qu’achetèrent les sacrificateurs avec les trente pièces rendues par Judas ?",
+   "options": [
+    "Le champ du potier",
+    "Un temple",
+    "Un tombeau royal",
+    "Des chevaux"
+   ],
+   "explain": "« ...ils achetèrent avec cet argent le champ du potier, pour la sépulture des étrangers. » (Matthieu 27:7)"
+  },
+  "en": {
+   "q": "According to Matthew 27:7, what did the priests buy with the thirty pieces Judas returned?",
+   "options": [
+    "The potter’s field",
+    "A temple",
+    "A royal tomb",
+    "Horses"
+   ],
+   "explain": "“...they bought with them the potter’s field, to bury strangers in.” (Matthew 27:7)"
+  }
+ },
+ {
+  "id": "business-hard-048",
+  "ref": {
+   "fr": "Matthieu 22:21",
+   "en": "Matthew 22:21"
+  },
+  "fr": {
+   "q": "Selon Matthieu 22:21, à qui appartenaient l’effigie et l’inscription sur le denier ?",
+   "options": [
+    "À César",
+    "À Hérode",
+    "Au grand prêtre",
+    "À Salomon"
+   ],
+   "explain": "« De César. Alors il leur dit : Rendez donc à César ce qui est à César. » (Matthieu 22:21)"
+  },
+  "en": {
+   "q": "According to Matthew 22:21, whose image and inscription were on the denarius?",
+   "options": [
+    "Caesar’s",
+    "Herod’s",
+    "The high priest’s",
+    "Solomon’s"
+   ],
+   "explain": "“Caesar’s. Then he said, ‘Give to Caesar the things that are Caesar’s.’” (Matthew 22:21)"
+  }
+ },
+ {
+  "id": "business-hard-049",
+  "ref": {
+   "fr": "Marc 6:37",
+   "en": "Mark 6:37"
+  },
+  "fr": {
+   "q": "Selon Marc 6:37, de combien de deniers de pain aurait-on eu besoin pour nourrir la foule ?",
+   "options": [
+    "Deux cents",
+    "Trois cents",
+    "Cent",
+    "Cinquante"
+   ],
+   "explain": "« Irions-nous acheter des pains pour deux cents deniers ? » (Marc 6:37)"
+  },
+  "en": {
+   "q": "According to Mark 6:37, how many denarii worth of bread would feeding the crowd require?",
+   "options": [
+    "Two hundred",
+    "Three hundred",
+    "One hundred",
+    "Fifty"
+   ],
+   "explain": "“Shall we go and buy two hundred denarii worth of bread...?” (Mark 6:37)"
+  }
+ },
+ {
+  "id": "business-hard-050",
+  "ref": {
+   "fr": "Jean 12:5",
+   "en": "John 12:5"
+  },
+  "fr": {
+   "q": "Selon Jean 12:5, à combien de deniers Judas évalua-t-il le parfum de Marie ?",
+   "options": [
+    "Trois cents",
+    "Deux cents",
+    "Cent",
+    "Trente"
+   ],
+   "explain": "« Pourquoi n’a-t-on pas vendu ce parfum trois cents deniers... ? » (Jean 12:5)"
+  },
+  "en": {
+   "q": "According to John 12:5, at how many denarii did Judas value Mary’s perfume?",
+   "options": [
+    "Three hundred",
+    "Two hundred",
+    "One hundred",
+    "Thirty"
+   ],
+   "explain": "“Why wasn’t this ointment sold for three hundred denarii...?” (John 12:5)"
+  }
+ },
+ {
+  "id": "business-hard-051",
+  "ref": {
+   "fr": "Luc 10:35",
+   "en": "Luke 10:35"
+  },
+  "fr": {
+   "q": "Selon Luc 10:35, combien de deniers le bon Samaritain donna-t-il à l’hôtelier ?",
+   "options": [
+    "Deux",
+    "Cinq",
+    "Dix",
+    "Un"
+   ],
+   "explain": "« ...il tira deux deniers, les donna à l’hôte. » (Luc 10:35)"
+  },
+  "en": {
+   "q": "According to Luke 10:35, how many denarii did the Good Samaritan give the innkeeper?",
+   "options": [
+    "Two",
+    "Five",
+    "Ten",
+    "One"
+   ],
+   "explain": "“...he took out two denarii, and gave them to the host.” (Luke 10:35)"
+  }
+ },
+ {
+  "id": "business-hard-052",
+  "ref": {
+   "fr": "Matthieu 18:28",
+   "en": "Matthew 18:28"
+  },
+  "fr": {
+   "q": "Dans la parabole du serviteur impitoyable, combien de deniers son compagnon lui devait-il ?",
+   "options": [
+    "Cent",
+    "Mille",
+    "Cinquante",
+    "Dix mille"
+   ],
+   "explain": "« ...un de ses compagnons, qui lui devait cent deniers. » (Matthieu 18:28)"
+  },
+  "en": {
+   "q": "In the parable of the unforgiving servant, how many denarii did his fellow owe him?",
+   "options": [
+    "A hundred",
+    "A thousand",
+    "Fifty",
+    "Ten thousand"
+   ],
+   "explain": "“...one of his fellow servants, who owed him one hundred denarii.” (Matthew 18:28)"
+  }
+ },
+ {
+  "id": "business-hard-053",
+  "ref": {
+   "fr": "Matthieu 18:24",
+   "en": "Matthew 18:24"
+  },
+  "fr": {
+   "q": "Dans la parabole du serviteur impitoyable, quelle dette énorme devait-il au roi ?",
+   "options": [
+    "Dix mille talents",
+    "Cent deniers",
+    "Mille sicles",
+    "Cent talents"
+   ],
+   "explain": "« ...on en amena un qui devait dix mille talents. » (Matthieu 18:24)"
+  },
+  "en": {
+   "q": "In the parable of the unforgiving servant, what huge debt did the servant owe the king?",
+   "options": [
+    "Ten thousand talents",
+    "A hundred denarii",
+    "A thousand shekels",
+    "A hundred talents"
+   ],
+   "explain": "“...one was brought to him who owed him ten thousand talents.” (Matthew 18:24)"
+  }
+ },
+ {
+  "id": "business-hard-054",
+  "ref": {
+   "fr": "Apocalypse 6:6",
+   "en": "Revelation 6:6"
+  },
+  "fr": {
+   "q": "Selon Apocalypse 6:6, quel prix la voix annonce-t-elle pour une mesure de blé ?",
+   "options": [
+    "Un denier",
+    "Trente deniers",
+    "Un sicle",
+    "Un talent"
+   ],
+   "explain": "« Une mesure de blé pour un denier. » (Apocalypse 6:6)"
+  },
+  "en": {
+   "q": "According to Revelation 6:6, what price does the voice announce for a measure of wheat?",
+   "options": [
+    "A denarius",
+    "Thirty denarii",
+    "A shekel",
+    "A talent"
+   ],
+   "explain": "“A choenix of wheat for a denarius...” (Revelation 6:6)"
+  }
+ },
+ {
+  "id": "business-hard-055",
+  "ref": {
+   "fr": "1 Rois 10:14",
+   "en": "1 Kings 10:14"
+  },
+  "fr": {
+   "q": "Selon 1 Rois 10:14, combien de talents d’or venaient à Salomon en une seule année ?",
+   "options": [
+    "Six cent soixante-six",
+    "Quatre cent vingt",
+    "Cent vingt",
+    "Mille"
+   ],
+   "explain": "« Le poids de l’or qui arrivait à Salomon chaque année était de six cent soixante-six talents. » (1 Rois 10:14)"
+  },
+  "en": {
+   "q": "According to 1 Kings 10:14, how many talents of gold came to Solomon in a single year?",
+   "options": [
+    "Six hundred sixty-six",
+    "Four hundred twenty",
+    "One hundred twenty",
+    "A thousand"
+   ],
+   "explain": "“The weight of gold that came to Solomon in one year was 666 talents.” (1 Kings 10:14)"
+  }
+ },
+ {
+  "id": "business-hard-056",
+  "ref": {
+   "fr": "1 Rois 9:28",
+   "en": "1 Kings 9:28"
+  },
+  "fr": {
+   "q": "Selon 1 Rois 9:28, combien de talents d’or la flotte de Salomon rapporta-t-elle d’Ophir ?",
+   "options": [
+    "Quatre cent vingt",
+    "Six cent soixante-six",
+    "Cent vingt",
+    "Trois cents"
+   ],
+   "explain": "« Ils allèrent à Ophir, et ils y prirent de l’or, quatre cent vingt talents. » (1 Rois 9:28)"
+  },
+  "en": {
+   "q": "According to 1 Kings 9:28, how many talents of gold did Solomon’s fleet bring from Ophir?",
+   "options": [
+    "Four hundred twenty",
+    "Six hundred sixty-six",
+    "One hundred twenty",
+    "Three hundred"
+   ],
+   "explain": "“They came to Ophir, and fetched from there gold, 420 talents.” (1 Kings 9:28)"
+  }
+ },
+ {
+  "id": "business-hard-057",
+  "ref": {
+   "fr": "1 Rois 10:22",
+   "en": "1 Kings 10:22"
+  },
+  "fr": {
+   "q": "Selon 1 Rois 10:22, tous les combien d’années la flotte de Tarsis rapportait-elle or, argent et ivoire ?",
+   "options": [
+    "Tous les trois ans",
+    "Chaque année",
+    "Tous les sept ans",
+    "Tous les cinquante ans"
+   ],
+   "explain": "« ...tous les trois ans... apportant de l’or, de l’argent, de l’ivoire, des singes et des paons. » (1 Rois 10:22)"
+  },
+  "en": {
+   "q": "According to 1 Kings 10:22, how often did the fleet of Tarshish bring gold, silver, and ivory?",
+   "options": [
+    "Every three years",
+    "Every year",
+    "Every seven years",
+    "Every fifty years"
+   ],
+   "explain": "“...once every three years came the fleet... bringing gold, silver, ivory, apes, and peacocks.” (1 Kings 10:22)"
+  }
+ },
+ {
+  "id": "business-hard-058",
+  "ref": {
+   "fr": "1 Rois 10:27",
+   "en": "1 Kings 10:27"
+  },
+  "fr": {
+   "q": "Selon 1 Rois 10:27, à quel point Salomon rendit-il l’argent commun à Jérusalem ?",
+   "options": [
+    "Aussi commun que les pierres",
+    "Rare comme l’or",
+    "Introuvable",
+    "Réservé au temple"
+   ],
+   "explain": "« Le roi rendit l’argent aussi commun à Jérusalem que les pierres. » (1 Rois 10:27)"
+  },
+  "en": {
+   "q": "According to 1 Kings 10:27, how common did Solomon make silver in Jerusalem?",
+   "options": [
+    "As common as stones",
+    "As rare as gold",
+    "Impossible to find",
+    "Reserved for the temple"
+   ],
+   "explain": "“The king made silver as common as stones in Jerusalem.” (1 Kings 10:27)"
+  }
+ },
+ {
+  "id": "business-hard-059",
+  "ref": {
+   "fr": "1 Rois 9:26",
+   "en": "1 Kings 9:26"
+  },
+  "fr": {
+   "q": "Selon 1 Rois 9:26, que Salomon fit-il construire à Étsjon-Guéber pour le commerce ?",
+   "options": [
+    "Une flotte de navires",
+    "Un grand marché",
+    "Un palais",
+    "Un entrepôt à blé"
+   ],
+   "explain": "« Le roi Salomon construisit des navires à Étsjon-Guéber, près d’Élath. » (1 Rois 9:26)"
+  },
+  "en": {
+   "q": "According to 1 Kings 9:26, what did Solomon build at Ezion-Geber for trade?",
+   "options": [
+    "A fleet of ships",
+    "A great market",
+    "A palace",
+    "A grain storehouse"
+   ],
+   "explain": "“King Solomon made a fleet of ships in Ezion Geber... on the shore of the Red Sea.” (1 Kings 9:26)"
+  }
+ },
+ {
+  "id": "business-hard-060",
+  "ref": {
+   "fr": "1 Rois 10:10",
+   "en": "1 Kings 10:10"
+  },
+  "fr": {
+   "q": "Selon 1 Rois 10:10, combien de talents d’or la reine de Séba donna-t-elle à Salomon ?",
+   "options": [
+    "Cent vingt",
+    "Six cent soixante-six",
+    "Quatre cent vingt",
+    "Cinquante"
+   ],
+   "explain": "« Elle donna au roi cent vingt talents d’or. » (1 Rois 10:10)"
+  },
+  "en": {
+   "q": "According to 1 Kings 10:10, how many talents of gold did the Queen of Sheba give Solomon?",
+   "options": [
+    "A hundred twenty",
+    "Six hundred sixty-six",
+    "Four hundred twenty",
+    "Fifty"
+   ],
+   "explain": "“She gave the king 120 talents of gold.” (1 Kings 10:10)"
+  }
+ },
+ {
+  "id": "business-hard-061",
+  "ref": {
+   "fr": "Matthieu 17:24",
+   "en": "Matthew 17:24"
+  },
+  "fr": {
+   "q": "Selon Matthieu 17:24, quel impôt les collecteurs demandèrent-ils à Pierre pour Jésus ?",
+   "options": [
+    "Le tribut du temple (les deux drachmes)",
+    "L’impôt de César",
+    "La dîme",
+    "Une amende"
+   ],
+   "explain": "« ...ceux qui percevaient les deux drachmes... Votre maître ne paie-t-il pas les deux drachmes ? » (Matthieu 17:24)"
+  },
+  "en": {
+   "q": "According to Matthew 17:24, what tax did the collectors ask Peter about for Jesus?",
+   "options": [
+    "The temple tax (the two drachmas)",
+    "Caesar’s tax",
+    "The tithe",
+    "A fine"
+   ],
+   "explain": "“...those who collected the didrachma... ‘Doesn’t your teacher pay the didrachma?’” (Matthew 17:24)"
+  }
+ },
+ {
+  "id": "business-hard-062",
+  "ref": {
+   "fr": "Matthieu 17:27",
+   "en": "Matthew 17:27"
+  },
+  "fr": {
+   "q": "Selon Matthieu 17:27, où Pierre devait-il trouver la pièce pour payer l’impôt du temple ?",
+   "options": [
+    "Dans la bouche d’un poisson",
+    "Dans le tronc du temple",
+    "Sous une pierre",
+    "Dans sa bourse"
+   ],
+   "explain": "« ...prends le premier poisson... tu trouveras un statère. Prends-le, et donne-le-leur pour moi et pour toi. » (Matthieu 17:27)"
+  },
+  "en": {
+   "q": "According to Matthew 17:27, where was Peter to find the coin to pay the temple tax?",
+   "options": [
+    "In a fish’s mouth",
+    "In the temple treasury",
+    "Under a stone",
+    "In his purse"
+   ],
+   "explain": "“...take up the fish... you will find a stater. Take that, and give it to them for me and you.” (Matthew 17:27)"
+  }
+ },
+ {
+  "id": "business-hard-063",
+  "ref": {
+   "fr": "Exode 30:15",
+   "en": "Exodus 30:15"
+  },
+  "fr": {
+   "q": "Selon Exode 30:15, quelle différence y avait-il entre le riche et le pauvre pour l’offrande du sanctuaire ?",
+   "options": [
+    "Aucune : chacun donnait un demi-sicle",
+    "Le riche donnait le double",
+    "Le pauvre était dispensé",
+    "Le riche donnait de l’or"
+   ],
+   "explain": "« Le riche ne paiera pas plus, et le pauvre ne paiera pas moins d’un demi-sicle. » (Exode 30:15)"
+  },
+  "en": {
+   "q": "According to Exodus 30:15, what difference was there between rich and poor for the sanctuary offering?",
+   "options": [
+    "None: each gave half a shekel",
+    "The rich gave double",
+    "The poor were exempt",
+    "The rich gave gold"
+   ],
+   "explain": "“The rich shall not give more, and the poor shall not give less, than the half shekel.” (Exodus 30:15)"
+  }
+ },
+ {
+  "id": "business-hard-064",
+  "ref": {
+   "fr": "Néhémie 10:33",
+   "en": "Nehemiah 10:32"
+  },
+  "fr": {
+   "q": "Selon Néhémie 10:33, quelle contribution annuelle le peuple s’imposa-t-il pour le service du temple ?",
+   "options": [
+    "Un tiers de sicle",
+    "Un demi-sicle",
+    "Un sicle entier",
+    "Un talent"
+   ],
+   "explain": "« Nous nous imposâmes... le tiers d’un sicle par année pour le service de la maison de notre Dieu. » (Néhémie 10:33)"
+  },
+  "en": {
+   "q": "According to Nehemiah 10:32, what yearly contribution did the people take on for the temple service?",
+   "options": [
+    "A third of a shekel",
+    "Half a shekel",
+    "A whole shekel",
+    "A talent"
+   ],
+   "explain": "“...to charge ourselves yearly with the third part of a shekel for the service of the house of our God.” (Nehemiah 10:32)"
+  }
+ },
+ {
+  "id": "business-hard-065",
+  "ref": {
+   "fr": "Luc 19:8",
+   "en": "Luke 19:8"
+  },
+  "fr": {
+   "q": "Selon Luc 19:8, quelle part de ses biens Zachée promit-il de donner aux pauvres ?",
+   "options": [
+    "La moitié",
+    "La dîme",
+    "Le quart",
+    "Le tiers"
+   ],
+   "explain": "« Voici, Seigneur, je donne aux pauvres la moitié de mes biens. » (Luc 19:8)"
+  },
+  "en": {
+   "q": "According to Luke 19:8, what portion of his goods did Zacchaeus promise to the poor?",
+   "options": [
+    "Half",
+    "A tenth",
+    "A quarter",
+    "A third"
+   ],
+   "explain": "“Behold, Lord, half of my goods I give to the poor.” (Luke 19:8)"
+  }
+ },
+ {
+  "id": "business-hard-066",
+  "ref": {
+   "fr": "Luc 19:8",
+   "en": "Luke 19:8"
+  },
+  "fr": {
+   "q": "Selon Luc 19:8, combien Zachée promit-il de rendre à ceux qu’il avait lésés ?",
+   "options": [
+    "Le quadruple",
+    "Le double",
+    "La somme exacte",
+    "Le décuple"
+   ],
+   "explain": "« ...si j’ai fait tort de quelque chose à quelqu’un, je lui rends le quadruple. » (Luc 19:8)"
+  },
+  "en": {
+   "q": "According to Luke 19:8, how much did Zacchaeus promise to repay those he had wronged?",
+   "options": [
+    "Fourfold",
+    "Double",
+    "The exact amount",
+    "Tenfold"
+   ],
+   "explain": "“...if I have wrongfully exacted anything of anyone, I restore four times as much.” (Luke 19:8)"
+  }
+ },
+ {
+  "id": "business-hard-067",
+  "ref": {
+   "fr": "Luc 19:2",
+   "en": "Luke 19:2"
+  },
+  "fr": {
+   "q": "Selon Luc 19:2, quelle était la profession de Zachée, et quelle était sa situation ?",
+   "options": [
+    "Chef des collecteurs d’impôts, et riche",
+    "Berger, et pauvre",
+    "Marchand de pourpre",
+    "Pêcheur"
+   ],
+   "explain": "« ...un homme riche, nommé Zachée ; il était chef des publicains. » (Luc 19:2)"
+  },
+  "en": {
+   "q": "According to Luke 19:2, what was Zacchaeus’ occupation and situation?",
+   "options": [
+    "A chief tax collector, and rich",
+    "A shepherd, and poor",
+    "A purple merchant",
+    "A fisherman"
+   ],
+   "explain": "“...a man named Zacchaeus. He was a chief tax collector, and he was rich.” (Luke 19:2)"
+  }
+ },
+ {
+  "id": "business-hard-068",
+  "ref": {
+   "fr": "Exode 21:37",
+   "en": "Exodus 22:1"
+  },
+  "fr": {
+   "q": "Selon Exode 21:37, combien de bœufs fallait-il rendre pour un bœuf volé et égorgé ?",
+   "options": [
+    "Cinq",
+    "Quatre",
+    "Deux",
+    "Sept"
+   ],
+   "explain": "« ...il rendra cinq bœufs pour le bœuf. » (Exode 21:37)"
+  },
+  "en": {
+   "q": "According to Exodus 22:1, how many oxen were to be repaid for one stolen and slaughtered?",
+   "options": [
+    "Five",
+    "Four",
+    "Two",
+    "Seven"
+   ],
+   "explain": "“...he shall restore five oxen for an ox.” (Exodus 22:1)"
+  }
+ },
+ {
+  "id": "business-hard-069",
+  "ref": {
+   "fr": "Nombres 5:7",
+   "en": "Numbers 5:7"
+  },
+  "fr": {
+   "q": "Selon Nombres 5:7, que fallait-il ajouter à la restitution d’un tort commis ?",
+   "options": [
+    "Un cinquième en plus",
+    "Le double",
+    "Un dixième",
+    "Rien"
+   ],
+   "explain": "« ...il fera restitution... et il y ajoutera un cinquième. » (Nombres 5:7)"
+  },
+  "en": {
+   "q": "According to Numbers 5:7, what was to be added to the restitution for a wrong done?",
+   "options": [
+    "A fifth more",
+    "Double",
+    "A tenth",
+    "Nothing"
+   ],
+   "explain": "“...he shall make restitution... and add to it the fifth part.” (Numbers 5:7)"
+  }
+ },
+ {
+  "id": "business-hard-070",
+  "ref": {
+   "fr": "Lévitique 5:24",
+   "en": "Leviticus 6:5"
+  },
+  "fr": {
+   "q": "Selon Lévitique 5:24, comment rendre un bien obtenu par fraude ou par un faux serment ?",
+   "options": [
+    "En entier, plus un cinquième",
+    "La moitié seulement",
+    "Le double",
+    "Après sept ans"
+   ],
+   "explain": "« ...il le restituera en son entier, et il y ajoutera un cinquième. » (Lévitique 5:24)"
+  },
+  "en": {
+   "q": "According to Leviticus 6:5, how was property gained by fraud or false oath to be repaid?",
+   "options": [
+    "In full, plus a fifth",
+    "Only half",
+    "Double",
+    "After seven years"
+   ],
+   "explain": "“...he shall restore it in full, and shall add a fifth part more to it.” (Leviticus 6:5)"
+  }
+ },
+ {
+  "id": "business-hard-071",
+  "ref": {
+   "fr": "Actes 5:2",
+   "en": "Acts 5:2"
+  },
+  "fr": {
+   "q": "Selon Actes 5:2, que fit Ananias du prix de son champ vendu ?",
+   "options": [
+    "Il en retint une partie",
+    "Il donna tout",
+    "Il le cacha entièrement",
+    "Il le rendit à l’acheteur"
+   ],
+   "explain": "« ...il retint une partie du prix, sa femme le sachant. » (Actes 5:2)"
+  },
+  "en": {
+   "q": "According to Acts 5:2, what did Ananias do with the price of the field he sold?",
+   "options": [
+    "He kept back part of it",
+    "He gave it all",
+    "He hid all of it",
+    "He returned it to the buyer"
+   ],
+   "explain": "“...kept back part of the price... and brought a certain part, and laid it at the apostles’ feet.” (Acts 5:2)"
+  }
+ },
+ {
+  "id": "business-hard-072",
+  "ref": {
+   "fr": "Actes 5:3",
+   "en": "Acts 5:3"
+  },
+  "fr": {
+   "q": "Selon Actes 5:3, à qui Pierre dit-il qu’Ananias avait menti ?",
+   "options": [
+    "Au Saint-Esprit",
+    "Aux apôtres",
+    "À l’assemblée",
+    "À César"
+   ],
+   "explain": "« Ananias, pourquoi Satan a-t-il rempli ton cœur, au point que tu mentes au Saint-Esprit ? » (Actes 5:3)"
+  },
+  "en": {
+   "q": "According to Acts 5:3, to whom did Peter say Ananias had lied?",
+   "options": [
+    "To the Holy Spirit",
+    "To the apostles",
+    "To the assembly",
+    "To Caesar"
+   ],
+   "explain": "“Ananias, why has Satan filled your heart to lie to the Holy Spirit...?” (Acts 5:3)"
+  }
+ },
+ {
+  "id": "business-hard-073",
+  "ref": {
+   "fr": "Actes 5:4",
+   "en": "Acts 5:4"
+  },
+  "fr": {
+   "q": "Selon Actes 5:4, quel fut le vrai péché d’Ananias, l’argent lui appartenant ?",
+   "options": [
+    "Avoir menti à Dieu, non aux hommes",
+    "Avoir vendu son champ",
+    "Avoir gardé son argent",
+    "Avoir donné trop peu"
+   ],
+   "explain": "« Ce n’est pas à des hommes que tu as menti, mais à Dieu. » (Actes 5:4)"
+  },
+  "en": {
+   "q": "According to Acts 5:4, what was Ananias’ real sin, since the money was his own?",
+   "options": [
+    "Lying to God, not to men",
+    "Selling his field",
+    "Keeping his money",
+    "Giving too little"
+   ],
+   "explain": "“You have not lied to men, but to God.” (Acts 5:4)"
+  }
+ },
+ {
+  "id": "business-hard-074",
+  "ref": {
+   "fr": "Actes 5:8",
+   "en": "Acts 5:8"
+  },
+  "fr": {
+   "q": "Selon Actes 5:8, que demanda Pierre à Saphira au sujet de la vente du champ ?",
+   "options": [
+    "Si le champ avait été vendu tel prix",
+    "Où était son mari",
+    "Combien elle avait donné aux pauvres",
+    "Pourquoi elle mentait"
+   ],
+   "explain": "« Est-ce à un tel prix que vous avez vendu le champ ? Oui, répondit-elle, à ce prix-là. » (Actes 5:8)"
+  },
+  "en": {
+   "q": "According to Acts 5:8, what did Peter ask Sapphira about the sale of the field?",
+   "options": [
+    "Whether the field was sold for that price",
+    "Where her husband was",
+    "How much she gave the poor",
+    "Why she was lying"
+   ],
+   "explain": "“Tell me whether you sold the land for so much. She said, ‘Yes, for so much.’” (Acts 5:8)"
+  }
+ },
+ {
+  "id": "business-hard-075",
+  "ref": {
+   "fr": "Actes 4:37",
+   "en": "Acts 4:37"
+  },
+  "fr": {
+   "q": "Selon Actes 4:37, que fit Barnabas d’un champ qu’il possédait ?",
+   "options": [
+    "Il le vendit et apporta l’argent aux apôtres",
+    "Il le garda pour lui",
+    "Il le donna à sa famille",
+    "Il le loua"
+   ],
+   "explain": "« ...vendit un champ qu’il possédait, apporta l’argent, et le déposa aux pieds des apôtres. » (Actes 4:37)"
+  },
+  "en": {
+   "q": "According to Acts 4:37, what did Barnabas do with a field he owned?",
+   "options": [
+    "He sold it and brought the money to the apostles",
+    "He kept it for himself",
+    "He gave it to his family",
+    "He rented it out"
+   ],
+   "explain": "“...having a field, sold it, and brought the money and laid it at the apostles’ feet.” (Acts 4:37)"
+  }
+ },
+ {
+  "id": "business-hard-076",
+  "ref": {
+   "fr": "Jacques 5:1",
+   "en": "James 5:1"
+  },
+  "fr": {
+   "q": "Selon Jacques 5:1, que dit l’apôtre aux riches à cause des malheurs qui viennent sur eux ?",
+   "options": [
+    "Pleurez et gémissez",
+    "Réjouissez-vous",
+    "Amassez encore",
+    "Taisez-vous"
+   ],
+   "explain": "« À vous maintenant, riches ! Pleurez et gémissez, à cause des malheurs qui viendront sur vous. » (Jacques 5:1)"
+  },
+  "en": {
+   "q": "According to James 5:1, what does the apostle tell the rich because of miseries coming on them?",
+   "options": [
+    "Weep and howl",
+    "Rejoice",
+    "Store up still more",
+    "Be silent"
+   ],
+   "explain": "“Come now, you rich, weep and howl for your miseries that are coming on you.” (James 5:1)"
+  }
+ },
+ {
+  "id": "business-hard-077",
+  "ref": {
+   "fr": "Jacques 5:3",
+   "en": "James 5:3"
+  },
+  "fr": {
+   "q": "Selon Jacques 5:3, qu’est-il arrivé à l’or et à l’argent amassés injustement ?",
+   "options": [
+    "Ils se sont rouillés, en témoignage contre leurs maîtres",
+    "Ils ont disparu",
+    "Ils ont fructifié",
+    "Ils ont été volés"
+   ],
+   "explain": "« Votre or et votre argent sont rouillés ; et leur rouille... témoignera contre vous. » (Jacques 5:3)"
+  },
+  "en": {
+   "q": "According to James 5:3, what happened to gold and silver hoarded unjustly?",
+   "options": [
+    "They rusted, a witness against their owners",
+    "They vanished",
+    "They multiplied",
+    "They were stolen"
+   ],
+   "explain": "“Your gold and your silver are corroded, and their corrosion will be for a testimony against you.” (James 5:3)"
+  }
+ },
+ {
+  "id": "business-hard-078",
+  "ref": {
+   "fr": "Jacques 5:4",
+   "en": "James 5:4"
+  },
+  "fr": {
+   "q": "Selon Jacques 5:4, jusqu’où sont montées les plaintes des moissonneurs frustrés de leur salaire ?",
+   "options": [
+    "Aux oreilles du Seigneur des armées",
+    "Jusqu’au roi",
+    "Jusqu’au marché",
+    "Nulle part"
+   ],
+   "explain": "« ...les cris des moissonneurs sont parvenus jusqu’aux oreilles du Seigneur des armées. » (Jacques 5:4)"
+  },
+  "en": {
+   "q": "According to James 5:4, how far did the cries of the cheated harvesters reach?",
+   "options": [
+    "To the ears of the Lord of Hosts",
+    "To the king",
+    "To the market",
+    "Nowhere"
+   ],
+   "explain": "“...the cries of those who reaped have entered into the ears of the Lord of Armies.” (James 5:4)"
+  }
+ },
+ {
+  "id": "business-hard-079",
+  "ref": {
+   "fr": "Jacques 5:5",
+   "en": "James 5:5"
+  },
+  "fr": {
+   "q": "Selon Jacques 5:5, comment les riches injustes avaient-ils vécu sur la terre ?",
+   "options": [
+    "Dans les voluptés et les délices",
+    "Dans la crainte",
+    "Dans la pauvreté",
+    "Dans le travail"
+   ],
+   "explain": "« Vous avez vécu sur la terre dans les voluptés et dans les délices. » (Jacques 5:5)"
+  },
+  "en": {
+   "q": "According to James 5:5, how had the unjust rich lived on the earth?",
+   "options": [
+    "In pleasure and luxury",
+    "In fear",
+    "In poverty",
+    "In hard labor"
+   ],
+   "explain": "“You have lived in luxury on the earth, and taken your pleasure.” (James 5:5)"
+  }
+ },
+ {
+  "id": "business-hard-080",
+  "ref": {
+   "fr": "Ecclésiaste 2:11",
+   "en": "Ecclesiastes 2:11"
+  },
+  "fr": {
+   "q": "Selon Ecclésiaste 2:11, quel avantage Salomon trouva-t-il dans tout son labeur sous le soleil ?",
+   "options": [
+    "Aucun : tout était vanité",
+    "Une grande gloire",
+    "Un repos durable",
+    "La sagesse parfaite"
+   ],
+   "explain": "« ...tout est vanité et poursuite du vent, et il n’y a aucun avantage sous le soleil. » (Ecclésiaste 2:11)"
+  },
+  "en": {
+   "q": "According to Ecclesiastes 2:11, what gain did Solomon find in all his labor under the sun?",
+   "options": [
+    "None: all was vanity",
+    "Great glory",
+    "Lasting rest",
+    "Perfect wisdom"
+   ],
+   "explain": "“...all was vanity and a chasing after wind, and there was no profit under the sun.” (Ecclesiastes 2:11)"
+  }
+ },
+ {
+  "id": "business-hard-081",
+  "ref": {
+   "fr": "Ecclésiaste 2:18",
+   "en": "Ecclesiastes 2:18"
+  },
+  "fr": {
+   "q": "Selon Ecclésiaste 2:18, pourquoi Salomon en vint-il à haïr le fruit de son travail ?",
+   "options": [
+    "Il devrait le laisser à son successeur",
+    "Il ne rapportait rien",
+    "Il attirait des voleurs",
+    "Il déplaisait à Dieu"
+   ],
+   "explain": "« ...parce que je le laisserai à l’homme qui viendra après moi. » (Ecclésiaste 2:18)"
+  },
+  "en": {
+   "q": "According to Ecclesiastes 2:18, why did Solomon come to hate the fruit of his labor?",
+   "options": [
+    "He must leave it to his successor",
+    "It brought no profit",
+    "It attracted thieves",
+    "It displeased God"
+   ],
+   "explain": "“...because I must leave it to the man who will be after me.” (Ecclesiastes 2:18)"
+  }
+ },
+ {
+  "id": "business-hard-082",
+  "ref": {
+   "fr": "Ecclésiaste 4:8",
+   "en": "Ecclesiastes 4:8"
+  },
+  "fr": {
+   "q": "Selon Ecclésiaste 4:8, quelle question se pose l’homme seul qui travaille sans fin ?",
+   "options": [
+    "« Pour qui donc est-ce que je travaille ? »",
+    "« Quand vais-je me reposer ? »",
+    "« Où est ma récompense ? »",
+    "« Qui me louera ? »"
+   ],
+   "explain": "« ...pour qui donc est-ce que je travaille, et que je prive mon âme de jouissances ? » (Ecclésiaste 4:8)"
+  },
+  "en": {
+   "q": "According to Ecclesiastes 4:8, what does the solitary man who toils endlessly ask?",
+   "options": [
+    "“For whom then do I labor?”",
+    "“When will I rest?”",
+    "“Where is my reward?”",
+    "“Who will praise me?”"
+   ],
+   "explain": "“...for whom then do I labor and deprive my soul of good?” (Ecclesiastes 4:8)"
+  }
+ },
+ {
+  "id": "business-hard-083",
+  "ref": {
+   "fr": "Ecclésiaste 5:11",
+   "en": "Ecclesiastes 5:12"
+  },
+  "fr": {
+   "q": "Selon Ecclésiaste 5:11, qui jouit d’un sommeil doux, contrairement au riche rassasié ?",
+   "options": [
+    "Le travailleur",
+    "Le marchand",
+    "Le roi",
+    "Le prêtre"
+   ],
+   "explain": "« Le sommeil du travailleur est doux... mais le rassasiement du riche ne le laisse pas dormir. » (Ecclésiaste 5:11)"
+  },
+  "en": {
+   "q": "According to Ecclesiastes 5:12, who enjoys sweet sleep, unlike the sated rich man?",
+   "options": [
+    "The laborer",
+    "The merchant",
+    "The king",
+    "The priest"
+   ],
+   "explain": "“The sleep of a laboring man is sweet... but the fullness of the rich will not allow him to sleep.” (Ecclesiastes 5:12)"
+  }
+ },
+ {
+  "id": "business-hard-084",
+  "ref": {
+   "fr": "Ecclésiaste 6:2",
+   "en": "Ecclesiastes 6:2"
+  },
+  "fr": {
+   "q": "Selon Ecclésiaste 6:2, quel malheur frappe l’homme à qui Dieu donne des biens sans le pouvoir d’en jouir ?",
+   "options": [
+    "Un étranger en jouit à sa place",
+    "Il perd la mémoire",
+    "Il devient pauvre",
+    "Il est haï de tous"
+   ],
+   "explain": "« ...Dieu ne lui permet pas d’en jouir, car c’est un étranger qui en jouira. » (Ecclésiaste 6:2)"
+  },
+  "en": {
+   "q": "According to Ecclesiastes 6:2, what misfortune strikes the man given wealth but no power to enjoy it?",
+   "options": [
+    "A stranger enjoys it instead",
+    "He loses his memory",
+    "He becomes poor",
+    "He is hated by all"
+   ],
+   "explain": "“...God gives him no power to eat of it, but an alien eats it.” (Ecclesiastes 6:2)"
+  }
+ },
+ {
+  "id": "business-hard-085",
+  "ref": {
+   "fr": "Ecclésiaste 7:12",
+   "en": "Ecclesiastes 7:12"
+  },
+  "fr": {
+   "q": "Selon Ecclésiaste 7:12, à quoi la sagesse est-elle comparée comme protection ?",
+   "options": [
+    "À l’argent",
+    "À une épée",
+    "À une muraille",
+    "À un trésor caché"
+   ],
+   "explain": "« Car à l’ombre de la sagesse on est abrité comme à l’ombre de l’argent. » (Ecclésiaste 7:12)"
+  },
+  "en": {
+   "q": "According to Ecclesiastes 7:12, to what is wisdom compared as a protection?",
+   "options": [
+    "To money",
+    "To a sword",
+    "To a wall",
+    "To hidden treasure"
+   ],
+   "explain": "“For wisdom is a defense, even as money is a defense.” (Ecclesiastes 7:12)"
+  }
+ },
+ {
+  "id": "business-hard-086",
+  "ref": {
+   "fr": "Ecclésiaste 10:19",
+   "en": "Ecclesiastes 10:19"
+  },
+  "fr": {
+   "q": "Selon Ecclésiaste 10:19, à quoi l’argent répond-il, selon le sage ?",
+   "options": [
+    "À tout",
+    "À rien",
+    "Au travail seul",
+    "À la sagesse"
+   ],
+   "explain": "« ...et l’argent répond à tout. » (Ecclésiaste 10:19)"
+  },
+  "en": {
+   "q": "According to Ecclesiastes 10:19, what does money answer, according to the wise man?",
+   "options": [
+    "Everything",
+    "Nothing",
+    "Only labor",
+    "Wisdom"
+   ],
+   "explain": "“...and money is the answer for all things.” (Ecclesiastes 10:19)"
+  }
+ },
+ {
+  "id": "business-hard-087",
+  "ref": {
+   "fr": "Ecclésiaste 11:1",
+   "en": "Ecclesiastes 11:1"
+  },
+  "fr": {
+   "q": "Selon Ecclésiaste 11:1, que conseille le sage de faire de son pain ?",
+   "options": [
+    "Le jeter sur la face des eaux",
+    "Le cacher",
+    "Le vendre cher",
+    "Le garder pour l’hiver"
+   ],
+   "explain": "« Jette ton pain sur la face des eaux, car avec le temps tu le retrouveras. » (Ecclésiaste 11:1)"
+  },
+  "en": {
+   "q": "According to Ecclesiastes 11:1, what does the wise man advise doing with your bread?",
+   "options": [
+    "Cast it upon the waters",
+    "Hide it",
+    "Sell it dear",
+    "Save it for winter"
+   ],
+   "explain": "“Cast your bread on the waters; for you shall find it after many days.” (Ecclesiastes 11:1)"
+  }
+ },
+ {
+  "id": "business-hard-088",
+  "ref": {
+   "fr": "Ecclésiaste 11:2",
+   "en": "Ecclesiastes 11:2"
+  },
+  "fr": {
+   "q": "Selon Ecclésiaste 11:2, en combien de parts le sage conseille-t-il de répartir son bien ?",
+   "options": [
+    "En sept, et même en huit",
+    "En deux",
+    "En dix",
+    "En une seule"
+   ],
+   "explain": "« Donne une part à sept et même à huit, car tu ne sais pas quel malheur peut arriver. » (Ecclésiaste 11:2)"
+  },
+  "en": {
+   "q": "According to Ecclesiastes 11:2, into how many portions does the wise man advise dividing your goods?",
+   "options": [
+    "Into seven, and even eight",
+    "Into two",
+    "Into ten",
+    "Into one"
+   ],
+   "explain": "“Give a portion to seven, yes, even to eight; for you don’t know what evil will be on the earth.” (Ecclesiastes 11:2)"
+  }
+ },
+ {
+  "id": "business-hard-089",
+  "ref": {
+   "fr": "Amos 8:6",
+   "en": "Amos 8:6"
+  },
+  "fr": {
+   "q": "Selon Amos 8:6, contre quoi les marchands malhonnêtes achetaient-ils le pauvre ?",
+   "options": [
+    "Contre une paire de souliers",
+    "Contre du blé",
+    "Contre un champ",
+    "Contre rien"
+   ],
+   "explain": "« ...nous achèterons les misérables pour de l’argent, et le pauvre pour une paire de souliers. » (Amos 8:6)"
+  },
+  "en": {
+   "q": "According to Amos 8:6, for what did the dishonest merchants buy the poor?",
+   "options": [
+    "For a pair of sandals",
+    "For grain",
+    "For a field",
+    "For nothing"
+   ],
+   "explain": "“...buy the poor for silver, and the needy for a pair of sandals.” (Amos 8:6)"
+  }
+ },
+ {
+  "id": "business-hard-090",
+  "ref": {
+   "fr": "Amos 2:6",
+   "en": "Amos 2:6"
+  },
+  "fr": {
+   "q": "Selon Amos 2:6, pour quel prix Israël vendait-il le juste, dénoncé par le prophète ?",
+   "options": [
+    "Pour de l’argent",
+    "Pour du pain",
+    "Pour du vin",
+    "Pour de l’or"
+   ],
+   "explain": "« ...parce qu’ils ont vendu le juste pour de l’argent, et le pauvre pour une paire de souliers. » (Amos 2:6)"
+  },
+  "en": {
+   "q": "According to Amos 2:6, for what price did Israel sell the righteous, as the prophet denounced?",
+   "options": [
+    "For silver",
+    "For bread",
+    "For wine",
+    "For gold"
+   ],
+   "explain": "“...they have sold the righteous for silver, and the needy for a pair of sandals.” (Amos 2:6)"
+  }
+ },
+ {
+  "id": "business-hard-091",
+  "ref": {
+   "fr": "Michée 6:10",
+   "en": "Micah 6:10"
+  },
+  "fr": {
+   "q": "Selon Michée 6:10, quelle mesure Dieu déclare-t-il maudite dans la maison du méchant ?",
+   "options": [
+    "L’épha trop petit",
+    "La balance d’or",
+    "Le grand sac",
+    "Le sceau du roi"
+   ],
+   "explain": "« ...et l’épha trop petit et maudit ? » (Michée 6:10)"
+  },
+  "en": {
+   "q": "According to Micah 6:10, what measure does God call accursed in the wicked man’s house?",
+   "options": [
+    "The short ephah",
+    "The golden scale",
+    "The large sack",
+    "The king’s seal"
+   ],
+   "explain": "“...and the short ephah that is accursed?” (Micah 6:10)"
+  }
+ },
+ {
+  "id": "business-hard-092",
+  "ref": {
+   "fr": "Michée 2:2",
+   "en": "Micah 2:2"
+  },
+  "fr": {
+   "q": "Selon Michée 2:2, que font les méchants aux champs qu’ils convoitent ?",
+   "options": [
+    "Ils s’en emparent par violence",
+    "Ils les achètent au juste prix",
+    "Ils les laissent en friche",
+    "Ils les offrent à Dieu"
+   ],
+   "explain": "« Ils convoitent des champs, et ils s’en emparent, des maisons, et ils les enlèvent. » (Michée 2:2)"
+  },
+  "en": {
+   "q": "According to Micah 2:2, what do the wicked do to the fields they covet?",
+   "options": [
+    "They seize them by violence",
+    "They buy them at a fair price",
+    "They leave them fallow",
+    "They offer them to God"
+   ],
+   "explain": "“They covet fields, and seize them; and houses, and take them away.” (Micah 2:2)"
+  }
+ },
+ {
+  "id": "business-hard-093",
+  "ref": {
+   "fr": "Amos 5:11",
+   "en": "Amos 5:11"
+  },
+  "fr": {
+   "q": "Selon Amos 5:11, comment les puissants opprimaient-ils le pauvre en affaires ?",
+   "options": [
+    "Ils prenaient de lui du blé en présent",
+    "Ils fermaient les marchés",
+    "Ils brûlaient ses récoltes",
+    "Ils volaient ses bœufs"
+   ],
+   "explain": "« ...vous foulez le misérable, et vous prenez de lui du blé en présent. » (Amos 5:11)"
+  },
+  "en": {
+   "q": "According to Amos 5:11, how did the powerful oppress the poor in business?",
+   "options": [
+    "They took levies of grain from him",
+    "They closed the markets",
+    "They burned his crops",
+    "They stole his oxen"
+   ],
+   "explain": "“...you trample on the poor, and take taxes of grain from him.” (Amos 5:11)"
+  }
+ },
+ {
+  "id": "business-hard-094",
+  "ref": {
+   "fr": "Amos 5:12",
+   "en": "Amos 5:12"
+  },
+  "fr": {
+   "q": "Selon Amos 5:12, que recevaient les juges corrompus au détriment des pauvres ?",
+   "options": [
+    "Des pots-de-vin",
+    "Des terres",
+    "Des troupeaux",
+    "Des vêtements"
+   ],
+   "explain": "« ...vous recevez des présents, et vous violez à la porte le droit des pauvres. » (Amos 5:12)"
+  },
+  "en": {
+   "q": "According to Amos 5:12, what did corrupt judges take at the expense of the poor?",
+   "options": [
+    "Bribes",
+    "Lands",
+    "Flocks",
+    "Garments"
+   ],
+   "explain": "“...you take a bribe, and you turn aside the needy in the gate.” (Amos 5:12)"
+  }
+ },
+ {
+  "id": "business-hard-095",
+  "ref": {
+   "fr": "Deutéronome 23:20",
+   "en": "Deuteronomy 23:20"
+  },
+  "fr": {
+   "q": "Selon Deutéronome 23:20, de qui Israël pouvait-il tirer un intérêt, mais non de son frère ?",
+   "options": [
+    "De l’étranger",
+    "Du lévite",
+    "Du roi",
+    "Du prophète"
+   ],
+   "explain": "« Tu pourras tirer un intérêt de l’étranger, mais tu n’en tireras point de ton frère. » (Deutéronome 23:20)"
+  },
+  "en": {
+   "q": "According to Deuteronomy 23:20, from whom could Israel take interest, but not from a brother?",
+   "options": [
+    "From a foreigner",
+    "From a Levite",
+    "From the king",
+    "From a prophet"
+   ],
+   "explain": "“You may charge a foreigner interest; but you shall not charge your brother interest.” (Deuteronomy 23:20)"
+  }
+ },
+ {
+  "id": "business-hard-096",
+  "ref": {
+   "fr": "Proverbes 6:1",
+   "en": "Proverbs 6:1"
+  },
+  "fr": {
+   "q": "Selon Proverbes 6:1-2, par quoi se laisse piéger celui qui se porte garant pour son prochain ?",
+   "options": [
+    "Par les paroles de sa bouche",
+    "Par son or",
+    "Par sa colère",
+    "Par sa paresse"
+   ],
+   "explain": "« ...si tu as pris un engagement pour ton prochain... tu es enlacé par les paroles de ta bouche. » (Proverbes 6:1-2)"
+  },
+  "en": {
+   "q": "According to Proverbs 6:1-2, by what is one who pledges surety for his neighbor trapped?",
+   "options": [
+    "By the words of his mouth",
+    "By his gold",
+    "By his anger",
+    "By his laziness"
+   ],
+   "explain": "“...if you are snared with the words of your mouth... you have become surety for your neighbor.” (Proverbs 6:1-2)"
+  }
+ },
+ {
+  "id": "business-hard-097",
+  "ref": {
+   "fr": "Proverbes 17:18",
+   "en": "Proverbs 17:18"
+  },
+  "fr": {
+   "q": "Selon Proverbes 17:18, comment est décrit celui qui se porte caution pour son prochain ?",
+   "options": [
+    "Un homme dépourvu de sens",
+    "Un homme sage",
+    "Un homme riche",
+    "Un homme juste"
+   ],
+   "explain": "« L’homme dépourvu de sens... se porte caution pour son prochain. » (Proverbes 17:18)"
+  },
+  "en": {
+   "q": "According to Proverbs 17:18, how is the one who pledges surety for his neighbor described?",
+   "options": [
+    "A man void of understanding",
+    "A wise man",
+    "A rich man",
+    "A righteous man"
+   ],
+   "explain": "“A man void of understanding... becomes collateral in the presence of his neighbor.” (Proverbs 17:18)"
+  }
+ },
+ {
+  "id": "business-hard-098",
+  "ref": {
+   "fr": "Proverbes 20:16",
+   "en": "Proverbs 20:16"
+  },
+  "fr": {
+   "q": "Selon Proverbes 20:16, que dit-on de prendre à celui qui cautionne un étranger ?",
+   "options": [
+    "Son vêtement",
+    "Sa maison",
+    "Son champ",
+    "Son bétail"
+   ],
+   "explain": "« Prends son vêtement, car il a cautionné autrui. » (Proverbes 20:16)"
+  },
+  "en": {
+   "q": "According to Proverbs 20:16, what is one told to take from someone who pledges for a stranger?",
+   "options": [
+    "His garment",
+    "His house",
+    "His field",
+    "His cattle"
+   ],
+   "explain": "“Take the garment of one who puts up collateral for a stranger.” (Proverbs 20:16)"
+  }
+ },
+ {
+  "id": "business-hard-099",
+  "ref": {
+   "fr": "Deutéronome 15:11",
+   "en": "Deuteronomy 15:11"
+  },
+  "fr": {
+   "q": "Selon Deutéronome 15:11, pourquoi faut-il ouvrir la main à son frère pauvre ?",
+   "options": [
+    "Il y aura toujours des pauvres dans le pays",
+    "Dieu l’ordonne au sabbat",
+    "Le roi l’exige",
+    "La récolte l’exige"
+   ],
+   "explain": "« Il y aura toujours des indigents dans le pays ; c’est pourquoi... tu ouvriras ta main. » (Deutéronome 15:11)"
+  },
+  "en": {
+   "q": "According to Deuteronomy 15:11, why must one open his hand to a poor brother?",
+   "options": [
+    "The poor will never cease from the land",
+    "God commands it on the Sabbath",
+    "The king requires it",
+    "The harvest requires it"
+   ],
+   "explain": "“For the poor will never cease out of the land; therefore... you shall surely open your hand.” (Deuteronomy 15:11)"
+  }
+ },
+ {
+  "id": "business-hard-100",
+  "ref": {
+   "fr": "Lévitique 25:29",
+   "en": "Leviticus 25:29"
+  },
+  "fr": {
+   "q": "Selon Lévitique 25:29, pendant combien de temps une maison vendue en ville murée pouvait-elle être rachetée ?",
+   "options": [
+    "Pendant un an",
+    "Jusqu’au jubilé",
+    "Pendant sept ans",
+    "À tout moment"
+   ],
+   "explain": "« ...il aura le droit de rachat jusqu’à l’accomplissement d’une année depuis la vente. » (Lévitique 25:29)"
+  },
+  "en": {
+   "q": "According to Leviticus 25:29, for how long could a house sold in a walled city be redeemed?",
+   "options": [
+    "For one year",
+    "Until the Jubilee",
+    "For seven years",
+    "At any time"
+   ],
+   "explain": "“...then he may redeem it within a whole year after it is sold.” (Leviticus 25:29)"
+  }
+ }
+]
