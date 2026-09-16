@@ -2247,7 +2247,7 @@
    "en": "Matthew 1:1"
   },
   "fr": {
-   "q": "Quel est le premier livre du Nouveau Testament ?",
+   "q": "Quel évangile est placé en tout premier dans la Bible ?",
    "options": [
     "Matthieu",
     "Genèse",
@@ -2257,7 +2257,7 @@
    "explain": "Le Nouveau Testament commence par Matthieu. (Matthieu 1:1)"
   },
   "en": {
-   "q": "What is the first book of the New Testament?",
+   "q": "Which gospel is placed the very first in the Bible?",
    "options": [
     "Matthew",
     "Genesis",
