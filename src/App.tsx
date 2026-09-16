@@ -45,6 +45,7 @@ import { subscribeProfile as subscribeQuizProfile } from './quiz/store'
 import { todayKey as quizTodayKey } from './quiz/engine'
 import { subscribeGroups } from './groups'
 import { GroupsPanel } from './Groups'
+import { PostScriptButton } from './Transcribe'
 import type { Post, Comment, AppUser, ActivityLog, AppNotification, DonationConfig, DonationProvider, Report, DonationType, Donation, Group } from './types'
 import { LanguageProvider, useLanguage, LANGUAGES, type Language } from './i18n'
 
@@ -3093,7 +3094,8 @@ function PostCard({ post, onLike, onOpenComments, currentUser, isLiked, onEdit, 
               <p className="text-[11px] text-slate-400">{post.authorName || post.churchName || 'ELIM'}</p>
             </div>
           </button>
-          <div className="mt-2 flex justify-end">
+          <div className="mt-2 flex justify-end items-center gap-2">
+            {['church', 'admin', 'pastor'].includes(currentUser.role) && <PostScriptButton postId={post.id} />}
             <OfflineButton id={post.id} url={post.mediaUrl} kind="audio"
               title={post.content?.slice(0, 60) || 'Audio'} />
           </div>
