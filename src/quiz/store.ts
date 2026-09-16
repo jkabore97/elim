@@ -15,7 +15,7 @@
 //  - quizChampions/{...} : weekly champion snapshots, written only by Cloud
 //    Functions at week close; world-readable for the Palmarès.
 import {
-  doc, collection, onSnapshot, setDoc, getDoc, query, where, orderBy, limit,
+  doc, collection, onSnapshot, setDoc, query, where, orderBy, limit,
   getDocs, serverTimestamp, increment, writeBatch,
 } from 'firebase/firestore'
 import { db } from '../firebase'
@@ -145,30 +145,19 @@ export async function fetchKidsLeaders(top = 20): Promise<KidRow[]> {
   })
 }
 
-// Commit a finished KIDS game. Points count each question once per kids-week
-// (weekly-distinct): we read the child's entry, add only questions not already
-// answered this week, and store the running set. Returns points gained.
+// Commit a finished KIDS game. Kids earn points for EVERY correct answer, every
+// game - the point is to encourage children to keep playing and learning, so a
+// perfect round always rewards them (unlike the adult weekly race, which only
+// counts a question the first time it's mastered). Returns points gained.
 export async function commitKidsGame(
   uid: string, parentName: string, childName: string, correctIds: string[],
 ): Promise<number> {
   const kw = kidsWeekKey()
   const ref = doc(db, KIDS, `${kw}__${uid}__${childSlug(childName)}`)
-  let seen: Record<string, true> = {}
-  try {
-    const snap = await getDoc(ref)
-    if (snap.exists()) seen = (snap.data() as any).seen || {}
-  } catch { /* offline: treat as fresh; merge below still adds points */ }
-  let gained = 0
-  const addSeen: Record<string, true> = {}
-  for (const id of correctIds) {
-    if (!seen[id] && !addSeen[id]) { addSeen[id] = true; gained += pointsFor('easy') }
-  }
-  const seenUpdate: Record<string, true> = {}
-  for (const id of Object.keys(addSeen)) seenUpdate[`seen.${id}`] = true
+  const gained = correctIds.length * pointsFor('easy')
   await setDoc(ref, clean({
     kidsWeekId: kw, uid, parentName, childName,
     points: increment(gained),
-    ...seenUpdate,
     updatedAt: serverTimestamp(),
   }), { merge: true })
   return gained
