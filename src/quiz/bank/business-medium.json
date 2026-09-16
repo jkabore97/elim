@@ -1,0 +1,2702 @@
+[
+ {
+  "id": "business-medium-001",
+  "ref": {
+   "fr": "Proverbes 18:9",
+   "en": "Proverbs 18:9"
+  },
+  "fr": {
+   "q": "Selon Proverbes 18:9, de qui est frère celui qui est lâche dans son travail ?",
+   "options": [
+    "De celui qui détruit",
+    "Du sage",
+    "Du riche",
+    "Du roi"
+   ],
+   "explain": "« Celui qui se relâche dans son travail est frère de celui qui détruit. » (Proverbes 18:9)"
+  },
+  "en": {
+   "q": "According to Proverbs 18:9, whose brother is the one slack in his work?",
+   "options": [
+    "The destroyer’s",
+    "The wise man’s",
+    "The rich man’s",
+    "The king’s"
+   ],
+   "explain": "“One who is slack in his work is brother to him who is a master of destruction.” (Proverbs 18:9)"
+  }
+ },
+ {
+  "id": "business-medium-002",
+  "ref": {
+   "fr": "Proverbes 12:27",
+   "en": "Proverbs 12:27"
+  },
+  "fr": {
+   "q": "Selon Proverbes 12:27, qu’est-ce que le paresseux ne fait pas rôtir ?",
+   "options": [
+    "Son gibier",
+    "Son pain",
+    "Son grain",
+    "Son huile"
+   ],
+   "explain": "« Le paresseux ne rôtit pas son gibier. » (Proverbes 12:27)"
+  },
+  "en": {
+   "q": "According to Proverbs 12:27, what does the lazy man not roast?",
+   "options": [
+    "His game",
+    "His bread",
+    "His grain",
+    "His oil"
+   ],
+   "explain": "“The slothful man doesn’t roast his game.” (Proverbs 12:27)"
+  }
+ },
+ {
+  "id": "business-medium-003",
+  "ref": {
+   "fr": "Proverbes 20:4",
+   "en": "Proverbs 20:4"
+  },
+  "fr": {
+   "q": "Selon Proverbes 20:4, pourquoi le paresseux ne laboure-t-il pas ?",
+   "options": [
+    "À cause du froid",
+    "À cause de la pluie",
+    "Par manque de bœufs",
+    "Par fatigue"
+   ],
+   "explain": "« À cause du froid, le paresseux ne laboure pas ; à la moisson, il voudrait récolter, mais il n’y a rien. » (Proverbes 20:4)"
+  },
+  "en": {
+   "q": "According to Proverbs 20:4, why doesn’t the sluggard plow?",
+   "options": [
+    "Because of the cold",
+    "Because of rain",
+    "For lack of oxen",
+    "From tiredness"
+   ],
+   "explain": "“The sluggard will not plow by reason of the winter.” (Proverbs 20:4)"
+  }
+ },
+ {
+  "id": "business-medium-004",
+  "ref": {
+   "fr": "Proverbes 26:13",
+   "en": "Proverbs 26:13"
+  },
+  "fr": {
+   "q": "Selon Proverbes 26:13, quelle excuse donne le paresseux pour ne pas sortir ?",
+   "options": [
+    "Il y a un lion sur le chemin",
+    "Il pleut trop",
+    "Il fait nuit",
+    "Il est malade"
+   ],
+   "explain": "« Le paresseux dit : Il y a un lion sur le chemin ! » (Proverbes 26:13)"
+  },
+  "en": {
+   "q": "According to Proverbs 26:13, what excuse does the sluggard give?",
+   "options": [
+    "There is a lion in the road",
+    "It rains too much",
+    "It is night",
+    "He is sick"
+   ],
+   "explain": "“The sluggard says, ‘There is a lion in the road!’” (Proverbs 26:13)"
+  }
+ },
+ {
+  "id": "business-medium-005",
+  "ref": {
+   "fr": "Proverbes 26:15",
+   "en": "Proverbs 26:15"
+  },
+  "fr": {
+   "q": "Selon Proverbes 26:15, où le paresseux plonge-t-il sa main sans la ramener à sa bouche ?",
+   "options": [
+    "Dans le plat",
+    "Dans le sac",
+    "Dans le puits",
+    "Dans le feu"
+   ],
+   "explain": "« Le paresseux plonge sa main dans le plat, et il trouve pénible de la ramener à sa bouche. » (Proverbes 26:15)"
+  },
+  "en": {
+   "q": "According to Proverbs 26:15, where does the sluggard bury his hand?",
+   "options": [
+    "In the dish",
+    "In the sack",
+    "In the well",
+    "In the fire"
+   ],
+   "explain": "“The sluggard buries his hand in the dish. He is too lazy to bring it back to his mouth.” (Proverbs 26:15)"
+  }
+ },
+ {
+  "id": "business-medium-006",
+  "ref": {
+   "fr": "Proverbes 19:15",
+   "en": "Proverbs 19:15"
+  },
+  "fr": {
+   "q": "Selon Proverbes 19:15, que subira l’âme nonchalante ?",
+   "options": [
+    "La faim",
+    "La honte",
+    "La richesse",
+    "Le repos"
+   ],
+   "explain": "« La paresse fait tomber dans l’assoupissement, et l’âme nonchalante éprouve la faim. » (Proverbes 19:15)"
+  },
+  "en": {
+   "q": "According to Proverbs 19:15, what will the idle soul suffer?",
+   "options": [
+    "Hunger",
+    "Shame",
+    "Riches",
+    "Rest"
+   ],
+   "explain": "“Slothfulness casts into a deep sleep. The idle soul shall suffer hunger.” (Proverbs 19:15)"
+  }
+ },
+ {
+  "id": "business-medium-007",
+  "ref": {
+   "fr": "Proverbes 24:31",
+   "en": "Proverbs 24:31"
+  },
+  "fr": {
+   "q": "Selon Proverbes 24:31, de quoi était couvert le champ du paresseux ?",
+   "options": [
+    "D’épines et d’orties",
+    "D’or",
+    "De blé",
+    "De fleurs"
+   ],
+   "explain": "« Et voici, les épines y croissaient partout, les ronces en couvraient la face. » (Proverbes 24:31)"
+  },
+  "en": {
+   "q": "According to Proverbs 24:31, what covered the sluggard’s field?",
+   "options": [
+    "Thorns and nettles",
+    "Gold",
+    "Wheat",
+    "Flowers"
+   ],
+   "explain": "“It was all grown over with thorns. Its surface was covered with nettles.” (Proverbs 24:31)"
+  }
+ },
+ {
+  "id": "business-medium-008",
+  "ref": {
+   "fr": "Proverbes 14:4",
+   "en": "Proverbs 14:4"
+  },
+  "fr": {
+   "q": "Selon Proverbes 14:4, d’où vient une abondante récolte ?",
+   "options": [
+    "De la force des bœufs",
+    "De la chance",
+    "Du commerce",
+    "Des impôts"
+   ],
+   "explain": "« C’est par la force des bœufs qu’on a une abondante récolte. » (Proverbes 14:4)"
+  },
+  "en": {
+   "q": "According to Proverbs 14:4, where does an abundant harvest come from?",
+   "options": [
+    "The strength of the ox",
+    "Luck",
+    "Trade",
+    "Taxes"
+   ],
+   "explain": "“...but abundant crops come by the strength of the ox.” (Proverbs 14:4)"
+  }
+ },
+ {
+  "id": "business-medium-009",
+  "ref": {
+   "fr": "Proverbes 27:18",
+   "en": "Proverbs 27:18"
+  },
+  "fr": {
+   "q": "Selon Proverbes 27:18, qui mangera le fruit du figuier qu’il soigne ?",
+   "options": [
+    "Celui qui le garde",
+    "Le voisin",
+    "Le roi",
+    "L’étranger"
+   ],
+   "explain": "« Celui qui soigne un figuier en mangera le fruit. » (Proverbes 27:18)"
+  },
+  "en": {
+   "q": "According to Proverbs 27:18, who will eat the fig tree’s fruit?",
+   "options": [
+    "The one who tends it",
+    "The neighbor",
+    "The king",
+    "The stranger"
+   ],
+   "explain": "“Whoever tends the fig tree shall eat its fruit.” (Proverbs 27:18)"
+  }
+ },
+ {
+  "id": "business-medium-010",
+  "ref": {
+   "fr": "Genèse 3:19",
+   "en": "Genesis 3:19"
+  },
+  "fr": {
+   "q": "Selon Genèse 3:19, à la sueur de quoi l’homme mangera-t-il son pain ?",
+   "options": [
+    "De son visage",
+    "De ses mains",
+    "De son dos",
+    "De son cœur"
+   ],
+   "explain": "« C’est à la sueur de ton visage que tu mangeras du pain. » (Genèse 3:19)"
+  },
+  "en": {
+   "q": "According to Genesis 3:19, by the sweat of what will man eat bread?",
+   "options": [
+    "His face",
+    "His hands",
+    "His back",
+    "His heart"
+   ],
+   "explain": "“By the sweat of your face will you eat bread.” (Genesis 3:19)"
+  }
+ },
+ {
+  "id": "business-medium-011",
+  "ref": {
+   "fr": "Proverbes 10:5",
+   "en": "Proverbs 10:5"
+  },
+  "fr": {
+   "q": "Selon Proverbes 10:5, comment est appelé celui qui amasse pendant l’été ?",
+   "options": [
+    "Un fils prudent",
+    "Un fils insensé",
+    "Un paresseux",
+    "Un étranger"
+   ],
+   "explain": "« Celui qui amasse pendant l’été est un fils prudent. » (Proverbes 10:5)"
+  },
+  "en": {
+   "q": "According to Proverbs 10:5, what is the one who gathers in summer called?",
+   "options": [
+    "A wise son",
+    "A foolish son",
+    "A sluggard",
+    "A stranger"
+   ],
+   "explain": "“He who gathers in summer is a wise son.” (Proverbs 10:5)"
+  }
+ },
+ {
+  "id": "business-medium-012",
+  "ref": {
+   "fr": "Ecclésiaste 11:6",
+   "en": "Ecclesiastes 11:6"
+  },
+  "fr": {
+   "q": "Selon Ecclésiaste 11:6, quand faut-il semer sa semence ?",
+   "options": [
+    "Dès le matin, sans reposer sa main le soir",
+    "Seulement au printemps",
+    "Une fois l’an",
+    "Quand la lune est pleine"
+   ],
+   "explain": "« Dès le matin sème ta semence, et le soir ne laisse pas reposer ta main. » (Ecclésiaste 11:6)"
+  },
+  "en": {
+   "q": "According to Ecclesiastes 11:6, when should you sow your seed?",
+   "options": [
+    "In the morning, and don’t rest your hand at evening",
+    "Only in spring",
+    "Once a year",
+    "At full moon"
+   ],
+   "explain": "“In the morning sow your seed, and in the evening don’t withhold your hand.” (Ecclesiastes 11:6)"
+  }
+ },
+ {
+  "id": "business-medium-013",
+  "ref": {
+   "fr": "Éphésiens 4:28",
+   "en": "Ephesians 4:28"
+  },
+  "fr": {
+   "q": "Selon Éphésiens 4:28, que doit faire celui qui dérobait, afin d’aider celui qui est dans le besoin ?",
+   "options": [
+    "Travailler de ses mains",
+    "Mendier",
+    "Emprunter",
+    "Se reposer"
+   ],
+   "explain": "« Que celui qui dérobait ne dérobe plus ; mais qu’il travaille... de ses mains. » (Éphésiens 4:28)"
+  },
+  "en": {
+   "q": "According to Ephesians 4:28, what should the former thief do to help the needy?",
+   "options": [
+    "Work with his hands",
+    "Beg",
+    "Borrow",
+    "Rest"
+   ],
+   "explain": "“...let him labor, working with his hands... that he may have something to give to him who has need.” (Ephesians 4:28)"
+  }
+ },
+ {
+  "id": "business-medium-014",
+  "ref": {
+   "fr": "2 Thessaloniciens 3:11",
+   "en": "2 Thessalonians 3:11"
+  },
+  "fr": {
+   "q": "Selon 2 Thessaloniciens 3:11, comment vivaient certains, ne travaillant pas du tout ?",
+   "options": [
+    "En s’occupant de futilités",
+    "En priant sans cesse",
+    "En voyageant",
+    "En dormant"
+   ],
+   "explain": "« ...ne travaillant pas, mais s’occupant de futilités. » (2 Thessaloniciens 3:11)"
+  },
+  "en": {
+   "q": "According to 2 Thessalonians 3:11, how were some living, not working at all?",
+   "options": [
+    "As busybodies",
+    "Praying constantly",
+    "Traveling",
+    "Sleeping"
+   ],
+   "explain": "“...who don’t work at all, but are busybodies.” (2 Thessalonians 3:11)"
+  }
+ },
+ {
+  "id": "business-medium-015",
+  "ref": {
+   "fr": "2 Thessaloniciens 3:12",
+   "en": "2 Thessalonians 3:12"
+  },
+  "fr": {
+   "q": "Selon 2 Thessaloniciens 3:12, comment chacun doit-il gagner son propre pain ?",
+   "options": [
+    "En travaillant paisiblement",
+    "Sans jamais travailler",
+    "Aux frais des autres",
+    "En mendiant"
+   ],
+   "explain": "« ...de travailler paisiblement, pour manger leur propre pain. » (2 Thessaloniciens 3:12)"
+  },
+  "en": {
+   "q": "According to 2 Thessalonians 3:12, how should each earn his own bread?",
+   "options": [
+    "By working with quietness",
+    "Without ever working",
+    "At others’ expense",
+    "By begging"
+   ],
+   "explain": "“...that with quietness they work, and eat their own bread.” (2 Thessalonians 3:12)"
+  }
+ },
+ {
+  "id": "business-medium-016",
+  "ref": {
+   "fr": "Proverbes 21:25",
+   "en": "Proverbs 21:25"
+  },
+  "fr": {
+   "q": "Selon Proverbes 21:25, qu’est-ce qui tue le paresseux ?",
+   "options": [
+    "Ses désirs, car ses mains refusent d’agir",
+    "Sa richesse",
+    "Sa sagesse",
+    "Son travail"
+   ],
+   "explain": "« Les désirs du paresseux le tuent, parce que ses mains refusent de travailler. » (Proverbes 21:25)"
+  },
+  "en": {
+   "q": "According to Proverbs 21:25, what kills the sluggard?",
+   "options": [
+    "His desire, for his hands refuse to work",
+    "His wealth",
+    "His wisdom",
+    "His labor"
+   ],
+   "explain": "“The desire of the sluggard kills him, for his hands refuse to labor.” (Proverbs 21:25)"
+  }
+ },
+ {
+  "id": "business-medium-017",
+  "ref": {
+   "fr": "Amos 8:5",
+   "en": "Amos 8:5"
+  },
+  "fr": {
+   "q": "Selon Amos 8:5, comment les marchands malhonnêtes fraudaient-ils ?",
+   "options": [
+    "En diminuant l’épha et faussant la balance",
+    "En cachant leur or",
+    "En volant la nuit",
+    "En fuyant le marché"
+   ],
+   "explain": "« ...nous diminuerons l’épha, nous augmenterons le prix, nous falsifierons les balances. » (Amos 8:5)"
+  },
+  "en": {
+   "q": "According to Amos 8:5, how did the merchants cheat?",
+   "options": [
+    "Making the ephah small and the balance false",
+    "Hiding their gold",
+    "Stealing at night",
+    "Fleeing the market"
+   ],
+   "explain": "“...making the ephah small, and the shekel large, and dealing falsely with balances of deceit.” (Amos 8:5)"
+  }
+ },
+ {
+  "id": "business-medium-018",
+  "ref": {
+   "fr": "Osée 12:8",
+   "en": "Hosea 12:7"
+  },
+  "fr": {
+   "q": "Selon Osée 12:8, que tient dans sa main le marchand qui aime à tromper ?",
+   "options": [
+    "Des balances fausses",
+    "De l’or pur",
+    "Un sceptre",
+    "Une épée"
+   ],
+   "explain": "« Éphraïm... a dans sa main des balances fausses, il aime à tromper. » (Osée 12:8)"
+  },
+  "en": {
+   "q": "According to Hosea 12:7, what does the merchant who loves to oppress hold?",
+   "options": [
+    "False balances",
+    "Pure gold",
+    "A scepter",
+    "A sword"
+   ],
+   "explain": "“He is a merchant. The balances of deceit are in his hand. He loves to defraud.” (Hosea 12:7)"
+  }
+ },
+ {
+  "id": "business-medium-019",
+  "ref": {
+   "fr": "Lévitique 19:35",
+   "en": "Leviticus 19:35"
+  },
+  "fr": {
+   "q": "Selon Lévitique 19:35, dans quoi Israël ne devait-il pas commettre d’iniquité ?",
+   "options": [
+    "Les mesures de longueur, de poids et de capacité",
+    "Les sacrifices",
+    "Les fêtes",
+    "Les vêtements"
+   ],
+   "explain": "« Vous ne commettrez point d’iniquité dans les mesures de longueur, de poids et de capacité. » (Lévitique 19:35)"
+  },
+  "en": {
+   "q": "According to Leviticus 19:35, in what was Israel to do no wrong?",
+   "options": [
+    "Measures of length, weight, and quantity",
+    "Sacrifices",
+    "Feasts",
+    "Garments"
+   ],
+   "explain": "“You shall do no unrighteousness in judgment, in measures of length, of weight, or of quantity.” (Leviticus 19:35)"
+  }
+ },
+ {
+  "id": "business-medium-020",
+  "ref": {
+   "fr": "Proverbes 20:23",
+   "en": "Proverbs 20:23"
+  },
+  "fr": {
+   "q": "Selon Proverbes 20:23, comment est qualifiée la balance fausse ?",
+   "options": [
+    "Elle n’est pas une bonne chose",
+    "Elle est agréable",
+    "Elle est permise",
+    "Elle est bénie"
+   ],
+   "explain": "« Les deux sortes de poids sont en horreur à l’Éternel, et la balance fausse n’est pas une bonne chose. » (Proverbes 20:23)"
+  },
+  "en": {
+   "q": "According to Proverbs 20:23, how is a false balance described?",
+   "options": [
+    "It is not good",
+    "It is pleasing",
+    "It is allowed",
+    "It is blessed"
+   ],
+   "explain": "“Diverse weights are an abomination to the LORD, and dishonest scales are not good.” (Proverbs 20:23)"
+  }
+ },
+ {
+  "id": "business-medium-021",
+  "ref": {
+   "fr": "Proverbes 11:26",
+   "en": "Proverbs 11:26"
+  },
+  "fr": {
+   "q": "Selon Proverbes 11:26, que fait le peuple à celui qui retient son blé ?",
+   "options": [
+    "Il le maudit",
+    "Il le loue",
+    "Il l’élit roi",
+    "Il le paie"
+   ],
+   "explain": "« Celui qui retient le blé est maudit du peuple, mais la bénédiction est sur la tête de celui qui le vend. » (Proverbes 11:26)"
+  },
+  "en": {
+   "q": "According to Proverbs 11:26, what do people do to one who withholds grain?",
+   "options": [
+    "They curse him",
+    "They praise him",
+    "They crown him",
+    "They pay him"
+   ],
+   "explain": "“People curse someone who withholds grain, but blessing will be on the head of him who sells it.” (Proverbs 11:26)"
+  }
+ },
+ {
+  "id": "business-medium-022",
+  "ref": {
+   "fr": "Deutéronome 25:15",
+   "en": "Deuteronomy 25:15"
+  },
+  "fr": {
+   "q": "Selon Deutéronome 25:15, quels poids et mesures prolongent les jours ?",
+   "options": [
+    "Un poids exact et juste",
+    "Des poids légers",
+    "Des mesures secrètes",
+    "Des poids dorés"
+   ],
+   "explain": "« Tu auras un poids exact et juste... afin que tes jours se prolongent. » (Deutéronome 25:15)"
+  },
+  "en": {
+   "q": "According to Deuteronomy 25:15, what weights and measures prolong one’s days?",
+   "options": [
+    "A perfect and just weight",
+    "A light weight",
+    "Secret measures",
+    "Golden weights"
+   ],
+   "explain": "“You shall have a perfect and just weight... that your days may be long.” (Deuteronomy 25:15)"
+  }
+ },
+ {
+  "id": "business-medium-023",
+  "ref": {
+   "fr": "Ézéchiel 45:10",
+   "en": "Ezekiel 45:10"
+  },
+  "fr": {
+   "q": "Selon Ézéchiel 45:10, quelles balances et mesures le peuple devait-il avoir ?",
+   "options": [
+    "Une balance juste, un épha juste, un bath juste",
+    "Des balances d’or",
+    "Des mesures nouvelles",
+    "Deux sortes de poids"
+   ],
+   "explain": "« Ayez des balances justes, un épha juste, et un bath juste. » (Ézéchiel 45:10)"
+  },
+  "en": {
+   "q": "According to Ezekiel 45:10, what balances and measures was the people to have?",
+   "options": [
+    "Just balances, a just ephah, a just bath",
+    "Golden balances",
+    "New measures",
+    "Two kinds of weights"
+   ],
+   "explain": "“You shall have just balances, and a just ephah, and a just bath.” (Ezekiel 45:10)"
+  }
+ },
+ {
+  "id": "business-medium-024",
+  "ref": {
+   "fr": "Lévitique 25:14",
+   "en": "Leviticus 25:14"
+  },
+  "fr": {
+   "q": "Selon Lévitique 25:14, que ne faut-il pas faire en vendant à son prochain ?",
+   "options": [
+    "Se tromper l’un l’autre",
+    "Se réjouir",
+    "Prêter serment",
+    "Fixer un prix"
+   ],
+   "explain": "« Si vous vendez... ne vous trompez pas l’un l’autre. » (Lévitique 25:14)"
+  },
+  "en": {
+   "q": "According to Leviticus 25:14, what must you not do when selling to a neighbor?",
+   "options": [
+    "Wrong one another",
+    "Rejoice",
+    "Swear an oath",
+    "Set a price"
+   ],
+   "explain": "“...you shall not wrong one another.” (Leviticus 25:14)"
+  }
+ },
+ {
+  "id": "business-medium-025",
+  "ref": {
+   "fr": "Jérémie 22:13",
+   "en": "Jeremiah 22:13"
+  },
+  "fr": {
+   "q": "Selon Jérémie 22:13, sur qui vient le malheur pour avoir fait travailler sans salaire ?",
+   "options": [
+    "Celui qui fait travailler son prochain pour rien",
+    "Le pauvre",
+    "Le juge",
+    "Le prophète"
+   ],
+   "explain": "« Malheur à celui qui... fait travailler son prochain sans le payer, sans lui donner son salaire ! » (Jérémie 22:13)"
+  },
+  "en": {
+   "q": "According to Jeremiah 22:13, on whom comes woe for using labor without wages?",
+   "options": [
+    "He who makes his neighbor serve for nothing",
+    "The poor",
+    "The judge",
+    "The prophet"
+   ],
+   "explain": "“Woe to him who... uses his neighbor’s service without wages, and doesn’t give him his hire.” (Jeremiah 22:13)"
+  }
+ },
+ {
+  "id": "business-medium-026",
+  "ref": {
+   "fr": "Malachie 3:5",
+   "en": "Malachi 3:5"
+  },
+  "fr": {
+   "q": "Selon Malachie 3:5, contre qui Dieu témoignera-t-il pour la fraude du salaire ?",
+   "options": [
+    "Contre ceux qui oppriment le mercenaire",
+    "Contre les rois",
+    "Contre les prêtres",
+    "Contre les étrangers"
+   ],
+   "explain": "« ...contre ceux qui retiennent le salaire du mercenaire. » (Malachie 3:5)"
+  },
+  "en": {
+   "q": "According to Malachi 3:5, against whom will God witness for wage fraud?",
+   "options": [
+    "Those who oppress the hired worker in his wages",
+    "Kings",
+    "Priests",
+    "Strangers"
+   ],
+   "explain": "“...against those who oppress the hireling in his wages.” (Malachi 3:5)"
+  }
+ },
+ {
+  "id": "business-medium-027",
+  "ref": {
+   "fr": "Colossiens 4:1",
+   "en": "Colossians 4:1"
+  },
+  "fr": {
+   "q": "Selon Colossiens 4:1, que doivent accorder les maîtres à leurs serviteurs ?",
+   "options": [
+    "Ce qui est juste et équitable",
+    "De l’or",
+    "La liberté totale",
+    "Des congés"
+   ],
+   "explain": "« Maîtres, accordez à vos serviteurs ce qui est juste et équitable. » (Colossiens 4:1)"
+  },
+  "en": {
+   "q": "According to Colossians 4:1, what should masters give their servants?",
+   "options": [
+    "What is just and equal",
+    "Gold",
+    "Full freedom",
+    "Holidays"
+   ],
+   "explain": "“Masters, give to your servants that which is just and equal.” (Colossians 4:1)"
+  }
+ },
+ {
+  "id": "business-medium-028",
+  "ref": {
+   "fr": "Deutéronome 24:14",
+   "en": "Deuteronomy 24:14"
+  },
+  "fr": {
+   "q": "Selon Deutéronome 24:14, qui ne faut-il pas opprimer au sujet du salaire ?",
+   "options": [
+    "Le mercenaire pauvre et indigent",
+    "Le roi",
+    "Le prêtre",
+    "Le marchand riche"
+   ],
+   "explain": "« Tu n’opprimeras point le mercenaire pauvre et indigent. » (Deutéronome 24:14)"
+  },
+  "en": {
+   "q": "According to Deuteronomy 24:14, whom must you not oppress about wages?",
+   "options": [
+    "The poor and needy hired servant",
+    "The king",
+    "The priest",
+    "The rich merchant"
+   ],
+   "explain": "“You shall not oppress a hired servant who is poor and needy.” (Deuteronomy 24:14)"
+  }
+ },
+ {
+  "id": "business-medium-029",
+  "ref": {
+   "fr": "Matthieu 20:2",
+   "en": "Matthew 20:2"
+  },
+  "fr": {
+   "q": "Dans la parabole des ouvriers, de quel salaire le maître convint-il pour la journée ?",
+   "options": [
+    "Un denier",
+    "Deux deniers",
+    "Une drachme",
+    "Un talent"
+   ],
+   "explain": "« Il convint avec eux d’un denier par jour. » (Matthieu 20:2)"
+  },
+  "en": {
+   "q": "In the parable of the workers, what daily wage did the master agree on?",
+   "options": [
+    "A denarius",
+    "Two denarii",
+    "A drachma",
+    "A talent"
+   ],
+   "explain": "“When he had agreed with the laborers for a denarius a day...” (Matthew 20:2)"
+  }
+ },
+ {
+  "id": "business-medium-030",
+  "ref": {
+   "fr": "Matthieu 20:15",
+   "en": "Matthew 20:15"
+  },
+  "fr": {
+   "q": "Dans la parabole des ouvriers, que répond le maître aux murmures contre sa générosité ?",
+   "options": [
+    "Ne puis-je faire ce que je veux de mon bien ?",
+    "Je ne vous paierai pas",
+    "Partez d’ici",
+    "Revenez demain"
+   ],
+   "explain": "« Ne m’est-il pas permis de faire de mon bien ce que je veux ? » (Matthieu 20:15)"
+  },
+  "en": {
+   "q": "In the parable of the workers, what does the master answer those grumbling at his generosity?",
+   "options": [
+    "Isn’t it lawful to do what I want with my own?",
+    "I won’t pay you",
+    "Leave here",
+    "Come back tomorrow"
+   ],
+   "explain": "“Isn’t it lawful for me to do what I want to with what I own?” (Matthew 20:15)"
+  }
+ },
+ {
+  "id": "business-medium-031",
+  "ref": {
+   "fr": "Lévitique 25:43",
+   "en": "Leviticus 25:43"
+  },
+  "fr": {
+   "q": "Selon Lévitique 25:43, comment ne faut-il pas dominer sur son serviteur ?",
+   "options": [
+    "Avec dureté",
+    "Avec bonté",
+    "En silence",
+    "De loin"
+   ],
+   "explain": "« Tu ne domineras pas sur lui avec dureté, et tu craindras ton Dieu. » (Lévitique 25:43)"
+  },
+  "en": {
+   "q": "According to Leviticus 25:43, how must you not rule over your servant?",
+   "options": [
+    "With harshness",
+    "With kindness",
+    "In silence",
+    "From afar"
+   ],
+   "explain": "“You shall not rule over him with harshness, but shall fear your God.” (Leviticus 25:43)"
+  }
+ },
+ {
+  "id": "business-medium-032",
+  "ref": {
+   "fr": "Psaume 112:5",
+   "en": "Psalm 112:5"
+  },
+  "fr": {
+   "q": "Selon le Psaume 112:5, qu’en est-il de l’homme qui a pitié et qui prête ?",
+   "options": [
+    "Il est heureux",
+    "Il est maudit",
+    "Il s’appauvrit",
+    "Il est oublié"
+   ],
+   "explain": "« Heureux l’homme qui exerce la miséricorde et qui prête. » (Psaume 112:5)"
+  },
+  "en": {
+   "q": "According to Psalm 112:5, what of the man who is gracious and lends?",
+   "options": [
+    "It is well with him",
+    "He is cursed",
+    "He grows poor",
+    "He is forgotten"
+   ],
+   "explain": "“It is well with the man who deals graciously and lends.” (Psalm 112:5)"
+  }
+ },
+ {
+  "id": "business-medium-033",
+  "ref": {
+   "fr": "Proverbes 3:28",
+   "en": "Proverbs 3:28"
+  },
+  "fr": {
+   "q": "Selon Proverbes 3:28, que ne faut-il pas dire à son prochain quand on peut donner ?",
+   "options": [
+    "« Va et reviens, demain je donnerai »",
+    "« Merci »",
+    "« Attends la moisson »",
+    "« Paie d’abord »"
+   ],
+   "explain": "« Ne dis pas à ton prochain : Va et reviens, demain je donnerai ! quand tu as de quoi donner. » (Proverbes 3:28)"
+  },
+  "en": {
+   "q": "According to Proverbs 3:28, what should you not tell a neighbor when you can give?",
+   "options": [
+    "“Go, and come again; tomorrow I will give”",
+    "“Thank you”",
+    "“Wait for harvest”",
+    "“Pay me first”"
+   ],
+   "explain": "“Don’t say to your neighbor, ‘Go, and come again... tomorrow I will give,’ when you have it by you.” (Proverbs 3:28)"
+  }
+ },
+ {
+  "id": "business-medium-034",
+  "ref": {
+   "fr": "Deutéronome 15:8",
+   "en": "Deuteronomy 15:8"
+  },
+  "fr": {
+   "q": "Selon Deutéronome 15:8, comment faut-il agir envers son frère pauvre ?",
+   "options": [
+    "Lui ouvrir la main et lui prêter selon ses besoins",
+    "Lui fermer la main",
+    "L’ignorer",
+    "Le chasser"
+   ],
+   "explain": "« Mais tu lui ouvriras ta main, et tu lui prêteras de quoi pourvoir à ses besoins. » (Deutéronome 15:8)"
+  },
+  "en": {
+   "q": "According to Deuteronomy 15:8, how should you act toward your poor brother?",
+   "options": [
+    "Open your hand and lend enough for his need",
+    "Shut your hand",
+    "Ignore him",
+    "Drive him away"
+   ],
+   "explain": "“...you shall surely open your hand to him, and shall surely lend him sufficient for his need.” (Deuteronomy 15:8)"
+  }
+ },
+ {
+  "id": "business-medium-035",
+  "ref": {
+   "fr": "Deutéronome 15:1",
+   "en": "Deuteronomy 15:1"
+  },
+  "fr": {
+   "q": "Selon Deutéronome 15:1, tous les combien de temps faisait-on une remise des dettes ?",
+   "options": [
+    "Tous les sept ans",
+    "Tous les ans",
+    "Tous les trois ans",
+    "Tous les cinquante ans"
+   ],
+   "explain": "« Tous les sept ans, tu feras relâche. » (Deutéronome 15:1)"
+  },
+  "en": {
+   "q": "According to Deuteronomy 15:1, how often was a release of debts made?",
+   "options": [
+    "Every seven years",
+    "Every year",
+    "Every three years",
+    "Every fifty years"
+   ],
+   "explain": "“At the end of every seven years you shall make a release.” (Deuteronomy 15:1)"
+  }
+ },
+ {
+  "id": "business-medium-036",
+  "ref": {
+   "fr": "Deutéronome 23:19",
+   "en": "Deuteronomy 23:19"
+  },
+  "fr": {
+   "q": "Selon Deutéronome 23:19, à qui Israël ne devait-il pas prêter à intérêt ?",
+   "options": [
+    "À son frère",
+    "À l’étranger",
+    "Au roi",
+    "Au prêtre"
+   ],
+   "explain": "« Tu n’exigeras de ton frère aucun intérêt. » (Deutéronome 23:19)"
+  },
+  "en": {
+   "q": "According to Deuteronomy 23:19, to whom was Israel not to lend at interest?",
+   "options": [
+    "To his brother",
+    "To the foreigner",
+    "To the king",
+    "To the priest"
+   ],
+   "explain": "“You shall not lend on interest to your brother.” (Deuteronomy 23:19)"
+  }
+ },
+ {
+  "id": "business-medium-037",
+  "ref": {
+   "fr": "Lévitique 25:36",
+   "en": "Leviticus 25:36"
+  },
+  "fr": {
+   "q": "Selon Lévitique 25:36, que ne faut-il pas tirer de son frère appauvri ?",
+   "options": [
+    "Ni intérêt ni usure",
+    "Sa maison",
+    "Son champ",
+    "Ses vêtements"
+   ],
+   "explain": "« Tu ne tireras de lui ni intérêt ni usure, tu craindras ton Dieu. » (Lévitique 25:36)"
+  },
+  "en": {
+   "q": "According to Leviticus 25:36, what must you not take from a poor brother?",
+   "options": [
+    "Interest or increase",
+    "His house",
+    "His field",
+    "His clothes"
+   ],
+   "explain": "“Take no interest from him or profit... that your brother may live with you.” (Leviticus 25:36)"
+  }
+ },
+ {
+  "id": "business-medium-038",
+  "ref": {
+   "fr": "Ézéchiel 18:8",
+   "en": "Ezekiel 18:8"
+  },
+  "fr": {
+   "q": "Selon Ézéchiel 18:8, l’homme juste prête-t-il à intérêt ?",
+   "options": [
+    "Non, il ne prête pas à usure",
+    "Oui, toujours",
+    "Seulement aux riches",
+    "Seulement au roi"
+   ],
+   "explain": "« ...s’il ne prête pas à intérêt et ne tire pas d’usure... c’est un homme juste. » (Ézéchiel 18:8-9)"
+  },
+  "en": {
+   "q": "According to Ezekiel 18:8, does the righteous man lend at interest?",
+   "options": [
+    "No, he takes no usury",
+    "Yes, always",
+    "Only to the rich",
+    "Only to the king"
+   ],
+   "explain": "“He who doesn’t lend on interest, nor take any increase... he is righteous.” (Ezekiel 18:8-9)"
+  }
+ },
+ {
+  "id": "business-medium-039",
+  "ref": {
+   "fr": "Matthieu 5:42",
+   "en": "Matthew 5:42"
+  },
+  "fr": {
+   "q": "Selon Matthieu 5:42, comment agir envers celui qui veut emprunter de toi ?",
+   "options": [
+    "Ne pas se détourner de lui",
+    "Le renvoyer",
+    "Exiger un gage",
+    "Lui fermer la porte"
+   ],
+   "explain": "« ...et ne te détourne pas de celui qui veut emprunter de toi. » (Matthieu 5:42)"
+  },
+  "en": {
+   "q": "According to Matthew 5:42, how should you treat one who wants to borrow?",
+   "options": [
+    "Do not turn away from him",
+    "Send him off",
+    "Demand a pledge",
+    "Shut the door"
+   ],
+   "explain": "“Don’t turn away him who desires to borrow from you.” (Matthew 5:42)"
+  }
+ },
+ {
+  "id": "business-medium-040",
+  "ref": {
+   "fr": "Luc 6:35",
+   "en": "Luke 6:35"
+  },
+  "fr": {
+   "q": "Selon Luc 6:35, comment devons-nous prêter ?",
+   "options": [
+    "Sans rien espérer en retour",
+    "Avec un fort intérêt",
+    "Seulement aux amis",
+    "Contre un gage"
+   ],
+   "explain": "« ...prêtez sans rien espérer. Et votre récompense sera grande. » (Luc 6:35)"
+  },
+  "en": {
+   "q": "According to Luke 6:35, how should we lend?",
+   "options": [
+    "Hoping for nothing in return",
+    "At high interest",
+    "Only to friends",
+    "Against a pledge"
+   ],
+   "explain": "“...lend, expecting nothing back; and your reward will be great.” (Luke 6:35)"
+  }
+ },
+ {
+  "id": "business-medium-041",
+  "ref": {
+   "fr": "2 Rois 4:7",
+   "en": "2 Kings 4:7"
+  },
+  "fr": {
+   "q": "Que dit Élisée à la veuve de faire avec l’huile multipliée ?",
+   "options": [
+    "Vendre l’huile et payer sa dette",
+    "La garder",
+    "La verser",
+    "L’offrir au temple"
+   ],
+   "explain": "« Va vendre l’huile, et paie ta dette ; tu vivras... du reste. » (2 Rois 4:7)"
+  },
+  "en": {
+   "q": "What did Elisha tell the widow to do with the multiplied oil?",
+   "options": [
+    "Sell the oil and pay her debt",
+    "Keep it",
+    "Pour it out",
+    "Give it to the temple"
+   ],
+   "explain": "“Go, sell the oil, and pay your debt; and live on the rest.” (2 Kings 4:7)"
+  }
+ },
+ {
+  "id": "business-medium-042",
+  "ref": {
+   "fr": "Proverbes 30:25",
+   "en": "Proverbs 30:25"
+  },
+  "fr": {
+   "q": "Selon Proverbes 30:25, quel petit peuple sans force prépare sa nourriture pendant l’été ?",
+   "options": [
+    "Les fourmis",
+    "Les abeilles",
+    "Les sauterelles",
+    "Les lapins"
+   ],
+   "explain": "« Les fourmis, peuple sans force, préparent en été leur nourriture. » (Proverbes 30:25)"
+  },
+  "en": {
+   "q": "According to Proverbs 30:25, which weak folk store their food in summer?",
+   "options": [
+    "The ants",
+    "The bees",
+    "The locusts",
+    "The conies"
+   ],
+   "explain": "“The ants are not a strong people, yet they provide their food in the summer.” (Proverbs 30:25)"
+  }
+ },
+ {
+  "id": "business-medium-043",
+  "ref": {
+   "fr": "Proverbes 27:12",
+   "en": "Proverbs 27:12"
+  },
+  "fr": {
+   "q": "Selon Proverbes 27:12, que fait l’homme prudent qui voit venir le mal ?",
+   "options": [
+    "Il se cache",
+    "Il avance quand même",
+    "Il appelle le roi",
+    "Il dort"
+   ],
+   "explain": "« L’homme prudent voit le mal et se cache ; les simples avancent et sont punis. » (Proverbes 27:12)"
+  },
+  "en": {
+   "q": "According to Proverbs 27:12, what does the prudent man do when he sees danger?",
+   "options": [
+    "He hides himself",
+    "He goes on anyway",
+    "He calls the king",
+    "He sleeps"
+   ],
+   "explain": "“A prudent man sees danger and takes refuge; but the simple pass on, and suffer for it.” (Proverbs 27:12)"
+  }
+ },
+ {
+  "id": "business-medium-044",
+  "ref": {
+   "fr": "Luc 12:18",
+   "en": "Luke 12:18"
+  },
+  "fr": {
+   "q": "Dans la parabole du riche insensé, que décide-t-il de faire de ses greniers ?",
+   "options": [
+    "Les abattre pour en bâtir de plus grands",
+    "Les vendre",
+    "Les donner",
+    "Les brûler"
+   ],
+   "explain": "« J’abattrai mes greniers, j’en bâtirai de plus grands. » (Luc 12:18)"
+  },
+  "en": {
+   "q": "In the parable of the rich fool, what does he decide to do with his barns?",
+   "options": [
+    "Tear them down and build bigger ones",
+    "Sell them",
+    "Give them away",
+    "Burn them"
+   ],
+   "explain": "“I will pull down my barns, and build bigger ones.” (Luke 12:18)"
+  }
+ },
+ {
+  "id": "business-medium-045",
+  "ref": {
+   "fr": "Luc 12:20",
+   "en": "Luke 12:20"
+  },
+  "fr": {
+   "q": "Dans la parabole du riche insensé, que lui dit Dieu au sujet de son âme ?",
+   "options": [
+    "Cette nuit même ton âme te sera redemandée",
+    "Tu vivras longtemps",
+    "Sois en paix",
+    "Bâtis encore"
+   ],
+   "explain": "« Insensé ! cette nuit même ton âme te sera redemandée. » (Luc 12:20)"
+  },
+  "en": {
+   "q": "In the parable of the rich fool, what does God say about his soul?",
+   "options": [
+    "This night your soul is required of you",
+    "You will live long",
+    "Be at peace",
+    "Build again"
+   ],
+   "explain": "“You foolish one, tonight your soul is required of you.” (Luke 12:20)"
+  }
+ },
+ {
+  "id": "business-medium-046",
+  "ref": {
+   "fr": "Jacques 4:13",
+   "en": "James 4:13"
+  },
+  "fr": {
+   "q": "Selon Jacques 4:13, que présument ceux qui disent partir faire du commerce ?",
+   "options": [
+    "Gagner de l’argent pendant un an",
+    "Perdre leur temps",
+    "Rester chez eux",
+    "Prier au temple"
+   ],
+   "explain": "« ...nous passerons là une année, nous trafiquerons, et nous gagnerons ! » (Jacques 4:13)"
+  },
+  "en": {
+   "q": "According to James 4:13, what do those planning to trade presume?",
+   "options": [
+    "To spend a year and make a profit",
+    "To waste time",
+    "To stay home",
+    "To pray at the temple"
+   ],
+   "explain": "“...we will spend a year there, trade, and make a profit.” (James 4:13)"
+  }
+ },
+ {
+  "id": "business-medium-047",
+  "ref": {
+   "fr": "Jacques 4:15",
+   "en": "James 4:15"
+  },
+  "fr": {
+   "q": "Selon Jacques 4:15, que devraient plutôt dire ceux qui font des projets ?",
+   "options": [
+    "Si le Seigneur le veut, nous ferons ceci",
+    "Nous réussirons seuls",
+    "Rien du tout",
+    "Demain nous verrons"
+   ],
+   "explain": "« Vous devriez dire : Si Dieu le veut, nous vivrons et nous ferons ceci ou cela. » (Jacques 4:15)"
+  },
+  "en": {
+   "q": "According to James 4:15, what should planners rather say?",
+   "options": [
+    "If the Lord wills, we will do this",
+    "We will succeed alone",
+    "Nothing at all",
+    "Tomorrow we shall see"
+   ],
+   "explain": "“You ought to say, ‘If the Lord wills, we will both live, and do this or that.’” (James 4:15)"
+  }
+ },
+ {
+  "id": "business-medium-048",
+  "ref": {
+   "fr": "Deutéronome 8:18",
+   "en": "Deuteronomy 8:18"
+  },
+  "fr": {
+   "q": "Selon Deutéronome 8:18, qui donne la force d’acquérir des richesses ?",
+   "options": [
+    "L’Éternel ton Dieu",
+    "Le roi",
+    "Le sage",
+    "La chance"
+   ],
+   "explain": "« ...c’est lui qui te donne de la force pour les acquérir. » (Deutéronome 8:18)"
+  },
+  "en": {
+   "q": "According to Deuteronomy 8:18, who gives the power to gain wealth?",
+   "options": [
+    "The LORD your God",
+    "The king",
+    "The wise",
+    "Luck"
+   ],
+   "explain": "“...for it is he who gives you power to get wealth.” (Deuteronomy 8:18)"
+  }
+ },
+ {
+  "id": "business-medium-049",
+  "ref": {
+   "fr": "Ecclésiaste 5:19",
+   "en": "Ecclesiastes 5:19"
+  },
+  "fr": {
+   "q": "Selon Ecclésiaste 5:19, jouir de ses biens et de son travail est un don de qui ?",
+   "options": [
+    "De Dieu",
+    "Du roi",
+    "Des ancêtres",
+    "De la chance"
+   ],
+   "explain": "« ...jouir de son travail, c’est là un don de Dieu. » (Ecclésiaste 5:19)"
+  },
+  "en": {
+   "q": "According to Ecclesiastes 5:19, enjoying one’s wealth and labor is a gift from whom?",
+   "options": [
+    "From God",
+    "From the king",
+    "From ancestors",
+    "From luck"
+   ],
+   "explain": "“...and rejoice in his labor—this is the gift of God.” (Ecclesiastes 5:19)"
+  }
+ },
+ {
+  "id": "business-medium-050",
+  "ref": {
+   "fr": "1 Chroniques 29:14",
+   "en": "1 Chronicles 29:14"
+  },
+  "fr": {
+   "q": "Selon 1 Chroniques 29:14, d’où venaient les biens que David offrait à Dieu ?",
+   "options": [
+    "Tout vient de Dieu, et de sa main",
+    "De ses conquêtes",
+    "De ses impôts",
+    "De son commerce"
+   ],
+   "explain": "« Car tout vient de toi, et nous recevons de ta main ce que nous t’offrons. » (1 Chroniques 29:14)"
+  },
+  "en": {
+   "q": "According to 1 Chronicles 29:14, where did David’s offerings come from?",
+   "options": [
+    "All comes from God, from his hand",
+    "From his conquests",
+    "From his taxes",
+    "From his trade"
+   ],
+   "explain": "“...for all things come from you, and of your own have we given you.” (1 Chronicles 29:14)"
+  }
+ },
+ {
+  "id": "business-medium-051",
+  "ref": {
+   "fr": "Luc 16:2",
+   "en": "Luke 16:2"
+  },
+  "fr": {
+   "q": "Dans la parabole de l’économe infidèle, que demande le maître à son gérant ?",
+   "options": [
+    "Rends compte de ta gestion",
+    "Garde ta place",
+    "Fuis le pays",
+    "Double mes biens"
+   ],
+   "explain": "« Rends compte de ton administration, car tu ne pourras plus gérer mes biens. » (Luc 16:2)"
+  },
+  "en": {
+   "q": "In the parable of the shrewd manager, what does the master ask his steward?",
+   "options": [
+    "Give an account of your management",
+    "Keep your position",
+    "Flee the land",
+    "Double my goods"
+   ],
+   "explain": "“Give an accounting of your management, for you can no longer be manager.” (Luke 16:2)"
+  }
+ },
+ {
+  "id": "business-medium-052",
+  "ref": {
+   "fr": "Luc 16:11",
+   "en": "Luke 16:11"
+  },
+  "fr": {
+   "q": "Selon Luc 16:11, à qui confiera-t-on les vraies richesses ?",
+   "options": [
+    "À qui est fidèle dans les richesses injustes",
+    "Au plus riche",
+    "Au plus savant",
+    "Au plus fort"
+   ],
+   "explain": "« Si donc vous n’avez pas été fidèles dans les richesses injustes, qui vous confiera les véritables ? » (Luc 16:11)"
+  },
+  "en": {
+   "q": "According to Luke 16:11, to whom will true riches be entrusted?",
+   "options": [
+    "To one faithful in unrighteous wealth",
+    "To the richest",
+    "To the most learned",
+    "To the strongest"
+   ],
+   "explain": "“If you have not been faithful in the unrighteous mammon, who will commit... the true riches?” (Luke 16:11)"
+  }
+ },
+ {
+  "id": "business-medium-053",
+  "ref": {
+   "fr": "1 Timothée 6:17",
+   "en": "1 Timothy 6:17"
+  },
+  "fr": {
+   "q": "Selon 1 Timothée 6:17, en quoi les riches ne doivent-ils pas mettre leur espérance ?",
+   "options": [
+    "Dans des richesses incertaines",
+    "Dans leurs amis",
+    "Dans leur travail",
+    "Dans leur savoir"
+   ],
+   "explain": "« ...de ne pas mettre leur espérance dans des richesses incertaines, mais dans Dieu. » (1 Timothée 6:17)"
+  },
+  "en": {
+   "q": "According to 1 Timothy 6:17, in what should the rich not put their hope?",
+   "options": [
+    "In uncertain riches",
+    "In their friends",
+    "In their work",
+    "In their learning"
+   ],
+   "explain": "“...not to have their hope set on the uncertainty of riches, but on God.” (1 Timothy 6:17)"
+  }
+ },
+ {
+  "id": "business-medium-054",
+  "ref": {
+   "fr": "1 Timothée 6:18",
+   "en": "1 Timothy 6:18"
+  },
+  "fr": {
+   "q": "Selon 1 Timothée 6:18, que recommande-t-on aux riches de faire ?",
+   "options": [
+    "Être généreux et prêts à partager",
+    "Amasser davantage",
+    "Se retirer",
+    "Se taire"
+   ],
+   "explain": "« ...qu’ils soient généreux, prêts à donner, à partager. » (1 Timothée 6:18)"
+  },
+  "en": {
+   "q": "According to 1 Timothy 6:18, what are the rich urged to do?",
+   "options": [
+    "Be generous and ready to share",
+    "Hoard more",
+    "Withdraw",
+    "Keep silent"
+   ],
+   "explain": "“...to be generous, ready to share.” (1 Timothy 6:18)"
+  }
+ },
+ {
+  "id": "business-medium-055",
+  "ref": {
+   "fr": "Luc 12:15",
+   "en": "Luke 12:15"
+  },
+  "fr": {
+   "q": "Selon Luc 12:15, contre quoi Jésus met-il en garde, car la vie n’en dépend pas ?",
+   "options": [
+    "La cupidité",
+    "Le travail",
+    "Le repos",
+    "Le voyage"
+   ],
+   "explain": "« Gardez-vous avec soin de toute avarice ; car la vie... ne dépend pas de ses biens. » (Luc 12:15)"
+  },
+  "en": {
+   "q": "According to Luke 12:15, what does Jesus warn against, since life is not in it?",
+   "options": [
+    "Covetousness",
+    "Work",
+    "Rest",
+    "Travel"
+   ],
+   "explain": "“Beware of covetousness, for a man’s life doesn’t consist of the abundance of his possessions.” (Luke 12:15)"
+  }
+ },
+ {
+  "id": "business-medium-056",
+  "ref": {
+   "fr": "2 Corinthiens 8:9",
+   "en": "2 Corinthians 8:9"
+  },
+  "fr": {
+   "q": "Selon 2 Corinthiens 8:9, pourquoi Christ, étant riche, s’est-il fait pauvre ?",
+   "options": [
+    "Pour nous enrichir par sa pauvreté",
+    "Pour être admiré",
+    "Pour éviter l’impôt",
+    "Pour se cacher"
+   ],
+   "explain": "« ...de riche qu’il était, il s’est fait pauvre... afin que par sa pauvreté vous fussiez enrichis. » (2 Corinthiens 8:9)"
+  },
+  "en": {
+   "q": "According to 2 Corinthians 8:9, why did Christ, though rich, become poor?",
+   "options": [
+    "So we might be rich through his poverty",
+    "To be admired",
+    "To avoid taxes",
+    "To hide"
+   ],
+   "explain": "“...though he was rich, yet for your sakes he became poor, that you... might become rich.” (2 Corinthians 8:9)"
+  }
+ },
+ {
+  "id": "business-medium-057",
+  "ref": {
+   "fr": "Proverbes 28:8",
+   "en": "Proverbs 28:8"
+  },
+  "fr": {
+   "q": "Selon Proverbes 28:8, pour qui amasse celui qui s’enrichit par l’usure ?",
+   "options": [
+    "Pour celui qui a pitié des pauvres",
+    "Pour lui-même",
+    "Pour le roi",
+    "Pour ses enfants"
+   ],
+   "explain": "« Celui qui augmente ses biens par l’intérêt... les amasse pour celui qui a pitié des pauvres. » (Proverbes 28:8)"
+  },
+  "en": {
+   "q": "According to Proverbs 28:8, for whom does one who grows rich by usury gather?",
+   "options": [
+    "For one who is kind to the poor",
+    "For himself",
+    "For the king",
+    "For his children"
+   ],
+   "explain": "“One who increases his wealth by interest... gathers it for one who has pity on the poor.” (Proverbs 28:8)"
+  }
+ },
+ {
+  "id": "business-medium-058",
+  "ref": {
+   "fr": "Lévitique 27:30",
+   "en": "Leviticus 27:30"
+  },
+  "fr": {
+   "q": "Selon Lévitique 27:30, à qui appartient la dîme de la terre ?",
+   "options": [
+    "À l’Éternel",
+    "Au prêtre",
+    "Au roi",
+    "Au propriétaire"
+   ],
+   "explain": "« Toute dîme de la terre... appartient à l’Éternel ; c’est une chose consacrée. » (Lévitique 27:30)"
+  },
+  "en": {
+   "q": "According to Leviticus 27:30, to whom does the tithe of the land belong?",
+   "options": [
+    "To the LORD",
+    "To the priest",
+    "To the king",
+    "To the owner"
+   ],
+   "explain": "“All the tithe of the land... is the LORD’s. It is holy to the LORD.” (Leviticus 27:30)"
+  }
+ },
+ {
+  "id": "business-medium-059",
+  "ref": {
+   "fr": "Deutéronome 14:22",
+   "en": "Deuteronomy 14:22"
+  },
+  "fr": {
+   "q": "Selon Deutéronome 14:22, de quoi Israël devait-il prélever la dîme chaque année ?",
+   "options": [
+    "De tout le produit de ses semailles",
+    "De son argent seulement",
+    "De son bétail seulement",
+    "De son vin seulement"
+   ],
+   "explain": "« Tu lèveras la dîme de tout ce que produira ta semence... chaque année. » (Deutéronome 14:22)"
+  },
+  "en": {
+   "q": "According to Deuteronomy 14:22, from what was Israel to tithe each year?",
+   "options": [
+    "All the increase of the seed",
+    "Only their money",
+    "Only their cattle",
+    "Only their wine"
+   ],
+   "explain": "“You shall surely tithe all the increase of your seed... year by year.” (Deuteronomy 14:22)"
+  }
+ },
+ {
+  "id": "business-medium-060",
+  "ref": {
+   "fr": "2 Chroniques 31:5",
+   "en": "2 Chronicles 31:5"
+  },
+  "fr": {
+   "q": "Sous le roi Ézéchias, qu’apportèrent en abondance les enfants d’Israël ?",
+   "options": [
+    "Les prémices et la dîme de tout",
+    "Des soldats",
+    "Des idoles",
+    "Des chevaux"
+   ],
+   "explain": "« ...les prémices du blé, du moût, de l’huile... et la dîme de tout, en abondance. » (2 Chroniques 31:5)"
+  },
+  "en": {
+   "q": "Under King Hezekiah, what did the Israelites bring in abundance?",
+   "options": [
+    "The firstfruits and tithe of everything",
+    "Soldiers",
+    "Idols",
+    "Horses"
+   ],
+   "explain": "“...the firstfruits of grain, new wine, oil... and the tithe of all things in abundance.” (2 Chronicles 31:5)"
+  }
+ },
+ {
+  "id": "business-medium-061",
+  "ref": {
+   "fr": "Malachie 3:8",
+   "en": "Malachi 3:8"
+  },
+  "fr": {
+   "q": "Selon Malachie 3:8, en quoi le peuple trompait-il Dieu ?",
+   "options": [
+    "Dans les dîmes et les offrandes",
+    "Dans les sacrifices",
+    "Dans les prières",
+    "Dans les fêtes"
+   ],
+   "explain": "« En quoi t’avons-nous trompé ? Dans les dîmes et les offrandes. » (Malachie 3:8)"
+  },
+  "en": {
+   "q": "According to Malachi 3:8, in what were the people robbing God?",
+   "options": [
+    "In tithes and offerings",
+    "In sacrifices",
+    "In prayers",
+    "In feasts"
+   ],
+   "explain": "“...how have we robbed you? In tithes and offerings.” (Malachi 3:8)"
+  }
+ },
+ {
+  "id": "business-medium-062",
+  "ref": {
+   "fr": "Matthieu 23:23",
+   "en": "Matthew 23:23"
+  },
+  "fr": {
+   "q": "Selon Matthieu 23:23, qu’avaient négligé les pharisiens tout en payant la dîme ?",
+   "options": [
+    "La justice, la miséricorde et la fidélité",
+    "Les sacrifices",
+    "Le sabbat",
+    "Les jeûnes"
+   ],
+   "explain": "« ...vous payez la dîme... et vous laissez la justice, la miséricorde et la fidélité. » (Matthieu 23:23)"
+  },
+  "en": {
+   "q": "According to Matthew 23:23, what had the Pharisees neglected while tithing?",
+   "options": [
+    "Justice, mercy, and faithfulness",
+    "Sacrifices",
+    "The Sabbath",
+    "Fasts"
+   ],
+   "explain": "“...you tithe mint... and have left undone... justice, mercy, and faith.” (Matthew 23:23)"
+  }
+ },
+ {
+  "id": "business-medium-063",
+  "ref": {
+   "fr": "Nombres 18:26",
+   "en": "Numbers 18:26"
+  },
+  "fr": {
+   "q": "Selon Nombres 18:26, que devaient offrir les Lévites sur les dîmes reçues ?",
+   "options": [
+    "La dîme de la dîme",
+    "La moitié",
+    "Rien",
+    "Le quart"
+   ],
+   "explain": "« ...vous en prélèverez une offrande pour l’Éternel, la dîme de la dîme. » (Nombres 18:26)"
+  },
+  "en": {
+   "q": "According to Numbers 18:26, what were the Levites to offer from the tithes?",
+   "options": [
+    "A tithe of the tithe",
+    "A half",
+    "Nothing",
+    "A quarter"
+   ],
+   "explain": "“...then you shall offer up a wave offering of it... a tithe of the tithe.” (Numbers 18:26)"
+  }
+ },
+ {
+  "id": "business-medium-064",
+  "ref": {
+   "fr": "Néhémie 6:3",
+   "en": "Nehemiah 6:3"
+  },
+  "fr": {
+   "q": "Que répond Néhémie à ses ennemis qui l’appellent à descendre ?",
+   "options": [
+    "Je fais un grand ouvrage, je ne puis descendre",
+    "J’arrive aussitôt",
+    "Attendez la nuit",
+    "Venez ici"
+   ],
+   "explain": "« Je fais un grand ouvrage, et je ne puis descendre. » (Néhémie 6:3)"
+  },
+  "en": {
+   "q": "What does Nehemiah answer his enemies who call him to come down?",
+   "options": [
+    "I am doing a great work; I can’t come down",
+    "I’m coming at once",
+    "Wait for night",
+    "Come here"
+   ],
+   "explain": "“I am doing a great work, so that I can’t come down.” (Nehemiah 6:3)"
+  }
+ },
+ {
+  "id": "business-medium-065",
+  "ref": {
+   "fr": "Néhémie 6:15",
+   "en": "Nehemiah 6:15"
+  },
+  "fr": {
+   "q": "En combien de jours la muraille de Jérusalem fut-elle achevée ?",
+   "options": [
+    "Cinquante-deux jours",
+    "Sept jours",
+    "Quarante jours",
+    "Cent jours"
+   ],
+   "explain": "« La muraille fut achevée... en cinquante-deux jours. » (Néhémie 6:15)"
+  },
+  "en": {
+   "q": "In how many days was the wall of Jerusalem finished?",
+   "options": [
+    "Fifty-two days",
+    "Seven days",
+    "Forty days",
+    "One hundred days"
+   ],
+   "explain": "“So the wall was finished... in fifty-two days.” (Nehemiah 6:15)"
+  }
+ },
+ {
+  "id": "business-medium-066",
+  "ref": {
+   "fr": "Néhémie 4:17",
+   "en": "Nehemiah 4:17"
+  },
+  "fr": {
+   "q": "Selon Néhémie 4:17, comment travaillaient les bâtisseurs de la muraille ?",
+   "options": [
+    "D’une main l’ouvrage, de l’autre une arme",
+    "En chantant",
+    "Les yeux fermés",
+    "En dormant"
+   ],
+   "explain": "« ...d’une main ils travaillaient à l’œuvre, et de l’autre ils tenaient une arme. » (Néhémie 4:17)"
+  },
+  "en": {
+   "q": "According to Nehemiah 4:17, how did the wall builders work?",
+   "options": [
+    "One hand working, the other holding a weapon",
+    "Singing",
+    "Eyes closed",
+    "Sleeping"
+   ],
+   "explain": "“...each with one of his hands did the work, and with the other held his weapon.” (Nehemiah 4:17)"
+  }
+ },
+ {
+  "id": "business-medium-067",
+  "ref": {
+   "fr": "Néhémie 2:18",
+   "en": "Nehemiah 2:18"
+  },
+  "fr": {
+   "q": "Que répondit le peuple quand Néhémie l’appela à rebâtir la muraille ?",
+   "options": [
+    "Levons-nous et bâtissons",
+    "Nous sommes fatigués",
+    "Demain peut-être",
+    "Attendons le roi"
+   ],
+   "explain": "« Levons-nous, et bâtissons ! Et ils se fortifièrent dans cette bonne résolution. » (Néhémie 2:18)"
+  },
+  "en": {
+   "q": "What did the people reply when Nehemiah called them to rebuild the wall?",
+   "options": [
+    "Let us rise up and build",
+    "We are tired",
+    "Maybe tomorrow",
+    "Let us wait for the king"
+   ],
+   "explain": "“Let’s rise up and build. So they strengthened their hands for the good work.” (Nehemiah 2:18)"
+  }
+ },
+ {
+  "id": "business-medium-068",
+  "ref": {
+   "fr": "Genèse 41:34",
+   "en": "Genesis 41:34"
+  },
+  "fr": {
+   "q": "Quelle part des récoltes Joseph proposa-t-il de prélever pendant l’abondance ?",
+   "options": [
+    "Le cinquième",
+    "Le dixième",
+    "La moitié",
+    "Le tiers"
+   ],
+   "explain": "« ...qu’il prélève un cinquième des récoltes de l’Égypte pendant les sept années d’abondance. » (Genèse 41:34)"
+  },
+  "en": {
+   "q": "What portion of the harvest did Joseph propose to take during the plenty?",
+   "options": [
+    "A fifth",
+    "A tenth",
+    "A half",
+    "A third"
+   ],
+   "explain": "“...and take up the fifth part of the land of Egypt in the seven plenteous years.” (Genesis 41:34)"
+  }
+ },
+ {
+  "id": "business-medium-069",
+  "ref": {
+   "fr": "Genèse 41:40",
+   "en": "Genesis 41:40"
+  },
+  "fr": {
+   "q": "Quelle autorité Pharaon donna-t-il à Joseph sur l’Égypte ?",
+   "options": [
+    "L’intendance de toute sa maison et du pays",
+    "Un champ",
+    "Un troupeau",
+    "Une prison"
+   ],
+   "explain": "« Tu seras à la tête de ma maison... le trône seul m’élèvera au-dessus de toi. » (Genèse 41:40)"
+  },
+  "en": {
+   "q": "What authority did Pharaoh give Joseph over Egypt?",
+   "options": [
+    "Charge over all his house and land",
+    "A field",
+    "A flock",
+    "A prison"
+   ],
+   "explain": "“You shall be over my house... only in the throne will I be greater than you.” (Genesis 41:40)"
+  }
+ },
+ {
+  "id": "business-medium-070",
+  "ref": {
+   "fr": "Genèse 47:24",
+   "en": "Genesis 47:24"
+  },
+  "fr": {
+   "q": "Selon Genèse 47:24, quelle part de la récolte devait revenir à Pharaon ?",
+   "options": [
+    "Le cinquième",
+    "Le dixième",
+    "La moitié",
+    "Le quart"
+   ],
+   "explain": "« Vous donnerez un cinquième à Pharaon, et les quatre autres parts seront à vous. » (Genèse 47:24)"
+  },
+  "en": {
+   "q": "According to Genesis 47:24, what share of the harvest went to Pharaoh?",
+   "options": [
+    "A fifth",
+    "A tenth",
+    "A half",
+    "A quarter"
+   ],
+   "explain": "“...you shall give a fifth to Pharaoh, and four parts will be your own.” (Genesis 47:24)"
+  }
+ },
+ {
+  "id": "business-medium-071",
+  "ref": {
+   "fr": "Exode 31:3",
+   "en": "Exodus 31:3"
+  },
+  "fr": {
+   "q": "De quoi Dieu remplit-il Betsaleel pour les travaux du tabernacle ?",
+   "options": [
+    "De l’Esprit de Dieu, sagesse et habileté",
+    "D’or",
+    "De force",
+    "De richesse"
+   ],
+   "explain": "« Je l’ai rempli de l’Esprit de Dieu, de sagesse... pour toute espèce d’ouvrage. » (Exode 31:3)"
+  },
+  "en": {
+   "q": "With what did God fill Bezalel for the tabernacle work?",
+   "options": [
+    "The Spirit of God, wisdom, and skill",
+    "Gold",
+    "Strength",
+    "Wealth"
+   ],
+   "explain": "“I have filled him with the Spirit of God, in wisdom... and in all kinds of workmanship.” (Exodus 31:3)"
+  }
+ },
+ {
+  "id": "business-medium-072",
+  "ref": {
+   "fr": "Proverbes 24:6",
+   "en": "Proverbs 24:6"
+  },
+  "fr": {
+   "q": "Selon Proverbes 24:6, où se trouve le salut dans les grands projets ?",
+   "options": [
+    "Dans le grand nombre de conseillers",
+    "Dans la force",
+    "Dans la richesse",
+    "Dans la ruse"
+   ],
+   "explain": "« ...le salut est dans le grand nombre des conseillers. » (Proverbes 24:6)"
+  },
+  "en": {
+   "q": "According to Proverbs 24:6, where is safety in great undertakings?",
+   "options": [
+    "In many advisers",
+    "In strength",
+    "In riches",
+    "In cunning"
+   ],
+   "explain": "“...victory is won through many advisers.” (Proverbs 24:6)"
+  }
+ },
+ {
+  "id": "business-medium-073",
+  "ref": {
+   "fr": "Exode 18:22",
+   "en": "Exodus 18:22"
+  },
+  "fr": {
+   "q": "Quel conseil Jéthro donna-t-il à Moïse pour ne pas s’épuiser à juger seul ?",
+   "options": [
+    "Déléguer les petites affaires à des chefs",
+    "Cesser de juger",
+    "Fuir le désert",
+    "Juger plus vite"
+   ],
+   "explain": "« Ils jugeront les petites affaires... ils porteront le fardeau avec toi. » (Exode 18:22)"
+  },
+  "en": {
+   "q": "What advice did Jethro give Moses to avoid wearing himself out judging alone?",
+   "options": [
+    "Delegate small matters to leaders",
+    "Stop judging",
+    "Flee the desert",
+    "Judge faster"
+   ],
+   "explain": "“...let them judge... every small matter... so shall they bear the burden with you.” (Exodus 18:22)"
+  }
+ },
+ {
+  "id": "business-medium-074",
+  "ref": {
+   "fr": "Lévitique 25:10",
+   "en": "Leviticus 25:10"
+  },
+  "fr": {
+   "q": "Selon Lévitique 25:10, que devait-on proclamer la cinquantième année (le jubilé) ?",
+   "options": [
+    "La liberté dans le pays",
+    "La guerre",
+    "Un impôt",
+    "Un recensement"
+   ],
+   "explain": "« Vous publierez la liberté dans le pays pour tous ses habitants : ce sera pour vous le jubilé. » (Lévitique 25:10)"
+  },
+  "en": {
+   "q": "According to Leviticus 25:10, what was proclaimed in the fiftieth year (Jubilee)?",
+   "options": [
+    "Liberty throughout the land",
+    "War",
+    "A tax",
+    "A census"
+   ],
+   "explain": "“...proclaim liberty throughout the land... it shall be a jubilee to you.” (Leviticus 25:10)"
+  }
+ },
+ {
+  "id": "business-medium-075",
+  "ref": {
+   "fr": "Lévitique 25:23",
+   "en": "Leviticus 25:23"
+  },
+  "fr": {
+   "q": "Selon Lévitique 25:23, pourquoi la terre ne pouvait-elle être vendue à perpétuité ?",
+   "options": [
+    "Car la terre appartient à Dieu",
+    "Car elle est stérile",
+    "Car le roi l’interdit",
+    "Car elle est trop chère"
+   ],
+   "explain": "« La terre ne se vendra point à perpétuité ; car le pays est à moi. » (Lévitique 25:23)"
+  },
+  "en": {
+   "q": "According to Leviticus 25:23, why could land not be sold forever?",
+   "options": [
+    "Because the land belongs to God",
+    "Because it is barren",
+    "Because the king forbade it",
+    "Because it is costly"
+   ],
+   "explain": "“The land shall not be sold in perpetuity, for the land is mine.” (Leviticus 25:23)"
+  }
+ },
+ {
+  "id": "business-medium-076",
+  "ref": {
+   "fr": "Lévitique 25:28",
+   "en": "Leviticus 25:28"
+  },
+  "fr": {
+   "q": "Selon Lévitique 25:28, quand la propriété vendue revenait-elle à son ancien maître ?",
+   "options": [
+    "Au jubilé",
+    "Au bout d’un an",
+    "Jamais",
+    "À la moisson"
+   ],
+   "explain": "« ...jusqu’à l’année du jubilé ; au jubilé, il rentrera dans sa propriété. » (Lévitique 25:28)"
+  },
+  "en": {
+   "q": "According to Leviticus 25:28, when did sold property return to its former owner?",
+   "options": [
+    "At the Jubilee",
+    "After one year",
+    "Never",
+    "At harvest"
+   ],
+   "explain": "“...until the Year of Jubilee; in the Jubilee it shall be released, and he shall return to his property.” (Leviticus 25:28)"
+  }
+ },
+ {
+  "id": "business-medium-077",
+  "ref": {
+   "fr": "Lévitique 19:9",
+   "en": "Leviticus 19:9"
+  },
+  "fr": {
+   "q": "Selon Lévitique 19:9, quelle partie du champ ne fallait-il pas moissonner entièrement ?",
+   "options": [
+    "Les coins du champ",
+    "Le centre",
+    "Les épis mûrs",
+    "Le meilleur grain"
+   ],
+   "explain": "« ...tu ne moissonneras pas entièrement les coins de ton champ. » (Lévitique 19:9)"
+  },
+  "en": {
+   "q": "According to Leviticus 19:9, what part of the field was not to be fully reaped?",
+   "options": [
+    "The corners of the field",
+    "The center",
+    "The ripe ears",
+    "The best grain"
+   ],
+   "explain": "“...you shall not wholly reap the corners of your field.” (Leviticus 19:9)"
+  }
+ },
+ {
+  "id": "business-medium-078",
+  "ref": {
+   "fr": "Lévitique 19:10",
+   "en": "Leviticus 19:10"
+  },
+  "fr": {
+   "q": "Selon Lévitique 19:10, pour qui laissait-on les grappes et les restes de la vigne ?",
+   "options": [
+    "Pour le pauvre et l’étranger",
+    "Pour le roi",
+    "Pour les prêtres",
+    "Pour les marchands"
+   ],
+   "explain": "« Tu laisseras cela au pauvre et à l’étranger. » (Lévitique 19:10)"
+  },
+  "en": {
+   "q": "According to Leviticus 19:10, for whom were the vineyard gleanings left?",
+   "options": [
+    "For the poor and the foreigner",
+    "For the king",
+    "For the priests",
+    "For the merchants"
+   ],
+   "explain": "“...you shall leave them for the poor and for the foreigner.” (Leviticus 19:10)"
+  }
+ },
+ {
+  "id": "business-medium-079",
+  "ref": {
+   "fr": "Deutéronome 24:19",
+   "en": "Deuteronomy 24:19"
+  },
+  "fr": {
+   "q": "Selon Deutéronome 24:19, pour qui laissait-on la gerbe oubliée au champ ?",
+   "options": [
+    "Pour l’étranger, l’orphelin et la veuve",
+    "Pour le roi",
+    "Pour soi-même",
+    "Pour le prêtre"
+   ],
+   "explain": "« ...elle sera pour l’étranger, pour l’orphelin et pour la veuve. » (Deutéronome 24:19)"
+  },
+  "en": {
+   "q": "According to Deuteronomy 24:19, for whom was a forgotten sheaf left in the field?",
+   "options": [
+    "For the foreigner, orphan, and widow",
+    "For the king",
+    "For oneself",
+    "For the priest"
+   ],
+   "explain": "“...it shall be for the foreigner, for the fatherless, and for the widow.” (Deuteronomy 24:19)"
+  }
+ },
+ {
+  "id": "business-medium-080",
+  "ref": {
+   "fr": "Ruth 2:3",
+   "en": "Ruth 2:3"
+  },
+  "fr": {
+   "q": "Dans le champ de qui Ruth se trouva-t-elle à glaner ?",
+   "options": [
+    "Booz",
+    "Élimélec",
+    "Machlon",
+    "Salmon"
+   ],
+   "explain": "« ...elle se trouva par hasard dans la pièce de terre appartenant à Boaz. » (Ruth 2:3)"
+  },
+  "en": {
+   "q": "In whose field did Ruth happen to glean?",
+   "options": [
+    "Boaz",
+    "Elimelech",
+    "Mahlon",
+    "Salmon"
+   ],
+   "explain": "“...she happened to come to the portion of the field belonging to Boaz.” (Ruth 2:3)"
+  }
+ },
+ {
+  "id": "business-medium-081",
+  "ref": {
+   "fr": "Ruth 2:16",
+   "en": "Ruth 2:16"
+  },
+  "fr": {
+   "q": "Que Booz ordonna-t-il à ses moissonneurs à propos de Ruth ?",
+   "options": [
+    "Laisser tomber des épis exprès pour elle",
+    "La renvoyer",
+    "La faire payer",
+    "L’ignorer"
+   ],
+   "explain": "« Vous tirerez même pour elle des gerbes quelques épis... et vous les laisserez. » (Ruth 2:16)"
+  },
+  "en": {
+   "q": "What did Boaz order his harvesters concerning Ruth?",
+   "options": [
+    "Pull out some grain on purpose for her",
+    "Send her away",
+    "Charge her",
+    "Ignore her"
+   ],
+   "explain": "“Also pull out some for her from the bundles, and leave it.” (Ruth 2:16)"
+  }
+ },
+ {
+  "id": "business-medium-082",
+  "ref": {
+   "fr": "Actes 16:14",
+   "en": "Acts 16:14"
+  },
+  "fr": {
+   "q": "Quel commerce exerçait Lydie, la femme convertie à Philippes ?",
+   "options": [
+    "Marchande de pourpre",
+    "Boulangère",
+    "Tisserande",
+    "Potière"
+   ],
+   "explain": "« ...Lydie, marchande de pourpre, de la ville de Thyatire. » (Actes 16:14)"
+  },
+  "en": {
+   "q": "What business did Lydia, converted at Philippi, run?",
+   "options": [
+    "A seller of purple",
+    "A baker",
+    "A weaver",
+    "A potter"
+   ],
+   "explain": "“...Lydia, a seller of purple, of the city of Thyatira.” (Acts 16:14)"
+  }
+ },
+ {
+  "id": "business-medium-083",
+  "ref": {
+   "fr": "Actes 16:15",
+   "en": "Acts 16:15"
+  },
+  "fr": {
+   "q": "Qu’offrit Lydie à Paul et ses compagnons après son baptême ?",
+   "options": [
+    "L’hospitalité dans sa maison",
+    "De l’argent",
+    "Un navire",
+    "Un champ"
+   ],
+   "explain": "« ...entrez dans ma maison, et demeurez-y. Et elle nous pressa d’accepter. » (Actes 16:15)"
+  },
+  "en": {
+   "q": "What did Lydia offer Paul and his companions after her baptism?",
+   "options": [
+    "Lodging in her house",
+    "Money",
+    "A ship",
+    "A field"
+   ],
+   "explain": "“...come into my house, and stay. So she persuaded us.” (Acts 16:15)"
+  }
+ },
+ {
+  "id": "business-medium-084",
+  "ref": {
+   "fr": "Proverbes 31:13",
+   "en": "Proverbs 31:13"
+  },
+  "fr": {
+   "q": "Selon Proverbes 31:13, avec quoi travaille de ses mains la femme vertueuse ?",
+   "options": [
+    "La laine et le lin",
+    "L’or et l’argent",
+    "Le bois",
+    "La pierre"
+   ],
+   "explain": "« Elle se procure de la laine et du lin, et travaille d’une main joyeuse. » (Proverbes 31:13)"
+  },
+  "en": {
+   "q": "According to Proverbs 31:13, with what does the virtuous woman work?",
+   "options": [
+    "Wool and flax",
+    "Gold and silver",
+    "Wood",
+    "Stone"
+   ],
+   "explain": "“She seeks wool and flax, and works eagerly with her hands.” (Proverbs 31:13)"
+  }
+ },
+ {
+  "id": "business-medium-085",
+  "ref": {
+   "fr": "Proverbes 31:14",
+   "en": "Proverbs 31:14"
+  },
+  "fr": {
+   "q": "Selon Proverbes 31:14, à quoi la femme vertueuse est-elle comparée ?",
+   "options": [
+    "Aux navires marchands",
+    "Aux montagnes",
+    "Aux rois",
+    "Aux étoiles"
+   ],
+   "explain": "« Elle est comme un navire marchand, elle amène son pain de loin. » (Proverbes 31:14)"
+  },
+  "en": {
+   "q": "According to Proverbs 31:14, to what is the virtuous woman compared?",
+   "options": [
+    "Merchant ships",
+    "The mountains",
+    "Kings",
+    "The stars"
+   ],
+   "explain": "“She is like the merchant ships. She brings her bread from afar.” (Proverbs 31:14)"
+  }
+ },
+ {
+  "id": "business-medium-086",
+  "ref": {
+   "fr": "Proverbes 31:16",
+   "en": "Proverbs 31:16"
+  },
+  "fr": {
+   "q": "Selon Proverbes 31:16, que fait la femme vertueuse d’un champ qu’elle considère ?",
+   "options": [
+    "Elle l’achète et y plante une vigne",
+    "Elle le vend",
+    "Elle le laboure seule",
+    "Elle le donne"
+   ],
+   "explain": "« Elle pense à un champ, et elle l’acquiert ; du fruit de son travail elle plante une vigne. » (Proverbes 31:16)"
+  },
+  "en": {
+   "q": "According to Proverbs 31:16, what does the virtuous woman do with a field she considers?",
+   "options": [
+    "She buys it and plants a vineyard",
+    "She sells it",
+    "She plows it alone",
+    "She gives it away"
+   ],
+   "explain": "“She considers a field, and buys it. With the fruit of her hands, she plants a vineyard.” (Proverbs 31:16)"
+  }
+ },
+ {
+  "id": "business-medium-087",
+  "ref": {
+   "fr": "Proverbes 31:18",
+   "en": "Proverbs 31:18"
+  },
+  "fr": {
+   "q": "Selon Proverbes 31:18, que sent la femme vertueuse au sujet de son gain ?",
+   "options": [
+    "Que son commerce est bon",
+    "Qu’il est vain",
+    "Qu’il est perdu",
+    "Qu’il est maudit"
+   ],
+   "explain": "« Elle sent que ce qu’elle gagne est bon ; sa lampe ne s’éteint point pendant la nuit. » (Proverbes 31:18)"
+  },
+  "en": {
+   "q": "According to Proverbs 31:18, what does the virtuous woman perceive about her gain?",
+   "options": [
+    "That her trade is profitable",
+    "That it is vain",
+    "That it is lost",
+    "That it is cursed"
+   ],
+   "explain": "“She perceives that her merchandise is profitable. Her lamp doesn’t go out by night.” (Proverbs 31:18)"
+  }
+ },
+ {
+  "id": "business-medium-088",
+  "ref": {
+   "fr": "Proverbes 31:24",
+   "en": "Proverbs 31:24"
+  },
+  "fr": {
+   "q": "Selon Proverbes 31:24, que fabrique et vend la femme vertueuse ?",
+   "options": [
+    "Des tuniques de lin et des ceintures",
+    "Des armes",
+    "Des bijoux",
+    "Des tapis de soie"
+   ],
+   "explain": "« Elle fait des chemises, et les vend, et elle livre des ceintures au marchand. » (Proverbes 31:24)"
+  },
+  "en": {
+   "q": "According to Proverbs 31:24, what does the virtuous woman make and sell?",
+   "options": [
+    "Linen garments and sashes",
+    "Weapons",
+    "Jewels",
+    "Silk carpets"
+   ],
+   "explain": "“She makes linen garments and sells them, and delivers sashes to the merchant.” (Proverbs 31:24)"
+  }
+ },
+ {
+  "id": "business-medium-089",
+  "ref": {
+   "fr": "Proverbes 31:27",
+   "en": "Proverbs 31:27"
+  },
+  "fr": {
+   "q": "Selon Proverbes 31:27, quel pain la femme vertueuse ne mange-t-elle pas ?",
+   "options": [
+    "Le pain de la paresse",
+    "Le pain des riches",
+    "Le pain d’orge",
+    "Le pain sans levain"
+   ],
+   "explain": "« Elle surveille sa maison, et elle ne mange pas le pain de la paresse. » (Proverbes 31:27)"
+  },
+  "en": {
+   "q": "According to Proverbs 31:27, what bread does the virtuous woman not eat?",
+   "options": [
+    "The bread of idleness",
+    "The bread of the rich",
+    "Barley bread",
+    "Unleavened bread"
+   ],
+   "explain": "“...and doesn’t eat the bread of idleness.” (Proverbs 31:27)"
+  }
+ },
+ {
+  "id": "business-medium-090",
+  "ref": {
+   "fr": "Proverbes 31:20",
+   "en": "Proverbs 31:20"
+  },
+  "fr": {
+   "q": "Selon Proverbes 31:20, vers qui la femme vertueuse tend-elle la main ?",
+   "options": [
+    "Vers le pauvre et l’indigent",
+    "Vers le roi",
+    "Vers le riche",
+    "Vers l’étranger"
+   ],
+   "explain": "« Elle tend la main au malheureux, elle tend la main à l’indigent. » (Proverbes 31:20)"
+  },
+  "en": {
+   "q": "According to Proverbs 31:20, to whom does the virtuous woman reach out her hand?",
+   "options": [
+    "To the poor and needy",
+    "To the king",
+    "To the rich",
+    "To the stranger"
+   ],
+   "explain": "“She opens her arms to the poor; yes, she reaches out her hands to the needy.” (Proverbs 31:20)"
+  }
+ },
+ {
+  "id": "business-medium-091",
+  "ref": {
+   "fr": "Proverbes 30:9",
+   "en": "Proverbs 30:9"
+  },
+  "fr": {
+   "q": "Selon Proverbes 30:9, pourquoi Agur craint-il d’être trop pauvre ?",
+   "options": [
+    "De peur de voler et de déshonorer Dieu",
+    "De peur d’être seul",
+    "De peur de mourir",
+    "De peur d’être moqué"
+   ],
+   "explain": "« ...et que, dans l’indigence, je ne dérobe, et n’outrage le nom de mon Dieu. » (Proverbes 30:9)"
+  },
+  "en": {
+   "q": "According to Proverbs 30:9, why does Agur fear being too poor?",
+   "options": [
+    "Lest he steal and dishonor God",
+    "Lest he be alone",
+    "Lest he die",
+    "Lest he be mocked"
+   ],
+   "explain": "“...or lest I be poor, and steal, and so dishonor the name of my God.” (Proverbs 30:9)"
+  }
+ },
+ {
+  "id": "business-medium-092",
+  "ref": {
+   "fr": "Ecclésiaste 5:10",
+   "en": "Ecclesiastes 5:11"
+  },
+  "fr": {
+   "q": "Selon Ecclésiaste 5:10, que devient le nombre de ceux qui mangent quand les biens augmentent ?",
+   "options": [
+    "Il augmente aussi",
+    "Il diminue",
+    "Il reste fixe",
+    "Il disparaît"
+   ],
+   "explain": "« Quand les biens s’augmentent, ceux qui les mangent s’augmentent. » (Ecclésiaste 5:10)"
+  },
+  "en": {
+   "q": "According to Ecclesiastes 5:11, what happens to the eaters when goods increase?",
+   "options": [
+    "They increase too",
+    "They decrease",
+    "They stay fixed",
+    "They vanish"
+   ],
+   "explain": "“When goods increase, those who eat them are increased.” (Ecclesiastes 5:11)"
+  }
+ },
+ {
+  "id": "business-medium-093",
+  "ref": {
+   "fr": "Psaume 62:10",
+   "en": "Psalm 62:10"
+  },
+  "fr": {
+   "q": "Selon le Psaume 62:10, où ne faut-il pas attacher son cœur si les richesses augmentent ?",
+   "options": [
+    "Aux richesses",
+    "À la maison",
+    "Au travail",
+    "Aux amis"
+   ],
+   "explain": "« Si les richesses s’accroissent, n’y attachez pas votre cœur. » (Psaume 62:10)"
+  },
+  "en": {
+   "q": "According to Psalm 62:10, on what should you not set your heart if riches increase?",
+   "options": [
+    "On riches",
+    "On the house",
+    "On work",
+    "On friends"
+   ],
+   "explain": "“...if riches increase, don’t set your heart on them.” (Psalm 62:10)"
+  }
+ },
+ {
+  "id": "business-medium-094",
+  "ref": {
+   "fr": "Proverbes 27:24",
+   "en": "Proverbs 27:24"
+  },
+  "fr": {
+   "q": "Selon Proverbes 27:24, combien de temps dure la richesse ?",
+   "options": [
+    "Elle ne dure pas toujours",
+    "Elle dure éternellement",
+    "Sept ans",
+    "Une génération seulement"
+   ],
+   "explain": "« ...car la richesse ne dure pas toujours, ni une couronne éternellement. » (Proverbes 27:24)"
+  },
+  "en": {
+   "q": "According to Proverbs 27:24, how long do riches last?",
+   "options": [
+    "They do not endure forever",
+    "They last eternally",
+    "Seven years",
+    "One generation only"
+   ],
+   "explain": "“...for riches are not forever, nor does the crown endure to all generations.” (Proverbs 27:24)"
+  }
+ },
+ {
+  "id": "business-medium-095",
+  "ref": {
+   "fr": "Proverbes 13:7",
+   "en": "Proverbs 13:7"
+  },
+  "fr": {
+   "q": "Selon Proverbes 13:7, que fait tel homme qui se prétend riche ?",
+   "options": [
+    "Il n’a rien du tout",
+    "Il possède tout",
+    "Il devient roi",
+    "Il prête à tous"
+   ],
+   "explain": "« Tel fait le riche et n’a rien du tout, tel fait le pauvre et a de grands biens. » (Proverbes 13:7)"
+  },
+  "en": {
+   "q": "According to Proverbs 13:7, what of one who pretends to be rich?",
+   "options": [
+    "He has nothing at all",
+    "He owns everything",
+    "He becomes king",
+    "He lends to all"
+   ],
+   "explain": "“There are some who pretend to be rich, yet have nothing.” (Proverbs 13:7)"
+  }
+ },
+ {
+  "id": "business-medium-096",
+  "ref": {
+   "fr": "Proverbes 28:6",
+   "en": "Proverbs 28:6"
+  },
+  "fr": {
+   "q": "Selon Proverbes 28:6, qui vaut mieux que le riche aux voies tortueuses ?",
+   "options": [
+    "Le pauvre qui marche dans l’intégrité",
+    "Le roi",
+    "Le juge",
+    "Le marchand"
+   ],
+   "explain": "« Mieux vaut le pauvre qui marche dans son intégrité, que celui qui a des voies tortueuses et qui est riche. » (Proverbes 28:6)"
+  },
+  "en": {
+   "q": "According to Proverbs 28:6, who is better than the rich man of crooked ways?",
+   "options": [
+    "The poor who walks in integrity",
+    "The king",
+    "The judge",
+    "The merchant"
+   ],
+   "explain": "“Better is the poor who walks in his integrity, than he who is perverse... and he is rich.” (Proverbs 28:6)"
+  }
+ },
+ {
+  "id": "business-medium-097",
+  "ref": {
+   "fr": "1 Timothée 6:7",
+   "en": "1 Timothy 6:7"
+  },
+  "fr": {
+   "q": "Selon 1 Timothée 6:7, qu’avons-nous apporté dans le monde ?",
+   "options": [
+    "Rien, et nous n’en emporterons rien",
+    "De l’or",
+    "Notre travail",
+    "Nos biens"
+   ],
+   "explain": "« Car nous n’avons rien apporté dans le monde, et... nous n’en pouvons rien emporter. » (1 Timothée 6:7)"
+  },
+  "en": {
+   "q": "According to 1 Timothy 6:7, what did we bring into the world?",
+   "options": [
+    "Nothing, and we take nothing out",
+    "Gold",
+    "Our work",
+    "Our goods"
+   ],
+   "explain": "“For we brought nothing into the world, and... we can carry nothing out.” (1 Timothy 6:7)"
+  }
+ },
+ {
+  "id": "business-medium-098",
+  "ref": {
+   "fr": "1 Timothée 6:9",
+   "en": "1 Timothy 6:9"
+  },
+  "fr": {
+   "q": "Selon 1 Timothée 6:9, dans quoi tombent ceux qui veulent s’enrichir ?",
+   "options": [
+    "La tentation, le piège et de nombreux désirs",
+    "La gloire",
+    "La sagesse",
+    "Le repos"
+   ],
+   "explain": "« Ceux qui veulent s’enrichir tombent dans la tentation, dans le piège, et dans... convoitises. » (1 Timothée 6:9)"
+  },
+  "en": {
+   "q": "According to 1 Timothy 6:9, into what do those wanting to be rich fall?",
+   "options": [
+    "Temptation, a snare, and many lusts",
+    "Glory",
+    "Wisdom",
+    "Rest"
+   ],
+   "explain": "“Those who are determined to be rich fall into a temptation, a snare, and many... lusts.” (1 Timothy 6:9)"
+  }
+ },
+ {
+  "id": "business-medium-099",
+  "ref": {
+   "fr": "Matthieu 6:33",
+   "en": "Matthew 6:33"
+  },
+  "fr": {
+   "q": "Selon Matthieu 6:33, que faut-il chercher premièrement, et le reste sera donné ?",
+   "options": [
+    "Le royaume de Dieu et sa justice",
+    "La richesse",
+    "Le pouvoir",
+    "La renommée"
+   ],
+   "explain": "« Cherchez premièrement le royaume et la justice de Dieu ; et toutes ces choses vous seront données. » (Matthieu 6:33)"
+  },
+  "en": {
+   "q": "According to Matthew 6:33, what should be sought first, and the rest added?",
+   "options": [
+    "God’s kingdom and his righteousness",
+    "Wealth",
+    "Power",
+    "Fame"
+   ],
+   "explain": "“Seek first God’s Kingdom and his righteousness; and all these things will be given to you.” (Matthew 6:33)"
+  }
+ },
+ {
+  "id": "business-medium-100",
+  "ref": {
+   "fr": "Job 1:21",
+   "en": "Job 1:21"
+  },
+  "fr": {
+   "q": "Que déclare Job en 1:21 au sujet de ce qu’il possède ?",
+   "options": [
+    "L’Éternel a donné, l’Éternel a ôté",
+    "Tout est à moi",
+    "Je garderai tout",
+    "Rien ne m’arrivera"
+   ],
+   "explain": "« L’Éternel a donné, et l’Éternel a ôté ; que le nom de l’Éternel soit béni ! » (Job 1:21)"
+  },
+  "en": {
+   "q": "What does Job declare in 1:21 about his possessions?",
+   "options": [
+    "The LORD gave and the LORD has taken away",
+    "All is mine",
+    "I will keep all",
+    "Nothing will befall me"
+   ],
+   "explain": "“The LORD gave, and the LORD has taken away. Blessed be the name of the LORD.” (Job 1:21)"
+  }
+ }
+]
