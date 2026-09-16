@@ -671,6 +671,7 @@ const fr = {
   "quiz.rankingWeek": 'Classement de la semaine',
   "quiz.seeAll": 'Voir tout',
   "quiz.beFirst": 'Pas encore de champion — sois le premier cette semaine !',
+  "quiz.general": 'Général',
 }
 
 export default fr

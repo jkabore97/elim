@@ -239,7 +239,7 @@ function HomeScreen({ profile, dailyDone, loading, onClose, onPickCategory, onDa
       {/* Big Kids button */}
       <button onClick={onKids} disabled={loading}
         className="quiz-shine w-full text-left rounded-3xl p-5 mb-4 flex items-center gap-4 bg-gradient-to-r from-pink-500 via-fuchsia-500 to-violet-500 shadow-xl disabled:opacity-70">
-        <div className="text-5xl shrink-0 quiz-anim-bounce">🧒🏿</div>
+        <div className="text-5xl shrink-0 quiz-anim-bounce">🎈</div>
         <div className="flex-1 min-w-0">
           <p className="font-extrabold text-white text-xl leading-tight">{t('quiz.kidsTitle')}</p>
           <p className="text-sm text-white/90">{t('quiz.kidsSubtitle')}</p>
@@ -397,7 +397,7 @@ function KidNameScreen({ loading, onBack, onStart }: {
         <ChevronLeft size={20} /> {t('quiz.back')}
       </button>
       <div className="flex-1 flex flex-col items-center justify-center text-center">
-        <div className="text-7xl mb-3 quiz-anim-bounce">🧒🏿</div>
+        <div className="text-7xl mb-3 quiz-anim-bounce">🎈</div>
         <h1 className="text-2xl font-extrabold text-white mb-1">{t('quiz.kidsTitle')}</h1>
         <p className="text-on-bg mb-6">{t('quiz.kidNamePrompt')} 😊</p>
         <input
@@ -447,7 +447,7 @@ function PlayScreen({ questions, difficulty, kid, kidName, onQuit, onFinish }: {
     <div className="px-4 pt-4 pb-6 safe-top flex flex-col min-h-full">
       <div className="flex items-center justify-between gap-2 mb-3">
         <span className="inline-flex items-center gap-1.5 bg-white/15 border border-white/30 rounded-full px-3 py-1.5 text-white text-sm font-semibold min-w-0 truncate">
-          {kid ? '🧒🏿' : CATEGORY_META[q.category].emoji} <span className="truncate">{kid ? (kidName || t('quiz.kidsTitle')) : t(`quiz.cat.${q.category}` as any)}</span>
+          {kid ? '🎈' : CATEGORY_META[q.category].emoji} <span className="truncate">{kid ? (kidName || t('quiz.kidsTitle')) : t(`quiz.cat.${q.category}` as any)}</span>
         </span>
         <div className="flex items-center gap-2 shrink-0">
           <span className="inline-flex items-center gap-1.5 bg-white/15 border border-white/30 text-white rounded-full px-3 py-1.5 text-xs font-bold whitespace-nowrap">
@@ -623,7 +623,7 @@ function KidResults({ r, onReplay, onLeaders, onHome }: {
       </div>
       <div className="relative w-44 h-44 mx-auto my-2 grid place-items-center">
         <div className="absolute w-36 h-36 rounded-full bg-fuchsia-300/50 blur-2xl quiz-anim-glow" />
-        <div className="relative text-8xl quiz-anim-medal">🧒🏿</div>
+        <div className="relative text-8xl quiz-anim-medal">🎈</div>
       </div>
       <p className="text-2xl font-extrabold text-white mb-6 quiz-anim-pop">+ {shown.toLocaleString()} {t('quiz.points')}</p>
       <div className="grid grid-cols-2 gap-3 mb-3">
@@ -715,9 +715,10 @@ function LeadersScreen({ uid, onBack, onPalmares }: { uid: string; onBack: () =>
     return () => { alive = false }
   }, [tab])
 
+  // Two leagues only: the general (all adults combined) live weekly score, and
+  // the kids score. Per-category winners still live in the Palmarès.
   const tabs: { id: LeagueTab; label: string }[] = [
-    { id: 'grand', label: t('quiz.grand') },
-    ...ADULT_CATEGORIES.map(c => ({ id: c as LeagueTab, label: t(`quiz.cat.${c}` as any) })),
+    { id: 'grand', label: t('quiz.general') },
     { id: 'kids', label: t('quiz.kidsTitle') },
   ]
 
@@ -741,7 +742,7 @@ function LeadersScreen({ uid, onBack, onPalmares }: { uid: string; onBack: () =>
         {tabs.map(tb => (
           <button key={tb.id} onClick={() => setTab(tb.id)}
             className={`shrink-0 px-3.5 py-2 rounded-full text-sm font-bold transition ${tab === tb.id ? (tb.id === 'kids' ? 'bg-fuchsia-600 text-white' : 'bg-white text-orange-700') : 'bg-white/15 text-white border border-white/30'}`}>
-            {tb.id === 'kids' ? '🧒🏿 ' : ''}{tb.label}
+            {tb.id === 'kids' ? '🎈 ' : ''}{tb.label}
           </button>
         ))}
       </div>
@@ -813,7 +814,7 @@ function PalmaresScreen({ onBack }: { onBack: () => void }) {
                 <div className="flex items-center gap-3">
                   <Crown size={22} className="text-fuchsia-500 shrink-0" />
                   <div className="flex-1 min-w-0">
-                    <p className="font-extrabold text-slate-800 truncate">🧒🏿 {c.winner.childName}</p>
+                    <p className="font-extrabold text-slate-800 truncate">🎈 {c.winner.childName}</p>
                     {c.winner.parentName && <p className="text-[11px] text-slate-400 truncate">{c.winner.parentName}</p>}
                   </div>
                   <span className="font-extrabold text-fuchsia-600">{c.winner.points.toLocaleString()}</span>
