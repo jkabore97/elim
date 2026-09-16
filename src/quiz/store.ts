@@ -90,25 +90,43 @@ export async function commitAdultGame(
 // ---- Leaderboards -----------------------------------------------------------
 export interface LeaderRow { uid: string; name: string; avatar?: string; points: number; weeksWon?: number }
 
-async function fetchLeague(league: string, top: number): Promise<LeaderRow[]> {
-  const q = query(collection(db, WEEKLY),
-    where('weekId', '==', weekKey()), where('league', '==', league),
-    orderBy('points', 'desc'), limit(top))
-  const snap = await getDocs(q)
-  return snap.docs.map(d => {
-    const v = d.data() as any
-    return { uid: v.uid, name: v.name || '—', avatar: v.avatar, points: v.points ?? 0 }
-  })
+// The General (all-adults) ranking reads each player's profile directly, so
+// it shows everyone's real weekly score - including scores earned before the
+// per-category collection existed. Still weekly: filtered to this week's id.
+export async function fetchGrandLeaders(top = 30): Promise<LeaderRow[]> {
+  try {
+    const q = query(collection(db, PROFILES),
+      where('weekId', '==', weekKey()), orderBy('weekPoints', 'desc'), limit(top))
+    const snap = await getDocs(q)
+    return snap.docs
+      .map(d => {
+        const v = d.data() as any
+        return { uid: d.id, name: v.displayName || '—', avatar: v.avatar, points: v.weekPoints ?? 0, weeksWon: v.weeksWon || 0 }
+      })
+      .filter(r => r.points > 0)
+  } catch { return [] }
 }
 
-export const fetchGrandLeaders = (top = 20) => fetchLeague('grand', top)
-export const fetchCategoryLeaders = (category: QuizCategory, top = 20) => fetchLeague(category, top)
+// Per-category ranking still comes from the weekly collection (used by the
+// Palmarès / champion snapshots).
+export async function fetchCategoryLeaders(category: QuizCategory, top = 30): Promise<LeaderRow[]> {
+  try {
+    const q = query(collection(db, WEEKLY),
+      where('weekId', '==', weekKey()), where('league', '==', category),
+      orderBy('points', 'desc'), limit(top))
+    const snap = await getDocs(q)
+    return snap.docs.map(d => {
+      const v = d.data() as any
+      return { uid: v.uid, name: v.name || '—', avatar: v.avatar, points: v.points ?? 0 }
+    })
+  } catch { return [] }
+}
 
 // Home banner: this week's Grand champion (null if nobody has scored yet).
 export interface TopScorer { uid: string; name: string; points: number; scope: 'week' }
 export async function fetchTopScorer(): Promise<TopScorer | null> {
   try {
-    const rows = await fetchLeague('grand', 1)
+    const rows = await fetchGrandLeaders(1)
     if (rows[0] && rows[0].points > 0) return { uid: rows[0].uid, name: rows[0].name, points: rows[0].points, scope: 'week' }
   } catch { /* index building or offline */ }
   return null
