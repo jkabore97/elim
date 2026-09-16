@@ -141,7 +141,7 @@
    "en": "Genesis 41:51-52"
   },
   "fr": {
-   "q": "Comment s'appelaient les deux fils de Joseph nés en Égypte ?",
+   "q": "Quels deux fils naquirent à Joseph avant les années de famine ?",
    "options": [
     "Manassé et Éphraïm",
     "Guerschom et Éliézer",
@@ -151,7 +151,7 @@
    "explain": "Joseph nomma ses fils Manassé et Éphraïm. (Genèse 41:51-52)"
   },
   "en": {
-   "q": "What were the names of Joseph's two sons born in Egypt?",
+   "q": "Which two sons were born to Joseph before the years of famine?",
    "options": [
     "Manasseh and Ephraim",
     "Gershom and Eliezer",
@@ -600,7 +600,7 @@
    "en": "Genesis 7:6"
   },
   "fr": {
-   "q": "Quel âge avait Noé lorsque le déluge vint sur la terre ?",
+   "q": "À quel âge de Noé les eaux du déluge vinrent-elles sur la terre ?",
    "options": [
     "600 ans",
     "500 ans",
@@ -610,7 +610,7 @@
    "explain": "Noé avait six cents ans quand vint le déluge. (Genèse 7:6)"
   },
   "en": {
-   "q": "How old was Noah when the flood came upon the earth?",
+   "q": "At what age of Noah did the floodwaters come upon the earth?",
    "options": [
     "600 years",
     "500 years",
@@ -870,7 +870,7 @@
    "en": "Judges 12:8-9"
   },
   "fr": {
-   "q": "Quel juge de Bethléhem eut trente fils et trente filles ?",
+   "q": "Quel juge eut trente fils et maria trente filles au dehors ?",
    "options": [
     "Ibtsan",
     "Élon",
@@ -880,7 +880,7 @@
    "explain": "Ibtsan de Bethléhem eut trente fils et trente filles. (Juges 12:8-9)"
   },
   "en": {
-   "q": "Which judge of Bethlehem had thirty sons and thirty daughters?",
+   "q": "Which judge had thirty sons and married thirty daughters abroad?",
    "options": [
     "Ibzan",
     "Elon",
@@ -1005,7 +1005,7 @@
    "en": "2 Samuel 16:5"
   },
   "fr": {
-   "q": "Quel homme de la maison de Saül maudit David lors de sa fuite ?",
+   "q": "Quel Benjamite jeta des pierres à David en le maudissant à Bachurim ?",
    "options": [
     "Schimeï",
     "Ziba",
@@ -1015,7 +1015,7 @@
    "explain": "Schimeï, fils de Guéra, maudit David et lui jeta des pierres. (2 Samuel 16:5-6)"
   },
   "en": {
-   "q": "Which man of Saul's house cursed David during his flight?",
+   "q": "Which Benjamite threw stones and cursed David at Bahurim?",
    "options": [
     "Shimei",
     "Ziba",
@@ -2355,7 +2355,7 @@
    "en": "Acts 13:1"
   },
   "fr": {
-   "q": "Quel prophète d'Antioche avait été élevé avec Hérode le tétrarque ?",
+   "q": "Quel docteur d’Antioche, compagnon d’enfance d’Hérode, était prophète ?",
    "options": [
     "Manaën",
     "Lucius",
@@ -2365,7 +2365,7 @@
    "explain": "Manaën, élevé avec Hérode, enseignait à Antioche. (Actes 13:1)"
   },
   "en": {
-   "q": "Which prophet at Antioch had been brought up with Herod the tetrarch?",
+   "q": "Which teacher at Antioch, Herod’s boyhood companion, was a prophet?",
    "options": [
     "Manaen",
     "Lucius",
@@ -2436,7 +2436,7 @@
    "en": "Acts 17:34"
   },
   "fr": {
-   "q": "Quel membre de l'Aréopage crut à la prédication de Paul à Athènes ?",
+   "q": "Quel Athénien de l’Aréopage crut après le discours de Paul ?",
    "options": [
     "Denys l'Aréopagite",
     "Sergius Paulus",
@@ -2446,7 +2446,7 @@
    "explain": "Denys l'Aréopagite et Damaris crurent. (Actes 17:34)"
   },
   "en": {
-   "q": "Which member of the Areopagus believed Paul's preaching at Athens?",
+   "q": "Which Athenian of the Areopagus believed after Paul’s speech?",
    "options": [
     "Dionysius the Areopagite",
     "Sergius Paulus",
@@ -2463,7 +2463,7 @@
    "en": "Acts 18:8"
   },
   "fr": {
-   "q": "Quel chef de la synagogue de Corinthe crut au Seigneur avec sa maison ?",
+   "q": "Quel dirigeant de la synagogue à Corinthe se convertit avec sa famille ?",
    "options": [
     "Crispus",
     "Sosthène",
@@ -2473,7 +2473,7 @@
    "explain": "Crispus, chef de la synagogue, crut avec toute sa maison. (Actes 18:8)"
   },
   "en": {
-   "q": "Which ruler of the synagogue at Corinth believed the Lord with his household?",
+   "q": "Which leader of the synagogue in Corinth converted with his family?",
    "options": [
     "Crispus",
     "Sosthenes",
@@ -2490,7 +2490,7 @@
    "en": "Acts 19:24"
   },
   "fr": {
-   "q": "Quel orfèvre d'Éphèse souleva une émeute pour la déesse Diane ?",
+   "q": "Quel fabricant d’idoles d’argent provoqua le tumulte d’Éphèse ?",
    "options": [
     "Démétrius",
     "Alexandre",
@@ -2500,7 +2500,7 @@
    "explain": "Démétrius, fabricant de temples d'argent, ameuta la ville. (Actes 19:24)"
   },
   "en": {
-   "q": "Which silversmith of Ephesus stirred up a riot for the goddess Diana?",
+   "q": "Which maker of silver idols caused the uproar at Ephesus?",
    "options": [
     "Demetrius",
     "Alexander",
@@ -2571,7 +2571,7 @@
    "en": "Acts 24:1"
   },
   "fr": {
-   "q": "Quel orateur accusa Paul devant le gouverneur Félix ?",
+   "q": "Quel avocat plaida contre Paul devant le gouverneur Félix ?",
    "options": [
     "Tertulle",
     "Gamaliel",
@@ -2581,7 +2581,7 @@
    "explain": "Tertulle plaida contre Paul devant Félix. (Actes 24:1-2)"
   },
   "en": {
-   "q": "Which orator accused Paul before governor Felix?",
+   "q": "Which advocate argued against Paul before governor Felix?",
    "options": [
     "Tertullus",
     "Gamaliel",
@@ -2598,7 +2598,7 @@
    "en": "Acts 27:1"
   },
   "fr": {
-   "q": "Quel centurion de la cohorte Auguste conduisit Paul vers Rome ?",
+   "q": "Quel officier romain embarqua Paul pour l’Italie avec des prisonniers ?",
    "options": [
     "Jules",
     "Corneille",
@@ -2608,7 +2608,7 @@
    "explain": "On remit Paul à Jules, centurion de la cohorte Auguste. (Actes 27:1)"
   },
   "en": {
-   "q": "Which centurion of the Augustan cohort took Paul toward Rome?",
+   "q": "Which Roman officer put Paul aboard for Italy with prisoners?",
    "options": [
     "Julius",
     "Cornelius",

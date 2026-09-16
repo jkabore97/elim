@@ -1,0 +1,2702 @@
+[
+ {
+  "id": "miracles-hard-001",
+  "ref": {
+   "fr": "Exode 8:15",
+   "en": "Exodus 8:19"
+  },
+  "fr": {
+   "q": "Devant quelle plaie les magiciens dirent-ils : « C'est le doigt de Dieu » ?",
+   "options": [
+    "Les poux",
+    "Les grenouilles",
+    "Les mouches",
+    "Le sang"
+   ],
+   "explain": "Devant les poux, les magiciens dirent : C'est le doigt de Dieu. (Exode 8:15)"
+  },
+  "en": {
+   "q": "At which plague did the magicians say, 'This is the finger of God'?",
+   "options": [
+    "The gnats",
+    "The frogs",
+    "The flies",
+    "The blood"
+   ],
+   "explain": "At the gnats the magicians said, 'This is the finger of God.' (Exodus 8:19)"
+  }
+ },
+ {
+  "id": "miracles-hard-002",
+  "ref": {
+   "fr": "Exode 10:13-22",
+   "en": "Exodus 10:13-22"
+  },
+  "fr": {
+   "q": "Quelle plaie précéda immédiatement les ténèbres sur l'Égypte ?",
+   "options": [
+    "Les sauterelles",
+    "La grêle",
+    "Les ulcères",
+    "Les mouches"
+   ],
+   "explain": "Les sauterelles vinrent, puis suivirent les ténèbres. (Exode 10:13-22)"
+  },
+  "en": {
+   "q": "Which plague came immediately before the darkness over Egypt?",
+   "options": [
+    "The locusts",
+    "The hail",
+    "The boils",
+    "The flies"
+   ],
+   "explain": "The locusts came, and then the darkness followed. (Exodus 10:13-22)"
+  }
+ },
+ {
+  "id": "miracles-hard-003",
+  "ref": {
+   "fr": "Exode 9:3-6",
+   "en": "Exodus 9:3-6"
+  },
+  "fr": {
+   "q": "Quelle plaie, la cinquième, frappa surtout le bétail des Égyptiens ?",
+   "options": [
+    "La peste des troupeaux",
+    "Les ulcères",
+    "La grêle",
+    "Les sauterelles"
+   ],
+   "explain": "Une peste très grande frappa le bétail des Égyptiens. (Exode 9:3-6)"
+  },
+  "en": {
+   "q": "Which plague, the fifth, struck mainly the Egyptians' livestock?",
+   "options": [
+    "A plague on the herds",
+    "The boils",
+    "The hail",
+    "The locusts"
+   ],
+   "explain": "A very grievous plague struck the Egyptians' livestock. (Exodus 9:3-6)"
+  }
+ },
+ {
+  "id": "miracles-hard-004",
+  "ref": {
+   "fr": "Exode 9:8-10",
+   "en": "Exodus 9:8-10"
+  },
+  "fr": {
+   "q": "Que Moïse répandit-il vers le ciel pour provoquer les ulcères en Égypte ?",
+   "options": [
+    "De la cendre de fournaise",
+    "De la poussière",
+    "De l'eau",
+    "Du sang"
+   ],
+   "explain": "Moïse jeta la cendre vers le ciel, et il y eut des ulcères. (Exode 9:8-10)"
+  },
+  "en": {
+   "q": "What did Moses toss toward heaven to bring boils on Egypt?",
+   "options": [
+    "Soot from a furnace",
+    "Dust",
+    "Water",
+    "Blood"
+   ],
+   "explain": "Moses tossed furnace soot up, and boils broke out. (Exodus 9:8-10)"
+  }
+ },
+ {
+  "id": "miracles-hard-005",
+  "ref": {
+   "fr": "Exode 9:24",
+   "en": "Exodus 9:24"
+  },
+  "fr": {
+   "q": "Qu'y avait-il de mêlé à la grêle lors de la septième plaie ?",
+   "options": [
+    "Du feu",
+    "Du sang",
+    "De la fumée",
+    "De la glace seule"
+   ],
+   "explain": "Il y eut de la grêle, et du feu mêlé avec la grêle. (Exode 9:24)"
+  },
+  "en": {
+   "q": "What was mixed with the hail in the seventh plague?",
+   "options": [
+    "Fire",
+    "Blood",
+    "Smoke",
+    "Ice only"
+   ],
+   "explain": "There was hail, and fire mingled with the hail. (Exodus 9:24)"
+  }
+ },
+ {
+  "id": "miracles-hard-006",
+  "ref": {
+   "fr": "Exode 8:18",
+   "en": "Exodus 8:22"
+  },
+  "fr": {
+   "q": "À partir de quelle plaie l'Éternel épargna-t-il le pays de Gosen ?",
+   "options": [
+    "Les mouches",
+    "Le sang",
+    "Les grenouilles",
+    "Les poux"
+   ],
+   "explain": "Je distinguerai le pays de Gosen : là, point de mouches. (Exode 8:18)"
+  },
+  "en": {
+   "q": "From which plague did the LORD set apart the land of Goshen?",
+   "options": [
+    "The flies",
+    "The blood",
+    "The frogs",
+    "The gnats"
+   ],
+   "explain": "'I will set apart Goshen; no flies shall be there.' (Exodus 8:22)"
+  }
+ },
+ {
+  "id": "miracles-hard-007",
+  "ref": {
+   "fr": "Exode 12:29",
+   "en": "Exodus 12:29"
+  },
+  "fr": {
+   "q": "À quel moment l'Éternel frappa-t-il tous les premiers-nés d'Égypte ?",
+   "options": [
+    "À minuit",
+    "À l'aube",
+    "À midi",
+    "Au crépuscule"
+   ],
+   "explain": "Au milieu de la nuit, l'Éternel frappa tous les premiers-nés. (Exode 12:29)"
+  },
+  "en": {
+   "q": "At what time did the LORD strike all the firstborn of Egypt?",
+   "options": [
+    "At midnight",
+    "At dawn",
+    "At noon",
+    "At dusk"
+   ],
+   "explain": "At midnight the LORD struck all the firstborn. (Exodus 12:29)"
+  }
+ },
+ {
+  "id": "miracles-hard-008",
+  "ref": {
+   "fr": "Exode 8:12-13",
+   "en": "Exodus 8:16-17"
+  },
+  "fr": {
+   "q": "D'où sortirent les poux de la troisième plaie quand Aaron frappa le sol ?",
+   "options": [
+    "De la poussière de la terre",
+    "Du Nil",
+    "Des maisons",
+    "Des cendres"
+   ],
+   "explain": "La poussière se changea en poux dans tout le pays. (Exode 8:12-13)"
+  },
+  "en": {
+   "q": "From what did the gnats of the third plague come when Aaron struck the ground?",
+   "options": [
+    "From the dust of the earth",
+    "From the Nile",
+    "From the houses",
+    "From ashes"
+   ],
+   "explain": "The dust of the earth became gnats throughout the land. (Exodus 8:16-17)"
+  }
+ },
+ {
+  "id": "miracles-hard-009",
+  "ref": {
+   "fr": "Lévitique 10:1-2",
+   "en": "Leviticus 10:1-2"
+  },
+  "fr": {
+   "q": "Quels fils d'Aaron un feu consuma-t-il pour un feu étranger offert à l'Éternel ?",
+   "options": [
+    "Nadab et Abihu",
+    "Éléazar et Ithamar",
+    "Koré et Dathan",
+    "Hophni et Phinées"
+   ],
+   "explain": "Un feu sortit et consuma Nadab et Abihu. (Lévitique 10:1-2)"
+  },
+  "en": {
+   "q": "Which sons of Aaron did fire consume for offering strange fire to the LORD?",
+   "options": [
+    "Nadab and Abihu",
+    "Eleazar and Ithamar",
+    "Korah and Dathan",
+    "Hophni and Phinehas"
+   ],
+   "explain": "Fire came out and devoured Nadab and Abihu. (Leviticus 10:1-2)"
+  }
+ },
+ {
+  "id": "miracles-hard-010",
+  "ref": {
+   "fr": "Lévitique 9:24",
+   "en": "Leviticus 9:24"
+  },
+  "fr": {
+   "q": "Qu'est-ce qui sortit de devant l'Éternel et consuma l'holocauste à la consécration ?",
+   "options": [
+    "Un feu",
+    "Une nuée",
+    "Un vent",
+    "Une pluie"
+   ],
+   "explain": "Le feu sortit et consuma l'holocauste sur l'autel. (Lévitique 9:24)"
+  },
+  "en": {
+   "q": "What came out from before the LORD and consumed the offering at the consecration?",
+   "options": [
+    "Fire",
+    "A cloud",
+    "A wind",
+    "Rain"
+   ],
+   "explain": "Fire came out and consumed the burnt offering on the altar. (Leviticus 9:24)"
+  }
+ },
+ {
+  "id": "miracles-hard-011",
+  "ref": {
+   "fr": "2 Chroniques 26:19",
+   "en": "2 Chronicles 26:19"
+  },
+  "fr": {
+   "q": "Quel roi fut frappé de lèpre au front pour avoir brûlé de l'encens au temple ?",
+   "options": [
+    "Ozias",
+    "Achaz",
+    "Manassé",
+    "Joas"
+   ],
+   "explain": "La lèpre parut au front d'Ozias pendant qu'il s'irritait. (2 Chroniques 26:19)"
+  },
+  "en": {
+   "q": "Which king was struck with leprosy on his forehead for burning incense in the temple?",
+   "options": [
+    "Uzziah",
+    "Ahaz",
+    "Manasseh",
+    "Joash"
+   ],
+   "explain": "Leprosy broke out on Uzziah's forehead as he raged. (2 Chronicles 26:19)"
+  }
+ },
+ {
+  "id": "miracles-hard-012",
+  "ref": {
+   "fr": "1 Rois 13:5",
+   "en": "1 Kings 13:5"
+  },
+  "fr": {
+   "q": "Quel signe donna l'autel de Béthel quand l'homme de Dieu parla contre lui ?",
+   "options": [
+    "Il se fendit et la cendre se répandit",
+    "Il brûla",
+    "Il s'effondra",
+    "Il disparut"
+   ],
+   "explain": "L'autel se fendit, et la cendre se répandit, selon le signe. (1 Rois 13:5)"
+  },
+  "en": {
+   "q": "What sign did the altar at Bethel give when the man of God spoke against it?",
+   "options": [
+    "It split and its ashes poured out",
+    "It burned",
+    "It collapsed",
+    "It vanished"
+   ],
+   "explain": "The altar was split and the ashes poured out, as the sign said. (1 Kings 13:5)"
+  }
+ },
+ {
+  "id": "miracles-hard-013",
+  "ref": {
+   "fr": "2 Rois 1:9-13",
+   "en": "2 Kings 1:9-13"
+  },
+  "fr": {
+   "q": "Combien de groupes de cinquante le feu consuma-t-il avant que le troisième chef supplie Élie ?",
+   "options": [
+    "Deux",
+    "Un",
+    "Trois",
+    "Cinq"
+   ],
+   "explain": "Le feu consuma deux chefs de cinquante ; le troisième supplia. (2 Rois 1:9-13)"
+  },
+  "en": {
+   "q": "How many companies of fifty did fire consume before the third captain begged Elijah?",
+   "options": [
+    "Two",
+    "One",
+    "Three",
+    "Five"
+   ],
+   "explain": "Fire consumed two captains of fifty; the third pleaded. (2 Kings 1:9-13)"
+  }
+ },
+ {
+  "id": "miracles-hard-014",
+  "ref": {
+   "fr": "2 Rois 2:9",
+   "en": "2 Kings 2:9"
+  },
+  "fr": {
+   "q": "Que demanda Élisée à Élie juste avant son enlèvement ?",
+   "options": [
+    "Une double portion de son esprit",
+    "Son manteau",
+    "Une bénédiction",
+    "De l'or"
+   ],
+   "explain": "Qu'il y ait sur moi une double portion de ton esprit. (2 Rois 2:9)"
+  },
+  "en": {
+   "q": "What did Elisha ask of Elijah just before he was taken up?",
+   "options": [
+    "A double portion of his spirit",
+    "His mantle",
+    "A blessing",
+    "Gold"
+   ],
+   "explain": "'Let a double portion of your spirit be on me.' (2 Kings 2:9)"
+  }
+ },
+ {
+  "id": "miracles-hard-015",
+  "ref": {
+   "fr": "2 Rois 2:24",
+   "en": "2 Kings 2:24"
+  },
+  "fr": {
+   "q": "Combien de jeunes gens moqueurs les deux ours déchirèrent-ils près de Béthel ?",
+   "options": [
+    "Quarante-deux",
+    "Douze",
+    "Sept",
+    "Cent"
+   ],
+   "explain": "Les deux ours déchirèrent quarante-deux de ces enfants. (2 Rois 2:24)"
+  },
+  "en": {
+   "q": "How many mocking youths did the two bears maul near Bethel?",
+   "options": [
+    "Forty-two",
+    "Twelve",
+    "Seven",
+    "A hundred"
+   ],
+   "explain": "The two bears mauled forty-two of the youths. (2 Kings 2:24)"
+  }
+ },
+ {
+  "id": "miracles-hard-016",
+  "ref": {
+   "fr": "2 Rois 4:19",
+   "en": "2 Kings 4:19"
+  },
+  "fr": {
+   "q": "Que cria le fils de la Sunamite avant de mourir dans les champs ?",
+   "options": [
+    "« Ma tête, ma tête ! »",
+    "« J'ai soif ! »",
+    "« Au secours ! »",
+    "« Mon père ! »"
+   ],
+   "explain": "Il dit à son père : Ma tête ! ma tête ! puis il mourut. (2 Rois 4:19)"
+  },
+  "en": {
+   "q": "What did the Shunammite's son cry before he died in the fields?",
+   "options": [
+    "'My head, my head!'",
+    "'I am thirsty!'",
+    "'Help!'",
+    "'My father!'"
+   ],
+   "explain": "He said to his father, 'My head, my head!' then he died. (2 Kings 4:19)"
+  }
+ },
+ {
+  "id": "miracles-hard-017",
+  "ref": {
+   "fr": "2 Rois 7:6",
+   "en": "2 Kings 7:6"
+  },
+  "fr": {
+   "q": "Quel bruit l'Éternel fit-il entendre pour mettre en fuite l'armée syrienne de Samarie ?",
+   "options": [
+    "Un bruit de chars et de chevaux",
+    "Un tonnerre",
+    "Un chant",
+    "Un séisme"
+   ],
+   "explain": "Le Seigneur fit entendre un bruit de chars et de chevaux. (2 Rois 7:6)"
+  },
+  "en": {
+   "q": "What sound did the LORD make to put the Aramean army to flight from Samaria?",
+   "options": [
+    "A sound of chariots and horses",
+    "Thunder",
+    "A song",
+    "An earthquake"
+   ],
+   "explain": "The Lord made the army hear the sound of chariots and horses. (2 Kings 7:6)"
+  }
+ },
+ {
+  "id": "miracles-hard-018",
+  "ref": {
+   "fr": "2 Rois 7:3-5",
+   "en": "2 Kings 7:3-5"
+  },
+  "fr": {
+   "q": "Qui découvrit le camp syrien abandonné aux portes de Samarie ?",
+   "options": [
+    "Quatre lépreux",
+    "Des bergers",
+    "Des soldats",
+    "Des enfants"
+   ],
+   "explain": "Quatre lépreux entrèrent au camp et le trouvèrent désert. (2 Rois 7:3-5)"
+  },
+  "en": {
+   "q": "Who discovered the abandoned Aramean camp at the gate of Samaria?",
+   "options": [
+    "Four lepers",
+    "Shepherds",
+    "Soldiers",
+    "Children"
+   ],
+   "explain": "Four lepers entered the camp and found it deserted. (2 Kings 7:3-5)"
+  }
+ },
+ {
+  "id": "miracles-hard-019",
+  "ref": {
+   "fr": "2 Rois 7:17",
+   "en": "2 Kings 7:17"
+  },
+  "fr": {
+   "q": "Qu'advint-il à l'officier qui douta de la parole d'Élisée sur l'abondance ?",
+   "options": [
+    "Il fut écrasé à la porte",
+    "Il devint lépreux",
+    "Il fut aveuglé",
+    "Il s'enfuit"
+   ],
+   "explain": "Le peuple le foula à la porte, et il mourut, comme annoncé. (2 Rois 7:17)"
+  },
+  "en": {
+   "q": "What became of the officer who doubted Elisha's word about the coming plenty?",
+   "options": [
+    "He was trampled at the gate",
+    "He became a leper",
+    "He was blinded",
+    "He fled"
+   ],
+   "explain": "The people trampled him in the gate, and he died. (2 Kings 7:17)"
+  }
+ },
+ {
+  "id": "miracles-hard-020",
+  "ref": {
+   "fr": "2 Rois 20:7",
+   "en": "2 Kings 20:7"
+  },
+  "fr": {
+   "q": "Que posa-t-on sur l'ulcère du roi Ézéchias pour le guérir ?",
+   "options": [
+    "Un gâteau de figues",
+    "De l'huile",
+    "Du sel",
+    "De la boue"
+   ],
+   "explain": "On prit une masse de figues, on l'appliqua, et il guérit. (2 Rois 20:7)"
+  },
+  "en": {
+   "q": "What was placed on King Hezekiah's boil to heal him?",
+   "options": [
+    "A cake of figs",
+    "Oil",
+    "Salt",
+    "Mud"
+   ],
+   "explain": "They took a lump of figs, laid it on, and he recovered. (2 Kings 20:7)"
+  }
+ },
+ {
+  "id": "miracles-hard-021",
+  "ref": {
+   "fr": "2 Chroniques 20:23",
+   "en": "2 Chronicles 20:23"
+  },
+  "fr": {
+   "q": "Comment les ennemis de Josaphat furent-ils vaincus sans qu'Israël combatte ?",
+   "options": [
+    "Ils s'entre-tuèrent",
+    "Par la grêle",
+    "Par le feu",
+    "Par un séisme"
+   ],
+   "explain": "Ils s'aidèrent à se détruire les uns les autres. (2 Chroniques 20:23)"
+  },
+  "en": {
+   "q": "How were Jehoshaphat's enemies defeated without Israel fighting?",
+   "options": [
+    "They destroyed one another",
+    "By hail",
+    "By fire",
+    "By an earthquake"
+   ],
+   "explain": "They helped to destroy one another. (2 Chronicles 20:23)"
+  }
+ },
+ {
+  "id": "miracles-hard-022",
+  "ref": {
+   "fr": "2 Chroniques 7:1",
+   "en": "2 Chronicles 7:1"
+  },
+  "fr": {
+   "q": "Qu'est-ce qui descendit du ciel à la dédicace du temple de Salomon ?",
+   "options": [
+    "Le feu, consumant les sacrifices",
+    "Une pluie d'or",
+    "Des éclairs",
+    "Une colombe"
+   ],
+   "explain": "Le feu descendit et consuma les sacrifices ; la gloire remplit la maison. (2 Chroniques 7:1)"
+  },
+  "en": {
+   "q": "What came down from heaven at the dedication of Solomon's temple?",
+   "options": [
+    "Fire, consuming the sacrifices",
+    "A rain of gold",
+    "Lightning",
+    "A dove"
+   ],
+   "explain": "Fire came down and consumed the sacrifices; the glory filled the house. (2 Chronicles 7:1)"
+  }
+ },
+ {
+  "id": "miracles-hard-023",
+  "ref": {
+   "fr": "Exode 16:31",
+   "en": "Exodus 16:31"
+  },
+  "fr": {
+   "q": "À quoi ressemblait la manne, selon Exode 16 ?",
+   "options": [
+    "À de la graine de coriandre, blanche",
+    "À des figues sèches",
+    "À du pain d'orge",
+    "À des amandes"
+   ],
+   "explain": "Elle ressemblait à de la graine de coriandre, et était blanche. (Exode 16:31)"
+  },
+  "en": {
+   "q": "What did the manna look like, according to Exodus 16?",
+   "options": [
+    "Like white coriander seed",
+    "Like dried figs",
+    "Like barley bread",
+    "Like almonds"
+   ],
+   "explain": "It was like coriander seed, white in color. (Exodus 16:31)"
+  }
+ },
+ {
+  "id": "miracles-hard-024",
+  "ref": {
+   "fr": "Exode 16:16",
+   "en": "Exodus 16:16"
+  },
+  "fr": {
+   "q": "Quelle mesure de manne chacun devait-il ramasser par jour ?",
+   "options": [
+    "Un omer par personne",
+    "Un épha",
+    "Un hin",
+    "Une poignée"
+   ],
+   "explain": "Recueillez-en un omer par tête, selon le nombre des personnes. (Exode 16:16)"
+  },
+  "en": {
+   "q": "What measure of manna was each person to gather per day?",
+   "options": [
+    "An omer per person",
+    "An ephah",
+    "A hin",
+    "A handful"
+   ],
+   "explain": "Gather an omer for each person, according to their number. (Exodus 16:16)"
+  }
+ },
+ {
+  "id": "miracles-hard-025",
+  "ref": {
+   "fr": "Josué 4:3-8",
+   "en": "Joshua 4:3-8"
+  },
+  "fr": {
+   "q": "Combien de pierres prit-on du lit du Jourdain en mémorial de la traversée ?",
+   "options": [
+    "Douze",
+    "Sept",
+    "Quarante",
+    "Trois"
+   ],
+   "explain": "Douze hommes prirent douze pierres du milieu du Jourdain. (Josué 4:3-8)"
+  },
+  "en": {
+   "q": "How many stones were taken from the Jordan's bed as a memorial of the crossing?",
+   "options": [
+    "Twelve",
+    "Seven",
+    "Forty",
+    "Three"
+   ],
+   "explain": "Twelve men took twelve stones from the midst of the Jordan. (Joshua 4:3-8)"
+  }
+ },
+ {
+  "id": "miracles-hard-026",
+  "ref": {
+   "fr": "Juges 7:7",
+   "en": "Judges 7:7"
+  },
+  "fr": {
+   "q": "Combien d'hommes Dieu garda-t-il à Gédéon pour délivrer Israël de Madian ?",
+   "options": [
+    "Trois cents",
+    "Dix mille",
+    "Trente-deux mille",
+    "Mille"
+   ],
+   "explain": "C'est par les trois cents hommes que je vous sauverai. (Juges 7:7)"
+  },
+  "en": {
+   "q": "How many men did God keep for Gideon to deliver Israel from Midian?",
+   "options": [
+    "Three hundred",
+    "Ten thousand",
+    "Thirty-two thousand",
+    "A thousand"
+   ],
+   "explain": "'By the three hundred men I will save you.' (Judges 7:7)"
+  }
+ },
+ {
+  "id": "miracles-hard-027",
+  "ref": {
+   "fr": "Juges 16:30",
+   "en": "Judges 16:30"
+  },
+  "fr": {
+   "q": "Quand Samson fit-il périr le plus grand nombre de Philistins ?",
+   "options": [
+    "À sa mort, en renversant la maison",
+    "Avec la mâchoire d'âne",
+    "En tuant le lion",
+    "Au champ de blé"
+   ],
+   "explain": "Ceux qu'il fit mourir à sa mort furent plus nombreux qu'en sa vie. (Juges 16:30)"
+  },
+  "en": {
+   "q": "When did Samson kill the greatest number of Philistines?",
+   "options": [
+    "At his death, pulling down the house",
+    "With the donkey's jawbone",
+    "When he killed the lion",
+    "In the grainfield"
+   ],
+   "explain": "Those he killed at his death were more than in his life. (Judges 16:30)"
+  }
+ },
+ {
+  "id": "miracles-hard-028",
+  "ref": {
+   "fr": "Juges 16:17",
+   "en": "Judges 16:17"
+  },
+  "fr": {
+   "q": "D'où venait la force extraordinaire de Samson ?",
+   "options": [
+    "De ses cheveux non coupés de naziréen",
+    "De son épée",
+    "De son bouclier",
+    "D'un anneau"
+   ],
+   "explain": "Le rasoir n'a point passé sur ma tête, car je suis naziréen. (Juges 16:17)"
+  },
+  "en": {
+   "q": "Where did Samson's extraordinary strength come from?",
+   "options": [
+    "From his uncut Nazirite hair",
+    "From his sword",
+    "From his shield",
+    "From a ring"
+   ],
+   "explain": "'No razor has touched my head, for I am a Nazirite.' (Judges 16:17)"
+  }
+ },
+ {
+  "id": "miracles-hard-029",
+  "ref": {
+   "fr": "Juges 15:15",
+   "en": "Judges 15:15"
+  },
+  "fr": {
+   "q": "Avec quelle arme Samson tua-t-il mille hommes à Léchi ?",
+   "options": [
+    "Une mâchoire d'âne",
+    "Une épée",
+    "Une fronde",
+    "Un arc"
+   ],
+   "explain": "Avec une mâchoire d'âne, il frappa mille hommes. (Juges 15:15)"
+  },
+  "en": {
+   "q": "With what weapon did Samson kill a thousand men at Lehi?",
+   "options": [
+    "A donkey's jawbone",
+    "A sword",
+    "A sling",
+    "A bow"
+   ],
+   "explain": "With a donkey's jawbone he struck a thousand men. (Judges 15:15)"
+  }
+ },
+ {
+  "id": "miracles-hard-030",
+  "ref": {
+   "fr": "1 Rois 18:46",
+   "en": "1 Kings 18:46"
+  },
+  "fr": {
+   "q": "Que la main de l'Éternel permit-elle à Élie de faire jusqu'à Jizreel ?",
+   "options": [
+    "Courir devant le char d'Achab",
+    "Voler",
+    "Marcher sur l'eau",
+    "Devenir invisible"
+   ],
+   "explain": "La main de l'Éternel fut sur Élie ; il courut devant Achab. (1 Rois 18:46)"
+  },
+  "en": {
+   "q": "What did the LORD's hand enable Elijah to do all the way to Jezreel?",
+   "options": [
+    "Outrun Ahab's chariot",
+    "Fly",
+    "Walk on water",
+    "Become invisible"
+   ],
+   "explain": "The hand of the LORD was on Elijah; he ran before Ahab. (1 Kings 18:46)"
+  }
+ },
+ {
+  "id": "miracles-hard-031",
+  "ref": {
+   "fr": "1 Rois 17:12",
+   "en": "1 Kings 17:12"
+  },
+  "fr": {
+   "q": "Que restait-il à la veuve de Sarepta avant le miracle de l'huile ?",
+   "options": [
+    "Une poignée de farine et un peu d'huile",
+    "Un pain et du vin",
+    "Rien du tout",
+    "Du blé et du sel"
+   ],
+   "explain": "Je n'ai qu'une poignée de farine et un peu d'huile. (1 Rois 17:12)"
+  },
+  "en": {
+   "q": "What did the widow of Zarephath have left before the miracle of the oil?",
+   "options": [
+    "A handful of flour and a little oil",
+    "One loaf and some wine",
+    "Nothing at all",
+    "Wheat and salt"
+   ],
+   "explain": "'I have only a handful of flour and a little oil.' (1 Kings 17:12)"
+  }
+ },
+ {
+  "id": "miracles-hard-032",
+  "ref": {
+   "fr": "2 Rois 5:5",
+   "en": "2 Kings 5:5"
+  },
+  "fr": {
+   "q": "Que Naaman apporta-t-il, en plus de l'argent et de l'or, en vue de sa guérison ?",
+   "options": [
+    "Dix vêtements de rechange",
+    "Dix chevaux",
+    "Dix serviteurs",
+    "Dix agneaux"
+   ],
+   "explain": "Il prit de l'argent, de l'or et dix vêtements de rechange. (2 Rois 5:5)"
+  },
+  "en": {
+   "q": "What did Naaman bring, besides silver and gold, seeking his healing?",
+   "options": [
+    "Ten changes of clothing",
+    "Ten horses",
+    "Ten servants",
+    "Ten lambs"
+   ],
+   "explain": "He took silver, gold, and ten changes of clothing. (2 Kings 5:5)"
+  }
+ },
+ {
+  "id": "miracles-hard-033",
+  "ref": {
+   "fr": "2 Rois 5:2-3",
+   "en": "2 Kings 5:2-3"
+  },
+  "fr": {
+   "q": "Qui parla à Naaman du prophète capable de le guérir de la lèpre ?",
+   "options": [
+    "Une jeune servante israélite",
+    "Le roi de Syrie",
+    "Sa femme",
+    "Un prêtre"
+   ],
+   "explain": "Une jeune fille captive dit qu'un prophète le guérirait. (2 Rois 5:2-3)"
+  },
+  "en": {
+   "q": "Who told Naaman about the prophet who could heal his leprosy?",
+   "options": [
+    "A young Israelite servant girl",
+    "The king of Aram",
+    "His wife",
+    "A priest"
+   ],
+   "explain": "A captive young girl said a prophet would heal him. (2 Kings 5:2-3)"
+  }
+ },
+ {
+  "id": "miracles-hard-034",
+  "ref": {
+   "fr": "Ézéchiel 37:8-10",
+   "en": "Ezekiel 37:8-10"
+  },
+  "fr": {
+   "q": "Que devinrent les ossements desséchés dans la vision d'Ézéchiel ?",
+   "options": [
+    "Ils reprirent chair, et la vie",
+    "Ils brûlèrent",
+    "Ils tombèrent en poussière",
+    "Ils se turent"
+   ],
+   "explain": "L'esprit entra en eux : ils vécurent et se tinrent debout. (Ézéchiel 37:8-10)"
+  },
+  "en": {
+   "q": "What became of the dry bones in Ezekiel's vision?",
+   "options": [
+    "They took on flesh, and life",
+    "They burned",
+    "They crumbled to dust",
+    "They fell silent"
+   ],
+   "explain": "Breath came into them; they lived and stood on their feet. (Ezekiel 37:8-10)"
+  }
+ },
+ {
+  "id": "miracles-hard-035",
+  "ref": {
+   "fr": "Jonas 1:15",
+   "en": "Jonah 1:15"
+  },
+  "fr": {
+   "q": "Qu'arriva-t-il à la mer quand on y jeta Jonas ?",
+   "options": [
+    "Elle s'apaisa de sa fureur",
+    "Elle rougit",
+    "Elle gela",
+    "Elle monta encore"
+   ],
+   "explain": "Ils jetèrent Jonas dans la mer, et la mer s'apaisa. (Jonas 1:15)"
+  },
+  "en": {
+   "q": "What happened to the sea when Jonah was thrown into it?",
+   "options": [
+    "It ceased its raging",
+    "It turned red",
+    "It froze",
+    "It rose higher"
+   ],
+   "explain": "They threw Jonah into the sea, and the sea grew calm. (Jonah 1:15)"
+  }
+ },
+ {
+  "id": "miracles-hard-036",
+  "ref": {
+   "fr": "1 Rois 19:12",
+   "en": "1 Kings 19:12"
+  },
+  "fr": {
+   "q": "Où l'Éternel se manifesta-t-il à Élie à Horeb ?",
+   "options": [
+    "Dans un murmure doux et léger",
+    "Dans le vent",
+    "Dans le feu",
+    "Dans le séisme"
+   ],
+   "explain": "Après le feu, un murmure doux et léger : là était l'Éternel. (1 Rois 19:12)"
+  },
+  "en": {
+   "q": "How did the LORD reveal himself to Elijah at Horeb?",
+   "options": [
+    "In a still, small voice",
+    "In the wind",
+    "In the fire",
+    "In the earthquake"
+   ],
+   "explain": "After the fire came a still, small voice. (1 Kings 19:12)"
+  }
+ },
+ {
+  "id": "miracles-hard-037",
+  "ref": {
+   "fr": "2 Rois 2:11",
+   "en": "2 Kings 2:11"
+  },
+  "fr": {
+   "q": "Qu'est-ce qui sépara Élie d'Élisée juste avant l'enlèvement ?",
+   "options": [
+    "Un char et des chevaux de feu",
+    "Une nuée",
+    "Un vent seul",
+    "Un ange"
+   ],
+   "explain": "Un char de feu et des chevaux de feu les séparèrent. (2 Rois 2:11)"
+  },
+  "en": {
+   "q": "What separated Elijah from Elisha just before he was taken up?",
+   "options": [
+    "A chariot and horses of fire",
+    "A cloud",
+    "A wind alone",
+    "An angel"
+   ],
+   "explain": "A chariot of fire and horses of fire parted the two. (2 Kings 2:11)"
+  }
+ },
+ {
+  "id": "miracles-hard-038",
+  "ref": {
+   "fr": "Jean 6:1-14",
+   "en": "John 6:1-14"
+  },
+  "fr": {
+   "q": "Quel miracle de Jésus est le seul rapporté par les quatre évangiles ?",
+   "options": [
+    "La multiplication des pains pour cinq mille",
+    "La marche sur l'eau",
+    "Les noces de Cana",
+    "La résurrection de Lazare"
+   ],
+   "explain": "Le repas des cinq mille figure dans les quatre évangiles. (Jean 6:1-14)"
+  },
+  "en": {
+   "q": "Which miracle of Jesus is the only one recorded by all four Gospels?",
+   "options": [
+    "The feeding of the five thousand",
+    "Walking on water",
+    "The wedding at Cana",
+    "The raising of Lazarus"
+   ],
+   "explain": "The feeding of the five thousand appears in all four Gospels. (John 6:1-14)"
+  }
+ },
+ {
+  "id": "miracles-hard-039",
+  "ref": {
+   "fr": "Jean 11:38-44",
+   "en": "John 11:38-44"
+  },
+  "fr": {
+   "q": "Quel évangile est le seul à rapporter la résurrection de Lazare ?",
+   "options": [
+    "Jean",
+    "Matthieu",
+    "Marc",
+    "Luc"
+   ],
+   "explain": "Seul l'évangile de Jean raconte Lazare ressuscité. (Jean 11:38-44)"
+  },
+  "en": {
+   "q": "Which Gospel is the only one to record the raising of Lazarus?",
+   "options": [
+    "John",
+    "Matthew",
+    "Mark",
+    "Luke"
+   ],
+   "explain": "Only John's Gospel tells of Lazarus raised. (John 11:38-44)"
+  }
+ },
+ {
+  "id": "miracles-hard-040",
+  "ref": {
+   "fr": "Luc 7:11-15",
+   "en": "Luke 7:11-15"
+  },
+  "fr": {
+   "q": "Quel évangile rapporte seul la résurrection du fils de la veuve de Naïn ?",
+   "options": [
+    "Luc",
+    "Matthieu",
+    "Marc",
+    "Jean"
+   ],
+   "explain": "Seul Luc rapporte le miracle de Naïn. (Luc 7:11-15)"
+  },
+  "en": {
+   "q": "Which Gospel alone records the raising of the widow of Nain's son?",
+   "options": [
+    "Luke",
+    "Matthew",
+    "Mark",
+    "John"
+   ],
+   "explain": "Only Luke records the miracle at Nain. (Luke 7:11-15)"
+  }
+ },
+ {
+  "id": "miracles-hard-041",
+  "ref": {
+   "fr": "Jean 2:1-11",
+   "en": "John 2:1-11"
+  },
+  "fr": {
+   "q": "Quel évangile est le seul à raconter les noces de Cana ?",
+   "options": [
+    "Jean",
+    "Matthieu",
+    "Marc",
+    "Luc"
+   ],
+   "explain": "Seul Jean rapporte l'eau changée en vin à Cana. (Jean 2:1-11)"
+  },
+  "en": {
+   "q": "Which Gospel is the only one to tell of the wedding at Cana?",
+   "options": [
+    "John",
+    "Matthew",
+    "Mark",
+    "Luke"
+   ],
+   "explain": "Only John records the water turned to wine at Cana. (John 2:1-11)"
+  }
+ },
+ {
+  "id": "miracles-hard-042",
+  "ref": {
+   "fr": "Matthieu 8:28",
+   "en": "Matthew 8:28"
+  },
+  "fr": {
+   "q": "Quel évangile parle de deux démoniaques au pays des Gadaréniens ?",
+   "options": [
+    "Matthieu",
+    "Marc",
+    "Luc",
+    "Jean"
+   ],
+   "explain": "Matthieu mentionne deux démoniaques, non un seul. (Matthieu 8:28)"
+  },
+  "en": {
+   "q": "Which Gospel speaks of two demoniacs in the country of the Gadarenes?",
+   "options": [
+    "Matthew",
+    "Mark",
+    "Luke",
+    "John"
+   ],
+   "explain": "Matthew mentions two demon-possessed men, not one. (Matthew 8:28)"
+  }
+ },
+ {
+  "id": "miracles-hard-043",
+  "ref": {
+   "fr": "Luc 22:51",
+   "en": "Luke 22:51"
+  },
+  "fr": {
+   "q": "Quel évangile rapporte que Jésus guérit l'oreille du serviteur à son arrestation ?",
+   "options": [
+    "Luc",
+    "Matthieu",
+    "Marc",
+    "Jean"
+   ],
+   "explain": "Seul Luc rapporte la guérison de l'oreille tranchée. (Luc 22:51)"
+  },
+  "en": {
+   "q": "Which Gospel records that Jesus healed the servant's ear at his arrest?",
+   "options": [
+    "Luke",
+    "Matthew",
+    "Mark",
+    "John"
+   ],
+   "explain": "Only Luke records the healing of the severed ear. (Luke 22:51)"
+  }
+ },
+ {
+  "id": "miracles-hard-044",
+  "ref": {
+   "fr": "Marc 8:22-25",
+   "en": "Mark 8:22-25"
+  },
+  "fr": {
+   "q": "Quel évangile raconte l'aveugle de Bethsaïda guéri en deux temps ?",
+   "options": [
+    "Marc",
+    "Matthieu",
+    "Luc",
+    "Jean"
+   ],
+   "explain": "Seul Marc raconte cette guérison progressive. (Marc 8:22-25)"
+  },
+  "en": {
+   "q": "Which Gospel tells of the blind man of Bethsaida healed in two stages?",
+   "options": [
+    "Mark",
+    "Matthew",
+    "Luke",
+    "John"
+   ],
+   "explain": "Only Mark tells of this gradual healing. (Mark 8:22-25)"
+  }
+ },
+ {
+  "id": "miracles-hard-045",
+  "ref": {
+   "fr": "Luc 17:11-19",
+   "en": "Luke 17:11-19"
+  },
+  "fr": {
+   "q": "Quel évangile rapporte seul la guérison des dix lépreux ?",
+   "options": [
+    "Luc",
+    "Matthieu",
+    "Marc",
+    "Jean"
+   ],
+   "explain": "Seul Luc raconte les dix lépreux guéris. (Luc 17:11-19)"
+  },
+  "en": {
+   "q": "Which Gospel alone records the healing of the ten lepers?",
+   "options": [
+    "Luke",
+    "Matthew",
+    "Mark",
+    "John"
+   ],
+   "explain": "Only Luke tells of the ten lepers cleansed. (Luke 17:11-19)"
+  }
+ },
+ {
+  "id": "miracles-hard-046",
+  "ref": {
+   "fr": "Matthieu 14:21",
+   "en": "Matthew 14:21"
+  },
+  "fr": {
+   "q": "Combien d'hommes furent nourris avec cinq pains, sans compter femmes et enfants ?",
+   "options": [
+    "Environ cinq mille",
+    "Environ quatre mille",
+    "Environ trois mille",
+    "Environ dix mille"
+   ],
+   "explain": "Ceux qui mangèrent étaient cinq mille, sans les femmes et enfants. (Matthieu 14:21)"
+  },
+  "en": {
+   "q": "How many men were fed with five loaves, besides women and children?",
+   "options": [
+    "About five thousand",
+    "About four thousand",
+    "About three thousand",
+    "About ten thousand"
+   ],
+   "explain": "Those who ate were about five thousand, besides women and children. (Matthew 14:21)"
+  }
+ },
+ {
+  "id": "miracles-hard-047",
+  "ref": {
+   "fr": "Marc 8:23",
+   "en": "Mark 8:23"
+  },
+  "fr": {
+   "q": "Qu'employa Jésus pour commencer à guérir l'aveugle de Bethsaïda ?",
+   "options": [
+    "De la salive sur ses yeux",
+    "De la boue",
+    "De l'huile",
+    "De l'eau"
+   ],
+   "explain": "Il mit de la salive sur ses yeux et lui imposa les mains. (Marc 8:23)"
+  },
+  "en": {
+   "q": "What did Jesus use to begin healing the blind man of Bethsaida?",
+   "options": [
+    "Saliva on his eyes",
+    "Mud",
+    "Oil",
+    "Water"
+   ],
+   "explain": "He put saliva on his eyes and laid hands on him. (Mark 8:23)"
+  }
+ },
+ {
+  "id": "miracles-hard-048",
+  "ref": {
+   "fr": "Jean 6:7",
+   "en": "John 6:7"
+  },
+  "fr": {
+   "q": "Combien de deniers de pain, selon Philippe, ne suffiraient pas pour la foule ?",
+   "options": [
+    "Deux cents deniers",
+    "Cent deniers",
+    "Cinquante deniers",
+    "Cinq cents deniers"
+   ],
+   "explain": "Deux cents deniers de pain ne suffiraient pas pour chacun. (Jean 6:7)"
+  },
+  "en": {
+   "q": "How many denarii worth of bread, said Philip, would not be enough for the crowd?",
+   "options": [
+    "Two hundred denarii",
+    "One hundred denarii",
+    "Fifty denarii",
+    "Five hundred denarii"
+   ],
+   "explain": "Two hundred denarii of bread would not be enough for each one. (John 6:7)"
+  }
+ },
+ {
+  "id": "miracles-hard-049",
+  "ref": {
+   "fr": "Matthieu 14:25",
+   "en": "Matthew 14:25"
+  },
+  "fr": {
+   "q": "À quelle veille de la nuit Jésus vint-il vers eux en marchant sur la mer ?",
+   "options": [
+    "À la quatrième veille",
+    "À la première veille",
+    "À la deuxième veille",
+    "À la troisième veille"
+   ],
+   "explain": "À la quatrième veille, Jésus alla vers eux en marchant sur la mer. (Matthieu 14:25)"
+  },
+  "en": {
+   "q": "In which watch of the night did Jesus come to them walking on the sea?",
+   "options": [
+    "The fourth watch",
+    "The first watch",
+    "The second watch",
+    "The third watch"
+   ],
+   "explain": "In the fourth watch Jesus came to them walking on the sea. (Matthew 14:25)"
+  }
+ },
+ {
+  "id": "miracles-hard-050",
+  "ref": {
+   "fr": "Matthieu 14:31",
+   "en": "Matthew 14:31"
+  },
+  "fr": {
+   "q": "Que dit Jésus à Pierre qui enfonçait dans les flots ?",
+   "options": [
+    "« Homme de peu de foi, pourquoi as-tu douté ? »",
+    "« Lève-toi et marche »",
+    "« Tais-toi »",
+    "« Va en paix »"
+   ],
+   "explain": "Il le saisit : Homme de peu de foi, pourquoi as-tu douté ? (Matthieu 14:31)"
+  },
+  "en": {
+   "q": "What did Jesus say to Peter as he began to sink into the waves?",
+   "options": [
+    "'You of little faith, why did you doubt?'",
+    "'Rise and walk'",
+    "'Be silent'",
+    "'Go in peace'"
+   ],
+   "explain": "He caught him: 'You of little faith, why did you doubt?' (Matthew 14:31)"
+  }
+ },
+ {
+  "id": "miracles-hard-051",
+  "ref": {
+   "fr": "Jean 2:11",
+   "en": "John 2:11"
+  },
+  "fr": {
+   "q": "Selon Jean, quel fut le commencement des miracles de Jésus ?",
+   "options": [
+    "Changer l'eau en vin à Cana",
+    "Guérir un aveugle",
+    "Marcher sur l'eau",
+    "Calmer la tempête"
+   ],
+   "explain": "Tel fut à Cana le commencement des miracles de Jésus. (Jean 2:11)"
+  },
+  "en": {
+   "q": "According to John, what was the beginning of Jesus' signs?",
+   "options": [
+    "Turning water to wine at Cana",
+    "Healing a blind man",
+    "Walking on water",
+    "Calming the storm"
+   ],
+   "explain": "This, at Cana, was the beginning of Jesus' signs. (John 2:11)"
+  }
+ },
+ {
+  "id": "miracles-hard-052",
+  "ref": {
+   "fr": "Jean 4:54",
+   "en": "John 4:54"
+  },
+  "fr": {
+   "q": "Quel fut le second miracle de Jésus en Galilée, selon Jean ?",
+   "options": [
+    "La guérison du fils d'un officier",
+    "La pêche miraculeuse",
+    "La résurrection de Lazare",
+    "Les noces de Cana"
+   ],
+   "explain": "Ce fut le second miracle que fit Jésus en revenant en Galilée. (Jean 4:54)"
+  },
+  "en": {
+   "q": "What was Jesus' second sign in Galilee, according to John?",
+   "options": [
+    "Healing an official's son",
+    "The miraculous catch",
+    "The raising of Lazarus",
+    "The wedding at Cana"
+   ],
+   "explain": "This was the second sign Jesus did on returning to Galilee. (John 4:54)"
+  }
+ },
+ {
+  "id": "miracles-hard-053",
+  "ref": {
+   "fr": "Jean 4:46-47",
+   "en": "John 4:46-47"
+  },
+  "fr": {
+   "q": "Où gisait le fils malade que Jésus guérit à distance depuis Cana ?",
+   "options": [
+    "À Capernaüm",
+    "À Jérusalem",
+    "À Naïn",
+    "À Bethsaïda"
+   ],
+   "explain": "L'officier de Capernaüm pria Jésus, qui était à Cana. (Jean 4:46-47)"
+  },
+  "en": {
+   "q": "Where lay the sick son whom Jesus healed from afar while at Cana?",
+   "options": [
+    "In Capernaum",
+    "In Jerusalem",
+    "In Nain",
+    "In Bethsaida"
+   ],
+   "explain": "The official from Capernaum begged Jesus, who was at Cana. (John 4:46-47)"
+  }
+ },
+ {
+  "id": "miracles-hard-054",
+  "ref": {
+   "fr": "Jean 5:2",
+   "en": "John 5:2"
+  },
+  "fr": {
+   "q": "Combien de portiques entouraient la piscine de Béthesda ?",
+   "options": [
+    "Cinq",
+    "Trois",
+    "Sept",
+    "Douze"
+   ],
+   "explain": "La piscine de Béthesda avait cinq portiques. (Jean 5:2)"
+  },
+  "en": {
+   "q": "How many covered porches surrounded the pool of Bethesda?",
+   "options": [
+    "Five",
+    "Three",
+    "Seven",
+    "Twelve"
+   ],
+   "explain": "The pool of Bethesda had five porches. (John 5:2)"
+  }
+ },
+ {
+  "id": "miracles-hard-055",
+  "ref": {
+   "fr": "Marc 11:20",
+   "en": "Mark 11:20"
+  },
+  "fr": {
+   "q": "Selon Marc, quand les disciples virent-ils le figuier maudit desséché ?",
+   "options": [
+    "Le lendemain matin",
+    "Aussitôt",
+    "Trois jours après",
+    "Le soir même"
+   ],
+   "explain": "Le matin, ils virent le figuier séché jusqu'aux racines. (Marc 11:20)"
+  },
+  "en": {
+   "q": "According to Mark, when did the disciples see the cursed fig tree withered?",
+   "options": [
+    "The next morning",
+    "Immediately",
+    "Three days later",
+    "That same evening"
+   ],
+   "explain": "In the morning they saw the fig tree dried up from the roots. (Mark 11:20)"
+  }
+ },
+ {
+  "id": "miracles-hard-056",
+  "ref": {
+   "fr": "Matthieu 8:10",
+   "en": "Matthew 8:10"
+  },
+  "fr": {
+   "q": "Que dit Jésus de la foi du centenier de Capernaüm ?",
+   "options": [
+    "Il n'en avait pas trouvé de si grande en Israël",
+    "Qu'elle était faible",
+    "Qu'elle égalait la sienne",
+    "Qu'elle venait des Juifs"
+   ],
+   "explain": "Je n'ai pas trouvé une si grande foi en Israël. (Matthieu 8:10)"
+  },
+  "en": {
+   "q": "What did Jesus say about the Capernaum centurion's faith?",
+   "options": [
+    "He had found none so great in Israel",
+    "That it was weak",
+    "That it equaled his own",
+    "That it came from the Jews"
+   ],
+   "explain": "'I have not found so great a faith in Israel.' (Matthew 8:10)"
+  }
+ },
+ {
+  "id": "miracles-hard-057",
+  "ref": {
+   "fr": "Marc 10:47",
+   "en": "Mark 10:47"
+  },
+  "fr": {
+   "q": "Par quel titre l'aveugle Bartimée cria-t-il vers Jésus ?",
+   "options": [
+    "« Fils de David »",
+    "« Fils de Dieu »",
+    "« Rabbi »",
+    "« Maître »"
+   ],
+   "explain": "Il cria : Fils de David, Jésus, aie pitié de moi ! (Marc 10:47)"
+  },
+  "en": {
+   "q": "By what title did blind Bartimaeus cry out to Jesus?",
+   "options": [
+    "'Son of David'",
+    "'Son of God'",
+    "'Rabbi'",
+    "'Master'"
+   ],
+   "explain": "He cried, 'Jesus, Son of David, have mercy on me!' (Mark 10:47)"
+  }
+ },
+ {
+  "id": "miracles-hard-058",
+  "ref": {
+   "fr": "Marc 5:36",
+   "en": "Mark 5:36"
+  },
+  "fr": {
+   "q": "Que dit Jésus à Jaïrus en apprenant que sa fille était morte ?",
+   "options": [
+    "« Ne crains pas, crois seulement »",
+    "« Il est trop tard »",
+    "« Retourne chez toi »",
+    "« Prie encore »"
+   ],
+   "explain": "Jésus dit au chef : Ne crains pas, crois seulement. (Marc 5:36)"
+  },
+  "en": {
+   "q": "What did Jesus say to Jairus on hearing his daughter had died?",
+   "options": [
+    "'Don't be afraid, only believe'",
+    "'It is too late'",
+    "'Go back home'",
+    "'Pray more'"
+   ],
+   "explain": "Jesus told the ruler, 'Don't be afraid, only believe.' (Mark 5:36)"
+  }
+ },
+ {
+  "id": "miracles-hard-059",
+  "ref": {
+   "fr": "Marc 5:30",
+   "en": "Mark 5:30"
+  },
+  "fr": {
+   "q": "Que perçut Jésus au moment où la femme malade toucha son vêtement ?",
+   "options": [
+    "Qu'une force était sortie de lui",
+    "Une douleur",
+    "Une chaleur",
+    "Une faiblesse"
+   ],
+   "explain": "Jésus connut qu'une force était sortie de lui. (Marc 5:30)"
+  },
+  "en": {
+   "q": "What did Jesus perceive the moment the sick woman touched his garment?",
+   "options": [
+    "That power had gone out of him",
+    "A pain",
+    "A warmth",
+    "A weakness"
+   ],
+   "explain": "Jesus perceived that power had gone out of him. (Mark 5:30)"
+  }
+ },
+ {
+  "id": "miracles-hard-060",
+  "ref": {
+   "fr": "Luc 8:2",
+   "en": "Luke 8:2"
+  },
+  "fr": {
+   "q": "De combien de démons Jésus délivra-t-il Marie de Magdala ?",
+   "options": [
+    "Sept",
+    "Trois",
+    "Un",
+    "Douze"
+   ],
+   "explain": "Marie, dite de Magdala, de qui étaient sortis sept démons. (Luc 8:2)"
+  },
+  "en": {
+   "q": "From how many demons did Jesus free Mary Magdalene?",
+   "options": [
+    "Seven",
+    "Three",
+    "One",
+    "Twelve"
+   ],
+   "explain": "Mary called Magdalene, from whom seven demons had gone out. (Luke 8:2)"
+  }
+ },
+ {
+  "id": "miracles-hard-061",
+  "ref": {
+   "fr": "Jean 11:35",
+   "en": "John 11:35"
+  },
+  "fr": {
+   "q": "Que fit Jésus devant le tombeau de Lazare ?",
+   "options": [
+    "Il pleura",
+    "Il pria à voix haute",
+    "Il se tut",
+    "Il chanta"
+   ],
+   "explain": "Jésus pleura. (Jean 11:35)"
+  },
+  "en": {
+   "q": "What did Jesus do before the tomb of Lazarus?",
+   "options": [
+    "He wept",
+    "He prayed aloud",
+    "He kept silent",
+    "He sang"
+   ],
+   "explain": "Jesus wept. (John 11:35)"
+  }
+ },
+ {
+  "id": "miracles-hard-062",
+  "ref": {
+   "fr": "Jean 11:44",
+   "en": "John 11:44"
+  },
+  "fr": {
+   "q": "Dans quel état Lazare sortit-il du tombeau ?",
+   "options": [
+    "Les mains et pieds liés de bandes",
+    "En pleine santé",
+    "Porté par des anges",
+    "En courant"
+   ],
+   "explain": "Le mort sortit, mains et pieds liés de bandelettes. (Jean 11:44)"
+  },
+  "en": {
+   "q": "In what condition did Lazarus come out of the tomb?",
+   "options": [
+    "Bound hand and foot with strips",
+    "In full health",
+    "Carried by angels",
+    "Running"
+   ],
+   "explain": "The dead man came out, hands and feet bound with grave clothes. (John 11:44)"
+  }
+ },
+ {
+  "id": "miracles-hard-063",
+  "ref": {
+   "fr": "Jean 11:39",
+   "en": "John 11:39"
+  },
+  "fr": {
+   "q": "Que dit Marthe quand Jésus ordonna d'ôter la pierre du tombeau ?",
+   "options": [
+    "« Il sent déjà, quatre jours ont passé »",
+    "« Il dort »",
+    "« Laisse-le »",
+    "« Attends demain »"
+   ],
+   "explain": "Marthe dit : Il sent déjà, car il y a quatre jours. (Jean 11:39)"
+  },
+  "en": {
+   "q": "What did Martha say when Jesus ordered the tomb's stone removed?",
+   "options": [
+    "'He already stinks, four days have passed'",
+    "'He is asleep'",
+    "'Leave him be'",
+    "'Wait until tomorrow'"
+   ],
+   "explain": "Martha said, 'By now he stinks, for it is four days.' (John 11:39)"
+  }
+ },
+ {
+  "id": "miracles-hard-064",
+  "ref": {
+   "fr": "Matthieu 17:1",
+   "en": "Matthew 17:1"
+  },
+  "fr": {
+   "q": "Combien de jours après ses paroles Jésus fut-il transfiguré, selon Matthieu ?",
+   "options": [
+    "Six jours",
+    "Huit jours",
+    "Trois jours",
+    "Quarante jours"
+   ],
+   "explain": "Six jours après, Jésus monta sur la montagne et fut transfiguré. (Matthieu 17:1)"
+  },
+  "en": {
+   "q": "How many days after his words was Jesus transfigured, according to Matthew?",
+   "options": [
+    "Six days",
+    "Eight days",
+    "Three days",
+    "Forty days"
+   ],
+   "explain": "After six days Jesus went up the mountain and was transfigured. (Matthew 17:1)"
+  }
+ },
+ {
+  "id": "miracles-hard-065",
+  "ref": {
+   "fr": "Jean 18:6",
+   "en": "John 18:6"
+  },
+  "fr": {
+   "q": "Que firent les gardes quand Jésus dit « C'est moi » lors de son arrestation ?",
+   "options": [
+    "Ils reculèrent et tombèrent à terre",
+    "Ils s'enfuirent",
+    "Ils l'attachèrent",
+    "Ils crièrent"
+   ],
+   "explain": "Quand il dit : C'est moi, ils reculèrent et tombèrent par terre. (Jean 18:6)"
+  },
+  "en": {
+   "q": "What did the guards do when Jesus said 'I am he' at his arrest?",
+   "options": [
+    "They drew back and fell to the ground",
+    "They fled",
+    "They bound him",
+    "They shouted"
+   ],
+   "explain": "When he said 'I am he,' they drew back and fell to the ground. (John 18:6)"
+  }
+ },
+ {
+  "id": "miracles-hard-066",
+  "ref": {
+   "fr": "Marc 2:9",
+   "en": "Mark 2:9"
+  },
+  "fr": {
+   "q": "Quelle question Jésus posa-t-il avant de guérir le paralytique du toit ?",
+   "options": [
+    "Ce qui est le plus facile à dire",
+    "Qui l'avait envoyé",
+    "Où était sa foi",
+    "S'il voulait guérir"
+   ],
+   "explain": "Lequel est le plus aisé : dire tes péchés sont pardonnés, ou lève-toi ? (Marc 2:9)"
+  },
+  "en": {
+   "q": "What question did Jesus ask before healing the paralytic from the roof?",
+   "options": [
+    "Which is easier to say",
+    "Who had sent him",
+    "Where his faith was",
+    "Whether he wished to be healed"
+   ],
+   "explain": "'Which is easier: to say your sins are forgiven, or rise and walk?' (Mark 2:9)"
+  }
+ },
+ {
+  "id": "miracles-hard-067",
+  "ref": {
+   "fr": "Luc 5:7",
+   "en": "Luke 5:7"
+  },
+  "fr": {
+   "q": "Qu'arriva-t-il aux deux barques remplies lors de la pêche miraculeuse ?",
+   "options": [
+    "Elles enfonçaient sous la charge",
+    "Elles chavirèrent",
+    "Elles prirent feu",
+    "Elles se vidèrent"
+   ],
+   "explain": "Ils remplirent les deux barques, au point qu'elles enfonçaient. (Luc 5:7)"
+  },
+  "en": {
+   "q": "What happened to the two boats filled in the miraculous catch?",
+   "options": [
+    "They began to sink under the load",
+    "They capsized",
+    "They caught fire",
+    "They emptied out"
+   ],
+   "explain": "They filled both boats, so that they began to sink. (Luke 5:7)"
+  }
+ },
+ {
+  "id": "miracles-hard-068",
+  "ref": {
+   "fr": "Marc 5:19",
+   "en": "Mark 5:19"
+  },
+  "fr": {
+   "q": "Qu'ordonna Jésus à l'homme délivré de Légion, qui voulait le suivre ?",
+   "options": [
+    "De raconter chez lui ce que Dieu avait fait",
+    "De le suivre",
+    "De se taire",
+    "D'aller au temple"
+   ],
+   "explain": "Va dans ta maison, raconte ce que le Seigneur t'a fait. (Marc 5:19)"
+  },
+  "en": {
+   "q": "What did Jesus tell the man freed from Legion, who wanted to follow him?",
+   "options": [
+    "To tell at home what God had done",
+    "To follow him",
+    "To stay silent",
+    "To go to the temple"
+   ],
+   "explain": "'Go home and tell what the Lord has done for you.' (Mark 5:19)"
+  }
+ },
+ {
+  "id": "miracles-hard-069",
+  "ref": {
+   "fr": "Luc 13:16",
+   "en": "Luke 13:16"
+  },
+  "fr": {
+   "q": "Qui, selon Jésus, avait tenu liée la femme courbée depuis dix-huit ans ?",
+   "options": [
+    "Satan",
+    "Un esprit muet",
+    "Une simple maladie",
+    "Un esprit de fièvre"
+   ],
+   "explain": "Cette fille d'Abraham que Satan tenait liée depuis dix-huit ans. (Luc 13:16)"
+  },
+  "en": {
+   "q": "Who, according to Jesus, had kept the bent-over woman bound for eighteen years?",
+   "options": [
+    "Satan",
+    "A mute spirit",
+    "A mere illness",
+    "A spirit of fever"
+   ],
+   "explain": "This daughter of Abraham, whom Satan bound eighteen years. (Luke 13:16)"
+  }
+ },
+ {
+  "id": "miracles-hard-070",
+  "ref": {
+   "fr": "Luc 7:12",
+   "en": "Luke 7:12"
+  },
+  "fr": {
+   "q": "Où Jésus rencontra-t-il le cortège funèbre du fils de la veuve de Naïn ?",
+   "options": [
+    "À la porte de la ville",
+    "Au cimetière",
+    "Dans la synagogue",
+    "Au bord du lac"
+   ],
+   "explain": "Comme il approchait de la porte, on portait un mort en terre. (Luc 7:12)"
+  },
+  "en": {
+   "q": "Where did Jesus meet the funeral procession of the widow of Nain's son?",
+   "options": [
+    "At the town gate",
+    "At the cemetery",
+    "In the synagogue",
+    "By the lake"
+   ],
+   "explain": "As he neared the gate, a dead man was being carried out. (Luke 7:12)"
+  }
+ },
+ {
+  "id": "miracles-hard-071",
+  "ref": {
+   "fr": "Luc 17:16",
+   "en": "Luke 17:16"
+  },
+  "fr": {
+   "q": "De quelle origine était le seul lépreux revenu remercier Jésus ?",
+   "options": [
+    "Il était Samaritain",
+    "Il était Galiléen",
+    "Il était Romain",
+    "Il était Judéen"
+   ],
+   "explain": "Il tomba aux pieds de Jésus ; or, c'était un Samaritain. (Luc 17:16)"
+  },
+  "en": {
+   "q": "Of what background was the only leper who returned to thank Jesus?",
+   "options": [
+    "He was a Samaritan",
+    "He was a Galilean",
+    "He was a Roman",
+    "He was a Judean"
+   ],
+   "explain": "He fell at Jesus' feet; and he was a Samaritan. (Luke 17:16)"
+  }
+ },
+ {
+  "id": "miracles-hard-072",
+  "ref": {
+   "fr": "Jean 9:7",
+   "en": "John 9:7"
+  },
+  "fr": {
+   "q": "Que signifie le nom de la piscine de Siloé où l'aveugle-né se lava ?",
+   "options": [
+    "« Envoyé »",
+    "« Guéri »",
+    "« Source »",
+    "« Lumière »"
+   ],
+   "explain": "Va te laver à Siloé, ce qui se traduit : Envoyé. (Jean 9:7)"
+  },
+  "en": {
+   "q": "What does the name of the pool of Siloam, where the blind man washed, mean?",
+   "options": [
+    "'Sent'",
+    "'Healed'",
+    "'Spring'",
+    "'Light'"
+   ],
+   "explain": "'Go, wash in Siloam,' which means Sent. (John 9:7)"
+  }
+ },
+ {
+  "id": "miracles-hard-073",
+  "ref": {
+   "fr": "Marc 9:24",
+   "en": "Mark 9:24"
+  },
+  "fr": {
+   "q": "Que s'écria le père de l'enfant possédé pour obtenir sa guérison ?",
+   "options": [
+    "« Je crois, viens au secours de mon incrédulité »",
+    "« Guéris-le vite »",
+    "« Aie pitié de moi »",
+    "« Que ta volonté se fasse »"
+   ],
+   "explain": "Je crois ! viens au secours de mon incrédulité ! (Marc 9:24)"
+  },
+  "en": {
+   "q": "What did the possessed boy's father cry out to obtain his healing?",
+   "options": [
+    "'I believe; help my unbelief'",
+    "'Heal him quickly'",
+    "'Have mercy on me'",
+    "'Your will be done'"
+   ],
+   "explain": "'I believe; help my unbelief!' (Mark 9:24)"
+  }
+ },
+ {
+  "id": "miracles-hard-074",
+  "ref": {
+   "fr": "Marc 9:22",
+   "en": "Mark 9:22"
+  },
+  "fr": {
+   "q": "Où l'esprit jetait-il souvent l'enfant pour le faire périr ?",
+   "options": [
+    "Dans le feu et dans l'eau",
+    "Dans les ronces",
+    "Dans les tombeaux",
+    "Dans la mer"
+   ],
+   "explain": "Souvent l'esprit l'a jeté dans le feu et dans l'eau pour le perdre. (Marc 9:22)"
+  },
+  "en": {
+   "q": "Where did the spirit often throw the boy to destroy him?",
+   "options": [
+    "Into fire and into water",
+    "Into thorns",
+    "Into the tombs",
+    "Into the sea"
+   ],
+   "explain": "It has often thrown him into fire and water to destroy him. (Mark 9:22)"
+  }
+ },
+ {
+  "id": "miracles-hard-075",
+  "ref": {
+   "fr": "Marc 9:29",
+   "en": "Mark 9:29"
+  },
+  "fr": {
+   "q": "Selon Jésus, comment cette sorte de démon peut-elle sortir ?",
+   "options": [
+    "Par la prière",
+    "Par la force",
+    "Par des cris",
+    "Par l'eau"
+   ],
+   "explain": "Cette espèce-là ne peut sortir que par la prière. (Marc 9:29)"
+  },
+  "en": {
+   "q": "According to Jesus, how can this kind of demon come out?",
+   "options": [
+    "By prayer",
+    "By force",
+    "By shouting",
+    "By water"
+   ],
+   "explain": "This kind can come out by nothing but prayer. (Mark 9:29)"
+  }
+ },
+ {
+  "id": "miracles-hard-076",
+  "ref": {
+   "fr": "Actes 4:22",
+   "en": "Acts 4:22"
+  },
+  "fr": {
+   "q": "Quel âge avait dépassé l'homme guéri de sa claudication par Pierre ?",
+   "options": [
+    "Plus de quarante ans",
+    "Plus de vingt ans",
+    "Plus de soixante ans",
+    "Plus de dix ans"
+   ],
+   "explain": "L'homme guéri avait plus de quarante ans. (Actes 4:22)"
+  },
+  "en": {
+   "q": "What age had the man healed of his lameness by Peter passed?",
+   "options": [
+    "More than forty years",
+    "More than twenty years",
+    "More than sixty years",
+    "More than ten years"
+   ],
+   "explain": "The man who was healed was more than forty years old. (Acts 4:22)"
+  }
+ },
+ {
+  "id": "miracles-hard-077",
+  "ref": {
+   "fr": "Actes 3:2",
+   "en": "Acts 3:2"
+  },
+  "fr": {
+   "q": "Depuis quand le boiteux de la Belle porte était-il infirme ?",
+   "options": [
+    "Depuis sa naissance",
+    "Depuis douze ans",
+    "Depuis huit ans",
+    "Depuis trente-huit ans"
+   ],
+   "explain": "Un homme boiteux de naissance était porté à la porte du temple. (Actes 3:2)"
+  },
+  "en": {
+   "q": "How long had the lame man at the Beautiful gate been crippled?",
+   "options": [
+    "From birth",
+    "For twelve years",
+    "For eight years",
+    "For thirty-eight years"
+   ],
+   "explain": "A man lame from birth was carried to the temple gate. (Acts 3:2)"
+  }
+ },
+ {
+  "id": "miracles-hard-078",
+  "ref": {
+   "fr": "Actes 6:8",
+   "en": "Acts 6:8"
+  },
+  "fr": {
+   "q": "Qui, plein de grâce et de puissance, faisait des prodiges avant son martyre ?",
+   "options": [
+    "Étienne",
+    "Philippe",
+    "Timothée",
+    "Silas"
+   ],
+   "explain": "Étienne, plein de grâce et de puissance, faisait des prodiges. (Actes 6:8)"
+  },
+  "en": {
+   "q": "Who, full of grace and power, performed wonders before his martyrdom?",
+   "options": [
+    "Stephen",
+    "Philip",
+    "Timothy",
+    "Silas"
+   ],
+   "explain": "Stephen, full of grace and power, did great wonders. (Acts 6:8)"
+  }
+ },
+ {
+  "id": "miracles-hard-079",
+  "ref": {
+   "fr": "Actes 8:18-19",
+   "en": "Acts 8:18-19"
+  },
+  "fr": {
+   "q": "Que Simon le magicien voulut-il acheter aux apôtres à prix d'argent ?",
+   "options": [
+    "Le pouvoir de donner l'Esprit",
+    "Des guérisons",
+    "Un poste d'apôtre",
+    "Le baptême"
+   ],
+   "explain": "Il offrit de l'argent pour recevoir ce pouvoir de l'Esprit. (Actes 8:18-19)"
+  },
+  "en": {
+   "q": "What did Simon the sorcerer try to buy from the apostles with money?",
+   "options": [
+    "The power to give the Spirit",
+    "Healings",
+    "An apostle's office",
+    "Baptism"
+   ],
+   "explain": "He offered money to gain the power to give the Spirit. (Acts 8:18-19)"
+  }
+ },
+ {
+  "id": "miracles-hard-080",
+  "ref": {
+   "fr": "Actes 14:8",
+   "en": "Acts 14:8"
+  },
+  "fr": {
+   "q": "Depuis quand le boiteux de Lystre guéri par Paul était-il infirme ?",
+   "options": [
+    "Depuis le sein de sa mère",
+    "Depuis huit ans",
+    "Depuis un an",
+    "Depuis sa jeunesse"
+   ],
+   "explain": "Un homme perclus des pieds, boiteux dès le sein de sa mère. (Actes 14:8)"
+  },
+  "en": {
+   "q": "How long had the lame man at Lystra, healed by Paul, been crippled?",
+   "options": [
+    "From his mother's womb",
+    "For eight years",
+    "For one year",
+    "Since his youth"
+   ],
+   "explain": "A man crippled in his feet, lame from his mother's womb. (Acts 14:8)"
+  }
+ },
+ {
+  "id": "miracles-hard-081",
+  "ref": {
+   "fr": "Actes 10:3",
+   "en": "Acts 10:3"
+  },
+  "fr": {
+   "q": "À quelle heure du jour l'ange apparut-il à Corneille dans une vision ?",
+   "options": [
+    "Vers la neuvième heure",
+    "À la troisième heure",
+    "À la sixième heure",
+    "À minuit"
+   ],
+   "explain": "Vers la neuvième heure, il vit un ange de Dieu dans une vision. (Actes 10:3)"
+  },
+  "en": {
+   "q": "At what hour of the day did the angel appear to Cornelius in a vision?",
+   "options": [
+    "About the ninth hour",
+    "At the third hour",
+    "At the sixth hour",
+    "At midnight"
+   ],
+   "explain": "About the ninth hour he saw an angel of God in a vision. (Acts 10:3)"
+  }
+ },
+ {
+  "id": "miracles-hard-082",
+  "ref": {
+   "fr": "Actes 10:16",
+   "en": "Acts 10:16"
+  },
+  "fr": {
+   "q": "Combien de fois la nappe pleine d'animaux fut-elle présentée à Pierre ?",
+   "options": [
+    "Trois fois",
+    "Une fois",
+    "Sept fois",
+    "Deux fois"
+   ],
+   "explain": "Cela arriva jusqu'à trois fois, puis la nappe remonta au ciel. (Actes 10:16)"
+  },
+  "en": {
+   "q": "How many times was the sheet full of animals shown to Peter?",
+   "options": [
+    "Three times",
+    "Once",
+    "Seven times",
+    "Twice"
+   ],
+   "explain": "This happened three times, and the sheet was taken up to heaven. (Acts 10:16)"
+  }
+ },
+ {
+  "id": "miracles-hard-083",
+  "ref": {
+   "fr": "Actes 19:7",
+   "en": "Acts 19:7"
+  },
+  "fr": {
+   "q": "Environ combien d'hommes reçurent l'Esprit et parlèrent en langues à Éphèse ?",
+   "options": [
+    "Environ douze",
+    "Environ trois mille",
+    "Environ cent vingt",
+    "Environ soixante-dix"
+   ],
+   "explain": "Ils étaient en tout environ douze hommes. (Actes 19:7)"
+  },
+  "en": {
+   "q": "About how many men received the Spirit and spoke in tongues at Ephesus?",
+   "options": [
+    "About twelve",
+    "About three thousand",
+    "About a hundred twenty",
+    "About seventy"
+   ],
+   "explain": "There were about twelve men in all. (Acts 19:7)"
+  }
+ },
+ {
+  "id": "miracles-hard-084",
+  "ref": {
+   "fr": "Actes 27:37",
+   "en": "Acts 27:37"
+  },
+  "fr": {
+   "q": "Combien de personnes se trouvaient à bord du navire de Paul avant le naufrage ?",
+   "options": [
+    "Deux cent soixante-seize",
+    "Cent cinquante-trois",
+    "Cent vingt",
+    "Trois cents"
+   ],
+   "explain": "Nous étions en tout dans le navire deux cent soixante-seize personnes. (Actes 27:37)"
+  },
+  "en": {
+   "q": "How many people were aboard Paul's ship before the shipwreck?",
+   "options": [
+    "Two hundred seventy-six",
+    "One hundred fifty-three",
+    "One hundred twenty",
+    "Three hundred"
+   ],
+   "explain": "We were in all two hundred seventy-six souls in the ship. (Acts 27:37)"
+  }
+ },
+ {
+  "id": "miracles-hard-085",
+  "ref": {
+   "fr": "Actes 28:8",
+   "en": "Acts 28:8"
+  },
+  "fr": {
+   "q": "De quelles maladies souffrait le père de Publius que Paul guérit à Malte ?",
+   "options": [
+    "De fièvre et de dysenterie",
+    "De lèpre",
+    "De cécité",
+    "De paralysie"
+   ],
+   "explain": "Le père de Publius était couché, atteint de fièvre et de dysenterie. (Actes 28:8)"
+  },
+  "en": {
+   "q": "Of what illnesses did Publius's father suffer, whom Paul healed on Malta?",
+   "options": [
+    "Fever and dysentery",
+    "Leprosy",
+    "Blindness",
+    "Paralysis"
+   ],
+   "explain": "Publius's father lay sick with fever and dysentery. (Acts 28:8)"
+  }
+ },
+ {
+  "id": "miracles-hard-086",
+  "ref": {
+   "fr": "Actes 4:31",
+   "en": "Acts 4:31"
+  },
+  "fr": {
+   "q": "Qu'arriva-t-il au lieu de réunion des croyants après leur prière commune ?",
+   "options": [
+    "Il trembla",
+    "Il s'illumina",
+    "Il prit feu",
+    "Il s'écroula"
+   ],
+   "explain": "Quand ils eurent prié, le lieu où ils étaient trembla. (Actes 4:31)"
+  },
+  "en": {
+   "q": "What happened to the believers' meeting place after their shared prayer?",
+   "options": [
+    "It was shaken",
+    "It shone with light",
+    "It caught fire",
+    "It collapsed"
+   ],
+   "explain": "When they had prayed, the place where they met was shaken. (Acts 4:31)"
+  }
+ },
+ {
+  "id": "miracles-hard-087",
+  "ref": {
+   "fr": "Actes 8:40",
+   "en": "Acts 8:40"
+  },
+  "fr": {
+   "q": "Dans quelle ville Philippe se retrouva-t-il après avoir été enlevé par l'Esprit ?",
+   "options": [
+    "À Azot",
+    "À Gaza",
+    "À Damas",
+    "À Antioche"
+   ],
+   "explain": "Philippe se trouva dans Azot, puis évangélisa jusqu'à Césarée. (Actes 8:40)"
+  },
+  "en": {
+   "q": "In which town did Philip find himself after being carried away by the Spirit?",
+   "options": [
+    "At Azotus",
+    "At Gaza",
+    "At Damascus",
+    "At Antioch"
+   ],
+   "explain": "Philip was found at Azotus and preached on to Caesarea. (Acts 8:40)"
+  }
+ },
+ {
+  "id": "miracles-hard-088",
+  "ref": {
+   "fr": "Actes 28:3",
+   "en": "Acts 28:3"
+  },
+  "fr": {
+   "q": "D'où sortit la vipère qui mordit Paul à Malte ?",
+   "options": [
+    "D'un fagot de bois jeté au feu",
+    "D'un rocher",
+    "De la mer",
+    "D'un panier"
+   ],
+   "explain": "La chaleur fit sortir une vipère du fagot, et elle s'attacha à sa main. (Actes 28:3)"
+  },
+  "en": {
+   "q": "Where did the viper that bit Paul on Malta come from?",
+   "options": [
+    "From a bundle of sticks put on the fire",
+    "From a rock",
+    "From the sea",
+    "From a basket"
+   ],
+   "explain": "The heat drove a viper from the sticks, and it fastened on his hand. (Acts 28:3)"
+  }
+ },
+ {
+  "id": "miracles-hard-089",
+  "ref": {
+   "fr": "Actes 12:4",
+   "en": "Acts 12:4"
+  },
+  "fr": {
+   "q": "À combien d'escouades de soldats Hérode confia-t-il la garde de Pierre en prison ?",
+   "options": [
+    "Quatre escouades de quatre",
+    "Deux gardes",
+    "Dix soldats",
+    "Une légion entière"
+   ],
+   "explain": "Il le fit garder par quatre escouades de quatre soldats. (Actes 12:4)"
+  },
+  "en": {
+   "q": "To how many squads of soldiers did Herod entrust Peter's guard in prison?",
+   "options": [
+    "Four squads of four",
+    "Two guards",
+    "Ten soldiers",
+    "A whole legion"
+   ],
+   "explain": "He handed him to four squads of four soldiers to guard. (Acts 12:4)"
+  }
+ },
+ {
+  "id": "miracles-hard-090",
+  "ref": {
+   "fr": "Actes 13:11",
+   "en": "Acts 13:11"
+  },
+  "fr": {
+   "q": "Pour combien de temps Élymas le magicien devint-il aveugle ?",
+   "options": [
+    "Pour un temps",
+    "Pour toujours",
+    "Pour trois jours",
+    "Pour sept jours"
+   ],
+   "explain": "Tu seras aveugle, privé du soleil pour un temps. (Actes 13:11)"
+  },
+  "en": {
+   "q": "For how long did Elymas the sorcerer become blind?",
+   "options": [
+    "For a time",
+    "Forever",
+    "For three days",
+    "For seven days"
+   ],
+   "explain": "'You will be blind, not seeing the sun for a time.' (Acts 13:11)"
+  }
+ },
+ {
+  "id": "miracles-hard-091",
+  "ref": {
+   "fr": "Actes 9:39",
+   "en": "Acts 9:39"
+  },
+  "fr": {
+   "q": "Que montraient les veuves en pleurant Tabitha avant sa résurrection ?",
+   "options": [
+    "Les tuniques qu'elle avait faites",
+    "Son argent",
+    "Ses lettres",
+    "Ses bijoux"
+   ],
+   "explain": "Les veuves montraient les tuniques que faisait Dorcas. (Actes 9:39)"
+  },
+  "en": {
+   "q": "What did the widows show while weeping for Tabitha before she was raised?",
+   "options": [
+    "The tunics she had made",
+    "Her money",
+    "Her letters",
+    "Her jewelry"
+   ],
+   "explain": "The widows showed the tunics Dorcas had made. (Acts 9:39)"
+  }
+ },
+ {
+  "id": "miracles-hard-092",
+  "ref": {
+   "fr": "Actes 9:34",
+   "en": "Acts 9:34"
+  },
+  "fr": {
+   "q": "Que dit Pierre à Énée, le paralytique de Lydde, pour le guérir ?",
+   "options": [
+    "« Jésus-Christ te guérit, lève-toi »",
+    "« Au nom de Jésus, marche »",
+    "« Ta foi t'a sauvé »",
+    "« Sois pur »"
+   ],
+   "explain": "Énée, Jésus-Christ te guérit ; lève-toi. Et aussitôt il se leva. (Actes 9:34)"
+  },
+  "en": {
+   "q": "What did Peter say to Aeneas, the paralytic at Lydda, to heal him?",
+   "options": [
+    "'Jesus Christ heals you; get up'",
+    "'In Jesus' name, walk'",
+    "'Your faith has saved you'",
+    "'Be clean'"
+   ],
+   "explain": "'Aeneas, Jesus Christ heals you; get up.' At once he rose. (Acts 9:34)"
+  }
+ },
+ {
+  "id": "miracles-hard-093",
+  "ref": {
+   "fr": "Actes 12:6",
+   "en": "Acts 12:6"
+  },
+  "fr": {
+   "q": "Comment Pierre était-il gardé la nuit avant l'intervention de l'ange ?",
+   "options": [
+    "Lié de deux chaînes entre deux soldats",
+    "Seul dans un cachot",
+    "Attaché à un mur",
+    "Dans une fosse"
+   ],
+   "explain": "Pierre dormait, lié de deux chaînes entre deux soldats. (Actes 12:6)"
+  },
+  "en": {
+   "q": "How was Peter guarded at night before the angel's intervention?",
+   "options": [
+    "Bound with two chains between two soldiers",
+    "Alone in a cell",
+    "Chained to a wall",
+    "In a pit"
+   ],
+   "explain": "Peter was sleeping, bound with two chains between two soldiers. (Acts 12:6)"
+  }
+ },
+ {
+  "id": "miracles-hard-094",
+  "ref": {
+   "fr": "Actes 1:15",
+   "en": "Acts 1:15"
+  },
+  "fr": {
+   "q": "Environ combien de personnes étaient réunies avant la Pentecôte, selon Actes 1 ?",
+   "options": [
+    "Environ cent vingt",
+    "Environ douze",
+    "Environ trois mille",
+    "Environ cinq cents"
+   ],
+   "explain": "Le nombre des disciples réunis était d'environ cent vingt. (Actes 1:15)"
+  },
+  "en": {
+   "q": "About how many people were gathered before Pentecost, according to Acts 1?",
+   "options": [
+    "About a hundred twenty",
+    "About twelve",
+    "About three thousand",
+    "About five hundred"
+   ],
+   "explain": "The number of disciples together was about a hundred twenty. (Acts 1:15)"
+  }
+ },
+ {
+  "id": "miracles-hard-095",
+  "ref": {
+   "fr": "Actes 2:41",
+   "en": "Acts 2:41"
+  },
+  "fr": {
+   "q": "Combien de personnes furent ajoutées à l'Église le jour de la Pentecôte ?",
+   "options": [
+    "Environ trois mille",
+    "Environ cinq mille",
+    "Environ cent vingt",
+    "Environ cinq cents"
+   ],
+   "explain": "Ce jour-là, environ trois mille âmes furent ajoutées. (Actes 2:41)"
+  },
+  "en": {
+   "q": "How many people were added to the church on the day of Pentecost?",
+   "options": [
+    "About three thousand",
+    "About five thousand",
+    "About a hundred twenty",
+    "About five hundred"
+   ],
+   "explain": "That day about three thousand souls were added. (Acts 2:41)"
+  }
+ },
+ {
+  "id": "miracles-hard-096",
+  "ref": {
+   "fr": "Matthieu 15:38",
+   "en": "Matthew 15:38"
+  },
+  "fr": {
+   "q": "Avec sept pains, combien d'hommes furent nourris, sans les femmes et les enfants ?",
+   "options": [
+    "Environ quatre mille",
+    "Environ cinq mille",
+    "Environ trois mille",
+    "Environ sept mille"
+   ],
+   "explain": "Ceux qui mangèrent étaient quatre mille, sans les femmes et enfants. (Matthieu 15:38)"
+  },
+  "en": {
+   "q": "With seven loaves, how many men were fed, besides women and children?",
+   "options": [
+    "About four thousand",
+    "About five thousand",
+    "About three thousand",
+    "About seven thousand"
+   ],
+   "explain": "Those who ate were four thousand, besides women and children. (Matthew 15:38)"
+  }
+ },
+ {
+  "id": "miracles-hard-097",
+  "ref": {
+   "fr": "Jean 6:9",
+   "en": "John 6:9"
+  },
+  "fr": {
+   "q": "De quelle sorte étaient les cinq pains du garçon avant le repas des cinq mille ?",
+   "options": [
+    "Des pains d'orge",
+    "Des pains de froment",
+    "Des pains de seigle",
+    "Des pains sans levain"
+   ],
+   "explain": "Il y a ici un garçon qui a cinq pains d'orge et deux poissons. (Jean 6:9)"
+  },
+  "en": {
+   "q": "What kind were the boy's five loaves before the feeding of the five thousand?",
+   "options": [
+    "Barley loaves",
+    "Wheat loaves",
+    "Rye loaves",
+    "Unleavened loaves"
+   ],
+   "explain": "'There is a boy here with five barley loaves and two fish.' (John 6:9)"
+  }
+ },
+ {
+  "id": "miracles-hard-098",
+  "ref": {
+   "fr": "Jean 5:13",
+   "en": "John 5:13"
+  },
+  "fr": {
+   "q": "Que savait d'abord le paralytique guéri à Béthesda au sujet de son guérisseur ?",
+   "options": [
+    "Il ne savait pas qui c'était",
+    "Qu'il était le Messie",
+    "Qu'il venait de Cana",
+    "Qu'il était Pierre"
+   ],
+   "explain": "Le guéri ne savait pas qui c'était, car Jésus s'était retiré. (Jean 5:13)"
+  },
+  "en": {
+   "q": "What did the paralytic healed at Bethesda at first know about his healer?",
+   "options": [
+    "He did not know who it was",
+    "That he was the Messiah",
+    "That he came from Cana",
+    "That he was Peter"
+   ],
+   "explain": "The healed man did not know who it was, for Jesus had withdrawn. (John 5:13)"
+  }
+ },
+ {
+  "id": "miracles-hard-099",
+  "ref": {
+   "fr": "Luc 24:2-3",
+   "en": "Luke 24:2-3"
+  },
+  "fr": {
+   "q": "Que trouvèrent les femmes au tombeau le matin de la résurrection ?",
+   "options": [
+    "La pierre roulée, le tombeau vide",
+    "Des gardes endormis",
+    "Jésus assis dehors",
+    "Un ange muet"
+   ],
+   "explain": "Elles trouvèrent la pierre roulée et ne trouvèrent pas le corps. (Luc 24:2-3)"
+  },
+  "en": {
+   "q": "What did the women find at the tomb on the morning of the resurrection?",
+   "options": [
+    "The stone rolled away, the tomb empty",
+    "Sleeping guards",
+    "Jesus sitting outside",
+    "A silent angel"
+   ],
+   "explain": "They found the stone rolled away and did not find the body. (Luke 24:2-3)"
+  }
+ },
+ {
+  "id": "miracles-hard-100",
+  "ref": {
+   "fr": "Luc 24:42-43",
+   "en": "Luke 24:42-43"
+  },
+  "fr": {
+   "q": "Que mangea Jésus ressuscité devant ses disciples pour prouver qu'il n'était pas un esprit ?",
+   "options": [
+    "Du poisson grillé",
+    "Du pain seul",
+    "Du miel",
+    "Un agneau"
+   ],
+   "explain": "Ils lui donnèrent un morceau de poisson rôti ; il en mangea. (Luc 24:42-43)"
+  },
+  "en": {
+   "q": "What did the risen Jesus eat before his disciples to prove he was not a spirit?",
+   "options": [
+    "Broiled fish",
+    "Bread alone",
+    "Honey",
+    "A lamb"
+   ],
+   "explain": "They gave him a piece of broiled fish, and he ate it. (Luke 24:42-43)"
+  }
+ }
+]
