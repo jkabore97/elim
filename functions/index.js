@@ -406,7 +406,10 @@ exports.notifyOnComment = onDocumentCreated('comments/{commentId}', async (event
 // trigger below picks it up and pushes it to the donor's phone.
 exports.thankOnDonation = onDocumentCreated('donations/{donationId}', async (event) => {
   const donation = event.data && event.data.data();
-  if (!donation || !donation.donorId) return;
+  // 'unknown' is the placeholder the Square webhook uses when a payment note
+  // doesn't map to a member (e.g. a payment made outside the app) - there's no
+  // real account to thank, so don't spin up a church_unknown conversation.
+  if (!donation || !donation.donorId || donation.donorId === 'unknown') return;
   const db = getFirestore();
 
   // The thank-you text is admin-editable in the donation settings; fall back
@@ -696,6 +699,26 @@ exports.syncGroupCaps = onDocumentWritten(
         tx.set(db.collection('users').doc(uid), { groupCaps: caps }, { merge: true });
       })
     ));
+  }
+);
+
+// Keep date-of-birth OUT of the church-readable user document. Leads can read
+// the users collection (for the message picker / member list), so DOB - the
+// most sensitive personal field - is moved to users/{uid}/private/profile,
+// which only the owner and admins can read. Runs on any user-doc write, so it
+// both handles new signups and back-fills existing accounts as they're touched.
+exports.stripDobToPrivate = onDocumentWritten(
+  { region: 'us-central1', document: 'users/{uid}' },
+  async (event) => {
+    const after = event.data.after.exists ? event.data.after.data() : null;
+    if (!after || after.dateOfBirth == null) return; // nothing to move
+    const uid = event.params.uid;
+    const db = getFirestore();
+    await db.doc(`users/${uid}/private/profile`).set(
+      { dateOfBirth: after.dateOfBirth }, { merge: true });
+    // Remove it from the public doc (this write re-triggers the function, which
+    // then no-ops because dateOfBirth is gone).
+    await db.collection('users').doc(uid).update({ dateOfBirth: FieldValue.delete() });
   }
 );
 

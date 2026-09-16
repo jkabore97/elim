@@ -111,6 +111,14 @@ service cloud.firestore {
                         && request.resource.data.get('groupCaps', {}) == resource.data.get('groupCaps', {}))
                     );
       allow delete: if isAdmin();
+
+      // Private profile fields (e.g. date of birth) kept OUT of the
+      // church-readable user doc. Only the owner and admins may read or write
+      // them, so a lead reading the users directory can't see them. The
+      // stripDobToPrivate function (Admin SDK) also writes here.
+      match /private/{docId} {
+        allow read, write: if isSignedIn() && (request.auth.uid == userId || isAdmin());
+      }
     }
 
     // ---- Messaging ----

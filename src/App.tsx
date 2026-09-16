@@ -8,7 +8,7 @@ import {
 } from 'lucide-react'
 import {
   collection, addDoc, onSnapshot, query, orderBy, where,
-  serverTimestamp, doc, updateDoc, deleteDoc, increment, setDoc, getDoc, getDocs, limit
+  serverTimestamp, doc, updateDoc, deleteDoc, increment, setDoc, getDoc, getDocs, limit, writeBatch
 } from 'firebase/firestore'
 import {
   createUserWithEmailAndPassword, signInWithEmailAndPassword,
@@ -1516,7 +1516,10 @@ function AppInner() {
 
   const handleAddComment = async (text: string, parentId?: string) => {
     if (!activeCommentsPost || !user) return
-    await addDoc(collection(db, 'comments'), {
+    // Write the comment and bump the post's counter atomically, so a failure
+    // can't leave the count out of step with the actual comments.
+    const batch = writeBatch(db)
+    batch.set(doc(collection(db, 'comments')), {
       postId: activeCommentsPost,
       userName: user.displayName,
       userId: user.uid,
@@ -1526,7 +1529,8 @@ function AppInner() {
       likes: 0,
       createdAt: serverTimestamp()
     })
-    await updateDoc(doc(db, 'posts', activeCommentsPost), { commentsCount: increment(1) })
+    batch.update(doc(db, 'posts', activeCommentsPost), { commentsCount: increment(1) })
+    await batch.commit()
     const commented = posts.find(p => p.id === activeCommentsPost)
     logActivity(user, 'comment_added',
       `${commented?.churchName || ''}: "${text.slice(0, 60)}"`.trim())
@@ -1540,15 +1544,17 @@ function AppInner() {
     const likeDocId = `${commentId}_${user.uid}`
     const alreadyLiked = likedCommentIds.has(commentId)
     try {
+      const batch = writeBatch(db)
       if (alreadyLiked) {
-        await deleteDoc(doc(db, 'commentLikes', likeDocId))
-        await updateDoc(doc(db, 'comments', commentId), { likes: increment(-1) })
+        batch.delete(doc(db, 'commentLikes', likeDocId))
+        batch.update(doc(db, 'comments', commentId), { likes: increment(-1) })
       } else {
-        await setDoc(doc(db, 'commentLikes', likeDocId), {
+        batch.set(doc(db, 'commentLikes', likeDocId), {
           commentId, userId: user.uid, createdAt: serverTimestamp()
         })
-        await updateDoc(doc(db, 'comments', commentId), { likes: increment(1) })
+        batch.update(doc(db, 'comments', commentId), { likes: increment(1) })
       }
+      await batch.commit()
     } finally {
       commentLikeInFlight.current.delete(commentId)
     }
@@ -1583,6 +1589,9 @@ function AppInner() {
     setShowNotifications(false)
     setActiveTab('feed')
     setHighlightPostId(n.postId)
+    // Clear the highlight after a beat so the post doesn't stay outlined until
+    // the next tap (matches the deep-link route behavior).
+    setTimeout(() => setHighlightPostId(prev => prev === n.postId ? null : prev), 4000)
     if (n.type !== 'post_like') setActiveCommentsPost(n.postId)
   }
 
@@ -1603,15 +1612,18 @@ function AppInner() {
     const liked = posts.find(p => p.id === postId)
     const detail = (liked?.content || '').slice(0, 60)
     try {
+      const batch = writeBatch(db)
       if (alreadyLiked) {
-        await deleteDoc(doc(db, 'likes', likeDocId))
-        await updateDoc(doc(db, 'posts', postId), { likes: increment(-1) })
+        batch.delete(doc(db, 'likes', likeDocId))
+        batch.update(doc(db, 'posts', postId), { likes: increment(-1) })
+        await batch.commit()
         logActivity(user, 'like_removed', detail)
       } else {
-        await setDoc(doc(db, 'likes', likeDocId), {
+        batch.set(doc(db, 'likes', likeDocId), {
           postId, userId: user.uid, createdAt: serverTimestamp()
         })
-        await updateDoc(doc(db, 'posts', postId), { likes: increment(1) })
+        batch.update(doc(db, 'posts', postId), { likes: increment(1) })
+        await batch.commit()
         logActivity(user, 'like_added', detail)
       }
     } catch {
@@ -3398,6 +3410,26 @@ function CreatePostModal({ onClose, onSubmit, uploaderUid, section = 'feed', myG
   // with several they choose one (or "just me").
   const [groupId, setGroupId] = useState(() => pickGroups.length === 1 ? pickGroups[0].id : '')
 
+  // Upload lifecycle. activeTask is the running UploadTask (so we can cancel it
+  // if the person closes or switches type mid-upload); orphanRef points at a
+  // finished upload that isn't attached to a published post yet, so we can
+  // delete it instead of leaving it stranded in Storage. mounted guards the
+  // async callbacks from setState-ing after the modal is gone.
+  const mounted = useRef(true)
+  const activeTask = useRef<ReturnType<typeof uploadBytesResumable> | null>(null)
+  const orphanRef = useRef<ReturnType<typeof ref> | null>(null)
+
+  // Cancel a running upload and delete a finished-but-unpublished one. Called
+  // when the person replaces the file, switches post type, or closes the modal.
+  const discardPendingUpload = () => {
+    if (activeTask.current) { try { activeTask.current.cancel() } catch { /* already settled */ } activeTask.current = null }
+    if (orphanRef.current) { deleteObject(orphanRef.current).catch(() => {}); orphanRef.current = null }
+  }
+
+  useEffect(() => () => { mounted.current = false; discardPendingUpload() }, [])
+
+  const handleClose = () => { discardPendingUpload(); onClose() }
+
   const canUploadDirectly = type === 'text-image' || type === 'audio' || type === 'video' || type === 'document'
   const rule = UPLOAD_RULES[type]
 
@@ -3414,21 +3446,30 @@ function CreatePostModal({ onClose, onSubmit, uploaderUid, section = 'feed', myG
       setUploadError(`File is too large — max ${rule.maxMB}MB for this type.`)
       return
     }
+    // Replacing a file: cancel any running upload and drop the previous
+    // orphan so we don't leave the old one stranded in Storage.
+    discardPendingUpload()
     setUploading(true)
     setUploadProgress(0)
     const storageRef = ref(storage, `post-media/${uploaderUid}/${Date.now()}-${file.name}`)
     const task = uploadBytesResumable(storageRef, file)
+    activeTask.current = task
     task.on('state_changed',
-      snap => setUploadProgress(Math.round((snap.bytesTransferred / snap.totalBytes) * 100)),
+      snap => { if (mounted.current) setUploadProgress(Math.round((snap.bytesTransferred / snap.totalBytes) * 100)) },
       err => {
-        setUploadError(err.message || 'Upload failed')
-        setUploading(false)
+        activeTask.current = null
+        // A cancel (from close/replace/type-switch) surfaces here too; that's
+        // not an error worth showing.
+        if (err.code === 'storage/canceled') return
+        if (mounted.current) { setUploadError(err.message || 'Upload failed'); setUploading(false) }
       },
       async () => {
+        activeTask.current = null
+        // Finished but not yet published: track it so it can be cleaned up if
+        // the person walks away or replaces it.
+        orphanRef.current = storageRef
         const url = await getDownloadURL(storageRef)
-        setMediaUrl(url)
-        setFileName(file.name)
-        setUploading(false)
+        if (mounted.current) { setMediaUrl(url); setFileName(file.name); setUploading(false) }
       }
     )
   }
@@ -3437,7 +3478,7 @@ function CreatePostModal({ onClose, onSubmit, uploaderUid, section = 'feed', myG
     <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-end sm:items-center justify-center">
       <div className="glass-bar w-full max-w-lg rounded-t-3xl sm:rounded-3xl max-h-[90vh] overflow-y-auto shadow-2xl">
         <div className="sticky top-0 bg-white/90 backdrop-blur border-b border-slate-100 px-5 py-4 flex items-center justify-between">
-          <button onClick={onClose} className="p-1.5 rounded-full hover:bg-slate-100"><X size={20} /></button>
+          <button onClick={handleClose} className="p-1.5 rounded-full hover:bg-slate-100"><X size={20} /></button>
           <h2 className="font-bold text-lg">{section === 'sante' ? t('sante.newTip') : t('post.new')}</h2>
           <button onClick={async () => {
             if (content.trim() && !uploading && !publishing) {
@@ -3455,6 +3496,9 @@ function CreatePostModal({ onClose, onSubmit, uploaderUid, section = 'feed', myG
                   ...(section === 'sante' ? { category: santeCategory } : {}),
                   ...(groupId ? { groupId } : {})
                 })
+                // Published: the upload is now attached to a post, so don't
+                // let the cleanup delete it on unmount.
+                orphanRef.current = null
                 onClose()
               } catch (err: any) {
                 setUploadError(err?.message || t('post.publishFailed'))
@@ -3499,7 +3543,7 @@ function CreatePostModal({ onClose, onSubmit, uploaderUid, section = 'feed', myG
             }, {
               id: 'video', icon: Video, label: t('post.video')
             }].map(opt => (
-              <button key={opt.id} onClick={() => { setType(opt.id as Post['type']); setMediaUrl(''); setFileName(''); setUploadError('') }}
+              <button key={opt.id} onClick={() => { discardPendingUpload(); setType(opt.id as Post['type']); setMediaUrl(''); setFileName(''); setUploadError(''); setUploading(false) }}
                 className={`flex flex-col items-center gap-1.5 py-3 rounded-2xl border-2 transition ${
                   type === opt.id ? 'border-affirm-500 bg-affirm-50 text-affirm-700' : 'border-slate-100 text-slate-400'}`}>
                 <opt.icon size={20} />

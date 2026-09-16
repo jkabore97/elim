@@ -14,7 +14,9 @@ const DATA_REGISTRY = [
     purposeKey: 'reg.users',
     fields: [
       'uid', 'firstName', 'lastName', 'displayName', 'email', 'phone',
-      'phoneVerified', 'dateOfBirth', 'gender', 'profession', 'interests',
+      // dateOfBirth now lives in users/{uid}/private/profile (owner/admin only),
+      // so it is no longer a field on the public user doc shown here.
+      'phoneVerified', 'gender', 'profession', 'interests',
       'role', 'churchName', 'memberChurchId', 'memberChurchName',
       'country', 'city', 'avatar', 'notificationsEnabled', 'fcmTokens', 'createdAt'
     ],
@@ -376,7 +378,7 @@ export function DataManagementTab({ user }: { user: AppUser }) {
   const exportPeopleCsv = () => {
     const columns = [
       'uid', 'firstName', 'lastName', 'displayName', 'role', 'email', 'phone',
-      'phoneVerified', 'dateOfBirth', 'gender', 'profession', 'interests',
+      'phoneVerified', 'gender', 'profession', 'interests',
       'churchName', 'memberChurchName', 'country', 'city', 'createdAt'
     ]
     const stamp = new Date().toISOString().split('T')[0]
