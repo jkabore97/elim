@@ -272,28 +272,28 @@
  {
   "id": "nt-medium-011",
   "ref": {
-   "fr": "Luc 7:11-15",
-   "en": "Luke 7:11-15"
+   "fr": "Jean 11:44",
+   "en": "John 11:44"
   },
   "fr": {
-   "q": "Dans quelle ville Jésus ressuscita-t-il le fils unique d’une veuve ?",
+   "q": "Que criait Jésus pour appeler Lazare hors du tombeau ?",
    "options": [
-    "Naïn",
-    "Capernaüm",
-    "Béthanie",
-    "Jéricho"
+    "« Lazare, sors ! »",
+    "« Lève-toi ! »",
+    "« Reviens ! »",
+    "« Marche ! »"
    ],
-   "explain": "À Naïn, Jésus rendit à la veuve son fils. (Luc 7:11-15)"
+   "explain": "« Il cria d’une voix forte : Lazare, sors ! » (Jean 11:43-44)"
   },
   "en": {
-   "q": "In which town did Jesus raise a widow’s only son?",
+   "q": "What did Jesus cry to call Lazarus out of the tomb?",
    "options": [
-    "Nain",
-    "Capernaum",
-    "Bethany",
-    "Jericho"
+    "“Lazarus, come out!”",
+    "“Arise!”",
+    "“Return!”",
+    "“Walk!”"
    ],
-   "explain": "At Nain, Jesus restored the widow’s son. (Luke 7:11-15)"
+   "explain": "“He cried with a loud voice, Lazarus, come out!” (John 11:43-44)"
   }
  },
  {
@@ -2081,28 +2081,28 @@
  {
   "id": "nt-medium-078",
   "ref": {
-   "fr": "Matthieu 3:4",
-   "en": "Matthew 3:4"
+   "fr": "Actes 1:26",
+   "en": "Acts 1:26"
   },
   "fr": {
-   "q": "De quoi Jean-Baptiste se nourrissait-il au désert ?",
+   "q": "Qui fut choisi pour remplacer Judas parmi les douze apôtres ?",
    "options": [
-    "Sauterelles et miel sauvage",
-    "Pain et poisson",
-    "Figues et raisin",
-    "Lait et fromage"
+    "Matthias",
+    "Barnabas",
+    "Étienne",
+    "Silas"
    ],
-   "explain": "Sa nourriture était des sauterelles et du miel sauvage. (Matthieu 3:4)"
+   "explain": "Le sort tomba sur Matthias, ajouté aux onze apôtres. (Actes 1:26)"
   },
   "en": {
-   "q": "What did John the Baptist eat in the wilderness?",
+   "q": "Who was chosen to replace Judas among the twelve apostles?",
    "options": [
-    "Locusts and wild honey",
-    "Bread and fish",
-    "Figs and grapes",
-    "Milk and cheese"
+    "Matthias",
+    "Barnabas",
+    "Stephen",
+    "Silas"
    ],
-   "explain": "His food was locusts and wild honey. (Matthew 3:4)"
+   "explain": "The lot fell on Matthias, added to the eleven. (Acts 1:26)"
   }
  },
  {

@@ -1,0 +1,2702 @@
+[
+ {
+  "id": "geography-medium-001",
+  "ref": {
+   "fr": "Apocalypse 2:4",
+   "en": "Revelation 2:4"
+  },
+  "fr": {
+   "q": "À quelle Église le Seigneur reproche-t-il d’avoir abandonné son premier amour ?",
+   "options": [
+    "Éphèse",
+    "Smyrne",
+    "Sardes",
+    "Laodicée"
+   ],
+   "explain": "Le Seigneur dit à Éphèse : tu as abandonné ton premier amour. (Apocalypse 2:4)"
+  },
+  "en": {
+   "q": "Which church does the Lord rebuke for leaving its first love?",
+   "options": [
+    "Ephesus",
+    "Smyrna",
+    "Sardis",
+    "Laodicea"
+   ],
+   "explain": "The Lord tells Ephesus: you have left your first love. (Revelation 2:4)"
+  }
+ },
+ {
+  "id": "geography-medium-002",
+  "ref": {
+   "fr": "Apocalypse 3:16",
+   "en": "Revelation 3:16"
+  },
+  "fr": {
+   "q": "Quelle Église est décrite comme tiède, ni froide ni bouillante ?",
+   "options": [
+    "Laodicée",
+    "Philadelphie",
+    "Pergame",
+    "Thyatire"
+   ],
+   "explain": "À Laodicée : parce que tu es tiède, je te vomirai de ma bouche. (Apocalypse 3:16)"
+  },
+  "en": {
+   "q": "Which church is described as lukewarm, neither cold nor hot?",
+   "options": [
+    "Laodicea",
+    "Philadelphia",
+    "Pergamos",
+    "Thyatira"
+   ],
+   "explain": "To Laodicea: because you are lukewarm, I will spit you out. (Revelation 3:16)"
+  }
+ },
+ {
+  "id": "geography-medium-003",
+  "ref": {
+   "fr": "Apocalypse 3:1",
+   "en": "Revelation 3:1"
+  },
+  "fr": {
+   "q": "À quelle Église est-il dit : tu passes pour vivant, mais tu es mort ?",
+   "options": [
+    "Sardes",
+    "Smyrne",
+    "Éphèse",
+    "Philadelphie"
+   ],
+   "explain": "À Sardes : tu passes pour être vivant, et tu es mort. (Apocalypse 3:1)"
+  },
+  "en": {
+   "q": "To which church is it said: you have a name that you live, but you are dead?",
+   "options": [
+    "Sardis",
+    "Smyrna",
+    "Ephesus",
+    "Philadelphia"
+   ],
+   "explain": "To Sardis: you have a name that you live, and are dead. (Revelation 3:1)"
+  }
+ },
+ {
+  "id": "geography-medium-004",
+  "ref": {
+   "fr": "Apocalypse 2:13",
+   "en": "Revelation 2:13"
+  },
+  "fr": {
+   "q": "Dans quelle ville l’Église demeure-t-elle là où est le trône de Satan ?",
+   "options": [
+    "Pergame",
+    "Thyatire",
+    "Sardes",
+    "Éphèse"
+   ],
+   "explain": "À Pergame, là où Satan a son trône. (Apocalypse 2:13)"
+  },
+  "en": {
+   "q": "In which city does the church dwell where Satan’s throne is?",
+   "options": [
+    "Pergamos",
+    "Thyatira",
+    "Sardis",
+    "Ephesus"
+   ],
+   "explain": "In Pergamos, where Satan’s throne is. (Revelation 2:13)"
+  }
+ },
+ {
+  "id": "geography-medium-005",
+  "ref": {
+   "fr": "Apocalypse 2:8-10",
+   "en": "Revelation 2:8-10"
+  },
+  "fr": {
+   "q": "À quelle Église pauvre mais riche est-il dit : sois fidèle jusqu’à la mort ?",
+   "options": [
+    "Smyrne",
+    "Laodicée",
+    "Thyatire",
+    "Philadelphie"
+   ],
+   "explain": "À Smyrne : sois fidèle jusqu’à la mort. (Apocalypse 2:8-10)"
+  },
+  "en": {
+   "q": "To which poor yet rich church is it said: be faithful unto death?",
+   "options": [
+    "Smyrna",
+    "Laodicea",
+    "Thyatira",
+    "Philadelphia"
+   ],
+   "explain": "To Smyrna: be faithful until death. (Revelation 2:8-10)"
+  }
+ },
+ {
+  "id": "geography-medium-006",
+  "ref": {
+   "fr": "Apocalypse 2:20",
+   "en": "Revelation 2:20"
+  },
+  "fr": {
+   "q": "Quelle Église laissait-elle faire la femme Jézabel qui égarait les serviteurs ?",
+   "options": [
+    "Thyatire",
+    "Pergame",
+    "Sardes",
+    "Éphèse"
+   ],
+   "explain": "À Thyatire, on tolérait Jézabel qui se disait prophétesse. (Apocalypse 2:20)"
+  },
+  "en": {
+   "q": "Which church tolerated the woman Jezebel who led servants astray?",
+   "options": [
+    "Thyatira",
+    "Pergamos",
+    "Sardis",
+    "Ephesus"
+   ],
+   "explain": "In Thyatira, Jezebel who called herself a prophetess was tolerated. (Revelation 2:20)"
+  }
+ },
+ {
+  "id": "geography-medium-007",
+  "ref": {
+   "fr": "Apocalypse 3:8",
+   "en": "Revelation 3:8"
+  },
+  "fr": {
+   "q": "À quelle Église le Seigneur ouvre-t-il une porte que nul ne peut fermer ?",
+   "options": [
+    "Philadelphie",
+    "Laodicée",
+    "Smyrne",
+    "Pergame"
+   ],
+   "explain": "À Philadelphie : j’ai mis devant toi une porte ouverte. (Apocalypse 3:8)"
+  },
+  "en": {
+   "q": "To which church does the Lord open a door no one can shut?",
+   "options": [
+    "Philadelphia",
+    "Laodicea",
+    "Smyrna",
+    "Pergamos"
+   ],
+   "explain": "To Philadelphia: I have set before you an open door. (Revelation 3:8)"
+  }
+ },
+ {
+  "id": "geography-medium-008",
+  "ref": {
+   "fr": "Apocalypse 3:18",
+   "en": "Revelation 3:18"
+  },
+  "fr": {
+   "q": "À quelle Église est-il conseillé d’acheter de l’or éprouvé et un collyre pour les yeux ?",
+   "options": [
+    "Laodicée",
+    "Sardes",
+    "Thyatire",
+    "Éphèse"
+   ],
+   "explain": "À Laodicée : achète de moi de l’or éprouvé par le feu. (Apocalypse 3:18)"
+  },
+  "en": {
+   "q": "Which church is counseled to buy refined gold and eye salve?",
+   "options": [
+    "Laodicea",
+    "Sardis",
+    "Thyatira",
+    "Ephesus"
+   ],
+   "explain": "To Laodicea: buy from me gold refined by fire. (Revelation 3:18)"
+  }
+ },
+ {
+  "id": "geography-medium-009",
+  "ref": {
+   "fr": "Apocalypse 1:4,11",
+   "en": "Revelation 1:4,11"
+  },
+  "fr": {
+   "q": "Dans quelle province se trouvaient les sept Églises de l’Apocalypse ?",
+   "options": [
+    "L’Asie",
+    "La Macédoine",
+    "L’Achaïe",
+    "La Galatie"
+   ],
+   "explain": "Jean écrit aux sept Églises qui sont en Asie. (Apocalypse 1:4,11)"
+  },
+  "en": {
+   "q": "In which province were the seven churches of Revelation?",
+   "options": [
+    "Asia",
+    "Macedonia",
+    "Achaia",
+    "Galatia"
+   ],
+   "explain": "John writes to the seven churches that are in Asia. (Revelation 1:4,11)"
+  }
+ },
+ {
+  "id": "geography-medium-010",
+  "ref": {
+   "fr": "Actes 16:14",
+   "en": "Acts 16:14"
+  },
+  "fr": {
+   "q": "De quelle ville venait Lydie, la marchande de pourpre convertie à Philippes ?",
+   "options": [
+    "Thyatire",
+    "Éphèse",
+    "Corinthe",
+    "Laodicée"
+   ],
+   "explain": "Lydie était une marchande de pourpre de la ville de Thyatire. (Actes 16:14)"
+  },
+  "en": {
+   "q": "From which city was Lydia, the seller of purple converted at Philippi?",
+   "options": [
+    "Thyatira",
+    "Ephesus",
+    "Corinth",
+    "Laodicea"
+   ],
+   "explain": "Lydia was a seller of purple from the city of Thyatira. (Acts 16:14)"
+  }
+ },
+ {
+  "id": "geography-medium-011",
+  "ref": {
+   "fr": "Actes 13:1-3",
+   "en": "Acts 13:1-3"
+  },
+  "fr": {
+   "q": "De quelle ville l’Esprit envoya-t-il Paul et Barnabas pour leur premier voyage ?",
+   "options": [
+    "Antioche",
+    "Jérusalem",
+    "Éphèse",
+    "Tarse"
+   ],
+   "explain": "L’Église d’Antioche envoya Barnabas et Saul en mission. (Actes 13:1-3)"
+  },
+  "en": {
+   "q": "From which city were Paul and Barnabas sent on their first journey?",
+   "options": [
+    "Antioch",
+    "Jerusalem",
+    "Ephesus",
+    "Tarsus"
+   ],
+   "explain": "The church at Antioch sent out Barnabas and Saul. (Acts 13:1-3)"
+  }
+ },
+ {
+  "id": "geography-medium-012",
+  "ref": {
+   "fr": "Actes 13:4",
+   "en": "Acts 13:4"
+  },
+  "fr": {
+   "q": "Quelle île Paul et Barnabas évangélisèrent-ils au début de leur premier voyage ?",
+   "options": [
+    "Chypre",
+    "Malte",
+    "Crète",
+    "Patmos"
+   ],
+   "explain": "Ils descendirent à Séleucie et de là firent voile pour Chypre. (Actes 13:4)"
+  },
+  "en": {
+   "q": "Which island did Paul and Barnabas evangelize at the start of their first journey?",
+   "options": [
+    "Cyprus",
+    "Malta",
+    "Crete",
+    "Patmos"
+   ],
+   "explain": "They went to Seleucia and sailed from there to Cyprus. (Acts 13:4)"
+  }
+ },
+ {
+  "id": "geography-medium-013",
+  "ref": {
+   "fr": "Actes 13:6-8",
+   "en": "Acts 13:6-8"
+  },
+  "fr": {
+   "q": "Dans quelle ville de Chypre Paul rencontra-t-il le magicien Élymas ?",
+   "options": [
+    "Paphos",
+    "Salamine",
+    "Antioche",
+    "Perge"
+   ],
+   "explain": "À Paphos, Paul s’opposa au magicien Bar-Jésus, dit Élymas. (Actes 13:6-8)"
+  },
+  "en": {
+   "q": "In which city of Cyprus did Paul meet Elymas the sorcerer?",
+   "options": [
+    "Paphos",
+    "Salamis",
+    "Antioch",
+    "Perga"
+   ],
+   "explain": "At Paphos, Paul opposed the sorcerer Bar-Jesus, called Elymas. (Acts 13:6-8)"
+  }
+ },
+ {
+  "id": "geography-medium-014",
+  "ref": {
+   "fr": "Actes 13:13",
+   "en": "Acts 13:13"
+  },
+  "fr": {
+   "q": "Dans quelle ville de Pamphylie Jean-Marc quitta-t-il Paul pour rentrer ?",
+   "options": [
+    "Perge",
+    "Antioche",
+    "Iconium",
+    "Lystre"
+   ],
+   "explain": "À Perge en Pamphylie, Jean-Marc se sépara d’eux. (Actes 13:13)"
+  },
+  "en": {
+   "q": "In which city of Pamphylia did John Mark leave Paul and return home?",
+   "options": [
+    "Perga",
+    "Antioch",
+    "Iconium",
+    "Lystra"
+   ],
+   "explain": "At Perga in Pamphylia, John Mark departed from them. (Acts 13:13)"
+  }
+ },
+ {
+  "id": "geography-medium-015",
+  "ref": {
+   "fr": "Actes 14:11-12",
+   "en": "Acts 14:11-12"
+  },
+  "fr": {
+   "q": "Dans quelle ville prit-on Barnabas pour Jupiter et Paul pour Mercure ?",
+   "options": [
+    "Lystre",
+    "Iconium",
+    "Derbe",
+    "Perge"
+   ],
+   "explain": "À Lystre on appela Barnabas Jupiter, et Paul Mercure. (Actes 14:11-12)"
+  },
+  "en": {
+   "q": "In which city were Barnabas taken for Jupiter and Paul for Mercury?",
+   "options": [
+    "Lystra",
+    "Iconium",
+    "Derbe",
+    "Perga"
+   ],
+   "explain": "At Lystra they called Barnabas Jupiter, and Paul Mercury. (Acts 14:11-12)"
+  }
+ },
+ {
+  "id": "geography-medium-016",
+  "ref": {
+   "fr": "Actes 14:19",
+   "en": "Acts 14:19"
+  },
+  "fr": {
+   "q": "Dans quelle ville Paul fut-il lapidé et traîné hors des murs comme mort ?",
+   "options": [
+    "Lystre",
+    "Antioche",
+    "Iconium",
+    "Derbe"
+   ],
+   "explain": "À Lystre, on lapida Paul et on le crut mort. (Actes 14:19)"
+  },
+  "en": {
+   "q": "In which city was Paul stoned and dragged out as dead?",
+   "options": [
+    "Lystra",
+    "Antioch",
+    "Iconium",
+    "Derbe"
+   ],
+   "explain": "At Lystra, Paul was stoned and dragged out for dead. (Acts 14:19)"
+  }
+ },
+ {
+  "id": "geography-medium-017",
+  "ref": {
+   "fr": "Actes 15:6",
+   "en": "Acts 15:6"
+  },
+  "fr": {
+   "q": "Dans quelle ville les apôtres se réunirent-ils pour trancher sur la circoncision ?",
+   "options": [
+    "Jérusalem",
+    "Antioche",
+    "Éphèse",
+    "Césarée"
+   ],
+   "explain": "Les apôtres et les anciens s’assemblèrent à Jérusalem. (Actes 15:6)"
+  },
+  "en": {
+   "q": "In which city did the apostles meet to settle the question of circumcision?",
+   "options": [
+    "Jerusalem",
+    "Antioch",
+    "Ephesus",
+    "Caesarea"
+   ],
+   "explain": "The apostles and elders gathered at Jerusalem. (Acts 15:6)"
+  }
+ },
+ {
+  "id": "geography-medium-018",
+  "ref": {
+   "fr": "Actes 16:1",
+   "en": "Acts 16:1"
+  },
+  "fr": {
+   "q": "De quelle ville était Timothée, que Paul prit comme compagnon ?",
+   "options": [
+    "Lystre",
+    "Tarse",
+    "Antioche",
+    "Bérée"
+   ],
+   "explain": "À Lystre se trouvait un disciple nommé Timothée. (Actes 16:1)"
+  },
+  "en": {
+   "q": "From which city was Timothy, whom Paul took as a companion?",
+   "options": [
+    "Lystra",
+    "Tarsus",
+    "Antioch",
+    "Berea"
+   ],
+   "explain": "At Lystra was a disciple named Timothy. (Acts 16:1)"
+  }
+ },
+ {
+  "id": "geography-medium-019",
+  "ref": {
+   "fr": "Actes 16:8-9",
+   "en": "Acts 16:8-9"
+  },
+  "fr": {
+   "q": "Dans quelle ville Paul vit-il en vision un Macédonien l’appelant à l’aide ?",
+   "options": [
+    "Troas",
+    "Éphèse",
+    "Milet",
+    "Assos"
+   ],
+   "explain": "À Troas, un Macédonien apparut à Paul en vision. (Actes 16:8-9)"
+  },
+  "en": {
+   "q": "In which city did Paul see a vision of a Macedonian calling for help?",
+   "options": [
+    "Troas",
+    "Ephesus",
+    "Miletus",
+    "Assos"
+   ],
+   "explain": "At Troas, a Macedonian appeared to Paul in a vision. (Acts 16:8-9)"
+  }
+ },
+ {
+  "id": "geography-medium-020",
+  "ref": {
+   "fr": "Actes 16:25-26",
+   "en": "Acts 16:25-26"
+  },
+  "fr": {
+   "q": "Dans quelle ville un tremblement de terre ouvrit-il la prison de Paul et Silas ?",
+   "options": [
+    "Philippes",
+    "Thessalonique",
+    "Bérée",
+    "Corinthe"
+   ],
+   "explain": "À Philippes, un séisme ébranla la prison pendant leurs cantiques. (Actes 16:25-26)"
+  },
+  "en": {
+   "q": "In which city did an earthquake open the prison of Paul and Silas?",
+   "options": [
+    "Philippi",
+    "Thessalonica",
+    "Berea",
+    "Corinth"
+   ],
+   "explain": "At Philippi, an earthquake shook the prison as they sang. (Acts 16:25-26)"
+  }
+ },
+ {
+  "id": "geography-medium-021",
+  "ref": {
+   "fr": "Actes 17:6",
+   "en": "Acts 17:6"
+  },
+  "fr": {
+   "q": "Dans quelle ville dit-on de Paul et Silas : ces gens bouleversent le monde ?",
+   "options": [
+    "Thessalonique",
+    "Bérée",
+    "Athènes",
+    "Corinthe"
+   ],
+   "explain": "À Thessalonique : ces gens qui ont bouleversé le monde. (Actes 17:6)"
+  },
+  "en": {
+   "q": "In which city was it said of Paul and Silas: these turned the world upside down?",
+   "options": [
+    "Thessalonica",
+    "Berea",
+    "Athens",
+    "Corinth"
+   ],
+   "explain": "At Thessalonica: these who have turned the world upside down. (Acts 17:6)"
+  }
+ },
+ {
+  "id": "geography-medium-022",
+  "ref": {
+   "fr": "Actes 17:11",
+   "en": "Acts 17:11"
+  },
+  "fr": {
+   "q": "Dans quelle ville les habitants examinaient-ils chaque jour les Écritures ?",
+   "options": [
+    "Bérée",
+    "Athènes",
+    "Thessalonique",
+    "Éphèse"
+   ],
+   "explain": "Les Béréens sondaient les Écritures chaque jour. (Actes 17:11)"
+  },
+  "en": {
+   "q": "In which city did the people examine the Scriptures daily?",
+   "options": [
+    "Berea",
+    "Athens",
+    "Thessalonica",
+    "Ephesus"
+   ],
+   "explain": "The Bereans searched the Scriptures daily. (Acts 17:11)"
+  }
+ },
+ {
+  "id": "geography-medium-023",
+  "ref": {
+   "fr": "Actes 18:12",
+   "en": "Acts 18:12"
+  },
+  "fr": {
+   "q": "De quelle province Gallion était-il proconsul quand on accusa Paul ?",
+   "options": [
+    "L’Achaïe",
+    "La Macédoine",
+    "L’Asie",
+    "La Galatie"
+   ],
+   "explain": "Gallion était proconsul de l’Achaïe à Corinthe. (Actes 18:12)"
+  },
+  "en": {
+   "q": "Of which province was Gallio proconsul when Paul was accused?",
+   "options": [
+    "Achaia",
+    "Macedonia",
+    "Asia",
+    "Galatia"
+   ],
+   "explain": "Gallio was proconsul of Achaia at Corinth. (Acts 18:12)"
+  }
+ },
+ {
+  "id": "geography-medium-024",
+  "ref": {
+   "fr": "Actes 18:11",
+   "en": "Acts 18:11"
+  },
+  "fr": {
+   "q": "Dans quelle ville Paul demeura-t-il un an et demi à enseigner la Parole ?",
+   "options": [
+    "Corinthe",
+    "Éphèse",
+    "Antioche",
+    "Thessalonique"
+   ],
+   "explain": "Paul resta un an et six mois à Corinthe. (Actes 18:11)"
+  },
+  "en": {
+   "q": "In which city did Paul stay a year and a half teaching the word?",
+   "options": [
+    "Corinth",
+    "Ephesus",
+    "Antioch",
+    "Thessalonica"
+   ],
+   "explain": "Paul stayed a year and six months in Corinth. (Acts 18:11)"
+  }
+ },
+ {
+  "id": "geography-medium-025",
+  "ref": {
+   "fr": "Actes 19:9-10",
+   "en": "Acts 19:9-10"
+  },
+  "fr": {
+   "q": "Dans quelle ville Paul enseigna-t-il deux ans dans l’école de Tyrannus ?",
+   "options": [
+    "Éphèse",
+    "Corinthe",
+    "Milet",
+    "Troas"
+   ],
+   "explain": "À Éphèse, Paul discourait chaque jour dans l’école de Tyrannus. (Actes 19:9-10)"
+  },
+  "en": {
+   "q": "In which city did Paul teach two years in the school of Tyrannus?",
+   "options": [
+    "Ephesus",
+    "Corinth",
+    "Miletus",
+    "Troas"
+   ],
+   "explain": "At Ephesus, Paul reasoned daily in the school of Tyrannus. (Acts 19:9-10)"
+  }
+ },
+ {
+  "id": "geography-medium-026",
+  "ref": {
+   "fr": "Actes 19:24-28",
+   "en": "Acts 19:24-28"
+  },
+  "fr": {
+   "q": "Dans quelle ville l’orfèvre Démétrius souleva-t-il une émeute contre Paul ?",
+   "options": [
+    "Éphèse",
+    "Corinthe",
+    "Athènes",
+    "Philippes"
+   ],
+   "explain": "À Éphèse, Démétrius, fabricant de temples d’argent, ameuta la foule. (Actes 19:24-28)"
+  },
+  "en": {
+   "q": "In which city did the silversmith Demetrius stir a riot against Paul?",
+   "options": [
+    "Ephesus",
+    "Corinth",
+    "Athens",
+    "Philippi"
+   ],
+   "explain": "At Ephesus, Demetrius, a silver-shrine maker, roused the crowd. (Acts 19:24-28)"
+  }
+ },
+ {
+  "id": "geography-medium-027",
+  "ref": {
+   "fr": "Actes 20:9-10",
+   "en": "Acts 20:9-10"
+  },
+  "fr": {
+   "q": "Dans quelle ville le jeune Eutychus tomba-t-il d’une fenêtre pendant la prédication ?",
+   "options": [
+    "Troas",
+    "Milet",
+    "Éphèse",
+    "Assos"
+   ],
+   "explain": "À Troas, Eutychus tomba du troisième étage et Paul le releva. (Actes 20:9-10)"
+  },
+  "en": {
+   "q": "In which city did young Eutychus fall from a window during the preaching?",
+   "options": [
+    "Troas",
+    "Miletus",
+    "Ephesus",
+    "Assos"
+   ],
+   "explain": "At Troas, Eutychus fell from the third story and Paul raised him. (Acts 20:9-10)"
+  }
+ },
+ {
+  "id": "geography-medium-028",
+  "ref": {
+   "fr": "Actes 20:17",
+   "en": "Acts 20:17"
+  },
+  "fr": {
+   "q": "Dans quelle ville Paul convoqua-t-il les anciens d’Éphèse pour ses adieux ?",
+   "options": [
+    "Milet",
+    "Troas",
+    "Assos",
+    "Corinthe"
+   ],
+   "explain": "De Milet, Paul fit appeler les anciens de l’Église d’Éphèse. (Actes 20:17)"
+  },
+  "en": {
+   "q": "In which city did Paul summon the Ephesian elders for his farewell?",
+   "options": [
+    "Miletus",
+    "Troas",
+    "Assos",
+    "Corinth"
+   ],
+   "explain": "From Miletus, Paul sent for the elders of the Ephesian church. (Acts 20:17)"
+  }
+ },
+ {
+  "id": "geography-medium-029",
+  "ref": {
+   "fr": "Actes 21:8-11",
+   "en": "Acts 21:8-11"
+  },
+  "fr": {
+   "q": "Dans quelle ville le prophète Agabus annonça-t-il l’arrestation de Paul ?",
+   "options": [
+    "Césarée",
+    "Tyr",
+    "Ptolémaïs",
+    "Jérusalem"
+   ],
+   "explain": "À Césarée, Agabus lia ses mains avec la ceinture de Paul. (Actes 21:8-11)"
+  },
+  "en": {
+   "q": "In which city did the prophet Agabus foretell Paul’s arrest?",
+   "options": [
+    "Caesarea",
+    "Tyre",
+    "Ptolemais",
+    "Jerusalem"
+   ],
+   "explain": "At Caesarea, Agabus bound his hands with Paul’s belt. (Acts 21:8-11)"
+  }
+ },
+ {
+  "id": "geography-medium-030",
+  "ref": {
+   "fr": "Actes 25:10-11",
+   "en": "Acts 25:10-11"
+  },
+  "fr": {
+   "q": "Dans quelle ville Paul en appela-t-il à César devant le gouverneur Festus ?",
+   "options": [
+    "Césarée",
+    "Jérusalem",
+    "Rome",
+    "Antioche"
+   ],
+   "explain": "À Césarée, Paul dit : J’en appelle à César. (Actes 25:10-11)"
+  },
+  "en": {
+   "q": "In which city did Paul appeal to Caesar before governor Festus?",
+   "options": [
+    "Caesarea",
+    "Jerusalem",
+    "Rome",
+    "Antioch"
+   ],
+   "explain": "At Caesarea, Paul said: I appeal to Caesar. (Acts 25:10-11)"
+  }
+ },
+ {
+  "id": "geography-medium-031",
+  "ref": {
+   "fr": "Actes 27:5-6",
+   "en": "Acts 27:5-6"
+  },
+  "fr": {
+   "q": "Dans quelle ville de Lycie le centurion trouva-t-il un navire pour Rome ?",
+   "options": [
+    "Myra",
+    "Cnide",
+    "Beaux-Ports",
+    "Lasée"
+   ],
+   "explain": "À Myra en Lycie, on embarqua sur un navire d’Alexandrie. (Actes 27:5-6)"
+  },
+  "en": {
+   "q": "In which city of Lycia did the centurion find a ship bound for Rome?",
+   "options": [
+    "Myra",
+    "Cnidus",
+    "Fair Havens",
+    "Lasea"
+   ],
+   "explain": "At Myra in Lycia they boarded a ship of Alexandria. (Acts 27:5-6)"
+  }
+ },
+ {
+  "id": "geography-medium-032",
+  "ref": {
+   "fr": "Actes 27:8",
+   "en": "Acts 27:8"
+  },
+  "fr": {
+   "q": "Le long de quelle île le navire de Paul longea-t-il avant la tempête ?",
+   "options": [
+    "La Crète",
+    "Chypre",
+    "Malte",
+    "Rhodes"
+   ],
+   "explain": "On côtoya la Crète et l’on parvint aux Beaux-Ports. (Actes 27:8)"
+  },
+  "en": {
+   "q": "Along which island did Paul’s ship sail before the storm?",
+   "options": [
+    "Crete",
+    "Cyprus",
+    "Malta",
+    "Rhodes"
+   ],
+   "explain": "They coasted along Crete and reached Fair Havens. (Acts 27:8)"
+  }
+ },
+ {
+  "id": "geography-medium-033",
+  "ref": {
+   "fr": "Actes 28:7-8",
+   "en": "Acts 28:7-8"
+  },
+  "fr": {
+   "q": "Sur quelle île Paul guérit-il le père de Publius, le premier du lieu ?",
+   "options": [
+    "Malte",
+    "Crète",
+    "Chypre",
+    "Sicile"
+   ],
+   "explain": "À Malte, Paul guérit le père de Publius, malade de fièvre. (Actes 28:7-8)"
+  },
+  "en": {
+   "q": "On which island did Paul heal the father of Publius, the chief man?",
+   "options": [
+    "Malta",
+    "Crete",
+    "Cyprus",
+    "Sicily"
+   ],
+   "explain": "On Malta, Paul healed Publius’s father of a fever. (Acts 28:7-8)"
+  }
+ },
+ {
+  "id": "geography-medium-034",
+  "ref": {
+   "fr": "Actes 28:15",
+   "en": "Acts 28:15"
+  },
+  "fr": {
+   "q": "Vers quelle ville les frères vinrent-ils au-devant de Paul jusqu’au Forum d’Appius ?",
+   "options": [
+    "Rome",
+    "Pouzzoles",
+    "Syracuse",
+    "Reggio"
+   ],
+   "explain": "Les frères de Rome vinrent au-devant de Paul jusqu’au Forum d’Appius. (Actes 28:15)"
+  },
+  "en": {
+   "q": "Toward which city did the brothers come to meet Paul at the Forum of Appius?",
+   "options": [
+    "Rome",
+    "Puteoli",
+    "Syracuse",
+    "Rhegium"
+   ],
+   "explain": "The brothers from Rome met Paul at the Forum of Appius. (Acts 28:15)"
+  }
+ },
+ {
+  "id": "geography-medium-035",
+  "ref": {
+   "fr": "Actes 14:1",
+   "en": "Acts 14:1"
+  },
+  "fr": {
+   "q": "Dans quelle ville, après Antioche de Pisidie, une grande foule crut par Paul ?",
+   "options": [
+    "Iconium",
+    "Derbe",
+    "Perge",
+    "Attalie"
+   ],
+   "explain": "À Iconium, une grande multitude de Juifs et de Grecs crurent. (Actes 14:1)"
+  },
+  "en": {
+   "q": "In which city, after Pisidian Antioch, did a great crowd believe through Paul?",
+   "options": [
+    "Iconium",
+    "Derbe",
+    "Perga",
+    "Attalia"
+   ],
+   "explain": "At Iconium a great number of Jews and Greeks believed. (Acts 14:1)"
+  }
+ },
+ {
+  "id": "geography-medium-036",
+  "ref": {
+   "fr": "Josué 13:33",
+   "en": "Joshua 13:33"
+  },
+  "fr": {
+   "q": "Quelle tribu d’Israël ne reçut pas de territoire, l’Éternel étant son héritage ?",
+   "options": [
+    "Lévi",
+    "Benjamin",
+    "Siméon",
+    "Dan"
+   ],
+   "explain": "Moïse ne donna point d’héritage à Lévi : l’Éternel est son héritage. (Josué 13:33)"
+  },
+  "en": {
+   "q": "Which tribe of Israel received no land, the LORD being its inheritance?",
+   "options": [
+    "Levi",
+    "Benjamin",
+    "Simeon",
+    "Dan"
+   ],
+   "explain": "Moses gave no inheritance to Levi: the LORD is their inheritance. (Joshua 13:33)"
+  }
+ },
+ {
+  "id": "geography-medium-037",
+  "ref": {
+   "fr": "Michée 5:2",
+   "en": "Micah 5:2"
+  },
+  "fr": {
+   "q": "Dans le territoire de quelle tribu se trouvait Bethléhem Éphrata ?",
+   "options": [
+    "Juda",
+    "Benjamin",
+    "Éphraïm",
+    "Zabulon"
+   ],
+   "explain": "Bethléhem Éphrata, petite entre les milliers de Juda. (Michée 5:2)"
+  },
+  "en": {
+   "q": "In the territory of which tribe was Bethlehem Ephrathah?",
+   "options": [
+    "Judah",
+    "Benjamin",
+    "Ephraim",
+    "Zebulun"
+   ],
+   "explain": "Bethlehem Ephrathah, little among the thousands of Judah. (Micah 5:2)"
+  }
+ },
+ {
+  "id": "geography-medium-038",
+  "ref": {
+   "fr": "Juges 18:29",
+   "en": "Judges 18:29"
+  },
+  "fr": {
+   "q": "Quelle ville la tribu de Dan conquit-elle au nord et rebaptisa-t-elle de son nom ?",
+   "options": [
+    "Laïs",
+    "Sichem",
+    "Hébron",
+    "Beér-Schéba"
+   ],
+   "explain": "Ils appelèrent Dan la ville qui s’appelait Laïs. (Juges 18:29)"
+  },
+  "en": {
+   "q": "Which northern city did the tribe of Dan capture and rename after itself?",
+   "options": [
+    "Laish",
+    "Shechem",
+    "Hebron",
+    "Beersheba"
+   ],
+   "explain": "They named the city Dan, which had been called Laish. (Judges 18:29)"
+  }
+ },
+ {
+  "id": "geography-medium-039",
+  "ref": {
+   "fr": "Josué 22:9",
+   "en": "Joshua 22:9"
+  },
+  "fr": {
+   "q": "De quel côté du Jourdain Ruben, Gad et la demi-tribu de Manassé s’établirent-ils ?",
+   "options": [
+    "À l’est du Jourdain",
+    "À l’ouest du Jourdain",
+    "En Galilée",
+    "Dans le Néguev"
+   ],
+   "explain": "Ruben, Gad et la demi-tribu de Manassé eurent leur pays au-delà du Jourdain. (Josué 22:9)"
+  },
+  "en": {
+   "q": "On which side of the Jordan did Reuben, Gad and half of Manasseh settle?",
+   "options": [
+    "East of the Jordan",
+    "West of the Jordan",
+    "In Galilee",
+    "In the Negev"
+   ],
+   "explain": "Reuben, Gad and half of Manasseh had their land beyond the Jordan. (Joshua 22:9)"
+  }
+ },
+ {
+  "id": "geography-medium-040",
+  "ref": {
+   "fr": "Nombres 13:8,16",
+   "en": "Numbers 13:8,16"
+  },
+  "fr": {
+   "q": "De quelle tribu était Josué, fils de Nun, qui succéda à Moïse ?",
+   "options": [
+    "Éphraïm",
+    "Juda",
+    "Benjamin",
+    "Manassé"
+   ],
+   "explain": "Osée, fils de Nun (Josué), était de la tribu d’Éphraïm. (Nombres 13:8,16)"
+  },
+  "en": {
+   "q": "From which tribe was Joshua son of Nun, who succeeded Moses?",
+   "options": [
+    "Ephraim",
+    "Judah",
+    "Benjamin",
+    "Manasseh"
+   ],
+   "explain": "Hoshea son of Nun (Joshua) was of the tribe of Ephraim. (Numbers 13:8,16)"
+  }
+ },
+ {
+  "id": "geography-medium-041",
+  "ref": {
+   "fr": "Josué 19:1",
+   "en": "Joshua 19:1"
+  },
+  "fr": {
+   "q": "Au milieu du territoire de quelle tribu Siméon reçut-il son héritage ?",
+   "options": [
+    "Juda",
+    "Benjamin",
+    "Éphraïm",
+    "Dan"
+   ],
+   "explain": "L’héritage de Siméon était au milieu de celui de Juda. (Josué 19:1)"
+  },
+  "en": {
+   "q": "Within the territory of which tribe did Simeon receive its inheritance?",
+   "options": [
+    "Judah",
+    "Benjamin",
+    "Ephraim",
+    "Dan"
+   ],
+   "explain": "Simeon’s inheritance was within the territory of Judah. (Joshua 19:1)"
+  }
+ },
+ {
+  "id": "geography-medium-042",
+  "ref": {
+   "fr": "Josué 20:7",
+   "en": "Joshua 20:7"
+  },
+  "fr": {
+   "q": "Laquelle de ces villes fut désignée comme ville de refuge dans la montagne d’Éphraïm ?",
+   "options": [
+    "Sichem",
+    "Jéricho",
+    "Silo",
+    "Guibea"
+   ],
+   "explain": "On consacra Sichem, dans la montagne d’Éphraïm, comme ville de refuge. (Josué 20:7)"
+  },
+  "en": {
+   "q": "Which of these was set apart as a city of refuge in the hill country of Ephraim?",
+   "options": [
+    "Shechem",
+    "Jericho",
+    "Shiloh",
+    "Gibeah"
+   ],
+   "explain": "Shechem in the hill country of Ephraim was made a city of refuge. (Joshua 20:7)"
+  }
+ },
+ {
+  "id": "geography-medium-043",
+  "ref": {
+   "fr": "Josué 20:8",
+   "en": "Joshua 20:8"
+  },
+  "fr": {
+   "q": "Quelle ville de refuge fut établie en Galaad, à l’est du Jourdain ?",
+   "options": [
+    "Ramoth",
+    "Kédesch",
+    "Hébron",
+    "Betser"
+   ],
+   "explain": "On désigna Ramoth en Galaad comme ville de refuge. (Josué 20:8)"
+  },
+  "en": {
+   "q": "Which city of refuge was set up in Gilead, east of the Jordan?",
+   "options": [
+    "Ramoth",
+    "Kedesh",
+    "Hebron",
+    "Bezer"
+   ],
+   "explain": "Ramoth in Gilead was appointed a city of refuge. (Joshua 20:8)"
+  }
+ },
+ {
+  "id": "geography-medium-044",
+  "ref": {
+   "fr": "1 Samuel 31:1",
+   "en": "1 Samuel 31:1"
+  },
+  "fr": {
+   "q": "Sur quelle montagne Saül et Jonathan trouvèrent-ils la mort face aux Philistins ?",
+   "options": [
+    "Le mont Guilboa",
+    "Le mont Thabor",
+    "Le mont Carmel",
+    "Le mont Hermon"
+   ],
+   "explain": "Israël prit la fuite et tomba mort sur la montagne de Guilboa. (1 Samuel 31:1)"
+  },
+  "en": {
+   "q": "On which mountain did Saul and Jonathan die facing the Philistines?",
+   "options": [
+    "Mount Gilboa",
+    "Mount Tabor",
+    "Mount Carmel",
+    "Mount Hermon"
+   ],
+   "explain": "Israel fled and fell slain on Mount Gilboa. (1 Samuel 31:1)"
+  }
+ },
+ {
+  "id": "geography-medium-045",
+  "ref": {
+   "fr": "Nombres 20:28",
+   "en": "Numbers 20:28"
+  },
+  "fr": {
+   "q": "Sur quelle montagne le souverain sacrificateur Aaron mourut-il ?",
+   "options": [
+    "Le mont Hor",
+    "Le mont Nébo",
+    "Le mont Sinaï",
+    "Le mont Carmel"
+   ],
+   "explain": "Aaron mourut au sommet de la montagne de Hor. (Nombres 20:28)"
+  },
+  "en": {
+   "q": "On which mountain did the high priest Aaron die?",
+   "options": [
+    "Mount Hor",
+    "Mount Nebo",
+    "Mount Sinai",
+    "Mount Carmel"
+   ],
+   "explain": "Aaron died on the top of Mount Hor. (Numbers 20:28)"
+  }
+ },
+ {
+  "id": "geography-medium-046",
+  "ref": {
+   "fr": "Deutéronome 11:29",
+   "en": "Deuteronomy 11:29"
+  },
+  "fr": {
+   "q": "Sur quelle montagne devait-on prononcer la bénédiction en entrant en Canaan ?",
+   "options": [
+    "Le mont Garizim",
+    "Le mont Ébal",
+    "Le mont Thabor",
+    "Le mont Guilboa"
+   ],
+   "explain": "Tu mettras la bénédiction sur le mont Garizim. (Deutéronome 11:29)"
+  },
+  "en": {
+   "q": "On which mountain was the blessing to be set when entering Canaan?",
+   "options": [
+    "Mount Gerizim",
+    "Mount Ebal",
+    "Mount Tabor",
+    "Mount Gilboa"
+   ],
+   "explain": "You shall set the blessing on Mount Gerizim. (Deuteronomy 11:29)"
+  }
+ },
+ {
+  "id": "geography-medium-047",
+  "ref": {
+   "fr": "Deutéronome 34:5",
+   "en": "Deuteronomy 34:5"
+  },
+  "fr": {
+   "q": "Sur quelle montagne du pays de Moab Moïse mourut-il ?",
+   "options": [
+    "Le mont Nébo",
+    "Le mont Hor",
+    "Le mont Sinaï",
+    "Le mont Guilboa"
+   ],
+   "explain": "Moïse mourut sur le mont Nébo, dans le pays de Moab. (Deutéronome 34:5)"
+  },
+  "en": {
+   "q": "On which mountain in the land of Moab did Moses die?",
+   "options": [
+    "Mount Nebo",
+    "Mount Hor",
+    "Mount Sinai",
+    "Mount Gilboa"
+   ],
+   "explain": "Moses died on Mount Nebo, in the land of Moab. (Deuteronomy 34:5)"
+  }
+ },
+ {
+  "id": "geography-medium-048",
+  "ref": {
+   "fr": "2 Rois 4:25",
+   "en": "2 Kings 4:25"
+  },
+  "fr": {
+   "q": "Sur quelle montagne la Sunamite vint-elle trouver le prophète Élisée ?",
+   "options": [
+    "Le mont Carmel",
+    "Le mont Thabor",
+    "Le mont Nébo",
+    "Le mont Hermon"
+   ],
+   "explain": "La Sunamite alla vers l’homme de Dieu sur le mont Carmel. (2 Rois 4:25)"
+  },
+  "en": {
+   "q": "On which mountain did the Shunammite woman come to the prophet Elisha?",
+   "options": [
+    "Mount Carmel",
+    "Mount Tabor",
+    "Mount Nebo",
+    "Mount Hermon"
+   ],
+   "explain": "The Shunammite went to the man of God at Mount Carmel. (2 Kings 4:25)"
+  }
+ },
+ {
+  "id": "geography-medium-049",
+  "ref": {
+   "fr": "Deutéronome 34:3",
+   "en": "Deuteronomy 34:3"
+  },
+  "fr": {
+   "q": "Quelle ville l’Écriture appelle-t-elle la ville des palmiers ?",
+   "options": [
+    "Jéricho",
+    "Bethléhem",
+    "Hébron",
+    "Silo"
+   ],
+   "explain": "L’Éternel montra à Moïse Jéricho, la ville des palmiers. (Deutéronome 34:3)"
+  },
+  "en": {
+   "q": "Which city does Scripture call the city of palm trees?",
+   "options": [
+    "Jericho",
+    "Bethlehem",
+    "Hebron",
+    "Shiloh"
+   ],
+   "explain": "The LORD showed Moses Jericho, the city of palm trees. (Deuteronomy 34:3)"
+  }
+ },
+ {
+  "id": "geography-medium-050",
+  "ref": {
+   "fr": "Josué 2:1",
+   "en": "Joshua 2:1"
+  },
+  "fr": {
+   "q": "Dans quelle ville Rahab cacha-t-elle les deux espions envoyés par Josué ?",
+   "options": [
+    "Jéricho",
+    "Aï",
+    "Gabaon",
+    "Béthel"
+   ],
+   "explain": "Les espions entrèrent chez Rahab, à Jéricho. (Josué 2:1)"
+  },
+  "en": {
+   "q": "In which city did Rahab hide the two spies sent by Joshua?",
+   "options": [
+    "Jericho",
+    "Ai",
+    "Gibeon",
+    "Bethel"
+   ],
+   "explain": "The spies came to Rahab’s house in Jericho. (Joshua 2:1)"
+  }
+ },
+ {
+  "id": "geography-medium-051",
+  "ref": {
+   "fr": "1 Rois 16:34",
+   "en": "1 Kings 16:34"
+  },
+  "fr": {
+   "q": "Quelle ville Hiel de Béthel rebâtit-il, accomplissant la malédiction de Josué ?",
+   "options": [
+    "Jéricho",
+    "Aï",
+    "Silo",
+    "Guilgal"
+   ],
+   "explain": "Hiel rebâtit Jéricho au prix de ses fils, selon la parole de Josué. (1 Rois 16:34)"
+  },
+  "en": {
+   "q": "Which city did Hiel of Bethel rebuild, fulfilling Joshua’s curse?",
+   "options": [
+    "Jericho",
+    "Ai",
+    "Shiloh",
+    "Gilgal"
+   ],
+   "explain": "Hiel rebuilt Jericho at the cost of his sons, as Joshua foretold. (1 Kings 16:34)"
+  }
+ },
+ {
+  "id": "geography-medium-052",
+  "ref": {
+   "fr": "2 Rois 2:19-22",
+   "en": "2 Kings 2:19-22"
+  },
+  "fr": {
+   "q": "Dans quelle ville Élisée assainit-il les eaux mauvaises en y jetant du sel ?",
+   "options": [
+    "Jéricho",
+    "Samarie",
+    "Dothan",
+    "Béthel"
+   ],
+   "explain": "À Jéricho, Élisée guérit les eaux en y jetant du sel. (2 Rois 2:19-22)"
+  },
+  "en": {
+   "q": "In which city did Elisha heal the bad water by throwing in salt?",
+   "options": [
+    "Jericho",
+    "Samaria",
+    "Dothan",
+    "Bethel"
+   ],
+   "explain": "At Jericho, Elisha healed the water by throwing in salt. (2 Kings 2:19-22)"
+  }
+ },
+ {
+  "id": "geography-medium-053",
+  "ref": {
+   "fr": "2 Rois 7:3-7",
+   "en": "2 Kings 7:3-7"
+  },
+  "fr": {
+   "q": "Quelle ville, assiégée et affamée, fut sauvée par la découverte de quatre lépreux ?",
+   "options": [
+    "Samarie",
+    "Jéricho",
+    "Dothan",
+    "Jérusalem"
+   ],
+   "explain": "Pendant la famine à Samarie, quatre lépreux trouvèrent le camp syrien vide. (2 Rois 7:3-7)"
+  },
+  "en": {
+   "q": "Which besieged, starving city was saved by four lepers’ discovery?",
+   "options": [
+    "Samaria",
+    "Jericho",
+    "Dothan",
+    "Jerusalem"
+   ],
+   "explain": "During the famine at Samaria, four lepers found the Syrian camp empty. (2 Kings 7:3-7)"
+  }
+ },
+ {
+  "id": "geography-medium-054",
+  "ref": {
+   "fr": "1 Rois 21:1",
+   "en": "1 Kings 21:1"
+  },
+  "fr": {
+   "q": "Dans quelle ville se trouvait la vigne de Naboth convoitée par le roi Achab ?",
+   "options": [
+    "Jizreel",
+    "Samarie",
+    "Sichem",
+    "Béthel"
+   ],
+   "explain": "Naboth avait une vigne à Jizreel, près du palais d’Achab. (1 Rois 21:1)"
+  },
+  "en": {
+   "q": "In which city was Naboth’s vineyard coveted by King Ahab?",
+   "options": [
+    "Jezreel",
+    "Samaria",
+    "Shechem",
+    "Bethel"
+   ],
+   "explain": "Naboth had a vineyard in Jezreel, near Ahab’s palace. (1 Kings 21:1)"
+  }
+ },
+ {
+  "id": "geography-medium-055",
+  "ref": {
+   "fr": "2 Rois 9:30-33",
+   "en": "2 Kings 9:30-33"
+  },
+  "fr": {
+   "q": "Dans quelle ville Jézabel fut-elle précipitée d’une fenêtre et périt ?",
+   "options": [
+    "Jizreel",
+    "Samarie",
+    "Ramoth",
+    "Dothan"
+   ],
+   "explain": "À Jizreel, on jeta Jézabel par la fenêtre. (2 Rois 9:30-33)"
+  },
+  "en": {
+   "q": "In which city was Jezebel thrown from a window to her death?",
+   "options": [
+    "Jezreel",
+    "Samaria",
+    "Ramoth",
+    "Dothan"
+   ],
+   "explain": "At Jezreel, Jezebel was thrown down from a window. (2 Kings 9:30-33)"
+  }
+ },
+ {
+  "id": "geography-medium-056",
+  "ref": {
+   "fr": "Actes 8:5",
+   "en": "Acts 8:5"
+  },
+  "fr": {
+   "q": "Dans quelle région Philippe l’évangéliste prêcha-t-il le Christ avec grande joie ?",
+   "options": [
+    "La Samarie",
+    "La Judée",
+    "La Galilée",
+    "La Décapole"
+   ],
+   "explain": "Philippe descendit dans une ville de Samarie et y prêcha le Christ. (Actes 8:5)"
+  },
+  "en": {
+   "q": "In which region did Philip the evangelist preach Christ with great joy?",
+   "options": [
+    "Samaria",
+    "Judea",
+    "Galilee",
+    "Decapolis"
+   ],
+   "explain": "Philip went down to a city of Samaria and preached Christ there. (Acts 8:5)"
+  }
+ },
+ {
+  "id": "geography-medium-057",
+  "ref": {
+   "fr": "Luc 7:1-10",
+   "en": "Luke 7:1-10"
+  },
+  "fr": {
+   "q": "Dans quelle ville Jésus guérit-il à distance le serviteur d’un centurion ?",
+   "options": [
+    "Capernaüm",
+    "Naïn",
+    "Cana",
+    "Bethsaïda"
+   ],
+   "explain": "À Capernaüm, Jésus guérit le serviteur du centurion. (Luc 7:1-10)"
+  },
+  "en": {
+   "q": "In which town did Jesus heal a centurion’s servant from a distance?",
+   "options": [
+    "Capernaum",
+    "Nain",
+    "Cana",
+    "Bethsaida"
+   ],
+   "explain": "At Capernaum, Jesus healed the centurion’s servant. (Luke 7:1-10)"
+  }
+ },
+ {
+  "id": "geography-medium-058",
+  "ref": {
+   "fr": "Marc 1:29-31",
+   "en": "Mark 1:29-31"
+  },
+  "fr": {
+   "q": "Dans quelle ville Jésus guérit-il la belle-mère de Simon Pierre de sa fièvre ?",
+   "options": [
+    "Capernaüm",
+    "Bethléhem",
+    "Nazareth",
+    "Jéricho"
+   ],
+   "explain": "À Capernaüm, Jésus prit la belle-mère de Pierre et la fièvre la quitta. (Marc 1:29-31)"
+  },
+  "en": {
+   "q": "In which town did Jesus heal Simon Peter’s mother-in-law of a fever?",
+   "options": [
+    "Capernaum",
+    "Bethlehem",
+    "Nazareth",
+    "Jericho"
+   ],
+   "explain": "At Capernaum, Jesus took Peter’s mother-in-law and the fever left. (Mark 1:29-31)"
+  }
+ },
+ {
+  "id": "geography-medium-059",
+  "ref": {
+   "fr": "Matthieu 11:23",
+   "en": "Matthew 11:23"
+  },
+  "fr": {
+   "q": "Quelle ville Jésus avertit-il : élevée jusqu’au ciel, tu descendras au séjour des morts ?",
+   "options": [
+    "Capernaüm",
+    "Chorazin",
+    "Bethsaïda",
+    "Tyr"
+   ],
+   "explain": "Et toi, Capernaüm, seras-tu élevée jusqu’au ciel ? (Matthieu 11:23)"
+  },
+  "en": {
+   "q": "Which city did Jesus warn: lifted to heaven, you will be brought down to Hades?",
+   "options": [
+    "Capernaum",
+    "Chorazin",
+    "Bethsaida",
+    "Tyre"
+   ],
+   "explain": "And you, Capernaum, will you be exalted to heaven? (Matthew 11:23)"
+  }
+ },
+ {
+  "id": "geography-medium-060",
+  "ref": {
+   "fr": "Matthieu 17:24-27",
+   "en": "Matthew 17:24-27"
+  },
+  "fr": {
+   "q": "Dans quelle ville Pierre trouva-t-il l’impôt du temple dans la bouche d’un poisson ?",
+   "options": [
+    "Capernaüm",
+    "Bethsaïda",
+    "Tibériade",
+    "Magdala"
+   ],
+   "explain": "À Capernaüm, l’impôt fut payé par une pièce trouvée dans un poisson. (Matthieu 17:24-27)"
+  },
+  "en": {
+   "q": "In which town did Peter find the temple tax in a fish’s mouth?",
+   "options": [
+    "Capernaum",
+    "Bethsaida",
+    "Tiberias",
+    "Magdala"
+   ],
+   "explain": "At Capernaum the tax was paid by a coin found in a fish. (Matthew 17:24-27)"
+  }
+ },
+ {
+  "id": "geography-medium-061",
+  "ref": {
+   "fr": "Galates 2:11",
+   "en": "Galatians 2:11"
+  },
+  "fr": {
+   "q": "Dans quelle ville Paul résista-t-il en face à Pierre qui se retirait des païens ?",
+   "options": [
+    "Antioche",
+    "Jérusalem",
+    "Corinthe",
+    "Éphèse"
+   ],
+   "explain": "Lorsque Céphas vint à Antioche, Paul lui résista en face. (Galates 2:11)"
+  },
+  "en": {
+   "q": "In which city did Paul oppose Peter to his face for withdrawing from Gentiles?",
+   "options": [
+    "Antioch",
+    "Jerusalem",
+    "Corinth",
+    "Ephesus"
+   ],
+   "explain": "When Cephas came to Antioch, Paul opposed him to his face. (Galatians 2:11)"
+  }
+ },
+ {
+  "id": "geography-medium-062",
+  "ref": {
+   "fr": "Actes 11:29",
+   "en": "Acts 11:29"
+  },
+  "fr": {
+   "q": "De quelle ville les disciples envoyèrent-ils des secours à la Judée lors de la famine ?",
+   "options": [
+    "Antioche",
+    "Éphèse",
+    "Corinthe",
+    "Rome"
+   ],
+   "explain": "Les disciples d’Antioche résolurent d’envoyer des secours aux frères de Judée. (Actes 11:29)"
+  },
+  "en": {
+   "q": "From which city did the disciples send relief to Judea during the famine?",
+   "options": [
+    "Antioch",
+    "Ephesus",
+    "Corinth",
+    "Rome"
+   ],
+   "explain": "The disciples at Antioch decided to send relief to the brothers in Judea. (Acts 11:29)"
+  }
+ },
+ {
+  "id": "geography-medium-063",
+  "ref": {
+   "fr": "Actes 13:14-16",
+   "en": "Acts 13:14-16"
+  },
+  "fr": {
+   "q": "Dans quelle ville de Pisidie Paul prêcha-t-il un sabbat dans la synagogue ?",
+   "options": [
+    "Antioche",
+    "Iconium",
+    "Lystre",
+    "Derbe"
+   ],
+   "explain": "À Antioche de Pisidie, Paul se leva pour parler dans la synagogue. (Actes 13:14-16)"
+  },
+  "en": {
+   "q": "In which city of Pisidia did Paul preach one Sabbath in the synagogue?",
+   "options": [
+    "Antioch",
+    "Iconium",
+    "Lystra",
+    "Derbe"
+   ],
+   "explain": "At Antioch of Pisidia, Paul stood to speak in the synagogue. (Acts 13:14-16)"
+  }
+ },
+ {
+  "id": "geography-medium-064",
+  "ref": {
+   "fr": "Daniel 3:1",
+   "en": "Daniel 3:1"
+  },
+  "fr": {
+   "q": "Dans quelle plaine de Babylone Nebucadnetsar dressa-t-il sa statue d’or ?",
+   "options": [
+    "La plaine de Dura",
+    "La plaine de Sinear",
+    "La plaine de Jizreel",
+    "La plaine du Jourdain"
+   ],
+   "explain": "Nebucadnetsar dressa la statue dans la plaine de Dura, en Babylone. (Daniel 3:1)"
+  },
+  "en": {
+   "q": "In which plain of Babylon did Nebuchadnezzar set up his golden statue?",
+   "options": [
+    "The plain of Dura",
+    "The plain of Shinar",
+    "The plain of Jezreel",
+    "The Jordan plain"
+   ],
+   "explain": "Nebuchadnezzar set the statue on the plain of Dura in Babylon. (Daniel 3:1)"
+  }
+ },
+ {
+  "id": "geography-medium-065",
+  "ref": {
+   "fr": "Daniel 5:5",
+   "en": "Daniel 5:5"
+  },
+  "fr": {
+   "q": "Dans quelle ville une main écrivit-elle sur le mur pendant le festin de Belschatsar ?",
+   "options": [
+    "Babylone",
+    "Suse",
+    "Ninive",
+    "Ecbatane"
+   ],
+   "explain": "À Babylone, des doigts écrivirent sur la muraille du palais. (Daniel 5:5)"
+  },
+  "en": {
+   "q": "In which city did a hand write on the wall during Belshazzar’s feast?",
+   "options": [
+    "Babylon",
+    "Susa",
+    "Nineveh",
+    "Ecbatana"
+   ],
+   "explain": "In Babylon, fingers wrote on the palace wall. (Daniel 5:5)"
+  }
+ },
+ {
+  "id": "geography-medium-066",
+  "ref": {
+   "fr": "Psaume 137:1",
+   "en": "Psalm 137:1"
+  },
+  "fr": {
+   "q": "Au bord des fleuves de quel pays les exilés pleuraient-ils en pensant à Sion ?",
+   "options": [
+    "Babylone",
+    "L’Égypte",
+    "L’Assyrie",
+    "La Perse"
+   ],
+   "explain": "Sur les bords des fleuves de Babylone, nous pleurions. (Psaume 137:1)"
+  },
+  "en": {
+   "q": "By the rivers of which land did the exiles weep remembering Zion?",
+   "options": [
+    "Babylon",
+    "Egypt",
+    "Assyria",
+    "Persia"
+   ],
+   "explain": "By the rivers of Babylon, we wept. (Psalm 137:1)"
+  }
+ },
+ {
+  "id": "geography-medium-067",
+  "ref": {
+   "fr": "Daniel 5:30-31",
+   "en": "Daniel 5:30-31"
+  },
+  "fr": {
+   "q": "Quelle grande ville fut prise la nuit même où Belschatsar fut tué ?",
+   "options": [
+    "Babylone",
+    "Ninive",
+    "Suse",
+    "Tyr"
+   ],
+   "explain": "Cette nuit-là, Belschatsar fut tué et Darius le Mède reçut le royaume. (Daniel 5:30-31)"
+  },
+  "en": {
+   "q": "Which great city fell the very night Belshazzar was slain?",
+   "options": [
+    "Babylon",
+    "Nineveh",
+    "Susa",
+    "Tyre"
+   ],
+   "explain": "That night Belshazzar was killed and Darius the Mede took the kingdom. (Daniel 5:30-31)"
+  }
+ },
+ {
+  "id": "geography-medium-068",
+  "ref": {
+   "fr": "Daniel 3:20-23",
+   "en": "Daniel 3:20-23"
+  },
+  "fr": {
+   "q": "Dans quelle ville Schadrac, Méschac et Abed-Nego furent-ils jetés dans la fournaise ?",
+   "options": [
+    "Babylone",
+    "Ninive",
+    "Suse",
+    "Damas"
+   ],
+   "explain": "À Babylone, les trois hommes furent jetés dans la fournaise ardente. (Daniel 3:20-23)"
+  },
+  "en": {
+   "q": "In which city were Shadrach, Meshach and Abednego cast into the furnace?",
+   "options": [
+    "Babylon",
+    "Nineveh",
+    "Susa",
+    "Damascus"
+   ],
+   "explain": "In Babylon, the three men were thrown into the blazing furnace. (Daniel 3:20-23)"
+  }
+ },
+ {
+  "id": "geography-medium-069",
+  "ref": {
+   "fr": "Jonas 3:3",
+   "en": "Jonah 3:3"
+  },
+  "fr": {
+   "q": "Quelle ville l’Écriture décrit-elle comme grande, exigeant trois jours de marche ?",
+   "options": [
+    "Ninive",
+    "Babylone",
+    "Suse",
+    "Tyr"
+   ],
+   "explain": "Ninive était une grande ville, de trois jours de marche. (Jonas 3:3)"
+  },
+  "en": {
+   "q": "Which city does Scripture describe as great, a three-day journey across?",
+   "options": [
+    "Nineveh",
+    "Babylon",
+    "Susa",
+    "Tyre"
+   ],
+   "explain": "Nineveh was a great city, a three days’ journey. (Jonah 3:3)"
+  }
+ },
+ {
+  "id": "geography-medium-070",
+  "ref": {
+   "fr": "Jonas 3:6",
+   "en": "Jonah 3:6"
+  },
+  "fr": {
+   "q": "Dans quelle ville le roi se couvrit-il d’un sac et s’assit sur la cendre au message de Jonas ?",
+   "options": [
+    "Ninive",
+    "Tarsis",
+    "Babylone",
+    "Sodome"
+   ],
+   "explain": "Le roi de Ninive se couvrit d’un sac et s’assit sur la cendre. (Jonas 3:6)"
+  },
+  "en": {
+   "q": "In which city did the king put on sackcloth and sit in ashes at Jonah’s message?",
+   "options": [
+    "Nineveh",
+    "Tarshish",
+    "Babylon",
+    "Sodom"
+   ],
+   "explain": "The king of Nineveh covered himself with sackcloth and sat in ashes. (Jonah 3:6)"
+  }
+ },
+ {
+  "id": "geography-medium-071",
+  "ref": {
+   "fr": "Nahum 1:1",
+   "en": "Nahum 1:1"
+  },
+  "fr": {
+   "q": "Contre quelle ville le prophète Nahum prononça-t-il son oracle de ruine ?",
+   "options": [
+    "Ninive",
+    "Babylone",
+    "Tyr",
+    "Édom"
+   ],
+   "explain": "Oracle sur Ninive : le livre de la prophétie de Nahum. (Nahum 1:1)"
+  },
+  "en": {
+   "q": "Against which city did the prophet Nahum pronounce his oracle of ruin?",
+   "options": [
+    "Nineveh",
+    "Babylon",
+    "Tyre",
+    "Edom"
+   ],
+   "explain": "An oracle about Nineveh: the book of the vision of Nahum. (Nahum 1:1)"
+  }
+ },
+ {
+  "id": "geography-medium-072",
+  "ref": {
+   "fr": "Genèse 10:11",
+   "en": "Genesis 10:11"
+  },
+  "fr": {
+   "q": "Dans quel pays fut bâtie Ninive, selon la table des nations ?",
+   "options": [
+    "L’Assyrie",
+    "La Chaldée",
+    "L’Égypte",
+    "La Perse"
+   ],
+   "explain": "De ce pays sortit Assur, qui bâtit Ninive. (Genèse 10:11)"
+  },
+  "en": {
+   "q": "In which land was Nineveh built, according to the table of nations?",
+   "options": [
+    "Assyria",
+    "Chaldea",
+    "Egypt",
+    "Persia"
+   ],
+   "explain": "From that land went Asshur, who built Nineveh. (Genesis 10:11)"
+  }
+ },
+ {
+  "id": "geography-medium-073",
+  "ref": {
+   "fr": "Josué 10:12",
+   "en": "Joshua 10:12"
+  },
+  "fr": {
+   "q": "Au-dessus de quelle ville Josué commanda-t-il au soleil de s’arrêter ?",
+   "options": [
+    "Gabaon",
+    "Aï",
+    "Jéricho",
+    "Béthel"
+   ],
+   "explain": "Josué dit : Soleil, arrête-toi sur Gabaon ! (Josué 10:12)"
+  },
+  "en": {
+   "q": "Over which city did Joshua command the sun to stand still?",
+   "options": [
+    "Gibeon",
+    "Ai",
+    "Jericho",
+    "Bethel"
+   ],
+   "explain": "Joshua said: Sun, stand still over Gibeon! (Joshua 10:12)"
+  }
+ },
+ {
+  "id": "geography-medium-074",
+  "ref": {
+   "fr": "Josué 7:1-5",
+   "en": "Joshua 7:1-5"
+  },
+  "fr": {
+   "q": "Devant quelle ville Israël fut-il battu à cause du péché d’Acan ?",
+   "options": [
+    "Aï",
+    "Jéricho",
+    "Gabaon",
+    "Hébron"
+   ],
+   "explain": "À cause du péché d’Acan, Israël fut battu devant Aï. (Josué 7:1-5)"
+  },
+  "en": {
+   "q": "Before which city was Israel defeated because of Achan’s sin?",
+   "options": [
+    "Ai",
+    "Jericho",
+    "Gibeon",
+    "Hebron"
+   ],
+   "explain": "Because of Achan’s sin, Israel was beaten before Ai. (Joshua 7:1-5)"
+  }
+ },
+ {
+  "id": "geography-medium-075",
+  "ref": {
+   "fr": "1 Samuel 17:2",
+   "en": "1 Samuel 17:2"
+  },
+  "fr": {
+   "q": "Dans quelle vallée David affronta-t-il le géant Goliath ?",
+   "options": [
+    "La vallée d’Éla",
+    "La vallée de Jizreel",
+    "La vallée du Cédron",
+    "La vallée de Guéhinnom"
+   ],
+   "explain": "Israël et les Philistins campaient dans la vallée d’Éla. (1 Samuel 17:2)"
+  },
+  "en": {
+   "q": "In which valley did David face the giant Goliath?",
+   "options": [
+    "The Valley of Elah",
+    "The Valley of Jezreel",
+    "The Kidron Valley",
+    "The Valley of Hinnom"
+   ],
+   "explain": "Israel and the Philistines camped in the Valley of Elah. (1 Samuel 17:2)"
+  }
+ },
+ {
+  "id": "geography-medium-076",
+  "ref": {
+   "fr": "1 Samuel 17:4",
+   "en": "1 Samuel 17:4"
+  },
+  "fr": {
+   "q": "De quelle ville philistine venait le géant Goliath ?",
+   "options": [
+    "Gath",
+    "Askalon",
+    "Ékron",
+    "Asdod"
+   ],
+   "explain": "Goliath, de Gath, sortit du camp des Philistins. (1 Samuel 17:4)"
+  },
+  "en": {
+   "q": "From which Philistine city did the giant Goliath come?",
+   "options": [
+    "Gath",
+    "Ashkelon",
+    "Ekron",
+    "Ashdod"
+   ],
+   "explain": "Goliath of Gath came out from the Philistine camp. (1 Samuel 17:4)"
+  }
+ },
+ {
+  "id": "geography-medium-077",
+  "ref": {
+   "fr": "1 Samuel 24:1-4",
+   "en": "1 Samuel 24:1-4"
+  },
+  "fr": {
+   "q": "Dans le désert de quelle oasis David épargna-t-il Saül dans une caverne ?",
+   "options": [
+    "En-Guédi",
+    "Maon",
+    "Paran",
+    "Sin"
+   ],
+   "explain": "Saül poursuivit David au désert d’En-Guédi. (1 Samuel 24:1-4)"
+  },
+  "en": {
+   "q": "In the wilderness of which oasis did David spare Saul in a cave?",
+   "options": [
+    "En Gedi",
+    "Maon",
+    "Paran",
+    "Zin"
+   ],
+   "explain": "Saul pursued David in the wilderness of En Gedi. (1 Samuel 24:1-4)"
+  }
+ },
+ {
+  "id": "geography-medium-078",
+  "ref": {
+   "fr": "2 Samuel 5:5",
+   "en": "2 Samuel 5:5"
+  },
+  "fr": {
+   "q": "Dans quelle ville David régna-t-il sept ans avant de prendre Jérusalem ?",
+   "options": [
+    "Hébron",
+    "Bethléhem",
+    "Silo",
+    "Guibea"
+   ],
+   "explain": "À Hébron, David régna sept ans et six mois sur Juda. (2 Samuel 5:5)"
+  },
+  "en": {
+   "q": "In which city did David reign seven years before taking Jerusalem?",
+   "options": [
+    "Hebron",
+    "Bethlehem",
+    "Shiloh",
+    "Gibeah"
+   ],
+   "explain": "In Hebron David reigned over Judah seven years and six months. (2 Samuel 5:5)"
+  }
+ },
+ {
+  "id": "geography-medium-079",
+  "ref": {
+   "fr": "1 Samuel 28:7",
+   "en": "1 Samuel 28:7"
+  },
+  "fr": {
+   "q": "Dans quelle ville Saül consulta-t-il une femme qui évoquait les morts ?",
+   "options": [
+    "En-Dor",
+    "Guilboa",
+    "Rama",
+    "Nob"
+   ],
+   "explain": "Saül alla trouver la magicienne d’En-Dor. (1 Samuel 28:7)"
+  },
+  "en": {
+   "q": "In which town did Saul consult a woman who called up the dead?",
+   "options": [
+    "Endor",
+    "Gilboa",
+    "Ramah",
+    "Nob"
+   ],
+   "explain": "Saul went to the medium at Endor. (1 Samuel 28:7)"
+  }
+ },
+ {
+  "id": "geography-medium-080",
+  "ref": {
+   "fr": "1 Samuel 7:1-2",
+   "en": "1 Samuel 7:1-2"
+  },
+  "fr": {
+   "q": "Dans quelle ville l’arche demeura-t-elle vingt ans chez Abinadab ?",
+   "options": [
+    "Kirjath-Jearim",
+    "Beth-Schémesch",
+    "Silo",
+    "Nob"
+   ],
+   "explain": "On conduisit l’arche à Kirjath-Jearim, chez Abinadab. (1 Samuel 7:1-2)"
+  },
+  "en": {
+   "q": "In which town did the ark remain twenty years at Abinadab’s house?",
+   "options": [
+    "Kiriath Jearim",
+    "Beth Shemesh",
+    "Shiloh",
+    "Nob"
+   ],
+   "explain": "The ark was brought to Kiriath Jearim, to Abinadab’s house. (1 Samuel 7:1-2)"
+  }
+ },
+ {
+  "id": "geography-medium-081",
+  "ref": {
+   "fr": "1 Samuel 5:1-4",
+   "en": "1 Samuel 5:1-4"
+  },
+  "fr": {
+   "q": "Dans quelle ville philistine l’idole Dagon tomba-t-elle devant l’arche ?",
+   "options": [
+    "Asdod",
+    "Gath",
+    "Ékron",
+    "Askalon"
+   ],
+   "explain": "À Asdod, Dagon était tombé la face contre terre devant l’arche. (1 Samuel 5:1-4)"
+  },
+  "en": {
+   "q": "In which Philistine city did the idol Dagon fall before the ark?",
+   "options": [
+    "Ashdod",
+    "Gath",
+    "Ekron",
+    "Ashkelon"
+   ],
+   "explain": "At Ashdod, Dagon had fallen on his face before the ark. (1 Samuel 5:1-4)"
+  }
+ },
+ {
+  "id": "geography-medium-082",
+  "ref": {
+   "fr": "Jérémie 1:1",
+   "en": "Jeremiah 1:1"
+  },
+  "fr": {
+   "q": "De quelle ville du pays de Benjamin le prophète Jérémie était-il originaire ?",
+   "options": [
+    "Anathoth",
+    "Rama",
+    "Tekoa",
+    "Guibea"
+   ],
+   "explain": "Paroles de Jérémie, l’un des sacrificateurs d’Anathoth. (Jérémie 1:1)"
+  },
+  "en": {
+   "q": "From which town in the land of Benjamin did the prophet Jeremiah come?",
+   "options": [
+    "Anathoth",
+    "Ramah",
+    "Tekoa",
+    "Gibeah"
+   ],
+   "explain": "The words of Jeremiah, one of the priests of Anathoth. (Jeremiah 1:1)"
+  }
+ },
+ {
+  "id": "geography-medium-083",
+  "ref": {
+   "fr": "Amos 1:1",
+   "en": "Amos 1:1"
+  },
+  "fr": {
+   "q": "De quelle ville de Juda venait le berger devenu prophète Amos ?",
+   "options": [
+    "Tekoa",
+    "Anathoth",
+    "Rama",
+    "Bethléhem"
+   ],
+   "explain": "Paroles d’Amos, l’un des bergers de Tekoa. (Amos 1:1)"
+  },
+  "en": {
+   "q": "From which town of Judah came Amos, the shepherd turned prophet?",
+   "options": [
+    "Tekoa",
+    "Anathoth",
+    "Ramah",
+    "Bethlehem"
+   ],
+   "explain": "The words of Amos, who was among the shepherds of Tekoa. (Amos 1:1)"
+  }
+ },
+ {
+  "id": "geography-medium-084",
+  "ref": {
+   "fr": "Esther 1:2",
+   "en": "Esther 1:2"
+  },
+  "fr": {
+   "q": "Dans quelle ville royale de Perse Esther devint-elle reine ?",
+   "options": [
+    "Suse",
+    "Babylone",
+    "Ecbatane",
+    "Persépolis"
+   ],
+   "explain": "Le roi Assuérus siégeait à Suse, la capitale. (Esther 1:2)"
+  },
+  "en": {
+   "q": "In which royal city of Persia did Esther become queen?",
+   "options": [
+    "Susa",
+    "Babylon",
+    "Ecbatana",
+    "Persepolis"
+   ],
+   "explain": "King Ahasuerus sat on his throne in Susa the capital. (Esther 1:2)"
+  }
+ },
+ {
+  "id": "geography-medium-085",
+  "ref": {
+   "fr": "1 Samuel 7:17",
+   "en": "1 Samuel 7:17"
+  },
+  "fr": {
+   "q": "Dans quelle ville Samuel avait-il sa maison et jugeait-il Israël ?",
+   "options": [
+    "Rama",
+    "Silo",
+    "Guibea",
+    "Mitspa"
+   ],
+   "explain": "Samuel revenait à Rama, où était sa maison. (1 Samuel 7:17)"
+  },
+  "en": {
+   "q": "In which town did Samuel have his home and judge Israel?",
+   "options": [
+    "Ramah",
+    "Shiloh",
+    "Gibeah",
+    "Mizpah"
+   ],
+   "explain": "Samuel returned to Ramah, where his house was. (1 Samuel 7:17)"
+  }
+ },
+ {
+  "id": "geography-medium-086",
+  "ref": {
+   "fr": "1 Rois 17:1",
+   "en": "1 Kings 17:1"
+  },
+  "fr": {
+   "q": "De quelle région Élie le Thischbite était-il habitant ?",
+   "options": [
+    "Galaad",
+    "Basan",
+    "Moab",
+    "Édom"
+   ],
+   "explain": "Élie, le Thischbite, l’un des habitants de Galaad. (1 Rois 17:1)"
+  },
+  "en": {
+   "q": "Of which region was Elijah the Tishbite an inhabitant?",
+   "options": [
+    "Gilead",
+    "Bashan",
+    "Moab",
+    "Edom"
+   ],
+   "explain": "Elijah the Tishbite, of the inhabitants of Gilead. (1 Kings 17:1)"
+  }
+ },
+ {
+  "id": "geography-medium-087",
+  "ref": {
+   "fr": "Jérémie 8:22",
+   "en": "Jeremiah 8:22"
+  },
+  "fr": {
+   "q": "De quelle région venait le baume renommé pour guérir, selon Jérémie ?",
+   "options": [
+    "Galaad",
+    "Basan",
+    "Saron",
+    "Le Liban"
+   ],
+   "explain": "N’y a-t-il point de baume en Galaad ? (Jérémie 8:22)"
+  },
+  "en": {
+   "q": "From which region came the balm renowned for healing, according to Jeremiah?",
+   "options": [
+    "Gilead",
+    "Bashan",
+    "Sharon",
+    "Lebanon"
+   ],
+   "explain": "Is there no balm in Gilead? (Jeremiah 8:22)"
+  }
+ },
+ {
+  "id": "geography-medium-088",
+  "ref": {
+   "fr": "Nombres 21:33",
+   "en": "Numbers 21:33"
+  },
+  "fr": {
+   "q": "Sur quel pays régnait Og, le roi géant vaincu par Israël ?",
+   "options": [
+    "Le Basan",
+    "Le Galaad",
+    "Moab",
+    "Édom"
+   ],
+   "explain": "Og, roi de Basan, sortit à la rencontre d’Israël. (Nombres 21:33)"
+  },
+  "en": {
+   "q": "Over which land did Og, the giant king defeated by Israel, reign?",
+   "options": [
+    "Bashan",
+    "Gilead",
+    "Moab",
+    "Edom"
+   ],
+   "explain": "Og king of Bashan came out against Israel. (Numbers 21:33)"
+  }
+ },
+ {
+  "id": "geography-medium-089",
+  "ref": {
+   "fr": "Genèse 32:31",
+   "en": "Genesis 32:30"
+  },
+  "fr": {
+   "q": "Quel lieu Jacob nomma-t-il ainsi après avoir lutté avec Dieu face à face ?",
+   "options": [
+    "Peniel",
+    "Béthel",
+    "Mahanaïm",
+    "Sichem"
+   ],
+   "explain": "Jacob appela ce lieu Peniel : j’ai vu Dieu face à face. (Genèse 32:31)"
+  },
+  "en": {
+   "q": "What place did Jacob name after wrestling with God face to face?",
+   "options": [
+    "Peniel",
+    "Bethel",
+    "Mahanaim",
+    "Shechem"
+   ],
+   "explain": "Jacob called the place Peniel: I have seen God face to face. (Genesis 32:30)"
+  }
+ },
+ {
+  "id": "geography-medium-090",
+  "ref": {
+   "fr": "Genèse 37:17",
+   "en": "Genesis 37:17"
+  },
+  "fr": {
+   "q": "Dans quel lieu Joseph retrouva-t-il ses frères qui le vendirent ?",
+   "options": [
+    "Dothan",
+    "Sichem",
+    "Hébron",
+    "Silo"
+   ],
+   "explain": "Joseph trouva ses frères à Dothan. (Genèse 37:17)"
+  },
+  "en": {
+   "q": "In which place did Joseph find his brothers who sold him?",
+   "options": [
+    "Dothan",
+    "Shechem",
+    "Hebron",
+    "Shiloh"
+   ],
+   "explain": "Joseph found his brothers at Dothan. (Genesis 37:17)"
+  }
+ },
+ {
+  "id": "geography-medium-091",
+  "ref": {
+   "fr": "2 Rois 6:13-17",
+   "en": "2 Kings 6:13-17"
+  },
+  "fr": {
+   "q": "Dans quelle ville Élisée fut-il entouré de chevaux et de chars de feu ?",
+   "options": [
+    "Dothan",
+    "Samarie",
+    "Jéricho",
+    "Béthel"
+   ],
+   "explain": "À Dothan, la montagne était pleine de chevaux et de chars de feu. (2 Rois 6:13-17)"
+  },
+  "en": {
+   "q": "In which city was Elisha surrounded by horses and chariots of fire?",
+   "options": [
+    "Dothan",
+    "Samaria",
+    "Jericho",
+    "Bethel"
+   ],
+   "explain": "At Dothan, the mountain was full of horses and chariots of fire. (2 Kings 6:13-17)"
+  }
+ },
+ {
+  "id": "geography-medium-092",
+  "ref": {
+   "fr": "Matthieu 16:13-16",
+   "en": "Matthew 16:13-16"
+  },
+  "fr": {
+   "q": "Dans quelle région Pierre confessa-t-il : Tu es le Christ, le Fils du Dieu vivant ?",
+   "options": [
+    "Césarée de Philippe",
+    "Capernaüm",
+    "Bethsaïda",
+    "Naïn"
+   ],
+   "explain": "Aux environs de Césarée de Philippe, Pierre confessa le Christ. (Matthieu 16:13-16)"
+  },
+  "en": {
+   "q": "In which region did Peter confess: You are the Christ, the Son of the living God?",
+   "options": [
+    "Caesarea Philippi",
+    "Capernaum",
+    "Bethsaida",
+    "Nain"
+   ],
+   "explain": "Near Caesarea Philippi, Peter confessed the Christ. (Matthew 16:13-16)"
+  }
+ },
+ {
+  "id": "geography-medium-093",
+  "ref": {
+   "fr": "Marc 8:22-25",
+   "en": "Mark 8:22-25"
+  },
+  "fr": {
+   "q": "Dans quelle ville Jésus guérit-il un aveugle en deux temps, en lui touchant les yeux ?",
+   "options": [
+    "Bethsaïda",
+    "Capernaüm",
+    "Jéricho",
+    "Naïn"
+   ],
+   "explain": "À Bethsaïda, Jésus rendit la vue à un aveugle. (Marc 8:22-25)"
+  },
+  "en": {
+   "q": "In which town did Jesus heal a blind man in two stages, touching his eyes?",
+   "options": [
+    "Bethsaida",
+    "Capernaum",
+    "Jericho",
+    "Nain"
+   ],
+   "explain": "At Bethsaida, Jesus restored sight to a blind man. (Mark 8:22-25)"
+  }
+ },
+ {
+  "id": "geography-medium-094",
+  "ref": {
+   "fr": "Jean 3:23",
+   "en": "John 3:23"
+  },
+  "fr": {
+   "q": "En quel lieu, près de Salim, Jean baptisait-il parce que les eaux y étaient abondantes ?",
+   "options": [
+    "Énon",
+    "Béthanie",
+    "Sychar",
+    "Aï"
+   ],
+   "explain": "Jean baptisait à Énon, près de Salim, car il y avait là beaucoup d’eau. (Jean 3:23)"
+  },
+  "en": {
+   "q": "At what place near Salim did John baptize because water was plentiful?",
+   "options": [
+    "Aenon",
+    "Bethany",
+    "Sychar",
+    "Ai"
+   ],
+   "explain": "John was baptizing at Aenon near Salim, for water was plentiful there. (John 3:23)"
+  }
+ },
+ {
+  "id": "geography-medium-095",
+  "ref": {
+   "fr": "Jean 11:54",
+   "en": "John 11:54"
+  },
+  "fr": {
+   "q": "Dans quelle ville, près du désert, Jésus se retira-t-il avant sa dernière Pâque ?",
+   "options": [
+    "Éphraïm",
+    "Béthanie",
+    "Emmaüs",
+    "Naïn"
+   ],
+   "explain": "Jésus se retira dans une ville appelée Éphraïm, près du désert. (Jean 11:54)"
+  },
+  "en": {
+   "q": "In which town near the wilderness did Jesus withdraw before his last Passover?",
+   "options": [
+    "Ephraim",
+    "Bethany",
+    "Emmaus",
+    "Nain"
+   ],
+   "explain": "Jesus withdrew to a town called Ephraim, near the wilderness. (John 11:54)"
+  }
+ },
+ {
+  "id": "geography-medium-096",
+  "ref": {
+   "fr": "Matthieu 27:57-58",
+   "en": "Matthew 27:57-58"
+  },
+  "fr": {
+   "q": "De quelle ville venait Joseph, l’homme riche qui ensevelit Jésus ?",
+   "options": [
+    "Arimathée",
+    "Béthanie",
+    "Cana",
+    "Naïn"
+   ],
+   "explain": "Un homme riche d’Arimathée, nommé Joseph, prit le corps de Jésus. (Matthieu 27:57-58)"
+  },
+  "en": {
+   "q": "From which town came Joseph, the rich man who buried Jesus?",
+   "options": [
+    "Arimathea",
+    "Bethany",
+    "Cana",
+    "Nain"
+   ],
+   "explain": "A rich man of Arimathea named Joseph took the body of Jesus. (Matthew 27:57-58)"
+  }
+ },
+ {
+  "id": "geography-medium-097",
+  "ref": {
+   "fr": "Actes 1:19",
+   "en": "Acts 1:19"
+  },
+  "fr": {
+   "q": "Quel champ, acheté avec le prix de la trahison de Judas, fut appelé champ du sang ?",
+   "options": [
+    "Hakeldama",
+    "Guéhinnom",
+    "Guilgal",
+    "Gabbatha"
+   ],
+   "explain": "Ce champ fut appelé Hakeldama, c’est-à-dire champ du sang. (Actes 1:19)"
+  },
+  "en": {
+   "q": "What field, bought with the price of Judas’s betrayal, was called the field of blood?",
+   "options": [
+    "Akeldama",
+    "Gehenna",
+    "Gilgal",
+    "Gabbatha"
+   ],
+   "explain": "That field was called Akeldama, that is, the field of blood. (Acts 1:19)"
+  }
+ },
+ {
+  "id": "geography-medium-098",
+  "ref": {
+   "fr": "Matthieu 21:1-2",
+   "en": "Matthew 21:1-2"
+  },
+  "fr": {
+   "q": "Vers quel village Jésus envoya-t-il chercher l’ânon pour son entrée à Jérusalem ?",
+   "options": [
+    "Bethphagé",
+    "Emmaüs",
+    "Sychar",
+    "Naïn"
+   ],
+   "explain": "Jésus les envoya à Bethphagé, près du mont des Oliviers. (Matthieu 21:1-2)"
+  },
+  "en": {
+   "q": "To which village did Jesus send for the colt for his entry into Jerusalem?",
+   "options": [
+    "Bethphage",
+    "Emmaus",
+    "Sychar",
+    "Nain"
+   ],
+   "explain": "Jesus sent them to Bethphage, near the Mount of Olives. (Matthew 21:1-2)"
+  }
+ },
+ {
+  "id": "geography-medium-099",
+  "ref": {
+   "fr": "1 Rois 9:28",
+   "en": "1 Kings 9:28"
+  },
+  "fr": {
+   "q": "De quel pays les navires de Salomon rapportaient-ils de l’or en abondance ?",
+   "options": [
+    "Ophir",
+    "Séba",
+    "Tarsis",
+    "Havila"
+   ],
+   "explain": "Les navires allèrent à Ophir et en rapportèrent de l’or. (1 Rois 9:28)"
+  },
+  "en": {
+   "q": "From which land did Solomon’s ships bring back gold in abundance?",
+   "options": [
+    "Ophir",
+    "Sheba",
+    "Tarshish",
+    "Havilah"
+   ],
+   "explain": "The ships went to Ophir and brought back gold. (1 Kings 9:28)"
+  }
+ },
+ {
+  "id": "geography-medium-100",
+  "ref": {
+   "fr": "Apocalypse 16:16",
+   "en": "Revelation 16:16"
+  },
+  "fr": {
+   "q": "Quel nom de lieu l’Apocalypse donne-t-elle au rassemblement des rois pour le grand combat ?",
+   "options": [
+    "Harmaguédon",
+    "Babylone",
+    "Le Cédron",
+    "Josaphat"
+   ],
+   "explain": "Ils les rassemblèrent dans le lieu appelé Harmaguédon. (Apocalypse 16:16)"
+  },
+  "en": {
+   "q": "What place name does Revelation give for the gathering of kings for the great battle?",
+   "options": [
+    "Armageddon",
+    "Babylon",
+    "Kidron",
+    "Jehoshaphat"
+   ],
+   "explain": "They gathered them to the place called Armageddon. (Revelation 16:16)"
+  }
+ }
+]
