@@ -668,6 +668,9 @@ const en = {
   "quiz.palmares": 'Hall of Fame',
   "quiz.palmaresSub": 'Past weekly champions',
   "quiz.palmaresEmpty": 'The first champions will appear here after this week.',
+  "quiz.rankingWeek": 'Ranking this week',
+  "quiz.seeAll": 'See all',
+  "quiz.beFirst": 'No champion yet — be the first this week!',
 }
 
 export default en
