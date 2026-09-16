@@ -668,6 +668,9 @@ const fr = {
   "quiz.palmares": 'Palmarès',
   "quiz.palmaresSub": 'Les champions des semaines passées',
   "quiz.palmaresEmpty": 'Les premiers champions apparaîtront ici après cette semaine.',
+  "quiz.rankingWeek": 'Classement de la semaine',
+  "quiz.seeAll": 'Voir tout',
+  "quiz.beFirst": 'Pas encore de champion — sois le premier cette semaine !',
 }
 
 export default fr
