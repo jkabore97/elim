@@ -1469,6 +1469,7 @@ function AppInner() {
           groupName: group!.name,
           groupAvatar: group!.avatar || null,
           featured: !!group!.leads[user!.uid]?.featured,
+          authorTitle: group!.leads[user!.uid]?.title || null,
         }
       : {}
     await addDoc(collection(db, 'posts'), {
@@ -2925,14 +2926,16 @@ function PostCard({ post, onLike, onOpenComments, currentUser, isLiked, onEdit, 
   // whose own name leads instead, with the group as the subtitle. Posts with no
   // group keep the original author-first layout.
   const author = post.authorName || post.churchName || t('common.church')
+  // Prefix the author with their title in the group (e.g. "Docteur", "Pasteur").
+  const titledAuthor = post.authorTitle ? `${post.authorTitle} ${author}` : author
   let bigName: string, subName: string, headAvatar: string | undefined, headInitial: string
   if (post.groupId && post.groupName) {
     if (post.featured) {
-      // Pastor-forward: their own name and photo lead, group as the subtitle.
-      bigName = author; subName = post.groupName; headInitial = author.charAt(0)
+      // Pastor-forward: their own (titled) name and photo lead, group as subtitle.
+      bigName = titledAuthor; subName = post.groupName; headInitial = author.charAt(0)
       headAvatar = post.churchAvatar || post.groupAvatar || undefined
     } else {
-      bigName = post.groupName; subName = post.authorName || ''; headInitial = post.groupName.charAt(0)
+      bigName = post.groupName; subName = post.authorName ? titledAuthor : ''; headInitial = post.groupName.charAt(0)
       headAvatar = post.groupAvatar || undefined
     }
   } else {
@@ -3316,9 +3319,15 @@ function CreatePostModal({ onClose, onSubmit, uploaderUid, section = 'feed', myG
   const [uploadError, setUploadError] = useState('')
   const [publishing, setPublishing] = useState(false)
   const [santeCategory, setSanteCategory] = useState(SANTE_CATEGORIES[0])
-  // Which group to publish under. Preselect when the lead has exactly one group;
-  // with several they choose one (or "just me"), per the church's request.
-  const [groupId, setGroupId] = useState(() => myGroups.length === 1 ? myGroups[0].id : '')
+  // Only offer groups relevant to THIS surface: health posts under groups with
+  // the health permission, feed/music under groups with the posting permission.
+  // So a doctor-and-pastor picks "Docteurs" in health and "Pasteurs" in the feed.
+  const pickGroups = useMemo(
+    () => myGroups.filter(g => section === 'sante' ? !!g.perms?.sante : !!g.perms?.post),
+    [myGroups, section])
+  // Which group to publish under. Preselect when there is exactly one option;
+  // with several they choose one (or "just me").
+  const [groupId, setGroupId] = useState(() => pickGroups.length === 1 ? pickGroups[0].id : '')
 
   const canUploadDirectly = type === 'text-image' || type === 'audio' || type === 'video' || type === 'document'
   const rule = UPLOAD_RULES[type]
@@ -3396,13 +3405,13 @@ function CreatePostModal({ onClose, onSubmit, uploaderUid, section = 'feed', myG
             </select>
           )}
 
-          {myGroups.length > 0 && (
+          {pickGroups.length > 0 && (
             <div>
               <label className="block text-xs font-semibold text-slate-500 mb-1.5">{t('groups.publishUnder')}</label>
               <select value={groupId} onChange={e => setGroupId(e.target.value)}
                 className="w-full px-4 py-3 rounded-2xl border border-slate-200 text-[15px] bg-white focus:outline-none focus:ring-2 focus:ring-affirm-400">
                 <option value="">{t('groups.justMe')}</option>
-                {myGroups.map(g => <option key={g.id} value={g.id}>{g.name}</option>)}
+                {pickGroups.map(g => <option key={g.id} value={g.id}>{g.name}</option>)}
               </select>
             </div>
           )}

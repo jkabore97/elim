@@ -8,7 +8,7 @@
 //    leadIds: string[], createdAt, updatedAt }. World-readable so a lead's
 //    composer can list "my groups"; only admins/pastors write.
 import {
-  collection, doc, addDoc, updateDoc, deleteDoc, onSnapshot, query, orderBy,
+  collection, doc, addDoc, getDoc, updateDoc, deleteDoc, onSnapshot, query, orderBy,
   where, getDocs, writeBatch, serverTimestamp, arrayUnion, arrayRemove,
   deleteField,
 } from 'firebase/firestore'
@@ -17,6 +17,11 @@ import type { Group } from './types'
 
 const GROUPS = 'groups'
 const POSTS = 'posts'
+
+// Firestore rejects `undefined`; drop those keys before writing.
+function clean<T extends object>(o: T): T {
+  return Object.fromEntries(Object.entries(o).filter(([, v]) => v !== undefined)) as T
+}
 
 // Live list of all groups, ordered by name. There are only a handful (the
 // church's departments), so loading them all is cheap and lets the composer and
@@ -63,12 +68,50 @@ export async function deleteGroup(id: string): Promise<void> {
   await deleteDoc(doc(db, GROUPS, id))
 }
 
+// Seed groups from the existing church directory so "churches become groups"
+// starts with the churches already present. Each church becomes a group with
+// the church account as a featured lead and full publishing permissions (so
+// existing publishers keep their access). Idempotent: skips a church whose name
+// already has a group. Returns how many groups were created.
+export async function importChurchesAsGroups(existing: Group[]): Promise<number> {
+  const haveNames = new Set(existing.map(g => (g.name || '').trim().toLowerCase()))
+  let snap
+  try { snap = await getDocs(collection(db, 'churchDirectory')) } catch { return 0 }
+  let created = 0
+  for (const d of snap.docs) {
+    const churchName = ((d.data() as any).name || '').trim()
+    if (!churchName || haveNames.has(churchName.toLowerCase())) continue
+    const uid = d.id
+    // Prefer the account's own display name for the lead label; fall back to
+    // the church name if the user doc isn't readable.
+    let leadName = churchName
+    try {
+      const u = await getDoc(doc(db, 'users', uid))
+      if (u.exists() && (u.data() as any).displayName) leadName = (u.data() as any).displayName
+    } catch { /* fall back to church name */ }
+    await addDoc(collection(db, GROUPS), {
+      name: churchName,
+      leads: { [uid]: { name: leadName, featured: true } },
+      leadIds: [uid],
+      perms: { post: true, sante: true, books: true },
+      createdAt: serverTimestamp(),
+      updatedAt: serverTimestamp(),
+    })
+    haveNames.add(churchName.toLowerCase())
+    created++
+  }
+  return created
+}
+
 // Add or update a lead on a group. `featured` controls whether this person's
 // own name is shown large on their group posts (the pastor), instead of the
-// group name.
-export async function setLead(groupId: string, uid: string, name: string, featured: boolean): Promise<void> {
+// group name. `title` is the capacity shown before their name on this group's
+// posts (e.g. "Docteur", "Pasteur").
+export async function setLead(
+  groupId: string, uid: string, name: string, featured: boolean, title?: string,
+): Promise<void> {
   await updateDoc(doc(db, GROUPS, groupId), {
-    [`leads.${uid}`]: { name, featured },
+    [`leads.${uid}`]: clean({ name, featured, title: title || undefined }),
     leadIds: arrayUnion(uid),
     updatedAt: serverTimestamp(),
   })
