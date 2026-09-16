@@ -1,4 +1,4 @@
-const { onDocumentCreated } = require('firebase-functions/v2/firestore');
+const { onDocumentCreated, onDocumentWritten } = require('firebase-functions/v2/firestore');
 const { onCall, onRequest, HttpsError } = require('firebase-functions/v2/https');
 const { onSchedule } = require('firebase-functions/v2/scheduler');
 const { defineSecret } = require('firebase-functions/params');
@@ -486,15 +486,23 @@ const TRANSLATION_FREE_BUDGET = 450000; // chars/month, safe margin under 500k
 // against RAM; 4 GiB leaves headroom for a long sermon or a large video.
 const TRANSCRIBE_OPTS = { region: 'us-central1', memory: '4GiB', timeoutSeconds: 3600 };
 
-// True if the caller is a church lead / staff (the only accounts allowed to
-// transcribe). Mirrors canPublish() in firestore.rules.
+// Authorize a transcription caller. Must be church/admin/pastor; a plain
+// 'church' lead additionally needs the 'transcribe' group capability (admins
+// and pastors always pass). Mirrors the database-level check in firestore.rules.
 async function requireLead(request) {
   if (!request.auth) throw new HttpsError('unauthenticated', 'Sign in first.');
   const db = getFirestore();
   const snap = await db.collection('users').doc(request.auth.uid).get();
-  const role = snap.exists ? snap.data().role : null;
+  const d = snap.exists ? snap.data() : {};
+  const role = d.role;
   if (!['church', 'admin', 'pastor'].includes(role)) {
     throw new HttpsError('permission-denied', 'Only church leads can transcribe.');
+  }
+  // A managed lead (assigned to groups) needs the transcribe capability;
+  // legacy accounts never placed in a group are grandfathered, matching
+  // managedByGroups() in firestore.rules.
+  if (role === 'church' && d.groupCaps && !d.groupCaps.transcribe) {
+    throw new HttpsError('permission-denied', 'Your group does not have the transcription permission.');
   }
   return request.auth.uid;
 }
@@ -656,6 +664,47 @@ exports.transcribeUpload = onCall(TRANSCRIBE_OPTS, async (request) => {
     throw new HttpsError('internal', 'Transcription failed.');
   }
 });
+
+// ==================== GROUP PERMISSIONS -> USER CAPS ====================
+//
+// Security rules can't query "any group where this user is a lead", so we
+// denormalise each lead's effective permissions onto their user document as
+// `groupCaps`. This runs whenever a group changes and recomputes caps for every
+// lead that group touches (added or removed), by unioning the perms of all the
+// groups they lead. The rules then enforce these caps at the database level
+// (see firestore.rules), so a lead genuinely cannot post/upload/transcribe a
+// surface their groups don't grant - not just a hidden button.
+exports.syncGroupCaps = onDocumentWritten(
+  { region: 'us-central1', document: 'groups/{groupId}' },
+  async (event) => {
+    const before = event.data.before.exists ? event.data.before.data() : null;
+    const after = event.data.after.exists ? event.data.after.data() : null;
+    const affected = new Set([
+      ...((before && before.leadIds) || []),
+      ...((after && after.leadIds) || []),
+    ]);
+    if (affected.size === 0) return;
+
+    const db = getFirestore();
+    const snap = await db.collection('groups').get();
+    const groups = snap.docs.map((d) => d.data());
+
+    await Promise.all([...affected].map(async (uid) => {
+      const caps = { post: false, sante: false, books: false, transcribe: false };
+      for (const g of groups) {
+        if (!g.leads || !g.leads[uid]) continue;
+        const p = g.perms || {};
+        if (p.post) caps.post = true;
+        if (p.sante) caps.sante = true;
+        if (p.books) caps.books = true;
+        if (p.transcribe) caps.transcribe = true;
+      }
+      try {
+        await db.collection('users').doc(uid).set({ groupCaps: caps }, { merge: true });
+      } catch (_e) { /* user doc may be gone; ignore */ }
+    }));
+  }
+);
 
 exports.translateContent = onCall({ region: 'us-central1' }, async (request) => {
   if (!request.auth) {
