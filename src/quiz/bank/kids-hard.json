@@ -1,0 +1,2702 @@
+[
+ {
+  "id": "kids-hard-001",
+  "ref": {
+   "fr": "Genèse 5:24",
+   "en": "Genesis 5:24"
+  },
+  "fr": {
+   "q": "Quel homme a marché avec Dieu et n’est pas mort ?",
+   "options": [
+    "Hénoc",
+    "Noé",
+    "Adam",
+    "Caïn"
+   ],
+   "explain": "Hénoc marcha avec Dieu, puis Dieu le prit. (Genèse 5:24)"
+  },
+  "en": {
+   "q": "Which man walked with God and did not die?",
+   "options": [
+    "Enoch",
+    "Noah",
+    "Adam",
+    "Cain"
+   ],
+   "explain": "Enoch walked with God, then God took him. (Genesis 5:24)"
+  }
+ },
+ {
+  "id": "kids-hard-002",
+  "ref": {
+   "fr": "Genèse 5:27",
+   "en": "Genesis 5:27"
+  },
+  "fr": {
+   "q": "Qui a vécu le plus longtemps dans la Bible ?",
+   "options": [
+    "Mathusalem",
+    "Adam",
+    "Noé",
+    "Abraham"
+   ],
+   "explain": "Mathusalem vécut 969 ans. (Genèse 5:27)"
+  },
+  "en": {
+   "q": "Who lived the longest in the Bible?",
+   "options": [
+    "Methuselah",
+    "Adam",
+    "Noah",
+    "Abraham"
+   ],
+   "explain": "Methuselah lived 969 years. (Genesis 5:27)"
+  }
+ },
+ {
+  "id": "kids-hard-003",
+  "ref": {
+   "fr": "Genèse 8:4",
+   "en": "Genesis 8:4"
+  },
+  "fr": {
+   "q": "Sur quelle montagne l’arche de Noé s’est-elle arrêtée ?",
+   "options": [
+    "Le mont Ararat",
+    "Le mont Sinaï",
+    "Le mont Carmel",
+    "Le mont Nébo"
+   ],
+   "explain": "L’arche s’arrêta sur les monts d’Ararat. (Genèse 8:4)"
+  },
+  "en": {
+   "q": "On which mountain did Noah’s ark come to rest?",
+   "options": [
+    "Mount Ararat",
+    "Mount Sinai",
+    "Mount Carmel",
+    "Mount Nebo"
+   ],
+   "explain": "The ark rested on the mountains of Ararat. (Genesis 8:4)"
+  }
+ },
+ {
+  "id": "kids-hard-004",
+  "ref": {
+   "fr": "1 Pierre 3:20",
+   "en": "1 Peter 3:20"
+  },
+  "fr": {
+   "q": "Combien de personnes ont été sauvées dans l’arche ?",
+   "options": [
+    "Huit",
+    "Deux",
+    "Douze",
+    "Quatre"
+   ],
+   "explain": "Huit personnes furent sauvées dans l’arche. (1 Pierre 3:20)"
+  },
+  "en": {
+   "q": "How many people were saved in the ark?",
+   "options": [
+    "Eight",
+    "Two",
+    "Twelve",
+    "Four"
+   ],
+   "explain": "Eight people were saved in the ark. (1 Peter 3:20)"
+  }
+ },
+ {
+  "id": "kids-hard-005",
+  "ref": {
+   "fr": "Genèse 2:8",
+   "en": "Genesis 2:8"
+  },
+  "fr": {
+   "q": "Comment s’appelle le jardin où vivaient Adam et Ève ?",
+   "options": [
+    "Éden",
+    "Guéthsémané",
+    "Canaan",
+    "Sinaï"
+   ],
+   "explain": "Dieu planta un jardin en Éden. (Genèse 2:8)"
+  },
+  "en": {
+   "q": "What is the name of the garden where Adam and Eve lived?",
+   "options": [
+    "Eden",
+    "Gethsemane",
+    "Canaan",
+    "Sinai"
+   ],
+   "explain": "God planted a garden in Eden. (Genesis 2:8)"
+  }
+ },
+ {
+  "id": "kids-hard-006",
+  "ref": {
+   "fr": "Genèse 13:12",
+   "en": "Genesis 13:12"
+  },
+  "fr": {
+   "q": "Qui était le neveu d’Abraham qui partit vers Sodome ?",
+   "options": [
+    "Lot",
+    "Isaac",
+    "Jacob",
+    "Ésaü"
+   ],
+   "explain": "Lot, neveu d’Abraham, s’installa près de Sodome. (Genèse 13:12)"
+  },
+  "en": {
+   "q": "Who was Abraham’s nephew who went toward Sodom?",
+   "options": [
+    "Lot",
+    "Isaac",
+    "Jacob",
+    "Esau"
+   ],
+   "explain": "Lot, Abraham’s nephew, settled near Sodom. (Genesis 13:12)"
+  }
+ },
+ {
+  "id": "kids-hard-007",
+  "ref": {
+   "fr": "Genèse 24:67",
+   "en": "Genesis 24:67"
+  },
+  "fr": {
+   "q": "Comment s’appelle la femme d’Isaac ?",
+   "options": [
+    "Rebecca",
+    "Rachel",
+    "Léa",
+    "Sara"
+   ],
+   "explain": "Isaac épousa Rebecca. (Genèse 24:67)"
+  },
+  "en": {
+   "q": "What is the name of Isaac’s wife?",
+   "options": [
+    "Rebekah",
+    "Rachel",
+    "Leah",
+    "Sarah"
+   ],
+   "explain": "Isaac married Rebekah. (Genesis 24:67)"
+  }
+ },
+ {
+  "id": "kids-hard-008",
+  "ref": {
+   "fr": "Genèse 25:26",
+   "en": "Genesis 25:26"
+  },
+  "fr": {
+   "q": "Comment s’appelle le frère jumeau de Jacob ?",
+   "options": [
+    "Ésaü",
+    "Benjamin",
+    "Lévi",
+    "Ruben"
+   ],
+   "explain": "Ésaü et Jacob étaient jumeaux. (Genèse 25:26)"
+  },
+  "en": {
+   "q": "What is the name of Jacob’s twin brother?",
+   "options": [
+    "Esau",
+    "Benjamin",
+    "Levi",
+    "Reuben"
+   ],
+   "explain": "Esau and Jacob were twins. (Genesis 25:26)"
+  }
+ },
+ {
+  "id": "kids-hard-009",
+  "ref": {
+   "fr": "Genèse 35:18",
+   "en": "Genesis 35:18"
+  },
+  "fr": {
+   "q": "Quel est le plus jeune fils de Jacob ?",
+   "options": [
+    "Benjamin",
+    "Juda",
+    "Ruben",
+    "Siméon"
+   ],
+   "explain": "Benjamin est le dernier fils de Jacob. (Genèse 35:18)"
+  },
+  "en": {
+   "q": "Who is the youngest son of Jacob?",
+   "options": [
+    "Benjamin",
+    "Judah",
+    "Reuben",
+    "Simeon"
+   ],
+   "explain": "Benjamin is Jacob’s last son. (Genesis 35:18)"
+  }
+ },
+ {
+  "id": "kids-hard-010",
+  "ref": {
+   "fr": "Genèse 30:24",
+   "en": "Genesis 30:24"
+  },
+  "fr": {
+   "q": "Qui est la maman de Joseph ?",
+   "options": [
+    "Rachel",
+    "Léa",
+    "Rebecca",
+    "Dina"
+   ],
+   "explain": "Rachel donna naissance à Joseph. (Genèse 30:24)"
+  },
+  "en": {
+   "q": "Who is Joseph’s mother?",
+   "options": [
+    "Rachel",
+    "Leah",
+    "Rebekah",
+    "Dinah"
+   ],
+   "explain": "Rachel gave birth to Joseph. (Genesis 30:24)"
+  }
+ },
+ {
+  "id": "kids-hard-011",
+  "ref": {
+   "fr": "Genèse 35:22",
+   "en": "Genesis 35:22"
+  },
+  "fr": {
+   "q": "Combien de fils Jacob a-t-il eus ?",
+   "options": [
+    "Douze",
+    "Dix",
+    "Sept",
+    "Quatre"
+   ],
+   "explain": "Jacob eut douze fils. (Genèse 35:22)"
+  },
+  "en": {
+   "q": "How many sons did Jacob have?",
+   "options": [
+    "Twelve",
+    "Ten",
+    "Seven",
+    "Four"
+   ],
+   "explain": "Jacob had twelve sons. (Genesis 35:22)"
+  }
+ },
+ {
+  "id": "kids-hard-012",
+  "ref": {
+   "fr": "Genèse 37:31",
+   "en": "Genesis 37:31"
+  },
+  "fr": {
+   "q": "Dans quoi les frères ont-ils trempé la tunique de Joseph ?",
+   "options": [
+    "Du sang de chèvre",
+    "De l’eau",
+    "De la boue",
+    "Du vin"
+   ],
+   "explain": "Ils trempèrent la tunique dans le sang d’un bouc. (Genèse 37:31)"
+  },
+  "en": {
+   "q": "What did the brothers dip Joseph’s coat in?",
+   "options": [
+    "Goat’s blood",
+    "Water",
+    "Mud",
+    "Wine"
+   ],
+   "explain": "They dipped the coat in a goat’s blood. (Genesis 37:31)"
+  }
+ },
+ {
+  "id": "kids-hard-013",
+  "ref": {
+   "fr": "Genèse 41:29-30",
+   "en": "Genesis 41:29-30"
+  },
+  "fr": {
+   "q": "Le rêve du pharaon annonçait sept ans d’abondance puis sept ans de quoi ?",
+   "options": [
+    "Famine",
+    "Guerre",
+    "Pluie",
+    "Froid"
+   ],
+   "explain": "Sept années d’abondance, puis sept de famine. (Genèse 41:29-30)"
+  },
+  "en": {
+   "q": "Pharaoh’s dream meant seven years of plenty then seven of what?",
+   "options": [
+    "Famine",
+    "War",
+    "Rain",
+    "Cold"
+   ],
+   "explain": "Seven years of plenty, then seven of famine. (Genesis 41:29-30)"
+  }
+ },
+ {
+  "id": "kids-hard-014",
+  "ref": {
+   "fr": "Exode 2:21",
+   "en": "Exodus 2:21"
+  },
+  "fr": {
+   "q": "Comment s’appelle la femme de Moïse ?",
+   "options": [
+    "Séphora",
+    "Marie",
+    "Anne",
+    "Débora"
+   ],
+   "explain": "Moïse épousa Séphora. (Exode 2:21)"
+  },
+  "en": {
+   "q": "What is the name of Moses’ wife?",
+   "options": [
+    "Zipporah",
+    "Miriam",
+    "Hannah",
+    "Deborah"
+   ],
+   "explain": "Moses married Zipporah. (Exodus 2:21)"
+  }
+ },
+ {
+  "id": "kids-hard-015",
+  "ref": {
+   "fr": "Exode 3:1",
+   "en": "Exodus 3:1"
+  },
+  "fr": {
+   "q": "Comment s’appelle le beau-père de Moïse ?",
+   "options": [
+    "Jéthro",
+    "Aaron",
+    "Josué",
+    "Caleb"
+   ],
+   "explain": "Jéthro était le beau-père de Moïse. (Exode 3:1)"
+  },
+  "en": {
+   "q": "What is the name of Moses’ father-in-law?",
+   "options": [
+    "Jethro",
+    "Aaron",
+    "Joshua",
+    "Caleb"
+   ],
+   "explain": "Jethro was Moses’ father-in-law. (Exodus 3:1)"
+  }
+ },
+ {
+  "id": "kids-hard-016",
+  "ref": {
+   "fr": "Genèse 11:9",
+   "en": "Genesis 11:9"
+  },
+  "fr": {
+   "q": "Comment s’appelle la tour bâtie pour monter jusqu’au ciel ?",
+   "options": [
+    "Babel",
+    "Sion",
+    "Jéricho",
+    "Silo"
+   ],
+   "explain": "On l’appela Babel. (Genèse 11:9)"
+  },
+  "en": {
+   "q": "What is the name of the tower built to reach the sky?",
+   "options": [
+    "Babel",
+    "Zion",
+    "Jericho",
+    "Shiloh"
+   ],
+   "explain": "It was called Babel. (Genesis 11:9)"
+  }
+ },
+ {
+  "id": "kids-hard-017",
+  "ref": {
+   "fr": "Exode 16:13",
+   "en": "Exodus 16:13"
+  },
+  "fr": {
+   "q": "En plus de la manne, quel oiseau Dieu a-t-il donné à manger ?",
+   "options": [
+    "Des cailles",
+    "Des colombes",
+    "Des corbeaux",
+    "Des aigles"
+   ],
+   "explain": "Le soir, des cailles couvrirent le camp. (Exode 16:13)"
+  },
+  "en": {
+   "q": "Besides manna, what bird did God give to eat?",
+   "options": [
+    "Quail",
+    "Doves",
+    "Ravens",
+    "Eagles"
+   ],
+   "explain": "In the evening quail covered the camp. (Exodus 16:13)"
+  }
+ },
+ {
+  "id": "kids-hard-018",
+  "ref": {
+   "fr": "Exode 34:28",
+   "en": "Exodus 34:28"
+  },
+  "fr": {
+   "q": "Qu’y avait-il écrit sur les deux tables de pierre ?",
+   "options": [
+    "Les dix commandements",
+    "Des psaumes",
+    "Des noms",
+    "Des prières"
+   ],
+   "explain": "Les dix paroles étaient sur les tables. (Exode 34:28)"
+  },
+  "en": {
+   "q": "What was written on the two stone tablets?",
+   "options": [
+    "The ten commandments",
+    "Psalms",
+    "Names",
+    "Prayers"
+   ],
+   "explain": "The ten words were on the tablets. (Exodus 34:28)"
+  }
+ },
+ {
+  "id": "kids-hard-019",
+  "ref": {
+   "fr": "Nombres 14:33",
+   "en": "Numbers 14:33"
+  },
+  "fr": {
+   "q": "Combien d’années le peuple a-t-il marché dans le désert ?",
+   "options": [
+    "Quarante",
+    "Dix",
+    "Cent",
+    "Sept"
+   ],
+   "explain": "Ils marchèrent quarante ans dans le désert. (Nombres 14:33)"
+  },
+  "en": {
+   "q": "How many years did the people wander in the desert?",
+   "options": [
+    "Forty",
+    "Ten",
+    "A hundred",
+    "Seven"
+   ],
+   "explain": "They wandered forty years in the desert. (Numbers 14:33)"
+  }
+ },
+ {
+  "id": "kids-hard-020",
+  "ref": {
+   "fr": "Genèse 49:28",
+   "en": "Genesis 49:28"
+  },
+  "fr": {
+   "q": "Combien de tribus formaient le peuple d’Israël ?",
+   "options": [
+    "Douze",
+    "Sept",
+    "Dix",
+    "Trois"
+   ],
+   "explain": "Ce sont les douze tribus d’Israël. (Genèse 49:28)"
+  },
+  "en": {
+   "q": "How many tribes made up the people of Israel?",
+   "options": [
+    "Twelve",
+    "Seven",
+    "Ten",
+    "Three"
+   ],
+   "explain": "These are the twelve tribes of Israel. (Genesis 49:28)"
+  }
+ },
+ {
+  "id": "kids-hard-021",
+  "ref": {
+   "fr": "Josué 2:1",
+   "en": "Joshua 2:1"
+  },
+  "fr": {
+   "q": "Combien d’espions Josué a-t-il envoyés à Jéricho ?",
+   "options": [
+    "Deux",
+    "Cinq",
+    "Douze",
+    "Dix"
+   ],
+   "explain": "Josué envoya deux espions à Jéricho. (Josué 2:1)"
+  },
+  "en": {
+   "q": "How many spies did Joshua send to Jericho?",
+   "options": [
+    "Two",
+    "Five",
+    "Twelve",
+    "Ten"
+   ],
+   "explain": "Joshua sent two spies to Jericho. (Joshua 2:1)"
+  }
+ },
+ {
+  "id": "kids-hard-022",
+  "ref": {
+   "fr": "Josué 3:17",
+   "en": "Joshua 3:17"
+  },
+  "fr": {
+   "q": "Quel fleuve le peuple a-t-il traversé pour entrer dans le pays promis ?",
+   "options": [
+    "Le Jourdain",
+    "Le Nil",
+    "L’Euphrate",
+    "Le Tigre"
+   ],
+   "explain": "Ils traversèrent le Jourdain à sec. (Josué 3:17)"
+  },
+  "en": {
+   "q": "Which river did the people cross to enter the promised land?",
+   "options": [
+    "The Jordan",
+    "The Nile",
+    "The Euphrates",
+    "The Tigris"
+   ],
+   "explain": "They crossed the Jordan on dry ground. (Joshua 3:17)"
+  }
+ },
+ {
+  "id": "kids-hard-023",
+  "ref": {
+   "fr": "Nombres 14:6",
+   "en": "Numbers 14:6"
+  },
+  "fr": {
+   "q": "Quels deux espions ont fait confiance à Dieu pour le pays promis ?",
+   "options": [
+    "Josué et Caleb",
+    "Aaron et Hur",
+    "Nadab et Abihu",
+    "Dathan et Abiram"
+   ],
+   "explain": "Josué et Caleb crurent en Dieu. (Nombres 14:6)"
+  },
+  "en": {
+   "q": "Which two spies trusted God about the promised land?",
+   "options": [
+    "Joshua and Caleb",
+    "Aaron and Hur",
+    "Nadab and Abihu",
+    "Dathan and Abiram"
+   ],
+   "explain": "Joshua and Caleb trusted God. (Numbers 14:6)"
+  }
+ },
+ {
+  "id": "kids-hard-024",
+  "ref": {
+   "fr": "Deutéronome 34:1",
+   "en": "Deuteronomy 34:1"
+  },
+  "fr": {
+   "q": "De quelle montagne Moïse a-t-il vu le pays promis ?",
+   "options": [
+    "Le mont Nébo",
+    "Le mont Ararat",
+    "Le mont Sinaï",
+    "Le mont Carmel"
+   ],
+   "explain": "Du mont Nébo, Moïse vit le pays. (Deutéronome 34:1)"
+  },
+  "en": {
+   "q": "From which mountain did Moses see the promised land?",
+   "options": [
+    "Mount Nebo",
+    "Mount Ararat",
+    "Mount Sinai",
+    "Mount Carmel"
+   ],
+   "explain": "From Mount Nebo, Moses saw the land. (Deuteronomy 34:1)"
+  }
+ },
+ {
+  "id": "kids-hard-025",
+  "ref": {
+   "fr": "Exode 28:1",
+   "en": "Exodus 28:1"
+  },
+  "fr": {
+   "q": "Quel frère de Moïse est devenu le premier prêtre ?",
+   "options": [
+    "Aaron",
+    "Josué",
+    "Caleb",
+    "Hur"
+   ],
+   "explain": "Aaron fut consacré prêtre. (Exode 28:1)"
+  },
+  "en": {
+   "q": "Which brother of Moses became the first priest?",
+   "options": [
+    "Aaron",
+    "Joshua",
+    "Caleb",
+    "Hur"
+   ],
+   "explain": "Aaron was set apart as priest. (Exodus 28:1)"
+  }
+ },
+ {
+  "id": "kids-hard-026",
+  "ref": {
+   "fr": "Juges 4:4",
+   "en": "Judges 4:4"
+  },
+  "fr": {
+   "q": "Quelle femme courageuse était juge en Israël ?",
+   "options": [
+    "Débora",
+    "Ruth",
+    "Anne",
+    "Esther"
+   ],
+   "explain": "Débora jugeait Israël. (Juges 4:4)"
+  },
+  "en": {
+   "q": "Which brave woman was a judge in Israel?",
+   "options": [
+    "Deborah",
+    "Ruth",
+    "Hannah",
+    "Esther"
+   ],
+   "explain": "Deborah judged Israel. (Judges 4:4)"
+  }
+ },
+ {
+  "id": "kids-hard-027",
+  "ref": {
+   "fr": "Juges 16:18",
+   "en": "Judges 16:18"
+  },
+  "fr": {
+   "q": "Quelle femme a découvert le secret de la force de Samson ?",
+   "options": [
+    "Dalila",
+    "Rahab",
+    "Débora",
+    "Jézabel"
+   ],
+   "explain": "Dalila apprit le secret de Samson. (Juges 16:18)"
+  },
+  "en": {
+   "q": "Which woman found out the secret of Samson’s strength?",
+   "options": [
+    "Delilah",
+    "Rahab",
+    "Deborah",
+    "Jezebel"
+   ],
+   "explain": "Delilah learned Samson’s secret. (Judges 16:18)"
+  }
+ },
+ {
+  "id": "kids-hard-028",
+  "ref": {
+   "fr": "Juges 15:15",
+   "en": "Judges 15:15"
+  },
+  "fr": {
+   "q": "Avec quel objet Samson a-t-il vaincu mille ennemis ?",
+   "options": [
+    "Une mâchoire d’âne",
+    "Une épée",
+    "Une fronde",
+    "Une lance"
+   ],
+   "explain": "Samson frappa avec une mâchoire d’âne. (Juges 15:15)"
+  },
+  "en": {
+   "q": "With what did Samson defeat a thousand enemies?",
+   "options": [
+    "A donkey’s jawbone",
+    "A sword",
+    "A sling",
+    "A spear"
+   ],
+   "explain": "Samson struck with a donkey’s jawbone. (Judges 15:15)"
+  }
+ },
+ {
+  "id": "kids-hard-029",
+  "ref": {
+   "fr": "1 Samuel 3:1",
+   "en": "1 Samuel 3:1"
+  },
+  "fr": {
+   "q": "Quel vieux prêtre a élevé le petit Samuel au temple ?",
+   "options": [
+    "Éli",
+    "Aaron",
+    "Nathan",
+    "Boaz"
+   ],
+   "explain": "Le petit Samuel servait auprès d’Éli. (1 Samuel 3:1)"
+  },
+  "en": {
+   "q": "Which old priest raised the boy Samuel at the temple?",
+   "options": [
+    "Eli",
+    "Aaron",
+    "Nathan",
+    "Boaz"
+   ],
+   "explain": "The boy Samuel served with Eli. (1 Samuel 3:1)"
+  }
+ },
+ {
+  "id": "kids-hard-030",
+  "ref": {
+   "fr": "1 Samuel 16:1",
+   "en": "1 Samuel 16:1"
+  },
+  "fr": {
+   "q": "Comment s’appelle le père de David ?",
+   "options": [
+    "Isaï",
+    "Saül",
+    "Samuel",
+    "Boaz"
+   ],
+   "explain": "David était fils d’Isaï. (1 Samuel 16:1)"
+  },
+  "en": {
+   "q": "What is the name of David’s father?",
+   "options": [
+    "Jesse",
+    "Saul",
+    "Samuel",
+    "Boaz"
+   ],
+   "explain": "David was the son of Jesse. (1 Samuel 16:1)"
+  }
+ },
+ {
+  "id": "kids-hard-031",
+  "ref": {
+   "fr": "1 Samuel 16:13",
+   "en": "1 Samuel 16:13"
+  },
+  "fr": {
+   "q": "Quel prophète a versé de l’huile pour faire de David un roi ?",
+   "options": [
+    "Samuel",
+    "Nathan",
+    "Élie",
+    "Élisée"
+   ],
+   "explain": "Samuel oignit David. (1 Samuel 16:13)"
+  },
+  "en": {
+   "q": "Which prophet poured oil to make David a king?",
+   "options": [
+    "Samuel",
+    "Nathan",
+    "Elijah",
+    "Elisha"
+   ],
+   "explain": "Samuel anointed David. (1 Samuel 16:13)"
+  }
+ },
+ {
+  "id": "kids-hard-032",
+  "ref": {
+   "fr": "1 Samuel 17:40",
+   "en": "1 Samuel 17:40"
+  },
+  "fr": {
+   "q": "Combien de pierres lisses David a-t-il prises au torrent ?",
+   "options": [
+    "Cinq",
+    "Deux",
+    "Sept",
+    "Trois"
+   ],
+   "explain": "David prit cinq pierres lisses. (1 Samuel 17:40)"
+  },
+  "en": {
+   "q": "How many smooth stones did David take from the brook?",
+   "options": [
+    "Five",
+    "Two",
+    "Seven",
+    "Three"
+   ],
+   "explain": "David took five smooth stones. (1 Samuel 17:40)"
+  }
+ },
+ {
+  "id": "kids-hard-033",
+  "ref": {
+   "fr": "1 Samuel 15:26",
+   "en": "1 Samuel 15:26"
+  },
+  "fr": {
+   "q": "Qui était le roi juste avant David ?",
+   "options": [
+    "Saül",
+    "Salomon",
+    "Samuel",
+    "Josias"
+   ],
+   "explain": "Saül régna avant David. (1 Samuel 15:26)"
+  },
+  "en": {
+   "q": "Who was the king just before David?",
+   "options": [
+    "Saul",
+    "Solomon",
+    "Samuel",
+    "Josiah"
+   ],
+   "explain": "Saul reigned before David. (1 Samuel 15:26)"
+  }
+ },
+ {
+  "id": "kids-hard-034",
+  "ref": {
+   "fr": "1 Rois 2:12",
+   "en": "1 Kings 2:12"
+  },
+  "fr": {
+   "q": "Quel fils de David est devenu roi après lui ?",
+   "options": [
+    "Salomon",
+    "Absalom",
+    "Amnon",
+    "Adonija"
+   ],
+   "explain": "Salomon régna après David. (1 Rois 2:12)"
+  },
+  "en": {
+   "q": "Which son of David became king after him?",
+   "options": [
+    "Solomon",
+    "Absalom",
+    "Amnon",
+    "Adonijah"
+   ],
+   "explain": "Solomon reigned after David. (1 Kings 2:12)"
+  }
+ },
+ {
+  "id": "kids-hard-035",
+  "ref": {
+   "fr": "Proverbes 1:1",
+   "en": "Proverbs 1:1"
+  },
+  "fr": {
+   "q": "Quel roi sage a écrit beaucoup de proverbes ?",
+   "options": [
+    "Salomon",
+    "David",
+    "Saül",
+    "Ézéchias"
+   ],
+   "explain": "Les proverbes de Salomon. (Proverbes 1:1)"
+  },
+  "en": {
+   "q": "Which wise king wrote many proverbs?",
+   "options": [
+    "Solomon",
+    "David",
+    "Saul",
+    "Hezekiah"
+   ],
+   "explain": "The proverbs of Solomon. (Proverbs 1:1)"
+  }
+ },
+ {
+  "id": "kids-hard-036",
+  "ref": {
+   "fr": "Daniel 3:1",
+   "en": "Daniel 3:1"
+  },
+  "fr": {
+   "q": "Quel roi a fait une grande statue d’or à adorer ?",
+   "options": [
+    "Nabuchodonosor",
+    "Darius",
+    "Pharaon",
+    "Hérode"
+   ],
+   "explain": "Le roi dressa une statue d’or. (Daniel 3:1)"
+  },
+  "en": {
+   "q": "Which king made a great gold statue to be worshipped?",
+   "options": [
+    "Nebuchadnezzar",
+    "Darius",
+    "Pharaoh",
+    "Herod"
+   ],
+   "explain": "The king set up a gold statue. (Daniel 3:1)"
+  }
+ },
+ {
+  "id": "kids-hard-037",
+  "ref": {
+   "fr": "1 Rois 16:31",
+   "en": "1 Kings 16:31"
+  },
+  "fr": {
+   "q": "Quelle reine méchante était la femme du roi Achab ?",
+   "options": [
+    "Jézabel",
+    "Esther",
+    "Vasthi",
+    "Athalie"
+   ],
+   "explain": "Jézabel était la femme d’Achab. (1 Rois 16:31)"
+  },
+  "en": {
+   "q": "Which wicked queen was King Ahab’s wife?",
+   "options": [
+    "Jezebel",
+    "Esther",
+    "Vashti",
+    "Athaliah"
+   ],
+   "explain": "Jezebel was Ahab’s wife. (1 Kings 16:31)"
+  }
+ },
+ {
+  "id": "kids-hard-038",
+  "ref": {
+   "fr": "1 Rois 19:16",
+   "en": "1 Kings 19:16"
+  },
+  "fr": {
+   "q": "Quel prophète a pris la place d’Élie ?",
+   "options": [
+    "Élisée",
+    "Samuel",
+    "Nathan",
+    "Jérémie"
+   ],
+   "explain": "Élisée succéda à Élie. (1 Rois 19:16)"
+  },
+  "en": {
+   "q": "Which prophet took Elijah’s place?",
+   "options": [
+    "Elisha",
+    "Samuel",
+    "Nathan",
+    "Jeremiah"
+   ],
+   "explain": "Elisha followed Elijah. (1 Kings 19:16)"
+  }
+ },
+ {
+  "id": "kids-hard-039",
+  "ref": {
+   "fr": "1 Rois 19:12",
+   "en": "1 Kings 19:12"
+  },
+  "fr": {
+   "q": "Comment Élie a-t-il entendu Dieu sur la montagne ?",
+   "options": [
+    "Dans un doux murmure",
+    "Dans le tonnerre",
+    "Dans le feu",
+    "Dans le vent"
+   ],
+   "explain": "Dieu parla dans un doux et léger murmure. (1 Rois 19:12)"
+  },
+  "en": {
+   "q": "How did Elijah hear God on the mountain?",
+   "options": [
+    "In a gentle whisper",
+    "In thunder",
+    "In fire",
+    "In wind"
+   ],
+   "explain": "God spoke in a gentle whisper. (1 Kings 19:12)"
+  }
+ },
+ {
+  "id": "kids-hard-040",
+  "ref": {
+   "fr": "Ésaïe 6:8",
+   "en": "Isaiah 6:8"
+  },
+  "fr": {
+   "q": "Quel prophète a répondu à Dieu : « Me voici, envoie-moi » ?",
+   "options": [
+    "Ésaïe",
+    "Jonas",
+    "Élie",
+    "Moïse"
+   ],
+   "explain": "Ésaïe dit : Me voici, envoie-moi. (Ésaïe 6:8)"
+  },
+  "en": {
+   "q": "Which prophet answered God: “Here I am, send me”?",
+   "options": [
+    "Isaiah",
+    "Jonah",
+    "Elijah",
+    "Moses"
+   ],
+   "explain": "Isaiah said: Here am I, send me. (Isaiah 6:8)"
+  }
+ },
+ {
+  "id": "kids-hard-041",
+  "ref": {
+   "fr": "Jérémie 38:6",
+   "en": "Jeremiah 38:6"
+  },
+  "fr": {
+   "q": "Quel prophète a été jeté dans une citerne boueuse ?",
+   "options": [
+    "Jérémie",
+    "Ésaïe",
+    "Daniel",
+    "Osée"
+   ],
+   "explain": "On descendit Jérémie dans la citerne. (Jérémie 38:6)"
+  },
+  "en": {
+   "q": "Which prophet was thrown into a muddy cistern?",
+   "options": [
+    "Jeremiah",
+    "Isaiah",
+    "Daniel",
+    "Hosea"
+   ],
+   "explain": "They lowered Jeremiah into the cistern. (Jeremiah 38:6)"
+  }
+ },
+ {
+  "id": "kids-hard-042",
+  "ref": {
+   "fr": "Daniel 6:16",
+   "en": "Daniel 6:16"
+  },
+  "fr": {
+   "q": "Sous quel roi Daniel a-t-il été jeté aux lions ?",
+   "options": [
+    "Darius",
+    "Salomon",
+    "Achab",
+    "Hérode"
+   ],
+   "explain": "Le roi Darius fit jeter Daniel aux lions. (Daniel 6:16)"
+  },
+  "en": {
+   "q": "Under which king was Daniel thrown to the lions?",
+   "options": [
+    "Darius",
+    "Solomon",
+    "Ahab",
+    "Herod"
+   ],
+   "explain": "King Darius had Daniel thrown to the lions. (Daniel 6:16)"
+  }
+ },
+ {
+  "id": "kids-hard-043",
+  "ref": {
+   "fr": "Néhémie 8:3",
+   "en": "Nehemiah 8:3"
+  },
+  "fr": {
+   "q": "Qui a lu la loi de Dieu au peuple revenu d’exil ?",
+   "options": [
+    "Esdras",
+    "Néhémie",
+    "Daniel",
+    "Mardochée"
+   ],
+   "explain": "Esdras lut le livre de la loi. (Néhémie 8:3)"
+  },
+  "en": {
+   "q": "Who read God’s law to the people back from exile?",
+   "options": [
+    "Ezra",
+    "Nehemiah",
+    "Daniel",
+    "Mordecai"
+   ],
+   "explain": "Ezra read the book of the law. (Nehemiah 8:3)"
+  }
+ },
+ {
+  "id": "kids-hard-044",
+  "ref": {
+   "fr": "Esther 2:7",
+   "en": "Esther 2:7"
+  },
+  "fr": {
+   "q": "Quel cousin a élevé la jeune Esther ?",
+   "options": [
+    "Mardochée",
+    "Néhémie",
+    "Esdras",
+    "Aman"
+   ],
+   "explain": "Mardochée éleva Esther. (Esther 2:7)"
+  },
+  "en": {
+   "q": "Which cousin raised young Esther?",
+   "options": [
+    "Mordecai",
+    "Nehemiah",
+    "Ezra",
+    "Haman"
+   ],
+   "explain": "Mordecai raised Esther. (Esther 2:7)"
+  }
+ },
+ {
+  "id": "kids-hard-045",
+  "ref": {
+   "fr": "Esther 3:6",
+   "en": "Esther 3:6"
+  },
+  "fr": {
+   "q": "Quel homme méchant voulait détruire le peuple d’Esther ?",
+   "options": [
+    "Aman",
+    "Mardochée",
+    "Darius",
+    "Goliath"
+   ],
+   "explain": "Aman voulait détruire les Juifs. (Esther 3:6)"
+  },
+  "en": {
+   "q": "Which wicked man wanted to destroy Esther’s people?",
+   "options": [
+    "Haman",
+    "Mordecai",
+    "Darius",
+    "Goliath"
+   ],
+   "explain": "Haman wanted to destroy the Jews. (Esther 3:6)"
+  }
+ },
+ {
+  "id": "kids-hard-046",
+  "ref": {
+   "fr": "Psaume 23:1",
+   "en": "Psalm 23:1"
+  },
+  "fr": {
+   "q": "Quel roi a écrit beaucoup de psaumes ?",
+   "options": [
+    "David",
+    "Salomon",
+    "Saül",
+    "Josias"
+   ],
+   "explain": "Beaucoup de psaumes sont de David. (Psaume 23:1)"
+  },
+  "en": {
+   "q": "Which king wrote many of the psalms?",
+   "options": [
+    "David",
+    "Solomon",
+    "Saul",
+    "Josiah"
+   ],
+   "explain": "Many psalms are by David. (Psalm 23:1)"
+  }
+ },
+ {
+  "id": "kids-hard-047",
+  "ref": {
+   "fr": "Psaume 23:4",
+   "en": "Psalm 23:4"
+  },
+  "fr": {
+   "q": "Dans le Psaume 23, David dit qu’il ne craint aucun quoi ?",
+   "options": [
+    "Mal",
+    "Roi",
+    "Lion",
+    "Vent"
+   ],
+   "explain": "Je ne crains aucun mal. (Psaume 23:4)"
+  },
+  "en": {
+   "q": "In Psalm 23, David says he fears no what?",
+   "options": [
+    "Evil",
+    "King",
+    "Lion",
+    "Wind"
+   ],
+   "explain": "I will fear no evil. (Psalm 23:4)"
+  }
+ },
+ {
+  "id": "kids-hard-048",
+  "ref": {
+   "fr": "Psaume 23:1",
+   "en": "Psalm 23:1"
+  },
+  "fr": {
+   "q": "Psaume 23 : « L’Éternel est mon berger, je ne manquerai de… » ?",
+   "options": [
+    "Rien",
+    "Pain",
+    "Force",
+    "Temps"
+   ],
+   "explain": "Je ne manquerai de rien. (Psaume 23:1)"
+  },
+  "en": {
+   "q": "Psalm 23: “The Lord is my shepherd, I shall lack…” what?",
+   "options": [
+    "Nothing",
+    "Bread",
+    "Strength",
+    "Time"
+   ],
+   "explain": "I shall lack nothing. (Psalm 23:1)"
+  }
+ },
+ {
+  "id": "kids-hard-049",
+  "ref": {
+   "fr": "Genèse 1:1",
+   "en": "Genesis 1:1"
+  },
+  "fr": {
+   "q": "« Au commencement, Dieu créa les cieux et la… » quoi ?",
+   "options": [
+    "Terre",
+    "Mer",
+    "Lune",
+    "Lumière"
+   ],
+   "explain": "Au commencement Dieu créa les cieux et la terre. (Genèse 1:1)"
+  },
+  "en": {
+   "q": "“In the beginning God created the heavens and the…” what?",
+   "options": [
+    "Earth",
+    "Sea",
+    "Moon",
+    "Light"
+   ],
+   "explain": "In the beginning God created the heavens and the earth. (Genesis 1:1)"
+  }
+ },
+ {
+  "id": "kids-hard-050",
+  "ref": {
+   "fr": "Genèse 1:31",
+   "en": "Genesis 1:31"
+  },
+  "fr": {
+   "q": "À la fin de la création, Dieu a vu que tout était comment ?",
+   "options": [
+    "Très bon",
+    "Fatigué",
+    "Petit",
+    "Sombre"
+   ],
+   "explain": "Dieu vit que tout était très bon. (Genèse 1:31)"
+  },
+  "en": {
+   "q": "At the end of creation, God saw that everything was how?",
+   "options": [
+    "Very good",
+    "Tired",
+    "Small",
+    "Dark"
+   ],
+   "explain": "God saw that it was very good. (Genesis 1:31)"
+  }
+ },
+ {
+  "id": "kids-hard-051",
+  "ref": {
+   "fr": "Genèse 1:14-19",
+   "en": "Genesis 1:14-19"
+  },
+  "fr": {
+   "q": "Quel jour Dieu a-t-il fait le soleil, la lune et les étoiles ?",
+   "options": [
+    "Le quatrième jour",
+    "Le premier jour",
+    "Le sixième jour",
+    "Le septième jour"
+   ],
+   "explain": "Dieu fit les astres le quatrième jour. (Genèse 1:14-19)"
+  },
+  "en": {
+   "q": "On which day did God make the sun, moon and stars?",
+   "options": [
+    "The fourth day",
+    "The first day",
+    "The sixth day",
+    "The seventh day"
+   ],
+   "explain": "God made the lights on the fourth day. (Genesis 1:14-19)"
+  }
+ },
+ {
+  "id": "kids-hard-052",
+  "ref": {
+   "fr": "Genèse 2:15",
+   "en": "Genesis 2:15"
+  },
+  "fr": {
+   "q": "Qu’est-ce que Dieu a demandé à l’homme de cultiver et de garder ?",
+   "options": [
+    "Le jardin",
+    "La mer",
+    "La montagne",
+    "Le désert"
+   ],
+   "explain": "Dieu mit l’homme pour cultiver le jardin. (Genèse 2:15)"
+  },
+  "en": {
+   "q": "What did God ask the man to work and keep?",
+   "options": [
+    "The garden",
+    "The sea",
+    "The mountain",
+    "The desert"
+   ],
+   "explain": "God put the man to keep the garden. (Genesis 2:15)"
+  }
+ },
+ {
+  "id": "kids-hard-053",
+  "ref": {
+   "fr": "Luc 1:13",
+   "en": "Luke 1:13"
+  },
+  "fr": {
+   "q": "Comment s’appelle le papa de Jean-Baptiste ?",
+   "options": [
+    "Zacharie",
+    "Joseph",
+    "Siméon",
+    "Éli"
+   ],
+   "explain": "L’ange annonça la naissance à Zacharie. (Luc 1:13)"
+  },
+  "en": {
+   "q": "What is the name of John the Baptist’s father?",
+   "options": [
+    "Zechariah",
+    "Joseph",
+    "Simeon",
+    "Eli"
+   ],
+   "explain": "The angel told Zechariah of the birth. (Luke 1:13)"
+  }
+ },
+ {
+  "id": "kids-hard-054",
+  "ref": {
+   "fr": "Luc 1:57",
+   "en": "Luke 1:57"
+  },
+  "fr": {
+   "q": "Comment s’appelle la maman de Jean-Baptiste ?",
+   "options": [
+    "Élisabeth",
+    "Marie",
+    "Anne",
+    "Marthe"
+   ],
+   "explain": "Élisabeth eut un fils, Jean. (Luc 1:57)"
+  },
+  "en": {
+   "q": "What is the name of John the Baptist’s mother?",
+   "options": [
+    "Elizabeth",
+    "Mary",
+    "Hannah",
+    "Martha"
+   ],
+   "explain": "Elizabeth had a son, John. (Luke 1:57)"
+  }
+ },
+ {
+  "id": "kids-hard-055",
+  "ref": {
+   "fr": "Luc 2:28",
+   "en": "Luke 2:28"
+  },
+  "fr": {
+   "q": "Quel vieil homme a pris le bébé Jésus dans ses bras au temple ?",
+   "options": [
+    "Siméon",
+    "Zacharie",
+    "Nicodème",
+    "Joseph"
+   ],
+   "explain": "Siméon prit l’enfant dans ses bras. (Luc 2:28)"
+  },
+  "en": {
+   "q": "Which old man took baby Jesus in his arms at the temple?",
+   "options": [
+    "Simeon",
+    "Zechariah",
+    "Nicodemus",
+    "Joseph"
+   ],
+   "explain": "Simeon took the child in his arms. (Luke 2:28)"
+  }
+ },
+ {
+  "id": "kids-hard-056",
+  "ref": {
+   "fr": "Luc 2:36",
+   "en": "Luke 2:36"
+  },
+  "fr": {
+   "q": "Quelle vieille prophétesse a vu Jésus au temple et loué Dieu ?",
+   "options": [
+    "Anne",
+    "Marie",
+    "Marthe",
+    "Débora"
+   ],
+   "explain": "La prophétesse Anne loua Dieu. (Luc 2:36-38)"
+  },
+  "en": {
+   "q": "Which old prophetess saw Jesus at the temple and praised God?",
+   "options": [
+    "Anna",
+    "Mary",
+    "Martha",
+    "Deborah"
+   ],
+   "explain": "The prophetess Anna praised God. (Luke 2:36-38)"
+  }
+ },
+ {
+  "id": "kids-hard-057",
+  "ref": {
+   "fr": "Jean 1:40",
+   "en": "John 1:40"
+  },
+  "fr": {
+   "q": "Quel disciple était le frère de Simon Pierre ?",
+   "options": [
+    "André",
+    "Jacques",
+    "Philippe",
+    "Thomas"
+   ],
+   "explain": "André, frère de Simon Pierre. (Jean 1:40)"
+  },
+  "en": {
+   "q": "Which disciple was Simon Peter’s brother?",
+   "options": [
+    "Andrew",
+    "James",
+    "Philip",
+    "Thomas"
+   ],
+   "explain": "Andrew, Simon Peter’s brother. (John 1:40)"
+  }
+ },
+ {
+  "id": "kids-hard-058",
+  "ref": {
+   "fr": "Matthieu 9:9",
+   "en": "Matthew 9:9"
+  },
+  "fr": {
+   "q": "Quel disciple était collecteur d’impôts avant de suivre Jésus ?",
+   "options": [
+    "Matthieu",
+    "Pierre",
+    "Jean",
+    "Thomas"
+   ],
+   "explain": "Jésus appela Matthieu au bureau des impôts. (Matthieu 9:9)"
+  },
+  "en": {
+   "q": "Which disciple was a tax collector before following Jesus?",
+   "options": [
+    "Matthew",
+    "Peter",
+    "John",
+    "Thomas"
+   ],
+   "explain": "Jesus called Matthew at the tax booth. (Matthew 9:9)"
+  }
+ },
+ {
+  "id": "kids-hard-059",
+  "ref": {
+   "fr": "Marc 5:22",
+   "en": "Mark 5:22"
+  },
+  "fr": {
+   "q": "Comment s’appelle le chef dont Jésus a ramené la fille à la vie ?",
+   "options": [
+    "Jaïrus",
+    "Nicodème",
+    "Zachée",
+    "Corneille"
+   ],
+   "explain": "Jaïrus, un chef de la synagogue. (Marc 5:22)"
+  },
+  "en": {
+   "q": "What is the name of the leader whose daughter Jesus raised?",
+   "options": [
+    "Jairus",
+    "Nicodemus",
+    "Zacchaeus",
+    "Cornelius"
+   ],
+   "explain": "Jairus, a synagogue leader. (Mark 5:22)"
+  }
+ },
+ {
+  "id": "kids-hard-060",
+  "ref": {
+   "fr": "Luc 22:48",
+   "en": "Luke 22:48"
+  },
+  "fr": {
+   "q": "Quel disciple a trahi Jésus par un baiser ?",
+   "options": [
+    "Judas Iscariot",
+    "Thomas",
+    "Pierre",
+    "André"
+   ],
+   "explain": "Judas trahit Jésus par un baiser. (Luc 22:48)"
+  },
+  "en": {
+   "q": "Which disciple betrayed Jesus with a kiss?",
+   "options": [
+    "Judas Iscariot",
+    "Thomas",
+    "Peter",
+    "Andrew"
+   ],
+   "explain": "Judas betrayed Jesus with a kiss. (Luke 22:48)"
+  }
+ },
+ {
+  "id": "kids-hard-061",
+  "ref": {
+   "fr": "Actes 1:26",
+   "en": "Acts 1:26"
+  },
+  "fr": {
+   "q": "Qui a été choisi pour remplacer Judas parmi les douze ?",
+   "options": [
+    "Matthias",
+    "Barnabas",
+    "Étienne",
+    "Silas"
+   ],
+   "explain": "Matthias fut choisi à la place de Judas. (Actes 1:26)"
+  },
+  "en": {
+   "q": "Who was chosen to replace Judas among the twelve?",
+   "options": [
+    "Matthias",
+    "Barnabas",
+    "Stephen",
+    "Silas"
+   ],
+   "explain": "Matthias was chosen in Judas’ place. (Acts 1:26)"
+  }
+ },
+ {
+  "id": "kids-hard-062",
+  "ref": {
+   "fr": "Marc 15:43",
+   "en": "Mark 15:43"
+  },
+  "fr": {
+   "q": "Qui a offert son tombeau neuf pour le corps de Jésus ?",
+   "options": [
+    "Joseph d’Arimathée",
+    "Nicodème",
+    "Pierre",
+    "Pilate"
+   ],
+   "explain": "Joseph d’Arimathée déposa Jésus dans son tombeau. (Marc 15:43-46)"
+  },
+  "en": {
+   "q": "Who gave his new tomb for Jesus’ body?",
+   "options": [
+    "Joseph of Arimathea",
+    "Nicodemus",
+    "Peter",
+    "Pilate"
+   ],
+   "explain": "Joseph of Arimathea laid Jesus in his tomb. (Mark 15:43-46)"
+  }
+ },
+ {
+  "id": "kids-hard-063",
+  "ref": {
+   "fr": "Marc 15:15",
+   "en": "Mark 15:15"
+  },
+  "fr": {
+   "q": "Quel prisonnier a été libéré à la place de Jésus ?",
+   "options": [
+    "Barabbas",
+    "Judas",
+    "Pilate",
+    "Pierre"
+   ],
+   "explain": "La foule demanda Barabbas. (Marc 15:15)"
+  },
+  "en": {
+   "q": "Which prisoner was set free instead of Jesus?",
+   "options": [
+    "Barabbas",
+    "Judas",
+    "Pilate",
+    "Peter"
+   ],
+   "explain": "The crowd asked for Barabbas. (Mark 15:15)"
+  }
+ },
+ {
+  "id": "kids-hard-064",
+  "ref": {
+   "fr": "Jean 19:16",
+   "en": "John 19:16"
+  },
+  "fr": {
+   "q": "Quel gouverneur romain a jugé Jésus ?",
+   "options": [
+    "Pilate",
+    "Hérode",
+    "César",
+    "Corneille"
+   ],
+   "explain": "Pilate livra Jésus. (Jean 19:16)"
+  },
+  "en": {
+   "q": "Which Roman governor judged Jesus?",
+   "options": [
+    "Pilate",
+    "Herod",
+    "Caesar",
+    "Cornelius"
+   ],
+   "explain": "Pilate handed Jesus over. (John 19:16)"
+  }
+ },
+ {
+  "id": "kids-hard-065",
+  "ref": {
+   "fr": "Actes 7:59",
+   "en": "Acts 7:59"
+  },
+  "fr": {
+   "q": "Qui fut le premier chrétien tué (lapidé) à cause de sa foi ?",
+   "options": [
+    "Étienne",
+    "Paul",
+    "Pierre",
+    "Jacques"
+   ],
+   "explain": "On lapida Étienne qui priait. (Actes 7:59)"
+  },
+  "en": {
+   "q": "Who was the first Christian killed (stoned) for his faith?",
+   "options": [
+    "Stephen",
+    "Paul",
+    "Peter",
+    "James"
+   ],
+   "explain": "Stephen was stoned as he prayed. (Acts 7:59)"
+  }
+ },
+ {
+  "id": "kids-hard-066",
+  "ref": {
+   "fr": "Actes 9:27",
+   "en": "Acts 9:27"
+  },
+  "fr": {
+   "q": "Quel ami a présenté Paul aux apôtres qui avaient peur de lui ?",
+   "options": [
+    "Barnabas",
+    "Silas",
+    "Timothée",
+    "Luc"
+   ],
+   "explain": "Barnabas présenta Saul aux apôtres. (Actes 9:27)"
+  },
+  "en": {
+   "q": "Which friend introduced Paul to the fearful apostles?",
+   "options": [
+    "Barnabas",
+    "Silas",
+    "Timothy",
+    "Luke"
+   ],
+   "explain": "Barnabas brought Saul to the apostles. (Acts 9:27)"
+  }
+ },
+ {
+  "id": "kids-hard-067",
+  "ref": {
+   "fr": "Actes 10:1",
+   "en": "Acts 10:1"
+  },
+  "fr": {
+   "q": "Quel officier romain a cru en Dieu quand Pierre est venu chez lui ?",
+   "options": [
+    "Corneille",
+    "Pilate",
+    "Hérode",
+    "César"
+   ],
+   "explain": "Corneille, un centenier pieux, crut. (Actes 10:1-2)"
+  },
+  "en": {
+   "q": "Which Roman officer believed when Peter came to his house?",
+   "options": [
+    "Cornelius",
+    "Pilate",
+    "Herod",
+    "Caesar"
+   ],
+   "explain": "Cornelius, a godly centurion, believed. (Acts 10:1-2)"
+  }
+ },
+ {
+  "id": "kids-hard-068",
+  "ref": {
+   "fr": "Actes 18:3",
+   "en": "Acts 18:3"
+  },
+  "fr": {
+   "q": "Quel couple fabriquait des tentes avec Paul ?",
+   "options": [
+    "Aquilas et Priscille",
+    "Anne et Joachim",
+    "Ananias et Saphira",
+    "Marie et Joseph"
+   ],
+   "explain": "Paul travaillait avec Aquilas et Priscille. (Actes 18:3)"
+  },
+  "en": {
+   "q": "Which couple made tents with Paul?",
+   "options": [
+    "Aquila and Priscilla",
+    "Anna and Joachim",
+    "Ananias and Sapphira",
+    "Mary and Joseph"
+   ],
+   "explain": "Paul worked with Aquila and Priscilla. (Acts 18:3)"
+  }
+ },
+ {
+  "id": "kids-hard-069",
+  "ref": {
+   "fr": "Colossiens 4:14",
+   "en": "Colossians 4:14"
+  },
+  "fr": {
+   "q": "Quel médecin, ami de Paul, a écrit un évangile ?",
+   "options": [
+    "Luc",
+    "Marc",
+    "Timothée",
+    "Tite"
+   ],
+   "explain": "Luc, le médecin bien-aimé. (Colossiens 4:14)"
+  },
+  "en": {
+   "q": "Which doctor, Paul’s friend, wrote a gospel?",
+   "options": [
+    "Luke",
+    "Mark",
+    "Timothy",
+    "Titus"
+   ],
+   "explain": "Luke, the beloved physician. (Colossians 4:14)"
+  }
+ },
+ {
+  "id": "kids-hard-070",
+  "ref": {
+   "fr": "Actes 20:9",
+   "en": "Acts 20:9"
+  },
+  "fr": {
+   "q": "Quel jeune homme s’est endormi et est tombé d’une fenêtre quand Paul parlait ?",
+   "options": [
+    "Eutychus",
+    "Timothée",
+    "Tychique",
+    "Silas"
+   ],
+   "explain": "Paul releva Eutychus, tombé du troisième étage. (Actes 20:9-10)"
+  },
+  "en": {
+   "q": "Which young man fell asleep and fell from a window while Paul spoke?",
+   "options": [
+    "Eutychus",
+    "Timothy",
+    "Tychicus",
+    "Silas"
+   ],
+   "explain": "Paul lifted up Eutychus, fallen from the window. (Acts 20:9-10)"
+  }
+ },
+ {
+  "id": "kids-hard-071",
+  "ref": {
+   "fr": "Matthieu 5:13",
+   "en": "Matthew 5:13"
+  },
+  "fr": {
+   "q": "Jésus a dit à ses disciples : « Vous êtes le sel de la… » quoi ?",
+   "options": [
+    "Terre",
+    "Mer",
+    "Ville",
+    "Maison"
+   ],
+   "explain": "Vous êtes le sel de la terre. (Matthieu 5:13)"
+  },
+  "en": {
+   "q": "Jesus told his disciples: “You are the salt of the…” what?",
+   "options": [
+    "Earth",
+    "Sea",
+    "City",
+    "House"
+   ],
+   "explain": "You are the salt of the earth. (Matthew 5:13)"
+  }
+ },
+ {
+  "id": "kids-hard-072",
+  "ref": {
+   "fr": "Matthieu 18:22",
+   "en": "Matthew 18:22"
+  },
+  "fr": {
+   "q": "Jésus a dit de pardonner combien de fois ?",
+   "options": [
+    "Soixante-dix fois sept fois",
+    "Trois fois",
+    "Sept fois",
+    "Dix fois"
+   ],
+   "explain": "Pardonne jusqu’à septante fois sept fois. (Matthieu 18:22)"
+  },
+  "en": {
+   "q": "Jesus said to forgive how many times?",
+   "options": [
+    "Seventy times seven",
+    "Three times",
+    "Seven times",
+    "Ten times"
+   ],
+   "explain": "Forgive up to seventy times seven. (Matthew 18:22)"
+  }
+ },
+ {
+  "id": "kids-hard-073",
+  "ref": {
+   "fr": "Matthieu 7:12",
+   "en": "Matthew 7:12"
+  },
+  "fr": {
+   "q": "Jésus a enseigné : « Faites aux autres ce que vous voulez qu’ils vous… » ?",
+   "options": [
+    "Fassent",
+    "Donnent",
+    "Disent",
+    "Prennent"
+   ],
+   "explain": "Faites pour les autres ce que vous voulez. (Matthieu 7:12)"
+  },
+  "en": {
+   "q": "Jesus taught: “Do to others what you want them to…” what?",
+   "options": [
+    "Do to you",
+    "Give you",
+    "Say to you",
+    "Take from you"
+   ],
+   "explain": "Do to others what you want done to you. (Matthew 7:12)"
+  }
+ },
+ {
+  "id": "kids-hard-074",
+  "ref": {
+   "fr": "Matthieu 6:26",
+   "en": "Matthew 6:26"
+  },
+  "fr": {
+   "q": "Pour ne pas trop s’inquiéter, Jésus dit de regarder quoi ?",
+   "options": [
+    "Les oiseaux du ciel",
+    "Les poissons",
+    "Les lions",
+    "Les rivières"
+   ],
+   "explain": "Regardez les oiseaux du ciel. (Matthieu 6:26)"
+  },
+  "en": {
+   "q": "To not worry too much, Jesus says to look at what?",
+   "options": [
+    "The birds of the sky",
+    "The fish",
+    "The lions",
+    "The rivers"
+   ],
+   "explain": "Look at the birds of the sky. (Matthew 6:26)"
+  }
+ },
+ {
+  "id": "kids-hard-075",
+  "ref": {
+   "fr": "Matthieu 6:21",
+   "en": "Matthew 6:21"
+  },
+  "fr": {
+   "q": "Jésus dit : « Où est ton trésor, là aussi sera ton… » quoi ?",
+   "options": [
+    "Cœur",
+    "Ami",
+    "Nom",
+    "Champ"
+   ],
+   "explain": "Où est ton trésor, là sera ton cœur. (Matthieu 6:21)"
+  },
+  "en": {
+   "q": "Jesus says: “Where your treasure is, there your… will be.” What?",
+   "options": [
+    "Heart",
+    "Friend",
+    "Name",
+    "Field"
+   ],
+   "explain": "Where your treasure is, there your heart is. (Matthew 6:21)"
+  }
+ },
+ {
+  "id": "kids-hard-076",
+  "ref": {
+   "fr": "Jean 14:6",
+   "en": "John 14:6"
+  },
+  "fr": {
+   "q": "Jésus a dit : « Je suis le chemin, la vérité et la… » quoi ?",
+   "options": [
+    "Vie",
+    "Paix",
+    "Lumière",
+    "Porte"
+   ],
+   "explain": "Je suis le chemin, la vérité et la vie. (Jean 14:6)"
+  },
+  "en": {
+   "q": "Jesus said: “I am the way, the truth and the…” what?",
+   "options": [
+    "Life",
+    "Peace",
+    "Light",
+    "Door"
+   ],
+   "explain": "I am the way, the truth and the life. (John 14:6)"
+  }
+ },
+ {
+  "id": "kids-hard-077",
+  "ref": {
+   "fr": "Jean 6:35",
+   "en": "John 6:35"
+  },
+  "fr": {
+   "q": "Jésus a dit : « Je suis le pain de… » quoi ?",
+   "options": [
+    "Vie",
+    "Blé",
+    "Miel",
+    "Or"
+   ],
+   "explain": "Je suis le pain de vie. (Jean 6:35)"
+  },
+  "en": {
+   "q": "Jesus said: “I am the bread of…” what?",
+   "options": [
+    "Life",
+    "Wheat",
+    "Honey",
+    "Gold"
+   ],
+   "explain": "I am the bread of life. (John 6:35)"
+  }
+ },
+ {
+  "id": "kids-hard-078",
+  "ref": {
+   "fr": "Marc 9:35",
+   "en": "Mark 9:35"
+  },
+  "fr": {
+   "q": "Jésus a dit que le plus grand doit être le… quoi ?",
+   "options": [
+    "Serviteur",
+    "Roi",
+    "Riche",
+    "Chef"
+   ],
+   "explain": "Que le plus grand soit le serviteur. (Marc 9:35)"
+  },
+  "en": {
+   "q": "Jesus said the greatest must be the… what?",
+   "options": [
+    "Servant",
+    "King",
+    "Rich one",
+    "Chief"
+   ],
+   "explain": "Let the greatest be the servant. (Mark 9:35)"
+  }
+ },
+ {
+  "id": "kids-hard-079",
+  "ref": {
+   "fr": "Matthieu 6:11",
+   "en": "Matthew 6:11"
+  },
+  "fr": {
+   "q": "Jésus nous apprend à demander à Dieu notre pain de chaque quoi ?",
+   "options": [
+    "Jour",
+    "Mois",
+    "Année",
+    "Fête"
+   ],
+   "explain": "Donne-nous notre pain quotidien. (Matthieu 6:11)"
+  },
+  "en": {
+   "q": "Jesus teaches us to ask God for our bread of each what?",
+   "options": [
+    "Day",
+    "Month",
+    "Year",
+    "Feast"
+   ],
+   "explain": "Give us today our daily bread. (Matthew 6:11)"
+  }
+ },
+ {
+  "id": "kids-hard-080",
+  "ref": {
+   "fr": "Matthieu 7:13",
+   "en": "Matthew 7:13"
+  },
+  "fr": {
+   "q": "Jésus dit d’entrer par quelle porte ?",
+   "options": [
+    "La porte étroite",
+    "La grande porte",
+    "La porte d’or",
+    "La porte du roi"
+   ],
+   "explain": "Entrez par la porte étroite. (Matthieu 7:13)"
+  },
+  "en": {
+   "q": "Jesus says to enter by which gate?",
+   "options": [
+    "The narrow gate",
+    "The wide gate",
+    "The golden gate",
+    "The king’s gate"
+   ],
+   "explain": "Enter by the narrow gate. (Matthew 7:13)"
+  }
+ },
+ {
+  "id": "kids-hard-081",
+  "ref": {
+   "fr": "Matthieu 22:39",
+   "en": "Matthew 22:39"
+  },
+  "fr": {
+   "q": "Après aimer Dieu, Jésus dit d’aimer son prochain comme… ?",
+   "options": [
+    "Soi-même",
+    "Un roi",
+    "Un ami",
+    "Un frère"
+   ],
+   "explain": "Tu aimeras ton prochain comme toi-même. (Matthieu 22:39)"
+  },
+  "en": {
+   "q": "After loving God, Jesus says to love your neighbour as…?",
+   "options": [
+    "Yourself",
+    "A king",
+    "A friend",
+    "A brother"
+   ],
+   "explain": "Love your neighbour as yourself. (Matthew 22:39)"
+  }
+ },
+ {
+  "id": "kids-hard-082",
+  "ref": {
+   "fr": "Jean 11:25",
+   "en": "John 11:25"
+  },
+  "fr": {
+   "q": "Jésus a dit : « Je suis la résurrection et la… » quoi ?",
+   "options": [
+    "Vie",
+    "Paix",
+    "Joie",
+    "Lumière"
+   ],
+   "explain": "Je suis la résurrection et la vie. (Jean 11:25)"
+  },
+  "en": {
+   "q": "Jesus said: “I am the resurrection and the…” what?",
+   "options": [
+    "Life",
+    "Peace",
+    "Joy",
+    "Light"
+   ],
+   "explain": "I am the resurrection and the life. (John 11:25)"
+  }
+ },
+ {
+  "id": "kids-hard-083",
+  "ref": {
+   "fr": "Jean 3:16",
+   "en": "John 3:16"
+  },
+  "fr": {
+   "q": "Dans quel évangile lit-on « Dieu a tant aimé le monde » ?",
+   "options": [
+    "Jean",
+    "Marc",
+    "Luc",
+    "Matthieu"
+   ],
+   "explain": "Car Dieu a tant aimé le monde. (Jean 3:16)"
+  },
+  "en": {
+   "q": "In which gospel do we read “God so loved the world”?",
+   "options": [
+    "John",
+    "Mark",
+    "Luke",
+    "Matthew"
+   ],
+   "explain": "For God so loved the world. (John 3:16)"
+  }
+ },
+ {
+  "id": "kids-hard-084",
+  "ref": {
+   "fr": "Matthieu 1:1",
+   "en": "Matthew 1:1"
+  },
+  "fr": {
+   "q": "Quel est le premier livre du Nouveau Testament ?",
+   "options": [
+    "Matthieu",
+    "Genèse",
+    "Actes",
+    "Jean"
+   ],
+   "explain": "Le Nouveau Testament commence par Matthieu. (Matthieu 1:1)"
+  },
+  "en": {
+   "q": "What is the first book of the New Testament?",
+   "options": [
+    "Matthew",
+    "Genesis",
+    "Acts",
+    "John"
+   ],
+   "explain": "The New Testament begins with Matthew. (Matthew 1:1)"
+  }
+ },
+ {
+  "id": "kids-hard-085",
+  "ref": {
+   "fr": "Exode 1:1",
+   "en": "Exodus 1:1"
+  },
+  "fr": {
+   "q": "Quel livre vient juste après la Genèse ?",
+   "options": [
+    "L’Exode",
+    "Les Nombres",
+    "Josué",
+    "Les Psaumes"
+   ],
+   "explain": "Après la Genèse vient l’Exode. (Exode 1:1)"
+  },
+  "en": {
+   "q": "Which book comes right after Genesis?",
+   "options": [
+    "Exodus",
+    "Numbers",
+    "Joshua",
+    "Psalms"
+   ],
+   "explain": "After Genesis comes Exodus. (Exodus 1:1)"
+  }
+ },
+ {
+  "id": "kids-hard-086",
+  "ref": {
+   "fr": "Évangiles",
+   "en": "Gospels"
+  },
+  "fr": {
+   "q": "Comment appelle-t-on les quatre premiers livres du Nouveau Testament ?",
+   "options": [
+    "Les Évangiles",
+    "Les Psaumes",
+    "Les Actes",
+    "Les lettres"
+   ],
+   "explain": "Matthieu, Marc, Luc et Jean sont les Évangiles."
+  },
+  "en": {
+   "q": "What are the first four books of the New Testament called?",
+   "options": [
+    "The Gospels",
+    "The Psalms",
+    "The Acts",
+    "The letters"
+   ],
+   "explain": "Matthew, Mark, Luke and John are the Gospels."
+  }
+ },
+ {
+  "id": "kids-hard-087",
+  "ref": {
+   "fr": "Évangiles",
+   "en": "Gospels"
+  },
+  "fr": {
+   "q": "Qui sont les quatre auteurs des Évangiles ?",
+   "options": [
+    "Matthieu, Marc, Luc, Jean",
+    "Pierre, Jacques, Jean, André",
+    "Paul, Silas, Tite, Luc",
+    "Adam, Noé, Abraham, Moïse"
+   ],
+   "explain": "Les quatre évangélistes : Matthieu, Marc, Luc, Jean."
+  },
+  "en": {
+   "q": "Who are the four gospel writers?",
+   "options": [
+    "Matthew, Mark, Luke, John",
+    "Peter, James, John, Andrew",
+    "Paul, Silas, Titus, Luke",
+    "Adam, Noah, Abraham, Moses"
+   ],
+   "explain": "The four evangelists: Matthew, Mark, Luke, John."
+  }
+ },
+ {
+  "id": "kids-hard-088",
+  "ref": {
+   "fr": "Actes 1:8",
+   "en": "Acts 1:8"
+  },
+  "fr": {
+   "q": "Quel livre raconte l’Église après le départ de Jésus ?",
+   "options": [
+    "Les Actes des Apôtres",
+    "La Genèse",
+    "Les Psaumes",
+    "L’Apocalypse"
+   ],
+   "explain": "Les Actes racontent l’Église naissante. (Actes 1:8)"
+  },
+  "en": {
+   "q": "Which book tells about the church after Jesus left?",
+   "options": [
+    "The Acts of the Apostles",
+    "Genesis",
+    "Psalms",
+    "Revelation"
+   ],
+   "explain": "Acts tells of the early church. (Acts 1:8)"
+  }
+ },
+ {
+  "id": "kids-hard-089",
+  "ref": {
+   "fr": "Psaumes 1",
+   "en": "Psalm 1"
+  },
+  "fr": {
+   "q": "Quel livre de la Bible est plein de chants et de prières ?",
+   "options": [
+    "Les Psaumes",
+    "La Genèse",
+    "Les Nombres",
+    "Les Actes"
+   ],
+   "explain": "Les Psaumes sont des chants et des prières. (Psaumes 1)"
+  },
+  "en": {
+   "q": "Which book of the Bible is full of songs and prayers?",
+   "options": [
+    "Psalms",
+    "Genesis",
+    "Numbers",
+    "Acts"
+   ],
+   "explain": "The Psalms are songs and prayers. (Psalm 1)"
+  }
+ },
+ {
+  "id": "kids-hard-090",
+  "ref": {
+   "fr": "Proverbes 1",
+   "en": "Proverbs 1"
+  },
+  "fr": {
+   "q": "Quel livre est plein de paroles de sagesse ?",
+   "options": [
+    "Les Proverbes",
+    "L’Exode",
+    "Les Actes",
+    "Jonas"
+   ],
+   "explain": "Les Proverbes donnent la sagesse. (Proverbes 1)"
+  },
+  "en": {
+   "q": "Which book is full of wise sayings?",
+   "options": [
+    "Proverbs",
+    "Exodus",
+    "Acts",
+    "Jonah"
+   ],
+   "explain": "Proverbs give wisdom. (Proverbs 1)"
+  }
+ },
+ {
+  "id": "kids-hard-091",
+  "ref": {
+   "fr": "Josué 1:8",
+   "en": "Joshua 1:8"
+  },
+  "fr": {
+   "q": "Comment appelle-t-on les cinq premiers livres de la Bible ?",
+   "options": [
+    "La Loi",
+    "Les Évangiles",
+    "Les Psaumes",
+    "Les lettres"
+   ],
+   "explain": "Les cinq premiers livres sont la Loi. (Josué 1:8)"
+  },
+  "en": {
+   "q": "What are the first five books of the Bible called?",
+   "options": [
+    "The Law",
+    "The Gospels",
+    "The Psalms",
+    "The letters"
+   ],
+   "explain": "The first five books are the Law. (Joshua 1:8)"
+  }
+ },
+ {
+  "id": "kids-hard-092",
+  "ref": {
+   "fr": "Évangiles",
+   "en": "Gospels"
+  },
+  "fr": {
+   "q": "Combien d’évangiles y a-t-il dans la Bible ?",
+   "options": [
+    "Quatre",
+    "Deux",
+    "Six",
+    "Douze"
+   ],
+   "explain": "Matthieu, Marc, Luc et Jean : quatre évangiles."
+  },
+  "en": {
+   "q": "How many gospels are there in the Bible?",
+   "options": [
+    "Four",
+    "Two",
+    "Six",
+    "Twelve"
+   ],
+   "explain": "Matthew, Mark, Luke and John: four gospels."
+  }
+ },
+ {
+  "id": "kids-hard-093",
+  "ref": {
+   "fr": "2 Pierre 3:15",
+   "en": "2 Peter 3:15"
+  },
+  "fr": {
+   "q": "Comment appelle-t-on les écrits de Paul aux Églises ?",
+   "options": [
+    "Des lettres (épîtres)",
+    "Des psaumes",
+    "Des évangiles",
+    "Des proverbes"
+   ],
+   "explain": "Paul écrivit des lettres aux Églises. (2 Pierre 3:15-16)"
+  },
+  "en": {
+   "q": "What do we call Paul’s writings to the churches?",
+   "options": [
+    "Letters (epistles)",
+    "Psalms",
+    "Gospels",
+    "Proverbs"
+   ],
+   "explain": "Paul wrote letters to the churches. (2 Peter 3:15-16)"
+  }
+ },
+ {
+  "id": "kids-hard-094",
+  "ref": {
+   "fr": "Matthieu 14:20",
+   "en": "Matthew 14:20"
+  },
+  "fr": {
+   "q": "Après le repas des cinq mille, combien de paniers de restes ?",
+   "options": [
+    "Douze",
+    "Cinq",
+    "Sept",
+    "Trois"
+   ],
+   "explain": "On ramassa douze paniers de morceaux. (Matthieu 14:20)"
+  },
+  "en": {
+   "q": "After feeding the five thousand, how many baskets of leftovers?",
+   "options": [
+    "Twelve",
+    "Five",
+    "Seven",
+    "Three"
+   ],
+   "explain": "They gathered twelve baskets of pieces. (Matthew 14:20)"
+  }
+ },
+ {
+  "id": "kids-hard-095",
+  "ref": {
+   "fr": "Matthieu 14:21",
+   "en": "Matthew 14:21"
+  },
+  "fr": {
+   "q": "Environ combien d’hommes Jésus a-t-il nourris avec les pains ?",
+   "options": [
+    "Cinq mille",
+    "Cent",
+    "Mille",
+    "Douze"
+   ],
+   "explain": "Il y avait environ cinq mille hommes. (Matthieu 14:21)"
+  },
+  "en": {
+   "q": "About how many men did Jesus feed with the loaves?",
+   "options": [
+    "Five thousand",
+    "A hundred",
+    "A thousand",
+    "Twelve"
+   ],
+   "explain": "There were about five thousand men. (Matthew 14:21)"
+  }
+ },
+ {
+  "id": "kids-hard-096",
+  "ref": {
+   "fr": "La Bible",
+   "en": "The Bible"
+  },
+  "fr": {
+   "q": "Combien de livres y a-t-il dans toute la Bible ?",
+   "options": [
+    "Soixante-six",
+    "Douze",
+    "Quarante",
+    "Cent"
+   ],
+   "explain": "La Bible contient soixante-six livres."
+  },
+  "en": {
+   "q": "How many books are there in the whole Bible?",
+   "options": [
+    "Sixty-six",
+    "Twelve",
+    "Forty",
+    "One hundred"
+   ],
+   "explain": "The Bible has sixty-six books."
+  }
+ },
+ {
+  "id": "kids-hard-097",
+  "ref": {
+   "fr": "Ancien Testament",
+   "en": "Old Testament"
+  },
+  "fr": {
+   "q": "Combien de livres y a-t-il dans l’Ancien Testament ?",
+   "options": [
+    "Trente-neuf",
+    "Douze",
+    "Vingt-sept",
+    "Soixante"
+   ],
+   "explain": "L’Ancien Testament compte trente-neuf livres."
+  },
+  "en": {
+   "q": "How many books are in the Old Testament?",
+   "options": [
+    "Thirty-nine",
+    "Twelve",
+    "Twenty-seven",
+    "Sixty"
+   ],
+   "explain": "The Old Testament has thirty-nine books."
+  }
+ },
+ {
+  "id": "kids-hard-098",
+  "ref": {
+   "fr": "Nouveau Testament",
+   "en": "New Testament"
+  },
+  "fr": {
+   "q": "Combien de livres y a-t-il dans le Nouveau Testament ?",
+   "options": [
+    "Vingt-sept",
+    "Douze",
+    "Trente-neuf",
+    "Dix"
+   ],
+   "explain": "Le Nouveau Testament compte vingt-sept livres."
+  },
+  "en": {
+   "q": "How many books are in the New Testament?",
+   "options": [
+    "Twenty-seven",
+    "Twelve",
+    "Thirty-nine",
+    "Ten"
+   ],
+   "explain": "The New Testament has twenty-seven books."
+  }
+ },
+ {
+  "id": "kids-hard-099",
+  "ref": {
+   "fr": "Exode 7-12",
+   "en": "Exodus 7-12"
+  },
+  "fr": {
+   "q": "Combien de plaies Dieu a-t-il envoyées sur l’Égypte ?",
+   "options": [
+    "Dix",
+    "Sept",
+    "Trois",
+    "Douze"
+   ],
+   "explain": "Dieu envoya dix plaies sur l’Égypte. (Exode 7-12)"
+  },
+  "en": {
+   "q": "How many plagues did God send on Egypt?",
+   "options": [
+    "Ten",
+    "Seven",
+    "Three",
+    "Twelve"
+   ],
+   "explain": "God sent ten plagues on Egypt. (Exodus 7-12)"
+  }
+ },
+ {
+  "id": "kids-hard-100",
+  "ref": {
+   "fr": "Marc 6:7",
+   "en": "Mark 6:7"
+  },
+  "fr": {
+   "q": "Jésus a envoyé ses disciples annoncer la bonne nouvelle, deux par… ?",
+   "options": [
+    "Deux",
+    "Trois",
+    "Cinq",
+    "Sept"
+   ],
+   "explain": "Il les envoya deux à deux. (Marc 6:7)"
+  },
+  "en": {
+   "q": "Jesus sent his disciples to share the good news, two by…?",
+   "options": [
+    "Two",
+    "Three",
+    "Five",
+    "Seven"
+   ],
+   "explain": "He sent them out two by two. (Mark 6:7)"
+  }
+ }
+]

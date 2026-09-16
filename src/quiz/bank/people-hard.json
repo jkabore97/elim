@@ -1,0 +1,2702 @@
+[
+ {
+  "id": "people-hard-001",
+  "ref": {
+   "fr": "Genèse 17:5",
+   "en": "Genesis 17:5"
+  },
+  "fr": {
+   "q": "Que signifie le nom d'Abraham, donné par Dieu à Abram ?",
+   "options": [
+    "Père d'une multitude",
+    "Ami de Dieu",
+    "Père d'Isaac",
+    "Prince de Dieu"
+   ],
+   "explain": "Dieu dit : « Tu deviendras père d'une multitude de nations. » (Genèse 17:5)"
+  },
+  "en": {
+   "q": "What does the name Abraham, given by God to Abram, mean?",
+   "options": [
+    "Father of a multitude",
+    "Friend of God",
+    "Father of Isaac",
+    "Prince of God"
+   ],
+   "explain": "God said, “You will be the father of a multitude of nations.” (Genesis 17:5)"
+  }
+ },
+ {
+  "id": "people-hard-002",
+  "ref": {
+   "fr": "Genèse 17:15",
+   "en": "Genesis 17:15"
+  },
+  "fr": {
+   "q": "Quel nom Dieu donna-t-il à Saraï, femme d'Abraham ?",
+   "options": [
+    "Sara",
+    "Rebecca",
+    "Ketura",
+    "Milca"
+   ],
+   "explain": "Dieu dit : « Tu ne l'appelleras plus Saraï, mais Sara. » (Genèse 17:15)"
+  },
+  "en": {
+   "q": "What name did God give to Sarai, Abraham's wife?",
+   "options": [
+    "Sarah",
+    "Rebecca",
+    "Keturah",
+    "Milcah"
+   ],
+   "explain": "God said, “You shall not call her Sarai, but Sarah.” (Genesis 17:15)"
+  }
+ },
+ {
+  "id": "people-hard-003",
+  "ref": {
+   "fr": "Genèse 32:28",
+   "en": "Genesis 32:28"
+  },
+  "fr": {
+   "q": "Que signifie le nom d'Israël donné à Jacob ?",
+   "options": [
+    "Il lutte avec Dieu",
+    "Dieu voit",
+    "Père des nations",
+    "Trompeur"
+   ],
+   "explain": "« Tu as lutté avec Dieu et avec les hommes. » (Genèse 32:28)"
+  },
+  "en": {
+   "q": "What does the name Israel, given to Jacob, mean?",
+   "options": [
+    "He strives with God",
+    "God sees",
+    "Father of nations",
+    "Deceiver"
+   ],
+   "explain": "“You have striven with God and with men.” (Genesis 32:28)"
+  }
+ },
+ {
+  "id": "people-hard-004",
+  "ref": {
+   "fr": "Genèse 41:45",
+   "en": "Genesis 41:45"
+  },
+  "fr": {
+   "q": "Quel nom égyptien Pharaon donna-t-il à Joseph ?",
+   "options": [
+    "Tsaphnath-Paenéach",
+    "Beltschatsar",
+    "Abed-Nego",
+    "Hadassa"
+   ],
+   "explain": "Pharaon nomma Joseph Tsaphnath-Paenéach. (Genèse 41:45)"
+  },
+  "en": {
+   "q": "What Egyptian name did Pharaoh give to Joseph?",
+   "options": [
+    "Zaphnath-Paaneah",
+    "Belteshazzar",
+    "Abednego",
+    "Hadassah"
+   ],
+   "explain": "Pharaoh named Joseph Zaphnath-Paaneah. (Genesis 41:45)"
+  }
+ },
+ {
+  "id": "people-hard-005",
+  "ref": {
+   "fr": "Genèse 41:45",
+   "en": "Genesis 41:45"
+  },
+  "fr": {
+   "q": "Comment s'appelait l'épouse égyptienne de Joseph ?",
+   "options": [
+    "Asnath",
+    "Séphora",
+    "Ketura",
+    "Tamar"
+   ],
+   "explain": "Pharaon donna à Joseph Asnath, fille de Poti-Phéra. (Genèse 41:45)"
+  },
+  "en": {
+   "q": "What was the name of Joseph's Egyptian wife?",
+   "options": [
+    "Asenath",
+    "Zipporah",
+    "Keturah",
+    "Tamar"
+   ],
+   "explain": "Pharaoh gave Joseph Asenath, daughter of Potiphera. (Genesis 41:45)"
+  }
+ },
+ {
+  "id": "people-hard-006",
+  "ref": {
+   "fr": "Genèse 41:51-52",
+   "en": "Genesis 41:51-52"
+  },
+  "fr": {
+   "q": "Comment s'appelaient les deux fils de Joseph nés en Égypte ?",
+   "options": [
+    "Manassé et Éphraïm",
+    "Guerschom et Éliézer",
+    "Pérets et Zérach",
+    "Dan et Nephthali"
+   ],
+   "explain": "Joseph nomma ses fils Manassé et Éphraïm. (Genèse 41:51-52)"
+  },
+  "en": {
+   "q": "What were the names of Joseph's two sons born in Egypt?",
+   "options": [
+    "Manasseh and Ephraim",
+    "Gershom and Eliezer",
+    "Perez and Zerah",
+    "Dan and Naphtali"
+   ],
+   "explain": "Joseph named his sons Manasseh and Ephraim. (Genesis 41:51-52)"
+  }
+ },
+ {
+  "id": "people-hard-007",
+  "ref": {
+   "fr": "Daniel 1:7",
+   "en": "Daniel 1:7"
+  },
+  "fr": {
+   "q": "Quel nom babylonien donna-t-on à Daniel ?",
+   "options": [
+    "Beltschatsar",
+    "Abed-Nego",
+    "Méschac",
+    "Aspenaz"
+   ],
+   "explain": "Le chef des eunuques nomma Daniel Beltschatsar. (Daniel 1:7)"
+  },
+  "en": {
+   "q": "What Babylonian name was given to Daniel?",
+   "options": [
+    "Belteshazzar",
+    "Abednego",
+    "Meshach",
+    "Ashpenaz"
+   ],
+   "explain": "The chief of the eunuchs named Daniel Belteshazzar. (Daniel 1:7)"
+  }
+ },
+ {
+  "id": "people-hard-008",
+  "ref": {
+   "fr": "Daniel 1:6-7",
+   "en": "Daniel 1:6-7"
+  },
+  "fr": {
+   "q": "Quels étaient les noms hébreux de Shadrac, Méschac et Abed-Nego ?",
+   "options": [
+    "Hanania, Mischaël, Azaria",
+    "Éliab, Abinadab, Schamma",
+    "Guerschom, Éliézer, Nadab",
+    "Séraja, Baruc, Guedalia"
+   ],
+   "explain": "Leurs noms hébreux étaient Hanania, Mischaël et Azaria. (Daniel 1:6-7)"
+  },
+  "en": {
+   "q": "What were the Hebrew names of Shadrach, Meshach and Abednego?",
+   "options": [
+    "Hananiah, Mishael, Azariah",
+    "Eliab, Abinadab, Shammah",
+    "Gershom, Eliezer, Nadab",
+    "Seraiah, Baruch, Gedaliah"
+   ],
+   "explain": "Their Hebrew names were Hananiah, Mishael and Azariah. (Daniel 1:6-7)"
+  }
+ },
+ {
+  "id": "people-hard-009",
+  "ref": {
+   "fr": "Ruth 1:20",
+   "en": "Ruth 1:20"
+  },
+  "fr": {
+   "q": "Quel nom, signifiant « amertume », Naomi voulut-elle porter ?",
+   "options": [
+    "Mara",
+    "Lo-Ammi",
+    "Icabod",
+    "Béra"
+   ],
+   "explain": "« Appelez-moi Mara, car le Tout-Puissant m'a affligée. » (Ruth 1:20)"
+  },
+  "en": {
+   "q": "What name, meaning “bitterness,” did Naomi wish to be called?",
+   "options": [
+    "Mara",
+    "Lo-Ammi",
+    "Ichabod",
+    "Bera"
+   ],
+   "explain": "“Call me Mara, for the Almighty has dealt bitterly with me.” (Ruth 1:20)"
+  }
+ },
+ {
+  "id": "people-hard-010",
+  "ref": {
+   "fr": "Genèse 35:18",
+   "en": "Genesis 35:18"
+  },
+  "fr": {
+   "q": "Quel nom Rachel mourante donna-t-elle au fils que Jacob nomma Benjamin ?",
+   "options": [
+    "Ben-Oni",
+    "Icabod",
+    "Ben-Ammi",
+    "Péleg"
+   ],
+   "explain": "Mourante, Rachel l'appela Ben-Oni, mais son père le nomma Benjamin. (Genèse 35:18)"
+  },
+  "en": {
+   "q": "What name did dying Rachel give the son Jacob named Benjamin?",
+   "options": [
+    "Ben-oni",
+    "Ichabod",
+    "Ben-ammi",
+    "Peleg"
+   ],
+   "explain": "Dying, Rachel called him Ben-oni, but his father named him Benjamin. (Genesis 35:18)"
+  }
+ },
+ {
+  "id": "people-hard-011",
+  "ref": {
+   "fr": "Genèse 25:30",
+   "en": "Genesis 25:30"
+  },
+  "fr": {
+   "q": "Quel autre nom Ésaü reçut-il à cause du potage roux ?",
+   "options": [
+    "Édom",
+    "Séir",
+    "Théman",
+    "Kenaz"
+   ],
+   "explain": "C'est pourquoi on donna à Ésaü le nom d'Édom. (Genèse 25:30)"
+  },
+  "en": {
+   "q": "What other name did Esau receive because of the red stew?",
+   "options": [
+    "Edom",
+    "Seir",
+    "Teman",
+    "Kenaz"
+   ],
+   "explain": "Therefore Esau's name was called Edom. (Genesis 25:30)"
+  }
+ },
+ {
+  "id": "people-hard-012",
+  "ref": {
+   "fr": "Juges 6:32",
+   "en": "Judges 6:32"
+  },
+  "fr": {
+   "q": "Quel autre nom Gédéon porta-t-il après avoir renversé l'autel de Baal ?",
+   "options": [
+    "Jerubbaal",
+    "Abimélec",
+    "Jether",
+    "Joasch"
+   ],
+   "explain": "On l'appela Jerubbaal : « Que Baal plaide contre lui. » (Juges 6:32)"
+  },
+  "en": {
+   "q": "What other name did Gideon bear after tearing down Baal's altar?",
+   "options": [
+    "Jerubbaal",
+    "Abimelech",
+    "Jether",
+    "Joash"
+   ],
+   "explain": "He was called Jerubbaal: “Let Baal contend against him.” (Judges 6:32)"
+  }
+ },
+ {
+  "id": "people-hard-013",
+  "ref": {
+   "fr": "Nombres 13:16",
+   "en": "Numbers 13:16"
+  },
+  "fr": {
+   "q": "Quel nom Moïse donna-t-il à Hosée, fils de Nun ?",
+   "options": [
+    "Josué",
+    "Caleb",
+    "Éléazar",
+    "Othniel"
+   ],
+   "explain": "Moïse donna à Hosée, fils de Nun, le nom de Josué. (Nombres 13:16)"
+  },
+  "en": {
+   "q": "What name did Moses give to Hoshea son of Nun?",
+   "options": [
+    "Joshua",
+    "Caleb",
+    "Eleazar",
+    "Othniel"
+   ],
+   "explain": "Moses called Hoshea son of Nun by the name Joshua. (Numbers 13:16)"
+  }
+ },
+ {
+  "id": "people-hard-014",
+  "ref": {
+   "fr": "2 Samuel 12:25",
+   "en": "2 Samuel 12:25"
+  },
+  "fr": {
+   "q": "Quel nom l'Éternel donna-t-il à Salomon par le prophète Nathan ?",
+   "options": [
+    "Jedidja",
+    "Jeduthun",
+    "Ithiel",
+    "Lemuel"
+   ],
+   "explain": "L'Éternel l'aima et l'appela Jedidja par Nathan. (2 Samuel 12:25)"
+  },
+  "en": {
+   "q": "What name did the LORD give Solomon through the prophet Nathan?",
+   "options": [
+    "Jedidiah",
+    "Jeduthun",
+    "Ithiel",
+    "Lemuel"
+   ],
+   "explain": "The LORD loved him and named him Jedidiah through Nathan. (2 Samuel 12:25)"
+  }
+ },
+ {
+  "id": "people-hard-015",
+  "ref": {
+   "fr": "Actes 4:36",
+   "en": "Acts 4:36"
+  },
+  "fr": {
+   "q": "Quel surnom, « fils de consolation », les apôtres donnèrent-ils à Joseph le Lévite ?",
+   "options": [
+    "Barnabas",
+    "Barsabbas",
+    "Barthélemy",
+    "Bartimée"
+   ],
+   "explain": "Les apôtres surnommèrent Joseph Barnabas, « fils d'exhortation ». (Actes 4:36)"
+  },
+  "en": {
+   "q": "What surname, “son of encouragement,” did the apostles give Joseph the Levite?",
+   "options": [
+    "Barnabas",
+    "Barsabbas",
+    "Bartholomew",
+    "Bartimaeus"
+   ],
+   "explain": "The apostles surnamed Joseph Barnabas, “son of encouragement.” (Acts 4:36)"
+  }
+ },
+ {
+  "id": "people-hard-016",
+  "ref": {
+   "fr": "Genèse 21:5",
+   "en": "Genesis 21:5"
+  },
+  "fr": {
+   "q": "Quel âge avait Abraham à la naissance d'Isaac ?",
+   "options": [
+    "100 ans",
+    "90 ans",
+    "75 ans",
+    "120 ans"
+   ],
+   "explain": "Abraham avait cent ans quand Isaac lui naquit. (Genèse 21:5)"
+  },
+  "en": {
+   "q": "How old was Abraham when Isaac was born?",
+   "options": [
+    "100 years",
+    "90 years",
+    "75 years",
+    "120 years"
+   ],
+   "explain": "Abraham was a hundred years old when Isaac was born. (Genesis 21:5)"
+  }
+ },
+ {
+  "id": "people-hard-017",
+  "ref": {
+   "fr": "Genèse 23:1",
+   "en": "Genesis 23:1"
+  },
+  "fr": {
+   "q": "À quel âge Sara mourut-elle ?",
+   "options": [
+    "127 ans",
+    "90 ans",
+    "120 ans",
+    "137 ans"
+   ],
+   "explain": "Sara vécut cent vingt-sept ans, puis elle mourut. (Genèse 23:1)"
+  },
+  "en": {
+   "q": "At what age did Sarah die?",
+   "options": [
+    "127 years",
+    "90 years",
+    "120 years",
+    "137 years"
+   ],
+   "explain": "Sarah lived a hundred twenty-seven years, then died. (Genesis 23:1)"
+  }
+ },
+ {
+  "id": "people-hard-018",
+  "ref": {
+   "fr": "Genèse 25:26",
+   "en": "Genesis 25:26"
+  },
+  "fr": {
+   "q": "Quel âge avait Isaac à la naissance d'Ésaü et Jacob ?",
+   "options": [
+    "60 ans",
+    "40 ans",
+    "100 ans",
+    "75 ans"
+   ],
+   "explain": "Isaac avait soixante ans quand ils naquirent. (Genèse 25:26)"
+  },
+  "en": {
+   "q": "How old was Isaac when Esau and Jacob were born?",
+   "options": [
+    "60 years",
+    "40 years",
+    "100 years",
+    "75 years"
+   ],
+   "explain": "Isaac was sixty years old when they were born. (Genesis 25:26)"
+  }
+ },
+ {
+  "id": "people-hard-019",
+  "ref": {
+   "fr": "Genèse 50:26",
+   "en": "Genesis 50:26"
+  },
+  "fr": {
+   "q": "À quel âge Joseph mourut-il en Égypte ?",
+   "options": [
+    "110 ans",
+    "120 ans",
+    "130 ans",
+    "100 ans"
+   ],
+   "explain": "Joseph mourut âgé de cent dix ans. (Genèse 50:26)"
+  },
+  "en": {
+   "q": "At what age did Joseph die in Egypt?",
+   "options": [
+    "110 years",
+    "120 years",
+    "130 years",
+    "100 years"
+   ],
+   "explain": "Joseph died, being a hundred ten years old. (Genesis 50:26)"
+  }
+ },
+ {
+  "id": "people-hard-020",
+  "ref": {
+   "fr": "Exode 7:7",
+   "en": "Exodus 7:7"
+  },
+  "fr": {
+   "q": "Quel âge avait Moïse lorsqu'il parla devant Pharaon ?",
+   "options": [
+    "80 ans",
+    "40 ans",
+    "120 ans",
+    "70 ans"
+   ],
+   "explain": "Moïse avait quatre-vingts ans devant Pharaon. (Exode 7:7)"
+  },
+  "en": {
+   "q": "How old was Moses when he spoke before Pharaoh?",
+   "options": [
+    "80 years",
+    "40 years",
+    "120 years",
+    "70 years"
+   ],
+   "explain": "Moses was eighty years old before Pharaoh. (Exodus 7:7)"
+  }
+ },
+ {
+  "id": "people-hard-021",
+  "ref": {
+   "fr": "Deutéronome 34:7",
+   "en": "Deuteronomy 34:7"
+  },
+  "fr": {
+   "q": "À quel âge Moïse mourut-il, l'œil non affaibli ?",
+   "options": [
+    "120 ans",
+    "110 ans",
+    "130 ans",
+    "100 ans"
+   ],
+   "explain": "Moïse avait cent vingt ans à sa mort. (Deutéronome 34:7)"
+  },
+  "en": {
+   "q": "At what age did Moses die, his eye undimmed?",
+   "options": [
+    "120 years",
+    "110 years",
+    "130 years",
+    "100 years"
+   ],
+   "explain": "Moses was a hundred twenty years old when he died. (Deuteronomy 34:7)"
+  }
+ },
+ {
+  "id": "people-hard-022",
+  "ref": {
+   "fr": "Josué 24:29",
+   "en": "Joshua 24:29"
+  },
+  "fr": {
+   "q": "À quel âge mourut Josué, fils de Nun ?",
+   "options": [
+    "110 ans",
+    "120 ans",
+    "100 ans",
+    "90 ans"
+   ],
+   "explain": "Josué, serviteur de l'Éternel, mourut à cent dix ans. (Josué 24:29)"
+  },
+  "en": {
+   "q": "At what age did Joshua son of Nun die?",
+   "options": [
+    "110 years",
+    "120 years",
+    "100 years",
+    "90 years"
+   ],
+   "explain": "Joshua, the servant of the LORD, died at a hundred ten. (Joshua 24:29)"
+  }
+ },
+ {
+  "id": "people-hard-023",
+  "ref": {
+   "fr": "Genèse 7:6",
+   "en": "Genesis 7:6"
+  },
+  "fr": {
+   "q": "Quel âge avait Noé lorsque le déluge vint sur la terre ?",
+   "options": [
+    "600 ans",
+    "500 ans",
+    "950 ans",
+    "480 ans"
+   ],
+   "explain": "Noé avait six cents ans quand vint le déluge. (Genèse 7:6)"
+  },
+  "en": {
+   "q": "How old was Noah when the flood came upon the earth?",
+   "options": [
+    "600 years",
+    "500 years",
+    "950 years",
+    "480 years"
+   ],
+   "explain": "Noah was six hundred years old when the flood came. (Genesis 7:6)"
+  }
+ },
+ {
+  "id": "people-hard-024",
+  "ref": {
+   "fr": "Genèse 5:5",
+   "en": "Genesis 5:5"
+  },
+  "fr": {
+   "q": "Combien d'années Adam vécut-il en tout ?",
+   "options": [
+    "930 ans",
+    "912 ans",
+    "969 ans",
+    "895 ans"
+   ],
+   "explain": "Les jours d'Adam furent de neuf cent trente ans. (Genèse 5:5)"
+  },
+  "en": {
+   "q": "How many years did Adam live in all?",
+   "options": [
+    "930 years",
+    "912 years",
+    "969 years",
+    "895 years"
+   ],
+   "explain": "The days of Adam were nine hundred thirty years. (Genesis 5:5)"
+  }
+ },
+ {
+  "id": "people-hard-025",
+  "ref": {
+   "fr": "2 Rois 22:1",
+   "en": "2 Kings 22:1"
+  },
+  "fr": {
+   "q": "À quel âge Josias monta-t-il sur le trône de Juda ?",
+   "options": [
+    "8 ans",
+    "7 ans",
+    "12 ans",
+    "16 ans"
+   ],
+   "explain": "Josias avait huit ans lorsqu'il devint roi. (2 Rois 22:1)"
+  },
+  "en": {
+   "q": "At what age did Josiah come to the throne of Judah?",
+   "options": [
+    "8 years",
+    "7 years",
+    "12 years",
+    "16 years"
+   ],
+   "explain": "Josiah was eight years old when he became king. (2 Kings 22:1)"
+  }
+ },
+ {
+  "id": "people-hard-026",
+  "ref": {
+   "fr": "2 Rois 21:1",
+   "en": "2 Kings 21:1"
+  },
+  "fr": {
+   "q": "Quel roi de Juda régna cinquante-cinq ans, le plus long règne ?",
+   "options": [
+    "Manassé",
+    "Ozias",
+    "Ézéchias",
+    "Asa"
+   ],
+   "explain": "Manassé régna cinquante-cinq ans à Jérusalem. (2 Rois 21:1)"
+  },
+  "en": {
+   "q": "Which king of Judah reigned fifty-five years, the longest reign?",
+   "options": [
+    "Manasseh",
+    "Uzziah",
+    "Hezekiah",
+    "Asa"
+   ],
+   "explain": "Manasseh reigned fifty-five years in Jerusalem. (2 Kings 21:1)"
+  }
+ },
+ {
+  "id": "people-hard-027",
+  "ref": {
+   "fr": "2 Rois 24:8",
+   "en": "2 Kings 24:8"
+  },
+  "fr": {
+   "q": "Quel âge avait Jojakin quand il devint roi, avant l'exil ?",
+   "options": [
+    "18 ans",
+    "8 ans",
+    "21 ans",
+    "25 ans"
+   ],
+   "explain": "Jojakin avait dix-huit ans à son avènement. (2 Rois 24:8)"
+  },
+  "en": {
+   "q": "How old was Jehoiachin when he became king, before the exile?",
+   "options": [
+    "18 years",
+    "8 years",
+    "21 years",
+    "25 years"
+   ],
+   "explain": "Jehoiachin was eighteen years old when he began to reign. (2 Kings 24:8)"
+  }
+ },
+ {
+  "id": "people-hard-028",
+  "ref": {
+   "fr": "1 Rois 11:42",
+   "en": "1 Kings 11:42"
+  },
+  "fr": {
+   "q": "Combien d'années Salomon régna-t-il sur Israël à Jérusalem ?",
+   "options": [
+    "40 ans",
+    "33 ans",
+    "29 ans",
+    "55 ans"
+   ],
+   "explain": "Salomon régna quarante ans à Jérusalem. (1 Rois 11:42)"
+  },
+  "en": {
+   "q": "How many years did Solomon reign over Israel in Jerusalem?",
+   "options": [
+    "40 years",
+    "33 years",
+    "29 years",
+    "55 years"
+   ],
+   "explain": "Solomon reigned forty years in Jerusalem. (1 Kings 11:42)"
+  }
+ },
+ {
+  "id": "people-hard-029",
+  "ref": {
+   "fr": "2 Samuel 5:5",
+   "en": "2 Samuel 5:5"
+  },
+  "fr": {
+   "q": "Combien d'années David régna-t-il à Hébron sur Juda ?",
+   "options": [
+    "7 ans",
+    "40 ans",
+    "33 ans",
+    "3 ans"
+   ],
+   "explain": "David régna sept ans et six mois à Hébron. (2 Samuel 5:5)"
+  },
+  "en": {
+   "q": "How many years did David reign at Hebron over Judah?",
+   "options": [
+    "7 years",
+    "40 years",
+    "33 years",
+    "3 years"
+   ],
+   "explain": "David reigned seven years and six months in Hebron. (2 Samuel 5:5)"
+  }
+ },
+ {
+  "id": "people-hard-030",
+  "ref": {
+   "fr": "1 Rois 16:15",
+   "en": "1 Kings 16:15"
+  },
+  "fr": {
+   "q": "Quel roi d'Israël ne régna que sept jours à Thirtsa ?",
+   "options": [
+    "Zimri",
+    "Nadab",
+    "Éla",
+    "Schallum"
+   ],
+   "explain": "Zimri régna sept jours à Thirtsa. (1 Rois 16:15)"
+  },
+  "en": {
+   "q": "Which king of Israel reigned only seven days at Tirzah?",
+   "options": [
+    "Zimri",
+    "Nadab",
+    "Elah",
+    "Shallum"
+   ],
+   "explain": "Zimri reigned seven days in Tirzah. (1 Kings 16:15)"
+  }
+ },
+ {
+  "id": "people-hard-031",
+  "ref": {
+   "fr": "Juges 10:1",
+   "en": "Judges 10:1"
+  },
+  "fr": {
+   "q": "Quel juge d'Issacar se leva après Abimélec pour délivrer Israël ?",
+   "options": [
+    "Thola",
+    "Jaïr",
+    "Élon",
+    "Abdon"
+   ],
+   "explain": "Thola, fils de Pua, jugea Israël vingt-trois ans. (Juges 10:1-2)"
+  },
+  "en": {
+   "q": "Which judge of Issachar arose after Abimelech to save Israel?",
+   "options": [
+    "Tola",
+    "Jair",
+    "Elon",
+    "Abdon"
+   ],
+   "explain": "Tola son of Puah judged Israel twenty-three years. (Judges 10:1-2)"
+  }
+ },
+ {
+  "id": "people-hard-032",
+  "ref": {
+   "fr": "Juges 10:4",
+   "en": "Judges 10:4"
+  },
+  "fr": {
+   "q": "Quel juge eut trente fils montés sur trente ânons ?",
+   "options": [
+    "Jaïr",
+    "Abdon",
+    "Ibtsan",
+    "Thola"
+   ],
+   "explain": "Jaïr le Galaadite avait trente fils sur trente ânons. (Juges 10:4)"
+  },
+  "en": {
+   "q": "Which judge had thirty sons who rode on thirty donkeys?",
+   "options": [
+    "Jair",
+    "Abdon",
+    "Ibzan",
+    "Tola"
+   ],
+   "explain": "Jair the Gileadite had thirty sons on thirty donkeys. (Judges 10:4)"
+  }
+ },
+ {
+  "id": "people-hard-033",
+  "ref": {
+   "fr": "Juges 12:8-9",
+   "en": "Judges 12:8-9"
+  },
+  "fr": {
+   "q": "Quel juge de Bethléhem eut trente fils et trente filles ?",
+   "options": [
+    "Ibtsan",
+    "Élon",
+    "Abdon",
+    "Jephthé"
+   ],
+   "explain": "Ibtsan de Bethléhem eut trente fils et trente filles. (Juges 12:8-9)"
+  },
+  "en": {
+   "q": "Which judge of Bethlehem had thirty sons and thirty daughters?",
+   "options": [
+    "Ibzan",
+    "Elon",
+    "Abdon",
+    "Jephthah"
+   ],
+   "explain": "Ibzan of Bethlehem had thirty sons and thirty daughters. (Judges 12:8-9)"
+  }
+ },
+ {
+  "id": "people-hard-034",
+  "ref": {
+   "fr": "Juges 12:14",
+   "en": "Judges 12:14"
+  },
+  "fr": {
+   "q": "Quel juge eut quarante fils et trente petits-fils sur soixante-dix ânons ?",
+   "options": [
+    "Abdon",
+    "Jaïr",
+    "Ibtsan",
+    "Élon"
+   ],
+   "explain": "Abdon, fils de Hillel, jugea Israël. (Juges 12:13-14)"
+  },
+  "en": {
+   "q": "Which judge had forty sons and thirty grandsons on seventy donkeys?",
+   "options": [
+    "Abdon",
+    "Jair",
+    "Ibzan",
+    "Elon"
+   ],
+   "explain": "Abdon son of Hillel judged Israel. (Judges 12:13-14)"
+  }
+ },
+ {
+  "id": "people-hard-035",
+  "ref": {
+   "fr": "1 Samuel 22:18",
+   "en": "1 Samuel 22:18"
+  },
+  "fr": {
+   "q": "Quel Édomite, berger de Saül, tua les prêtres de Nob ?",
+   "options": [
+    "Doëg",
+    "Abner",
+    "Cusch",
+    "Nabal"
+   ],
+   "explain": "Doëg l'Édomite frappa les sacrificateurs de Nob. (1 Samuel 22:18)"
+  },
+  "en": {
+   "q": "Which Edomite, Saul's herdsman, killed the priests of Nob?",
+   "options": [
+    "Doeg",
+    "Abner",
+    "Cush",
+    "Nabal"
+   ],
+   "explain": "Doeg the Edomite struck down the priests of Nob. (1 Samuel 22:18)"
+  }
+ },
+ {
+  "id": "people-hard-036",
+  "ref": {
+   "fr": "1 Samuel 21:6",
+   "en": "1 Samuel 21:6"
+  },
+  "fr": {
+   "q": "Quel prêtre de Nob donna à David le pain consacré et l'épée de Goliath ?",
+   "options": [
+    "Achimélec",
+    "Abiathar",
+    "Tsadok",
+    "Éli"
+   ],
+   "explain": "Achimélec donna à David les pains de proposition. (1 Samuel 21:6)"
+  },
+  "en": {
+   "q": "Which priest of Nob gave David the holy bread and Goliath's sword?",
+   "options": [
+    "Ahimelech",
+    "Abiathar",
+    "Zadok",
+    "Eli"
+   ],
+   "explain": "Ahimelech gave David the showbread. (1 Samuel 21:6)"
+  }
+ },
+ {
+  "id": "people-hard-037",
+  "ref": {
+   "fr": "2 Samuel 23:20",
+   "en": "2 Samuel 23:20"
+  },
+  "fr": {
+   "q": "Quel vaillant de David tua un lion dans une citerne un jour de neige ?",
+   "options": [
+    "Benaja",
+    "Abischaï",
+    "Asaël",
+    "Éléazar"
+   ],
+   "explain": "Benaja, fils de Jehojada, descendit tuer un lion. (2 Samuel 23:20)"
+  },
+  "en": {
+   "q": "Which of David's mighty men killed a lion in a pit on a snowy day?",
+   "options": [
+    "Benaiah",
+    "Abishai",
+    "Asahel",
+    "Eleazar"
+   ],
+   "explain": "Benaiah son of Jehoiada went down and killed a lion. (2 Samuel 23:20)"
+  }
+ },
+ {
+  "id": "people-hard-038",
+  "ref": {
+   "fr": "2 Samuel 16:5",
+   "en": "2 Samuel 16:5"
+  },
+  "fr": {
+   "q": "Quel homme de la maison de Saül maudit David lors de sa fuite ?",
+   "options": [
+    "Schimeï",
+    "Ziba",
+    "Séba",
+    "Ittaï"
+   ],
+   "explain": "Schimeï, fils de Guéra, maudit David et lui jeta des pierres. (2 Samuel 16:5-6)"
+  },
+  "en": {
+   "q": "Which man of Saul's house cursed David during his flight?",
+   "options": [
+    "Shimei",
+    "Ziba",
+    "Sheba",
+    "Ittai"
+   ],
+   "explain": "Shimei son of Gera cursed David and threw stones. (2 Samuel 16:5-6)"
+  }
+ },
+ {
+  "id": "people-hard-039",
+  "ref": {
+   "fr": "2 Samuel 20:1",
+   "en": "2 Samuel 20:1"
+  },
+  "fr": {
+   "q": "Quel Benjamite sonna de la trompette pour se révolter contre David ?",
+   "options": [
+    "Séba",
+    "Schimeï",
+    "Absalom",
+    "Achitophel"
+   ],
+   "explain": "Séba, fils de Bicri, cria : « Point de part pour nous en David ! » (2 Samuel 20:1)"
+  },
+  "en": {
+   "q": "Which Benjamite blew the trumpet to revolt against David?",
+   "options": [
+    "Sheba",
+    "Shimei",
+    "Absalom",
+    "Ahithophel"
+   ],
+   "explain": "Sheba son of Bichri cried, “We have no portion in David!” (2 Samuel 20:1)"
+  }
+ },
+ {
+  "id": "people-hard-040",
+  "ref": {
+   "fr": "2 Samuel 19:32",
+   "en": "2 Samuel 19:32"
+  },
+  "fr": {
+   "q": "Quel vieillard galaadite pourvut aux besoins de David à Mahanaïm ?",
+   "options": [
+    "Barzillaï",
+    "Makir",
+    "Schobi",
+    "Ammiel"
+   ],
+   "explain": "Barzillaï, âgé de quatre-vingts ans, nourrit le roi. (2 Samuel 19:32)"
+  },
+  "en": {
+   "q": "Which aged Gileadite provided for David at Mahanaim?",
+   "options": [
+    "Barzillai",
+    "Machir",
+    "Shobi",
+    "Ammiel"
+   ],
+   "explain": "Barzillai, eighty years old, provided for the king. (2 Samuel 19:32)"
+  }
+ },
+ {
+  "id": "people-hard-041",
+  "ref": {
+   "fr": "2 Samuel 15:21",
+   "en": "2 Samuel 15:21"
+  },
+  "fr": {
+   "q": "Quel étranger de Gath jura de rester avec David dans sa fuite ?",
+   "options": [
+    "Ittaï",
+    "Obed-Édom",
+    "Urie",
+    "Achis"
+   ],
+   "explain": "Ittaï de Gath dit : « Où sera le roi, là sera ton serviteur. » (2 Samuel 15:21)"
+  },
+  "en": {
+   "q": "Which foreigner from Gath vowed to stay with David in his flight?",
+   "options": [
+    "Ittai",
+    "Obed-Edom",
+    "Uriah",
+    "Achish"
+   ],
+   "explain": "Ittai of Gath said, “Where the king is, there your servant will be.” (2 Samuel 15:21)"
+  }
+ },
+ {
+  "id": "people-hard-042",
+  "ref": {
+   "fr": "2 Samuel 20:9-10",
+   "en": "2 Samuel 20:9-10"
+  },
+  "fr": {
+   "q": "Quel chef d'armée Joab frappa-t-il en le saisissant par la barbe ?",
+   "options": [
+    "Amasa",
+    "Abner",
+    "Absalom",
+    "Séba"
+   ],
+   "explain": "Joab frappa Amasa au ventre en le saluant. (2 Samuel 20:9-10)"
+  },
+  "en": {
+   "q": "Which army commander did Joab strike while grasping his beard?",
+   "options": [
+    "Amasa",
+    "Abner",
+    "Absalom",
+    "Sheba"
+   ],
+   "explain": "Joab struck Amasa in the belly while greeting him. (2 Samuel 20:9-10)"
+  }
+ },
+ {
+  "id": "people-hard-043",
+  "ref": {
+   "fr": "1 Rois 12:18",
+   "en": "1 Kings 12:18"
+  },
+  "fr": {
+   "q": "Quel préposé aux corvées, envoyé par Roboam, fut lapidé par Israël ?",
+   "options": [
+    "Adoram",
+    "Jéroboam",
+    "Schemaeja",
+    "Achija"
+   ],
+   "explain": "Israël lapida Adoram, préposé aux impôts. (1 Rois 12:18)"
+  },
+  "en": {
+   "q": "Which taskmaster sent by Rehoboam was stoned by Israel?",
+   "options": [
+    "Adoram",
+    "Jeroboam",
+    "Shemaiah",
+    "Ahijah"
+   ],
+   "explain": "Israel stoned Adoram, who was over the forced labor. (1 Kings 12:18)"
+  }
+ },
+ {
+  "id": "people-hard-044",
+  "ref": {
+   "fr": "1 Rois 11:29-31",
+   "en": "1 Kings 11:29-31"
+  },
+  "fr": {
+   "q": "Quel prophète déchira son manteau en douze morceaux pour Jéroboam ?",
+   "options": [
+    "Achija",
+    "Schemaeja",
+    "Iddo",
+    "Jéhu"
+   ],
+   "explain": "Achija de Silo donna dix lambeaux à Jéroboam. (1 Rois 11:29-31)"
+  },
+  "en": {
+   "q": "Which prophet tore his cloak into twelve pieces for Jeroboam?",
+   "options": [
+    "Ahijah",
+    "Shemaiah",
+    "Iddo",
+    "Jehu"
+   ],
+   "explain": "Ahijah of Shiloh gave ten pieces to Jeroboam. (1 Kings 11:29-31)"
+  }
+ },
+ {
+  "id": "people-hard-045",
+  "ref": {
+   "fr": "1 Rois 22:8",
+   "en": "1 Kings 22:8"
+  },
+  "fr": {
+   "q": "Quel prophète Achab haïssait-il car il ne lui annonçait que du mal ?",
+   "options": [
+    "Michée, fils de Jimla",
+    "Élie le Thischbite",
+    "Élisée",
+    "Nathan"
+   ],
+   "explain": "Achab haïssait Michée, fils de Jimla. (1 Rois 22:8)"
+  },
+  "en": {
+   "q": "Which prophet did Ahab hate because he foretold only evil for him?",
+   "options": [
+    "Micaiah son of Imlah",
+    "Elijah the Tishbite",
+    "Elisha",
+    "Nathan"
+   ],
+   "explain": "Ahab hated Micaiah son of Imlah. (1 Kings 22:8)"
+  }
+ },
+ {
+  "id": "people-hard-046",
+  "ref": {
+   "fr": "1 Rois 18:4",
+   "en": "1 Kings 18:4"
+  },
+  "fr": {
+   "q": "Quel intendant d'Achab cacha cent prophètes dans des cavernes ?",
+   "options": [
+    "Abdias",
+    "Naboth",
+    "Guéhazi",
+    "Jéhu"
+   ],
+   "explain": "Abdias cacha cent prophètes et les nourrit. (1 Rois 18:4)"
+  },
+  "en": {
+   "q": "Which steward of Ahab hid a hundred prophets in caves?",
+   "options": [
+    "Obadiah",
+    "Naboth",
+    "Gehazi",
+    "Jehu"
+   ],
+   "explain": "Obadiah hid a hundred prophets and fed them. (1 Kings 18:4)"
+  }
+ },
+ {
+  "id": "people-hard-047",
+  "ref": {
+   "fr": "1 Rois 16:1",
+   "en": "1 Kings 16:1"
+  },
+  "fr": {
+   "q": "Quel prophète, fils de Hanani, annonça la ruine de la maison de Baescha ?",
+   "options": [
+    "Jéhu",
+    "Achija",
+    "Iddo",
+    "Schemaeja"
+   ],
+   "explain": "La parole vint à Jéhu, fils de Hanani, contre Baescha. (1 Rois 16:1)"
+  },
+  "en": {
+   "q": "Which prophet, son of Hanani, foretold the fall of Baasha's house?",
+   "options": [
+    "Jehu",
+    "Ahijah",
+    "Iddo",
+    "Shemaiah"
+   ],
+   "explain": "The word came to Jehu son of Hanani against Baasha. (1 Kings 16:1)"
+  }
+ },
+ {
+  "id": "people-hard-048",
+  "ref": {
+   "fr": "2 Rois 22:10",
+   "en": "2 Kings 22:10"
+  },
+  "fr": {
+   "q": "Quel scribe lut au roi Josias le livre de la loi retrouvé ?",
+   "options": [
+    "Schaphan",
+    "Baruc",
+    "Esdras",
+    "Séraja"
+   ],
+   "explain": "Schaphan le secrétaire lut le livre devant le roi. (2 Rois 22:10)"
+  },
+  "en": {
+   "q": "Which scribe read the recovered Book of the Law to King Josiah?",
+   "options": [
+    "Shaphan",
+    "Baruch",
+    "Ezra",
+    "Seraiah"
+   ],
+   "explain": "Shaphan the scribe read the book before the king. (2 Kings 22:10)"
+  }
+ },
+ {
+  "id": "people-hard-049",
+  "ref": {
+   "fr": "2 Rois 22:8",
+   "en": "2 Kings 22:8"
+  },
+  "fr": {
+   "q": "Quel souverain sacrificateur trouva le livre de la loi dans le temple ?",
+   "options": [
+    "Hilkija",
+    "Jehojada",
+    "Tsadok",
+    "Aaron"
+   ],
+   "explain": "Le sacrificateur Hilkija trouva le livre de la loi. (2 Rois 22:8)"
+  },
+  "en": {
+   "q": "Which high priest found the Book of the Law in the temple?",
+   "options": [
+    "Hilkiah",
+    "Jehoiada",
+    "Zadok",
+    "Aaron"
+   ],
+   "explain": "Hilkiah the priest found the Book of the Law. (2 Kings 22:8)"
+  }
+ },
+ {
+  "id": "people-hard-050",
+  "ref": {
+   "fr": "2 Rois 25:8-9",
+   "en": "2 Kings 25:8-9"
+  },
+  "fr": {
+   "q": "Quel chef babylonien brûla le temple et la ville de Jérusalem ?",
+   "options": [
+    "Nebuzaradan",
+    "Nebucadnetsar",
+    "Rabschaké",
+    "Guedalia"
+   ],
+   "explain": "Nebuzaradan, chef des gardes, brûla la maison de l'Éternel. (2 Rois 25:8-9)"
+  },
+  "en": {
+   "q": "Which Babylonian officer burned the temple and the city of Jerusalem?",
+   "options": [
+    "Nebuzaradan",
+    "Nebuchadnezzar",
+    "Rabshakeh",
+    "Gedaliah"
+   ],
+   "explain": "Nebuzaradan, captain of the guard, burned the house of the LORD. (2 Kings 25:8-9)"
+  }
+ },
+ {
+  "id": "people-hard-051",
+  "ref": {
+   "fr": "2 Rois 25:22",
+   "en": "2 Kings 25:22"
+  },
+  "fr": {
+   "q": "Quel homme Nebucadnetsar établit-il gouverneur sur le reste de Juda ?",
+   "options": [
+    "Guedalia",
+    "Ismaël",
+    "Séraja",
+    "Jérémie"
+   ],
+   "explain": "On établit Guedalia, fils d'Achikam, sur le pays. (2 Rois 25:22)"
+  },
+  "en": {
+   "q": "Whom did Nebuchadnezzar make governor over the remnant of Judah?",
+   "options": [
+    "Gedaliah",
+    "Ishmael",
+    "Seraiah",
+    "Jeremiah"
+   ],
+   "explain": "Gedaliah son of Ahikam was set over the land. (2 Kings 25:22)"
+  }
+ },
+ {
+  "id": "people-hard-052",
+  "ref": {
+   "fr": "2 Rois 25:25",
+   "en": "2 Kings 25:25"
+  },
+  "fr": {
+   "q": "Quel homme de sang royal assassina le gouverneur Guedalia ?",
+   "options": [
+    "Ismaël, fils de Nethania",
+    "Baruc",
+    "Ébed-Mélec",
+    "Séraja"
+   ],
+   "explain": "Ismaël, fils de Nethania, frappa Guedalia. (2 Rois 25:25)"
+  },
+  "en": {
+   "q": "Which man of royal blood assassinated governor Gedaliah?",
+   "options": [
+    "Ishmael son of Nethaniah",
+    "Baruch",
+    "Ebed-Melech",
+    "Seraiah"
+   ],
+   "explain": "Ishmael son of Nethaniah struck down Gedaliah. (2 Kings 25:25)"
+  }
+ },
+ {
+  "id": "people-hard-053",
+  "ref": {
+   "fr": "2 Rois 18:28",
+   "en": "2 Kings 18:28"
+  },
+  "fr": {
+   "q": "Quel officier assyrien insulta Dieu sous les murs de Jérusalem ?",
+   "options": [
+    "Rabschaké",
+    "Sanchérib",
+    "Tharthan",
+    "Rabsaris"
+   ],
+   "explain": "Rabschaké cria en hébreu contre l'Éternel. (2 Rois 18:28)"
+  },
+  "en": {
+   "q": "Which Assyrian officer taunted God beneath the walls of Jerusalem?",
+   "options": [
+    "Rabshakeh",
+    "Sennacherib",
+    "Tartan",
+    "Rabsaris"
+   ],
+   "explain": "The Rabshakeh cried out in Hebrew against the LORD. (2 Kings 18:28)"
+  }
+ },
+ {
+  "id": "people-hard-054",
+  "ref": {
+   "fr": "Jérémie 20:1-2",
+   "en": "Jeremiah 20:1-2"
+  },
+  "fr": {
+   "q": "Quel prêtre fit battre Jérémie et le mit aux ceps ?",
+   "options": [
+    "Paschhur",
+    "Hilkija",
+    "Sophonie",
+    "Séraja"
+   ],
+   "explain": "Paschhur frappa Jérémie et le mit dans la prison. (Jérémie 20:1-2)"
+  },
+  "en": {
+   "q": "Which priest had Jeremiah beaten and put in the stocks?",
+   "options": [
+    "Pashhur",
+    "Hilkiah",
+    "Zephaniah",
+    "Seraiah"
+   ],
+   "explain": "Pashhur struck Jeremiah and put him in the stocks. (Jeremiah 20:1-2)"
+  }
+ },
+ {
+  "id": "people-hard-055",
+  "ref": {
+   "fr": "Jérémie 28:10",
+   "en": "Jeremiah 28:10"
+  },
+  "fr": {
+   "q": "Quel faux prophète brisa le joug de bois porté par Jérémie ?",
+   "options": [
+    "Hanania",
+    "Schemaeja",
+    "Paschhur",
+    "Achab"
+   ],
+   "explain": "Hanania brisa le joug et mourut cette année-là. (Jérémie 28:10-17)"
+  },
+  "en": {
+   "q": "Which false prophet broke the wooden yoke worn by Jeremiah?",
+   "options": [
+    "Hananiah",
+    "Shemaiah",
+    "Pashhur",
+    "Ahab"
+   ],
+   "explain": "Hananiah broke the yoke and died that same year. (Jeremiah 28:10-17)"
+  }
+ },
+ {
+  "id": "people-hard-056",
+  "ref": {
+   "fr": "2 Chroniques 24:21",
+   "en": "2 Chronicles 24:21"
+  },
+  "fr": {
+   "q": "Quel prophète, fils de Jehojada, fut lapidé dans le parvis du temple ?",
+   "options": [
+    "Zacharie",
+    "Urie",
+    "Michée",
+    "Iddo"
+   ],
+   "explain": "On lapida Zacharie dans le parvis de la maison de l'Éternel. (2 Chroniques 24:21)"
+  },
+  "en": {
+   "q": "Which prophet, son of Jehoiada, was stoned in the temple court?",
+   "options": [
+    "Zechariah",
+    "Uriah",
+    "Micaiah",
+    "Iddo"
+   ],
+   "explain": "Zechariah was stoned in the court of the LORD's house. (2 Chronicles 24:21)"
+  }
+ },
+ {
+  "id": "people-hard-057",
+  "ref": {
+   "fr": "Job 2:11",
+   "en": "Job 2:11"
+  },
+  "fr": {
+   "q": "Comment se nommaient les trois amis venus consoler Job ?",
+   "options": [
+    "Éliphaz, Bildad et Tsophar",
+    "Elihu, Baruc et Séraja",
+    "Hanania, Azaria et Mischaël",
+    "Gaal, Zébul et Jotham"
+   ],
+   "explain": "Éliphaz, Bildad et Tsophar vinrent vers Job. (Job 2:11)"
+  },
+  "en": {
+   "q": "What were the names of the three friends who came to comfort Job?",
+   "options": [
+    "Eliphaz, Bildad and Zophar",
+    "Elihu, Baruch and Seraiah",
+    "Hananiah, Azariah and Mishael",
+    "Gaal, Zebul and Jotham"
+   ],
+   "explain": "Eliphaz, Bildad and Zophar came to Job. (Job 2:11)"
+  }
+ },
+ {
+  "id": "people-hard-058",
+  "ref": {
+   "fr": "Job 32:2",
+   "en": "Job 32:2"
+  },
+  "fr": {
+   "q": "Quel jeune homme s'irrita et parla après les trois amis de Job ?",
+   "options": [
+    "Elihu",
+    "Éliphaz",
+    "Bildad",
+    "Tsophar"
+   ],
+   "explain": "Elihu, fils de Barakeel, s'enflamma de colère. (Job 32:2)"
+  },
+  "en": {
+   "q": "Which young man grew angry and spoke after Job's three friends?",
+   "options": [
+    "Elihu",
+    "Eliphaz",
+    "Bildad",
+    "Zophar"
+   ],
+   "explain": "Elihu son of Barachel burned with anger. (Job 32:2)"
+  }
+ },
+ {
+  "id": "people-hard-059",
+  "ref": {
+   "fr": "Job 42:14",
+   "en": "Job 42:14"
+  },
+  "fr": {
+   "q": "Comment s'appelaient les trois filles de Job après sa restauration ?",
+   "options": [
+    "Jemima, Ketsia et Kéren-Happuc",
+    "Mahla, Noa et Hogla",
+    "Léa, Rachel et Dina",
+    "Orpa, Ruth et Naomi"
+   ],
+   "explain": "Il les nomma Jemima, Ketsia et Kéren-Happuc. (Job 42:14)"
+  },
+  "en": {
+   "q": "What were the names of Job's three daughters after his restoration?",
+   "options": [
+    "Jemimah, Keziah and Keren-Happuch",
+    "Mahlah, Noah and Hoglah",
+    "Leah, Rachel and Dinah",
+    "Orpah, Ruth and Naomi"
+   ],
+   "explain": "He named them Jemimah, Keziah and Keren-Happuch. (Job 42:14)"
+  }
+ },
+ {
+  "id": "people-hard-060",
+  "ref": {
+   "fr": "Exode 1:15",
+   "en": "Exodus 1:15"
+  },
+  "fr": {
+   "q": "Comment s'appelaient les sages-femmes hébreues qui craignirent Dieu ?",
+   "options": [
+    "Schiphra et Pua",
+    "Jokébed et Marie",
+    "Séphora et Débora",
+    "Anne et Peninna"
+   ],
+   "explain": "Schiphra et Pua refusèrent de tuer les nouveau-nés. (Exode 1:15-17)"
+  },
+  "en": {
+   "q": "What were the names of the Hebrew midwives who feared God?",
+   "options": [
+    "Shiphrah and Puah",
+    "Jochebed and Miriam",
+    "Zipporah and Deborah",
+    "Hannah and Peninnah"
+   ],
+   "explain": "Shiphrah and Puah refused to kill the newborn sons. (Exodus 1:15-17)"
+  }
+ },
+ {
+  "id": "people-hard-061",
+  "ref": {
+   "fr": "Nombres 27:1",
+   "en": "Numbers 27:1"
+  },
+  "fr": {
+   "q": "Quelles filles réclamèrent un héritage faute de frères ?",
+   "options": [
+    "Les filles de Tselophchad",
+    "Les filles de Job",
+    "Les filles de Loth",
+    "Les filles de Laban"
+   ],
+   "explain": "Les filles de Tselophchad demandèrent une possession. (Nombres 27:1-7)"
+  },
+  "en": {
+   "q": "Which daughters claimed an inheritance because they had no brothers?",
+   "options": [
+    "The daughters of Zelophehad",
+    "The daughters of Job",
+    "The daughters of Lot",
+    "The daughters of Laban"
+   ],
+   "explain": "The daughters of Zelophehad asked for a possession. (Numbers 27:1-7)"
+  }
+ },
+ {
+  "id": "people-hard-062",
+  "ref": {
+   "fr": "Genèse 10:9",
+   "en": "Genesis 10:9"
+  },
+  "fr": {
+   "q": "Quel descendant de Cush fut un vaillant chasseur devant l'Éternel ?",
+   "options": [
+    "Nimrod",
+    "Péleg",
+    "Éber",
+    "Cham"
+   ],
+   "explain": "Nimrod fut un vaillant chasseur devant l'Éternel. (Genèse 10:9)"
+  },
+  "en": {
+   "q": "Which descendant of Cush was a mighty hunter before the LORD?",
+   "options": [
+    "Nimrod",
+    "Peleg",
+    "Eber",
+    "Ham"
+   ],
+   "explain": "Nimrod was a mighty hunter before the LORD. (Genesis 10:9)"
+  }
+ },
+ {
+  "id": "people-hard-063",
+  "ref": {
+   "fr": "Genèse 10:25",
+   "en": "Genesis 10:25"
+  },
+  "fr": {
+   "q": "Sous quel homme la terre fut-elle partagée, selon la Genèse ?",
+   "options": [
+    "Péleg",
+    "Éber",
+    "Serug",
+    "Rehu"
+   ],
+   "explain": "On nomma l'un Péleg, car la terre fut partagée. (Genèse 10:25)"
+  },
+  "en": {
+   "q": "In whose days was the earth divided, according to Genesis?",
+   "options": [
+    "Peleg",
+    "Eber",
+    "Serug",
+    "Reu"
+   ],
+   "explain": "One was named Peleg, for the earth was divided. (Genesis 10:25)"
+  }
+ },
+ {
+  "id": "people-hard-064",
+  "ref": {
+   "fr": "Genèse 5:32",
+   "en": "Genesis 5:32"
+  },
+  "fr": {
+   "q": "Comment s'appelaient les trois fils de Noé ?",
+   "options": [
+    "Sem, Cham et Japhet",
+    "Caïn, Abel et Seth",
+    "Abraham, Nachor et Haran",
+    "Isaac, Ismaël et Madian"
+   ],
+   "explain": "Noé engendra Sem, Cham et Japhet. (Genèse 5:32)"
+  },
+  "en": {
+   "q": "What were the names of Noah's three sons?",
+   "options": [
+    "Shem, Ham and Japheth",
+    "Cain, Abel and Seth",
+    "Abraham, Nahor and Haran",
+    "Isaac, Ishmael and Midian"
+   ],
+   "explain": "Noah became the father of Shem, Ham and Japheth. (Genesis 5:32)"
+  }
+ },
+ {
+  "id": "people-hard-065",
+  "ref": {
+   "fr": "Genèse 25:1",
+   "en": "Genesis 25:1"
+  },
+  "fr": {
+   "q": "Quelle femme Abraham prit-il après la mort de Sara ?",
+   "options": [
+    "Ketura",
+    "Agar",
+    "Milca",
+    "Rebecca"
+   ],
+   "explain": "Abraham prit encore une femme, nommée Ketura. (Genèse 25:1)"
+  },
+  "en": {
+   "q": "Which woman did Abraham take after Sarah's death?",
+   "options": [
+    "Keturah",
+    "Hagar",
+    "Milcah",
+    "Rebecca"
+   ],
+   "explain": "Abraham took another wife, named Keturah. (Genesis 25:1)"
+  }
+ },
+ {
+  "id": "people-hard-066",
+  "ref": {
+   "fr": "Genèse 24:24",
+   "en": "Genesis 24:24"
+  },
+  "fr": {
+   "q": "Qui était le père de Rebecca, de la famille de Nachor ?",
+   "options": [
+    "Bethuel",
+    "Laban",
+    "Térach",
+    "Kemuel"
+   ],
+   "explain": "Rebecca était fille de Bethuel, fils de Nachor. (Genèse 24:24)"
+  },
+  "en": {
+   "q": "Who was the father of Rebecca, of the family of Nahor?",
+   "options": [
+    "Bethuel",
+    "Laban",
+    "Terah",
+    "Kemuel"
+   ],
+   "explain": "Rebecca was the daughter of Bethuel, son of Nahor. (Genesis 24:24)"
+  }
+ },
+ {
+  "id": "people-hard-067",
+  "ref": {
+   "fr": "Genèse 11:29",
+   "en": "Genesis 11:29"
+  },
+  "fr": {
+   "q": "Comment s'appelait l'épouse de Nachor, frère d'Abraham ?",
+   "options": [
+    "Milca",
+    "Sara",
+    "Ketura",
+    "Rebecca"
+   ],
+   "explain": "Nachor prit pour femme Milca, fille de Haran. (Genèse 11:29)"
+  },
+  "en": {
+   "q": "What was the name of the wife of Nahor, Abraham's brother?",
+   "options": [
+    "Milcah",
+    "Sarah",
+    "Keturah",
+    "Rebecca"
+   ],
+   "explain": "Nahor took as wife Milcah, daughter of Haran. (Genesis 11:29)"
+  }
+ },
+ {
+  "id": "people-hard-068",
+  "ref": {
+   "fr": "Genèse 38:29-30",
+   "en": "Genesis 38:29-30"
+  },
+  "fr": {
+   "q": "Quelle belle-fille de Juda enfanta les jumeaux Pérets et Zérach ?",
+   "options": [
+    "Tamar",
+    "Dina",
+    "Rahab",
+    "Ruth"
+   ],
+   "explain": "Tamar enfanta à Juda Pérets et Zérach. (Genèse 38:29-30)"
+  },
+  "en": {
+   "q": "Which daughter-in-law of Judah bore the twins Perez and Zerah?",
+   "options": [
+    "Tamar",
+    "Dinah",
+    "Rahab",
+    "Ruth"
+   ],
+   "explain": "Tamar bore Judah the twins Perez and Zerah. (Genesis 38:29-30)"
+  }
+ },
+ {
+  "id": "people-hard-069",
+  "ref": {
+   "fr": "Matthieu 1:5",
+   "en": "Matthew 1:5"
+  },
+  "fr": {
+   "q": "Selon Matthieu, qui fut le père de Boaz, dont la mère était Rahab ?",
+   "options": [
+    "Salmon",
+    "Obed",
+    "Jessé",
+    "Nachschon"
+   ],
+   "explain": "Salmon engendra Boaz, dont la mère était Rahab. (Matthieu 1:5)"
+  },
+  "en": {
+   "q": "According to Matthew, who was the father of Boaz, whose mother was Rahab?",
+   "options": [
+    "Salmon",
+    "Obed",
+    "Jesse",
+    "Nahshon"
+   ],
+   "explain": "Salmon fathered Boaz, whose mother was Rahab. (Matthew 1:5)"
+  }
+ },
+ {
+  "id": "people-hard-070",
+  "ref": {
+   "fr": "Ruth 4:17",
+   "en": "Ruth 4:17"
+  },
+  "fr": {
+   "q": "Quel fils de Boaz et Ruth fut le grand-père de David ?",
+   "options": [
+    "Obed",
+    "Jessé",
+    "Salmon",
+    "Amminadab"
+   ],
+   "explain": "Obed engendra Isaï, père de David. (Ruth 4:17)"
+  },
+  "en": {
+   "q": "Which son of Boaz and Ruth was the grandfather of David?",
+   "options": [
+    "Obed",
+    "Jesse",
+    "Salmon",
+    "Amminadab"
+   ],
+   "explain": "Obed became the father of Jesse, the father of David. (Ruth 4:17)"
+  }
+ },
+ {
+  "id": "people-hard-071",
+  "ref": {
+   "fr": "Nombres 2:3",
+   "en": "Numbers 2:3"
+  },
+  "fr": {
+   "q": "Quel chef de la tribu de Juda campait le premier au désert ?",
+   "options": [
+    "Nachschon",
+    "Nethaneel",
+    "Éliab",
+    "Éliasaph"
+   ],
+   "explain": "Nachschon, fils d'Amminadab, était chef de Juda. (Nombres 2:3)"
+  },
+  "en": {
+   "q": "Which chief of the tribe of Judah camped first in the wilderness?",
+   "options": [
+    "Nahshon",
+    "Nethanel",
+    "Eliab",
+    "Eliasaph"
+   ],
+   "explain": "Nahshon son of Amminadab was the leader of Judah. (Numbers 2:3)"
+  }
+ },
+ {
+  "id": "people-hard-072",
+  "ref": {
+   "fr": "Exode 6:20",
+   "en": "Exodus 6:20"
+  },
+  "fr": {
+   "q": "Qui était le père de Moïse, d'Aaron et de Marie ?",
+   "options": [
+    "Amram",
+    "Kehath",
+    "Lévi",
+    "Jéthro"
+   ],
+   "explain": "Amram prit Jokébed et engendra Aaron et Moïse. (Exode 6:20)"
+  },
+  "en": {
+   "q": "Who was the father of Moses, Aaron and Miriam?",
+   "options": [
+    "Amram",
+    "Kohath",
+    "Levi",
+    "Jethro"
+   ],
+   "explain": "Amram took Jochebed and fathered Aaron and Moses. (Exodus 6:20)"
+  }
+ },
+ {
+  "id": "people-hard-073",
+  "ref": {
+   "fr": "Genèse 46:11",
+   "en": "Genesis 46:11"
+  },
+  "fr": {
+   "q": "Quels étaient les trois fils de Lévi ?",
+   "options": [
+    "Guerschon, Kehath et Merari",
+    "Sem, Cham et Japhet",
+    "Nadab, Abihu et Éléazar",
+    "Ruben, Siméon et Juda"
+   ],
+   "explain": "Fils de Lévi : Guerschon, Kehath et Merari. (Genèse 46:11)"
+  },
+  "en": {
+   "q": "What were the three sons of Levi?",
+   "options": [
+    "Gershon, Kohath and Merari",
+    "Shem, Ham and Japheth",
+    "Nadab, Abihu and Eleazar",
+    "Reuben, Simeon and Judah"
+   ],
+   "explain": "The sons of Levi: Gershon, Kohath and Merari. (Genesis 46:11)"
+  }
+ },
+ {
+  "id": "people-hard-074",
+  "ref": {
+   "fr": "Nombres 25:7-11",
+   "en": "Numbers 25:7-11"
+  },
+  "fr": {
+   "q": "Quel petit-fils d'Aaron détourna la colère de Dieu par son zèle à Sittim ?",
+   "options": [
+    "Phinées",
+    "Éléazar",
+    "Ithamar",
+    "Nadab"
+   ],
+   "explain": "Phinées, fils d'Éléazar, arrêta la plaie par son zèle. (Nombres 25:7-11)"
+  },
+  "en": {
+   "q": "Which grandson of Aaron turned away God's wrath by his zeal at Shittim?",
+   "options": [
+    "Phinehas",
+    "Eleazar",
+    "Ithamar",
+    "Nadab"
+   ],
+   "explain": "Phinehas son of Eleazar stopped the plague by his zeal. (Numbers 25:7-11)"
+  }
+ },
+ {
+  "id": "people-hard-075",
+  "ref": {
+   "fr": "Josué 15:16-17",
+   "en": "Joshua 15:16-17"
+  },
+  "fr": {
+   "q": "Quelle fille de Caleb fut donnée à Othniel pour avoir pris Debir ?",
+   "options": [
+    "Acsa",
+    "Débora",
+    "Jaël",
+    "Tamar"
+   ],
+   "explain": "Caleb donna sa fille Acsa à Othniel. (Josué 15:16-17)"
+  },
+  "en": {
+   "q": "Which daughter of Caleb was given to Othniel for capturing Debir?",
+   "options": [
+    "Achsah",
+    "Deborah",
+    "Jael",
+    "Tamar"
+   ],
+   "explain": "Caleb gave his daughter Achsah to Othniel. (Joshua 15:16-17)"
+  }
+ },
+ {
+  "id": "people-hard-076",
+  "ref": {
+   "fr": "1 Rois 1:3",
+   "en": "1 Kings 1:3"
+  },
+  "fr": {
+   "q": "Quelle jeune Sunamite servit le roi David dans sa vieillesse ?",
+   "options": [
+    "Abischag",
+    "Bath-Schéba",
+    "Abigaïl",
+    "Mical"
+   ],
+   "explain": "On chercha Abischag, la Sunamite, pour servir le roi. (1 Rois 1:3)"
+  },
+  "en": {
+   "q": "Which young Shunammite served King David in his old age?",
+   "options": [
+    "Abishag",
+    "Bathsheba",
+    "Abigail",
+    "Michal"
+   ],
+   "explain": "Abishag the Shunammite was sought to serve the king. (1 Kings 1:3)"
+  }
+ },
+ {
+  "id": "people-hard-077",
+  "ref": {
+   "fr": "2 Samuel 21:10",
+   "en": "2 Samuel 21:10"
+  },
+  "fr": {
+   "q": "Quelle concubine de Saül veilla sur les corps de ses fils ?",
+   "options": [
+    "Ritspa",
+    "Mical",
+    "Ahinoam",
+    "Peninna"
+   ],
+   "explain": "Ritspa étendit un sac sur le rocher pour veiller ses fils. (2 Samuel 21:10)"
+  },
+  "en": {
+   "q": "Which concubine of Saul watched over the bodies of her sons?",
+   "options": [
+    "Rizpah",
+    "Michal",
+    "Ahinoam",
+    "Peninnah"
+   ],
+   "explain": "Rizpah spread sackcloth on the rock to guard her sons. (2 Samuel 21:10)"
+  }
+ },
+ {
+  "id": "people-hard-078",
+  "ref": {
+   "fr": "2 Samuel 13:1",
+   "en": "2 Samuel 13:1"
+  },
+  "fr": {
+   "q": "Quelle fille de David, sœur d'Absalom, fut outragée par Amnon ?",
+   "options": [
+    "Tamar",
+    "Mical",
+    "Abigaïl",
+    "Dina"
+   ],
+   "explain": "Amnon aima Tamar, sœur d'Absalom. (2 Samuel 13:1)"
+  },
+  "en": {
+   "q": "Which daughter of David, sister of Absalom, was wronged by Amnon?",
+   "options": [
+    "Tamar",
+    "Michal",
+    "Abigail",
+    "Dinah"
+   ],
+   "explain": "Amnon loved Tamar, the sister of Absalom. (2 Samuel 13:1)"
+  }
+ },
+ {
+  "id": "people-hard-079",
+  "ref": {
+   "fr": "2 Samuel 13:3",
+   "en": "2 Samuel 13:3"
+  },
+  "fr": {
+   "q": "Quel homme rusé conseilla Amnon pour tromper sa sœur Tamar ?",
+   "options": [
+    "Jonadab",
+    "Achitophel",
+    "Huschaï",
+    "Joab"
+   ],
+   "explain": "Jonadab, ami d'Amnon, était un homme très rusé. (2 Samuel 13:3)"
+  },
+  "en": {
+   "q": "Which crafty man advised Amnon to deceive his sister Tamar?",
+   "options": [
+    "Jonadab",
+    "Ahithophel",
+    "Hushai",
+    "Joab"
+   ],
+   "explain": "Jonadab, Amnon's friend, was a very crafty man. (2 Samuel 13:3)"
+  }
+ },
+ {
+  "id": "people-hard-080",
+  "ref": {
+   "fr": "Néhémie 2:19",
+   "en": "Nehemiah 2:19"
+  },
+  "fr": {
+   "q": "Quel Horonite se moqua de Néhémie qui rebâtissait la muraille ?",
+   "options": [
+    "Sanballat",
+    "Tobija",
+    "Guéschem",
+    "Rehum"
+   ],
+   "explain": "Sanballat le Horonite se moqua des Juifs. (Néhémie 2:19)"
+  },
+  "en": {
+   "q": "Which Horonite mocked Nehemiah as he rebuilt the wall?",
+   "options": [
+    "Sanballat",
+    "Tobiah",
+    "Geshem",
+    "Rehum"
+   ],
+   "explain": "Sanballat the Horonite mocked the Jews. (Nehemiah 2:19)"
+  }
+ },
+ {
+  "id": "people-hard-081",
+  "ref": {
+   "fr": "Néhémie 4:3",
+   "en": "Nehemiah 4:3"
+  },
+  "fr": {
+   "q": "Quel Ammonite railla la muraille, disant qu'un renard la renverserait ?",
+   "options": [
+    "Tobija",
+    "Sanballat",
+    "Guéschem",
+    "Haman"
+   ],
+   "explain": "Tobija dit qu'un renard ferait crouler leur muraille. (Néhémie 4:3)"
+  },
+  "en": {
+   "q": "Which Ammonite jeered at the wall, saying a fox would break it down?",
+   "options": [
+    "Tobiah",
+    "Sanballat",
+    "Geshem",
+    "Haman"
+   ],
+   "explain": "Tobiah said a fox would break down their wall. (Nehemiah 4:3)"
+  }
+ },
+ {
+  "id": "people-hard-082",
+  "ref": {
+   "fr": "Néhémie 1:2",
+   "en": "Nehemiah 1:2"
+  },
+  "fr": {
+   "q": "Quel frère apporta à Néhémie des nouvelles de Jérusalem ?",
+   "options": [
+    "Hanani",
+    "Esdras",
+    "Zorobabel",
+    "Hanania"
+   ],
+   "explain": "Hanani vint annoncer l'état de Jérusalem à Néhémie. (Néhémie 1:2)"
+  },
+  "en": {
+   "q": "Which brother brought Nehemiah news of Jerusalem?",
+   "options": [
+    "Hanani",
+    "Ezra",
+    "Zerubbabel",
+    "Hananiah"
+   ],
+   "explain": "Hanani came to report the state of Jerusalem to Nehemiah. (Nehemiah 1:2)"
+  }
+ },
+ {
+  "id": "people-hard-083",
+  "ref": {
+   "fr": "Esther 2:8",
+   "en": "Esther 2:8"
+  },
+  "fr": {
+   "q": "Quel eunuque du roi avait la garde des jeunes filles du harem ?",
+   "options": [
+    "Hégaï",
+    "Haman",
+    "Mardochée",
+    "Hatac"
+   ],
+   "explain": "Esther fut confiée à Hégaï, gardien des femmes. (Esther 2:8)"
+  },
+  "en": {
+   "q": "Which of the king's eunuchs had charge of the young women of the harem?",
+   "options": [
+    "Hegai",
+    "Haman",
+    "Mordecai",
+    "Hathach"
+   ],
+   "explain": "Esther was entrusted to Hegai, keeper of the women. (Esther 2:8)"
+  }
+ },
+ {
+  "id": "people-hard-084",
+  "ref": {
+   "fr": "Esther 5:14",
+   "en": "Esther 5:14"
+  },
+  "fr": {
+   "q": "Quelle épouse conseilla à Haman de dresser une potence pour Mardochée ?",
+   "options": [
+    "Zéresch",
+    "Vasthi",
+    "Esther",
+    "Hérodias"
+   ],
+   "explain": "Zéresch conseilla à Haman de préparer un bois. (Esther 5:14)"
+  },
+  "en": {
+   "q": "Which wife advised Haman to set up a gallows for Mordecai?",
+   "options": [
+    "Zeresh",
+    "Vashti",
+    "Esther",
+    "Herodias"
+   ],
+   "explain": "Zeresh advised Haman to prepare a gallows. (Esther 5:14)"
+  }
+ },
+ {
+  "id": "people-hard-085",
+  "ref": {
+   "fr": "Daniel 1:3",
+   "en": "Daniel 1:3"
+  },
+  "fr": {
+   "q": "Quel chef des eunuques reçut Daniel à la cour de Babylone ?",
+   "options": [
+    "Aspenaz",
+    "Arjoc",
+    "Nebuzaradan",
+    "Rabsaris"
+   ],
+   "explain": "Le roi chargea Aspenaz d'amener des jeunes gens. (Daniel 1:3)"
+  },
+  "en": {
+   "q": "Which chief of the eunuchs received Daniel at the court of Babylon?",
+   "options": [
+    "Ashpenaz",
+    "Arioch",
+    "Nebuzaradan",
+    "Rabsaris"
+   ],
+   "explain": "The king ordered Ashpenaz to bring in young men. (Daniel 1:3)"
+  }
+ },
+ {
+  "id": "people-hard-086",
+  "ref": {
+   "fr": "Esdras 3:2",
+   "en": "Ezra 3:2"
+  },
+  "fr": {
+   "q": "Qui était le père de Zorobabel, chef du retour d'exil ?",
+   "options": [
+    "Schealthiel",
+    "Jotsadak",
+    "Cyrus",
+    "Josué"
+   ],
+   "explain": "Zorobabel, fils de Schealthiel, rebâtit l'autel. (Esdras 3:2)"
+  },
+  "en": {
+   "q": "Who was the father of Zerubbabel, leader of the return from exile?",
+   "options": [
+    "Shealtiel",
+    "Jozadak",
+    "Cyrus",
+    "Jeshua"
+   ],
+   "explain": "Zerubbabel son of Shealtiel rebuilt the altar. (Ezra 3:2)"
+  }
+ },
+ {
+  "id": "people-hard-087",
+  "ref": {
+   "fr": "Esdras 3:2",
+   "en": "Ezra 3:2"
+  },
+  "fr": {
+   "q": "Quel souverain sacrificateur rebâtit l'autel avec Zorobabel ?",
+   "options": [
+    "Josué, fils de Jotsadak",
+    "Esdras",
+    "Hilkija",
+    "Séraja"
+   ],
+   "explain": "Josué, fils de Jotsadak, bâtit l'autel avec Zorobabel. (Esdras 3:2)"
+  },
+  "en": {
+   "q": "Which high priest rebuilt the altar together with Zerubbabel?",
+   "options": [
+    "Jeshua son of Jozadak",
+    "Ezra",
+    "Hilkiah",
+    "Seraiah"
+   ],
+   "explain": "Jeshua son of Jozadak built the altar with Zerubbabel. (Ezra 3:2)"
+  }
+ },
+ {
+  "id": "people-hard-088",
+  "ref": {
+   "fr": "Actes 13:1",
+   "en": "Acts 13:1"
+  },
+  "fr": {
+   "q": "Quel prophète d'Antioche avait été élevé avec Hérode le tétrarque ?",
+   "options": [
+    "Manaën",
+    "Lucius",
+    "Niger",
+    "Agabus"
+   ],
+   "explain": "Manaën, élevé avec Hérode, enseignait à Antioche. (Actes 13:1)"
+  },
+  "en": {
+   "q": "Which prophet at Antioch had been brought up with Herod the tetrarch?",
+   "options": [
+    "Manaen",
+    "Lucius",
+    "Niger",
+    "Agabus"
+   ],
+   "explain": "Manaen, raised with Herod, taught at Antioch. (Acts 13:1)"
+  }
+ },
+ {
+  "id": "people-hard-089",
+  "ref": {
+   "fr": "Actes 9:34",
+   "en": "Acts 9:34"
+  },
+  "fr": {
+   "q": "Quel paralytique de Lydde Pierre guérit-il après huit ans au lit ?",
+   "options": [
+    "Énée",
+    "Eutychus",
+    "Bartimée",
+    "Malchus"
+   ],
+   "explain": "Pierre dit : « Énée, Jésus-Christ te guérit. » (Actes 9:34)"
+  },
+  "en": {
+   "q": "Which paralytic of Lydda did Peter heal after eight years in bed?",
+   "options": [
+    "Aeneas",
+    "Eutychus",
+    "Bartimaeus",
+    "Malchus"
+   ],
+   "explain": "Peter said, “Aeneas, Jesus Christ heals you.” (Acts 9:34)"
+  }
+ },
+ {
+  "id": "people-hard-090",
+  "ref": {
+   "fr": "Actes 9:43",
+   "en": "Acts 9:43"
+  },
+  "fr": {
+   "q": "Chez quel artisan de Joppé Pierre logea-t-il avant sa vision ?",
+   "options": [
+    "Simon le corroyeur",
+    "Simon le magicien",
+    "Simon de Cyrène",
+    "Simon le pharisien"
+   ],
+   "explain": "Pierre demeura à Joppé chez Simon, un corroyeur. (Actes 9:43)"
+  },
+  "en": {
+   "q": "In whose house at Joppa did Peter lodge before his vision?",
+   "options": [
+    "Simon the tanner",
+    "Simon the sorcerer",
+    "Simon of Cyrene",
+    "Simon the Pharisee"
+   ],
+   "explain": "Peter stayed at Joppa with Simon, a tanner. (Acts 9:43)"
+  }
+ },
+ {
+  "id": "people-hard-091",
+  "ref": {
+   "fr": "Actes 17:34",
+   "en": "Acts 17:34"
+  },
+  "fr": {
+   "q": "Quel membre de l'Aréopage crut à la prédication de Paul à Athènes ?",
+   "options": [
+    "Denys l'Aréopagite",
+    "Sergius Paulus",
+    "Publius",
+    "Crispus"
+   ],
+   "explain": "Denys l'Aréopagite et Damaris crurent. (Actes 17:34)"
+  },
+  "en": {
+   "q": "Which member of the Areopagus believed Paul's preaching at Athens?",
+   "options": [
+    "Dionysius the Areopagite",
+    "Sergius Paulus",
+    "Publius",
+    "Crispus"
+   ],
+   "explain": "Dionysius the Areopagite and Damaris believed. (Acts 17:34)"
+  }
+ },
+ {
+  "id": "people-hard-092",
+  "ref": {
+   "fr": "Actes 18:8",
+   "en": "Acts 18:8"
+  },
+  "fr": {
+   "q": "Quel chef de la synagogue de Corinthe crut au Seigneur avec sa maison ?",
+   "options": [
+    "Crispus",
+    "Sosthène",
+    "Gaïus",
+    "Justus"
+   ],
+   "explain": "Crispus, chef de la synagogue, crut avec toute sa maison. (Actes 18:8)"
+  },
+  "en": {
+   "q": "Which ruler of the synagogue at Corinth believed the Lord with his household?",
+   "options": [
+    "Crispus",
+    "Sosthenes",
+    "Gaius",
+    "Justus"
+   ],
+   "explain": "Crispus, the synagogue ruler, believed with all his house. (Acts 18:8)"
+  }
+ },
+ {
+  "id": "people-hard-093",
+  "ref": {
+   "fr": "Actes 19:24",
+   "en": "Acts 19:24"
+  },
+  "fr": {
+   "q": "Quel orfèvre d'Éphèse souleva une émeute pour la déesse Diane ?",
+   "options": [
+    "Démétrius",
+    "Alexandre",
+    "Élymas",
+    "Scéva"
+   ],
+   "explain": "Démétrius, fabricant de temples d'argent, ameuta la ville. (Actes 19:24)"
+  },
+  "en": {
+   "q": "Which silversmith of Ephesus stirred up a riot for the goddess Diana?",
+   "options": [
+    "Demetrius",
+    "Alexander",
+    "Elymas",
+    "Sceva"
+   ],
+   "explain": "Demetrius, a maker of silver shrines, stirred up the city. (Acts 19:24)"
+  }
+ },
+ {
+  "id": "people-hard-094",
+  "ref": {
+   "fr": "Actes 19:14",
+   "en": "Acts 19:14"
+  },
+  "fr": {
+   "q": "Combien de fils du prêtre Scéva furent battus par un démon ?",
+   "options": [
+    "Sept",
+    "Trois",
+    "Douze",
+    "Deux"
+   ],
+   "explain": "Les sept fils de Scéva furent maltraités par l'esprit. (Actes 19:14-16)"
+  },
+  "en": {
+   "q": "How many sons of the priest Sceva were beaten by a demon?",
+   "options": [
+    "Seven",
+    "Three",
+    "Twelve",
+    "Two"
+   ],
+   "explain": "The seven sons of Sceva were overpowered by the spirit. (Acts 19:14-16)"
+  }
+ },
+ {
+  "id": "people-hard-095",
+  "ref": {
+   "fr": "Actes 23:16",
+   "en": "Acts 23:16"
+  },
+  "fr": {
+   "q": "Quel jeune parent de Paul déjoua un complot contre sa vie ?",
+   "options": [
+    "Le fils de la sœur de Paul",
+    "Timothée",
+    "Trophime",
+    "Tychique"
+   ],
+   "explain": "Le fils de la sœur de Paul avertit le tribun du complot. (Actes 23:16)"
+  },
+  "en": {
+   "q": "Which young relative of Paul foiled a plot against his life?",
+   "options": [
+    "The son of Paul's sister",
+    "Timothy",
+    "Trophimus",
+    "Tychicus"
+   ],
+   "explain": "The son of Paul's sister warned the commander of the plot. (Acts 23:16)"
+  }
+ },
+ {
+  "id": "people-hard-096",
+  "ref": {
+   "fr": "Actes 24:1",
+   "en": "Acts 24:1"
+  },
+  "fr": {
+   "q": "Quel orateur accusa Paul devant le gouverneur Félix ?",
+   "options": [
+    "Tertulle",
+    "Gamaliel",
+    "Sosthène",
+    "Démétrius"
+   ],
+   "explain": "Tertulle plaida contre Paul devant Félix. (Actes 24:1-2)"
+  },
+  "en": {
+   "q": "Which orator accused Paul before governor Felix?",
+   "options": [
+    "Tertullus",
+    "Gamaliel",
+    "Sosthenes",
+    "Demetrius"
+   ],
+   "explain": "Tertullus brought charges against Paul before Felix. (Acts 24:1-2)"
+  }
+ },
+ {
+  "id": "people-hard-097",
+  "ref": {
+   "fr": "Actes 27:1",
+   "en": "Acts 27:1"
+  },
+  "fr": {
+   "q": "Quel centurion de la cohorte Auguste conduisit Paul vers Rome ?",
+   "options": [
+    "Jules",
+    "Corneille",
+    "Claude Lysias",
+    "Publius"
+   ],
+   "explain": "On remit Paul à Jules, centurion de la cohorte Auguste. (Actes 27:1)"
+  },
+  "en": {
+   "q": "Which centurion of the Augustan cohort took Paul toward Rome?",
+   "options": [
+    "Julius",
+    "Cornelius",
+    "Claudius Lysias",
+    "Publius"
+   ],
+   "explain": "Paul was handed over to Julius, a centurion of the Augustan cohort. (Acts 27:1)"
+  }
+ },
+ {
+  "id": "people-hard-098",
+  "ref": {
+   "fr": "Romains 16:22",
+   "en": "Romans 16:22"
+  },
+  "fr": {
+   "q": "Quel homme écrivit l'épître aux Romains sous la dictée de Paul ?",
+   "options": [
+    "Tertius",
+    "Éraste",
+    "Quartus",
+    "Gaïus"
+   ],
+   "explain": "« Moi, Tertius, qui ai écrit cette lettre, je vous salue. » (Romains 16:22)"
+  },
+  "en": {
+   "q": "Which man wrote the letter to the Romans at Paul's dictation?",
+   "options": [
+    "Tertius",
+    "Erastus",
+    "Quartus",
+    "Gaius"
+   ],
+   "explain": "“I, Tertius, who wrote this letter, greet you.” (Romans 16:22)"
+  }
+ },
+ {
+  "id": "people-hard-099",
+  "ref": {
+   "fr": "3 Jean 9",
+   "en": "3 John 9"
+  },
+  "fr": {
+   "q": "Quel homme aimait être le premier et rejetait l'apôtre Jean ?",
+   "options": [
+    "Diotrèphe",
+    "Démas",
+    "Alexandre",
+    "Hyménée"
+   ],
+   "explain": "Diotrèphe, qui aime être le premier, ne nous reçoit point. (3 Jean 9)"
+  },
+  "en": {
+   "q": "Which man loved to be first and rejected the apostle John?",
+   "options": [
+    "Diotrephes",
+    "Demas",
+    "Alexander",
+    "Hymenaeus"
+   ],
+   "explain": "Diotrephes, who loves to be first, does not receive us. (3 John 9)"
+  }
+ },
+ {
+  "id": "people-hard-100",
+  "ref": {
+   "fr": "2 Timothée 3:8",
+   "en": "2 Timothy 3:8"
+  },
+  "fr": {
+   "q": "Quels hommes, selon Paul, s'opposèrent jadis à Moïse ?",
+   "options": [
+    "Jannès et Jambrès",
+    "Nadab et Abihu",
+    "Gog et Magog",
+    "Hyménée et Philète"
+   ],
+   "explain": "Comme Jannès et Jambrès s'opposèrent à Moïse. (2 Timothée 3:8)"
+  },
+  "en": {
+   "q": "Which men, according to Paul, once opposed Moses?",
+   "options": [
+    "Jannes and Jambres",
+    "Nadab and Abihu",
+    "Gog and Magog",
+    "Hymenaeus and Philetus"
+   ],
+   "explain": "As Jannes and Jambres opposed Moses. (2 Timothy 3:8)"
+  }
+ }
+]
