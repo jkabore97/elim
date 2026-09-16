@@ -16,7 +16,7 @@ import {
   sendEmailVerification, sendPasswordResetEmail,
   EmailAuthProvider, linkWithCredential
 } from 'firebase/auth'
-import { ref, uploadBytes, uploadBytesResumable, getDownloadURL } from 'firebase/storage'
+import { ref, uploadBytes, uploadBytesResumable, getDownloadURL, deleteObject } from 'firebase/storage'
 import { httpsCallable } from 'firebase/functions'
 import { Capacitor, SystemBars, SystemBarsStyle } from '@capacitor/core'
 import { Share } from '@capacitor/share'
@@ -1257,13 +1257,14 @@ function AppInner() {
     return unsub
   }, [user?.uid])
 
-  // App-update prompt (native only). A single config doc, config/app, holds
-  // the latest published build. Staff installs act as the source of truth:
-  // when an admin/pastor opens a build newer than what's recorded, we bump the
-  // doc, so every member still on an older build then sees an Update button.
+  // App-update prompt (native only). A single config doc, config/app, holds the
+  // latest PUBLISHED build, set explicitly by an admin (Admin -> the "Published
+  // version" control) when they release to the store. We no longer bump it
+  // automatically from whichever staff device opens a newer build: a staffer
+  // side-loading an internal-testing APK would otherwise nag the whole
+  // congregation to "update" to a build the store doesn't yet offer.
   useEffect(() => {
     if (!user || !Capacitor.isNativePlatform()) return
-    const staff = user.role === 'admin' || user.role === 'pastor'
     let cancelled = false
     let myBuild = 0
     const PLAY_URL = 'https://play.google.com/store/apps/details?id=com.elim.app'
@@ -1280,12 +1281,6 @@ function AppInner() {
       const url = (data?.updateUrl && String(data.updateUrl)) || PLAY_URL
       // Older than what's published -> offer the update.
       setUpdateUrl(myBuild > 0 && latest > myBuild ? url : null)
-      // Staff on a newer build than recorded -> publish this build as latest.
-      if (staff && myBuild > latest) {
-        setDoc(doc(db, 'config', 'app'),
-          { latestBuild: myBuild, updateUrl: PLAY_URL, updatedAt: serverTimestamp() },
-          { merge: true }).catch(() => {})
-      }
     }, () => {})
     return () => { cancelled = true; unsub() }
   }, [user?.uid, user?.role])
@@ -1358,9 +1353,9 @@ function AppInner() {
     const q = query(collection(db, 'likes'), where('userId', '==', user.uid))
     const unsub = onSnapshot(q, (snap) => {
       setLikedPostIds(new Set(snap.docs.map(d => d.data().postId as string)))
-    })
+    }, () => { /* offline/rules: keep whatever we have rather than crash */ })
     return unsub
-  }, [user])
+  }, [user?.uid, user?.role])
 
   // The current user's comment likes — same one-doc-per-user pattern as post
   // likes, so we can show which comments this person has already liked.
@@ -1369,9 +1364,9 @@ function AppInner() {
     const q = query(collection(db, 'commentLikes'), where('userId', '==', user.uid))
     const unsub = onSnapshot(q, (snap) => {
       setLikedCommentIds(new Set(snap.docs.map(d => d.data().commentId as string)))
-    })
+    }, () => { /* offline/rules: keep current state */ })
     return unsub
-  }, [user])
+  }, [user?.uid, user?.role])
 
   // Bell notifications addressed to this user (likes/comments/replies on their
   // own posts and comments). Newest first, capped so the list stays bounded.
@@ -1387,7 +1382,7 @@ function AppInner() {
       setNotifications(snap.docs.map(d => ({ id: d.id, ...d.data() } as AppNotification)))
     }, () => { /* index still building or offline - the bell just stays empty */ })
     return unsub
-  }, [user])
+  }, [user?.uid, user?.role])
 
   // Donation details (mobile-money numbers), maintained by an admin.
   useEffect(() => {
@@ -1396,17 +1391,20 @@ function AppInner() {
       setDonation(snap.exists() ? (snap.data() as DonationConfig) : { providers: [] })
     }, () => setDonation({ providers: [] }))
     return unsub
-  }, [user])
+  }, [user?.uid, user?.role])
 
-  // Comments
+  // Comments — only for the post whose sheet is open, not the whole app. The
+  // old global listener streamed and held every comment on every post in memory
+  // (unbounded). Sorted client-side to avoid needing a composite index.
   useEffect(() => {
-    if (!user || user.role === 'pending_church') return
-    const q = query(collection(db, 'comments'), orderBy('createdAt', 'asc'))
-    const unsub = onSnapshot(q, (snap) => {
-      setComments(snap.docs.map(d => ({ id: d.id, ...d.data() } as Comment)))
-    })
-    return unsub
-  }, [user])
+    if (!user || user.role === 'pending_church' || !activeCommentsPost) { setComments([]); return }
+    const q = query(collection(db, 'comments'), where('postId', '==', activeCommentsPost))
+    return onSnapshot(q, (snap) => {
+      const rows = snap.docs.map(d => ({ id: d.id, ...d.data() } as Comment))
+      rows.sort((a, b) => toMs(a.createdAt) - toMs(b.createdAt))
+      setComments(rows)
+    }, () => setComments([]))
+  }, [user?.uid, user?.role, activeCommentsPost])
 
   // Pending church signups (admin only)
   useEffect(() => {
@@ -1414,9 +1412,9 @@ function AppInner() {
     const q = query(collection(db, 'users'), where('role', '==', 'pending_church'))
     const unsub = onSnapshot(q, (snap) => {
       setPendingChurches(snap.docs.map(d => ({ ...d.data() } as AppUser)))
-    })
+    }, () => { /* offline/rules: leave the last known list rather than silently emptying */ })
     return unsub
-  }, [user])
+  }, [user?.uid, user?.role])
 
   // Capabilities mirror the server's database-level enforcement exactly, so a
   // button never disagrees with what the rules will allow:
@@ -1457,6 +1455,14 @@ function AppInner() {
     await deleteDoc(doc(db, 'posts', id))
     // Reclaim any offline copy of this post's audio (best-effort).
     removeOffline(id).catch(() => {})
+    // Remove the uploaded media so a deleted image/audio/video/PDF doesn't
+    // linger in Storage forever (up to 200 MB for video). Best-effort: a
+    // missing object or an external (YouTube/Facebook) link is simply skipped.
+    for (const u of [post?.mediaUrl, post?.coverUrl]) {
+      if (u && u.includes('firebasestorage')) {
+        deleteObject(ref(storage, u)).catch(() => {})
+      }
+    }
     logActivity(user, 'post_deleted', post?.content?.slice(0, 80))
   }
 
@@ -2081,6 +2087,7 @@ function AppInner() {
                 {adminSection === 'reports' && isStaffUser && <ReportsPanel user={user} />}
                 {adminSection === 'dons' && isStaffUser && <DonationsPanel user={user} />}
                 {adminSection === 'logs' && isStaffUser && <LogsPanel />}
+                {adminSection === 'data' && isStaffUser && <AppVersionPanel />}
                 {adminSection === 'data' && <DataManagementTab user={user} />}
               </div>
             )}
@@ -2637,6 +2644,54 @@ function ProfileTab({ user, onProfileUpdated, onLogout }: {
             {t('footer.childSafety')}
           </a>
         </div>
+      </div>
+    </div>
+  )
+}
+
+// Admin control for the in-app "update available" banner: the admin sets the
+// build number that is now live on the store, and every member on an older
+// build then sees the Update button. Nothing auto-bumps this, so a staff test
+// install can't nag the congregation.
+function AppVersionPanel() {
+  const { t } = useLanguage()
+  const PLAY_URL = 'https://play.google.com/store/apps/details?id=com.elim.app'
+  const [current, setCurrent] = useState<number | null>(null)
+  const [value, setValue] = useState('')
+  const [saving, setSaving] = useState(false)
+  const [saved, setSaved] = useState(false)
+
+  useEffect(() => {
+    getDoc(doc(db, 'config', 'app')).then(s => {
+      const n = Number((s.data() as any)?.latestBuild || 0)
+      setCurrent(n); setValue(n ? String(n) : '')
+    }).catch(() => setCurrent(0))
+  }, [])
+
+  const save = async () => {
+    const n = parseInt(value, 10)
+    if (!Number.isFinite(n) || n <= 0 || saving) return
+    setSaving(true)
+    try {
+      await setDoc(doc(db, 'config', 'app'),
+        { latestBuild: n, updateUrl: PLAY_URL, updatedAt: serverTimestamp() }, { merge: true })
+      setCurrent(n); setSaved(true); setTimeout(() => setSaved(false), 2000)
+    } catch { /* rules/offline */ } finally { setSaving(false) }
+  }
+
+  return (
+    <div className="glass-soft rounded-2xl p-4 mb-4">
+      <h3 className="font-bold text-slate-800 mb-1">{t('appVersion.title')}</h3>
+      <p className="text-xs text-slate-500 mb-3">{t('appVersion.hint')}</p>
+      <p className="text-xs text-slate-500 mb-2">{t('appVersion.current')}: <strong>{current === null ? '…' : (current || '—')}</strong></p>
+      <div className="flex gap-2">
+        <input value={value} onChange={e => setValue(e.target.value.replace(/[^0-9]/g, ''))}
+          inputMode="numeric" placeholder={t('appVersion.placeholder')}
+          className="flex-1 px-4 py-2.5 rounded-xl border border-slate-200 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-affirm-400" />
+        <button onClick={save} disabled={!value || saving}
+          className="shrink-0 px-4 py-2.5 rounded-xl bg-affirm-600 text-white font-semibold text-sm disabled:opacity-50">
+          {saved ? t('appVersion.saved') : t('appVersion.save')}
+        </button>
       </div>
     </div>
   )
