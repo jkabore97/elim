@@ -54,6 +54,10 @@ export interface ChurchProfile {
 export interface GroupLead {
   name: string;      // denormalized display name, so the admin list needs no user lookup
   featured?: boolean; // true => this lead's name is shown big on their group posts
+  // Optional capacity shown before the author's name on this group's posts,
+  // e.g. "Docteur" in a Doctors group or "Pasteur" in a Pastors group - so the
+  // same person can publish as a doctor in one group and a pastor in another.
+  title?: string;
 }
 // Capabilities a group grants to its leads. A lead's effective rights are the
 // union across every group they lead; admins/pastors always have all of them.
@@ -100,6 +104,9 @@ export interface Post {
   groupName?: string;
   groupAvatar?: string;
   featured?: boolean;
+  // The author's title within the group at publish time (e.g. "Docteur",
+  // "Pasteur"), shown before their name on the post.
+  authorTitle?: string;
   type: "text-image" | "audio" | "video" | "youtube" | "facebook" | "document";
   content: string;
   mediaUrl?: string;

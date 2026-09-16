@@ -3,14 +3,14 @@
 // own name shows big on their group's posts, e.g. the pastor), and back-fill a
 // group onto every existing post by a given author.
 import { useEffect, useMemo, useState } from 'react'
-import { Plus, Trash2, X, Check, Star, Users, Loader2, Search } from 'lucide-react'
+import { Plus, Trash2, X, Check, Star, Users, Loader2, Search, DownloadCloud } from 'lucide-react'
 import { collection, getDocs, query, where } from 'firebase/firestore'
 import { db } from './firebase'
 import { useLanguage } from './i18n'
-import type { AppUser, Group } from './types'
+import type { AppUser, Group, GroupLead } from './types'
 import {
   createGroup, updateGroup, deleteGroup, setLead, removeLead, bulkAssignAuthorToGroup,
-  setGroupPerm,
+  setGroupPerm, importChurchesAsGroups,
 } from './groups'
 
 const PERM_KEYS = ['post', 'sante', 'books', 'transcribe'] as const
@@ -44,6 +44,16 @@ export function GroupsPanel({ groups }: { user: AppUser; groups: Group[] }) {
     finally { setBusy(false) }
   }
 
+  const handleImport = async () => {
+    if (busy) return
+    setBusy(true); setErr('')
+    try {
+      const n = await importChurchesAsGroups(groups)
+      setErr(n > 0 ? t('groups.importDone').replace('{n}', String(n)) : t('groups.importNone'))
+    } catch (e: any) { setErr(e?.message || 'Error') }
+    finally { setBusy(false) }
+  }
+
   return (
     <div className="space-y-5">
       {/* Create a group */}
@@ -60,7 +70,11 @@ export function GroupsPanel({ groups }: { user: AppUser; groups: Group[] }) {
             {busy ? <Loader2 size={16} className="animate-spin" /> : <Plus size={16} />} {t('groups.create')}
           </button>
         </div>
-        {err && <p className="text-xs text-red-500 mt-2">{err}</p>}
+        <button onClick={handleImport} disabled={busy}
+          className="mt-2 text-xs font-semibold text-affirm-600 flex items-center gap-1.5 disabled:opacity-50">
+          <DownloadCloud size={14} /> {t('groups.importChurches')}
+        </button>
+        {err && <p className="text-xs text-slate-500 mt-2">{err}</p>}
       </div>
 
       {groups.length === 0 ? (
@@ -70,6 +84,35 @@ export function GroupsPanel({ groups }: { user: AppUser; groups: Group[] }) {
       )}
 
       <BulkAssign groups={groups} users={users} />
+    </div>
+  )
+}
+
+// One lead of a group: name, an optional title (capacity like "Docteur" /
+// "Pasteur" shown before their name on this group's posts), the featured toggle,
+// and remove.
+function LeadRow({ groupId, uid, lead }: { groupId: string; uid: string; lead: GroupLead }) {
+  const { t } = useLanguage()
+  const [title, setTitle] = useState(lead.title || '')
+  useEffect(() => { setTitle(lead.title || '') }, [lead.title])
+  const saveTitle = () => {
+    if ((title.trim() || '') !== (lead.title || '')) setLead(groupId, uid, lead.name, !!lead.featured, title.trim())
+  }
+  return (
+    <div className="bg-white/70 rounded-xl px-3 py-2 space-y-2">
+      <div className="flex items-center gap-2">
+        <span className="flex-1 min-w-0 truncate text-sm text-slate-700">{lead.name}</span>
+        <button onClick={() => setLead(groupId, uid, lead.name, !lead.featured, lead.title)}
+          className={`shrink-0 text-[11px] font-semibold px-2.5 py-1 rounded-full flex items-center gap-1 ${lead.featured ? 'bg-amber-100 text-amber-700' : 'bg-slate-100 text-slate-500'}`}>
+          <Star size={12} className={lead.featured ? 'fill-amber-500 text-amber-500' : ''} /> {t('groups.featured')}
+        </button>
+        <button onClick={() => removeLead(groupId, uid)} aria-label={t('groups.removeLead')}
+          className="shrink-0 w-7 h-7 rounded-lg text-slate-400 hover:bg-slate-100 flex items-center justify-center"><X size={15} /></button>
+      </div>
+      <input value={title} onChange={e => setTitle(e.target.value)} onBlur={saveTitle}
+        onKeyDown={e => { if (e.key === 'Enter') (e.target as HTMLInputElement).blur() }}
+        placeholder={t('groups.titlePlaceholder')} maxLength={30}
+        className="w-full px-3 py-1.5 rounded-lg border border-slate-200 text-xs bg-white focus:outline-none focus:ring-2 focus:ring-affirm-400" />
     </div>
   )
 }
@@ -136,15 +179,7 @@ function GroupCard({ group, users }: { group: Group; users: DirUser[] }) {
         {leadEntries.length === 0 && <p className="text-xs text-slate-400 mb-2">{t('groups.noLeads')}</p>}
         <div className="space-y-1.5">
           {leadEntries.map(([uid, lead]) => (
-            <div key={uid} className="flex items-center gap-2 bg-white/70 rounded-xl px-3 py-2">
-              <span className="flex-1 min-w-0 truncate text-sm text-slate-700">{lead.name}</span>
-              <button onClick={() => setLead(group.id, uid, lead.name, !lead.featured)}
-                className={`shrink-0 text-[11px] font-semibold px-2.5 py-1 rounded-full flex items-center gap-1 ${lead.featured ? 'bg-amber-100 text-amber-700' : 'bg-slate-100 text-slate-500'}`}>
-                <Star size={12} className={lead.featured ? 'fill-amber-500 text-amber-500' : ''} /> {t('groups.featured')}
-              </button>
-              <button onClick={() => removeLead(group.id, uid)} aria-label={t('groups.removeLead')}
-                className="shrink-0 w-7 h-7 rounded-lg text-slate-400 hover:bg-slate-100 flex items-center justify-center"><X size={15} /></button>
-            </div>
+            <LeadRow key={uid} groupId={group.id} uid={uid} lead={lead} />
           ))}
         </div>
         {pickerOpen ? (
