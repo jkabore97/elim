@@ -71,7 +71,11 @@ export async function commitAdultGame(
   learningTotal: number,
 ): Promise<void> {
   const batch = writeBatch(db)
-  batch.set(doc(db, PROFILES, next.uid), clean({ ...next, updatedAt: serverTimestamp() }), { merge: true })
+  // weeksWon is owned by the weekly-champion Cloud Function (FieldValue.increment).
+  // Never write it from the client: a queued offline commit carrying a stale
+  // value would overwrite the server's crown increment. Strip it from the write.
+  const { weeksWon: _weeksWon, ...profileWrite } = next
+  batch.set(doc(db, PROFILES, next.uid), clean({ ...profileWrite, updatedAt: serverTimestamp() }), { merge: true })
 
   if (learningTotal > 0) {
     const wk = weekKey()

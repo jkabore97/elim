@@ -708,6 +708,7 @@ const fr = {
   "quiz.kidNamePrompt": 'Comment tu t\'appelles ?',
   "quiz.kidNamePlaceholder": 'Ton nom',
   "quiz.kidNameHint": 'Ton nom apparaît dans le classement des enfants.',
+  "quiz.loadFailed": 'Impossible de charger les questions. Vérifie ta connexion et réessaie.',
   "quiz.kidStart": 'On joue',
   "quiz.kidFriend": 'Ami',
   "quiz.kidWhoPlaying": 'Qui joue aujourd\'hui ?',

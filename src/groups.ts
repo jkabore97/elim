@@ -153,8 +153,9 @@ export async function bulkAssignAuthorToGroup(authorId: string, group: Group | n
         groupName: group.name,
         groupAvatar: group.avatar || null,
         featured: !!group.leads[authorId]?.featured,
+        authorTitle: group.leads[authorId]?.title || deleteField(),
       }
-    : { groupId: deleteField(), groupName: deleteField(), groupAvatar: deleteField(), featured: deleteField() }
+    : { groupId: deleteField(), groupName: deleteField(), groupAvatar: deleteField(), featured: deleteField(), authorTitle: deleteField() }
 
   const all = [...ids]
   // Firestore caps a batch at 500 writes; chunk to stay well under it.

@@ -1077,6 +1077,8 @@ function AppInner() {
   const [activeTab, setActiveTab] = useState('feed')
   const [posts, setPosts] = useState<Post[]>([])
   const [groups, setGroups] = useState<Group[]>([])
+  // undefined = loading, null = not managed (grandfathered), object = enforced caps
+  const [myGroupCaps, setMyGroupCaps] = useState<Partial<Record<'post' | 'sante' | 'books' | 'transcribe', boolean>> | null | undefined>(undefined)
   const [comments, setComments] = useState<Comment[]>([])
   const [showCreate, setShowCreate] = useState(false)
   const [editingPost, setEditingPost] = useState<Post | null>(null)
@@ -1319,16 +1321,32 @@ function AppInner() {
     const unsub = onSnapshot(q, (snap) => {
       setPosts(snap.docs.map(d => ({ id: d.id, ...d.data() } as Post)))
       setLoading(false)
+    }, () => {
+      // A listener error (rules/index/offline) must still clear the spinner,
+      // otherwise the feed hangs on "Loading…" forever with no way out.
+      setLoading(false)
     })
     return unsub
-  }, [user])
+  }, [user?.uid, user?.role])
 
   // Publishing groups (ministries/departments). Small collection, world-
   // readable; needed by the composer (a lead's "my groups") and the admin panel.
   useEffect(() => {
     if (!user || user.role === 'pending_church') return
     return subscribeGroups(setGroups, () => setGroups([]))
-  }, [user])
+  }, [user?.uid, user?.role])
+
+  // The account's own group capabilities, stamped by the syncGroupCaps function.
+  // Live-subscribed so a permission change reaches the lead quickly. `undefined`
+  // = still loading, `null` = never placed in a group (grandfathered = full
+  // publishing rights, mirroring the server), an object = enforced caps.
+  useEffect(() => {
+    if (!user || user.role === 'pending_church') { setMyGroupCaps(undefined); return }
+    return onSnapshot(doc(db, 'users', user.uid), snap => {
+      const d = snap.exists() ? (snap.data() as any) : null
+      setMyGroupCaps(d && 'groupCaps' in d ? (d.groupCaps || {}) : null)
+    }, () => setMyGroupCaps(null))
+  }, [user?.uid, user?.role])
 
   // The current user's likes — kept as its own collection (one doc per
   // postId+userId) rather than a field on the post itself, since a post
@@ -1400,25 +1418,21 @@ function AppInner() {
     return unsub
   }, [user])
 
-  // Capabilities are granted per GROUP now: a lead gets the union of the perms
-  // of every group they lead. Admins/pastors always have everything. A plain
-  // 'church' account with no group therefore has no publishing rights until an
-  // admin assigns it to a group with the matching permission.
+  // Capabilities mirror the server's database-level enforcement exactly, so a
+  // button never disagrees with what the rules will allow:
+  //  - admins/pastors always have everything;
+  //  - an account never placed in a group (myGroupCaps null/undefined) is
+  //    grandfathered with full publishing rights (matches managedByGroups());
+  //  - a managed account uses its stamped groupCaps (post/sante/books/transcribe).
   const caps = useMemo(() => {
     const staff = user?.role === 'admin' || user?.role === 'pastor'
-    const c = { post: !!staff, sante: !!staff, books: !!staff, transcribe: !!staff }
-    if (!staff && user) {
-      for (const g of groups) {
-        if (!g.leads[user.uid]) continue
-        const p = g.perms || {}
-        c.post = c.post || !!p.post
-        c.sante = c.sante || !!p.sante
-        c.books = c.books || !!p.books
-        c.transcribe = c.transcribe || !!p.transcribe
-      }
+    if (staff) return { post: true, sante: true, books: true, transcribe: true }
+    if (myGroupCaps == null) return { post: true, sante: true, books: true, transcribe: true }
+    return {
+      post: !!myGroupCaps.post, sante: !!myGroupCaps.sante,
+      books: !!myGroupCaps.books, transcribe: !!myGroupCaps.transcribe,
     }
-    return c
-  }, [groups, user])
+  }, [user?.role, myGroupCaps])
   const canPost = caps.post
   // Groups this account may publish under: its own lead groups, plus every
   // group for staff (admins/pastors can post as any group). Drives the

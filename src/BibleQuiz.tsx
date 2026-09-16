@@ -11,7 +11,7 @@ import { storageGet, storageSet } from './safeStorage'
 import type { AppUser } from './types'
 import {
   QUIZ_DIFFICULTIES, ADULT_CATEGORIES, CATEGORY_META, BADGE_IDS, BADGE_EMOJI,
-  QUESTIONS_PER_GAME, DAILY_BONUS,
+  QUESTIONS_PER_GAME,
   bankAvailable, buildGame, buildDaily, buildRandom, pointsFor, starsFor, levelProgress,
   applyResult, emptyProfile, todayKey,
   type QuizCategory, type QuizDifficulty, type QuizLang, type PlayQuestion,
@@ -106,43 +106,38 @@ export default function BibleQuiz({ user, onClose }: { user: AppUser; onClose: (
     setScreen('home'); setGame(null); setPickedCat(null); setLastResult(null); setKidResult(null)
   }
 
-  async function startGame(cat: QuizCategory, diff: QuizDifficulty) {
+  // Load questions and start playing. try/finally guarantees the spinner clears
+  // even if a bank chunk fails to load; an empty result shows a gentle notice
+  // instead of silently doing nothing.
+  async function launch(
+    build: () => Promise<PlayQuestion[]>,
+    make: (questions: PlayQuestion[]) => Game,
+  ) {
     setLoading(true)
-    const questions = await buildGame(cat, diff, lang)
-    setLoading(false)
-    if (!questions.length) return
-    setGame({ questions, category: cat, difficulty: diff, mode: 'adult' })
+    let questions: PlayQuestion[] = []
+    try { questions = await build() } catch { questions = [] } finally { setLoading(false) }
+    if (!questions.length) { alert(t('quiz.loadFailed')); return }
+    setGame(make(questions))
     setScreen('playing')
   }
 
-  async function startDaily() {
-    setLoading(true)
-    const questions = await buildDaily(lang)
-    setLoading(false)
-    if (!questions.length) return
-    setGame({ questions, category: 'daily', difficulty: 'medium', mode: 'adult' })
-    setScreen('playing')
+  function startGame(cat: QuizCategory, diff: QuizDifficulty) {
+    return launch(() => buildGame(cat, diff, lang), q => ({ questions: q, category: cat, difficulty: diff, mode: 'adult' }))
+  }
+
+  function startDaily() {
+    return launch(() => buildDaily(lang), q => ({ questions: q, category: 'daily', difficulty: 'medium', mode: 'adult' }))
   }
 
   // Quick game from the home level card: random questions across everything.
-  async function startRandom() {
-    setLoading(true)
-    const questions = await buildRandom(lang)
-    setLoading(false)
-    if (!questions.length) return
-    setGame({ questions, category: 'random', difficulty: 'easy', mode: 'adult' })
-    setScreen('playing')
+  function startRandom() {
+    return launch(() => buildRandom(lang), q => ({ questions: q, category: 'random', difficulty: 'easy', mode: 'adult' }))
   }
 
-  async function startKids(childName: string) {
+  function startKids(childName: string) {
     rememberKidName(childName)
-    setLoading(true)
     const diff: QuizDifficulty = bankAvailable('kids', 'easy') ? 'easy' : bankAvailable('kids', 'medium') ? 'medium' : 'hard'
-    const questions = await buildGame('kids', diff, lang)
-    setLoading(false)
-    if (!questions.length) return
-    setGame({ questions, category: 'kids', difficulty: diff, mode: 'kids', childName })
-    setScreen('playing')
+    return launch(() => buildGame('kids', diff, lang), q => ({ questions: q, category: 'kids', difficulty: diff, mode: 'kids', childName }))
   }
 
   async function finishGame(correctQuestions: PlayQuestion[]) {
@@ -172,7 +167,6 @@ export default function BibleQuiz({ user, onClose }: { user: AppUser; onClose: (
       newIds: newQs.map(q => q.id),
     }
     const { profile: next, unlocked } = applyResult(profile, result)
-    if (game.category === 'daily') next.points += DAILY_BONUS
     setProfile(next)
     setLastResult({ result, unlocked })
     setScreen('results')

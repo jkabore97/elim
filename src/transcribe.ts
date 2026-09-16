@@ -37,17 +37,18 @@ export function uploadForTranscription(
   })
 }
 
-// Create the job doc the UI subscribes to, then kick off transcription.
-export async function startUploadTranscription(uid: string, path: string): Promise<string> {
+// Create the job doc the UI subscribes to, then kick off transcription. Returns
+// the jobId and a `done` promise that REJECTS if the callable fails (including
+// an auth/permission error thrown before the function writes a status, or a
+// timeout) - the UI awaits it so the spinner can't run forever.
+export async function startUploadTranscription(
+  uid: string, path: string,
+): Promise<{ jobId: string; done: Promise<void> }> {
   const jobRef = await addDoc(collection(db, 'transcribeJobs'), {
     ownerUid: uid, status: 'processing', createdAt: serverTimestamp(),
   })
-  requestUploadTranscript(jobRef.id, path)
-  return jobRef.id
-}
-
-async function requestUploadTranscript(jobId: string, path: string): Promise<void> {
-  try { await callTranscribeUpload({ jobId, path }) } catch { /* subscription delivers it */ }
+  const done = callTranscribeUpload({ jobId: jobRef.id, path }).then(() => undefined)
+  return { jobId: jobRef.id, done }
 }
 
 // Clean up a finished job doc (the media is already deleted server-side). If the
