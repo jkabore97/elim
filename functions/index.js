@@ -1012,7 +1012,7 @@ exports.dailyTopScore = onSchedule(
     const name = (top.displayName || 'Un membre').toString().slice(0, 40);
     await broadcastPush(db, {
       title: '📖 On apprend la Bible ensemble',
-      body: `Aujourd'hui, ${name} a pris le temps d'étudier la Parole. Et toi, quel verset vas-tu découvrir ce soir ? 📖🙏`,
+      body: `Aujourd'hui, ${name} a pris le temps d'étudier la Parole avec E.L.I.M Quiz Biblique. Et toi, quel verset vas-tu découvrir ce soir ? 📖🙏`,
       data: { kind: 'quiz' },
     });
   }
