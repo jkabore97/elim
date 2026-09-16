@@ -12,6 +12,7 @@ import {
 import { db, storage } from './firebase'
 import { useLanguage } from './i18n'
 import { logActivity } from './activityLog'
+import { TranscribeTool } from './Transcribe'
 import type { AppUser, Book } from './types'
 
 import 'react-pdf/dist/Page/AnnotationLayer.css'
@@ -348,6 +349,7 @@ export function LibraryTab({ user, canUpload }: { user: AppUser; canUpload: bool
 
   return (
     <div className="space-y-4">
+      {canUpload && <TranscribeTool user={user} />}
       <div className="flex gap-2">
         <div className="relative flex-1">
           <Search size={17} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 pointer-events-none" />

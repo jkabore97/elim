@@ -231,6 +231,29 @@ service cloud.firestore {
       allow write: if isAdmin();
     }
 
+    // ---- Transcripts (audio/video -> text) ----
+    // Cached transcripts of audio/video POSTS, written ONLY by the
+    // transcribePost Cloud Function (Admin SDK bypasses these rules). Readable
+    // by leads/staff only - transcripts are a lead tool, not shown to members.
+    match /transcripts/{postId} {
+      allow read: if canPublish();
+      allow write: if false;
+    }
+
+    // ---- Transcription jobs (Read-tab upload tool) ----
+    // A lead creates a job doc (status 'processing') for a file they just
+    // uploaded, then subscribes to it; the transcribeUpload Cloud Function
+    // fills in the text (Admin SDK). The lead may read and delete their own
+    // job, but never edit it - the result must come from the function.
+    match /transcribeJobs/{jobId} {
+      allow read: if isSignedIn() && resource.data.ownerUid == request.auth.uid;
+      allow create: if canPublish()
+                    && request.resource.data.ownerUid == request.auth.uid
+                    && request.resource.data.status == 'processing';
+      allow update: if false;
+      allow delete: if isSignedIn() && resource.data.ownerUid == request.auth.uid;
+    }
+
     // ---- Posts ----
     match /posts/{postId} {
       allow read: if isSignedIn();

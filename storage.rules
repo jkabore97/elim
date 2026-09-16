@@ -59,6 +59,18 @@ service firebase.storage {
                    && request.resource.size < 100 * 1024 * 1024;
     }
 
+    // Scratch uploads for the transcription tool. A lead uploads an audio/video
+    // file here, a Cloud Function transcribes it and then DELETES it, so these
+    // objects are short-lived. Owner-scoped writes; reads require sign-in (the
+    // function reads via the Admin SDK, which bypasses these rules anyway).
+    match /transcribe-uploads/{uid}/{fileName} {
+      allow read: if isSignedIn();
+      allow write: if isOwner(uid) && (
+        (request.resource.contentType.matches('audio/.*') && request.resource.size < 200 * 1024 * 1024) ||
+        (request.resource.contentType.matches('video/.*') && request.resource.size < 500 * 1024 * 1024)
+      );
+    }
+
     // Deny everything else by default.
     match /{allPaths=**} {
       allow read, write: if false;

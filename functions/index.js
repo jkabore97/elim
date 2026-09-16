@@ -5,10 +5,23 @@ const { defineSecret } = require('firebase-functions/params');
 const { initializeApp } = require('firebase-admin/app');
 const { getFirestore, FieldValue } = require('firebase-admin/firestore');
 const { getMessaging } = require('firebase-admin/messaging');
+const { getStorage } = require('firebase-admin/storage');
 const { Translate } = require('@google-cloud/translate').v2;
+const speech = require('@google-cloud/speech');
+const ffmpegPath = require('ffmpeg-static');
+const ffmpeg = require('fluent-ffmpeg');
 const crypto = require('crypto');
+const os = require('os');
+const path = require('path');
+const fs = require('fs');
 
 initializeApp();
+
+ffmpeg.setFfmpegPath(ffmpegPath);
+// One Speech-to-Text client, reused across warm invocations. Authenticates
+// with the function's own service account (ADC) - no API key stored anywhere;
+// the Cloud Speech-to-Text API just needs to be enabled on the project.
+const speechClient = new speech.SpeechClient();
 
 // Square credentials, stored in Secret Manager (never in the repo). Set with:
 //   gcloud secrets create SQUARE_ACCESS_TOKEN --data-file=- ...
@@ -455,6 +468,161 @@ const TRANSLATION_FREE_BUDGET = 450000; // chars/month, safe margin under 500k
 // demand from the "Translate" button. Callable (not an HTTP endpoint) so the
 // Firebase Auth token rides along automatically - only signed-in members can
 // use it, which keeps it from being an open, abusable translation proxy.
+// ==================== AUDIO/VIDEO TRANSCRIPTION ====================
+//
+// On-demand speech-to-text for church leads. Any audio/video is normalised to
+// mono 16 kHz FLAC with ffmpeg (so any input format, including a video's audio
+// track, works), staged in Cloud Storage, and transcribed with Google Cloud
+// Speech-to-Text (long-running, so full sermons are fine). French is the
+// primary language with English auto-detected as a fallback.
+//
+// Two entry points share one pipeline:
+//  - transcribePost: transcribes an existing audio/video post; the result is
+//    cached in transcripts/{postId} (lead-readable) so it is produced once.
+//  - transcribeUpload: transcribes a file a lead just uploaded via the Read-tab
+//    tool, then DELETES that upload from Storage - it is a scratch transcription.
+
+// /tmp is memory-backed on gen2, so the downloaded media + FLAC both count
+// against RAM; 4 GiB leaves headroom for a long sermon or a large video.
+const TRANSCRIBE_OPTS = { region: 'us-central1', memory: '4GiB', timeoutSeconds: 3600 };
+
+// True if the caller is a church lead / staff (the only accounts allowed to
+// transcribe). Mirrors canPublish() in firestore.rules.
+async function requireLead(request) {
+  if (!request.auth) throw new HttpsError('unauthenticated', 'Sign in first.');
+  const db = getFirestore();
+  const snap = await db.collection('users').doc(request.auth.uid).get();
+  const role = snap.exists ? snap.data().role : null;
+  if (!['church', 'admin', 'pastor'].includes(role)) {
+    throw new HttpsError('permission-denied', 'Only church leads can transcribe.');
+  }
+  return request.auth.uid;
+}
+
+// Turn a stored media reference into a Storage object path. Handles the Firebase
+// download URL shape (…/o/<url-encoded-path>?…), a gs:// URI, or a plain path.
+function storageObjectPath(mediaUrl) {
+  if (!mediaUrl) return null;
+  if (mediaUrl.startsWith('gs://')) return mediaUrl.replace(/^gs:\/\/[^/]+\//, '');
+  const m = mediaUrl.match(/\/o\/([^?]+)/);
+  if (m) return decodeURIComponent(m[1]);
+  if (!mediaUrl.startsWith('http')) return mediaUrl.replace(/^\/+/, '');
+  return null;
+}
+
+// Download -> ffmpeg to FLAC -> stage in GCS -> long-running recognize ->
+// clean up. Returns the joined transcript text. Throws on failure; callers
+// record the error on the job/transcript doc.
+async function runTranscription(objectPath) {
+  const bucket = getStorage().bucket();
+  const id = crypto.randomUUID();
+  const localIn = path.join(os.tmpdir(), `stt-in-${id}`);
+  const localOut = path.join(os.tmpdir(), `stt-out-${id}.flac`);
+  const stagedPath = `transcribe-temp/${id}.flac`;
+
+  const cleanup = async () => {
+    for (const f of [localIn, localOut]) { try { fs.existsSync(f) && fs.unlinkSync(f); } catch (_e) { /* ignore */ } }
+    try { await bucket.file(stagedPath).delete({ ignoreNotFound: true }); } catch (_e) { /* ignore */ }
+  };
+
+  try {
+    await bucket.file(objectPath).download({ destination: localIn });
+    // -vn drops any video stream; take one 16 kHz mono FLAC audio track.
+    await new Promise((resolve, reject) => {
+      ffmpeg(localIn)
+        .noVideo()
+        .audioChannels(1)
+        .audioFrequency(16000)
+        .audioCodec('flac')
+        .format('flac')
+        .on('end', resolve)
+        .on('error', reject)
+        .save(localOut);
+    });
+    await bucket.upload(localOut, { destination: stagedPath, resumable: false });
+
+    const [operation] = await speechClient.longRunningRecognize({
+      config: {
+        encoding: 'FLAC',
+        sampleRateHertz: 16000,
+        audioChannelCount: 1,
+        languageCode: 'fr-FR',
+        alternativeLanguageCodes: ['en-US'],
+        enableAutomaticPunctuation: true,
+        model: 'latest_long',
+      },
+      audio: { uri: `gs://${bucket.name}/${stagedPath}` },
+    });
+    const [response] = await operation.promise();
+    const text = (response.results || [])
+      .map((r) => (r.alternatives && r.alternatives[0] && r.alternatives[0].transcript) || '')
+      .filter(Boolean)
+      .join(' ')
+      .trim();
+    await cleanup();
+    return text;
+  } catch (err) {
+    await cleanup();
+    throw err;
+  }
+}
+
+// Transcribe an existing audio/video POST. Cached in transcripts/{postId}.
+exports.transcribePost = onCall(TRANSCRIBE_OPTS, async (request) => {
+  const uid = await requireLead(request);
+  const postId = String(request.data?.postId || '').trim();
+  if (!postId) throw new HttpsError('invalid-argument', 'postId is required.');
+
+  const db = getFirestore();
+  const postSnap = await db.collection('posts').doc(postId).get();
+  if (!postSnap.exists) throw new HttpsError('not-found', 'Post not found.');
+  const post = postSnap.data();
+  const objectPath = storageObjectPath(post.mediaUrl);
+  if (!objectPath) throw new HttpsError('failed-precondition', 'This post has no transcribable media.');
+
+  const ref = db.collection('transcripts').doc(postId);
+  // A cached transcript is returned as-is; re-tapping never re-spends.
+  const existing = await ref.get();
+  if (existing.exists && existing.data().status === 'done') return { text: existing.data().text || '' };
+
+  await ref.set({ postId, status: 'processing', byUid: uid, createdAt: FieldValue.serverTimestamp() }, { merge: true });
+  try {
+    const text = await runTranscription(objectPath);
+    await ref.set({ postId, status: 'done', text, byUid: uid, updatedAt: FieldValue.serverTimestamp() }, { merge: true });
+    return { text };
+  } catch (err) {
+    await ref.set({ status: 'error', error: String(err && err.message || err).slice(0, 300) }, { merge: true });
+    throw new HttpsError('internal', 'Transcription failed.');
+  }
+});
+
+// Transcribe a lead's scratch UPLOAD, then delete it from Storage. The result
+// is written to the caller-created transcribeJobs/{jobId} doc they subscribe to.
+exports.transcribeUpload = onCall(TRANSCRIBE_OPTS, async (request) => {
+  const uid = await requireLead(request);
+  const jobId = String(request.data?.jobId || '').trim();
+  const objectPath = String(request.data?.path || '').trim();
+  if (!jobId || !objectPath) throw new HttpsError('invalid-argument', 'jobId and path are required.');
+  // A lead may only transcribe files they uploaded to their own scratch space.
+  if (!objectPath.startsWith(`transcribe-uploads/${uid}/`)) {
+    throw new HttpsError('permission-denied', 'You can only transcribe your own uploads.');
+  }
+
+  const db = getFirestore();
+  const ref = db.collection('transcribeJobs').doc(jobId);
+  try {
+    const text = await runTranscription(objectPath);
+    // The upload was a scratch file only needed for the transcript: remove it.
+    try { await getStorage().bucket().file(objectPath).delete({ ignoreNotFound: true }); } catch (_e) { /* ignore */ }
+    await ref.set({ ownerUid: uid, status: 'done', text, updatedAt: FieldValue.serverTimestamp() }, { merge: true });
+    return { text };
+  } catch (err) {
+    try { await getStorage().bucket().file(objectPath).delete({ ignoreNotFound: true }); } catch (_e) { /* ignore */ }
+    await ref.set({ ownerUid: uid, status: 'error', error: String(err && err.message || err).slice(0, 300), updatedAt: FieldValue.serverTimestamp() }, { merge: true });
+    throw new HttpsError('internal', 'Transcription failed.');
+  }
+});
+
 exports.translateContent = onCall({ region: 'us-central1' }, async (request) => {
   if (!request.auth) {
     throw new HttpsError('unauthenticated', 'Sign in to translate.');
