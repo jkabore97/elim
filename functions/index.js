@@ -850,6 +850,17 @@ async function topOfLeague(db, weekId, league) {
   return { uid: v.uid, name: (v.name || 'Un membre').toString().slice(0, 60), points: v.points };
 }
 
+// The General (Grand) champion is the top of quizProfiles by weekly points,
+// matching the app's General leaderboard (which reads profiles directly).
+async function topProfileOfWeek(db, weekId) {
+  const snap = await db.collection('quizProfiles')
+    .where('weekId', '==', weekId).orderBy('weekPoints', 'desc').limit(1).get();
+  if (snap.empty) return null;
+  const v = snap.docs[0].data();
+  if (!(v.weekPoints > 0)) return null;
+  return { uid: snap.docs[0].id, name: (v.displayName || 'Un membre').toString().slice(0, 60), points: v.weekPoints };
+}
+
 // Monday 08:00 church time: snapshot last week's category + grand champions
 // into the Palmarès, bump the grand champion's crown, and announce it.
 exports.weeklyCategoryChampions = onSchedule(
@@ -861,7 +872,7 @@ exports.weeklyCategoryChampions = onSchedule(
     const champRef = db.collection('quizChampions').doc(weekId);
     if ((await champRef.get()).exists) return; // already recorded
 
-    const grand = await topOfLeague(db, weekId, 'grand');
+    const grand = await topProfileOfWeek(db, weekId);
     if (!grand) return; // nobody played
 
     const categories = {};
