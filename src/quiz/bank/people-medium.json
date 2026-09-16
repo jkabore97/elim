@@ -1,0 +1,2702 @@
+[
+ {
+  "id": "people-medium-001",
+  "ref": {
+   "fr": "Juges 3:9",
+   "en": "Judges 3:9"
+  },
+  "fr": {
+   "q": "Qui fut le premier juge suscité pour délivrer Israël ?",
+   "options": [
+    "Othniel",
+    "Éhud",
+    "Barak",
+    "Gédéon"
+   ],
+   "explain": "Othniel, fils de Kenaz, délivra Israël. (Juges 3:9)"
+  },
+  "en": {
+   "q": "Who was the first judge raised up to deliver Israel?",
+   "options": [
+    "Othniel",
+    "Ehud",
+    "Barak",
+    "Gideon"
+   ],
+   "explain": "Othniel, son of Kenaz, delivered Israel. (Judges 3:9)"
+  }
+ },
+ {
+  "id": "people-medium-002",
+  "ref": {
+   "fr": "Juges 3:21",
+   "en": "Judges 3:21"
+  },
+  "fr": {
+   "q": "Quel juge gaucher tua le roi Églon de Moab ?",
+   "options": [
+    "Éhud",
+    "Othniel",
+    "Schamgar",
+    "Barak"
+   ],
+   "explain": "Éhud enfonça son épée dans le ventre d'Églon. (Juges 3:21)"
+  },
+  "en": {
+   "q": "Which left-handed judge killed King Eglon of Moab?",
+   "options": [
+    "Ehud",
+    "Othniel",
+    "Shamgar",
+    "Barak"
+   ],
+   "explain": "Ehud thrust his sword into Eglon's belly. (Judges 3:21)"
+  }
+ },
+ {
+  "id": "people-medium-003",
+  "ref": {
+   "fr": "Juges 3:31",
+   "en": "Judges 3:31"
+  },
+  "fr": {
+   "q": "Quel juge frappa 600 Philistins avec un aiguillon à bœufs ?",
+   "options": [
+    "Schamgar",
+    "Samson",
+    "Éhud",
+    "Barak"
+   ],
+   "explain": "Schamgar battit 600 Philistins avec un aiguillon. (Juges 3:31)"
+  },
+  "en": {
+   "q": "Which judge struck 600 Philistines with an ox goad?",
+   "options": [
+    "Shamgar",
+    "Samson",
+    "Ehud",
+    "Barak"
+   ],
+   "explain": "Shamgar struck 600 Philistines with an ox goad. (Judges 3:31)"
+  }
+ },
+ {
+  "id": "people-medium-004",
+  "ref": {
+   "fr": "Juges 4:21",
+   "en": "Judges 4:21"
+  },
+  "fr": {
+   "q": "Quelle femme tua le général Sisera avec un pieu de tente ?",
+   "options": [
+    "Jaël",
+    "Débora",
+    "Abigaïl",
+    "Rahab"
+   ],
+   "explain": "Jaël enfonça un pieu dans la tempe de Sisera. (Juges 4:21)"
+  },
+  "en": {
+   "q": "Which woman killed the general Sisera with a tent peg?",
+   "options": [
+    "Jael",
+    "Deborah",
+    "Abigail",
+    "Rahab"
+   ],
+   "explain": "Jael drove a peg into Sisera's temple. (Judges 4:21)"
+  }
+ },
+ {
+  "id": "people-medium-005",
+  "ref": {
+   "fr": "Juges 4:6",
+   "en": "Judges 4:6"
+  },
+  "fr": {
+   "q": "Quel chef Débora appela-t-elle pour combattre Sisera ?",
+   "options": [
+    "Barak",
+    "Gédéon",
+    "Éhud",
+    "Jephthé"
+   ],
+   "explain": "Débora envoya appeler Barak pour marcher au combat. (Juges 4:6)"
+  },
+  "en": {
+   "q": "Which commander did Deborah summon to fight Sisera?",
+   "options": [
+    "Barak",
+    "Gideon",
+    "Ehud",
+    "Jephthah"
+   ],
+   "explain": "Deborah called Barak to go to battle. (Judges 4:6)"
+  }
+ },
+ {
+  "id": "people-medium-006",
+  "ref": {
+   "fr": "Juges 11:30",
+   "en": "Judges 11:30"
+  },
+  "fr": {
+   "q": "Quel juge fit un vœu imprudent avant de combattre les Ammonites ?",
+   "options": [
+    "Jephthé",
+    "Gédéon",
+    "Samson",
+    "Barak"
+   ],
+   "explain": "Jephthé fit un vœu à l'Éternel avant la bataille. (Juges 11:30)"
+  },
+  "en": {
+   "q": "Which judge made a rash vow before fighting the Ammonites?",
+   "options": [
+    "Jephthah",
+    "Gideon",
+    "Samson",
+    "Barak"
+   ],
+   "explain": "Jephthah made a vow to the LORD before battle. (Judges 11:30)"
+  }
+ },
+ {
+  "id": "people-medium-007",
+  "ref": {
+   "fr": "Juges 9:6",
+   "en": "Judges 9:6"
+  },
+  "fr": {
+   "q": "Quel fils de Gédéon se proclama roi à Sichem ?",
+   "options": [
+    "Abimélec",
+    "Jotham",
+    "Jéther",
+    "Thola"
+   ],
+   "explain": "Abimélec régna sur Israël à Sichem. (Juges 9:6)"
+  },
+  "en": {
+   "q": "Which son of Gideon made himself king at Shechem?",
+   "options": [
+    "Abimelech",
+    "Jotham",
+    "Jether",
+    "Tola"
+   ],
+   "explain": "Abimelech reigned over Israel at Shechem. (Judges 9:6)"
+  }
+ },
+ {
+  "id": "people-medium-008",
+  "ref": {
+   "fr": "Juges 13:24",
+   "en": "Judges 13:24"
+  },
+  "fr": {
+   "q": "Comment s'appelait le père de Samson ?",
+   "options": [
+    "Manoach",
+    "Éli",
+    "Jessé",
+    "Kis"
+   ],
+   "explain": "Manoach, de Tsorea, fut le père de Samson. (Juges 13:24)"
+  },
+  "en": {
+   "q": "What was the name of Samson's father?",
+   "options": [
+    "Manoah",
+    "Eli",
+    "Jesse",
+    "Kish"
+   ],
+   "explain": "Manoah, of Zorah, was the father of Samson. (Judges 13:24)"
+  }
+ },
+ {
+  "id": "people-medium-009",
+  "ref": {
+   "fr": "1 Samuel 3:1",
+   "en": "1 Samuel 3:1"
+  },
+  "fr": {
+   "q": "Quel prêtre éleva le jeune Samuel au temple de Silo ?",
+   "options": [
+    "Éli",
+    "Aaron",
+    "Tsadok",
+    "Abiathar"
+   ],
+   "explain": "Le prêtre Éli instruisit Samuel à Silo. (1 Samuel 3:1)"
+  },
+  "en": {
+   "q": "Which priest raised young Samuel at the temple in Shiloh?",
+   "options": [
+    "Eli",
+    "Aaron",
+    "Zadok",
+    "Abiathar"
+   ],
+   "explain": "The priest Eli taught Samuel at Shiloh. (1 Samuel 3:1)"
+  }
+ },
+ {
+  "id": "people-medium-010",
+  "ref": {
+   "fr": "1 Samuel 16:1",
+   "en": "1 Samuel 16:1"
+  },
+  "fr": {
+   "q": "Comment s'appelait le père de David, de Bethléhem ?",
+   "options": [
+    "Jessé",
+    "Obed",
+    "Boaz",
+    "Kis"
+   ],
+   "explain": "Dieu envoya Samuel chez Jessé, à Bethléhem. (1 Samuel 16:1)"
+  },
+  "en": {
+   "q": "What was the name of David's father, from Bethlehem?",
+   "options": [
+    "Jesse",
+    "Obed",
+    "Boaz",
+    "Kish"
+   ],
+   "explain": "God sent Samuel to Jesse in Bethlehem. (1 Samuel 16:1)"
+  }
+ },
+ {
+  "id": "people-medium-011",
+  "ref": {
+   "fr": "1 Samuel 18:27",
+   "en": "1 Samuel 18:27"
+  },
+  "fr": {
+   "q": "Quelle fille de Saül devint la première femme de David ?",
+   "options": [
+    "Mical",
+    "Mérab",
+    "Abigaïl",
+    "Bath-Schéba"
+   ],
+   "explain": "Saül donna sa fille Mical pour femme à David. (1 Samuel 18:27)"
+  },
+  "en": {
+   "q": "Which daughter of Saul became David's first wife?",
+   "options": [
+    "Michal",
+    "Merab",
+    "Abigail",
+    "Bathsheba"
+   ],
+   "explain": "Saul gave his daughter Michal to David as wife. (1 Samuel 18:27)"
+  }
+ },
+ {
+  "id": "people-medium-012",
+  "ref": {
+   "fr": "1 Samuel 25:3",
+   "en": "1 Samuel 25:3"
+  },
+  "fr": {
+   "q": "Quelle femme sage apaisa la colère de David envers Nabal ?",
+   "options": [
+    "Abigaïl",
+    "Mical",
+    "Bath-Schéba",
+    "Ahinoam"
+   ],
+   "explain": "Abigaïl calma David par sa sagesse et ses présents. (1 Samuel 25)"
+  },
+  "en": {
+   "q": "Which wise woman calmed David's anger against Nabal?",
+   "options": [
+    "Abigail",
+    "Michal",
+    "Bathsheba",
+    "Ahinoam"
+   ],
+   "explain": "Abigail calmed David with wisdom and gifts. (1 Samuel 25)"
+  }
+ },
+ {
+  "id": "people-medium-013",
+  "ref": {
+   "fr": "1 Samuel 25:25",
+   "en": "1 Samuel 25:25"
+  },
+  "fr": {
+   "q": "Quel homme insensé de Maon refusa d'aider David et ses hommes ?",
+   "options": [
+    "Nabal",
+    "Nahasch",
+    "Achis",
+    "Doëg"
+   ],
+   "explain": "Nabal, de Maon, refusa toute aide à David. (1 Samuel 25:25)"
+  },
+  "en": {
+   "q": "Which foolish man of Maon refused to help David and his men?",
+   "options": [
+    "Nabal",
+    "Nahash",
+    "Achish",
+    "Doeg"
+   ],
+   "explain": "Nabal of Maon refused any help to David. (1 Samuel 25:25)"
+  }
+ },
+ {
+  "id": "people-medium-014",
+  "ref": {
+   "fr": "1 Samuel 14:50",
+   "en": "1 Samuel 14:50"
+  },
+  "fr": {
+   "q": "Qui était le chef de l'armée du roi Saül ?",
+   "options": [
+    "Abner",
+    "Joab",
+    "Amasa",
+    "Benaja"
+   ],
+   "explain": "Abner, fils de Ner, commandait l'armée de Saül. (1 Samuel 14:50)"
+  },
+  "en": {
+   "q": "Who was the commander of King Saul's army?",
+   "options": [
+    "Abner",
+    "Joab",
+    "Amasa",
+    "Benaiah"
+   ],
+   "explain": "Abner, son of Ner, led Saul's army. (1 Samuel 14:50)"
+  }
+ },
+ {
+  "id": "people-medium-015",
+  "ref": {
+   "fr": "2 Samuel 8:16",
+   "en": "2 Samuel 8:16"
+  },
+  "fr": {
+   "q": "Qui était le chef de l'armée du roi David ?",
+   "options": [
+    "Joab",
+    "Abner",
+    "Benaja",
+    "Abischaï"
+   ],
+   "explain": "Joab, fils de Tseruja, était à la tête de l'armée. (2 Samuel 8:16)"
+  },
+  "en": {
+   "q": "Who was the commander of King David's army?",
+   "options": [
+    "Joab",
+    "Abner",
+    "Benaiah",
+    "Abishai"
+   ],
+   "explain": "Joab, son of Zeruiah, was over the army. (2 Samuel 8:16)"
+  }
+ },
+ {
+  "id": "people-medium-016",
+  "ref": {
+   "fr": "2 Samuel 11:3",
+   "en": "2 Samuel 11:3"
+  },
+  "fr": {
+   "q": "Quel soldat fidèle David fit-il périr pour prendre sa femme ?",
+   "options": [
+    "Urie le Héthien",
+    "Achitophel",
+    "Nabal",
+    "Absalom"
+   ],
+   "explain": "David envoya Urie le Héthien à la mort au combat. (2 Samuel 11)"
+  },
+  "en": {
+   "q": "Which faithful soldier did David have killed to take his wife?",
+   "options": [
+    "Uriah the Hittite",
+    "Ahithophel",
+    "Nabal",
+    "Absalom"
+   ],
+   "explain": "David sent Uriah the Hittite to die in battle. (2 Samuel 11)"
+  }
+ },
+ {
+  "id": "people-medium-017",
+  "ref": {
+   "fr": "2 Samuel 12:7",
+   "en": "2 Samuel 12:7"
+  },
+  "fr": {
+   "q": "Quel prophète dit à David « Tu es cet homme ! » ?",
+   "options": [
+    "Nathan",
+    "Gad",
+    "Samuel",
+    "Élie"
+   ],
+   "explain": "Le prophète Nathan reprit David après son péché. (2 Samuel 12:7)"
+  },
+  "en": {
+   "q": "Which prophet told David, “You are the man!”?",
+   "options": [
+    "Nathan",
+    "Gad",
+    "Samuel",
+    "Elijah"
+   ],
+   "explain": "The prophet Nathan rebuked David after his sin. (2 Samuel 12:7)"
+  }
+ },
+ {
+  "id": "people-medium-018",
+  "ref": {
+   "fr": "2 Samuel 12:24",
+   "en": "2 Samuel 12:24"
+  },
+  "fr": {
+   "q": "Quelle épouse de David fut la mère de Salomon ?",
+   "options": [
+    "Bath-Schéba",
+    "Abigaïl",
+    "Mical",
+    "Ahinoam"
+   ],
+   "explain": "Bath-Schéba enfanta Salomon à David. (2 Samuel 12:24)"
+  },
+  "en": {
+   "q": "Which wife of David was the mother of Solomon?",
+   "options": [
+    "Bathsheba",
+    "Abigail",
+    "Michal",
+    "Ahinoam"
+   ],
+   "explain": "Bathsheba bore Solomon to David. (2 Samuel 12:24)"
+  }
+ },
+ {
+  "id": "people-medium-019",
+  "ref": {
+   "fr": "2 Samuel 9:7",
+   "en": "2 Samuel 9:7"
+  },
+  "fr": {
+   "q": "Quel fils boiteux de Jonathan David traita-t-il avec bonté ?",
+   "options": [
+    "Mephiboscheth",
+    "Isboseth",
+    "Micha",
+    "Ziba"
+   ],
+   "explain": "David fit asseoir Mephiboscheth à sa table. (2 Samuel 9:7)"
+  },
+  "en": {
+   "q": "Which lame son of Jonathan did David treat with kindness?",
+   "options": [
+    "Mephibosheth",
+    "Ish-bosheth",
+    "Mica",
+    "Ziba"
+   ],
+   "explain": "David seated Mephibosheth at his table. (2 Samuel 9:7)"
+  }
+ },
+ {
+  "id": "people-medium-020",
+  "ref": {
+   "fr": "2 Samuel 15:12",
+   "en": "2 Samuel 15:12"
+  },
+  "fr": {
+   "q": "Quel conseiller de David se joignit à la révolte d'Absalom ?",
+   "options": [
+    "Achitophel",
+    "Huschaï",
+    "Joab",
+    "Ziba"
+   ],
+   "explain": "Achitophel conspira avec Absalom contre David. (2 Samuel 15:12)"
+  },
+  "en": {
+   "q": "Which counselor of David joined Absalom's revolt?",
+   "options": [
+    "Ahithophel",
+    "Hushai",
+    "Joab",
+    "Ziba"
+   ],
+   "explain": "Ahithophel conspired with Absalom against David. (2 Samuel 15:12)"
+  }
+ },
+ {
+  "id": "people-medium-021",
+  "ref": {
+   "fr": "1 Rois 1:5",
+   "en": "1 Kings 1:5"
+  },
+  "fr": {
+   "q": "Quel fils de David chercha à régner avant Salomon ?",
+   "options": [
+    "Adonija",
+    "Absalom",
+    "Amnon",
+    "Nathan"
+   ],
+   "explain": "Adonija s'éleva, disant : « C'est moi qui serai roi. » (1 Rois 1:5)"
+  },
+  "en": {
+   "q": "Which son of David tried to reign before Solomon?",
+   "options": [
+    "Adonijah",
+    "Absalom",
+    "Amnon",
+    "Nathan"
+   ],
+   "explain": "Adonijah exalted himself, saying, “I will be king.” (1 Kings 1:5)"
+  }
+ },
+ {
+  "id": "people-medium-022",
+  "ref": {
+   "fr": "1 Rois 12:16",
+   "en": "1 Kings 12:16"
+  },
+  "fr": {
+   "q": "Sous quel fils de Salomon le royaume se divisa-t-il ?",
+   "options": [
+    "Roboam",
+    "Jéroboam",
+    "Abijam",
+    "Asa"
+   ],
+   "explain": "Sous Roboam, Israël se sépara de la maison de David. (1 Rois 12)"
+  },
+  "en": {
+   "q": "Under which son of Solomon did the kingdom divide?",
+   "options": [
+    "Rehoboam",
+    "Jeroboam",
+    "Abijam",
+    "Asa"
+   ],
+   "explain": "Under Rehoboam, Israel split from David's house. (1 Kings 12)"
+  }
+ },
+ {
+  "id": "people-medium-023",
+  "ref": {
+   "fr": "1 Rois 12:28",
+   "en": "1 Kings 12:28"
+  },
+  "fr": {
+   "q": "Quel roi dressa deux veaux d'or à Béthel et à Dan ?",
+   "options": [
+    "Jéroboam",
+    "Roboam",
+    "Achab",
+    "Omri"
+   ],
+   "explain": "Jéroboam fit deux veaux d'or pour Israël. (1 Rois 12:28)"
+  },
+  "en": {
+   "q": "Which king set up two golden calves at Bethel and Dan?",
+   "options": [
+    "Jeroboam",
+    "Rehoboam",
+    "Ahab",
+    "Omri"
+   ],
+   "explain": "Jeroboam made two golden calves for Israel. (1 Kings 12:28)"
+  }
+ },
+ {
+  "id": "people-medium-024",
+  "ref": {
+   "fr": "1 Rois 16:31",
+   "en": "1 Kings 16:31"
+  },
+  "fr": {
+   "q": "Quel roi d'Israël épousa la reine Jézabel ?",
+   "options": [
+    "Achab",
+    "Omri",
+    "Jéhu",
+    "Joram"
+   ],
+   "explain": "Achab prit pour femme Jézabel, fille d'Ethbaal. (1 Rois 16:31)"
+  },
+  "en": {
+   "q": "Which king of Israel married Queen Jezebel?",
+   "options": [
+    "Ahab",
+    "Omri",
+    "Jehu",
+    "Joram"
+   ],
+   "explain": "Ahab took Jezebel, daughter of Ethbaal, as wife. (1 Kings 16:31)"
+  }
+ },
+ {
+  "id": "people-medium-025",
+  "ref": {
+   "fr": "1 Rois 18:4",
+   "en": "1 Kings 18:4"
+  },
+  "fr": {
+   "q": "Quelle reine persécuta les prophètes de l'Éternel sous Achab ?",
+   "options": [
+    "Jézabel",
+    "Athalie",
+    "Vasthi",
+    "Maaca"
+   ],
+   "explain": "Jézabel fit périr les prophètes de l'Éternel. (1 Rois 18:4)"
+  },
+  "en": {
+   "q": "Which queen persecuted the prophets of the LORD under Ahab?",
+   "options": [
+    "Jezebel",
+    "Athaliah",
+    "Vashti",
+    "Maacah"
+   ],
+   "explain": "Jezebel killed the prophets of the LORD. (1 Kings 18:4)"
+  }
+ },
+ {
+  "id": "people-medium-026",
+  "ref": {
+   "fr": "1 Rois 21:1",
+   "en": "1 Kings 21:1"
+  },
+  "fr": {
+   "q": "Quel homme fut tué pour sa vigne convoitée par le roi Achab ?",
+   "options": [
+    "Naboth",
+    "Nabal",
+    "Uri",
+    "Nadab"
+   ],
+   "explain": "Naboth mourut pour n'avoir pas cédé sa vigne. (1 Rois 21)"
+  },
+  "en": {
+   "q": "Which man was killed for his vineyard coveted by King Ahab?",
+   "options": [
+    "Naboth",
+    "Nabal",
+    "Uri",
+    "Nadab"
+   ],
+   "explain": "Naboth died for refusing to give up his vineyard. (1 Kings 21)"
+  }
+ },
+ {
+  "id": "people-medium-027",
+  "ref": {
+   "fr": "1 Rois 17:9",
+   "en": "1 Kings 17:9"
+  },
+  "fr": {
+   "q": "Quelle femme nourrit Élie durant la famine par un miracle d'huile ?",
+   "options": [
+    "La veuve de Sarepta",
+    "La Sunamite",
+    "Anne",
+    "Ruth"
+   ],
+   "explain": "La veuve de Sarepta partagea son pain avec Élie. (1 Rois 17)"
+  },
+  "en": {
+   "q": "Which woman fed Elijah in the famine through a miracle of oil?",
+   "options": [
+    "The widow of Zarephath",
+    "The Shunammite",
+    "Hannah",
+    "Ruth"
+   ],
+   "explain": "The widow of Zarephath shared her bread with Elijah. (1 Kings 17)"
+  }
+ },
+ {
+  "id": "people-medium-028",
+  "ref": {
+   "fr": "2 Rois 4:8",
+   "en": "2 Kings 4:8"
+  },
+  "fr": {
+   "q": "Quelle femme prépara une chambre pour héberger Élisée ?",
+   "options": [
+    "La Sunamite",
+    "La veuve de Sarepta",
+    "Abigaïl",
+    "Dorcas"
+   ],
+   "explain": "La Sunamite reçut Élisée et vit son fils ressuscité. (2 Rois 4)"
+  },
+  "en": {
+   "q": "Which woman prepared a room to host Elisha?",
+   "options": [
+    "The Shunammite",
+    "The widow of Zarephath",
+    "Abigail",
+    "Dorcas"
+   ],
+   "explain": "The Shunammite hosted Elisha and saw her son raised. (2 Kings 4)"
+  }
+ },
+ {
+  "id": "people-medium-029",
+  "ref": {
+   "fr": "2 Rois 5:27",
+   "en": "2 Kings 5:27"
+  },
+  "fr": {
+   "q": "Quel serviteur cupide d'Élisée hérita de la lèpre de Naaman ?",
+   "options": [
+    "Guéhazi",
+    "Naaman",
+    "Baruc",
+    "Abdias"
+   ],
+   "explain": "La lèpre de Naaman s'attacha à Guéhazi. (2 Rois 5:27)"
+  },
+  "en": {
+   "q": "Which greedy servant of Elisha inherited Naaman's leprosy?",
+   "options": [
+    "Gehazi",
+    "Naaman",
+    "Baruch",
+    "Obadiah"
+   ],
+   "explain": "The leprosy of Naaman clung to Gehazi. (2 Kings 5:27)"
+  }
+ },
+ {
+  "id": "people-medium-030",
+  "ref": {
+   "fr": "2 Rois 9:24",
+   "en": "2 Kings 9:24"
+  },
+  "fr": {
+   "q": "Quel roi extermina la maison d'Achab et fit périr Jézabel ?",
+   "options": [
+    "Jéhu",
+    "Hazaël",
+    "Joram",
+    "Achazia"
+   ],
+   "explain": "Jéhu tua Joram et fit précipiter Jézabel. (2 Rois 9)"
+  },
+  "en": {
+   "q": "Which king destroyed the house of Ahab and killed Jezebel?",
+   "options": [
+    "Jehu",
+    "Hazael",
+    "Joram",
+    "Ahaziah"
+   ],
+   "explain": "Jehu killed Joram and had Jezebel thrown down. (2 Kings 9)"
+  }
+ },
+ {
+  "id": "people-medium-031",
+  "ref": {
+   "fr": "2 Rois 11:1",
+   "en": "2 Kings 11:1"
+  },
+  "fr": {
+   "q": "Quelle reine s'empara du trône de Juda en tuant la descendance royale ?",
+   "options": [
+    "Athalie",
+    "Jézabel",
+    "Vasthi",
+    "Bath-Schéba"
+   ],
+   "explain": "Athalie usurpa le pouvoir après la mort de son fils. (2 Rois 11:1)"
+  },
+  "en": {
+   "q": "Which queen seized Judah's throne by killing the royal offspring?",
+   "options": [
+    "Athaliah",
+    "Jezebel",
+    "Vashti",
+    "Bathsheba"
+   ],
+   "explain": "Athaliah usurped power after her son's death. (2 Kings 11:1)"
+  }
+ },
+ {
+  "id": "people-medium-032",
+  "ref": {
+   "fr": "2 Rois 11:21",
+   "en": "2 Kings 11:21"
+  },
+  "fr": {
+   "q": "Quel roi de Juda fut caché puis couronné à sept ans ?",
+   "options": [
+    "Joas",
+    "Ozias",
+    "Josias",
+    "Ézéchias"
+   ],
+   "explain": "Joas avait sept ans quand il devint roi. (2 Rois 11:21)"
+  },
+  "en": {
+   "q": "Which king of Judah was hidden then crowned at seven years old?",
+   "options": [
+    "Joash",
+    "Uzziah",
+    "Josiah",
+    "Hezekiah"
+   ],
+   "explain": "Joash was seven years old when he became king. (2 Kings 11:21)"
+  }
+ },
+ {
+  "id": "people-medium-033",
+  "ref": {
+   "fr": "2 Rois 11:4",
+   "en": "2 Kings 11:4"
+  },
+  "fr": {
+   "q": "Quel prêtre protégea Joas et le fit proclamer roi ?",
+   "options": [
+    "Jehojada",
+    "Tsadok",
+    "Abiathar",
+    "Éli"
+   ],
+   "explain": "Le prêtre Jehojada établit Joas sur le trône. (2 Rois 11)"
+  },
+  "en": {
+   "q": "Which priest protected Joash and had him proclaimed king?",
+   "options": [
+    "Jehoiada",
+    "Zadok",
+    "Abiathar",
+    "Eli"
+   ],
+   "explain": "The priest Jehoiada set Joash on the throne. (2 Kings 11)"
+  }
+ },
+ {
+  "id": "people-medium-034",
+  "ref": {
+   "fr": "2 Rois 20:6",
+   "en": "2 Kings 20:6"
+  },
+  "fr": {
+   "q": "À quel roi malade Dieu ajouta-t-il quinze années de vie ?",
+   "options": [
+    "Ézéchias",
+    "Josias",
+    "Ozias",
+    "Asa"
+   ],
+   "explain": "Dieu ajouta quinze ans à la vie d'Ézéchias. (2 Rois 20:6)"
+  },
+  "en": {
+   "q": "To which sick king did God add fifteen years of life?",
+   "options": [
+    "Hezekiah",
+    "Josiah",
+    "Uzziah",
+    "Asa"
+   ],
+   "explain": "God added fifteen years to Hezekiah's life. (2 Kings 20:6)"
+  }
+ },
+ {
+  "id": "people-medium-035",
+  "ref": {
+   "fr": "2 Rois 22:8",
+   "en": "2 Kings 22:8"
+  },
+  "fr": {
+   "q": "Sous quel roi retrouva-t-on le livre de la loi dans le temple ?",
+   "options": [
+    "Josias",
+    "Ézéchias",
+    "Manassé",
+    "Joas"
+   ],
+   "explain": "Sous Josias, on retrouva le livre de la loi. (2 Rois 22:8)"
+  },
+  "en": {
+   "q": "Under which king was the Book of the Law found in the temple?",
+   "options": [
+    "Josiah",
+    "Hezekiah",
+    "Manasseh",
+    "Joash"
+   ],
+   "explain": "Under Josiah the Book of the Law was found. (2 Kings 22:8)"
+  }
+ },
+ {
+  "id": "people-medium-036",
+  "ref": {
+   "fr": "2 Chroniques 26:19",
+   "en": "2 Chronicles 26:19"
+  },
+  "fr": {
+   "q": "Quel roi fut frappé de lèpre pour avoir offert l'encens ?",
+   "options": [
+    "Ozias",
+    "Achaz",
+    "Joas",
+    "Manassé"
+   ],
+   "explain": "La lèpre parut au front d'Ozias dans le temple. (2 Chroniques 26:19)"
+  },
+  "en": {
+   "q": "Which king was struck with leprosy for offering incense?",
+   "options": [
+    "Uzziah",
+    "Ahaz",
+    "Joash",
+    "Manasseh"
+   ],
+   "explain": "Leprosy broke out on Uzziah's forehead in the temple. (2 Chronicles 26:19)"
+  }
+ },
+ {
+  "id": "people-medium-037",
+  "ref": {
+   "fr": "2 Rois 25:7",
+   "en": "2 Kings 25:7"
+  },
+  "fr": {
+   "q": "Quel fut le dernier roi de Juda avant l'exil à Babylone ?",
+   "options": [
+    "Sédécias",
+    "Jojakim",
+    "Jojakin",
+    "Josias"
+   ],
+   "explain": "Sédécias régna en dernier avant la chute de Jérusalem. (2 Rois 25)"
+  },
+  "en": {
+   "q": "Who was the last king of Judah before the exile to Babylon?",
+   "options": [
+    "Zedekiah",
+    "Jehoiakim",
+    "Jehoiachin",
+    "Josiah"
+   ],
+   "explain": "Zedekiah reigned last before Jerusalem fell. (2 Kings 25)"
+  }
+ },
+ {
+  "id": "people-medium-038",
+  "ref": {
+   "fr": "Daniel 5:5",
+   "en": "Daniel 5:5"
+  },
+  "fr": {
+   "q": "Quel roi vit une main écrire sur le mur pendant un festin ?",
+   "options": [
+    "Belschatsar",
+    "Nabuchodonosor",
+    "Darius",
+    "Cyrus"
+   ],
+   "explain": "Une main écrivit sur la muraille devant Belschatsar. (Daniel 5:5)"
+  },
+  "en": {
+   "q": "Which king saw a hand writing on the wall during a feast?",
+   "options": [
+    "Belshazzar",
+    "Nebuchadnezzar",
+    "Darius",
+    "Cyrus"
+   ],
+   "explain": "A hand wrote on the wall before Belshazzar. (Daniel 5:5)"
+  }
+ },
+ {
+  "id": "people-medium-039",
+  "ref": {
+   "fr": "Daniel 6:16",
+   "en": "Daniel 6:16"
+  },
+  "fr": {
+   "q": "Quel roi fit jeter Daniel dans la fosse aux lions ?",
+   "options": [
+    "Darius",
+    "Belschatsar",
+    "Cyrus",
+    "Assuérus"
+   ],
+   "explain": "Darius fit jeter Daniel dans la fosse aux lions. (Daniel 6:16)"
+  },
+  "en": {
+   "q": "Which king had Daniel thrown into the lions' den?",
+   "options": [
+    "Darius",
+    "Belshazzar",
+    "Cyrus",
+    "Ahasuerus"
+   ],
+   "explain": "Darius had Daniel cast into the lions' den. (Daniel 6:16)"
+  }
+ },
+ {
+  "id": "people-medium-040",
+  "ref": {
+   "fr": "Esdras 1:2",
+   "en": "Ezra 1:2"
+  },
+  "fr": {
+   "q": "Quel roi perse permit aux Juifs de rentrer rebâtir le temple ?",
+   "options": [
+    "Cyrus",
+    "Darius",
+    "Artaxerxès",
+    "Assuérus"
+   ],
+   "explain": "Cyrus proclama le retour des Juifs à Jérusalem. (Esdras 1:2)"
+  },
+  "en": {
+   "q": "Which Persian king let the Jews return to rebuild the temple?",
+   "options": [
+    "Cyrus",
+    "Darius",
+    "Artaxerxes",
+    "Ahasuerus"
+   ],
+   "explain": "Cyrus proclaimed the Jews' return to Jerusalem. (Ezra 1:2)"
+  }
+ },
+ {
+  "id": "people-medium-041",
+  "ref": {
+   "fr": "Esdras 3:8",
+   "en": "Ezra 3:8"
+  },
+  "fr": {
+   "q": "Qui conduisit le premier retour d'exil et rebâtit le temple ?",
+   "options": [
+    "Zorobabel",
+    "Esdras",
+    "Néhémie",
+    "Aggée"
+   ],
+   "explain": "Zorobabel posa les fondements du second temple. (Esdras 3)"
+  },
+  "en": {
+   "q": "Who led the first return from exile and rebuilt the temple?",
+   "options": [
+    "Zerubbabel",
+    "Ezra",
+    "Nehemiah",
+    "Haggai"
+   ],
+   "explain": "Zerubbabel laid the foundations of the second temple. (Ezra 3)"
+  }
+ },
+ {
+  "id": "people-medium-042",
+  "ref": {
+   "fr": "Aggée 1:1",
+   "en": "Haggai 1:1"
+  },
+  "fr": {
+   "q": "Quel prophète exhorta le peuple à rebâtir le temple avec Zacharie ?",
+   "options": [
+    "Aggée",
+    "Malachie",
+    "Joël",
+    "Amos"
+   ],
+   "explain": "Aggée encouragea Zorobabel à rebâtir la maison de Dieu. (Aggée 1)"
+  },
+  "en": {
+   "q": "Which prophet urged the people to rebuild the temple with Zechariah?",
+   "options": [
+    "Haggai",
+    "Malachi",
+    "Joel",
+    "Amos"
+   ],
+   "explain": "Haggai urged Zerubbabel to rebuild God's house. (Haggai 1)"
+  }
+ },
+ {
+  "id": "people-medium-043",
+  "ref": {
+   "fr": "Esther 1:19",
+   "en": "Esther 1:19"
+  },
+  "fr": {
+   "q": "Quelle reine fut destituée avant qu'Esther ne devienne reine ?",
+   "options": [
+    "Vasthi",
+    "Athalie",
+    "Bath-Schéba",
+    "Hérodias"
+   ],
+   "explain": "Le roi Assuérus répudia la reine Vasthi. (Esther 1)"
+  },
+  "en": {
+   "q": "Which queen was deposed before Esther became queen?",
+   "options": [
+    "Vashti",
+    "Athaliah",
+    "Bathsheba",
+    "Herodias"
+   ],
+   "explain": "King Ahasuerus put away Queen Vashti. (Esther 1)"
+  }
+ },
+ {
+  "id": "people-medium-044",
+  "ref": {
+   "fr": "Esther 7:10",
+   "en": "Esther 7:10"
+  },
+  "fr": {
+   "q": "Quel ennemi des Juifs fut pendu à la potence qu'il avait dressée ?",
+   "options": [
+    "Haman",
+    "Mardochée",
+    "Assuérus",
+    "Bigthan"
+   ],
+   "explain": "On pendit Haman au bois qu'il avait préparé. (Esther 7:10)"
+  },
+  "en": {
+   "q": "Which enemy of the Jews was hanged on the gallows he had built?",
+   "options": [
+    "Haman",
+    "Mordecai",
+    "Ahasuerus",
+    "Bigthan"
+   ],
+   "explain": "Haman was hanged on the gallows he had prepared. (Esther 7:10)"
+  }
+ },
+ {
+  "id": "people-medium-045",
+  "ref": {
+   "fr": "Amos 7:14",
+   "en": "Amos 7:14"
+  },
+  "fr": {
+   "q": "Quel prophète était berger et cultivateur de sycomores à Tekoa ?",
+   "options": [
+    "Amos",
+    "Osée",
+    "Joël",
+    "Abdias"
+   ],
+   "explain": "Amos, berger de Tekoa, fut appelé par Dieu. (Amos 7:14)"
+  },
+  "en": {
+   "q": "Which prophet was a herdsman and grower of sycamore figs at Tekoa?",
+   "options": [
+    "Amos",
+    "Hosea",
+    "Joel",
+    "Obadiah"
+   ],
+   "explain": "Amos, a herdsman of Tekoa, was called by God. (Amos 7:14)"
+  }
+ },
+ {
+  "id": "people-medium-046",
+  "ref": {
+   "fr": "Osée 1:3",
+   "en": "Hosea 1:3"
+  },
+  "fr": {
+   "q": "Quel prophète épousa Gomer sur l'ordre de l'Éternel ?",
+   "options": [
+    "Osée",
+    "Amos",
+    "Joël",
+    "Michée"
+   ],
+   "explain": "Osée prit Gomer pour femme selon la parole de Dieu. (Osée 1:3)"
+  },
+  "en": {
+   "q": "Which prophet married Gomer at the LORD's command?",
+   "options": [
+    "Hosea",
+    "Amos",
+    "Joel",
+    "Micah"
+   ],
+   "explain": "Hosea took Gomer as wife by God's word. (Hosea 1:3)"
+  }
+ },
+ {
+  "id": "people-medium-047",
+  "ref": {
+   "fr": "Habacuc 2:4",
+   "en": "Habakkuk 2:4"
+  },
+  "fr": {
+   "q": "Quel prophète écrivit : « Le juste vivra par sa foi » ?",
+   "options": [
+    "Habacuc",
+    "Aggée",
+    "Nahum",
+    "Sophonie"
+   ],
+   "explain": "« Le juste vivra par sa foi. » (Habacuc 2:4)"
+  },
+  "en": {
+   "q": "Which prophet wrote, “The righteous will live by his faith”?",
+   "options": [
+    "Habakkuk",
+    "Haggai",
+    "Nahum",
+    "Zephaniah"
+   ],
+   "explain": "“The righteous will live by his faith.” (Habakkuk 2:4)"
+  }
+ },
+ {
+  "id": "people-medium-048",
+  "ref": {
+   "fr": "Jérémie 36:4",
+   "en": "Jeremiah 36:4"
+  },
+  "fr": {
+   "q": "Quel scribe écrivit les paroles dictées par Jérémie ?",
+   "options": [
+    "Baruc",
+    "Ébed-Mélec",
+    "Guéhazi",
+    "Séraja"
+   ],
+   "explain": "Baruc écrivit sous la dictée de Jérémie. (Jérémie 36:4)"
+  },
+  "en": {
+   "q": "Which scribe wrote the words dictated by Jeremiah?",
+   "options": [
+    "Baruch",
+    "Ebed-Melech",
+    "Gehazi",
+    "Seraiah"
+   ],
+   "explain": "Baruch wrote at Jeremiah's dictation. (Jeremiah 36:4)"
+  }
+ },
+ {
+  "id": "people-medium-049",
+  "ref": {
+   "fr": "Jérémie 38:7",
+   "en": "Jeremiah 38:7"
+  },
+  "fr": {
+   "q": "Quel Éthiopien retira Jérémie de la citerne boueuse ?",
+   "options": [
+    "Ébed-Mélec",
+    "Baruc",
+    "Nébuzaradan",
+    "Guedalia"
+   ],
+   "explain": "Ébed-Mélec fit remonter Jérémie de la citerne. (Jérémie 38)"
+  },
+  "en": {
+   "q": "Which Ethiopian lifted Jeremiah out of the muddy cistern?",
+   "options": [
+    "Ebed-Melech",
+    "Baruch",
+    "Nebuzaradan",
+    "Gedaliah"
+   ],
+   "explain": "Ebed-Melech drew Jeremiah up from the cistern. (Jeremiah 38)"
+  }
+ },
+ {
+  "id": "people-medium-050",
+  "ref": {
+   "fr": "Genèse 14:18",
+   "en": "Genesis 14:18"
+  },
+  "fr": {
+   "q": "Quel roi de Salem, sacrificateur du Très-Haut, bénit Abram ?",
+   "options": [
+    "Melchisédek",
+    "Abimélec",
+    "Amraphel",
+    "Ephron"
+   ],
+   "explain": "Melchisédek, roi de Salem, offrit du pain et du vin. (Genèse 14:18)"
+  },
+  "en": {
+   "q": "Which king of Salem, priest of God Most High, blessed Abram?",
+   "options": [
+    "Melchizedek",
+    "Abimelech",
+    "Amraphel",
+    "Ephron"
+   ],
+   "explain": "Melchizedek, king of Salem, brought bread and wine. (Genesis 14:18)"
+  }
+ },
+ {
+  "id": "people-medium-051",
+  "ref": {
+   "fr": "Genèse 11:31",
+   "en": "Genesis 11:31"
+  },
+  "fr": {
+   "q": "Comment s'appelait le père d'Abraham, parti d'Ur en Chaldée ?",
+   "options": [
+    "Térach",
+    "Nachor",
+    "Haran",
+    "Lot"
+   ],
+   "explain": "Térach conduisit sa famille d'Ur vers Charan. (Genèse 11:31)"
+  },
+  "en": {
+   "q": "What was the name of Abraham's father, who left Ur of the Chaldees?",
+   "options": [
+    "Terah",
+    "Nahor",
+    "Haran",
+    "Lot"
+   ],
+   "explain": "Terah led his family from Ur toward Haran. (Genesis 11:31)"
+  }
+ },
+ {
+  "id": "people-medium-052",
+  "ref": {
+   "fr": "Genèse 19:26",
+   "en": "Genesis 19:26"
+  },
+  "fr": {
+   "q": "Que devint la femme de Loth pour avoir regardé en arrière ?",
+   "options": [
+    "Une statue de sel",
+    "Une colombe",
+    "Une source",
+    "Un rocher"
+   ],
+   "explain": "La femme de Loth devint une statue de sel. (Genèse 19:26)"
+  },
+  "en": {
+   "q": "What did Lot's wife become for looking back?",
+   "options": [
+    "A pillar of salt",
+    "A dove",
+    "A spring",
+    "A rock"
+   ],
+   "explain": "Lot's wife became a pillar of salt. (Genesis 19:26)"
+  }
+ },
+ {
+  "id": "people-medium-053",
+  "ref": {
+   "fr": "Genèse 39:1",
+   "en": "Genesis 39:1"
+  },
+  "fr": {
+   "q": "Quel officier égyptien acheta Joseph comme esclave ?",
+   "options": [
+    "Potiphar",
+    "Pharaon",
+    "Poti-Phéra",
+    "Achbor"
+   ],
+   "explain": "Potiphar, officier de Pharaon, acheta Joseph. (Genèse 39:1)"
+  },
+  "en": {
+   "q": "Which Egyptian officer bought Joseph as a slave?",
+   "options": [
+    "Potiphar",
+    "Pharaoh",
+    "Potiphera",
+    "Achbor"
+   ],
+   "explain": "Potiphar, an officer of Pharaoh, bought Joseph. (Genesis 39:1)"
+  }
+ },
+ {
+  "id": "people-medium-054",
+  "ref": {
+   "fr": "Genèse 37:21",
+   "en": "Genesis 37:21"
+  },
+  "fr": {
+   "q": "Quel frère aîné voulut sauver Joseph de la mort ?",
+   "options": [
+    "Ruben",
+    "Juda",
+    "Siméon",
+    "Lévi"
+   ],
+   "explain": "Ruben proposa de jeter Joseph dans une citerne pour le sauver. (Genèse 37:21-22)"
+  },
+  "en": {
+   "q": "Which oldest brother tried to save Joseph from death?",
+   "options": [
+    "Reuben",
+    "Judah",
+    "Simeon",
+    "Levi"
+   ],
+   "explain": "Reuben urged casting Joseph into a pit to rescue him. (Genesis 37:21-22)"
+  }
+ },
+ {
+  "id": "people-medium-055",
+  "ref": {
+   "fr": "Genèse 37:26",
+   "en": "Genesis 37:26"
+  },
+  "fr": {
+   "q": "Quel frère proposa de vendre Joseph aux Ismaélites ?",
+   "options": [
+    "Juda",
+    "Ruben",
+    "Benjamin",
+    "Dan"
+   ],
+   "explain": "Juda dit de vendre Joseph plutôt que de le tuer. (Genèse 37:26-27)"
+  },
+  "en": {
+   "q": "Which brother proposed selling Joseph to the Ishmaelites?",
+   "options": [
+    "Judah",
+    "Reuben",
+    "Benjamin",
+    "Dan"
+   ],
+   "explain": "Judah said to sell Joseph rather than kill him. (Genesis 37:26-27)"
+  }
+ },
+ {
+  "id": "people-medium-056",
+  "ref": {
+   "fr": "Genèse 35:18",
+   "en": "Genesis 35:18"
+  },
+  "fr": {
+   "q": "Quel fut le plus jeune des douze fils de Jacob ?",
+   "options": [
+    "Benjamin",
+    "Joseph",
+    "Juda",
+    "Lévi"
+   ],
+   "explain": "Rachel mourut en enfantant Benjamin. (Genèse 35:18)"
+  },
+  "en": {
+   "q": "Who was the youngest of Jacob's twelve sons?",
+   "options": [
+    "Benjamin",
+    "Joseph",
+    "Judah",
+    "Levi"
+   ],
+   "explain": "Rachel died giving birth to Benjamin. (Genesis 35:18)"
+  }
+ },
+ {
+  "id": "people-medium-057",
+  "ref": {
+   "fr": "Genèse 34:1",
+   "en": "Genesis 34:1"
+  },
+  "fr": {
+   "q": "Comment s'appelait la fille de Jacob et de Léa ?",
+   "options": [
+    "Dina",
+    "Tamar",
+    "Sara",
+    "Kétura"
+   ],
+   "explain": "Dina, fille de Léa, sortit voir les filles du pays. (Genèse 34:1)"
+  },
+  "en": {
+   "q": "What was the name of the daughter of Jacob and Leah?",
+   "options": [
+    "Dinah",
+    "Tamar",
+    "Sarah",
+    "Keturah"
+   ],
+   "explain": "Dinah, Leah's daughter, went out to see the women of the land. (Genesis 34:1)"
+  }
+ },
+ {
+  "id": "people-medium-058",
+  "ref": {
+   "fr": "Exode 6:20",
+   "en": "Exodus 6:20"
+  },
+  "fr": {
+   "q": "Quelle femme cacha son fils Moïse dans une caisse sur le Nil ?",
+   "options": [
+    "Jokébed",
+    "Séphora",
+    "Marie",
+    "Anne"
+   ],
+   "explain": "Jokébed, mère de Moïse, le cacha dans un coffret. (Exode 2)"
+  },
+  "en": {
+   "q": "Which woman hid her son Moses in a basket on the Nile?",
+   "options": [
+    "Jochebed",
+    "Zipporah",
+    "Miriam",
+    "Hannah"
+   ],
+   "explain": "Jochebed, Moses' mother, hid him in a basket. (Exodus 2)"
+  }
+ },
+ {
+  "id": "people-medium-059",
+  "ref": {
+   "fr": "Exode 2:21",
+   "en": "Exodus 2:21"
+  },
+  "fr": {
+   "q": "Comment s'appelait l'épouse de Moïse, fille de Jéthro ?",
+   "options": [
+    "Séphora",
+    "Marie",
+    "Jokébed",
+    "Débora"
+   ],
+   "explain": "Moïse épousa Séphora, fille de Jéthro. (Exode 2:21)"
+  },
+  "en": {
+   "q": "What was the name of Moses' wife, daughter of Jethro?",
+   "options": [
+    "Zipporah",
+    "Miriam",
+    "Jochebed",
+    "Deborah"
+   ],
+   "explain": "Moses married Zipporah, daughter of Jethro. (Exodus 2:21)"
+  }
+ },
+ {
+  "id": "people-medium-060",
+  "ref": {
+   "fr": "Exode 18:1",
+   "en": "Exodus 18:1"
+  },
+  "fr": {
+   "q": "Qui était le beau-père de Moïse, prêtre de Madian ?",
+   "options": [
+    "Jéthro",
+    "Laban",
+    "Balak",
+    "Hur"
+   ],
+   "explain": "Jéthro, prêtre de Madian, conseilla Moïse. (Exode 18)"
+  },
+  "en": {
+   "q": "Who was Moses' father-in-law, a priest of Midian?",
+   "options": [
+    "Jethro",
+    "Laban",
+    "Balak",
+    "Hur"
+   ],
+   "explain": "Jethro, priest of Midian, advised Moses. (Exodus 18)"
+  }
+ },
+ {
+  "id": "people-medium-061",
+  "ref": {
+   "fr": "Exode 17:12",
+   "en": "Exodus 17:12"
+  },
+  "fr": {
+   "q": "Qui, avec Aaron, soutint les mains de Moïse pendant la bataille ?",
+   "options": [
+    "Hur",
+    "Josué",
+    "Caleb",
+    "Nadab"
+   ],
+   "explain": "Aaron et Hur soutinrent les mains de Moïse. (Exode 17:12)"
+  },
+  "en": {
+   "q": "Who, with Aaron, held up Moses' hands during the battle?",
+   "options": [
+    "Hur",
+    "Joshua",
+    "Caleb",
+    "Nadab"
+   ],
+   "explain": "Aaron and Hur held up Moses' hands. (Exodus 17:12)"
+  }
+ },
+ {
+  "id": "people-medium-062",
+  "ref": {
+   "fr": "Nombres 16:32",
+   "en": "Numbers 16:32"
+  },
+  "fr": {
+   "q": "Quel Lévite se révolta contre Moïse et fut englouti par la terre ?",
+   "options": [
+    "Koré",
+    "Balaam",
+    "Acan",
+    "Nadab"
+   ],
+   "explain": "La terre s'ouvrit et engloutit Koré et les siens. (Nombres 16)"
+  },
+  "en": {
+   "q": "Which Levite rebelled against Moses and was swallowed by the earth?",
+   "options": [
+    "Korah",
+    "Balaam",
+    "Achan",
+    "Nadab"
+   ],
+   "explain": "The earth opened and swallowed Korah and his men. (Numbers 16)"
+  }
+ },
+ {
+  "id": "people-medium-063",
+  "ref": {
+   "fr": "Josué 7:1",
+   "en": "Joshua 7:1"
+  },
+  "fr": {
+   "q": "Quel homme prit des objets interdits après la prise de Jéricho ?",
+   "options": [
+    "Acan",
+    "Koré",
+    "Guéhazi",
+    "Ananias"
+   ],
+   "explain": "Acan cacha un butin interdit, causant la défaite d'Aï. (Josué 7)"
+  },
+  "en": {
+   "q": "Which man took forbidden spoil after the capture of Jericho?",
+   "options": [
+    "Achan",
+    "Korah",
+    "Gehazi",
+    "Ananias"
+   ],
+   "explain": "Achan hid forbidden plunder, causing defeat at Ai. (Joshua 7)"
+  }
+ },
+ {
+  "id": "people-medium-064",
+  "ref": {
+   "fr": "Jean 1:46",
+   "en": "John 1:46"
+  },
+  "fr": {
+   "q": "Quel disciple demanda : « Peut-il venir de Nazareth quelque chose de bon ? »",
+   "options": [
+    "Nathanaël",
+    "Philippe",
+    "Thomas",
+    "André"
+   ],
+   "explain": "Nathanaël douta d'abord, puis suivit Jésus. (Jean 1:46)"
+  },
+  "en": {
+   "q": "Which disciple asked, “Can anything good come out of Nazareth?”",
+   "options": [
+    "Nathanael",
+    "Philip",
+    "Thomas",
+    "Andrew"
+   ],
+   "explain": "Nathanael doubted at first, then followed Jesus. (John 1:46)"
+  }
+ },
+ {
+  "id": "people-medium-065",
+  "ref": {
+   "fr": "Actes 1:26",
+   "en": "Acts 1:26"
+  },
+  "fr": {
+   "q": "Quel homme fut choisi pour remplacer Judas parmi les douze ?",
+   "options": [
+    "Matthias",
+    "Barsabbas",
+    "Étienne",
+    "Barnabas"
+   ],
+   "explain": "Le sort tomba sur Matthias, ajouté aux onze apôtres. (Actes 1:26)"
+  },
+  "en": {
+   "q": "Which man was chosen to replace Judas among the twelve?",
+   "options": [
+    "Matthias",
+    "Barsabbas",
+    "Stephen",
+    "Barnabas"
+   ],
+   "explain": "The lot fell on Matthias, added to the eleven apostles. (Acts 1:26)"
+  }
+ },
+ {
+  "id": "people-medium-066",
+  "ref": {
+   "fr": "Actes 9:17",
+   "en": "Acts 9:17"
+  },
+  "fr": {
+   "q": "Quel disciple de Damas rendit la vue à Saul de Tarse ?",
+   "options": [
+    "Ananias",
+    "Barnabas",
+    "Corneille",
+    "Simon"
+   ],
+   "explain": "Ananias imposa les mains à Saul, qui recouvra la vue. (Actes 9:17)"
+  },
+  "en": {
+   "q": "Which disciple in Damascus restored the sight of Saul of Tarsus?",
+   "options": [
+    "Ananias",
+    "Barnabas",
+    "Cornelius",
+    "Simon"
+   ],
+   "explain": "Ananias laid hands on Saul, who regained his sight. (Acts 9:17)"
+  }
+ },
+ {
+  "id": "people-medium-067",
+  "ref": {
+   "fr": "Actes 5:1",
+   "en": "Acts 5:1"
+  },
+  "fr": {
+   "q": "Quel couple mentit au Saint-Esprit sur le prix d'un champ ?",
+   "options": [
+    "Ananias et Saphira",
+    "Aquilas et Priscille",
+    "Corneille et sa femme",
+    "Boaz et Ruth"
+   ],
+   "explain": "Ananias et Saphira mentirent et tombèrent morts. (Actes 5)"
+  },
+  "en": {
+   "q": "Which couple lied to the Holy Spirit about the price of a field?",
+   "options": [
+    "Ananias and Sapphira",
+    "Aquila and Priscilla",
+    "Cornelius and his wife",
+    "Boaz and Ruth"
+   ],
+   "explain": "Ananias and Sapphira lied and fell dead. (Acts 5)"
+  }
+ },
+ {
+  "id": "people-medium-068",
+  "ref": {
+   "fr": "Actes 9:40",
+   "en": "Acts 9:40"
+  },
+  "fr": {
+   "q": "Quelle femme charitable Pierre ramena-t-il à la vie à Joppé ?",
+   "options": [
+    "Dorcas",
+    "Lydie",
+    "Rhode",
+    "Priscille"
+   ],
+   "explain": "Pierre dit « Tabitha, lève-toi », et Dorcas revint à la vie. (Actes 9:40)"
+  },
+  "en": {
+   "q": "Which charitable woman did Peter raise to life at Joppa?",
+   "options": [
+    "Dorcas",
+    "Lydia",
+    "Rhoda",
+    "Priscilla"
+   ],
+   "explain": "Peter said, “Tabitha, arise,” and Dorcas came to life. (Acts 9:40)"
+  }
+ },
+ {
+  "id": "people-medium-069",
+  "ref": {
+   "fr": "Actes 12:13",
+   "en": "Acts 12:13"
+  },
+  "fr": {
+   "q": "Quelle servante, de joie, oublia d'ouvrir la porte à Pierre ?",
+   "options": [
+    "Rhode",
+    "Marthe",
+    "Dorcas",
+    "Marie"
+   ],
+   "explain": "Rhode reconnut la voix de Pierre et courut l'annoncer. (Actes 12:13-14)"
+  },
+  "en": {
+   "q": "Which servant girl, in her joy, forgot to open the door for Peter?",
+   "options": [
+    "Rhoda",
+    "Martha",
+    "Dorcas",
+    "Mary"
+   ],
+   "explain": "Rhoda knew Peter's voice and ran to tell it. (Acts 12:13-14)"
+  }
+ },
+ {
+  "id": "people-medium-070",
+  "ref": {
+   "fr": "Actes 22:3",
+   "en": "Acts 22:3"
+  },
+  "fr": {
+   "q": "Aux pieds de quel docteur de la loi Paul fut-il instruit ?",
+   "options": [
+    "Gamaliel",
+    "Nicodème",
+    "Caïphe",
+    "Anne"
+   ],
+   "explain": "Paul fut élevé aux pieds de Gamaliel. (Actes 22:3)"
+  },
+  "en": {
+   "q": "At the feet of which teacher of the law was Paul instructed?",
+   "options": [
+    "Gamaliel",
+    "Nicodemus",
+    "Caiaphas",
+    "Annas"
+   ],
+   "explain": "Paul was brought up at the feet of Gamaliel. (Acts 22:3)"
+  }
+ },
+ {
+  "id": "people-medium-071",
+  "ref": {
+   "fr": "Actes 11:28",
+   "en": "Acts 11:28"
+  },
+  "fr": {
+   "q": "Quel prophète annonça une grande famine sous l'empereur Claude ?",
+   "options": [
+    "Agabus",
+    "Silas",
+    "Barnabas",
+    "Judas"
+   ],
+   "explain": "Agabus prédit une famine sur toute la terre. (Actes 11:28)"
+  },
+  "en": {
+   "q": "Which prophet foretold a great famine under Emperor Claudius?",
+   "options": [
+    "Agabus",
+    "Silas",
+    "Barnabas",
+    "Judas"
+   ],
+   "explain": "Agabus predicted a famine over all the world. (Acts 11:28)"
+  }
+ },
+ {
+  "id": "people-medium-072",
+  "ref": {
+   "fr": "Actes 18:24",
+   "en": "Acts 18:24"
+  },
+  "fr": {
+   "q": "Quel homme éloquent d'Alexandrie prêcha avec puissance les Écritures ?",
+   "options": [
+    "Apollos",
+    "Barnabas",
+    "Silas",
+    "Tite"
+   ],
+   "explain": "Apollos, d'Alexandrie, était versé dans les Écritures. (Actes 18:24)"
+  },
+  "en": {
+   "q": "Which eloquent man from Alexandria preached the Scriptures powerfully?",
+   "options": [
+    "Apollos",
+    "Barnabas",
+    "Silas",
+    "Titus"
+   ],
+   "explain": "Apollos of Alexandria was mighty in the Scriptures. (Acts 18:24)"
+  }
+ },
+ {
+  "id": "people-medium-073",
+  "ref": {
+   "fr": "Actes 16:25",
+   "en": "Acts 16:25"
+  },
+  "fr": {
+   "q": "Quel compagnon chanta avec Paul en prison à Philippes ?",
+   "options": [
+    "Silas",
+    "Timothée",
+    "Luc",
+    "Tite"
+   ],
+   "explain": "Paul et Silas priaient et chantaient en prison. (Actes 16:25)"
+  },
+  "en": {
+   "q": "Which companion sang with Paul in prison at Philippi?",
+   "options": [
+    "Silas",
+    "Timothy",
+    "Luke",
+    "Titus"
+   ],
+   "explain": "Paul and Silas were praying and singing in prison. (Acts 16:25)"
+  }
+ },
+ {
+  "id": "people-medium-074",
+  "ref": {
+   "fr": "Tite 1:5",
+   "en": "Titus 1:5"
+  },
+  "fr": {
+   "q": "Quel compagnon Paul laissa-t-il en Crète pour établir des anciens ?",
+   "options": [
+    "Tite",
+    "Timothée",
+    "Silas",
+    "Onésime"
+   ],
+   "explain": "Paul laissa Tite en Crète pour organiser l'Église. (Tite 1:5)"
+  },
+  "en": {
+   "q": "Which companion did Paul leave in Crete to appoint elders?",
+   "options": [
+    "Titus",
+    "Timothy",
+    "Silas",
+    "Onesimus"
+   ],
+   "explain": "Paul left Titus in Crete to set the church in order. (Titus 1:5)"
+  }
+ },
+ {
+  "id": "people-medium-075",
+  "ref": {
+   "fr": "Philémon 10",
+   "en": "Philemon 10"
+  },
+  "fr": {
+   "q": "Quel esclave fugitif Paul renvoya-t-il à son maître Philémon ?",
+   "options": [
+    "Onésime",
+    "Tychique",
+    "Épaphras",
+    "Démas"
+   ],
+   "explain": "Paul intercéda pour Onésime, devenu son enfant en prison. (Philémon 10)"
+  },
+  "en": {
+   "q": "Which runaway slave did Paul send back to his master Philemon?",
+   "options": [
+    "Onesimus",
+    "Tychicus",
+    "Epaphras",
+    "Demas"
+   ],
+   "explain": "Paul interceded for Onesimus, his child in prison. (Philemon 10)"
+  }
+ },
+ {
+  "id": "people-medium-076",
+  "ref": {
+   "fr": "Philippiens 2:25",
+   "en": "Philippians 2:25"
+  },
+  "fr": {
+   "q": "Quel messager des Philippiens tomba gravement malade près de Paul ?",
+   "options": [
+    "Épaphrodite",
+    "Épaphras",
+    "Aristarque",
+    "Tychique"
+   ],
+   "explain": "Épaphrodite servit Paul et faillit mourir. (Philippiens 2:25-27)"
+  },
+  "en": {
+   "q": "Which messenger of the Philippians fell gravely ill near Paul?",
+   "options": [
+    "Epaphroditus",
+    "Epaphras",
+    "Aristarchus",
+    "Tychicus"
+   ],
+   "explain": "Epaphroditus served Paul and nearly died. (Philippians 2:25-27)"
+  }
+ },
+ {
+  "id": "people-medium-077",
+  "ref": {
+   "fr": "2 Timothée 4:10",
+   "en": "2 Timothy 4:10"
+  },
+  "fr": {
+   "q": "Quel compagnon abandonna Paul par amour du monde présent ?",
+   "options": [
+    "Démas",
+    "Tite",
+    "Luc",
+    "Marc"
+   ],
+   "explain": "« Démas m'a abandonné, ayant aimé le siècle présent. » (2 Timothée 4:10)"
+  },
+  "en": {
+   "q": "Which companion deserted Paul out of love for the present world?",
+   "options": [
+    "Demas",
+    "Titus",
+    "Luke",
+    "Mark"
+   ],
+   "explain": "“Demas forsook me, having loved this present world.” (2 Timothy 4:10)"
+  }
+ },
+ {
+  "id": "people-medium-078",
+  "ref": {
+   "fr": "Romains 16:1",
+   "en": "Romans 16:1"
+  },
+  "fr": {
+   "q": "Quelle femme Paul recommanda-t-il comme diaconesse de Cenchrées ?",
+   "options": [
+    "Phœbé",
+    "Priscille",
+    "Lydie",
+    "Dorcas"
+   ],
+   "explain": "Paul recommanda Phœbé, servante de l'Église de Cenchrées. (Romains 16:1)"
+  },
+  "en": {
+   "q": "Which woman did Paul commend as a servant of the church at Cenchreae?",
+   "options": [
+    "Phoebe",
+    "Priscilla",
+    "Lydia",
+    "Dorcas"
+   ],
+   "explain": "Paul commended Phoebe, a servant of the church at Cenchreae. (Romans 16:1)"
+  }
+ },
+ {
+  "id": "people-medium-079",
+  "ref": {
+   "fr": "2 Timothée 1:5",
+   "en": "2 Timothy 1:5"
+  },
+  "fr": {
+   "q": "Quelles femmes transmirent la foi à Timothée, sa mère et sa grand-mère ?",
+   "options": [
+    "Eunice et Loïs",
+    "Marthe et Marie",
+    "Ruth et Naomi",
+    "Anne et Marie"
+   ],
+   "explain": "La foi de Timothée habita d'abord Loïs et Eunice. (2 Timothée 1:5)"
+  },
+  "en": {
+   "q": "Which women passed the faith to Timothy, his mother and grandmother?",
+   "options": [
+    "Eunice and Lois",
+    "Martha and Mary",
+    "Ruth and Naomi",
+    "Anna and Mary"
+   ],
+   "explain": "Timothy's faith first lived in Lois and Eunice. (2 Timothy 1:5)"
+  }
+ },
+ {
+  "id": "people-medium-080",
+  "ref": {
+   "fr": "Romains 16:23",
+   "en": "Romans 16:23"
+  },
+  "fr": {
+   "q": "Quel collaborateur de Paul était trésorier de la ville de Corinthe ?",
+   "options": [
+    "Éraste",
+    "Gaïus",
+    "Tertius",
+    "Quartus"
+   ],
+   "explain": "Éraste, trésorier de la ville, salue les frères. (Romains 16:23)"
+  },
+  "en": {
+   "q": "Which fellow worker of Paul was the city treasurer of Corinth?",
+   "options": [
+    "Erastus",
+    "Gaius",
+    "Tertius",
+    "Quartus"
+   ],
+   "explain": "Erastus, the city treasurer, greets the brothers. (Romans 16:23)"
+  }
+ },
+ {
+  "id": "people-medium-081",
+  "ref": {
+   "fr": "Actes 8:18",
+   "en": "Acts 8:18"
+  },
+  "fr": {
+   "q": "Quel magicien voulut acheter le don du Saint-Esprit à Samarie ?",
+   "options": [
+    "Simon",
+    "Élymas",
+    "Bar-Jésus",
+    "Démétrius"
+   ],
+   "explain": "Simon offrit de l'argent pour recevoir ce pouvoir. (Actes 8:18-20)"
+  },
+  "en": {
+   "q": "Which sorcerer tried to buy the gift of the Holy Spirit in Samaria?",
+   "options": [
+    "Simon",
+    "Elymas",
+    "Bar-Jesus",
+    "Demetrius"
+   ],
+   "explain": "Simon offered money to receive that power. (Acts 8:18-20)"
+  }
+ },
+ {
+  "id": "people-medium-082",
+  "ref": {
+   "fr": "Actes 13:11",
+   "en": "Acts 13:11"
+  },
+  "fr": {
+   "q": "Quel magicien fut frappé de cécité pour s'être opposé à Paul ?",
+   "options": [
+    "Élymas",
+    "Simon",
+    "Démétrius",
+    "Alexandre"
+   ],
+   "explain": "Élymas fut aveuglé pour un temps par la main du Seigneur. (Actes 13:11)"
+  },
+  "en": {
+   "q": "Which sorcerer was struck blind for opposing Paul?",
+   "options": [
+    "Elymas",
+    "Simon",
+    "Demetrius",
+    "Alexander"
+   ],
+   "explain": "Elymas was blinded for a time by the Lord's hand. (Acts 13:11)"
+  }
+ },
+ {
+  "id": "people-medium-083",
+  "ref": {
+   "fr": "Actes 13:12",
+   "en": "Acts 13:12"
+  },
+  "fr": {
+   "q": "Quel proconsul de Chypre crut après le châtiment d'Élymas ?",
+   "options": [
+    "Sergius Paulus",
+    "Félix",
+    "Festus",
+    "Gallion"
+   ],
+   "explain": "Le proconsul Sergius Paulus crut, frappé de la doctrine. (Actes 13:12)"
+  },
+  "en": {
+   "q": "Which proconsul of Cyprus believed after the punishment of Elymas?",
+   "options": [
+    "Sergius Paulus",
+    "Felix",
+    "Festus",
+    "Gallio"
+   ],
+   "explain": "The proconsul Sergius Paulus believed, astonished at the teaching. (Acts 13:12)"
+  }
+ },
+ {
+  "id": "people-medium-084",
+  "ref": {
+   "fr": "Actes 24:27",
+   "en": "Acts 24:27"
+  },
+  "fr": {
+   "q": "Quel gouverneur laissa Paul en prison, espérant de l'argent ?",
+   "options": [
+    "Félix",
+    "Festus",
+    "Agrippa",
+    "Pilate"
+   ],
+   "explain": "Félix laissa Paul lié, pour plaire aux Juifs. (Actes 24:27)"
+  },
+  "en": {
+   "q": "Which governor left Paul in prison, hoping for money?",
+   "options": [
+    "Felix",
+    "Festus",
+    "Agrippa",
+    "Pilate"
+   ],
+   "explain": "Felix left Paul bound, to please the Jews. (Acts 24:27)"
+  }
+ },
+ {
+  "id": "people-medium-085",
+  "ref": {
+   "fr": "Actes 25:1",
+   "en": "Acts 25:1"
+  },
+  "fr": {
+   "q": "Quel gouverneur succéda à Félix et entendit l'appel de Paul à César ?",
+   "options": [
+    "Festus",
+    "Félix",
+    "Agrippa",
+    "Gallion"
+   ],
+   "explain": "Festus entendit l'appel de Paul à César. (Actes 25)"
+  },
+  "en": {
+   "q": "Which governor succeeded Felix and heard Paul's appeal to Caesar?",
+   "options": [
+    "Festus",
+    "Felix",
+    "Agrippa",
+    "Gallio"
+   ],
+   "explain": "Festus heard Paul's appeal to Caesar. (Acts 25)"
+  }
+ },
+ {
+  "id": "people-medium-086",
+  "ref": {
+   "fr": "Actes 26:28",
+   "en": "Acts 26:28"
+  },
+  "fr": {
+   "q": "Quel roi dit à Paul : « Tu vas me persuader de devenir chrétien » ?",
+   "options": [
+    "Agrippa",
+    "Félix",
+    "Festus",
+    "Hérode Antipas"
+   ],
+   "explain": "Le roi Agrippa écouta la défense de Paul. (Actes 26:28)"
+  },
+  "en": {
+   "q": "Which king told Paul, “You almost persuade me to become a Christian”?",
+   "options": [
+    "Agrippa",
+    "Felix",
+    "Festus",
+    "Herod Antipas"
+   ],
+   "explain": "King Agrippa listened to Paul's defense. (Acts 26:28)"
+  }
+ },
+ {
+  "id": "people-medium-087",
+  "ref": {
+   "fr": "Marc 6:27",
+   "en": "Mark 6:27"
+  },
+  "fr": {
+   "q": "Quel tétrarque fit décapiter Jean-Baptiste en prison ?",
+   "options": [
+    "Hérode Antipas",
+    "Ponce Pilate",
+    "Hérode le Grand",
+    "Archélaüs"
+   ],
+   "explain": "Hérode Antipas ordonna la mort de Jean-Baptiste. (Marc 6:27)"
+  },
+  "en": {
+   "q": "Which tetrarch had John the Baptist beheaded in prison?",
+   "options": [
+    "Herod Antipas",
+    "Pontius Pilate",
+    "Herod the Great",
+    "Archelaus"
+   ],
+   "explain": "Herod Antipas ordered John the Baptist's death. (Mark 6:27)"
+  }
+ },
+ {
+  "id": "people-medium-088",
+  "ref": {
+   "fr": "Marc 6:24",
+   "en": "Mark 6:24"
+  },
+  "fr": {
+   "q": "Quelle femme réclama la tête de Jean-Baptiste sur un plat ?",
+   "options": [
+    "Hérodias",
+    "Jézabel",
+    "Athalie",
+    "Drusille"
+   ],
+   "explain": "Hérodias, en haine, obtint la tête de Jean. (Marc 6:24)"
+  },
+  "en": {
+   "q": "Which woman demanded the head of John the Baptist on a platter?",
+   "options": [
+    "Herodias",
+    "Jezebel",
+    "Athaliah",
+    "Drusilla"
+   ],
+   "explain": "Herodias, in hatred, obtained John's head. (Mark 6:24)"
+  }
+ },
+ {
+  "id": "people-medium-089",
+  "ref": {
+   "fr": "Jean 18:10",
+   "en": "John 18:10"
+  },
+  "fr": {
+   "q": "À quel serviteur du souverain sacrificateur Pierre coupa-t-il l'oreille ?",
+   "options": [
+    "Malchus",
+    "Barabbas",
+    "Caïphe",
+    "Judas"
+   ],
+   "explain": "Pierre frappa Malchus et lui coupa l'oreille droite. (Jean 18:10)"
+  },
+  "en": {
+   "q": "Whose ear did Peter cut off, a servant of the high priest?",
+   "options": [
+    "Malchus",
+    "Barabbas",
+    "Caiaphas",
+    "Judas"
+   ],
+   "explain": "Peter struck Malchus and cut off his right ear. (John 18:10)"
+  }
+ },
+ {
+  "id": "people-medium-090",
+  "ref": {
+   "fr": "Jean 11:49",
+   "en": "John 11:49"
+  },
+  "fr": {
+   "q": "Quel souverain sacrificateur prophétisa que Jésus mourrait pour la nation ?",
+   "options": [
+    "Caïphe",
+    "Anne",
+    "Gamaliel",
+    "Nicodème"
+   ],
+   "explain": "Caïphe dit qu'un seul homme mourrait pour le peuple. (Jean 11:49-51)"
+  },
+  "en": {
+   "q": "Which high priest prophesied that Jesus would die for the nation?",
+   "options": [
+    "Caiaphas",
+    "Annas",
+    "Gamaliel",
+    "Nicodemus"
+   ],
+   "explain": "Caiaphas said one man should die for the people. (John 11:49-51)"
+  }
+ },
+ {
+  "id": "people-medium-091",
+  "ref": {
+   "fr": "Luc 24:18",
+   "en": "Luke 24:18"
+  },
+  "fr": {
+   "q": "Quel disciple rencontra Jésus ressuscité sur le chemin d'Emmaüs ?",
+   "options": [
+    "Cléopas",
+    "Nathanaël",
+    "Thomas",
+    "Nicodème"
+   ],
+   "explain": "Cléopas parla à Jésus sans le reconnaître d'abord. (Luc 24:18)"
+  },
+  "en": {
+   "q": "Which disciple met the risen Jesus on the road to Emmaus?",
+   "options": [
+    "Cleopas",
+    "Nathanael",
+    "Thomas",
+    "Nicodemus"
+   ],
+   "explain": "Cleopas spoke with Jesus without recognizing him at first. (Luke 24:18)"
+  }
+ },
+ {
+  "id": "people-medium-092",
+  "ref": {
+   "fr": "Actes 20:9",
+   "en": "Acts 20:9"
+  },
+  "fr": {
+   "q": "Quel jeune homme tomba d'une fenêtre pendant un long sermon de Paul ?",
+   "options": [
+    "Eutychus",
+    "Trophime",
+    "Tychique",
+    "Gaïus"
+   ],
+   "explain": "Eutychus, endormi, tomba du troisième étage et fut relevé vivant. (Actes 20:9-10)"
+  },
+  "en": {
+   "q": "Which young man fell from a window during a long sermon of Paul?",
+   "options": [
+    "Eutychus",
+    "Trophimus",
+    "Tychicus",
+    "Gaius"
+   ],
+   "explain": "Eutychus, asleep, fell from the third floor and was raised alive. (Acts 20:9-10)"
+  }
+ },
+ {
+  "id": "people-medium-093",
+  "ref": {
+   "fr": "Actes 28:7",
+   "en": "Acts 28:7"
+  },
+  "fr": {
+   "q": "Quel notable de l'île de Malte accueillit Paul après le naufrage ?",
+   "options": [
+    "Publius",
+    "Sergius Paulus",
+    "Corneille",
+    "Jules"
+   ],
+   "explain": "Publius, premier de l'île, reçut Paul avec bonté. (Actes 28:7)"
+  },
+  "en": {
+   "q": "Which leading man of Malta welcomed Paul after the shipwreck?",
+   "options": [
+    "Publius",
+    "Sergius Paulus",
+    "Cornelius",
+    "Julius"
+   ],
+   "explain": "Publius, chief of the island, received Paul kindly. (Acts 28:7)"
+  }
+ },
+ {
+  "id": "people-medium-094",
+  "ref": {
+   "fr": "Luc 1:3",
+   "en": "Luke 1:3"
+  },
+  "fr": {
+   "q": "À quel homme Luc adressa-t-il son évangile et le livre des Actes ?",
+   "options": [
+    "Théophile",
+    "Timothée",
+    "Tite",
+    "Philémon"
+   ],
+   "explain": "Luc écrivit « pour toi, excellent Théophile ». (Luc 1:3)"
+  },
+  "en": {
+   "q": "To which man did Luke address his gospel and the book of Acts?",
+   "options": [
+    "Theophilus",
+    "Timothy",
+    "Titus",
+    "Philemon"
+   ],
+   "explain": "Luke wrote “for you, most excellent Theophilus.” (Luke 1:3)"
+  }
+ },
+ {
+  "id": "people-medium-095",
+  "ref": {
+   "fr": "Ruth 1:20",
+   "en": "Ruth 1:20"
+  },
+  "fr": {
+   "q": "Comment s'appelait la belle-mère de Ruth, revenue de Moab ?",
+   "options": [
+    "Naomi",
+    "Orpa",
+    "Rahab",
+    "Anne"
+   ],
+   "explain": "Naomi retourna à Bethléhem avec sa belle-fille Ruth. (Ruth 1:20-22)"
+  },
+  "en": {
+   "q": "What was the name of Ruth's mother-in-law, who returned from Moab?",
+   "options": [
+    "Naomi",
+    "Orpah",
+    "Rahab",
+    "Hannah"
+   ],
+   "explain": "Naomi returned to Bethlehem with her daughter-in-law Ruth. (Ruth 1:20-22)"
+  }
+ },
+ {
+  "id": "people-medium-096",
+  "ref": {
+   "fr": "Lévitique 10:1",
+   "en": "Leviticus 10:1"
+  },
+  "fr": {
+   "q": "Quels deux fils d'Aaron périrent pour un feu étranger devant l'Éternel ?",
+   "options": [
+    "Nadab et Abihu",
+    "Éléazar et Ithamar",
+    "Koré et Dathan",
+    "Hophni et Phinées"
+   ],
+   "explain": "Nadab et Abihu offrirent un feu étranger et furent consumés. (Lévitique 10:1-2)"
+  },
+  "en": {
+   "q": "Which two sons of Aaron perished for strange fire before the LORD?",
+   "options": [
+    "Nadab and Abihu",
+    "Eleazar and Ithamar",
+    "Korah and Dathan",
+    "Hophni and Phinehas"
+   ],
+   "explain": "Nadab and Abihu offered strange fire and were consumed. (Leviticus 10:1-2)"
+  }
+ },
+ {
+  "id": "people-medium-097",
+  "ref": {
+   "fr": "1 Samuel 4:11",
+   "en": "1 Samuel 4:11"
+  },
+  "fr": {
+   "q": "Quels fils d'Éli moururent le jour où l'arche fut prise ?",
+   "options": [
+    "Hophni et Phinées",
+    "Nadab et Abihu",
+    "Joël et Abija",
+    "Amnon et Absalom"
+   ],
+   "explain": "Hophni et Phinées périrent, et l'arche fut prise. (1 Samuel 4:11)"
+  },
+  "en": {
+   "q": "Which sons of Eli died on the day the ark was captured?",
+   "options": [
+    "Hophni and Phinehas",
+    "Nadab and Abihu",
+    "Joel and Abijah",
+    "Amnon and Absalom"
+   ],
+   "explain": "Hophni and Phinehas died, and the ark was taken. (1 Samuel 4:11)"
+  }
+ },
+ {
+  "id": "people-medium-098",
+  "ref": {
+   "fr": "Exode 31:2",
+   "en": "Exodus 31:2"
+  },
+  "fr": {
+   "q": "Quel artisan rempli de l'Esprit conçut les objets du tabernacle ?",
+   "options": [
+    "Betsaleel",
+    "Aholiab",
+    "Hur",
+    "Hiram"
+   ],
+   "explain": "Dieu remplit Betsaleel de son Esprit pour l'ouvrage. (Exode 31:2-3)"
+  },
+  "en": {
+   "q": "Which craftsman filled with the Spirit made the tabernacle's objects?",
+   "options": [
+    "Bezalel",
+    "Oholiab",
+    "Hur",
+    "Hiram"
+   ],
+   "explain": "God filled Bezalel with his Spirit for the work. (Exodus 31:2-3)"
+  }
+ },
+ {
+  "id": "people-medium-099",
+  "ref": {
+   "fr": "Nombres 20:28",
+   "en": "Numbers 20:28"
+  },
+  "fr": {
+   "q": "Quel fils d'Aaron lui succéda comme souverain sacrificateur ?",
+   "options": [
+    "Éléazar",
+    "Ithamar",
+    "Phinées",
+    "Nadab"
+   ],
+   "explain": "On revêtit Éléazar des vêtements d'Aaron. (Nombres 20:28)"
+  },
+  "en": {
+   "q": "Which son of Aaron succeeded him as high priest?",
+   "options": [
+    "Eleazar",
+    "Ithamar",
+    "Phinehas",
+    "Nadab"
+   ],
+   "explain": "Eleazar was clothed with Aaron's garments. (Numbers 20:28)"
+  }
+ },
+ {
+  "id": "people-medium-100",
+  "ref": {
+   "fr": "2 Rois 8:13",
+   "en": "2 Kings 8:13"
+  },
+  "fr": {
+   "q": "Quel Syrien devint roi de Damas selon la parole d'Élisée ?",
+   "options": [
+    "Hazaël",
+    "Ben-Hadad",
+    "Naaman",
+    "Retsin"
+   ],
+   "explain": "Élisée annonça à Hazaël qu'il régnerait sur la Syrie. (2 Rois 8:13)"
+  },
+  "en": {
+   "q": "Which Syrian became king of Damascus according to Elisha's word?",
+   "options": [
+    "Hazael",
+    "Ben-Hadad",
+    "Naaman",
+    "Rezin"
+   ],
+   "explain": "Elisha told Hazael he would reign over Syria. (2 Kings 8:13)"
+  }
+ }
+]
