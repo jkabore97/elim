@@ -291,7 +291,7 @@ function UploadBook({ user, onClose }: { user: AppUser; onClose: () => void }) {
 
 // ==================== TAB ====================
 
-export function LibraryTab({ user, canUpload }: { user: AppUser; canUpload: boolean }) {
+export function LibraryTab({ user, canUpload, canTranscribe = false }: { user: AppUser; canUpload: boolean; canTranscribe?: boolean }) {
   const { t } = useLanguage()
   const [books, setBooks] = useState<Book[]>([])
   const [loading, setLoading] = useState(true)
@@ -349,7 +349,7 @@ export function LibraryTab({ user, canUpload }: { user: AppUser; canUpload: bool
 
   return (
     <div className="space-y-4">
-      {canUpload && <TranscribeTool user={user} />}
+      {canTranscribe && <TranscribeTool user={user} />}
       <div className="flex gap-2">
         <div className="relative flex-1">
           <Search size={17} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 pointer-events-none" />

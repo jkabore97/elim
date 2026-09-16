@@ -55,6 +55,14 @@ export interface GroupLead {
   name: string;      // denormalized display name, so the admin list needs no user lookup
   featured?: boolean; // true => this lead's name is shown big on their group posts
 }
+// Capabilities a group grants to its leads. A lead's effective rights are the
+// union across every group they lead; admins/pastors always have all of them.
+export interface GroupPerms {
+  post?: boolean;       // publish regular feed posts (and music)
+  sante?: boolean;      // publish health tips
+  books?: boolean;      // upload library books
+  transcribe?: boolean; // use the audio/video transcription tool
+}
 export interface Group {
   id: string;
   name: string;
@@ -63,6 +71,7 @@ export interface Group {
   // the keys so the composer can find "my groups" with an array-contains query.
   leads: Record<string, GroupLead>;
   leadIds: string[];
+  perms?: GroupPerms;
   createdAt?: any;
   updatedAt?: any;
 }

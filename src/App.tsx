@@ -45,7 +45,6 @@ import { subscribeProfile as subscribeQuizProfile } from './quiz/store'
 import { todayKey as quizTodayKey } from './quiz/engine'
 import { subscribeGroups } from './groups'
 import { GroupsPanel } from './Groups'
-import { PostScriptButton } from './Transcribe'
 import type { Post, Comment, AppUser, ActivityLog, AppNotification, DonationConfig, DonationProvider, Report, DonationType, Donation, Group } from './types'
 import { LanguageProvider, useLanguage, LANGUAGES, type Language } from './i18n'
 
@@ -1401,7 +1400,26 @@ function AppInner() {
     return unsub
   }, [user])
 
-  const canPost = user?.role === 'church' || user?.role === 'admin' || user?.role === 'pastor'
+  // Capabilities are granted per GROUP now: a lead gets the union of the perms
+  // of every group they lead. Admins/pastors always have everything. A plain
+  // 'church' account with no group therefore has no publishing rights until an
+  // admin assigns it to a group with the matching permission.
+  const caps = useMemo(() => {
+    const staff = user?.role === 'admin' || user?.role === 'pastor'
+    const c = { post: !!staff, sante: !!staff, books: !!staff, transcribe: !!staff }
+    if (!staff && user) {
+      for (const g of groups) {
+        if (!g.leads[user.uid]) continue
+        const p = g.perms || {}
+        c.post = c.post || !!p.post
+        c.sante = c.sante || !!p.sante
+        c.books = c.books || !!p.books
+        c.transcribe = c.transcribe || !!p.transcribe
+      }
+    }
+    return c
+  }, [groups, user])
+  const canPost = caps.post
   // Groups this account may publish under: its own lead groups, plus every
   // group for staff (admins/pastors can post as any group). Drives the
   // composer's "publish under" picker.
@@ -1675,7 +1693,7 @@ function AppInner() {
   // Same permission as the main feed: leads, admin and pastor. Doctors are
   // given a lead account rather than being granted publishing rights by
   // profession - one rule to reason about instead of two.
-  const canPostSante = canPost
+  const canPostSante = caps.sante
 
   // Deliberately NOT useMemo. These sit below the early returns above
   // (splash / authLoading / no user), and a hook cannot live there: React
@@ -1914,7 +1932,7 @@ function AppInner() {
 
             {activeTab === 'library' && (
               <div className="animate-rise">
-                <LibraryTab user={user} canUpload={canPost} />
+                <LibraryTab user={user} canUpload={caps.books} canTranscribe={caps.transcribe} />
               </div>
             )}
 
@@ -3094,8 +3112,7 @@ function PostCard({ post, onLike, onOpenComments, currentUser, isLiked, onEdit, 
               <p className="text-[11px] text-slate-400">{post.authorName || post.churchName || 'ELIM'}</p>
             </div>
           </button>
-          <div className="mt-2 flex justify-end items-center gap-2">
-            {['church', 'admin', 'pastor'].includes(currentUser.role) && <PostScriptButton postId={post.id} />}
+          <div className="mt-2 flex justify-end">
             <OfflineButton id={post.id} url={post.mediaUrl} kind="audio"
               title={post.content?.slice(0, 60) || 'Audio'} />
           </div>

@@ -10,25 +10,10 @@ import { functions, db, storage } from './firebase'
 
 export interface TranscriptDoc { status?: 'processing' | 'done' | 'error'; text?: string; error?: string }
 
-// Callables. The client-side timeout is generous, but the Firestore
+// Callable. The client-side timeout is generous, but the Firestore
 // subscription is the source of truth for the finished transcript.
-const callTranscribePost = httpsCallable<{ postId: string }, { text: string }>(
-  functions, 'transcribePost', { timeout: 540000 })
 const callTranscribeUpload = httpsCallable<{ jobId: string; path: string }, { text: string }>(
   functions, 'transcribeUpload', { timeout: 540000 })
-
-// ---- Feed audio posts -------------------------------------------------------
-export function subscribeTranscript(postId: string, cb: (t: TranscriptDoc | null) => void): () => void {
-  return onSnapshot(doc(db, 'transcripts', postId),
-    snap => cb(snap.exists() ? (snap.data() as TranscriptDoc) : null),
-    () => cb(null))
-}
-
-export async function requestPostTranscript(postId: string): Promise<void> {
-  // Fire-and-forget: the result lands via subscribeTranscript. We swallow a
-  // timeout here because the function finishes server-side regardless.
-  try { await callTranscribePost({ postId }) } catch { /* subscription delivers it */ }
-}
 
 // ---- Read-tab upload tool ---------------------------------------------------
 export function subscribeJob(jobId: string, cb: (t: TranscriptDoc | null) => void): () => void {

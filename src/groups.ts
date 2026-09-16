@@ -35,6 +35,7 @@ export function subscribeGroups(
         avatar: v.avatar || undefined,
         leads: v.leads && typeof v.leads === 'object' ? v.leads : {},
         leadIds: Array.isArray(v.leadIds) ? v.leadIds : [],
+        perms: v.perms && typeof v.perms === 'object' ? v.perms : {},
       } as Group
     }))
   }, e => onError?.(e))
@@ -69,6 +70,16 @@ export async function setLead(groupId: string, uid: string, name: string, featur
   await updateDoc(doc(db, GROUPS, groupId), {
     [`leads.${uid}`]: { name, featured },
     leadIds: arrayUnion(uid),
+    updatedAt: serverTimestamp(),
+  })
+}
+
+// Toggle a capability the group grants to its leads.
+export async function setGroupPerm(
+  groupId: string, key: 'post' | 'sante' | 'books' | 'transcribe', value: boolean,
+): Promise<void> {
+  await updateDoc(doc(db, GROUPS, groupId), {
+    [`perms.${key}`]: value,
     updatedAt: serverTimestamp(),
   })
 }
