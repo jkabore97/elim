@@ -154,7 +154,16 @@ function toPlay(q: BankQuestion, cat: QuizCategory, diff: QuizDifficulty, lang: 
 
 export async function buildGame(cat: QuizCategory, diff: QuizDifficulty, lang: QuizLang): Promise<PlayQuestion[]> {
   const bank = await loadBank(cat, diff)
-  return shuffle(bank).slice(0, QUESTIONS_PER_GAME).map(q => toPlay(q, cat, diff, lang, Math.random))
+  if (bank.length) {
+    return shuffle(bank).slice(0, QUESTIONS_PER_GAME).map(q => toPlay(q, cat, diff, lang, Math.random))
+  }
+  // No dedicated bank for this level yet: pool every difficulty the category
+  // ships so the level still plays random questions. Each question keeps its
+  // real difficulty, so points stay fair.
+  const pools = await Promise.all(QUIZ_DIFFICULTIES.map(d => loadBank(cat, d)))
+  const merged: { q: BankQuestion; d: QuizDifficulty }[] = []
+  QUIZ_DIFFICULTIES.forEach((d, i) => pools[i].forEach(q => merged.push({ q, d })))
+  return shuffle(merged).slice(0, QUESTIONS_PER_GAME).map(({ q, d }) => toPlay(q, cat, d, lang, Math.random))
 }
 
 // Daily challenge: 5 questions from 5 different categories, medium

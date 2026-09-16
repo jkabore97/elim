@@ -155,7 +155,7 @@ export default function BibleQuiz({ user, onClose }: { user: AppUser; onClose: (
             <KidNameScreen loading={loading} onBack={backToHome} onStart={startKids} />
           )}
           {screen === 'playing' && game && (
-            <PlayScreen questions={game.questions} difficulty={game.difficulty}
+            <PlayScreen questions={game.questions}
               kid={game.mode === 'kids'} kidName={game.childName}
               onQuit={() => { if (confirm(t('quiz.quitConfirm'))) backToHome() }}
               onFinish={finishGame} />
@@ -363,19 +363,20 @@ function DifficultyScreen({ category, profile, loading, onBack, onStart }: {
       </div>
       <div className="space-y-3">
         {QUIZ_DIFFICULTIES.map(diff => {
-          const ready = bankAvailable(category, diff)
+          // Every level is playable: if a level has no dedicated bank yet, the
+          // game draws random questions from the category's available pool.
           const best = profile.best[`${category}-${diff}`]
           return (
-            <button key={diff} onClick={() => ready && !loading && onStart(diff)} disabled={!ready || loading}
-              className={`w-full glass rounded-2xl p-4 flex items-center gap-4 transition ${ready ? 'glass-hover' : 'opacity-60'}`}>
+            <button key={diff} onClick={() => !loading && onStart(diff)} disabled={loading}
+              className="w-full glass glass-hover rounded-2xl p-4 flex items-center gap-4 transition">
               <div className="text-affirm-500 tracking-widest text-lg font-bold w-14">{dots[diff]}</div>
               <div className="flex-1 text-left">
                 <p className="font-bold text-slate-800">{t(`quiz.${diff}` as any)}</p>
                 <p className="text-xs text-slate-500">
-                  {ready ? `${QUESTIONS_PER_GAME} ${t('quiz.questionsCount')}${best != null ? ` · ${t('quiz.best')} ${best}/${QUESTIONS_PER_GAME}` : ''}` : t('quiz.comingSoon')}
+                  {QUESTIONS_PER_GAME} {t('quiz.questionsCount')}{best != null ? ` · ${t('quiz.best')} ${best}/${QUESTIONS_PER_GAME}` : ''}
                 </p>
               </div>
-              {ready && (loading ? <Loader2 size={18} className="animate-spin text-slate-400" /> : <ArrowRight size={18} className="text-affirm-500" />)}
+              {loading ? <Loader2 size={18} className="animate-spin text-slate-400" /> : <ArrowRight size={18} className="text-affirm-500" />}
             </button>
           )
         })}
@@ -415,8 +416,8 @@ function KidNameScreen({ loading, onBack, onStart }: {
 }
 
 // ---- Playing ----------------------------------------------------------------
-function PlayScreen({ questions, difficulty, kid, kidName, onQuit, onFinish }: {
-  questions: PlayQuestion[]; difficulty: QuizDifficulty; kid?: boolean; kidName?: string
+function PlayScreen({ questions, kid, kidName, onQuit, onFinish }: {
+  questions: PlayQuestion[]; kid?: boolean; kidName?: string
   onQuit: () => void; onFinish: (correct: PlayQuestion[]) => void
 }) {
   const { t } = useLanguage()
@@ -432,7 +433,7 @@ function PlayScreen({ questions, difficulty, kid, kidName, onQuit, onFinish }: {
   function lockAnswer(choice: number) {
     if (picked !== null) return
     const correct = choice === q.correct
-    const pts = correct ? pointsFor(difficulty) : 0
+    const pts = correct ? pointsFor(q.difficulty) : 0
     if (correct) { setCorrectList(prev => [...prev, q]); setPoints(p => p + pts) }
     setGained(pts)
     setPicked(choice)
