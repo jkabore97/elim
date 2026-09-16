@@ -188,6 +188,17 @@ export async function buildDaily(lang: QuizLang, day = todayKey()): Promise<Play
   return out
 }
 
+// A quick random game: 10 questions drawn from every category and level the
+// app ships. Powers the "continue playing" tap on the home level card.
+export async function buildRandom(lang: QuizLang): Promise<PlayQuestion[]> {
+  const pools = await Promise.all(
+    ADULT_CATEGORIES.flatMap(cat => QUIZ_DIFFICULTIES.map(d => loadBank(cat, d).then(b => ({ cat, d, b }))))
+  )
+  const merged: { q: BankQuestion; cat: QuizCategory; d: QuizDifficulty }[] = []
+  for (const { cat, d, b } of pools) for (const q of b) merged.push({ q, cat, d })
+  return shuffle(merged).slice(0, QUESTIONS_PER_GAME).map(({ q, cat, d }) => toPlay(q, cat, d, lang, Math.random))
+}
+
 // ---- Scoring ----------------------------------------------------------------
 const BASE: Record<QuizDifficulty, number> = { easy: 100, medium: 150, hard: 200 }
 
@@ -275,7 +286,7 @@ export const BADGE_EMOJI: Record<BadgeId, string> = {
 }
 
 export interface GameResult {
-  category: QuizCategory | 'daily'
+  category: QuizCategory | 'daily' | 'random'
   difficulty: QuizDifficulty
   total: number
   correct: number

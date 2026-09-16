@@ -672,6 +672,8 @@ const fr = {
   "quiz.seeAll": 'Voir tout',
   "quiz.beFirst": 'Pas encore de champion — sois le premier cette semaine !',
   "quiz.general": 'Général',
+  "quiz.randomGame": 'Partie rapide',
+  "quiz.continuePlay": 'Appuie pour continuer à jouer',
 }
 
 export default fr

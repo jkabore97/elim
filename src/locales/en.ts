@@ -672,6 +672,8 @@ const en = {
   "quiz.seeAll": 'See all',
   "quiz.beFirst": 'No champion yet — be the first this week!',
   "quiz.general": 'General',
+  "quiz.randomGame": 'Quick game',
+  "quiz.continuePlay": 'Tap to keep playing',
 }
 
 export default en
