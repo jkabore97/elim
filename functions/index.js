@@ -64,11 +64,12 @@ function churchDayKey(d = new Date()) {
 // per-event senders: multicast in batches of 500, then prune dead tokens.
 async function broadcastPush(db, { title, body, data }) {
   const usersSnap = await db.collection('users').where('notificationsEnabled', '==', true).get();
-  const tokens = [];
+  const tokenSet = new Set();
   usersSnap.forEach((doc) => {
     const arr = doc.data().fcmTokens;
-    if (Array.isArray(arr)) tokens.push(...arr);
+    if (Array.isArray(arr)) arr.forEach((t) => t && tokenSet.add(t));
   });
+  const tokens = [...tokenSet]; // dedupe: the same device token can appear twice
   if (tokens.length === 0) return;
 
   const messaging = getMessaging();
@@ -107,7 +108,10 @@ async function broadcastPush(db, { title, body, data }) {
   });
   if (deadTokens.length > 0) {
     const deadSet = new Set(deadTokens);
-    await Promise.all(
+    // Best-effort cleanup: a single failed prune (e.g. a user doc deleted between
+    // the read and the write) must not fail the whole broadcast, which already
+    // went out - otherwise a retried schedule would double-send.
+    await Promise.allSettled(
       usersSnap.docs
         .filter((doc) => (doc.data().fcmTokens || []).some((t) => deadSet.has(t)))
         .map((doc) => doc.ref.update({
@@ -484,7 +488,9 @@ const TRANSLATION_FREE_BUDGET = 450000; // chars/month, safe margin under 500k
 
 // /tmp is memory-backed on gen2, so the downloaded media + FLAC both count
 // against RAM; 4 GiB leaves headroom for a long sermon or a large video.
-const TRANSCRIBE_OPTS = { region: 'us-central1', memory: '4GiB', timeoutSeconds: 3600 };
+// concurrency:1 keeps one transcription per instance so several large jobs on
+// one warm instance can't stack their /tmp usage and OOM-kill each other.
+const TRANSCRIBE_OPTS = { region: 'us-central1', memory: '4GiB', timeoutSeconds: 3600, concurrency: 1 };
 
 // Authorize a transcription caller. Must be church/admin/pastor; a plain
 // 'church' lead additionally needs the 'transcribe' group capability (admins
@@ -587,17 +593,26 @@ async function runTranscription(objectPath) {
         .on('error', reject)
         .save(chunkPattern);
     });
+    // The source is fully consumed into chunks now; free it before the recognize
+    // loop so /tmp (memory-backed) doesn't hold the whole download the whole time.
+    try { fs.unlinkSync(localIn); } catch (_e) { /* ignore */ }
 
     const chunks = localChunks();
     if (chunks.length === 0) { await cleanup(); return ''; }
 
     const parts = [];
     // Sequential: one chunk in memory/GCS at a time keeps a long file well
-    // within the function's memory and avoids hammering the STT quota.
+    // within the function's memory and avoids hammering the STT quota. A single
+    // chunk failing (transient STT error, one bad segment) must not discard the
+    // whole sermon, so each chunk is tried independently and gaps are tolerated.
     for (let i = 0; i < chunks.length; i++) {
       const staged = `${stagedPrefix}${String(i).padStart(3, '0')}.flac`;
-      await bucket.upload(chunks[i], { destination: staged, resumable: false });
-      parts.push(await recognizeChunk(bucket, staged));
+      try {
+        await bucket.upload(chunks[i], { destination: staged, resumable: false });
+        parts.push(await recognizeChunk(bucket, staged));
+      } catch (_e) {
+        parts.push(''); // keep going; this segment is simply missing from the transcript
+      }
       try { await bucket.file(staged).delete({ ignoreNotFound: true }); } catch (_e) { /* ignore */ }
       try { fs.unlinkSync(chunks[i]); } catch (_e) { /* ignore */ }
     }
@@ -609,34 +624,9 @@ async function runTranscription(objectPath) {
   }
 }
 
-// Transcribe an existing audio/video POST. Cached in transcripts/{postId}.
-exports.transcribePost = onCall(TRANSCRIBE_OPTS, async (request) => {
-  const uid = await requireLead(request);
-  const postId = String(request.data?.postId || '').trim();
-  if (!postId) throw new HttpsError('invalid-argument', 'postId is required.');
-
-  const db = getFirestore();
-  const postSnap = await db.collection('posts').doc(postId).get();
-  if (!postSnap.exists) throw new HttpsError('not-found', 'Post not found.');
-  const post = postSnap.data();
-  const objectPath = storageObjectPath(post.mediaUrl);
-  if (!objectPath) throw new HttpsError('failed-precondition', 'This post has no transcribable media.');
-
-  const ref = db.collection('transcripts').doc(postId);
-  // A cached transcript is returned as-is; re-tapping never re-spends.
-  const existing = await ref.get();
-  if (existing.exists && existing.data().status === 'done') return { text: existing.data().text || '' };
-
-  await ref.set({ postId, status: 'processing', byUid: uid, createdAt: FieldValue.serverTimestamp() }, { merge: true });
-  try {
-    const text = await runTranscription(objectPath);
-    await ref.set({ postId, status: 'done', text, byUid: uid, updatedAt: FieldValue.serverTimestamp() }, { merge: true });
-    return { text };
-  } catch (err) {
-    await ref.set({ status: 'error', error: String(err && err.message || err).slice(0, 300) }, { merge: true });
-    throw new HttpsError('internal', 'Transcription failed.');
-  }
-});
+// (transcribePost was removed: the per-post "Script" button no longer exists,
+// and transcribing an arbitrary post.mediaUrl let a caller reach files outside
+// their own space. Only the scoped scratch-upload path below remains.)
 
 // Transcribe a lead's scratch UPLOAD, then delete it from Storage. The result
 // is written to the caller-created transcribeJobs/{jobId} doc they subscribe to.
@@ -686,23 +676,26 @@ exports.syncGroupCaps = onDocumentWritten(
     if (affected.size === 0) return;
 
     const db = getFirestore();
-    const snap = await db.collection('groups').get();
-    const groups = snap.docs.map((d) => d.data());
-
-    await Promise.all([...affected].map(async (uid) => {
-      const caps = { post: false, sante: false, books: false, transcribe: false };
-      for (const g of groups) {
-        if (!g.leads || !g.leads[uid]) continue;
-        const p = g.perms || {};
-        if (p.post) caps.post = true;
-        if (p.sante) caps.sante = true;
-        if (p.books) caps.books = true;
-        if (p.transcribe) caps.transcribe = true;
-      }
-      try {
-        await db.collection('users').doc(uid).set({ groupCaps: caps }, { merge: true });
-      } catch (_e) { /* user doc may be gone; ignore */ }
-    }));
+    // Recompute each affected lead's caps inside a transaction that reads the
+    // CURRENT set of groups they lead. Concurrent group edits then retry rather
+    // than clobbering each other (a plain read-all-then-write races and can drop
+    // a cap until the next unrelated group change re-syncs).
+    await Promise.allSettled([...affected].map((uid) =>
+      db.runTransaction(async (tx) => {
+        const gsnap = await tx.get(db.collection('groups').where('leadIds', 'array-contains', uid));
+        const caps = { post: false, sante: false, books: false, transcribe: false };
+        gsnap.forEach((doc) => {
+          const g = doc.data();
+          if (!g.leads || !g.leads[uid]) return;
+          const p = g.perms || {};
+          if (p.post) caps.post = true;
+          if (p.sante) caps.sante = true;
+          if (p.books) caps.books = true;
+          if (p.transcribe) caps.transcribe = true;
+        });
+        tx.set(db.collection('users').doc(uid), { groupCaps: caps }, { merge: true });
+      })
+    ));
   }
 );
 
@@ -790,13 +783,26 @@ function cfaPeg(amount, from, to) {
   return null;
 }
 
+// fetch with a hard timeout so a hung upstream can't tie up an instance until
+// the function's own (much longer) timeout.
+async function fetchWithTimeout(url, options = {}, ms = 8000) {
+  const ctrl = new AbortController();
+  const t = setTimeout(() => ctrl.abort(), ms);
+  try {
+    return await fetch(url, { ...options, signal: ctrl.signal });
+  } finally {
+    clearTimeout(t);
+  }
+}
+
 // Convert a major-unit amount between currencies. Live rates from the free
 // open.er-api.com; the fixed CFA<->EUR peg backs it up. Returns null if we
 // genuinely can't get a rate (caller turns that into a friendly error).
 async function fxConvert(amount, from, to) {
   if (from === to) return amount;
+  if (!/^[A-Z]{3}$/.test(from) || !/^[A-Z]{3}$/.test(to)) return cfaPeg(amount, from, to);
   try {
-    const r = await fetch(`https://open.er-api.com/v6/latest/${from}`);
+    const r = await fetchWithTimeout(`https://open.er-api.com/v6/latest/${from}`);
     const j = await r.json();
     if (j && j.result === 'success' && j.rates && typeof j.rates[to] === 'number') {
       return amount * j.rates[to];
@@ -812,7 +818,7 @@ async function fxConvert(amount, from, to) {
 // price MUST be in this currency or Square rejects the link.
 async function squareLocationCurrency(accessToken, locationId) {
   try {
-    const locRes = await fetch(`${SQUARE_API}/locations/${locationId}`, {
+    const locRes = await fetchWithTimeout(`${SQUARE_API}/locations/${locationId}`, {
       headers: { Authorization: `Bearer ${accessToken}`, 'Square-Version': SQUARE_VERSION },
     });
     const locJson = await locRes.json();
@@ -906,7 +912,7 @@ exports.createSquareCheckout = onCall(
 
     let json;
     try {
-      const res = await fetch(`${SQUARE_API}/online-checkout/payment-links`, {
+      const res = await fetchWithTimeout(`${SQUARE_API}/online-checkout/payment-links`, {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${accessToken}`,
@@ -1104,17 +1110,6 @@ async function topOfLeague(db, weekId, league) {
   return { uid: v.uid, name: (v.name || 'Un membre').toString().slice(0, 60), points: v.points };
 }
 
-// The General (Grand) champion is the top of quizProfiles by weekly points,
-// matching the app's General leaderboard (which reads profiles directly).
-async function topProfileOfWeek(db, weekId) {
-  const snap = await db.collection('quizProfiles')
-    .where('weekId', '==', weekId).orderBy('weekPoints', 'desc').limit(1).get();
-  if (snap.empty) return null;
-  const v = snap.docs[0].data();
-  if (!(v.weekPoints > 0)) return null;
-  return { uid: snap.docs[0].id, name: (v.displayName || 'Un membre').toString().slice(0, 60), points: v.weekPoints };
-}
-
 // Monday 08:00 church time: snapshot last week's category + grand champions
 // into the Palmarès, bump the grand champion's crown, and announce it.
 exports.weeklyCategoryChampions = onSchedule(
@@ -1126,7 +1121,12 @@ exports.weeklyCategoryChampions = onSchedule(
     const champRef = db.collection('quizChampions').doc(weekId);
     if ((await champRef.get()).exists) return; // already recorded
 
-    const grand = await topProfileOfWeek(db, weekId);
+    // Grand champion comes from the IMMUTABLE per-week grand docs (quizWeekly),
+    // same as the category winners. Reading quizProfiles.weekPoints would be
+    // wrong: a profile's week fields are reset the moment that player starts a
+    // new-week game (e.g. Monday morning before 08:00), so the true champion
+    // could be excluded and a lower-ranked player crowned instead.
+    const grand = await topOfLeague(db, weekId, 'grand');
     if (!grand) return; // nobody played
 
     const categories = {};
@@ -1135,16 +1135,22 @@ exports.weeklyCategoryChampions = onSchedule(
       if (w) categories[cat] = w;
     }
 
-    await champRef.set({
-      kind: 'adult', weekId, weekLabel: `Semaine du ${frDate(yesterday)}`,
-      endedAt: FieldValue.serverTimestamp(), grand, categories,
-    });
-
-    // The grand champion earns a crown (weeksWon++).
-    try {
-      await db.collection('quizProfiles').doc(grand.uid).set(
+    // Record the champion and award the crown ATOMICALLY: a re-check of the
+    // existence guard, the Palmarès write, and weeksWon++ all commit together,
+    // so overlapping runs can't double-crown and a crash can't record the week
+    // without awarding the crown.
+    let created = false;
+    await db.runTransaction(async (tx) => {
+      if ((await tx.get(champRef)).exists) return;
+      tx.set(champRef, {
+        kind: 'adult', weekId, weekLabel: `Semaine du ${frDate(yesterday)}`,
+        endedAt: FieldValue.serverTimestamp(), grand, categories,
+      });
+      tx.set(db.collection('quizProfiles').doc(grand.uid),
         { weeksWon: FieldValue.increment(1) }, { merge: true });
-    } catch (_e) { /* profile may not exist yet; ignore */ }
+      created = true;
+    });
+    if (!created) return; // another run already recorded this week; don't re-announce
 
     const catCount = Object.keys(categories).length;
     await broadcastPush(db, {

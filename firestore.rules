@@ -77,11 +77,17 @@ service cloud.firestore {
       allow create: if isSignedIn() && request.auth.uid == userId
                     // Users can only self-assign 'member' or 'pending_church' on signup —
                     // never 'church' or 'admin' directly.
-                    && request.resource.data.role in ['member', 'pending_church'];
+                    && request.resource.data.role in ['member', 'pending_church']
+                    // groupCaps is set ONLY by the syncGroupCaps function (Admin SDK):
+                    // a user must never seed their own capabilities at signup.
+                    && !('groupCaps' in request.resource.data);
       allow update: if isSignedIn() && (
                       // users can update their own profile, but never their own role
+                      // or their group capabilities (groupCaps is function-owned; a
+                      // self-write of it would bypass the group-permission enforcement).
                       (request.auth.uid == userId
-                        && request.resource.data.role == resource.data.role)
+                        && request.resource.data.role == resource.data.role
+                        && request.resource.data.get('groupCaps', {}) == resource.data.get('groupCaps', {}))
                       ||
                       // an admin may approve/deny a pending church — but ONLY that:
                       // the target must currently be pending_church, the new role must
@@ -97,8 +103,12 @@ service cloud.firestore {
                       // Role is frozen on this path: promoting or demoting an
                       // account must go through the pending_church approval
                       // clause above or a direct console action - never
-                      // free-text field editing (SECURITY.md §3).
-                      (isAdmin() && request.resource.data.role == resource.data.role)
+                      // free-text field editing (SECURITY.md §3). groupCaps is
+                      // also frozen here - it is owned by syncGroupCaps, and
+                      // group permissions are managed via the Groups panel.
+                      (isAdmin()
+                        && request.resource.data.role == resource.data.role
+                        && request.resource.data.get('groupCaps', {}) == resource.data.get('groupCaps', {}))
                     );
       allow delete: if isAdmin();
     }
@@ -261,15 +271,6 @@ service cloud.firestore {
     match /groups/{groupId} {
       allow read: if isSignedIn();
       allow write: if isAdmin();
-    }
-
-    // ---- Transcripts (audio/video -> text) ----
-    // Cached transcripts of audio/video POSTS, written ONLY by the
-    // transcribePost Cloud Function (Admin SDK bypasses these rules). Readable
-    // by leads/staff only - transcripts are a lead tool, not shown to members.
-    match /transcripts/{postId} {
-      allow read: if canPublish();
-      allow write: if false;
     }
 
     // ---- Transcription jobs (Read-tab upload tool) ----
