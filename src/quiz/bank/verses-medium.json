@@ -1,0 +1,2702 @@
+[
+ {
+  "id": "verses-medium-001",
+  "ref": {
+   "fr": "Proverbes 15:1",
+   "en": "Proverbs 15:1"
+  },
+  "fr": {
+   "q": "Complétez : « Une réponse ______ calme la fureur, mais une parole dure excite la colère. »",
+   "options": [
+    "douce",
+    "dure",
+    "forte",
+    "sage"
+   ],
+   "explain": "« Une réponse douce calme la fureur. » (Proverbes 15:1)"
+  },
+  "en": {
+   "q": "Complete: “A ______ answer turneth away wrath, but grievous words stir up anger.”",
+   "options": [
+    "soft",
+    "harsh",
+    "loud",
+    "wise"
+   ],
+   "explain": "“A soft answer turneth away wrath.” (Proverbs 15:1)"
+  }
+ },
+ {
+  "id": "verses-medium-002",
+  "ref": {
+   "fr": "Proverbes 18:10",
+   "en": "Proverbs 18:10"
+  },
+  "fr": {
+   "q": "Complétez : « Le nom de l’Éternel est une ______ forte ; le juste s’y réfugie. »",
+   "options": [
+    "tour",
+    "maison",
+    "montagne",
+    "épée"
+   ],
+   "explain": "« Le nom de l’Éternel est une tour forte. » (Proverbes 18:10)"
+  },
+  "en": {
+   "q": "Complete: “The name of the LORD is a strong ______: the righteous runneth into it, and is safe.”",
+   "options": [
+    "tower",
+    "house",
+    "mountain",
+    "sword"
+   ],
+   "explain": "“The name of the LORD is a strong tower.” (Proverbs 18:10)"
+  }
+ },
+ {
+  "id": "verses-medium-003",
+  "ref": {
+   "fr": "Proverbes 4:23",
+   "en": "Proverbs 4:23"
+  },
+  "fr": {
+   "q": "Complétez : « Garde ton ______ plus que toute autre chose, car de lui viennent les sources de la vie. »",
+   "options": [
+    "cœur",
+    "trésor",
+    "chemin",
+    "temps"
+   ],
+   "explain": "« Garde ton cœur plus que toute autre chose. » (Proverbes 4:23)"
+  },
+  "en": {
+   "q": "Complete: “Keep thy ______ with all diligence; for out of it are the issues of life.”",
+   "options": [
+    "heart",
+    "treasure",
+    "way",
+    "time"
+   ],
+   "explain": "“Keep thy heart with all diligence.” (Proverbs 4:23)"
+  }
+ },
+ {
+  "id": "verses-medium-004",
+  "ref": {
+   "fr": "Proverbes 27:17",
+   "en": "Proverbs 27:17"
+  },
+  "fr": {
+   "q": "Complétez : « Comme le ______ aiguise le fer, ainsi un homme en aiguise un autre. »",
+   "options": [
+    "fer",
+    "bois",
+    "feu",
+    "or"
+   ],
+   "explain": "« Comme le fer aiguise le fer... » (Proverbes 27:17)"
+  },
+  "en": {
+   "q": "Complete: “______ sharpeneth iron; so a man sharpeneth the countenance of his friend.”",
+   "options": [
+    "Iron",
+    "Wood",
+    "Fire",
+    "Gold"
+   ],
+   "explain": "“Iron sharpeneth iron.” (Proverbs 27:17)"
+  }
+ },
+ {
+  "id": "verses-medium-005",
+  "ref": {
+   "fr": "Proverbes 31:30",
+   "en": "Proverbs 31:30"
+  },
+  "fr": {
+   "q": "Complétez : « La grâce est trompeuse... la femme qui craint ______ est celle qui sera louée. »",
+   "options": [
+    "l’Éternel",
+    "le roi",
+    "son mari",
+    "la loi"
+   ],
+   "explain": "« La femme qui craint l’Éternel est celle qui sera louée. » (Proverbes 31:30)"
+  },
+  "en": {
+   "q": "Complete: “...a woman that feareth ______, she shall be praised.”",
+   "options": [
+    "the LORD",
+    "the king",
+    "her husband",
+    "the law"
+   ],
+   "explain": "“...a woman that feareth the LORD, she shall be praised.” (Proverbs 31:30)"
+  }
+ },
+ {
+  "id": "verses-medium-006",
+  "ref": {
+   "fr": "Ésaïe 26:3",
+   "en": "Isaiah 26:3"
+  },
+  "fr": {
+   "q": "Complétez : « Tu assures la ______ à celui dont la pensée est ferme, parce qu’il se confie en toi. »",
+   "options": [
+    "paix",
+    "gloire",
+    "richesse",
+    "force"
+   ],
+   "explain": "« Tu assures la paix... parce qu’il se confie en toi. » (Ésaïe 26:3)"
+  },
+  "en": {
+   "q": "Complete: “Thou wilt keep him in perfect ______, whose mind is stayed on thee.”",
+   "options": [
+    "peace",
+    "glory",
+    "riches",
+    "strength"
+   ],
+   "explain": "“Thou wilt keep him in perfect peace.” (Isaiah 26:3)"
+  }
+ },
+ {
+  "id": "verses-medium-007",
+  "ref": {
+   "fr": "Ésaïe 6:8",
+   "en": "Isaiah 6:8"
+  },
+  "fr": {
+   "q": "Complétez : « Qui enverrai-je ? Je répondis : Me voici, ______. »",
+   "options": [
+    "envoie-moi",
+    "attends-moi",
+    "pardonne-moi",
+    "écoute-moi"
+   ],
+   "explain": "« Me voici, envoie-moi. » (Ésaïe 6:8)"
+  },
+  "en": {
+   "q": "Complete: “Whom shall I send? Then said I, Here am I; ______.”",
+   "options": [
+    "send me",
+    "wait for me",
+    "forgive me",
+    "hear me"
+   ],
+   "explain": "“Here am I; send me.” (Isaiah 6:8)"
+  }
+ },
+ {
+  "id": "verses-medium-008",
+  "ref": {
+   "fr": "Ésaïe 43:2",
+   "en": "Isaiah 43:2"
+  },
+  "fr": {
+   "q": "Complétez : « Si tu traverses les eaux, ______ ; et les fleuves ne te submergeront pas. »",
+   "options": [
+    "je serai avec toi",
+    "tu périras",
+    "tu seras seul",
+    "je t’oublierai"
+   ],
+   "explain": "« Si tu traverses les eaux, je serai avec toi. » (Ésaïe 43:2)"
+  },
+  "en": {
+   "q": "Complete: “When thou passest through the waters, ______; and through the rivers, they shall not overflow thee.”",
+   "options": [
+    "I will be with thee",
+    "thou shalt perish",
+    "thou art alone",
+    "I will forget thee"
+   ],
+   "explain": "“When thou passest through the waters, I will be with thee.” (Isaiah 43:2)"
+  }
+ },
+ {
+  "id": "verses-medium-009",
+  "ref": {
+   "fr": "Ésaïe 53:6",
+   "en": "Isaiah 53:6"
+  },
+  "fr": {
+   "q": "Complétez : « Nous étions tous errants comme des ______, chacun suivait sa propre voie. »",
+   "options": [
+    "brebis",
+    "agneaux",
+    "oiseaux",
+    "étrangers"
+   ],
+   "explain": "« Nous étions tous errants comme des brebis. » (Ésaïe 53:6)"
+  },
+  "en": {
+   "q": "Complete: “All we like ______ have gone astray; we have turned every one to his own way.”",
+   "options": [
+    "sheep",
+    "lambs",
+    "birds",
+    "strangers"
+   ],
+   "explain": "“All we like sheep have gone astray.” (Isaiah 53:6)"
+  }
+ },
+ {
+  "id": "verses-medium-010",
+  "ref": {
+   "fr": "Ésaïe 40:8",
+   "en": "Isaiah 40:8"
+  },
+  "fr": {
+   "q": "Complétez : « L’herbe sèche, la fleur tombe ; mais la parole de notre Dieu subsiste ______. »",
+   "options": [
+    "éternellement",
+    "un temps",
+    "un jour",
+    "en secret"
+   ],
+   "explain": "« ...la parole de notre Dieu subsiste éternellement. » (Ésaïe 40:8)"
+  },
+  "en": {
+   "q": "Complete: “The grass withereth... but the word of our God shall stand ______.”",
+   "options": [
+    "for ever",
+    "a while",
+    "one day",
+    "in secret"
+   ],
+   "explain": "“...the word of our God shall stand for ever.” (Isaiah 40:8)"
+  }
+ },
+ {
+  "id": "verses-medium-011",
+  "ref": {
+   "fr": "Ésaïe 1:18",
+   "en": "Isaiah 1:18"
+  },
+  "fr": {
+   "q": "Complétez : « Si vos péchés sont comme le cramoisi, ils deviendront blancs comme ______. »",
+   "options": [
+    "la neige",
+    "le lait",
+    "la lune",
+    "le sel"
+   ],
+   "explain": "« ...ils deviendront blancs comme la neige. » (Ésaïe 1:18)"
+  },
+  "en": {
+   "q": "Complete: “...though your sins be as scarlet, they shall be as white as ______.”",
+   "options": [
+    "snow",
+    "milk",
+    "the moon",
+    "salt"
+   ],
+   "explain": "“...they shall be as white as snow.” (Isaiah 1:18)"
+  }
+ },
+ {
+  "id": "verses-medium-012",
+  "ref": {
+   "fr": "Psaume 46:11",
+   "en": "Psalm 46:10"
+  },
+  "fr": {
+   "q": "Complétez : « Arrêtez, et sachez que je suis ______ ! Je domine sur les nations. »",
+   "options": [
+    "Dieu",
+    "Roi",
+    "Juge",
+    "Père"
+   ],
+   "explain": "« Arrêtez, et sachez que je suis Dieu ! » (Psaume 46:11)"
+  },
+  "en": {
+   "q": "Complete: “Be still, and know that I am ______: I will be exalted among the heathen.”",
+   "options": [
+    "God",
+    "King",
+    "Judge",
+    "Father"
+   ],
+   "explain": "“Be still, and know that I am God.” (Psalm 46:10)"
+  }
+ },
+ {
+  "id": "verses-medium-013",
+  "ref": {
+   "fr": "Psaume 34:9",
+   "en": "Psalm 34:8"
+  },
+  "fr": {
+   "q": "Complétez : « Sentez et voyez combien l’Éternel est ______ ! Heureux l’homme qui cherche en lui son refuge. »",
+   "options": [
+    "bon",
+    "grand",
+    "saint",
+    "fort"
+   ],
+   "explain": "« Sentez et voyez combien l’Éternel est bon ! » (Psaume 34:9)"
+  },
+  "en": {
+   "q": "Complete: “O taste and see that the LORD is ______: blessed is the man that trusteth in him.”",
+   "options": [
+    "good",
+    "great",
+    "holy",
+    "strong"
+   ],
+   "explain": "“O taste and see that the LORD is good.” (Psalm 34:8)"
+  }
+ },
+ {
+  "id": "verses-medium-014",
+  "ref": {
+   "fr": "Psaume 37:4",
+   "en": "Psalm 37:4"
+  },
+  "fr": {
+   "q": "Complétez : « Fais de l’Éternel tes délices, et il te donnera ce que ton ______ désire. »",
+   "options": [
+    "cœur",
+    "corps",
+    "esprit",
+    "œil"
+   ],
+   "explain": "« ...il te donnera ce que ton cœur désire. » (Psaume 37:4)"
+  },
+  "en": {
+   "q": "Complete: “Delight thyself also in the LORD; and he shall give thee the desires of thine ______.”",
+   "options": [
+    "heart",
+    "body",
+    "mind",
+    "eye"
+   ],
+   "explain": "“...the desires of thine heart.” (Psalm 37:4)"
+  }
+ },
+ {
+  "id": "verses-medium-015",
+  "ref": {
+   "fr": "Psaume 139:14",
+   "en": "Psalm 139:14"
+  },
+  "fr": {
+   "q": "Complétez : « Je te loue de ce que je suis une créature si ______ ; tes œuvres sont admirables. »",
+   "options": [
+    "merveilleuse",
+    "faible",
+    "petite",
+    "ordinaire"
+   ],
+   "explain": "« ...je suis une créature si merveilleuse. » (Psaume 139:14)"
+  },
+  "en": {
+   "q": "Complete: “I will praise thee; for I am fearfully and ______ made.”",
+   "options": [
+    "wonderfully",
+    "poorly",
+    "plainly",
+    "quickly"
+   ],
+   "explain": "“...I am fearfully and wonderfully made.” (Psalm 139:14)"
+  }
+ },
+ {
+  "id": "verses-medium-016",
+  "ref": {
+   "fr": "Psaume 103:2",
+   "en": "Psalm 103:2"
+  },
+  "fr": {
+   "q": "Complétez : « Mon âme, bénis l’Éternel, et n’oublie aucun de ses ______ ! »",
+   "options": [
+    "bienfaits",
+    "jours",
+    "ennemis",
+    "ordres"
+   ],
+   "explain": "« ...n’oublie aucun de ses bienfaits ! » (Psaume 103:2)"
+  },
+  "en": {
+   "q": "Complete: “Bless the LORD, O my soul, and forget not all his ______.”",
+   "options": [
+    "benefits",
+    "days",
+    "enemies",
+    "commands"
+   ],
+   "explain": "“...forget not all his benefits.” (Psalm 103:2)"
+  }
+ },
+ {
+  "id": "verses-medium-017",
+  "ref": {
+   "fr": "Psaume 127:1",
+   "en": "Psalm 127:1"
+  },
+  "fr": {
+   "q": "Complétez : « Si l’Éternel ne bâtit la ______, ceux qui la bâtissent travaillent en vain. »",
+   "options": [
+    "maison",
+    "ville",
+    "tour",
+    "muraille"
+   ],
+   "explain": "« Si l’Éternel ne bâtit la maison... » (Psaume 127:1)"
+  },
+  "en": {
+   "q": "Complete: “Except the LORD build the ______, they labour in vain that build it.”",
+   "options": [
+    "house",
+    "city",
+    "tower",
+    "wall"
+   ],
+   "explain": "“Except the LORD build the house...” (Psalm 127:1)"
+  }
+ },
+ {
+  "id": "verses-medium-018",
+  "ref": {
+   "fr": "Psaume 30:6",
+   "en": "Psalm 30:5"
+  },
+  "fr": {
+   "q": "Complétez : « Le soir arrivent les pleurs, et le matin ______. »",
+   "options": [
+    "l’allégresse",
+    "la tristesse",
+    "la nuit",
+    "le silence"
+   ],
+   "explain": "« ...le soir les pleurs, et le matin l’allégresse. » (Psaume 30:6)"
+  },
+  "en": {
+   "q": "Complete: “...weeping may endure for a night, but ______ cometh in the morning.”",
+   "options": [
+    "joy",
+    "sorrow",
+    "night",
+    "silence"
+   ],
+   "explain": "“...joy cometh in the morning.” (Psalm 30:5)"
+  }
+ },
+ {
+  "id": "verses-medium-019",
+  "ref": {
+   "fr": "Psaume 84:11",
+   "en": "Psalm 84:10"
+  },
+  "fr": {
+   "q": "Complétez : « Mieux vaut un jour dans tes parvis que ______ ailleurs. »",
+   "options": [
+    "mille",
+    "cent",
+    "deux",
+    "dix"
+   ],
+   "explain": "« Mieux vaut un jour dans tes parvis que mille ailleurs. » (Psaume 84:11)"
+  },
+  "en": {
+   "q": "Complete: “For a day in thy courts is better than ______.”",
+   "options": [
+    "a thousand",
+    "a hundred",
+    "two",
+    "ten"
+   ],
+   "explain": "“For a day in thy courts is better than a thousand.” (Psalm 84:10)"
+  }
+ },
+ {
+  "id": "verses-medium-020",
+  "ref": {
+   "fr": "Psaume 90:12",
+   "en": "Psalm 90:12"
+  },
+  "fr": {
+   "q": "Complétez : « Enseigne-nous à bien compter nos ______, afin que notre cœur s’applique à la sagesse. »",
+   "options": [
+    "jours",
+    "biens",
+    "pas",
+    "amis"
+   ],
+   "explain": "« Enseigne-nous à bien compter nos jours. » (Psaume 90:12)"
+  },
+  "en": {
+   "q": "Complete: “So teach us to number our ______, that we may apply our hearts unto wisdom.”",
+   "options": [
+    "days",
+    "goods",
+    "steps",
+    "friends"
+   ],
+   "explain": "“So teach us to number our days.” (Psalm 90:12)"
+  }
+ },
+ {
+  "id": "verses-medium-021",
+  "ref": {
+   "fr": "Matthieu 5:4",
+   "en": "Matthew 5:4"
+  },
+  "fr": {
+   "q": "Complétez : « Heureux les affligés, car ils seront ______ ! »",
+   "options": [
+    "consolés",
+    "jugés",
+    "punis",
+    "oubliés"
+   ],
+   "explain": "« Heureux les affligés, car ils seront consolés ! » (Matthieu 5:4)"
+  },
+  "en": {
+   "q": "Complete: “Blessed are they that mourn: for they shall be ______.”",
+   "options": [
+    "comforted",
+    "judged",
+    "punished",
+    "forgotten"
+   ],
+   "explain": "“Blessed are they that mourn: for they shall be comforted.” (Matthew 5:4)"
+  }
+ },
+ {
+  "id": "verses-medium-022",
+  "ref": {
+   "fr": "Matthieu 5:5",
+   "en": "Matthew 5:5"
+  },
+  "fr": {
+   "q": "Complétez : « Heureux les débonnaires, car ils hériteront ______ ! »",
+   "options": [
+    "la terre",
+    "le ciel",
+    "la richesse",
+    "la gloire"
+   ],
+   "explain": "« Heureux les débonnaires, car ils hériteront la terre ! » (Matthieu 5:5)"
+  },
+  "en": {
+   "q": "Complete: “Blessed are the meek: for they shall inherit ______.”",
+   "options": [
+    "the earth",
+    "heaven",
+    "riches",
+    "glory"
+   ],
+   "explain": "“Blessed are the meek: for they shall inherit the earth.” (Matthew 5:5)"
+  }
+ },
+ {
+  "id": "verses-medium-023",
+  "ref": {
+   "fr": "Matthieu 5:6",
+   "en": "Matthew 5:6"
+  },
+  "fr": {
+   "q": "Complétez : « Heureux ceux qui ont faim et soif de ______, car ils seront rassasiés ! »",
+   "options": [
+    "la justice",
+    "la richesse",
+    "l’honneur",
+    "la paix"
+   ],
+   "explain": "« ...faim et soif de la justice, car ils seront rassasiés ! » (Matthieu 5:6)"
+  },
+  "en": {
+   "q": "Complete: “Blessed are they which do hunger and thirst after ______: for they shall be filled.”",
+   "options": [
+    "righteousness",
+    "riches",
+    "honour",
+    "peace"
+   ],
+   "explain": "“...hunger and thirst after righteousness.” (Matthew 5:6)"
+  }
+ },
+ {
+  "id": "verses-medium-024",
+  "ref": {
+   "fr": "Matthieu 5:7",
+   "en": "Matthew 5:7"
+  },
+  "fr": {
+   "q": "Complétez : « Heureux les miséricordieux, car ils obtiendront ______ ! »",
+   "options": [
+    "miséricorde",
+    "richesse",
+    "gloire",
+    "force"
+   ],
+   "explain": "« Heureux les miséricordieux, car ils obtiendront miséricorde ! » (Matthieu 5:7)"
+  },
+  "en": {
+   "q": "Complete: “Blessed are the merciful: for they shall obtain ______.”",
+   "options": [
+    "mercy",
+    "riches",
+    "glory",
+    "strength"
+   ],
+   "explain": "“Blessed are the merciful: for they shall obtain mercy.” (Matthew 5:7)"
+  }
+ },
+ {
+  "id": "verses-medium-025",
+  "ref": {
+   "fr": "Matthieu 5:8",
+   "en": "Matthew 5:8"
+  },
+  "fr": {
+   "q": "Complétez : « Heureux ceux qui ont le cœur pur, car ils verront ______ ! »",
+   "options": [
+    "Dieu",
+    "le roi",
+    "les anges",
+    "le ciel"
+   ],
+   "explain": "« Heureux ceux qui ont le cœur pur, car ils verront Dieu ! » (Matthieu 5:8)"
+  },
+  "en": {
+   "q": "Complete: “Blessed are the pure in heart: for they shall see ______.”",
+   "options": [
+    "God",
+    "the king",
+    "the angels",
+    "heaven"
+   ],
+   "explain": "“Blessed are the pure in heart: for they shall see God.” (Matthew 5:8)"
+  }
+ },
+ {
+  "id": "verses-medium-026",
+  "ref": {
+   "fr": "Matthieu 5:10",
+   "en": "Matthew 5:10"
+  },
+  "fr": {
+   "q": "Complétez : « Heureux ceux qui sont persécutés pour ______, car le royaume des cieux est à eux ! »",
+   "options": [
+    "la justice",
+    "la richesse",
+    "la gloire",
+    "la loi"
+   ],
+   "explain": "« ...persécutés pour la justice, car le royaume des cieux est à eux ! » (Matthieu 5:10)"
+  },
+  "en": {
+   "q": "Complete: “Blessed are they which are persecuted for ______ sake: for theirs is the kingdom of heaven.”",
+   "options": [
+    "righteousness",
+    "riches",
+    "glory",
+    "the law"
+   ],
+   "explain": "“...persecuted for righteousness’ sake.” (Matthew 5:10)"
+  }
+ },
+ {
+  "id": "verses-medium-027",
+  "ref": {
+   "fr": "Jean 8:12",
+   "en": "John 8:12"
+  },
+  "fr": {
+   "q": "Complétez : « Je suis ______ du monde ; celui qui me suit ne marchera pas dans les ténèbres. »",
+   "options": [
+    "la lumière",
+    "le sel",
+    "le pain",
+    "la porte"
+   ],
+   "explain": "« Je suis la lumière du monde. » (Jean 8:12)"
+  },
+  "en": {
+   "q": "Complete: “I am ______ of the world: he that followeth me shall not walk in darkness.”",
+   "options": [
+    "the light",
+    "the salt",
+    "the bread",
+    "the door"
+   ],
+   "explain": "“I am the light of the world.” (John 8:12)"
+  }
+ },
+ {
+  "id": "verses-medium-028",
+  "ref": {
+   "fr": "Jean 10:9",
+   "en": "John 10:9"
+  },
+  "fr": {
+   "q": "Complétez : « Je suis ______ ; si quelqu’un entre par moi, il sera sauvé. »",
+   "options": [
+    "la porte",
+    "le chemin",
+    "le cep",
+    "le berger"
+   ],
+   "explain": "« Je suis la porte. » (Jean 10:9)"
+  },
+  "en": {
+   "q": "Complete: “I am ______: by me if any man enter in, he shall be saved.”",
+   "options": [
+    "the door",
+    "the way",
+    "the vine",
+    "the shepherd"
+   ],
+   "explain": "“I am the door.” (John 10:9)"
+  }
+ },
+ {
+  "id": "verses-medium-029",
+  "ref": {
+   "fr": "Jean 15:1",
+   "en": "John 15:1"
+  },
+  "fr": {
+   "q": "Complétez : « Je suis ______, et mon Père est le vigneron. »",
+   "options": [
+    "le vrai cep",
+    "le bon berger",
+    "le pain de vie",
+    "la porte"
+   ],
+   "explain": "« Je suis le vrai cep. » (Jean 15:1)"
+  },
+  "en": {
+   "q": "Complete: “I am ______, and my Father is the husbandman.”",
+   "options": [
+    "the true vine",
+    "the good shepherd",
+    "the bread of life",
+    "the door"
+   ],
+   "explain": "“I am the true vine.” (John 15:1)"
+  }
+ },
+ {
+  "id": "verses-medium-030",
+  "ref": {
+   "fr": "Romains 8:31",
+   "en": "Romans 8:31"
+  },
+  "fr": {
+   "q": "Complétez : « Si Dieu est pour nous, qui sera ______ ? »",
+   "options": [
+    "contre nous",
+    "avec nous",
+    "notre juge",
+    "notre roi"
+   ],
+   "explain": "« Si Dieu est pour nous, qui sera contre nous ? » (Romains 8:31)"
+  },
+  "en": {
+   "q": "Complete: “If God be for us, who can be ______?”",
+   "options": [
+    "against us",
+    "with us",
+    "our judge",
+    "our king"
+   ],
+   "explain": "“If God be for us, who can be against us?” (Romans 8:31)"
+  }
+ },
+ {
+  "id": "verses-medium-031",
+  "ref": {
+   "fr": "Romains 8:39",
+   "en": "Romans 8:39"
+  },
+  "fr": {
+   "q": "Complétez : « Rien ne pourra nous séparer de ______ de Dieu, manifesté en Jésus-Christ. »",
+   "options": [
+    "l’amour",
+    "la crainte",
+    "la loi",
+    "la gloire"
+   ],
+   "explain": "« ...rien ne pourra nous séparer de l’amour de Dieu. » (Romains 8:39)"
+  },
+  "en": {
+   "q": "Complete: “...nothing shall be able to separate us from ______ of God, which is in Christ Jesus.”",
+   "options": [
+    "the love",
+    "the fear",
+    "the law",
+    "the glory"
+   ],
+   "explain": "“...separate us from the love of God.” (Romans 8:39)"
+  }
+ },
+ {
+  "id": "verses-medium-032",
+  "ref": {
+   "fr": "Romains 10:9",
+   "en": "Romans 10:9"
+  },
+  "fr": {
+   "q": "Complétez : « Si tu confesses de ta bouche le Seigneur Jésus et crois en ton cœur, tu seras ______. »",
+   "options": [
+    "sauvé",
+    "jugé",
+    "béni",
+    "fort"
+   ],
+   "explain": "« ...si tu crois dans ton cœur... tu seras sauvé. » (Romains 10:9)"
+  },
+  "en": {
+   "q": "Complete: “If thou shalt confess with thy mouth the Lord Jesus... thou shalt be ______.”",
+   "options": [
+    "saved",
+    "judged",
+    "blessed",
+    "strong"
+   ],
+   "explain": "“...thou shalt be saved.” (Romans 10:9)"
+  }
+ },
+ {
+  "id": "verses-medium-033",
+  "ref": {
+   "fr": "Romains 10:17",
+   "en": "Romans 10:17"
+  },
+  "fr": {
+   "q": "Complétez : « Ainsi la foi vient de ce qu’on ______, et ce qu’on entend vient de la parole de Christ. »",
+   "options": [
+    "entend",
+    "voit",
+    "touche",
+    "croit"
+   ],
+   "explain": "« ...la foi vient de ce qu’on entend. » (Romains 10:17)"
+  },
+  "en": {
+   "q": "Complete: “So then faith cometh by ______, and hearing by the word of God.”",
+   "options": [
+    "hearing",
+    "seeing",
+    "touching",
+    "believing"
+   ],
+   "explain": "“So then faith cometh by hearing.” (Romans 10:17)"
+  }
+ },
+ {
+  "id": "verses-medium-034",
+  "ref": {
+   "fr": "Romains 15:13",
+   "en": "Romans 15:13"
+  },
+  "fr": {
+   "q": "Complétez : « Que le Dieu de ______ vous remplisse de toute joie et de toute paix. »",
+   "options": [
+    "l’espérance",
+    "la crainte",
+    "la loi",
+    "la guerre"
+   ],
+   "explain": "« Que le Dieu de l’espérance vous remplisse de toute joie... » (Romains 15:13)"
+  },
+  "en": {
+   "q": "Complete: “Now the God of ______ fill you with all joy and peace in believing.”",
+   "options": [
+    "hope",
+    "fear",
+    "law",
+    "war"
+   ],
+   "explain": "“Now the God of hope fill you with all joy and peace.” (Romans 15:13)"
+  }
+ },
+ {
+  "id": "verses-medium-035",
+  "ref": {
+   "fr": "1 Corinthiens 10:13",
+   "en": "1 Corinthians 10:13"
+  },
+  "fr": {
+   "q": "Complétez : « Dieu est ______ ; il ne permettra pas que vous soyez tentés au delà de vos forces. »",
+   "options": [
+    "fidèle",
+    "sévère",
+    "lointain",
+    "silencieux"
+   ],
+   "explain": "« Dieu est fidèle... » (1 Corinthiens 10:13)"
+  },
+  "en": {
+   "q": "Complete: “God is ______, who will not suffer you to be tempted above that ye are able.”",
+   "options": [
+    "faithful",
+    "severe",
+    "distant",
+    "silent"
+   ],
+   "explain": "“God is faithful.” (1 Corinthians 10:13)"
+  }
+ },
+ {
+  "id": "verses-medium-036",
+  "ref": {
+   "fr": "1 Corinthiens 15:58",
+   "en": "1 Corinthians 15:58"
+  },
+  "fr": {
+   "q": "Complétez : « Soyez fermes, ______, travaillant toujours à l’œuvre du Seigneur. »",
+   "options": [
+    "inébranlables",
+    "craintifs",
+    "paresseux",
+    "hésitants"
+   ],
+   "explain": "« ...soyez fermes, inébranlables... » (1 Corinthiens 15:58)"
+  },
+  "en": {
+   "q": "Complete: “...be ye stedfast, ______, always abounding in the work of the Lord.”",
+   "options": [
+    "unmoveable",
+    "fearful",
+    "slothful",
+    "wavering"
+   ],
+   "explain": "“...be ye stedfast, unmoveable.” (1 Corinthians 15:58)"
+  }
+ },
+ {
+  "id": "verses-medium-037",
+  "ref": {
+   "fr": "2 Corinthiens 5:7",
+   "en": "2 Corinthians 5:7"
+  },
+  "fr": {
+   "q": "Complétez : « Car nous marchons par la foi et non par ______. »",
+   "options": [
+    "la vue",
+    "la crainte",
+    "la force",
+    "la loi"
+   ],
+   "explain": "« ...nous marchons par la foi et non par la vue. » (2 Corinthiens 5:7)"
+  },
+  "en": {
+   "q": "Complete: “For we walk by faith, not by ______.”",
+   "options": [
+    "sight",
+    "fear",
+    "strength",
+    "the law"
+   ],
+   "explain": "“For we walk by faith, not by sight.” (2 Corinthians 5:7)"
+  }
+ },
+ {
+  "id": "verses-medium-038",
+  "ref": {
+   "fr": "2 Corinthiens 9:7",
+   "en": "2 Corinthians 9:7"
+  },
+  "fr": {
+   "q": "Complétez : « Car Dieu aime celui qui donne avec ______. »",
+   "options": [
+    "joie",
+    "crainte",
+    "tristesse",
+    "regret"
+   ],
+   "explain": "« ...Dieu aime celui qui donne avec joie. » (2 Corinthiens 9:7)"
+  },
+  "en": {
+   "q": "Complete: “...for God loveth a ______ giver.”",
+   "options": [
+    "cheerful",
+    "fearful",
+    "sorrowful",
+    "grudging"
+   ],
+   "explain": "“...God loveth a cheerful giver.” (2 Corinthians 9:7)"
+  }
+ },
+ {
+  "id": "verses-medium-039",
+  "ref": {
+   "fr": "2 Corinthiens 12:9",
+   "en": "2 Corinthians 12:9"
+  },
+  "fr": {
+   "q": "Complétez : « Ma grâce te suffit, car ma puissance s’accomplit dans ______. »",
+   "options": [
+    "la faiblesse",
+    "la force",
+    "la richesse",
+    "la gloire"
+   ],
+   "explain": "« Ma grâce te suffit, car ma puissance s’accomplit dans la faiblesse. » (2 Corinthiens 12:9)"
+  },
+  "en": {
+   "q": "Complete: “My grace is sufficient for thee: for my strength is made perfect in ______.”",
+   "options": [
+    "weakness",
+    "strength",
+    "riches",
+    "glory"
+   ],
+   "explain": "“...my strength is made perfect in weakness.” (2 Corinthians 12:9)"
+  }
+ },
+ {
+  "id": "verses-medium-040",
+  "ref": {
+   "fr": "Galates 6:9",
+   "en": "Galatians 6:9"
+  },
+  "fr": {
+   "q": "Complétez : « Ne nous lassons pas de faire ______ ; nous moissonnerons au temps convenable. »",
+   "options": [
+    "le bien",
+    "le mal",
+    "la loi",
+    "la guerre"
+   ],
+   "explain": "« Ne nous lassons pas de faire le bien. » (Galates 6:9)"
+  },
+  "en": {
+   "q": "Complete: “Let us not be weary in ______: for in due season we shall reap.”",
+   "options": [
+    "well doing",
+    "evil",
+    "the law",
+    "war"
+   ],
+   "explain": "“Let us not be weary in well doing.” (Galatians 6:9)"
+  }
+ },
+ {
+  "id": "verses-medium-041",
+  "ref": {
+   "fr": "Éphésiens 2:10",
+   "en": "Ephesians 2:10"
+  },
+  "fr": {
+   "q": "Complétez : « Car nous sommes son ______, ayant été créés en Jésus-Christ pour de bonnes œuvres. »",
+   "options": [
+    "ouvrage",
+    "roi",
+    "temple",
+    "ennemi"
+   ],
+   "explain": "« Car nous sommes son ouvrage... » (Éphésiens 2:10)"
+  },
+  "en": {
+   "q": "Complete: “For we are his ______, created in Christ Jesus unto good works.”",
+   "options": [
+    "workmanship",
+    "king",
+    "temple",
+    "enemy"
+   ],
+   "explain": "“For we are his workmanship.” (Ephesians 2:10)"
+  }
+ },
+ {
+  "id": "verses-medium-042",
+  "ref": {
+   "fr": "Éphésiens 4:32",
+   "en": "Ephesians 4:32"
+  },
+  "fr": {
+   "q": "Complétez : « Soyez ______ les uns envers les autres, vous pardonnant réciproquement. »",
+   "options": [
+    "bons",
+    "durs",
+    "jaloux",
+    "froids"
+   ],
+   "explain": "« Soyez bons les uns envers les autres... » (Éphésiens 4:32)"
+  },
+  "en": {
+   "q": "Complete: “And be ye ______ one to another, tenderhearted, forgiving one another.”",
+   "options": [
+    "kind",
+    "harsh",
+    "jealous",
+    "cold"
+   ],
+   "explain": "“And be ye kind one to another.” (Ephesians 4:32)"
+  }
+ },
+ {
+  "id": "verses-medium-043",
+  "ref": {
+   "fr": "Éphésiens 6:11",
+   "en": "Ephesians 6:11"
+  },
+  "fr": {
+   "q": "Complétez : « Revêtez-vous de toutes les ______ de Dieu, afin de tenir ferme contre le malin. »",
+   "options": [
+    "armes",
+    "richesses",
+    "promesses",
+    "lois"
+   ],
+   "explain": "« Revêtez-vous de toutes les armes de Dieu. » (Éphésiens 6:11)"
+  },
+  "en": {
+   "q": "Complete: “Put on the whole ______ of God, that ye may be able to stand.”",
+   "options": [
+    "armour",
+    "riches",
+    "promises",
+    "laws"
+   ],
+   "explain": "“Put on the whole armour of God.” (Ephesians 6:11)"
+  }
+ },
+ {
+  "id": "verses-medium-044",
+  "ref": {
+   "fr": "Philippiens 1:21",
+   "en": "Philippians 1:21"
+  },
+  "fr": {
+   "q": "Complétez : « Car Christ est ma ______, et la mort m’est un gain. »",
+   "options": [
+    "vie",
+    "force",
+    "joie",
+    "paix"
+   ],
+   "explain": "« Car Christ est ma vie... » (Philippiens 1:21)"
+  },
+  "en": {
+   "q": "Complete: “For to me to live is ______, and to die is gain.”",
+   "options": [
+    "Christ",
+    "strength",
+    "joy",
+    "peace"
+   ],
+   "explain": "“For to me to live is Christ.” (Philippians 1:21)"
+  }
+ },
+ {
+  "id": "verses-medium-045",
+  "ref": {
+   "fr": "Philippiens 2:10",
+   "en": "Philippians 2:10"
+  },
+  "fr": {
+   "q": "Complétez : « Afin qu’au nom de Jésus tout ______ fléchisse, dans les cieux et sur la terre. »",
+   "options": [
+    "genou",
+    "cœur",
+    "homme",
+    "roi"
+   ],
+   "explain": "« ...au nom de Jésus tout genou fléchisse. » (Philippiens 2:10)"
+  },
+  "en": {
+   "q": "Complete: “That at the name of Jesus every ______ should bow.”",
+   "options": [
+    "knee",
+    "heart",
+    "man",
+    "king"
+   ],
+   "explain": "“...at the name of Jesus every knee should bow.” (Philippians 2:10)"
+  }
+ },
+ {
+  "id": "verses-medium-046",
+  "ref": {
+   "fr": "Philippiens 4:7",
+   "en": "Philippians 4:7"
+  },
+  "fr": {
+   "q": "Complétez : « Et la ______ de Dieu, qui surpasse toute intelligence, gardera vos cœurs. »",
+   "options": [
+    "paix",
+    "gloire",
+    "crainte",
+    "loi"
+   ],
+   "explain": "« Et la paix de Dieu... gardera vos cœurs. » (Philippiens 4:7)"
+  },
+  "en": {
+   "q": "Complete: “And the ______ of God, which passeth all understanding, shall keep your hearts.”",
+   "options": [
+    "peace",
+    "glory",
+    "fear",
+    "law"
+   ],
+   "explain": "“And the peace of God... shall keep your hearts.” (Philippians 4:7)"
+  }
+ },
+ {
+  "id": "verses-medium-047",
+  "ref": {
+   "fr": "Philippiens 4:8",
+   "en": "Philippians 4:8"
+  },
+  "fr": {
+   "q": "Complétez : « Tout ce qui est ______, tout ce qui est honorable, que ce soit l’objet de vos pensées. »",
+   "options": [
+    "vrai",
+    "faux",
+    "vain",
+    "caché"
+   ],
+   "explain": "« ...tout ce qui est vrai... que ce soit l’objet de vos pensées. » (Philippiens 4:8)"
+  },
+  "en": {
+   "q": "Complete: “Whatsoever things are ______... think on these things.”",
+   "options": [
+    "true",
+    "false",
+    "vain",
+    "hidden"
+   ],
+   "explain": "“Whatsoever things are true... think on these things.” (Philippians 4:8)"
+  }
+ },
+ {
+  "id": "verses-medium-048",
+  "ref": {
+   "fr": "Colossiens 3:2",
+   "en": "Colossians 3:2"
+  },
+  "fr": {
+   "q": "Complétez : « Affectionnez-vous aux choses ______, et non à celles qui sont sur la terre. »",
+   "options": [
+    "d’en haut",
+    "du passé",
+    "des hommes",
+    "de la nuit"
+   ],
+   "explain": "« Affectionnez-vous aux choses d’en haut. » (Colossiens 3:2)"
+  },
+  "en": {
+   "q": "Complete: “Set your affection on things ______, not on things on the earth.”",
+   "options": [
+    "above",
+    "past",
+    "of men",
+    "of the night"
+   ],
+   "explain": "“Set your affection on things above.” (Colossians 3:2)"
+  }
+ },
+ {
+  "id": "verses-medium-049",
+  "ref": {
+   "fr": "1 Thessaloniciens 5:18",
+   "en": "1 Thessalonians 5:18"
+  },
+  "fr": {
+   "q": "Complétez : « Rendez ______ en toutes choses, car c’est à votre égard la volonté de Dieu. »",
+   "options": [
+    "grâces",
+    "gloire",
+    "honneur",
+    "service"
+   ],
+   "explain": "« Rendez grâces en toutes choses. » (1 Thessaloniciens 5:18)"
+  },
+  "en": {
+   "q": "Complete: “In every thing give ______: for this is the will of God in Christ Jesus.”",
+   "options": [
+    "thanks",
+    "glory",
+    "honour",
+    "service"
+   ],
+   "explain": "“In every thing give thanks.” (1 Thessalonians 5:18)"
+  }
+ },
+ {
+  "id": "verses-medium-050",
+  "ref": {
+   "fr": "2 Timothée 3:16",
+   "en": "2 Timothy 3:16"
+  },
+  "fr": {
+   "q": "Complétez : « Toute Écriture est ______ de Dieu, et utile pour enseigner et corriger. »",
+   "options": [
+    "inspirée",
+    "cachée",
+    "éloignée",
+    "ancienne"
+   ],
+   "explain": "« Toute Écriture est inspirée de Dieu. » (2 Timothée 3:16)"
+  },
+  "en": {
+   "q": "Complete: “All scripture is given by ______ of God, and is profitable for doctrine.”",
+   "options": [
+    "inspiration",
+    "tradition",
+    "memory",
+    "custom"
+   ],
+   "explain": "“All scripture is given by inspiration of God.” (2 Timothy 3:16)"
+  }
+ },
+ {
+  "id": "verses-medium-051",
+  "ref": {
+   "fr": "Hébreux 4:12",
+   "en": "Hebrews 4:12"
+  },
+  "fr": {
+   "q": "Complétez : « Car la parole de Dieu est ______ et efficace, plus tranchante qu’une épée à deux tranchants. »",
+   "options": [
+    "vivante",
+    "morte",
+    "faible",
+    "ancienne"
+   ],
+   "explain": "« Car la parole de Dieu est vivante et efficace. » (Hébreux 4:12)"
+  },
+  "en": {
+   "q": "Complete: “For the word of God is ______ and active, and sharper than any two-edged sword.”",
+   "options": [
+    "living",
+    "dead",
+    "weak",
+    "old"
+   ],
+   "explain": "“For the word of God is living and active.” (Hebrews 4:12, WEB)"
+  }
+ },
+ {
+  "id": "verses-medium-052",
+  "ref": {
+   "fr": "Hébreux 12:2",
+   "en": "Hebrews 12:2"
+  },
+  "fr": {
+   "q": "Complétez : « Ayant les regards sur Jésus, le chef et le consommateur de ______. »",
+   "options": [
+    "la foi",
+    "la loi",
+    "la terre",
+    "la gloire"
+   ],
+   "explain": "« ...Jésus, le chef et le consommateur de la foi. » (Hébreux 12:2)"
+  },
+  "en": {
+   "q": "Complete: “Looking unto Jesus the author and finisher of our ______.”",
+   "options": [
+    "faith",
+    "law",
+    "earth",
+    "glory"
+   ],
+   "explain": "“...the author and finisher of our faith.” (Hebrews 12:2)"
+  }
+ },
+ {
+  "id": "verses-medium-053",
+  "ref": {
+   "fr": "Hébreux 11:6",
+   "en": "Hebrews 11:6"
+  },
+  "fr": {
+   "q": "Complétez : « Or, sans ______ il est impossible de lui être agréable. »",
+   "options": [
+    "la foi",
+    "la loi",
+    "la richesse",
+    "la force"
+   ],
+   "explain": "« Or, sans la foi il est impossible de lui être agréable. » (Hébreux 11:6)"
+  },
+  "en": {
+   "q": "Complete: “But without ______ it is impossible to please him.”",
+   "options": [
+    "faith",
+    "the law",
+    "riches",
+    "strength"
+   ],
+   "explain": "“But without faith it is impossible to please him.” (Hebrews 11:6)"
+  }
+ },
+ {
+  "id": "verses-medium-054",
+  "ref": {
+   "fr": "Jacques 1:2",
+   "en": "James 1:2"
+  },
+  "fr": {
+   "q": "Complétez : « Mes frères, regardez comme un sujet de ______ complète les diverses épreuves. »",
+   "options": [
+    "joie",
+    "tristesse",
+    "crainte",
+    "colère"
+   ],
+   "explain": "« ...un sujet de joie complète les diverses épreuves. » (Jacques 1:2)"
+  },
+  "en": {
+   "q": "Complete: “...count it all ______ when ye fall into divers temptations.”",
+   "options": [
+    "joy",
+    "sorrow",
+    "fear",
+    "anger"
+   ],
+   "explain": "“Count it all joy when ye fall into divers temptations.” (James 1:2)"
+  }
+ },
+ {
+  "id": "verses-medium-055",
+  "ref": {
+   "fr": "Jacques 1:22",
+   "en": "James 1:22"
+  },
+  "fr": {
+   "q": "Complétez : « Mettez en pratique ______, et ne vous bornez pas à l’écouter. »",
+   "options": [
+    "la parole",
+    "la loi",
+    "la prière",
+    "le chant"
+   ],
+   "explain": "« Mettez en pratique la parole... » (Jacques 1:22)"
+  },
+  "en": {
+   "q": "Complete: “But be ye doers of ______, and not hearers only.”",
+   "options": [
+    "the word",
+    "the law",
+    "prayer",
+    "song"
+   ],
+   "explain": "“Be ye doers of the word, and not hearers only.” (James 1:22)"
+  }
+ },
+ {
+  "id": "verses-medium-056",
+  "ref": {
+   "fr": "Jacques 4:7",
+   "en": "James 4:7"
+  },
+  "fr": {
+   "q": "Complétez : « Résistez au ______, et il fuira loin de vous. »",
+   "options": [
+    "diable",
+    "monde",
+    "péché",
+    "mal"
+   ],
+   "explain": "« Résistez au diable, et il fuira loin de vous. » (Jacques 4:7)"
+  },
+  "en": {
+   "q": "Complete: “Resist the ______, and he will flee from you.”",
+   "options": [
+    "devil",
+    "world",
+    "sin",
+    "evil"
+   ],
+   "explain": "“Resist the devil, and he will flee from you.” (James 4:7)"
+  }
+ },
+ {
+  "id": "verses-medium-057",
+  "ref": {
+   "fr": "Jacques 1:17",
+   "en": "James 1:17"
+  },
+  "fr": {
+   "q": "Complétez : « Tout don parfait descend ______, du Père des lumières. »",
+   "options": [
+    "d’en haut",
+    "de la terre",
+    "des hommes",
+    "du roi"
+   ],
+   "explain": "« ...tout don parfait descend d’en haut. » (Jacques 1:17)"
+  },
+  "en": {
+   "q": "Complete: “...every perfect gift is from ______, and cometh down from the Father of lights.”",
+   "options": [
+    "above",
+    "the earth",
+    "men",
+    "the king"
+   ],
+   "explain": "“...every perfect gift is from above.” (James 1:17)"
+  }
+ },
+ {
+  "id": "verses-medium-058",
+  "ref": {
+   "fr": "1 Pierre 2:9",
+   "en": "1 Peter 2:9"
+  },
+  "fr": {
+   "q": "Complétez : « Vous êtes une race élue, un ______ royal, une nation sainte. »",
+   "options": [
+    "sacerdoce",
+    "royaume",
+    "peuple",
+    "temple"
+   ],
+   "explain": "« ...un sacerdoce royal, une nation sainte. » (1 Pierre 2:9)"
+  },
+  "en": {
+   "q": "Complete: “...ye are a chosen generation, a royal ______, an holy nation.”",
+   "options": [
+    "priesthood",
+    "kingdom",
+    "people",
+    "temple"
+   ],
+   "explain": "“...a royal priesthood, an holy nation.” (1 Peter 2:9)"
+  }
+ },
+ {
+  "id": "verses-medium-059",
+  "ref": {
+   "fr": "1 Pierre 5:8",
+   "en": "1 Peter 5:8"
+  },
+  "fr": {
+   "q": "Complétez : « Votre adversaire, le diable, rôde comme un ______ rugissant, cherchant qui dévorer. »",
+   "options": [
+    "lion",
+    "loup",
+    "ours",
+    "serpent"
+   ],
+   "explain": "« ...le diable, rôde comme un lion rugissant. » (1 Pierre 5:8)"
+  },
+  "en": {
+   "q": "Complete: “...your adversary the devil, as a roaring ______, walketh about, seeking whom he may devour.”",
+   "options": [
+    "lion",
+    "wolf",
+    "bear",
+    "serpent"
+   ],
+   "explain": "“...the devil, as a roaring lion, walketh about.” (1 Peter 5:8)"
+  }
+ },
+ {
+  "id": "verses-medium-060",
+  "ref": {
+   "fr": "1 Jean 4:18",
+   "en": "1 John 4:18"
+  },
+  "fr": {
+   "q": "Complétez : « La crainte n’est pas dans l’amour ; mais l’amour parfait bannit ______. »",
+   "options": [
+    "la crainte",
+    "la joie",
+    "la paix",
+    "la vie"
+   ],
+   "explain": "« ...l’amour parfait bannit la crainte. » (1 Jean 4:18)"
+  },
+  "en": {
+   "q": "Complete: “There is no fear in love; but perfect love casteth out ______.”",
+   "options": [
+    "fear",
+    "joy",
+    "peace",
+    "life"
+   ],
+   "explain": "“...perfect love casteth out fear.” (1 John 4:18)"
+  }
+ },
+ {
+  "id": "verses-medium-061",
+  "ref": {
+   "fr": "1 Jean 4:19",
+   "en": "1 John 4:19"
+  },
+  "fr": {
+   "q": "Complétez : « Pour nous, nous l’aimons, parce qu’il nous a aimés ______. »",
+   "options": [
+    "le premier",
+    "en secret",
+    "un jour",
+    "à la fin"
+   ],
+   "explain": "« ...il nous a aimés le premier. » (1 Jean 4:19)"
+  },
+  "en": {
+   "q": "Complete: “We love him, because he ______ loved us.”",
+   "options": [
+    "first",
+    "secretly",
+    "one day",
+    "at last"
+   ],
+   "explain": "“We love him, because he first loved us.” (1 John 4:19)"
+  }
+ },
+ {
+  "id": "verses-medium-062",
+  "ref": {
+   "fr": "Apocalypse 21:4",
+   "en": "Revelation 21:4"
+  },
+  "fr": {
+   "q": "Complétez : « Il essuiera toute ______ de leurs yeux, et la mort ne sera plus. »",
+   "options": [
+    "larme",
+    "crainte",
+    "peine",
+    "ombre"
+   ],
+   "explain": "« Il essuiera toute larme de leurs yeux. » (Apocalypse 21:4)"
+  },
+  "en": {
+   "q": "Complete: “And God shall wipe away all ______ from their eyes; and there shall be no more death.”",
+   "options": [
+    "tears",
+    "fear",
+    "pain",
+    "shadows"
+   ],
+   "explain": "“God shall wipe away all tears from their eyes.” (Revelation 21:4)"
+  }
+ },
+ {
+  "id": "verses-medium-063",
+  "ref": {
+   "fr": "Apocalypse 22:13",
+   "en": "Revelation 22:13"
+  },
+  "fr": {
+   "q": "Complétez : « Je suis l’alpha et l’oméga, le premier et ______, le commencement et la fin. »",
+   "options": [
+    "le dernier",
+    "le juge",
+    "le roi",
+    "le maître"
+   ],
+   "explain": "« Je suis l’alpha et l’oméga, le premier et le dernier. » (Apocalypse 22:13)"
+  },
+  "en": {
+   "q": "Complete: “I am Alpha and Omega, the first and ______, the beginning and the end.”",
+   "options": [
+    "the last",
+    "the judge",
+    "the king",
+    "the master"
+   ],
+   "explain": "“I am Alpha and Omega, the first and the last.” (Revelation 22:13)"
+  }
+ },
+ {
+  "id": "verses-medium-064",
+  "ref": {
+   "fr": "Matthieu 6:21",
+   "en": "Matthew 6:21"
+  },
+  "fr": {
+   "q": "Complétez : « Car là où est ton trésor, là aussi sera ton ______. »",
+   "options": [
+    "cœur",
+    "corps",
+    "esprit",
+    "nom"
+   ],
+   "explain": "« ...là où est ton trésor, là aussi sera ton cœur. » (Matthieu 6:21)"
+  },
+  "en": {
+   "q": "Complete: “For where your treasure is, there will your ______ be also.”",
+   "options": [
+    "heart",
+    "body",
+    "mind",
+    "name"
+   ],
+   "explain": "“For where your treasure is, there will your heart be also.” (Matthew 6:21)"
+  }
+ },
+ {
+  "id": "verses-medium-065",
+  "ref": {
+   "fr": "Matthieu 6:24",
+   "en": "Matthew 6:24"
+  },
+  "fr": {
+   "q": "Complétez : « Nul ne peut servir deux maîtres... Vous ne pouvez servir Dieu et ______. »",
+   "options": [
+    "Mamon",
+    "le monde",
+    "la loi",
+    "le roi"
+   ],
+   "explain": "« Vous ne pouvez servir Dieu et Mamon. » (Matthieu 6:24)"
+  },
+  "en": {
+   "q": "Complete: “No man can serve two masters... Ye cannot serve God and ______.”",
+   "options": [
+    "mammon",
+    "the world",
+    "the law",
+    "the king"
+   ],
+   "explain": "“Ye cannot serve God and mammon.” (Matthew 6:24)"
+  }
+ },
+ {
+  "id": "verses-medium-066",
+  "ref": {
+   "fr": "Matthieu 7:12",
+   "en": "Matthew 7:12"
+  },
+  "fr": {
+   "q": "Complétez : « Tout ce que vous voulez que les ______ fassent pour vous, faites-le de même pour eux. »",
+   "options": [
+    "hommes",
+    "rois",
+    "anges",
+    "amis"
+   ],
+   "explain": "« ...tout ce que vous voulez que les hommes fassent pour vous... » (Matthieu 7:12)"
+  },
+  "en": {
+   "q": "Complete: “...whatsoever ye would that ______ should do to you, do ye even so to them.”",
+   "options": [
+    "men",
+    "kings",
+    "angels",
+    "friends"
+   ],
+   "explain": "“...whatsoever ye would that men should do to you...” (Matthew 7:12)"
+  }
+ },
+ {
+  "id": "verses-medium-067",
+  "ref": {
+   "fr": "Matthieu 11:29",
+   "en": "Matthew 11:29"
+  },
+  "fr": {
+   "q": "Complétez : « Prenez mon joug sur vous... car je suis doux et humble de ______. »",
+   "options": [
+    "cœur",
+    "corps",
+    "esprit",
+    "main"
+   ],
+   "explain": "« ...car je suis doux et humble de cœur. » (Matthieu 11:29)"
+  },
+  "en": {
+   "q": "Complete: “Take my yoke upon you... for I am meek and lowly in ______.”",
+   "options": [
+    "heart",
+    "body",
+    "spirit",
+    "hand"
+   ],
+   "explain": "“...for I am meek and lowly in heart.” (Matthew 11:29)"
+  }
+ },
+ {
+  "id": "verses-medium-068",
+  "ref": {
+   "fr": "Matthieu 18:20",
+   "en": "Matthew 18:20"
+  },
+  "fr": {
+   "q": "Complétez : « Car là où ______ ou trois sont assemblés en mon nom, je suis au milieu d’eux. »",
+   "options": [
+    "deux",
+    "quatre",
+    "cinq",
+    "dix"
+   ],
+   "explain": "« ...là où deux ou trois sont assemblés en mon nom... » (Matthieu 18:20)"
+  },
+  "en": {
+   "q": "Complete: “For where ______ or three are gathered together in my name, there am I in the midst.”",
+   "options": [
+    "two",
+    "four",
+    "five",
+    "ten"
+   ],
+   "explain": "“For where two or three are gathered together in my name...” (Matthew 18:20)"
+  }
+ },
+ {
+  "id": "verses-medium-069",
+  "ref": {
+   "fr": "Marc 10:27",
+   "en": "Mark 10:27"
+  },
+  "fr": {
+   "q": "Complétez : « Cela est impossible aux hommes, mais ______ est possible à Dieu. »",
+   "options": [
+    "tout",
+    "rien",
+    "peu",
+    "cela seul"
+   ],
+   "explain": "« ...tout est possible à Dieu. » (Marc 10:27)"
+  },
+  "en": {
+   "q": "Complete: “With men it is impossible, but not with God: for with God ______ are possible.”",
+   "options": [
+    "all things",
+    "no things",
+    "few things",
+    "some things"
+   ],
+   "explain": "“...with God all things are possible.” (Mark 10:27)"
+  }
+ },
+ {
+  "id": "verses-medium-070",
+  "ref": {
+   "fr": "Luc 6:38",
+   "en": "Luke 6:38"
+  },
+  "fr": {
+   "q": "Complétez : « ______, et l’on vous donnera : on versera dans votre sein une bonne mesure. »",
+   "options": [
+    "Donnez",
+    "Priez",
+    "Attendez",
+    "Gardez"
+   ],
+   "explain": "« Donnez, et l’on vous donnera. » (Luc 6:38)"
+  },
+  "en": {
+   "q": "Complete: “______, and it shall be given unto you; good measure... shall men give into your bosom.”",
+   "options": [
+    "Give",
+    "Pray",
+    "Wait",
+    "Keep"
+   ],
+   "explain": "“Give, and it shall be given unto you.” (Luke 6:38)"
+  }
+ },
+ {
+  "id": "verses-medium-071",
+  "ref": {
+   "fr": "Jean 8:32",
+   "en": "John 8:32"
+  },
+  "fr": {
+   "q": "Complétez : « Vous connaîtrez la vérité, et la vérité vous ______. »",
+   "options": [
+    "affranchira",
+    "jugera",
+    "condamnera",
+    "oubliera"
+   ],
+   "explain": "« ...la vérité vous affranchira. » (Jean 8:32)"
+  },
+  "en": {
+   "q": "Complete: “And ye shall know the truth, and the truth shall make you ______.”",
+   "options": [
+    "free",
+    "judged",
+    "condemned",
+    "forgotten"
+   ],
+   "explain": "“...the truth shall make you free.” (John 8:32)"
+  }
+ },
+ {
+  "id": "verses-medium-072",
+  "ref": {
+   "fr": "Jean 15:13",
+   "en": "John 15:13"
+  },
+  "fr": {
+   "q": "Complétez : « Il n’y a pas de plus grand ______ que de donner sa vie pour ses amis. »",
+   "options": [
+    "amour",
+    "don",
+    "honneur",
+    "sacrifice"
+   ],
+   "explain": "« Il n’y a pas de plus grand amour... » (Jean 15:13)"
+  },
+  "en": {
+   "q": "Complete: “Greater ______ hath no man than this, that a man lay down his life for his friends.”",
+   "options": [
+    "love",
+    "gift",
+    "honour",
+    "sacrifice"
+   ],
+   "explain": "“Greater love hath no man than this...” (John 15:13)"
+  }
+ },
+ {
+  "id": "verses-medium-073",
+  "ref": {
+   "fr": "Jean 16:33",
+   "en": "John 16:33"
+  },
+  "fr": {
+   "q": "Complétez : « Vous aurez des tribulations dans le monde ; mais prenez courage, j’ai vaincu ______. »",
+   "options": [
+    "le monde",
+    "la mort",
+    "le péché",
+    "l’ennemi"
+   ],
+   "explain": "« ...prenez courage, j’ai vaincu le monde. » (Jean 16:33)"
+  },
+  "en": {
+   "q": "Complete: “In the world ye shall have tribulation: but be of good cheer; I have overcome ______.”",
+   "options": [
+    "the world",
+    "death",
+    "sin",
+    "the enemy"
+   ],
+   "explain": "“...I have overcome the world.” (John 16:33)"
+  }
+ },
+ {
+  "id": "verses-medium-074",
+  "ref": {
+   "fr": "Actes 2:38",
+   "en": "Acts 2:38"
+  },
+  "fr": {
+   "q": "Complétez : « ______, et que chacun de vous soit baptisé au nom de Jésus-Christ. »",
+   "options": [
+    "Repentez-vous",
+    "Réjouissez-vous",
+    "Taisez-vous",
+    "Levez-vous"
+   ],
+   "explain": "« Repentez-vous... soyez baptisés au nom de Jésus-Christ. » (Actes 2:38)"
+  },
+  "en": {
+   "q": "Complete: “______, and be baptized every one of you in the name of Jesus Christ.”",
+   "options": [
+    "Repent",
+    "Rejoice",
+    "Be silent",
+    "Arise"
+   ],
+   "explain": "“Repent, and be baptized every one of you...” (Acts 2:38)"
+  }
+ },
+ {
+  "id": "verses-medium-075",
+  "ref": {
+   "fr": "Romains 5:1",
+   "en": "Romans 5:1"
+  },
+  "fr": {
+   "q": "Complétez : « Étant donc justifiés par ______, nous avons la paix avec Dieu. »",
+   "options": [
+    "la foi",
+    "la loi",
+    "les œuvres",
+    "la crainte"
+   ],
+   "explain": "« Étant donc justifiés par la foi, nous avons la paix avec Dieu. » (Romains 5:1)"
+  },
+  "en": {
+   "q": "Complete: “Therefore being justified by ______, we have peace with God.”",
+   "options": [
+    "faith",
+    "the law",
+    "works",
+    "fear"
+   ],
+   "explain": "“Therefore being justified by faith, we have peace with God.” (Romans 5:1)"
+  }
+ },
+ {
+  "id": "verses-medium-076",
+  "ref": {
+   "fr": "Romains 8:1",
+   "en": "Romans 8:1"
+  },
+  "fr": {
+   "q": "Complétez : « Il n’y a donc maintenant aucune ______ pour ceux qui sont en Jésus-Christ. »",
+   "options": [
+    "condamnation",
+    "joie",
+    "crainte",
+    "loi"
+   ],
+   "explain": "« ...aucune condamnation pour ceux qui sont en Jésus-Christ. » (Romains 8:1)"
+  },
+  "en": {
+   "q": "Complete: “There is therefore now no ______ to them which are in Christ Jesus.”",
+   "options": [
+    "condemnation",
+    "joy",
+    "fear",
+    "law"
+   ],
+   "explain": "“There is therefore now no condemnation...” (Romans 8:1)"
+  }
+ },
+ {
+  "id": "verses-medium-077",
+  "ref": {
+   "fr": "Romains 12:1",
+   "en": "Romans 12:1"
+  },
+  "fr": {
+   "q": "Complétez : « Offrez vos corps comme un sacrifice ______, saint, agréable à Dieu. »",
+   "options": [
+    "vivant",
+    "mort",
+    "ancien",
+    "parfait"
+   ],
+   "explain": "« ...un sacrifice vivant, saint, agréable à Dieu. » (Romains 12:1)"
+  },
+  "en": {
+   "q": "Complete: “...present your bodies a ______ sacrifice, holy, acceptable unto God.”",
+   "options": [
+    "living",
+    "dead",
+    "old",
+    "perfect"
+   ],
+   "explain": "“...a living sacrifice, holy, acceptable unto God.” (Romans 12:1)"
+  }
+ },
+ {
+  "id": "verses-medium-078",
+  "ref": {
+   "fr": "Romains 12:12",
+   "en": "Romans 12:12"
+  },
+  "fr": {
+   "q": "Complétez : « Réjouissez-vous en espérance, patients dans l’affliction, persévérez dans ______. »",
+   "options": [
+    "la prière",
+    "le silence",
+    "la richesse",
+    "la guerre"
+   ],
+   "explain": "« ...persévérez dans la prière. » (Romains 12:12)"
+  },
+  "en": {
+   "q": "Complete: “Rejoicing in hope; patient in tribulation; continuing instant in ______.”",
+   "options": [
+    "prayer",
+    "silence",
+    "riches",
+    "war"
+   ],
+   "explain": "“...continuing instant in prayer.” (Romans 12:12)"
+  }
+ },
+ {
+  "id": "verses-medium-079",
+  "ref": {
+   "fr": "1 Corinthiens 13:11",
+   "en": "1 Corinthians 13:11"
+  },
+  "fr": {
+   "q": "Complétez : « Lorsque j’étais enfant, je parlais comme un ______ ; devenu homme, j’ai fait disparaître l’enfance. »",
+   "options": [
+    "enfant",
+    "homme",
+    "roi",
+    "sage"
+   ],
+   "explain": "« Lorsque j’étais enfant, je parlais comme un enfant. » (1 Corinthiens 13:11)"
+  },
+  "en": {
+   "q": "Complete: “When I was a child, I spake as a ______, I understood as a child.”",
+   "options": [
+    "child",
+    "man",
+    "king",
+    "wise man"
+   ],
+   "explain": "“When I was a child, I spake as a child.” (1 Corinthians 13:11)"
+  }
+ },
+ {
+  "id": "verses-medium-080",
+  "ref": {
+   "fr": "1 Corinthiens 16:14",
+   "en": "1 Corinthians 16:14"
+  },
+  "fr": {
+   "q": "Complétez : « Que tout ce que vous faites se fasse avec ______. »",
+   "options": [
+    "charité",
+    "crainte",
+    "force",
+    "sagesse"
+   ],
+   "explain": "« Que tout ce que vous faites se fasse avec charité. » (1 Corinthiens 16:14)"
+  },
+  "en": {
+   "q": "Complete: “Let all your things be done with ______.”",
+   "options": [
+    "charity",
+    "fear",
+    "strength",
+    "wisdom"
+   ],
+   "explain": "“Let all your things be done with charity.” (1 Corinthians 16:14)"
+  }
+ },
+ {
+  "id": "verses-medium-081",
+  "ref": {
+   "fr": "2 Corinthiens 4:18",
+   "en": "2 Corinthians 4:18"
+  },
+  "fr": {
+   "q": "Complétez : « Les choses visibles sont passagères, et les invisibles sont ______. »",
+   "options": [
+    "éternelles",
+    "vaines",
+    "cachées",
+    "petites"
+   ],
+   "explain": "« ...les invisibles sont éternelles. » (2 Corinthiens 4:18)"
+  },
+  "en": {
+   "q": "Complete: “...the things which are seen are temporal; but the things which are not seen are ______.”",
+   "options": [
+    "eternal",
+    "vain",
+    "hidden",
+    "small"
+   ],
+   "explain": "“...the things which are not seen are eternal.” (2 Corinthians 4:18)"
+  }
+ },
+ {
+  "id": "verses-medium-082",
+  "ref": {
+   "fr": "Galates 5:1",
+   "en": "Galatians 5:1"
+  },
+  "fr": {
+   "q": "Complétez : « Demeurez donc fermes dans la ______ par laquelle Christ nous a affranchis. »",
+   "options": [
+    "liberté",
+    "foi",
+    "paix",
+    "joie"
+   ],
+   "explain": "« ...la liberté par laquelle Christ nous a affranchis. » (Galates 5:1)"
+  },
+  "en": {
+   "q": "Complete: “Stand fast therefore in the ______ wherewith Christ hath made us free.”",
+   "options": [
+    "liberty",
+    "faith",
+    "peace",
+    "joy"
+   ],
+   "explain": "“Stand fast therefore in the liberty...” (Galatians 5:1)"
+  }
+ },
+ {
+  "id": "verses-medium-083",
+  "ref": {
+   "fr": "Galates 6:7",
+   "en": "Galatians 6:7"
+  },
+  "fr": {
+   "q": "Complétez : « Ne vous y trompez pas : ce qu’un homme aura ______, il le moissonnera aussi. »",
+   "options": [
+    "semé",
+    "gardé",
+    "perdu",
+    "oublié"
+   ],
+   "explain": "« ...ce qu’un homme aura semé, il le moissonnera aussi. » (Galates 6:7)"
+  },
+  "en": {
+   "q": "Complete: “Be not deceived... for whatsoever a man ______, that shall he also reap.”",
+   "options": [
+    "soweth",
+    "keepeth",
+    "loseth",
+    "forgetteth"
+   ],
+   "explain": "“...whatsoever a man soweth, that shall he also reap.” (Galatians 6:7)"
+  }
+ },
+ {
+  "id": "verses-medium-084",
+  "ref": {
+   "fr": "Éphésiens 5:25",
+   "en": "Ephesians 5:25"
+  },
+  "fr": {
+   "q": "Complétez : « Maris, aimez vos femmes, comme Christ a aimé ______ et s’est livré pour elle. »",
+   "options": [
+    "l’Église",
+    "le monde",
+    "la loi",
+    "les rois"
+   ],
+   "explain": "« Maris, aimez vos femmes, comme Christ a aimé l’Église. » (Éphésiens 5:25)"
+  },
+  "en": {
+   "q": "Complete: “Husbands, love your wives, even as Christ also loved ______, and gave himself for it.”",
+   "options": [
+    "the church",
+    "the world",
+    "the law",
+    "kings"
+   ],
+   "explain": "“Husbands, love your wives, even as Christ also loved the church.” (Ephesians 5:25)"
+  }
+ },
+ {
+  "id": "verses-medium-085",
+  "ref": {
+   "fr": "Philippiens 3:14",
+   "en": "Philippians 3:14"
+  },
+  "fr": {
+   "q": "Complétez : « Je cours vers le ______, pour remporter le prix de la vocation céleste de Dieu. »",
+   "options": [
+    "but",
+    "ciel",
+    "trône",
+    "repos"
+   ],
+   "explain": "« Je cours vers le but... » (Philippiens 3:14)"
+  },
+  "en": {
+   "q": "Complete: “I press toward the ______ for the prize of the high calling of God in Christ Jesus.”",
+   "options": [
+    "mark",
+    "heaven",
+    "throne",
+    "rest"
+   ],
+   "explain": "“I press toward the mark for the prize...” (Philippians 3:14)"
+  }
+ },
+ {
+  "id": "verses-medium-086",
+  "ref": {
+   "fr": "Colossiens 3:13",
+   "en": "Colossians 3:13"
+  },
+  "fr": {
+   "q": "Complétez : « ______ les uns les autres, et pardonnez-vous réciproquement. »",
+   "options": [
+    "Supportez-vous",
+    "Jugez-vous",
+    "Craignez-vous",
+    "Fuyez-vous"
+   ],
+   "explain": "« Supportez-vous les uns les autres... » (Colossiens 3:13)"
+  },
+  "en": {
+   "q": "Complete: “______ one another, and forgiving one another, if any man have a quarrel.”",
+   "options": [
+    "Forbearing",
+    "Judging",
+    "Fearing",
+    "Fleeing"
+   ],
+   "explain": "“Forbearing one another, and forgiving one another.” (Colossians 3:13)"
+  }
+ },
+ {
+  "id": "verses-medium-087",
+  "ref": {
+   "fr": "1 Timothée 6:10",
+   "en": "1 Timothy 6:10"
+  },
+  "fr": {
+   "q": "Complétez : « Car l’amour de ______ est une racine de tous les maux. »",
+   "options": [
+    "l’argent",
+    "la gloire",
+    "la chair",
+    "la puissance"
+   ],
+   "explain": "« Car l’amour de l’argent est une racine de tous les maux. » (1 Timothée 6:10)"
+  },
+  "en": {
+   "q": "Complete: “For the love of ______ is the root of all evil.”",
+   "options": [
+    "money",
+    "glory",
+    "the flesh",
+    "power"
+   ],
+   "explain": "“For the love of money is the root of all evil.” (1 Timothy 6:10)"
+  }
+ },
+ {
+  "id": "verses-medium-088",
+  "ref": {
+   "fr": "2 Timothée 4:7",
+   "en": "2 Timothy 4:7"
+  },
+  "fr": {
+   "q": "Complétez : « J’ai combattu le bon combat, j’ai achevé la course, j’ai gardé ______. »",
+   "options": [
+    "la foi",
+    "la loi",
+    "la paix",
+    "la joie"
+   ],
+   "explain": "« ...j’ai achevé la course, j’ai gardé la foi. » (2 Timothée 4:7)"
+  },
+  "en": {
+   "q": "Complete: “I have fought a good fight, I have finished my course, I have kept ______.”",
+   "options": [
+    "the faith",
+    "the law",
+    "the peace",
+    "the joy"
+   ],
+   "explain": "“...I have kept the faith.” (2 Timothy 4:7)"
+  }
+ },
+ {
+  "id": "verses-medium-089",
+  "ref": {
+   "fr": "Tite 3:5",
+   "en": "Titus 3:5"
+  },
+  "fr": {
+   "q": "Complétez : « Il nous a sauvés, non à cause de nos œuvres, mais selon sa ______. »",
+   "options": [
+    "miséricorde",
+    "justice",
+    "loi",
+    "gloire"
+   ],
+   "explain": "« ...il nous a sauvés... selon sa miséricorde. » (Tite 3:5)"
+  },
+  "en": {
+   "q": "Complete: “Not by works of righteousness which we have done, but according to his ______ he saved us.”",
+   "options": [
+    "mercy",
+    "justice",
+    "law",
+    "glory"
+   ],
+   "explain": "“...according to his mercy he saved us.” (Titus 3:5)"
+  }
+ },
+ {
+  "id": "verses-medium-090",
+  "ref": {
+   "fr": "Hébreux 13:5",
+   "en": "Hebrews 13:5"
+  },
+  "fr": {
+   "q": "Complétez : « Je ne te ______ point, et je ne t’abandonnerai point. »",
+   "options": [
+    "délaisserai",
+    "jugerai",
+    "oublierai",
+    "punirai"
+   ],
+   "explain": "« Je ne te délaisserai point... » (Hébreux 13:5)"
+  },
+  "en": {
+   "q": "Complete: “I will never ______ thee, nor forsake thee.”",
+   "options": [
+    "leave",
+    "judge",
+    "forget",
+    "punish"
+   ],
+   "explain": "“I will never leave thee, nor forsake thee.” (Hebrews 13:5)"
+  }
+ },
+ {
+  "id": "verses-medium-091",
+  "ref": {
+   "fr": "Jacques 5:16",
+   "en": "James 5:16"
+  },
+  "fr": {
+   "q": "Complétez : « La prière fervente du ______ a une grande efficacité. »",
+   "options": [
+    "juste",
+    "riche",
+    "sage",
+    "puissant"
+   ],
+   "explain": "« La prière fervente du juste a une grande efficacité. » (Jacques 5:16)"
+  },
+  "en": {
+   "q": "Complete: “The effectual fervent prayer of a ______ man availeth much.”",
+   "options": [
+    "righteous",
+    "rich",
+    "wise",
+    "mighty"
+   ],
+   "explain": "“The effectual fervent prayer of a righteous man availeth much.” (James 5:16)"
+  }
+ },
+ {
+  "id": "verses-medium-092",
+  "ref": {
+   "fr": "1 Pierre 3:15",
+   "en": "1 Peter 3:15"
+  },
+  "fr": {
+   "q": "Complétez : « Soyez prêts à répondre à quiconque vous demande raison de ______ qui est en vous. »",
+   "options": [
+    "l’espérance",
+    "la foi",
+    "la joie",
+    "la paix"
+   ],
+   "explain": "« ...raison de l’espérance qui est en vous. » (1 Pierre 3:15)"
+  },
+  "en": {
+   "q": "Complete: “...be ready to give an answer to every man that asketh you a reason of the ______ that is in you.”",
+   "options": [
+    "hope",
+    "faith",
+    "joy",
+    "peace"
+   ],
+   "explain": "“...a reason of the hope that is in you.” (1 Peter 3:15)"
+  }
+ },
+ {
+  "id": "verses-medium-093",
+  "ref": {
+   "fr": "1 Jean 5:4",
+   "en": "1 John 5:4"
+  },
+  "fr": {
+   "q": "Complétez : « Et la victoire qui triomphe du monde, c’est notre ______. »",
+   "options": [
+    "foi",
+    "force",
+    "sagesse",
+    "richesse"
+   ],
+   "explain": "« ...la victoire qui triomphe du monde, c’est notre foi. » (1 Jean 5:4)"
+  },
+  "en": {
+   "q": "Complete: “And this is the victory that overcometh the world, even our ______.”",
+   "options": [
+    "faith",
+    "strength",
+    "wisdom",
+    "riches"
+   ],
+   "explain": "“...the victory that overcometh the world, even our faith.” (1 John 5:4)"
+  }
+ },
+ {
+  "id": "verses-medium-094",
+  "ref": {
+   "fr": "Proverbes 11:25",
+   "en": "Proverbs 11:25"
+  },
+  "fr": {
+   "q": "Complétez : « L’âme bienfaisante sera rassasiée, et celui qui arrose sera lui-même ______. »",
+   "options": [
+    "arrosé",
+    "oublié",
+    "jugé",
+    "appauvri"
+   ],
+   "explain": "« ...celui qui arrose sera lui-même arrosé. » (Proverbes 11:25)"
+  },
+  "en": {
+   "q": "Complete: “The liberal soul shall be made fat: and he that watereth shall be ______ also himself.”",
+   "options": [
+    "watered",
+    "forgotten",
+    "judged",
+    "impoverished"
+   ],
+   "explain": "“...he that watereth shall be watered also himself.” (Proverbs 11:25)"
+  }
+ },
+ {
+  "id": "verses-medium-095",
+  "ref": {
+   "fr": "Proverbes 14:34",
+   "en": "Proverbs 14:34"
+  },
+  "fr": {
+   "q": "Complétez : « La ______ élève une nation, mais le péché est la honte des peuples. »",
+   "options": [
+    "justice",
+    "richesse",
+    "force",
+    "sagesse"
+   ],
+   "explain": "« La justice élève une nation... » (Proverbes 14:34)"
+  },
+  "en": {
+   "q": "Complete: “______ exalteth a nation: but sin is a reproach to any people.”",
+   "options": [
+    "Righteousness",
+    "Riches",
+    "Strength",
+    "Wisdom"
+   ],
+   "explain": "“Righteousness exalteth a nation.” (Proverbs 14:34)"
+  }
+ },
+ {
+  "id": "verses-medium-096",
+  "ref": {
+   "fr": "Proverbes 28:13",
+   "en": "Proverbs 28:13"
+  },
+  "fr": {
+   "q": "Complétez : « Celui qui cache ses transgressions ne prospère point, mais celui qui les avoue obtient ______. »",
+   "options": [
+    "miséricorde",
+    "richesse",
+    "gloire",
+    "force"
+   ],
+   "explain": "« ...celui qui les avoue et les délaisse obtient miséricorde. » (Proverbes 28:13)"
+  },
+  "en": {
+   "q": "Complete: “...but whoso confesseth and forsaketh them shall have ______.”",
+   "options": [
+    "mercy",
+    "riches",
+    "glory",
+    "strength"
+   ],
+   "explain": "“...whoso confesseth and forsaketh them shall have mercy.” (Proverbs 28:13)"
+  }
+ },
+ {
+  "id": "verses-medium-097",
+  "ref": {
+   "fr": "Proverbes 16:9",
+   "en": "Proverbs 16:9"
+  },
+  "fr": {
+   "q": "Complétez : « Le cœur de l’homme médite sa voie, mais c’est l’Éternel qui dirige ses ______. »",
+   "options": [
+    "pas",
+    "jours",
+    "œuvres",
+    "pensées"
+   ],
+   "explain": "« ...c’est l’Éternel qui dirige ses pas. » (Proverbes 16:9)"
+  },
+  "en": {
+   "q": "Complete: “A man’s heart deviseth his way: but the LORD directeth his ______.”",
+   "options": [
+    "steps",
+    "days",
+    "works",
+    "thoughts"
+   ],
+   "explain": "“...the LORD directeth his steps.” (Proverbs 16:9)"
+  }
+ },
+ {
+  "id": "verses-medium-098",
+  "ref": {
+   "fr": "Proverbes 3:9",
+   "en": "Proverbs 3:9"
+  },
+  "fr": {
+   "q": "Complétez : « Honore l’Éternel avec tes ______, et avec les prémices de tout ton revenu. »",
+   "options": [
+    "biens",
+    "paroles",
+    "jours",
+    "forces"
+   ],
+   "explain": "« Honore l’Éternel avec tes biens. » (Proverbes 3:9)"
+  },
+  "en": {
+   "q": "Complete: “Honour the LORD with thy ______, and with the firstfruits of all thine increase.”",
+   "options": [
+    "substance",
+    "words",
+    "days",
+    "strength"
+   ],
+   "explain": "“Honour the LORD with thy substance.” (Proverbs 3:9)"
+  }
+ },
+ {
+  "id": "verses-medium-099",
+  "ref": {
+   "fr": "Ésaïe 12:2",
+   "en": "Isaiah 12:2"
+  },
+  "fr": {
+   "q": "Complétez : « Voici, Dieu est ma ______ ; je serai plein de confiance, et je ne craindrai rien. »",
+   "options": [
+    "délivrance",
+    "gloire",
+    "richesse",
+    "force"
+   ],
+   "explain": "« Voici, Dieu est ma délivrance... » (Ésaïe 12:2)"
+  },
+  "en": {
+   "q": "Complete: “Behold, God is my ______; I will trust, and not be afraid.”",
+   "options": [
+    "salvation",
+    "glory",
+    "riches",
+    "strength"
+   ],
+   "explain": "“Behold, God is my salvation.” (Isaiah 12:2)"
+  }
+ },
+ {
+  "id": "verses-medium-100",
+  "ref": {
+   "fr": "Ésaïe 30:15",
+   "en": "Isaiah 30:15"
+  },
+  "fr": {
+   "q": "Complétez : « Votre force sera dans le calme et ______. »",
+   "options": [
+    "la confiance",
+    "la richesse",
+    "la guerre",
+    "la crainte"
+   ],
+   "explain": "« ...votre force sera dans le calme et la confiance. » (Ésaïe 30:15)"
+  },
+  "en": {
+   "q": "Complete: “...in quietness and in ______ shall be your strength.”",
+   "options": [
+    "confidence",
+    "riches",
+    "war",
+    "fear"
+   ],
+   "explain": "“In quietness and in confidence shall be your strength.” (Isaiah 30:15)"
+  }
+ }
+]

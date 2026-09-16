@@ -1,0 +1,2702 @@
+[
+ {
+  "id": "kids-medium-001",
+  "ref": {
+   "fr": "Genèse 4:8",
+   "en": "Genesis 4:8"
+  },
+  "fr": {
+   "q": "Quel frère a fait du mal à Abel ?",
+   "options": [
+    "Caïn",
+    "Seth",
+    "Noé",
+    "Isaac"
+   ],
+   "explain": "Caïn s’en prit à son frère Abel. (Genèse 4:8)"
+  },
+  "en": {
+   "q": "Which brother harmed Abel?",
+   "options": [
+    "Cain",
+    "Seth",
+    "Noah",
+    "Isaac"
+   ],
+   "explain": "Cain rose up against his brother Abel. (Genesis 4:8)"
+  }
+ },
+ {
+  "id": "kids-medium-002",
+  "ref": {
+   "fr": "Genèse 11:7",
+   "en": "Genesis 11:7"
+  },
+  "fr": {
+   "q": "À la tour de Babel, qu’est-ce que Dieu a changé chez les gens ?",
+   "options": [
+    "Leur langage",
+    "Leur taille",
+    "Leur nom",
+    "Leur âge"
+   ],
+   "explain": "Dieu confondit leur langage. (Genèse 11:7)"
+  },
+  "en": {
+   "q": "At the tower of Babel, what did God change in the people?",
+   "options": [
+    "Their language",
+    "Their size",
+    "Their name",
+    "Their age"
+   ],
+   "explain": "God confused their language. (Genesis 11:7)"
+  }
+ },
+ {
+  "id": "kids-medium-003",
+  "ref": {
+   "fr": "Genèse 22:13",
+   "en": "Genesis 22:13"
+  },
+  "fr": {
+   "q": "Sur la montagne, quel animal Dieu a-t-il donné à la place d’Isaac ?",
+   "options": [
+    "Un bélier",
+    "Une colombe",
+    "Une chèvre",
+    "Un veau"
+   ],
+   "explain": "Abraham offrit un bélier à la place de son fils. (Genèse 22:13)"
+  },
+  "en": {
+   "q": "On the mountain, which animal did God give instead of Isaac?",
+   "options": [
+    "A ram",
+    "A dove",
+    "A goat",
+    "A calf"
+   ],
+   "explain": "Abraham offered a ram instead of his son. (Genesis 22:13)"
+  }
+ },
+ {
+  "id": "kids-medium-004",
+  "ref": {
+   "fr": "Genèse 25:34",
+   "en": "Genesis 25:34"
+  },
+  "fr": {
+   "q": "Ésaü a vendu son droit d’aîné pour un plat de quoi ?",
+   "options": [
+    "Lentilles",
+    "Pain",
+    "Poisson",
+    "Miel"
+   ],
+   "explain": "Ésaü vendit son droit pour un plat de lentilles. (Genèse 25:34)"
+  },
+  "en": {
+   "q": "Esau sold his birthright for a bowl of what?",
+   "options": [
+    "Lentils",
+    "Bread",
+    "Fish",
+    "Honey"
+   ],
+   "explain": "Esau sold his birthright for lentil stew. (Genesis 25:34)"
+  }
+ },
+ {
+  "id": "kids-medium-005",
+  "ref": {
+   "fr": "Genèse 28:12",
+   "en": "Genesis 28:12"
+  },
+  "fr": {
+   "q": "Dans son rêve, Jacob a vu une échelle avec quoi dessus ?",
+   "options": [
+    "Des anges",
+    "Des oiseaux",
+    "Des étoiles",
+    "Des lampes"
+   ],
+   "explain": "Jacob vit des anges monter et descendre l’échelle. (Genèse 28:12)"
+  },
+  "en": {
+   "q": "In his dream, Jacob saw a ladder with what on it?",
+   "options": [
+    "Angels",
+    "Birds",
+    "Stars",
+    "Lamps"
+   ],
+   "explain": "Jacob saw angels going up and down the ladder. (Genesis 28:12)"
+  }
+ },
+ {
+  "id": "kids-medium-006",
+  "ref": {
+   "fr": "Genèse 32:28",
+   "en": "Genesis 32:28"
+  },
+  "fr": {
+   "q": "Dieu a donné à Jacob un nouveau nom : lequel ?",
+   "options": [
+    "Israël",
+    "Abraham",
+    "Pierre",
+    "Paul"
+   ],
+   "explain": "Ton nom sera Israël. (Genèse 32:28)"
+  },
+  "en": {
+   "q": "God gave Jacob a new name: which one?",
+   "options": [
+    "Israel",
+    "Abraham",
+    "Peter",
+    "Paul"
+   ],
+   "explain": "Your name shall be Israel. (Genesis 32:28)"
+  }
+ },
+ {
+  "id": "kids-medium-007",
+  "ref": {
+   "fr": "Genèse 37:9",
+   "en": "Genesis 37:9"
+  },
+  "fr": {
+   "q": "Dans son rêve, devant qui les étoiles se sont-elles inclinées ?",
+   "options": [
+    "Devant Joseph",
+    "Devant le roi",
+    "Devant Ésaü",
+    "Devant Aaron"
+   ],
+   "explain": "Le soleil, la lune et les étoiles se prosternaient devant Joseph. (Genèse 37:9)"
+  },
+  "en": {
+   "q": "In his dream, before whom did the stars bow down?",
+   "options": [
+    "Before Joseph",
+    "Before the king",
+    "Before Esau",
+    "Before Aaron"
+   ],
+   "explain": "The sun, moon and stars bowed to Joseph. (Genesis 37:9)"
+  }
+ },
+ {
+  "id": "kids-medium-008",
+  "ref": {
+   "fr": "Genèse 37:4",
+   "en": "Genesis 37:4"
+  },
+  "fr": {
+   "q": "Pourquoi les frères de Joseph étaient-ils jaloux ?",
+   "options": [
+    "Leur père l’aimait plus",
+    "Il était plus grand",
+    "Il était riche",
+    "Il était roi"
+   ],
+   "explain": "Leur père aimait Joseph plus que tous. (Genèse 37:4)"
+  },
+  "en": {
+   "q": "Why were Joseph’s brothers jealous?",
+   "options": [
+    "Their father loved him more",
+    "He was taller",
+    "He was rich",
+    "He was a king"
+   ],
+   "explain": "Their father loved Joseph more than the others. (Genesis 37:4)"
+  }
+ },
+ {
+  "id": "kids-medium-009",
+  "ref": {
+   "fr": "Genèse 41:2",
+   "en": "Genesis 41:2"
+  },
+  "fr": {
+   "q": "Combien de vaches le pharaon a-t-il vues dans son rêve ?",
+   "options": [
+    "Sept",
+    "Trois",
+    "Dix",
+    "Deux"
+   ],
+   "explain": "Le pharaon vit sept vaches grasses. (Genèse 41:2)"
+  },
+  "en": {
+   "q": "How many cows did Pharaoh see in his dream?",
+   "options": [
+    "Seven",
+    "Three",
+    "Ten",
+    "Two"
+   ],
+   "explain": "Pharaoh saw seven fat cows. (Genesis 41:2)"
+  }
+ },
+ {
+  "id": "kids-medium-010",
+  "ref": {
+   "fr": "Exode 7:20",
+   "en": "Exodus 7:20"
+  },
+  "fr": {
+   "q": "Quelle a été la première plaie envoyée sur l’Égypte ?",
+   "options": [
+    "L’eau changée en sang",
+    "Les sauterelles",
+    "Les grenouilles",
+    "La nuit"
+   ],
+   "explain": "L’eau du Nil fut changée en sang. (Exode 7:20)"
+  },
+  "en": {
+   "q": "What was the first plague sent on Egypt?",
+   "options": [
+    "Water turned to blood",
+    "The locusts",
+    "The frogs",
+    "The darkness"
+   ],
+   "explain": "The water of the Nile turned to blood. (Exodus 7:20)"
+  }
+ },
+ {
+  "id": "kids-medium-011",
+  "ref": {
+   "fr": "Exode 8:6",
+   "en": "Exodus 8:6"
+  },
+  "fr": {
+   "q": "Quels petits animaux ont envahi l’Égypte comme punition ?",
+   "options": [
+    "Des grenouilles",
+    "Des lions",
+    "Des serpents",
+    "Des singes"
+   ],
+   "explain": "Les grenouilles couvrirent le pays. (Exode 8:6)"
+  },
+  "en": {
+   "q": "Which little animals covered Egypt as a punishment?",
+   "options": [
+    "Frogs",
+    "Lions",
+    "Snakes",
+    "Monkeys"
+   ],
+   "explain": "The frogs covered the land. (Exodus 8:6)"
+  }
+ },
+ {
+  "id": "kids-medium-012",
+  "ref": {
+   "fr": "Exode 12:7",
+   "en": "Exodus 12:7"
+  },
+  "fr": {
+   "q": "Que devaient mettre les Hébreux sur leur porte pour être protégés ?",
+   "options": [
+    "Du sang d’agneau",
+    "De la peinture",
+    "De l’or",
+    "De l’eau"
+   ],
+   "explain": "Ils mirent du sang de l’agneau sur la porte. (Exode 12:7)"
+  },
+  "en": {
+   "q": "What did the Hebrews put on their door to be kept safe?",
+   "options": [
+    "Lamb’s blood",
+    "Paint",
+    "Gold",
+    "Water"
+   ],
+   "explain": "They put the lamb’s blood on the door. (Exodus 12:7)"
+  }
+ },
+ {
+  "id": "kids-medium-013",
+  "ref": {
+   "fr": "Exode 14:16",
+   "en": "Exodus 14:16"
+  },
+  "fr": {
+   "q": "Avec quel objet Moïse a-t-il levé la main pour ouvrir la mer ?",
+   "options": [
+    "Son bâton",
+    "Une épée",
+    "Une lampe",
+    "Une corde"
+   ],
+   "explain": "Moïse étendit son bâton sur la mer. (Exode 14:16)"
+  },
+  "en": {
+   "q": "With which object did Moses lift his hand to open the sea?",
+   "options": [
+    "His staff",
+    "A sword",
+    "A lamp",
+    "A rope"
+   ],
+   "explain": "Moses stretched his staff over the sea. (Exodus 14:16)"
+  }
+ },
+ {
+  "id": "kids-medium-014",
+  "ref": {
+   "fr": "Exode 17:6",
+   "en": "Exodus 17:6"
+  },
+  "fr": {
+   "q": "Dans le désert, d’où Dieu a-t-il fait sortir de l’eau ?",
+   "options": [
+    "D’un rocher",
+    "D’un puits",
+    "De la pluie",
+    "D’un fleuve"
+   ],
+   "explain": "De l’eau jaillit du rocher. (Exode 17:6)"
+  },
+  "en": {
+   "q": "In the desert, from where did God bring out water?",
+   "options": [
+    "From a rock",
+    "From a well",
+    "From the rain",
+    "From a river"
+   ],
+   "explain": "Water came out of the rock. (Exodus 17:6)"
+  }
+ },
+ {
+  "id": "kids-medium-015",
+  "ref": {
+   "fr": "Exode 32:4",
+   "en": "Exodus 32:4"
+  },
+  "fr": {
+   "q": "Quel faux dieu le peuple a-t-il fabriqué avec de l’or ?",
+   "options": [
+    "Un veau",
+    "Un lion",
+    "Un serpent",
+    "Un oiseau"
+   ],
+   "explain": "Ils firent un veau d’or. (Exode 32:4)"
+  },
+  "en": {
+   "q": "What false god did the people make out of gold?",
+   "options": [
+    "A calf",
+    "A lion",
+    "A snake",
+    "A bird"
+   ],
+   "explain": "They made a golden calf. (Exodus 32:4)"
+  }
+ },
+ {
+  "id": "kids-medium-016",
+  "ref": {
+   "fr": "Exode 19:20",
+   "en": "Exodus 19:20"
+  },
+  "fr": {
+   "q": "Sur quelle montagne Moïse a-t-il reçu les commandements ?",
+   "options": [
+    "Le mont Sinaï",
+    "Le mont Carmel",
+    "Le mont des Oliviers",
+    "Le mont Ararat"
+   ],
+   "explain": "Dieu parla à Moïse sur le mont Sinaï. (Exode 19:20)"
+  },
+  "en": {
+   "q": "On which mountain did Moses receive the commandments?",
+   "options": [
+    "Mount Sinai",
+    "Mount Carmel",
+    "Mount of Olives",
+    "Mount Ararat"
+   ],
+   "explain": "God spoke to Moses on Mount Sinai. (Exodus 19:20)"
+  }
+ },
+ {
+  "id": "kids-medium-017",
+  "ref": {
+   "fr": "Nombres 13:23",
+   "en": "Numbers 13:23"
+  },
+  "fr": {
+   "q": "Que les espions ont-ils rapporté du pays promis ?",
+   "options": [
+    "Une grosse grappe de raisin",
+    "De l’or",
+    "Du poisson",
+    "Des lions"
+   ],
+   "explain": "Ils rapportèrent une énorme grappe de raisin. (Nombres 13:23)"
+  },
+  "en": {
+   "q": "What did the spies bring back from the promised land?",
+   "options": [
+    "A huge cluster of grapes",
+    "Gold",
+    "Fish",
+    "Lions"
+   ],
+   "explain": "They brought back a huge cluster of grapes. (Numbers 13:23)"
+  }
+ },
+ {
+  "id": "kids-medium-018",
+  "ref": {
+   "fr": "Josué 6:20",
+   "en": "Joshua 6:20"
+  },
+  "fr": {
+   "q": "Comment sont tombés les murs de Jéricho ?",
+   "options": [
+    "En marchant autour et en sonnant de la trompette",
+    "En les poussant",
+    "Avec des échelles",
+    "Avec le feu"
+   ],
+   "explain": "Au son des trompettes, les murs s’écroulèrent. (Josué 6:20)"
+  },
+  "en": {
+   "q": "How did the walls of Jericho fall down?",
+   "options": [
+    "By marching around and blowing trumpets",
+    "By pushing them",
+    "With ladders",
+    "With fire"
+   ],
+   "explain": "At the sound of the trumpets the walls fell down. (Joshua 6:20)"
+  }
+ },
+ {
+  "id": "kids-medium-019",
+  "ref": {
+   "fr": "Josué 6:15",
+   "en": "Joshua 6:15"
+  },
+  "fr": {
+   "q": "Combien de jours le peuple a-t-il tourné autour de Jéricho ?",
+   "options": [
+    "Sept jours",
+    "Trois jours",
+    "Un jour",
+    "Dix jours"
+   ],
+   "explain": "Ils marchèrent autour de la ville pendant sept jours. (Josué 6:15)"
+  },
+  "en": {
+   "q": "For how many days did the people march around Jericho?",
+   "options": [
+    "Seven days",
+    "Three days",
+    "One day",
+    "Ten days"
+   ],
+   "explain": "They marched around the city for seven days. (Joshua 6:15)"
+  }
+ },
+ {
+  "id": "kids-medium-020",
+  "ref": {
+   "fr": "Josué 2:18",
+   "en": "Joshua 2:18"
+  },
+  "fr": {
+   "q": "Quel signe Rahab a-t-elle mis à sa fenêtre pour être sauvée ?",
+   "options": [
+    "Un cordon rouge",
+    "Un drapeau",
+    "Une lampe",
+    "Une croix"
+   ],
+   "explain": "Rahab attacha un cordon rouge à sa fenêtre. (Josué 2:18)"
+  },
+  "en": {
+   "q": "What sign did Rahab put in her window to be saved?",
+   "options": [
+    "A red cord",
+    "A flag",
+    "A lamp",
+    "A cross"
+   ],
+   "explain": "Rahab tied a red cord in her window. (Joshua 2:18)"
+  }
+ },
+ {
+  "id": "kids-medium-021",
+  "ref": {
+   "fr": "Juges 7:7",
+   "en": "Judges 7:7"
+  },
+  "fr": {
+   "q": "Avec combien d’hommes Gédéon a-t-il gagné la bataille ?",
+   "options": [
+    "Trois cents",
+    "Mille",
+    "Dix",
+    "Cent"
+   ],
+   "explain": "Dieu donna la victoire par trois cents hommes. (Juges 7:7)"
+  },
+  "en": {
+   "q": "With how many men did Gideon win the battle?",
+   "options": [
+    "Three hundred",
+    "A thousand",
+    "Ten",
+    "A hundred"
+   ],
+   "explain": "God won the battle with three hundred men. (Judges 7:7)"
+  }
+ },
+ {
+  "id": "kids-medium-022",
+  "ref": {
+   "fr": "Juges 16:17",
+   "en": "Judges 16:17"
+  },
+  "fr": {
+   "q": "Où se trouvait la grande force de Samson ?",
+   "options": [
+    "Dans ses cheveux",
+    "Dans ses bras",
+    "Dans son épée",
+    "Dans ses pieds"
+   ],
+   "explain": "La force de Samson était dans ses cheveux. (Juges 16:17)"
+  },
+  "en": {
+   "q": "Where was Samson’s great strength?",
+   "options": [
+    "In his hair",
+    "In his arms",
+    "In his sword",
+    "In his feet"
+   ],
+   "explain": "Samson’s strength was in his hair. (Judges 16:17)"
+  }
+ },
+ {
+  "id": "kids-medium-023",
+  "ref": {
+   "fr": "Ruth 1:16",
+   "en": "Ruth 1:16"
+  },
+  "fr": {
+   "q": "Qui Ruth a-t-elle suivi fidèlement avec amour ?",
+   "options": [
+    "Naomi, sa belle-mère",
+    "Un roi",
+    "Sa sœur",
+    "Une amie"
+   ],
+   "explain": "Ruth resta fidèle à Naomi. (Ruth 1:16)"
+  },
+  "en": {
+   "q": "Whom did Ruth faithfully and lovingly follow?",
+   "options": [
+    "Naomi, her mother-in-law",
+    "A king",
+    "Her sister",
+    "A friend"
+   ],
+   "explain": "Ruth stayed faithful to Naomi. (Ruth 1:16)"
+  }
+ },
+ {
+  "id": "kids-medium-024",
+  "ref": {
+   "fr": "Ruth 2:3",
+   "en": "Ruth 2:3"
+  },
+  "fr": {
+   "q": "Dans le champ de qui Ruth a-t-elle ramassé des épis ?",
+   "options": [
+    "Boaz",
+    "Salomon",
+    "Saül",
+    "Élie"
+   ],
+   "explain": "Ruth glana dans le champ de Boaz. (Ruth 2:3)"
+  },
+  "en": {
+   "q": "In whose field did Ruth gather grain?",
+   "options": [
+    "Boaz",
+    "Solomon",
+    "Saul",
+    "Elijah"
+   ],
+   "explain": "Ruth gleaned in the field of Boaz. (Ruth 2:3)"
+  }
+ },
+ {
+  "id": "kids-medium-025",
+  "ref": {
+   "fr": "1 Samuel 1:11",
+   "en": "1 Samuel 1:11"
+  },
+  "fr": {
+   "q": "Anne a prié Dieu très fort pour recevoir quoi ?",
+   "options": [
+    "Un enfant",
+    "De l’argent",
+    "Une maison",
+    "De la pluie"
+   ],
+   "explain": "Anne pria Dieu pour avoir un enfant. (1 Samuel 1:11)"
+  },
+  "en": {
+   "q": "Hannah prayed hard to God to receive what?",
+   "options": [
+    "A child",
+    "Money",
+    "A house",
+    "Rain"
+   ],
+   "explain": "Hannah prayed to God for a child. (1 Samuel 1:11)"
+  }
+ },
+ {
+  "id": "kids-medium-026",
+  "ref": {
+   "fr": "1 Samuel 3:4",
+   "en": "1 Samuel 3:4"
+  },
+  "fr": {
+   "q": "La nuit, le petit Samuel a entendu qui l’appeler ?",
+   "options": [
+    "Dieu",
+    "Sa maman",
+    "Le roi",
+    "Un ami"
+   ],
+   "explain": "L’Éternel appela Samuel pendant la nuit. (1 Samuel 3:4)"
+  },
+  "en": {
+   "q": "At night, who did little Samuel hear calling him?",
+   "options": [
+    "God",
+    "His mother",
+    "The king",
+    "A friend"
+   ],
+   "explain": "The Lord called Samuel in the night. (1 Samuel 3:4)"
+  }
+ },
+ {
+  "id": "kids-medium-027",
+  "ref": {
+   "fr": "1 Rois 3:9",
+   "en": "1 Kings 3:9"
+  },
+  "fr": {
+   "q": "Qu’a demandé le roi Salomon à Dieu ?",
+   "options": [
+    "La sagesse",
+    "De l’or",
+    "Une armée",
+    "Une longue vie"
+   ],
+   "explain": "Salomon demanda un cœur sage. (1 Rois 3:9)"
+  },
+  "en": {
+   "q": "What did King Solomon ask God for?",
+   "options": [
+    "Wisdom",
+    "Gold",
+    "An army",
+    "A long life"
+   ],
+   "explain": "Solomon asked for a wise heart. (1 Kings 3:9)"
+  }
+ },
+ {
+  "id": "kids-medium-028",
+  "ref": {
+   "fr": "1 Rois 6:1",
+   "en": "1 Kings 6:1"
+  },
+  "fr": {
+   "q": "Qu’est-ce que le roi Salomon a construit pour Dieu ?",
+   "options": [
+    "Le temple",
+    "Un palais",
+    "Un mur",
+    "Un bateau"
+   ],
+   "explain": "Salomon bâtit le temple de l’Éternel. (1 Rois 6:1)"
+  },
+  "en": {
+   "q": "What did King Solomon build for God?",
+   "options": [
+    "The temple",
+    "A palace",
+    "A wall",
+    "A boat"
+   ],
+   "explain": "Solomon built the temple of the Lord. (1 Kings 6:1)"
+  }
+ },
+ {
+  "id": "kids-medium-029",
+  "ref": {
+   "fr": "1 Rois 3:16-27",
+   "en": "1 Kings 3:16-27"
+  },
+  "fr": {
+   "q": "Deux femmes se disputaient quoi devant le sage Salomon ?",
+   "options": [
+    "Un bébé",
+    "De l’or",
+    "Une maison",
+    "Un âne"
+   ],
+   "explain": "Salomon trouva la vraie maman du bébé. (1 Rois 3:16-27)"
+  },
+  "en": {
+   "q": "Two women argued over what before wise Solomon?",
+   "options": [
+    "A baby",
+    "Gold",
+    "A house",
+    "A donkey"
+   ],
+   "explain": "Solomon found the baby’s true mother. (1 Kings 3:16-27)"
+  }
+ },
+ {
+  "id": "kids-medium-030",
+  "ref": {
+   "fr": "1 Rois 10:1",
+   "en": "1 Kings 10:1"
+  },
+  "fr": {
+   "q": "Quelle reine est venue voir la sagesse de Salomon ?",
+   "options": [
+    "La reine de Séba",
+    "La reine Esther",
+    "La reine Vasthi",
+    "La reine de Ninive"
+   ],
+   "explain": "La reine de Séba vint voir Salomon. (1 Rois 10:1)"
+  },
+  "en": {
+   "q": "Which queen came to see Solomon’s wisdom?",
+   "options": [
+    "The queen of Sheba",
+    "Queen Esther",
+    "Queen Vashti",
+    "The queen of Nineveh"
+   ],
+   "explain": "The queen of Sheba came to see Solomon. (1 Kings 10:1)"
+  }
+ },
+ {
+  "id": "kids-medium-031",
+  "ref": {
+   "fr": "1 Rois 17:6",
+   "en": "1 Kings 17:6"
+  },
+  "fr": {
+   "q": "Quels oiseaux ont apporté à manger au prophète Élie ?",
+   "options": [
+    "Des corbeaux",
+    "Des colombes",
+    "Des aigles",
+    "Des poules"
+   ],
+   "explain": "Les corbeaux apportaient du pain à Élie. (1 Rois 17:6)"
+  },
+  "en": {
+   "q": "Which birds brought food to the prophet Elijah?",
+   "options": [
+    "Ravens",
+    "Doves",
+    "Eagles",
+    "Hens"
+   ],
+   "explain": "The ravens brought bread to Elijah. (1 Kings 17:6)"
+  }
+ },
+ {
+  "id": "kids-medium-032",
+  "ref": {
+   "fr": "1 Rois 17:16",
+   "en": "1 Kings 17:16"
+  },
+  "fr": {
+   "q": "Chez la veuve, qu’est-il arrivé à la farine et à l’huile ?",
+   "options": [
+    "Elles n’ont jamais manqué",
+    "Elles ont été vendues",
+    "Elles ont été perdues",
+    "Elles ont brûlé"
+   ],
+   "explain": "La farine et l’huile ne s’épuisèrent pas. (1 Rois 17:16)"
+  },
+  "en": {
+   "q": "At the widow’s house, what happened to the flour and oil?",
+   "options": [
+    "They never ran out",
+    "They were sold",
+    "They were lost",
+    "They burned"
+   ],
+   "explain": "The flour and oil did not run out. (1 Kings 17:16)"
+  }
+ },
+ {
+  "id": "kids-medium-033",
+  "ref": {
+   "fr": "1 Rois 18:38",
+   "en": "1 Kings 18:38"
+  },
+  "fr": {
+   "q": "Sur le mont Carmel, qu’est-ce qui est descendu du ciel ?",
+   "options": [
+    "Le feu",
+    "La pluie",
+    "La neige",
+    "Une échelle"
+   ],
+   "explain": "Le feu de l’Éternel tomba du ciel. (1 Rois 18:38)"
+  },
+  "en": {
+   "q": "On Mount Carmel, what came down from the sky?",
+   "options": [
+    "Fire",
+    "Rain",
+    "Snow",
+    "A ladder"
+   ],
+   "explain": "The fire of the Lord fell from heaven. (1 Kings 18:38)"
+  }
+ },
+ {
+  "id": "kids-medium-034",
+  "ref": {
+   "fr": "2 Rois 2:11",
+   "en": "2 Kings 2:11"
+  },
+  "fr": {
+   "q": "Comment le prophète Élie est-il monté au ciel ?",
+   "options": [
+    "Dans un char de feu",
+    "Sur un nuage",
+    "Sur une échelle",
+    "En bateau"
+   ],
+   "explain": "Élie monta au ciel dans un char de feu. (2 Rois 2:11)"
+  },
+  "en": {
+   "q": "How did the prophet Elijah go up to heaven?",
+   "options": [
+    "In a chariot of fire",
+    "On a cloud",
+    "On a ladder",
+    "In a boat"
+   ],
+   "explain": "Elijah went up to heaven in a chariot of fire. (2 Kings 2:11)"
+  }
+ },
+ {
+  "id": "kids-medium-035",
+  "ref": {
+   "fr": "2 Rois 5:14",
+   "en": "2 Kings 5:14"
+  },
+  "fr": {
+   "q": "Combien de fois Naaman s’est-il lavé dans le Jourdain pour guérir ?",
+   "options": [
+    "Sept fois",
+    "Trois fois",
+    "Une fois",
+    "Dix fois"
+   ],
+   "explain": "Naaman se plongea sept fois et fut guéri. (2 Rois 5:14)"
+  },
+  "en": {
+   "q": "How many times did Naaman wash in the Jordan to be healed?",
+   "options": [
+    "Seven times",
+    "Three times",
+    "Once",
+    "Ten times"
+   ],
+   "explain": "Naaman dipped seven times and was healed. (2 Kings 5:14)"
+  }
+ },
+ {
+  "id": "kids-medium-036",
+  "ref": {
+   "fr": "2 Rois 4:4",
+   "en": "2 Kings 4:4"
+  },
+  "fr": {
+   "q": "Élisée a aidé une veuve en remplissant beaucoup de vases de quoi ?",
+   "options": [
+    "D’huile",
+    "D’eau",
+    "De vin",
+    "De miel"
+   ],
+   "explain": "L’huile remplit tous les vases de la veuve. (2 Rois 4:4)"
+  },
+  "en": {
+   "q": "Elisha helped a widow by filling many jars with what?",
+   "options": [
+    "Oil",
+    "Water",
+    "Wine",
+    "Honey"
+   ],
+   "explain": "Oil filled all the widow’s jars. (2 Kings 4:4)"
+  }
+ },
+ {
+  "id": "kids-medium-037",
+  "ref": {
+   "fr": "Job 1:21",
+   "en": "Job 1:21"
+  },
+  "fr": {
+   "q": "Même dans le malheur, qu’a gardé Job envers Dieu ?",
+   "options": [
+    "Sa confiance",
+    "Sa colère",
+    "Son or",
+    "Son silence"
+   ],
+   "explain": "Job bénit encore le nom de l’Éternel. (Job 1:21)"
+  },
+  "en": {
+   "q": "Even in trouble, what did Job keep toward God?",
+   "options": [
+    "His trust",
+    "His anger",
+    "His gold",
+    "His silence"
+   ],
+   "explain": "Job still blessed the name of the Lord. (Job 1:21)"
+  }
+ },
+ {
+  "id": "kids-medium-038",
+  "ref": {
+   "fr": "Esther 2:17",
+   "en": "Esther 2:17"
+  },
+  "fr": {
+   "q": "Qu’est devenue Esther pour aider et sauver son peuple ?",
+   "options": [
+    "Reine",
+    "Bergère",
+    "Soldate",
+    "Marchande"
+   ],
+   "explain": "Esther devint reine. (Esther 2:17)"
+  },
+  "en": {
+   "q": "What did Esther become to help and save her people?",
+   "options": [
+    "Queen",
+    "Shepherdess",
+    "Soldier",
+    "Merchant"
+   ],
+   "explain": "Esther became queen. (Esther 2:17)"
+  }
+ },
+ {
+  "id": "kids-medium-039",
+  "ref": {
+   "fr": "Néhémie 2:17",
+   "en": "Nehemiah 2:17"
+  },
+  "fr": {
+   "q": "Néhémie a aidé à reconstruire les murs de quelle ville ?",
+   "options": [
+    "Jérusalem",
+    "Ninive",
+    "Babylone",
+    "Bethléem"
+   ],
+   "explain": "Néhémie rebâtit les murs de Jérusalem. (Néhémie 2:17)"
+  },
+  "en": {
+   "q": "Nehemiah helped rebuild the walls of which city?",
+   "options": [
+    "Jerusalem",
+    "Nineveh",
+    "Babylon",
+    "Bethlehem"
+   ],
+   "explain": "Nehemiah rebuilt the walls of Jerusalem. (Nehemiah 2:17)"
+  }
+ },
+ {
+  "id": "kids-medium-040",
+  "ref": {
+   "fr": "Daniel 5:17",
+   "en": "Daniel 5:17"
+  },
+  "fr": {
+   "q": "Qui a expliqué l’écriture mystérieuse sur le mur du roi ?",
+   "options": [
+    "Daniel",
+    "Le roi",
+    "Un ange",
+    "Un soldat"
+   ],
+   "explain": "Daniel expliqua l’écriture sur le mur. (Daniel 5:17)"
+  },
+  "en": {
+   "q": "Who explained the mysterious writing on the king’s wall?",
+   "options": [
+    "Daniel",
+    "The king",
+    "An angel",
+    "A soldier"
+   ],
+   "explain": "Daniel explained the writing on the wall. (Daniel 5:17)"
+  }
+ },
+ {
+  "id": "kids-medium-041",
+  "ref": {
+   "fr": "Daniel 3:23",
+   "en": "Daniel 3:23"
+  },
+  "fr": {
+   "q": "Comment s’appelaient les trois amis jetés dans la fournaise ?",
+   "options": [
+    "Shadrac, Méshac et Abed-Nego",
+    "Pierre, Jacques et Jean",
+    "Sem, Cham et Japhet",
+    "Caïn, Abel et Seth"
+   ],
+   "explain": "Shadrac, Méshac et Abed-Nego furent jetés au feu. (Daniel 3:23)"
+  },
+  "en": {
+   "q": "What were the names of the three friends thrown into the furnace?",
+   "options": [
+    "Shadrach, Meshach and Abednego",
+    "Peter, James and John",
+    "Shem, Ham and Japheth",
+    "Cain, Abel and Seth"
+   ],
+   "explain": "Shadrach, Meshach and Abednego were thrown in. (Daniel 3:23)"
+  }
+ },
+ {
+  "id": "kids-medium-042",
+  "ref": {
+   "fr": "Jonas 4:6",
+   "en": "Jonah 4:6"
+  },
+  "fr": {
+   "q": "Qu’est-ce que Dieu a fait pousser pour donner de l’ombre à Jonas ?",
+   "options": [
+    "Une plante",
+    "Un mur",
+    "Un nuage",
+    "Une tente"
+   ],
+   "explain": "Dieu fit pousser une plante au-dessus de Jonas. (Jonas 4:6)"
+  },
+  "en": {
+   "q": "What did God make grow to give Jonah some shade?",
+   "options": [
+    "A plant",
+    "A wall",
+    "A cloud",
+    "A tent"
+   ],
+   "explain": "God made a plant grow over Jonah. (Jonah 4:6)"
+  }
+ },
+ {
+  "id": "kids-medium-043",
+  "ref": {
+   "fr": "1 Samuel 17:36",
+   "en": "1 Samuel 17:36"
+  },
+  "fr": {
+   "q": "Avant Goliath, David avait déjà vaincu un lion et quel animal ?",
+   "options": [
+    "Un ours",
+    "Un loup",
+    "Un serpent",
+    "Un léopard"
+   ],
+   "explain": "David avait tué le lion et l’ours. (1 Samuel 17:36)"
+  },
+  "en": {
+   "q": "Before Goliath, David had already beaten a lion and what animal?",
+   "options": [
+    "A bear",
+    "A wolf",
+    "A snake",
+    "A leopard"
+   ],
+   "explain": "David had killed the lion and the bear. (1 Samuel 17:36)"
+  }
+ },
+ {
+  "id": "kids-medium-044",
+  "ref": {
+   "fr": "1 Samuel 18:1",
+   "en": "1 Samuel 18:1"
+  },
+  "fr": {
+   "q": "Qui était le grand ami de David, le fils du roi Saül ?",
+   "options": [
+    "Jonathan",
+    "Absalom",
+    "Samuel",
+    "Goliath"
+   ],
+   "explain": "Jonathan aimait David comme lui-même. (1 Samuel 18:1)"
+  },
+  "en": {
+   "q": "Who was David’s close friend, the son of King Saul?",
+   "options": [
+    "Jonathan",
+    "Absalom",
+    "Samuel",
+    "Goliath"
+   ],
+   "explain": "Jonathan loved David as himself. (1 Samuel 18:1)"
+  }
+ },
+ {
+  "id": "kids-medium-045",
+  "ref": {
+   "fr": "1 Samuel 24:7",
+   "en": "1 Samuel 24:7"
+  },
+  "fr": {
+   "q": "Dans la grotte, qu’a fait David au roi Saül qui le cherchait ?",
+   "options": [
+    "Il ne lui a pas fait de mal",
+    "Il l’a frappé",
+    "Il s’est moqué",
+    "Il a crié"
+   ],
+   "explain": "David épargna Saül et ne lui fit aucun mal. (1 Samuel 24:7)"
+  },
+  "en": {
+   "q": "In the cave, what did David do to King Saul who was hunting him?",
+   "options": [
+    "He did him no harm",
+    "He struck him",
+    "He mocked him",
+    "He shouted"
+   ],
+   "explain": "David spared Saul and did him no harm. (1 Samuel 24:7)"
+  }
+ },
+ {
+  "id": "kids-medium-046",
+  "ref": {
+   "fr": "Ézéchiel 37:5",
+   "en": "Ezekiel 37:5"
+  },
+  "fr": {
+   "q": "Dans la vision d’Ézéchiel, qu’est-ce qui a repris vie ?",
+   "options": [
+    "Des os secs",
+    "Des arbres",
+    "Des poissons",
+    "Des pierres"
+   ],
+   "explain": "Les os secs reprirent vie. (Ézéchiel 37:5)"
+  },
+  "en": {
+   "q": "In Ezekiel’s vision, what came back to life?",
+   "options": [
+    "Dry bones",
+    "Trees",
+    "Fish",
+    "Stones"
+   ],
+   "explain": "The dry bones came back to life. (Ezekiel 37:5)"
+  }
+ },
+ {
+  "id": "kids-medium-047",
+  "ref": {
+   "fr": "Proverbes 9:10",
+   "en": "Proverbs 9:10"
+  },
+  "fr": {
+   "q": "Selon les Proverbes, la crainte de l’Éternel est le début de quoi ?",
+   "options": [
+    "La sagesse",
+    "La richesse",
+    "La peur",
+    "La force"
+   ],
+   "explain": "La crainte de l’Éternel est le début de la sagesse. (Proverbes 9:10)"
+  },
+  "en": {
+   "q": "In Proverbs, the fear of the Lord is the beginning of what?",
+   "options": [
+    "Wisdom",
+    "Riches",
+    "Fear",
+    "Strength"
+   ],
+   "explain": "The fear of the Lord is the beginning of wisdom. (Proverbs 9:10)"
+  }
+ },
+ {
+  "id": "kids-medium-048",
+  "ref": {
+   "fr": "Psaume 119:105",
+   "en": "Psalm 119:105"
+  },
+  "fr": {
+   "q": "Selon le Psaume, la parole de Dieu est une lampe à mes quoi ?",
+   "options": [
+    "Pieds",
+    "Mains",
+    "Yeux",
+    "Oreilles"
+   ],
+   "explain": "Ta parole est une lampe à mes pieds. (Psaume 119:105)"
+  },
+  "en": {
+   "q": "In the Psalm, God’s word is a lamp to my what?",
+   "options": [
+    "Feet",
+    "Hands",
+    "Eyes",
+    "Ears"
+   ],
+   "explain": "Your word is a lamp to my feet. (Psalm 119:105)"
+  }
+ },
+ {
+  "id": "kids-medium-049",
+  "ref": {
+   "fr": "Genèse 1:27",
+   "en": "Genesis 1:27"
+  },
+  "fr": {
+   "q": "Selon la Bible, Dieu a créé l’homme à son quoi ?",
+   "options": [
+    "À son image",
+    "À son nom",
+    "À sa maison",
+    "À sa voix"
+   ],
+   "explain": "Dieu créa l’homme à son image. (Genèse 1:27)"
+  },
+  "en": {
+   "q": "According to the Bible, God created man in his what?",
+   "options": [
+    "In his image",
+    "In his name",
+    "In his house",
+    "In his voice"
+   ],
+   "explain": "God created man in his own image. (Genesis 1:27)"
+  }
+ },
+ {
+  "id": "kids-medium-050",
+  "ref": {
+   "fr": "Genèse 19:26",
+   "en": "Genesis 19:26"
+  },
+  "fr": {
+   "q": "En quoi la femme de Lot s’est-elle changée en regardant en arrière ?",
+   "options": [
+    "En statue de sel",
+    "En pierre",
+    "En arbre",
+    "En glace"
+   ],
+   "explain": "La femme de Lot devint une statue de sel. (Genèse 19:26)"
+  },
+  "en": {
+   "q": "What did Lot’s wife turn into when she looked back?",
+   "options": [
+    "A pillar of salt",
+    "Stone",
+    "A tree",
+    "Ice"
+   ],
+   "explain": "Lot’s wife became a pillar of salt. (Genesis 19:26)"
+  }
+ },
+ {
+  "id": "kids-medium-051",
+  "ref": {
+   "fr": "Matthieu 3:4",
+   "en": "Matthew 3:4"
+  },
+  "fr": {
+   "q": "Que mangeait Jean-Baptiste dans le désert ?",
+   "options": [
+    "Des sauterelles et du miel",
+    "Du pain et du poisson",
+    "Des fruits et du lait",
+    "Du riz et des dattes"
+   ],
+   "explain": "Jean-Baptiste mangeait des sauterelles et du miel sauvage. (Matthieu 3:4)"
+  },
+  "en": {
+   "q": "What did John the Baptist eat in the desert?",
+   "options": [
+    "Locusts and honey",
+    "Bread and fish",
+    "Fruit and milk",
+    "Rice and dates"
+   ],
+   "explain": "John the Baptist ate locusts and wild honey. (Matthew 3:4)"
+  }
+ },
+ {
+  "id": "kids-medium-052",
+  "ref": {
+   "fr": "Matthieu 3:3",
+   "en": "Matthew 3:3"
+  },
+  "fr": {
+   "q": "Jean-Baptiste préparait le chemin de qui ?",
+   "options": [
+    "De Jésus",
+    "D’un roi",
+    "De Moïse",
+    "D’Élie"
+   ],
+   "explain": "Jean préparait le chemin du Seigneur. (Matthieu 3:3)"
+  },
+  "en": {
+   "q": "John the Baptist was preparing the way for whom?",
+   "options": [
+    "For Jesus",
+    "For a king",
+    "For Moses",
+    "For Elijah"
+   ],
+   "explain": "John prepared the way of the Lord. (Matthew 3:3)"
+  }
+ },
+ {
+  "id": "kids-medium-053",
+  "ref": {
+   "fr": "Matthieu 4:2",
+   "en": "Matthew 4:2"
+  },
+  "fr": {
+   "q": "Combien de jours Jésus a-t-il jeûné dans le désert ?",
+   "options": [
+    "Quarante",
+    "Dix",
+    "Sept",
+    "Trois"
+   ],
+   "explain": "Jésus jeûna quarante jours. (Matthieu 4:2)"
+  },
+  "en": {
+   "q": "For how many days did Jesus fast in the desert?",
+   "options": [
+    "Forty",
+    "Ten",
+    "Seven",
+    "Three"
+   ],
+   "explain": "Jesus fasted forty days. (Matthew 4:2)"
+  }
+ },
+ {
+  "id": "kids-medium-054",
+  "ref": {
+   "fr": "Matthieu 4:1",
+   "en": "Matthew 4:1"
+  },
+  "fr": {
+   "q": "Qui a essayé de tenter Jésus dans le désert ?",
+   "options": [
+    "Le diable",
+    "Un roi",
+    "Un soldat",
+    "Un lion"
+   ],
+   "explain": "Jésus fut tenté par le diable. (Matthieu 4:1)"
+  },
+  "en": {
+   "q": "Who tried to tempt Jesus in the desert?",
+   "options": [
+    "The devil",
+    "A king",
+    "A soldier",
+    "A lion"
+   ],
+   "explain": "Jesus was tempted by the devil. (Matthew 4:1)"
+  }
+ },
+ {
+  "id": "kids-medium-055",
+  "ref": {
+   "fr": "Jean 2:11",
+   "en": "John 2:11"
+  },
+  "fr": {
+   "q": "Dans quelle ville Jésus a-t-il fait son premier miracle ?",
+   "options": [
+    "À Cana",
+    "À Bethléem",
+    "À Nazareth",
+    "À Jéricho"
+   ],
+   "explain": "Jésus fit son premier miracle à Cana. (Jean 2:11)"
+  },
+  "en": {
+   "q": "In which town did Jesus do his first miracle?",
+   "options": [
+    "In Cana",
+    "In Bethlehem",
+    "In Nazareth",
+    "In Jericho"
+   ],
+   "explain": "Jesus did his first miracle in Cana. (John 2:11)"
+  }
+ },
+ {
+  "id": "kids-medium-056",
+  "ref": {
+   "fr": "Jean 3:2",
+   "en": "John 3:2"
+  },
+  "fr": {
+   "q": "Quel homme est venu voir Jésus pendant la nuit ?",
+   "options": [
+    "Nicodème",
+    "Zachée",
+    "Nathanaël",
+    "Barthélemy"
+   ],
+   "explain": "Nicodème vint voir Jésus de nuit. (Jean 3:2)"
+  },
+  "en": {
+   "q": "Which man came to see Jesus at night?",
+   "options": [
+    "Nicodemus",
+    "Zacchaeus",
+    "Nathanael",
+    "Bartholomew"
+   ],
+   "explain": "Nicodemus came to Jesus at night. (John 3:2)"
+  }
+ },
+ {
+  "id": "kids-medium-057",
+  "ref": {
+   "fr": "Jean 4:6",
+   "en": "John 4:6"
+  },
+  "fr": {
+   "q": "Jésus a parlé d’une eau vive à une femme près de quoi ?",
+   "options": [
+    "Un puits",
+    "Une rivière",
+    "La mer",
+    "Un lac"
+   ],
+   "explain": "Jésus rencontra la femme près d’un puits. (Jean 4:6)"
+  },
+  "en": {
+   "q": "Jesus spoke of living water to a woman beside what?",
+   "options": [
+    "A well",
+    "A river",
+    "The sea",
+    "A lake"
+   ],
+   "explain": "Jesus met the woman beside a well. (John 4:6)"
+  }
+ },
+ {
+  "id": "kids-medium-058",
+  "ref": {
+   "fr": "Luc 17:15",
+   "en": "Luke 17:15"
+  },
+  "fr": {
+   "q": "Dix lépreux ont été guéris, mais combien sont revenus dire merci ?",
+   "options": [
+    "Un seul",
+    "Trois",
+    "Dix",
+    "Cinq"
+   ],
+   "explain": "Un seul revint remercier Jésus. (Luc 17:15)"
+  },
+  "en": {
+   "q": "Ten lepers were healed, but how many came back to say thank you?",
+   "options": [
+    "Only one",
+    "Three",
+    "Ten",
+    "Five"
+   ],
+   "explain": "Only one came back to thank Jesus. (Luke 17:15)"
+  }
+ },
+ {
+  "id": "kids-medium-059",
+  "ref": {
+   "fr": "Marc 10:51",
+   "en": "Mark 10:51"
+  },
+  "fr": {
+   "q": "Que voulait l’aveugle Bartimée que Jésus fasse pour lui ?",
+   "options": [
+    "Voir",
+    "Marcher",
+    "Entendre",
+    "Parler"
+   ],
+   "explain": "Bartimée voulait retrouver la vue. (Marc 10:51)"
+  },
+  "en": {
+   "q": "What did blind Bartimaeus want Jesus to do for him?",
+   "options": [
+    "See",
+    "Walk",
+    "Hear",
+    "Speak"
+   ],
+   "explain": "Bartimaeus wanted to see again. (Mark 10:51)"
+  }
+ },
+ {
+  "id": "kids-medium-060",
+  "ref": {
+   "fr": "Matthieu 17:3",
+   "en": "Matthew 17:3"
+  },
+  "fr": {
+   "q": "Sur la montagne, qui est apparu près de Jésus resplendissant ?",
+   "options": [
+    "Moïse et Élie",
+    "Pierre et Jean",
+    "Abraham et Isaac",
+    "David et Salomon"
+   ],
+   "explain": "Moïse et Élie apparurent avec Jésus. (Matthieu 17:3)"
+  },
+  "en": {
+   "q": "On the mountain, who appeared beside the shining Jesus?",
+   "options": [
+    "Moses and Elijah",
+    "Peter and John",
+    "Abraham and Isaac",
+    "David and Solomon"
+   ],
+   "explain": "Moses and Elijah appeared with Jesus. (Matthew 17:3)"
+  }
+ },
+ {
+  "id": "kids-medium-061",
+  "ref": {
+   "fr": "Marc 4:3",
+   "en": "Mark 4:3"
+  },
+  "fr": {
+   "q": "Dans la parabole, qu’est-ce que le semeur jetait dans la terre ?",
+   "options": [
+    "Des graines",
+    "Des pierres",
+    "Des fleurs",
+    "De l’eau"
+   ],
+   "explain": "Le semeur sortit pour semer sa semence. (Marc 4:3)"
+  },
+  "en": {
+   "q": "In the parable, what did the sower throw onto the ground?",
+   "options": [
+    "Seeds",
+    "Stones",
+    "Flowers",
+    "Water"
+   ],
+   "explain": "The sower went out to sow his seed. (Mark 4:3)"
+  }
+ },
+ {
+  "id": "kids-medium-062",
+  "ref": {
+   "fr": "Luc 10:33",
+   "en": "Luke 10:33"
+  },
+  "fr": {
+   "q": "Dans la parabole, qui a aidé l’homme blessé sur la route ?",
+   "options": [
+    "Un Samaritain",
+    "Un prêtre",
+    "Un roi",
+    "Un soldat"
+   ],
+   "explain": "Un bon Samaritain secourut l’homme blessé. (Luc 10:33)"
+  },
+  "en": {
+   "q": "In the parable, who helped the hurt man on the road?",
+   "options": [
+    "A Samaritan",
+    "A priest",
+    "A king",
+    "A soldier"
+   ],
+   "explain": "A good Samaritan helped the hurt man. (Luke 10:33)"
+  }
+ },
+ {
+  "id": "kids-medium-063",
+  "ref": {
+   "fr": "Luc 15:20",
+   "en": "Luke 15:20"
+  },
+  "fr": {
+   "q": "Quand le fils perdu est revenu, qu’a fait son père ?",
+   "options": [
+    "Il a couru l’embrasser",
+    "Il l’a chassé",
+    "Il a pleuré seul",
+    "Il a fermé la porte"
+   ],
+   "explain": "Le père courut embrasser son fils. (Luc 15:20)"
+  },
+  "en": {
+   "q": "When the lost son came home, what did his father do?",
+   "options": [
+    "He ran to hug him",
+    "He chased him away",
+    "He cried alone",
+    "He shut the door"
+   ],
+   "explain": "The father ran to hug his son. (Luke 15:20)"
+  }
+ },
+ {
+  "id": "kids-medium-064",
+  "ref": {
+   "fr": "Luc 15:15",
+   "en": "Luke 15:15"
+  },
+  "fr": {
+   "q": "Loin de chez lui, quels animaux le fils perdu a-t-il dû garder ?",
+   "options": [
+    "Des cochons",
+    "Des brebis",
+    "Des vaches",
+    "Des chèvres"
+   ],
+   "explain": "Le fils perdu gardait les cochons. (Luc 15:15)"
+  },
+  "en": {
+   "q": "Far from home, which animals did the lost son have to feed?",
+   "options": [
+    "Pigs",
+    "Sheep",
+    "Cows",
+    "Goats"
+   ],
+   "explain": "The lost son fed the pigs. (Luke 15:15)"
+  }
+ },
+ {
+  "id": "kids-medium-065",
+  "ref": {
+   "fr": "Marc 4:31",
+   "en": "Mark 4:31"
+  },
+  "fr": {
+   "q": "Jésus compare le royaume à une toute petite graine de quoi ?",
+   "options": [
+    "De moutarde",
+    "De blé",
+    "De raisin",
+    "De figue"
+   ],
+   "explain": "Le royaume est comme un grain de moutarde. (Marc 4:31)"
+  },
+  "en": {
+   "q": "Jesus compares the kingdom to a tiny seed of what?",
+   "options": [
+    "Mustard",
+    "Wheat",
+    "Grape",
+    "Fig"
+   ],
+   "explain": "The kingdom is like a mustard seed. (Mark 4:31)"
+  }
+ },
+ {
+  "id": "kids-medium-066",
+  "ref": {
+   "fr": "Matthieu 7:24",
+   "en": "Matthew 7:24"
+  },
+  "fr": {
+   "q": "Dans la parabole, l’homme sage a bâti sa maison sur quoi ?",
+   "options": [
+    "Le roc",
+    "Le sable",
+    "L’eau",
+    "L’herbe"
+   ],
+   "explain": "L’homme sage bâtit sa maison sur le roc. (Matthieu 7:24)"
+  },
+  "en": {
+   "q": "In the parable, the wise man built his house on what?",
+   "options": [
+    "The rock",
+    "The sand",
+    "The water",
+    "The grass"
+   ],
+   "explain": "The wise man built his house on the rock. (Matthew 7:24)"
+  }
+ },
+ {
+  "id": "kids-medium-067",
+  "ref": {
+   "fr": "Marc 12:42",
+   "en": "Mark 12:42"
+  },
+  "fr": {
+   "q": "Combien de petites pièces la pauvre veuve a-t-elle données ?",
+   "options": [
+    "Deux",
+    "Cinq",
+    "Dix",
+    "Une"
+   ],
+   "explain": "La veuve donna deux petites pièces. (Marc 12:42)"
+  },
+  "en": {
+   "q": "How many small coins did the poor widow give?",
+   "options": [
+    "Two",
+    "Five",
+    "Ten",
+    "One"
+   ],
+   "explain": "The widow gave two small coins. (Mark 12:42)"
+  }
+ },
+ {
+  "id": "kids-medium-068",
+  "ref": {
+   "fr": "Marc 10:21",
+   "en": "Mark 10:21"
+  },
+  "fr": {
+   "q": "Que Jésus a-t-il demandé au jeune homme riche de faire ?",
+   "options": [
+    "Donner aux pauvres",
+    "Prier plus",
+    "Partir loin",
+    "Bâtir un temple"
+   ],
+   "explain": "Jésus lui dit de donner aux pauvres. (Marc 10:21)"
+  },
+  "en": {
+   "q": "What did Jesus ask the rich young man to do?",
+   "options": [
+    "Give to the poor",
+    "Pray more",
+    "Go far away",
+    "Build a temple"
+   ],
+   "explain": "Jesus told him to give to the poor. (Mark 10:21)"
+  }
+ },
+ {
+  "id": "kids-medium-069",
+  "ref": {
+   "fr": "Matthieu 14:30",
+   "en": "Matthew 14:30"
+  },
+  "fr": {
+   "q": "Pierre a marché sur l’eau, mais il a commencé à quoi ?",
+   "options": [
+    "Couler",
+    "Chanter",
+    "Rire",
+    "Nager"
+   ],
+   "explain": "Pierre eut peur et commença à couler. (Matthieu 14:30)"
+  },
+  "en": {
+   "q": "Peter walked on the water, but he started to do what?",
+   "options": [
+    "Sink",
+    "Sing",
+    "Laugh",
+    "Swim"
+   ],
+   "explain": "Peter was afraid and began to sink. (Matthew 14:30)"
+  }
+ },
+ {
+  "id": "kids-medium-070",
+  "ref": {
+   "fr": "Matthieu 26:75",
+   "en": "Matthew 26:75"
+  },
+  "fr": {
+   "q": "Avant le chant du coq, combien de fois Pierre a-t-il renié Jésus ?",
+   "options": [
+    "Trois fois",
+    "Une fois",
+    "Deux fois",
+    "Sept fois"
+   ],
+   "explain": "Pierre renia Jésus trois fois. (Matthieu 26:75)"
+  },
+  "en": {
+   "q": "Before the rooster crowed, how many times did Peter deny Jesus?",
+   "options": [
+    "Three times",
+    "Once",
+    "Twice",
+    "Seven times"
+   ],
+   "explain": "Peter denied Jesus three times. (Matthew 26:75)"
+  }
+ },
+ {
+  "id": "kids-medium-071",
+  "ref": {
+   "fr": "Matthieu 16:16",
+   "en": "Matthew 16:16"
+  },
+  "fr": {
+   "q": "Pierre a dit à Jésus : « Tu es le… » quoi ?",
+   "options": [
+    "Le Christ",
+    "Le roi",
+    "Le prophète",
+    "Le maître"
+   ],
+   "explain": "Tu es le Christ, le Fils du Dieu vivant. (Matthieu 16:16)"
+  },
+  "en": {
+   "q": "Peter said to Jesus: “You are the…” what?",
+   "options": [
+    "The Christ",
+    "The king",
+    "The prophet",
+    "The teacher"
+   ],
+   "explain": "You are the Christ, the Son of the living God. (Matthew 16:16)"
+  }
+ },
+ {
+  "id": "kids-medium-072",
+  "ref": {
+   "fr": "Jean 1:42",
+   "en": "John 1:42"
+  },
+  "fr": {
+   "q": "Jésus a donné à Simon un nouveau nom qui veut dire pierre : lequel ?",
+   "options": [
+    "Pierre",
+    "Jean",
+    "Jacques",
+    "André"
+   ],
+   "explain": "Tu seras appelé Céphas, c’est-à-dire Pierre. (Jean 1:42)"
+  },
+  "en": {
+   "q": "Jesus gave Simon a new name that means rock: which one?",
+   "options": [
+    "Peter",
+    "John",
+    "James",
+    "Andrew"
+   ],
+   "explain": "You shall be called Cephas, that is, Peter. (John 1:42)"
+  }
+ },
+ {
+  "id": "kids-medium-073",
+  "ref": {
+   "fr": "Luc 22:19-20",
+   "en": "Luke 22:19-20"
+  },
+  "fr": {
+   "q": "Au dernier repas, Jésus a partagé le pain et quoi encore ?",
+   "options": [
+    "La coupe",
+    "Du poisson",
+    "Du miel",
+    "Des fruits"
+   ],
+   "explain": "Jésus partagea le pain et la coupe. (Luc 22:19-20)"
+  },
+  "en": {
+   "q": "At the last supper, Jesus shared the bread and what else?",
+   "options": [
+    "The cup",
+    "Fish",
+    "Honey",
+    "Fruit"
+   ],
+   "explain": "Jesus shared the bread and the cup. (Luke 22:19-20)"
+  }
+ },
+ {
+  "id": "kids-medium-074",
+  "ref": {
+   "fr": "Jean 13:5",
+   "en": "John 13:5"
+  },
+  "fr": {
+   "q": "Pour montrer l’humilité, qu’a lavé Jésus à ses disciples ?",
+   "options": [
+    "Les pieds",
+    "Les mains",
+    "Le visage",
+    "Les cheveux"
+   ],
+   "explain": "Jésus lava les pieds de ses disciples. (Jean 13:5)"
+  },
+  "en": {
+   "q": "To show humility, what did Jesus wash for his disciples?",
+   "options": [
+    "Their feet",
+    "Their hands",
+    "Their face",
+    "Their hair"
+   ],
+   "explain": "Jesus washed the disciples’ feet. (John 13:5)"
+  }
+ },
+ {
+  "id": "kids-medium-075",
+  "ref": {
+   "fr": "Matthieu 26:15",
+   "en": "Matthew 26:15"
+  },
+  "fr": {
+   "q": "Pour combien de pièces d’argent Judas a-t-il trahi Jésus ?",
+   "options": [
+    "Trente",
+    "Dix",
+    "Cent",
+    "Trois"
+   ],
+   "explain": "Judas reçut trente pièces d’argent. (Matthieu 26:15)"
+  },
+  "en": {
+   "q": "For how many silver coins did Judas betray Jesus?",
+   "options": [
+    "Thirty",
+    "Ten",
+    "A hundred",
+    "Three"
+   ],
+   "explain": "Judas was given thirty silver coins. (Matthew 26:15)"
+  }
+ },
+ {
+  "id": "kids-medium-076",
+  "ref": {
+   "fr": "Matthieu 26:36",
+   "en": "Matthew 26:36"
+  },
+  "fr": {
+   "q": "Dans quel jardin Jésus a-t-il prié avant d’être arrêté ?",
+   "options": [
+    "Gethsémané",
+    "Le jardin d’Éden",
+    "Un verger",
+    "Un vignoble"
+   ],
+   "explain": "Jésus pria au jardin de Gethsémané. (Matthieu 26:36)"
+  },
+  "en": {
+   "q": "In which garden did Jesus pray before he was arrested?",
+   "options": [
+    "Gethsemane",
+    "The garden of Eden",
+    "An orchard",
+    "A vineyard"
+   ],
+   "explain": "Jesus prayed in the garden of Gethsemane. (Matthew 26:36)"
+  }
+ },
+ {
+  "id": "kids-medium-077",
+  "ref": {
+   "fr": "Matthieu 27:29",
+   "en": "Matthew 27:29"
+  },
+  "fr": {
+   "q": "Quelle couronne les soldats ont-ils mise sur la tête de Jésus ?",
+   "options": [
+    "Une couronne d’épines",
+    "Une couronne d’or",
+    "Une couronne de fleurs",
+    "Une couronne de feuilles"
+   ],
+   "explain": "Ils posèrent une couronne d’épines sur Jésus. (Matthieu 27:29)"
+  },
+  "en": {
+   "q": "What crown did the soldiers put on Jesus’ head?",
+   "options": [
+    "A crown of thorns",
+    "A crown of gold",
+    "A crown of flowers",
+    "A crown of leaves"
+   ],
+   "explain": "They put a crown of thorns on Jesus. (Matthew 27:29)"
+  }
+ },
+ {
+  "id": "kids-medium-078",
+  "ref": {
+   "fr": "Marc 15:21",
+   "en": "Mark 15:21"
+  },
+  "fr": {
+   "q": "Qui a aidé Jésus à porter sa croix ?",
+   "options": [
+    "Simon de Cyrène",
+    "Pierre",
+    "Jean",
+    "Judas"
+   ],
+   "explain": "Simon de Cyrène porta la croix de Jésus. (Marc 15:21)"
+  },
+  "en": {
+   "q": "Who helped Jesus carry his cross?",
+   "options": [
+    "Simon of Cyrene",
+    "Peter",
+    "John",
+    "Judas"
+   ],
+   "explain": "Simon of Cyrene carried Jesus’ cross. (Mark 15:21)"
+  }
+ },
+ {
+  "id": "kids-medium-079",
+  "ref": {
+   "fr": "Luc 23:33",
+   "en": "Luke 23:33"
+  },
+  "fr": {
+   "q": "Combien d’hommes ont été crucifiés à côté de Jésus ?",
+   "options": [
+    "Deux",
+    "Un",
+    "Trois",
+    "Quatre"
+   ],
+   "explain": "Deux malfaiteurs furent crucifiés près de Jésus. (Luc 23:33)"
+  },
+  "en": {
+   "q": "How many men were crucified beside Jesus?",
+   "options": [
+    "Two",
+    "One",
+    "Three",
+    "Four"
+   ],
+   "explain": "Two others were crucified beside Jesus. (Luke 23:33)"
+  }
+ },
+ {
+  "id": "kids-medium-080",
+  "ref": {
+   "fr": "Jean 20:25",
+   "en": "John 20:25"
+  },
+  "fr": {
+   "q": "Quel disciple a douté avant de voir Jésus ressuscité ?",
+   "options": [
+    "Thomas",
+    "Pierre",
+    "Jean",
+    "André"
+   ],
+   "explain": "Thomas douta jusqu’à voir Jésus. (Jean 20:25)"
+  },
+  "en": {
+   "q": "Which disciple doubted before seeing the risen Jesus?",
+   "options": [
+    "Thomas",
+    "Peter",
+    "John",
+    "Andrew"
+   ],
+   "explain": "Thomas doubted until he saw Jesus. (John 20:25)"
+  }
+ },
+ {
+  "id": "kids-medium-081",
+  "ref": {
+   "fr": "Luc 24:13",
+   "en": "Luke 24:13"
+  },
+  "fr": {
+   "q": "Après Pâques, Jésus a marché avec deux amis vers quel village ?",
+   "options": [
+    "Emmaüs",
+    "Bethléem",
+    "Nazareth",
+    "Capharnaüm"
+   ],
+   "explain": "Jésus marcha avec eux vers Emmaüs. (Luc 24:13)"
+  },
+  "en": {
+   "q": "After Easter, Jesus walked with two friends toward which village?",
+   "options": [
+    "Emmaus",
+    "Bethlehem",
+    "Nazareth",
+    "Capernaum"
+   ],
+   "explain": "Jesus walked with them toward Emmaus. (Luke 24:13)"
+  }
+ },
+ {
+  "id": "kids-medium-082",
+  "ref": {
+   "fr": "Matthieu 28:19",
+   "en": "Matthew 28:19"
+  },
+  "fr": {
+   "q": "Jésus a dit d’aller faire des disciples de qui ?",
+   "options": [
+    "De toutes les nations",
+    "De sa famille",
+    "Des riches",
+    "Des rois"
+   ],
+   "explain": "Allez, faites de toutes les nations des disciples. (Matthieu 28:19)"
+  },
+  "en": {
+   "q": "Jesus said to go and make disciples of whom?",
+   "options": [
+    "Of all nations",
+    "Of his family",
+    "Of the rich",
+    "Of kings"
+   ],
+   "explain": "Go and make disciples of all nations. (Matthew 28:19)"
+  }
+ },
+ {
+  "id": "kids-medium-083",
+  "ref": {
+   "fr": "Actes 2:3",
+   "en": "Acts 2:3"
+  },
+  "fr": {
+   "q": "À la Pentecôte, le Saint-Esprit est venu comme des langues de quoi ?",
+   "options": [
+    "De feu",
+    "D’eau",
+    "De lumière douce",
+    "De vent froid"
+   ],
+   "explain": "Des langues de feu se posèrent sur eux. (Actes 2:3)"
+  },
+  "en": {
+   "q": "At Pentecost, the Holy Spirit came like tongues of what?",
+   "options": [
+    "Of fire",
+    "Of water",
+    "Of soft light",
+    "Of cold wind"
+   ],
+   "explain": "Tongues of fire rested on them. (Acts 2:3)"
+  }
+ },
+ {
+  "id": "kids-medium-084",
+  "ref": {
+   "fr": "Actes 2:41",
+   "en": "Acts 2:41"
+  },
+  "fr": {
+   "q": "Après le sermon de Pierre, environ combien de personnes ont cru ?",
+   "options": [
+    "Trois mille",
+    "Cent",
+    "Dix",
+    "Cinquante"
+   ],
+   "explain": "Environ trois mille personnes crurent ce jour-là. (Actes 2:41)"
+  },
+  "en": {
+   "q": "After Peter’s sermon, about how many people believed?",
+   "options": [
+    "Three thousand",
+    "A hundred",
+    "Ten",
+    "Fifty"
+   ],
+   "explain": "About three thousand believed that day. (Acts 2:41)"
+  }
+ },
+ {
+  "id": "kids-medium-085",
+  "ref": {
+   "fr": "Actes 3:6",
+   "en": "Acts 3:6"
+  },
+  "fr": {
+   "q": "À la porte du temple, Pierre a guéri un homme qui ne pouvait pas quoi ?",
+   "options": [
+    "Marcher",
+    "Voir",
+    "Entendre",
+    "Parler"
+   ],
+   "explain": "L’homme boiteux se leva et marcha. (Actes 3:6-8)"
+  },
+  "en": {
+   "q": "At the temple gate, Peter healed a man who could not do what?",
+   "options": [
+    "Walk",
+    "See",
+    "Hear",
+    "Speak"
+   ],
+   "explain": "The lame man got up and walked. (Acts 3:6-8)"
+  }
+ },
+ {
+  "id": "kids-medium-086",
+  "ref": {
+   "fr": "Actes 8:27",
+   "en": "Acts 8:27"
+  },
+  "fr": {
+   "q": "Philippe a expliqué la Bible à un homme venu de quel pays ?",
+   "options": [
+    "D’Éthiopie",
+    "D’Égypte",
+    "De Rome",
+    "De Grèce"
+   ],
+   "explain": "Philippe rencontra un homme d’Éthiopie. (Actes 8:27)"
+  },
+  "en": {
+   "q": "Philip explained the Bible to a man from which country?",
+   "options": [
+    "From Ethiopia",
+    "From Egypt",
+    "From Rome",
+    "From Greece"
+   ],
+   "explain": "Philip met a man from Ethiopia. (Acts 8:27)"
+  }
+ },
+ {
+  "id": "kids-medium-087",
+  "ref": {
+   "fr": "Actes 9:3",
+   "en": "Acts 9:3"
+  },
+  "fr": {
+   "q": "Sur le chemin de Damas, qu’a vu Saul qui deviendra Paul ?",
+   "options": [
+    "Une grande lumière",
+    "Un ange doré",
+    "Un feu",
+    "Une étoile"
+   ],
+   "explain": "Une lumière du ciel entoura Saul. (Actes 9:3)"
+  },
+  "en": {
+   "q": "On the road to Damascus, what did Saul, who becomes Paul, see?",
+   "options": [
+    "A great light",
+    "A golden angel",
+    "A fire",
+    "A star"
+   ],
+   "explain": "A light from heaven shone around Saul. (Acts 9:3)"
+  }
+ },
+ {
+  "id": "kids-medium-088",
+  "ref": {
+   "fr": "Actes 9:9",
+   "en": "Acts 9:9"
+  },
+  "fr": {
+   "q": "Après avoir rencontré Jésus, Saul est devenu quoi pendant trois jours ?",
+   "options": [
+    "Aveugle",
+    "Muet",
+    "Sourd",
+    "Boiteux"
+   ],
+   "explain": "Saul resta trois jours sans voir. (Actes 9:9)"
+  },
+  "en": {
+   "q": "After meeting Jesus, what did Saul become for three days?",
+   "options": [
+    "Blind",
+    "Mute",
+    "Deaf",
+    "Lame"
+   ],
+   "explain": "Saul could not see for three days. (Acts 9:9)"
+  }
+ },
+ {
+  "id": "kids-medium-089",
+  "ref": {
+   "fr": "Actes 16:25",
+   "en": "Acts 16:25"
+  },
+  "fr": {
+   "q": "En prison, que faisaient Paul et Silas à minuit ?",
+   "options": [
+    "Ils chantaient et priaient",
+    "Ils dormaient",
+    "Ils pleuraient",
+    "Ils se cachaient"
+   ],
+   "explain": "Paul et Silas priaient et chantaient. (Actes 16:25)"
+  },
+  "en": {
+   "q": "In prison, what were Paul and Silas doing at midnight?",
+   "options": [
+    "Singing and praying",
+    "Sleeping",
+    "Crying",
+    "Hiding"
+   ],
+   "explain": "Paul and Silas prayed and sang. (Acts 16:25)"
+  }
+ },
+ {
+  "id": "kids-medium-090",
+  "ref": {
+   "fr": "Actes 12:7",
+   "en": "Acts 12:7"
+  },
+  "fr": {
+   "q": "Qui a délivré Pierre de la prison pendant la nuit ?",
+   "options": [
+    "Un ange",
+    "Un gardien",
+    "Le roi",
+    "Un ami"
+   ],
+   "explain": "Un ange fit sortir Pierre de la prison. (Actes 12:7)"
+  },
+  "en": {
+   "q": "Who set Peter free from prison during the night?",
+   "options": [
+    "An angel",
+    "A guard",
+    "The king",
+    "A friend"
+   ],
+   "explain": "An angel led Peter out of prison. (Acts 12:7)"
+  }
+ },
+ {
+  "id": "kids-medium-091",
+  "ref": {
+   "fr": "Actes 9:39",
+   "en": "Acts 9:39"
+  },
+  "fr": {
+   "q": "Que faisait Dorcas pour aider les pauvres et les veuves ?",
+   "options": [
+    "Elle cousait des vêtements",
+    "Elle cuisinait",
+    "Elle chantait",
+    "Elle bâtissait"
+   ],
+   "explain": "Dorcas faisait des vêtements pour les pauvres. (Actes 9:39)"
+  },
+  "en": {
+   "q": "What did Dorcas do to help the poor and the widows?",
+   "options": [
+    "She sewed clothes",
+    "She cooked",
+    "She sang",
+    "She built"
+   ],
+   "explain": "Dorcas made clothes for the poor. (Acts 9:39)"
+  }
+ },
+ {
+  "id": "kids-medium-092",
+  "ref": {
+   "fr": "Actes 28:3",
+   "en": "Acts 28:3"
+  },
+  "fr": {
+   "q": "Sur l’île de Malte, quel animal a mordu Paul sans lui faire de mal ?",
+   "options": [
+    "Un serpent",
+    "Un scorpion",
+    "Un lion",
+    "Un chien"
+   ],
+   "explain": "Un serpent mordit Paul, mais il fut protégé. (Actes 28:3-5)"
+  },
+  "en": {
+   "q": "On the island of Malta, which animal bit Paul without hurting him?",
+   "options": [
+    "A snake",
+    "A scorpion",
+    "A lion",
+    "A dog"
+   ],
+   "explain": "A snake bit Paul, but he was kept safe. (Acts 28:3-5)"
+  }
+ },
+ {
+  "id": "kids-medium-093",
+  "ref": {
+   "fr": "Actes 16:14",
+   "en": "Acts 16:14"
+  },
+  "fr": {
+   "q": "Lydie, une amie de Paul, vendait des tissus de quelle couleur ?",
+   "options": [
+    "Pourpre",
+    "Rouge",
+    "Bleue",
+    "Verte"
+   ],
+   "explain": "Lydie vendait des étoffes de pourpre. (Actes 16:14)"
+  },
+  "en": {
+   "q": "Lydia, a friend of Paul, sold cloth of which colour?",
+   "options": [
+    "Purple",
+    "Red",
+    "Blue",
+    "Green"
+   ],
+   "explain": "Lydia sold purple cloth. (Acts 16:14)"
+  }
+ },
+ {
+  "id": "kids-medium-094",
+  "ref": {
+   "fr": "1 Timothée 4:12",
+   "en": "1 Timothy 4:12"
+  },
+  "fr": {
+   "q": "Comment s’appelle le jeune ami que Paul a encouragé par lettre ?",
+   "options": [
+    "Timothée",
+    "Tite",
+    "Luc",
+    "Marc"
+   ],
+   "explain": "Paul encouragea le jeune Timothée. (1 Timothée 4:12)"
+  },
+  "en": {
+   "q": "What is the name of the young friend Paul encouraged by letter?",
+   "options": [
+    "Timothy",
+    "Titus",
+    "Luke",
+    "Mark"
+   ],
+   "explain": "Paul encouraged young Timothy. (1 Timothy 4:12)"
+  }
+ },
+ {
+  "id": "kids-medium-095",
+  "ref": {
+   "fr": "1 Rois 17:6",
+   "en": "1 Kings 17:6"
+  },
+  "fr": {
+   "q": "Quel prophète a été nourri par des corbeaux ?",
+   "options": [
+    "Élie",
+    "Élisée",
+    "Jonas",
+    "Moïse"
+   ],
+   "explain": "Des corbeaux apportaient du pain et de la viande à Élie. (1 Rois 17:6)"
+  },
+  "en": {
+   "q": "Which prophet was fed by ravens?",
+   "options": [
+    "Elijah",
+    "Elisha",
+    "Jonah",
+    "Moses"
+   ],
+   "explain": "Ravens brought Elijah bread and meat. (1 Kings 17:6)"
+  }
+ },
+ {
+  "id": "kids-medium-096",
+  "ref": {
+   "fr": "Éphésiens 6:11",
+   "en": "Ephesians 6:11"
+  },
+  "fr": {
+   "q": "Paul nous dit de revêtir l’armure de qui ?",
+   "options": [
+    "De Dieu",
+    "D’un roi",
+    "D’un soldat",
+    "D’un ange"
+   ],
+   "explain": "Revêtez toutes les armes de Dieu. (Éphésiens 6:11)"
+  },
+  "en": {
+   "q": "Paul tells us to put on the armour of whom?",
+   "options": [
+    "Of God",
+    "Of a king",
+    "Of a soldier",
+    "Of an angel"
+   ],
+   "explain": "Put on the whole armour of God. (Ephesians 6:11)"
+  }
+ },
+ {
+  "id": "kids-medium-097",
+  "ref": {
+   "fr": "1 Corinthiens 13:13",
+   "en": "1 Corinthians 13:13"
+  },
+  "fr": {
+   "q": "Selon Paul, entre la foi, l’espérance et l’amour, quel est le plus grand ?",
+   "options": [
+    "L’amour",
+    "La foi",
+    "L’espérance",
+    "La joie"
+   ],
+   "explain": "La plus grande, c’est l’amour. (1 Corinthiens 13:13)"
+  },
+  "en": {
+   "q": "For Paul, of faith, hope and love, which is the greatest?",
+   "options": [
+    "Love",
+    "Faith",
+    "Hope",
+    "Joy"
+   ],
+   "explain": "The greatest of these is love. (1 Corinthians 13:13)"
+  }
+ },
+ {
+  "id": "kids-medium-098",
+  "ref": {
+   "fr": "Apocalypse 1:9",
+   "en": "Revelation 1:9"
+  },
+  "fr": {
+   "q": "Sur l’île de Patmos, quel dernier livre de la Bible Jean a-t-il écrit ?",
+   "options": [
+    "L’Apocalypse",
+    "La Genèse",
+    "Les Psaumes",
+    "Les Actes"
+   ],
+   "explain": "Jean écrivit l’Apocalypse sur l’île de Patmos. (Apocalypse 1:9)"
+  },
+  "en": {
+   "q": "On the island of Patmos, which last book of the Bible did John write?",
+   "options": [
+    "Revelation",
+    "Genesis",
+    "Psalms",
+    "Acts"
+   ],
+   "explain": "John wrote Revelation on the island of Patmos. (Revelation 1:9)"
+  }
+ },
+ {
+  "id": "kids-medium-099",
+  "ref": {
+   "fr": "Apocalypse 3:20",
+   "en": "Revelation 3:20"
+  },
+  "fr": {
+   "q": "Jésus dit : « Je me tiens à la porte et je… » quoi ?",
+   "options": [
+    "Je frappe",
+    "J’attends",
+    "Je pars",
+    "Je dors"
+   ],
+   "explain": "Je me tiens à la porte et je frappe. (Apocalypse 3:20)"
+  },
+  "en": {
+   "q": "Jesus says: “I stand at the door and…” what?",
+   "options": [
+    "I knock",
+    "I wait",
+    "I leave",
+    "I sleep"
+   ],
+   "explain": "I stand at the door and knock. (Revelation 3:20)"
+  }
+ },
+ {
+  "id": "kids-medium-100",
+  "ref": {
+   "fr": "Luc 10:39",
+   "en": "Luke 10:39"
+  },
+  "fr": {
+   "q": "Pendant que Marthe travaillait, que faisait sa sœur Marie ?",
+   "options": [
+    "Elle écoutait Jésus",
+    "Elle dormait",
+    "Elle chantait",
+    "Elle cuisinait"
+   ],
+   "explain": "Marie écoutait Jésus, assise à ses pieds. (Luc 10:39)"
+  },
+  "en": {
+   "q": "While Martha was working, what was her sister Mary doing?",
+   "options": [
+    "Listening to Jesus",
+    "Sleeping",
+    "Singing",
+    "Cooking"
+   ],
+   "explain": "Mary sat at Jesus’ feet, listening to him. (Luke 10:39)"
+  }
+ }
+]
