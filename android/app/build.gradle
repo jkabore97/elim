@@ -24,6 +24,8 @@ android {
         // this feature set (no code change vs 110 beyond the version bump).
         // 1.08 (code 112): raise the audio (sermon) upload limit to 100 MB.
         // 1.09 (code 113): Bible quiz game - 1000 bilingual (FR/EN) questions
+        // 1.15 (code 119): quiz - every difficulty level is playable now
+        // (random questions from the category pool) instead of "coming soon".
         // 1.14 (code 118): quiz - General ranking reads real player scores
         // again, so pre-existing weekly scores show in the classement.
         // 1.13 (code 117): quiz - fun balloon emoji for kids; leaderboard
@@ -39,8 +41,8 @@ android {
         // in-app "update available" prompt.
         // across 10 categories, points/levels/badges, daily challenge and a
         // weekly leaderboard. Trophy button in the header.
-        versionCode 118
-        versionName "1.14"
+        versionCode 119
+        versionName "1.15"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         aaptOptions {
              // Files and dirs to omit from the packaged assets dir, modified to accommodate modern web apps.
