@@ -25,6 +25,35 @@ service cloud.firestore {
       return isSignedIn() && (role() == 'admin' || role() == 'pastor');
     }
 
+    // Group-derived capability. A Cloud Function (syncGroupCaps) stamps each
+    // lead's effective permissions onto their user doc as `groupCaps` whenever
+    // a group changes; this reads that stamp so publishing surfaces can be
+    // gated by group membership at the database level, not just in the UI.
+    // Admins/pastors bypass this (they always have every capability).
+    function groupCap(cap) {
+      return isSignedIn()
+             && 'groupCaps' in userDoc().data
+             && userDoc().data.groupCaps is map
+             && cap in userDoc().data.groupCaps
+             && userDoc().data.groupCaps[cap] == true;
+    }
+
+    // Whether this account has ever been placed in the group system. Accounts
+    // that never have (legacy publishers not yet assigned to any group) are
+    // grandfathered so enabling enforcement can't lock out existing publishers;
+    // the moment an admin assigns an account to groups, its stamped groupCaps
+    // are enforced. Admins/pastors bypass all of this.
+    function managedByGroups() {
+      return isSignedIn() && 'groupCaps' in userDoc().data;
+    }
+
+    // Which capability a post being created requires: a health post needs
+    // 'sante', anything else needs 'post'. Guards a missing section field.
+    function postCapNeeded() {
+      return ('section' in request.resource.data
+              && request.resource.data.section == 'sante') ? 'sante' : 'post';
+    }
+
     function conv(convId) {
       return get(/databases/$(database)/documents/conversations/$(convId));
     }
@@ -179,8 +208,11 @@ service cloud.firestore {
     // ---- Library (PDF books) ----
     match /books/{bookId} {
       allow read: if isSignedIn();
+      // Uploading a library book needs the 'books' group permission (admins and
+      // pastors always pass).
       allow create: if canPublish()
-                    && request.resource.data.uploadedById == request.auth.uid;
+                    && request.resource.data.uploadedById == request.auth.uid
+                    && (isAdmin() || !managedByGroups() || groupCap('books'));
       allow update: if isSignedIn() && (resource.data.uploadedById == request.auth.uid || isAdmin());
       allow delete: if isSignedIn() && (resource.data.uploadedById == request.auth.uid || isAdmin());
     }
@@ -249,7 +281,8 @@ service cloud.firestore {
       allow read: if isSignedIn() && resource.data.ownerUid == request.auth.uid;
       allow create: if canPublish()
                     && request.resource.data.ownerUid == request.auth.uid
-                    && request.resource.data.status == 'processing';
+                    && request.resource.data.status == 'processing'
+                    && (isAdmin() || !managedByGroups() || groupCap('transcribe'));
       allow update: if false;
       allow delete: if isSignedIn() && resource.data.ownerUid == request.auth.uid;
     }
@@ -264,8 +297,16 @@ service cloud.firestore {
       // role. Doctors are given a lead account rather than being granted
       // rights by profession, so there is a single permission to reason about
       // and revoking access is one role change.
+      // Publishing needs the church/admin/pastor role AND, for a plain lead,
+      // the group permission for that surface: a health post ('sante' section)
+      // needs the 'sante' capability, any other post needs 'post'. Admins and
+      // pastors always pass. This enforces the group permissions at the
+      // database level, not only by hiding buttons in the app.
       allow create: if canPublish()
-                    && request.resource.data.churchId == request.auth.uid;
+                    && request.resource.data.churchId == request.auth.uid
+                    && (isAdmin()
+                        || !managedByGroups()
+                        || groupCap(postCapNeeded()));
       // The owning church/admin can edit or delete their own post (and only
       // their own — see SECURITY.md §4); any signed-in member can separately
       // bump likes or the comment counter.
