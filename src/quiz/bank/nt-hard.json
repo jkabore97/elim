@@ -1,0 +1,2702 @@
+[
+ {
+  "id": "nt-hard-001",
+  "ref": {
+   "fr": "Apocalypse 2:4",
+   "en": "Revelation 2:4"
+  },
+  "fr": {
+   "q": "Quelle Église de l’Apocalypse est reprise d’avoir abandonné son premier amour ?",
+   "options": [
+    "Éphèse",
+    "Smyrne",
+    "Sardes",
+    "Laodicée"
+   ],
+   "explain": "« Tu as abandonné ton premier amour. » (Apocalypse 2:4)"
+  },
+  "en": {
+   "q": "Which church in Revelation is rebuked for leaving its first love?",
+   "options": [
+    "Ephesus",
+    "Smyrna",
+    "Sardis",
+    "Laodicea"
+   ],
+   "explain": "“You have left your first love.” (Revelation 2:4)"
+  }
+ },
+ {
+  "id": "nt-hard-002",
+  "ref": {
+   "fr": "Apocalypse 2:9",
+   "en": "Revelation 2:9"
+  },
+  "fr": {
+   "q": "Quelle Église, pauvre mais riche, subit la calomnie d’une « synagogue de Satan » ?",
+   "options": [
+    "Smyrne",
+    "Éphèse",
+    "Pergame",
+    "Thyatire"
+   ],
+   "explain": "À Smyrne : « Je connais ta pauvreté, mais tu es riche. » (Apocalypse 2:9)"
+  },
+  "en": {
+   "q": "Which church, poor yet rich, faced a “synagogue of Satan”?",
+   "options": [
+    "Smyrna",
+    "Ephesus",
+    "Pergamum",
+    "Thyatira"
+   ],
+   "explain": "To Smyrna: “I know your poverty, but you are rich.” (Revelation 2:9)"
+  }
+ },
+ {
+  "id": "nt-hard-003",
+  "ref": {
+   "fr": "Apocalypse 2:13",
+   "en": "Revelation 2:13"
+  },
+  "fr": {
+   "q": "Quelle Église habitait « là où Satan a son trône » ?",
+   "options": [
+    "Pergame",
+    "Sardes",
+    "Philadelphie",
+    "Laodicée"
+   ],
+   "explain": "« Je sais où tu demeures, là où Satan a son trône. » (Apocalypse 2:13)"
+  },
+  "en": {
+   "q": "Which church dwelt “where Satan’s throne is”?",
+   "options": [
+    "Pergamum",
+    "Sardis",
+    "Philadelphia",
+    "Laodicea"
+   ],
+   "explain": "“I know where you dwell, where Satan’s throne is.” (Revelation 2:13)"
+  }
+ },
+ {
+  "id": "nt-hard-004",
+  "ref": {
+   "fr": "Apocalypse 2:13",
+   "en": "Revelation 2:13"
+  },
+  "fr": {
+   "q": "Quel témoin fidèle fut mis à mort à Pergame, selon l’Apocalypse ?",
+   "options": [
+    "Antipas",
+    "Épaphras",
+    "Apollos",
+    "Archippe"
+   ],
+   "explain": "« Antipas, mon témoin fidèle, a été tué chez vous. » (Apocalypse 2:13)"
+  },
+  "en": {
+   "q": "Which faithful witness was killed at Pergamum, per Revelation?",
+   "options": [
+    "Antipas",
+    "Epaphras",
+    "Apollos",
+    "Archippus"
+   ],
+   "explain": "“Antipas my faithful witness was killed among you.” (Revelation 2:13)"
+  }
+ },
+ {
+  "id": "nt-hard-005",
+  "ref": {
+   "fr": "Apocalypse 2:20",
+   "en": "Revelation 2:20"
+  },
+  "fr": {
+   "q": "Quelle Église tolérait la femme Jézabel qui séduisait les serviteurs ?",
+   "options": [
+    "Thyatire",
+    "Smyrne",
+    "Éphèse",
+    "Philadelphie"
+   ],
+   "explain": "« Tu laisses la femme Jézabel enseigner et séduire. » (Apocalypse 2:20)"
+  },
+  "en": {
+   "q": "Which church tolerated the woman Jezebel who seduced the servants?",
+   "options": [
+    "Thyatira",
+    "Smyrna",
+    "Ephesus",
+    "Philadelphia"
+   ],
+   "explain": "“You tolerate the woman Jezebel who teaches.” (Revelation 2:20)"
+  }
+ },
+ {
+  "id": "nt-hard-006",
+  "ref": {
+   "fr": "Apocalypse 3:1",
+   "en": "Revelation 3:1"
+  },
+  "fr": {
+   "q": "Quelle Église avait « la réputation d’être vivante », mais était morte ?",
+   "options": [
+    "Sardes",
+    "Laodicée",
+    "Pergame",
+    "Thyatire"
+   ],
+   "explain": "« Tu passes pour être vivant, et tu es mort. » (Apocalypse 3:1)"
+  },
+  "en": {
+   "q": "Which church had “a name that it was alive” but was dead?",
+   "options": [
+    "Sardis",
+    "Laodicea",
+    "Pergamum",
+    "Thyatira"
+   ],
+   "explain": "“You have a name that you live, but you are dead.” (Revelation 3:1)"
+  }
+ },
+ {
+  "id": "nt-hard-007",
+  "ref": {
+   "fr": "Apocalypse 3:8",
+   "en": "Revelation 3:8"
+  },
+  "fr": {
+   "q": "À quelle Église Jésus ouvre-t-il « une porte que personne ne peut fermer » ?",
+   "options": [
+    "Philadelphie",
+    "Sardes",
+    "Éphèse",
+    "Laodicée"
+   ],
+   "explain": "« J’ai mis devant toi une porte ouverte. » (Apocalypse 3:8)"
+  },
+  "en": {
+   "q": "To which church does Jesus open “a door no one can shut”?",
+   "options": [
+    "Philadelphia",
+    "Sardis",
+    "Ephesus",
+    "Laodicea"
+   ],
+   "explain": "“I have set before you an open door.” (Revelation 3:8)"
+  }
+ },
+ {
+  "id": "nt-hard-008",
+  "ref": {
+   "fr": "Apocalypse 2:10",
+   "en": "Revelation 2:10"
+  },
+  "fr": {
+   "q": "Pendant combien de jours l’Église de Smyrne devait-elle subir la tribulation ?",
+   "options": [
+    "Dix jours",
+    "Trois jours",
+    "Quarante jours",
+    "Sept jours"
+   ],
+   "explain": "« Vous aurez une tribulation de dix jours. » (Apocalypse 2:10)"
+  },
+  "en": {
+   "q": "For how many days would the church of Smyrna suffer tribulation?",
+   "options": [
+    "Ten days",
+    "Three days",
+    "Forty days",
+    "Seven days"
+   ],
+   "explain": "“You will have oppression for ten days.” (Revelation 2:10)"
+  }
+ },
+ {
+  "id": "nt-hard-009",
+  "ref": {
+   "fr": "Apocalypse 4:4",
+   "en": "Revelation 4:4"
+  },
+  "fr": {
+   "q": "Combien de vieillards Jean voit-il assis autour du trône de Dieu ?",
+   "options": [
+    "Vingt-quatre",
+    "Douze",
+    "Soixante-dix",
+    "Sept"
+   ],
+   "explain": "Vingt-quatre vieillards sur des trônes, vêtus de blanc. (Apocalypse 4:4)"
+  },
+  "en": {
+   "q": "How many elders does John see seated around God’s throne?",
+   "options": [
+    "Twenty-four",
+    "Twelve",
+    "Seventy",
+    "Seven"
+   ],
+   "explain": "Twenty-four elders on thrones, clothed in white. (Revelation 4:4)"
+  }
+ },
+ {
+  "id": "nt-hard-010",
+  "ref": {
+   "fr": "Apocalypse 4:7",
+   "en": "Revelation 4:7"
+  },
+  "fr": {
+   "q": "Quels visages avaient les quatre êtres vivants autour du trône ?",
+   "options": [
+    "Lion, taureau, homme, aigle",
+    "Lion, cheval, homme, aigle",
+    "Lion, agneau, bœuf, aigle",
+    "Ours, taureau, homme, aigle"
+   ],
+   "explain": "Un lion, un taureau, un homme, un aigle. (Apocalypse 4:7)"
+  },
+  "en": {
+   "q": "What faces did the four living creatures around the throne have?",
+   "options": [
+    "Lion, ox, man, eagle",
+    "Lion, horse, man, eagle",
+    "Lion, lamb, ox, eagle",
+    "Bear, ox, man, eagle"
+   ],
+   "explain": "A lion, an ox, a man, and an eagle. (Revelation 4:7)"
+  }
+ },
+ {
+  "id": "nt-hard-011",
+  "ref": {
+   "fr": "Apocalypse 7:4",
+   "en": "Revelation 7:4"
+  },
+  "fr": {
+   "q": "Combien de personnes furent scellées, douze mille par tribu d’Israël ?",
+   "options": [
+    "Cent quarante-quatre mille",
+    "Douze mille",
+    "Sept mille",
+    "Douze millions"
+   ],
+   "explain": "Cent quarante-quatre mille scellés, de toutes les tribus. (Apocalypse 7:4)"
+  },
+  "en": {
+   "q": "How many were sealed, twelve thousand from each tribe of Israel?",
+   "options": [
+    "144,000",
+    "12,000",
+    "7,000",
+    "12,000,000"
+   ],
+   "explain": "144,000 were sealed, out of every tribe. (Revelation 7:4)"
+  }
+ },
+ {
+  "id": "nt-hard-012",
+  "ref": {
+   "fr": "Apocalypse 11:3",
+   "en": "Revelation 11:3"
+  },
+  "fr": {
+   "q": "Pendant combien de jours les deux témoins de l’Apocalypse prophétisent-ils ?",
+   "options": [
+    "Mille deux cent soixante jours",
+    "Mille ans",
+    "Quarante-deux jours",
+    "Trois jours et demi"
+   ],
+   "explain": "Ils prophétiseront mille deux cent soixante jours. (Apocalypse 11:3)"
+  },
+  "en": {
+   "q": "For how many days do the two witnesses of Revelation prophesy?",
+   "options": [
+    "1,260 days",
+    "1,000 years",
+    "42 days",
+    "Three and a half days"
+   ],
+   "explain": "They will prophesy 1,260 days. (Revelation 11:3)"
+  }
+ },
+ {
+  "id": "nt-hard-013",
+  "ref": {
+   "fr": "Apocalypse 8:11",
+   "en": "Revelation 8:11"
+  },
+  "fr": {
+   "q": "Comment se nomme l’étoile qui rendit amères les eaux, en Apocalypse 8 ?",
+   "options": [
+    "Absinthe",
+    "Aurore",
+    "Étoile du matin",
+    "Abaddon"
+   ],
+   "explain": "Le nom de l’étoile est Absinthe. (Apocalypse 8:11)"
+  },
+  "en": {
+   "q": "What is the name of the star that made the waters bitter, in Revelation 8?",
+   "options": [
+    "Wormwood",
+    "Dawn",
+    "Morning Star",
+    "Abaddon"
+   ],
+   "explain": "The name of the star is Wormwood. (Revelation 8:11)"
+  }
+ },
+ {
+  "id": "nt-hard-014",
+  "ref": {
+   "fr": "Apocalypse 9:11",
+   "en": "Revelation 9:11"
+  },
+  "fr": {
+   "q": "Quel est le nom de l’ange de l’abîme, appelé Apollyon en grec ?",
+   "options": [
+    "Abaddon",
+    "Absinthe",
+    "Béelzébul",
+    "Léviathan"
+   ],
+   "explain": "En hébreu Abaddon, en grec Apollyon. (Apocalypse 9:11)"
+  },
+  "en": {
+   "q": "What is the name of the angel of the abyss, called Apollyon in Greek?",
+   "options": [
+    "Abaddon",
+    "Wormwood",
+    "Beelzebul",
+    "Leviathan"
+   ],
+   "explain": "In Hebrew Abaddon, in Greek Apollyon. (Revelation 9:11)"
+  }
+ },
+ {
+  "id": "nt-hard-015",
+  "ref": {
+   "fr": "Apocalypse 13:1",
+   "en": "Revelation 13:1"
+  },
+  "fr": {
+   "q": "Combien de têtes avait la bête montant de la mer dans l’Apocalypse ?",
+   "options": [
+    "Sept",
+    "Dix",
+    "Trois",
+    "Douze"
+   ],
+   "explain": "Une bête ayant sept têtes et dix cornes. (Apocalypse 13:1)"
+  },
+  "en": {
+   "q": "How many heads did the beast rising from the sea have in Revelation?",
+   "options": [
+    "Seven",
+    "Ten",
+    "Three",
+    "Twelve"
+   ],
+   "explain": "A beast with seven heads and ten horns. (Revelation 13:1)"
+  }
+ },
+ {
+  "id": "nt-hard-016",
+  "ref": {
+   "fr": "Apocalypse 16:16",
+   "en": "Revelation 16:16"
+  },
+  "fr": {
+   "q": "Comment se nomme le lieu du rassemblement des rois pour la bataille ?",
+   "options": [
+    "Harmaguédon",
+    "Golgotha",
+    "Mégiddo-Sion",
+    "Gog"
+   ],
+   "explain": "Il les rassembla dans le lieu appelé Harmaguédon. (Apocalypse 16:16)"
+  },
+  "en": {
+   "q": "What is the name of the place where the kings gather for battle?",
+   "options": [
+    "Armageddon",
+    "Golgotha",
+    "Megiddo-Zion",
+    "Gog"
+   ],
+   "explain": "He gathered them to the place called Armageddon. (Revelation 16:16)"
+  }
+ },
+ {
+  "id": "nt-hard-017",
+  "ref": {
+   "fr": "Apocalypse 21:17",
+   "en": "Revelation 21:17"
+  },
+  "fr": {
+   "q": "Quelle mesure la muraille de la nouvelle Jérusalem avait-elle ?",
+   "options": [
+    "Cent quarante-quatre coudées",
+    "Douze mille stades",
+    "Soixante-six coudées",
+    "Mille coudées"
+   ],
+   "explain": "Il mesura la muraille : cent quarante-quatre coudées. (Apocalypse 21:17)"
+  },
+  "en": {
+   "q": "What was the measure of the wall of the new Jerusalem?",
+   "options": [
+    "144 cubits",
+    "12,000 stadia",
+    "66 cubits",
+    "1,000 cubits"
+   ],
+   "explain": "He measured the wall: 144 cubits. (Revelation 21:17)"
+  }
+ },
+ {
+  "id": "nt-hard-018",
+  "ref": {
+   "fr": "Apocalypse 21:22",
+   "en": "Revelation 21:22"
+  },
+  "fr": {
+   "q": "Pourquoi n’y a-t-il pas de temple dans la nouvelle Jérusalem ?",
+   "options": [
+    "Le Seigneur et l’Agneau en sont le temple",
+    "Il est en ruine",
+    "Le peuple prie dehors",
+    "Il est caché au ciel"
+   ],
+   "explain": "Le Seigneur, le Dieu tout-puissant, et l’Agneau sont son temple. (Apocalypse 21:22)"
+  },
+  "en": {
+   "q": "Why is there no temple in the new Jerusalem?",
+   "options": [
+    "The Lord and the Lamb are its temple",
+    "It lies in ruins",
+    "The people pray outside",
+    "It is hidden in heaven"
+   ],
+   "explain": "The Lord God Almighty and the Lamb are its temple. (Revelation 21:22)"
+  }
+ },
+ {
+  "id": "nt-hard-019",
+  "ref": {
+   "fr": "Apocalypse 1:8",
+   "en": "Revelation 1:8"
+  },
+  "fr": {
+   "q": "Comment le Seigneur se nomme-t-il : « Je suis l’alpha et… » quoi ?",
+   "options": [
+    "l’oméga",
+    "le premier-né",
+    "le Verbe",
+    "le lion"
+   ],
+   "explain": "« Je suis l’alpha et l’oméga, dit le Seigneur Dieu. » (Apocalypse 1:8)"
+  },
+  "en": {
+   "q": "How does the Lord name himself: “I am the Alpha and…” what?",
+   "options": [
+    "the Omega",
+    "the firstborn",
+    "the Word",
+    "the Lion"
+   ],
+   "explain": "“I am the Alpha and the Omega,” says the Lord God. (Revelation 1:8)"
+  }
+ },
+ {
+  "id": "nt-hard-020",
+  "ref": {
+   "fr": "Actes 13:12",
+   "en": "Acts 13:12"
+  },
+  "fr": {
+   "q": "Quel proconsul de Chypre crut après avoir vu Élymas frappé de cécité ?",
+   "options": [
+    "Sergius Paulus",
+    "Gallion",
+    "Publius",
+    "Félix"
+   ],
+   "explain": "Le proconsul Sergius Paulus crut, frappé de la doctrine. (Actes 13:12)"
+  },
+  "en": {
+   "q": "Which proconsul of Cyprus believed after seeing Elymas struck blind?",
+   "options": [
+    "Sergius Paulus",
+    "Gallio",
+    "Publius",
+    "Felix"
+   ],
+   "explain": "The proconsul Sergius Paulus believed, astonished at the teaching. (Acts 13:12)"
+  }
+ },
+ {
+  "id": "nt-hard-021",
+  "ref": {
+   "fr": "Actes 13:1",
+   "en": "Acts 13:1"
+  },
+  "fr": {
+   "q": "Quel prophète d’Antioche avait été élevé avec Hérode le tétrarque ?",
+   "options": [
+    "Manahen",
+    "Lucius",
+    "Nicolas",
+    "Agabus"
+   ],
+   "explain": "Manahen, élevé avec Hérode le tétrarque. (Actes 13:1)"
+  },
+  "en": {
+   "q": "Which prophet of Antioch had been brought up with Herod the tetrarch?",
+   "options": [
+    "Manaen",
+    "Lucius",
+    "Nicolas",
+    "Agabus"
+   ],
+   "explain": "Manaen, brought up with Herod the tetrarch. (Acts 13:1)"
+  }
+ },
+ {
+  "id": "nt-hard-022",
+  "ref": {
+   "fr": "Actes 16:16",
+   "en": "Acts 16:16"
+  },
+  "fr": {
+   "q": "Quel esprit possédait la servante de Philippes qui rapportait de grands gains ?",
+   "options": [
+    "Un esprit de divination",
+    "Un esprit muet",
+    "Un esprit de crainte",
+    "Une légion"
+   ],
+   "explain": "Une servante avec un esprit de Python annonçait l’avenir. (Actes 16:16)"
+  },
+  "en": {
+   "q": "What spirit possessed the servant girl at Philippi who brought much gain?",
+   "options": [
+    "A spirit of divination",
+    "A mute spirit",
+    "A spirit of fear",
+    "A legion"
+   ],
+   "explain": "A servant girl with a spirit of Python foretold the future. (Acts 16:16)"
+  }
+ },
+ {
+  "id": "nt-hard-023",
+  "ref": {
+   "fr": "Actes 17:6",
+   "en": "Acts 17:6"
+  },
+  "fr": {
+   "q": "Chez quel homme la foule chercha-t-elle Paul et Silas à Thessalonique ?",
+   "options": [
+    "Jason",
+    "Justus",
+    "Publius",
+    "Titius"
+   ],
+   "explain": "On traîna Jason devant les magistrats de la ville. (Actes 17:6)"
+  },
+  "en": {
+   "q": "At whose house did the crowd seek Paul and Silas in Thessalonica?",
+   "options": [
+    "Jason",
+    "Justus",
+    "Publius",
+    "Titius"
+   ],
+   "explain": "They dragged Jason before the rulers of the city. (Acts 17:6)"
+  }
+ },
+ {
+  "id": "nt-hard-024",
+  "ref": {
+   "fr": "Actes 17:34",
+   "en": "Acts 17:34"
+  },
+  "fr": {
+   "q": "Quel membre de l’aréopage crut à la prédication de Paul à Athènes ?",
+   "options": [
+    "Denys l’aréopagite",
+    "Gallion",
+    "Dionysos",
+    "Épiménide"
+   ],
+   "explain": "Denys l’aréopagite et Damaris crurent. (Actes 17:34)"
+  },
+  "en": {
+   "q": "Which member of the Areopagus believed Paul’s preaching at Athens?",
+   "options": [
+    "Dionysius the Areopagite",
+    "Gallio",
+    "Dionysus",
+    "Epimenides"
+   ],
+   "explain": "Dionysius the Areopagite and Damaris believed. (Acts 17:34)"
+  }
+ },
+ {
+  "id": "nt-hard-025",
+  "ref": {
+   "fr": "Actes 18:12",
+   "en": "Acts 18:12"
+  },
+  "fr": {
+   "q": "Quel proconsul d’Achaïe refusa de juger l’affaire contre Paul à Corinthe ?",
+   "options": [
+    "Gallion",
+    "Félix",
+    "Festus",
+    "Serge"
+   ],
+   "explain": "Gallion, proconsul d’Achaïe, les renvoya du tribunal. (Actes 18:12-16)"
+  },
+  "en": {
+   "q": "Which proconsul of Achaia refused to judge the case against Paul at Corinth?",
+   "options": [
+    "Gallio",
+    "Felix",
+    "Festus",
+    "Sergius"
+   ],
+   "explain": "Gallio, proconsul of Achaia, drove them from the judgment seat. (Acts 18:12-16)"
+  }
+ },
+ {
+  "id": "nt-hard-026",
+  "ref": {
+   "fr": "Actes 18:8",
+   "en": "Acts 18:8"
+  },
+  "fr": {
+   "q": "Quel chef de la synagogue de Corinthe crut au Seigneur avec sa maison ?",
+   "options": [
+    "Crispus",
+    "Sosthène",
+    "Jaïrus",
+    "Tyrannus"
+   ],
+   "explain": "Crispus, chef de la synagogue, crut au Seigneur avec toute sa maison. (Actes 18:8)"
+  },
+  "en": {
+   "q": "Which synagogue ruler at Corinth believed in the Lord with his house?",
+   "options": [
+    "Crispus",
+    "Sosthenes",
+    "Jairus",
+    "Tyrannus"
+   ],
+   "explain": "Crispus, the synagogue ruler, believed in the Lord with all his house. (Acts 18:8)"
+  }
+ },
+ {
+  "id": "nt-hard-027",
+  "ref": {
+   "fr": "Actes 19:9",
+   "en": "Acts 19:9"
+  },
+  "fr": {
+   "q": "Dans l’école de quel homme Paul enseigna-t-il deux ans à Éphèse ?",
+   "options": [
+    "Tyrannus",
+    "Gamaliel",
+    "Tertulle",
+    "Théophile"
+   ],
+   "explain": "Il enseignait chaque jour dans l’école de Tyrannus. (Actes 19:9)"
+  },
+  "en": {
+   "q": "In whose school did Paul teach for two years at Ephesus?",
+   "options": [
+    "Tyrannus",
+    "Gamaliel",
+    "Tertullus",
+    "Theophilus"
+   ],
+   "explain": "He reasoned daily in the school of Tyrannus. (Acts 19:9)"
+  }
+ },
+ {
+  "id": "nt-hard-028",
+  "ref": {
+   "fr": "Actes 19:14",
+   "en": "Acts 19:14"
+  },
+  "fr": {
+   "q": "Combien de fils de Scéva tentèrent de chasser un démon au nom de Jésus ?",
+   "options": [
+    "Sept",
+    "Trois",
+    "Douze",
+    "Deux"
+   ],
+   "explain": "Les sept fils de Scéva, souverain sacrificateur juif. (Actes 19:14)"
+  },
+  "en": {
+   "q": "How many sons of Sceva tried to cast out a demon in Jesus’ name?",
+   "options": [
+    "Seven",
+    "Three",
+    "Twelve",
+    "Two"
+   ],
+   "explain": "The seven sons of Sceva, a Jewish chief priest. (Acts 19:14)"
+  }
+ },
+ {
+  "id": "nt-hard-029",
+  "ref": {
+   "fr": "Actes 19:29",
+   "en": "Acts 19:29"
+  },
+  "fr": {
+   "q": "Quels deux compagnons de Paul furent entraînés au théâtre d’Éphèse ?",
+   "options": [
+    "Gaïus et Aristarque",
+    "Barnabas et Silas",
+    "Tite et Timothée",
+    "Luc et Marc"
+   ],
+   "explain": "On saisit Gaïus et Aristarque, Macédoniens, compagnons de Paul. (Actes 19:29)"
+  },
+  "en": {
+   "q": "Which two companions of Paul were dragged into the theater at Ephesus?",
+   "options": [
+    "Gaius and Aristarchus",
+    "Barnabas and Silas",
+    "Titus and Timothy",
+    "Luke and Mark"
+   ],
+   "explain": "They seized Gaius and Aristarchus, Paul’s Macedonian companions. (Acts 19:29)"
+  }
+ },
+ {
+  "id": "nt-hard-030",
+  "ref": {
+   "fr": "Actes 21:11",
+   "en": "Acts 21:11"
+  },
+  "fr": {
+   "q": "Avec quel objet le prophète Agabus lia-t-il ses propres mains et pieds ?",
+   "options": [
+    "La ceinture de Paul",
+    "Une corde",
+    "Une chaîne",
+    "Un manteau"
+   ],
+   "explain": "Agabus prit la ceinture de Paul et s’en lia les mains et les pieds. (Actes 21:11)"
+  },
+  "en": {
+   "q": "With what object did the prophet Agabus bind his own hands and feet?",
+   "options": [
+    "Paul’s belt",
+    "A rope",
+    "A chain",
+    "A cloak"
+   ],
+   "explain": "Agabus took Paul’s belt and bound his own hands and feet. (Acts 21:11)"
+  }
+ },
+ {
+  "id": "nt-hard-031",
+  "ref": {
+   "fr": "Actes 23:16",
+   "en": "Acts 23:16"
+  },
+  "fr": {
+   "q": "Qui révéla au tribun le complot des Juifs contre Paul ?",
+   "options": [
+    "Le fils de la sœur de Paul",
+    "Un centurion",
+    "Lysias",
+    "Un pharisien"
+   ],
+   "explain": "Le fils de la sœur de Paul apprit le guet-apens et avertit. (Actes 23:16)"
+  },
+  "en": {
+   "q": "Who revealed to the tribune the Jews’ plot against Paul?",
+   "options": [
+    "Paul’s nephew",
+    "A centurion",
+    "Lysias",
+    "A Pharisee"
+   ],
+   "explain": "The son of Paul’s sister heard of the ambush and warned him. (Acts 23:16)"
+  }
+ },
+ {
+  "id": "nt-hard-032",
+  "ref": {
+   "fr": "Actes 23:2",
+   "en": "Acts 23:2"
+  },
+  "fr": {
+   "q": "Quel souverain sacrificateur ordonna de frapper Paul sur la bouche ?",
+   "options": [
+    "Ananias",
+    "Caïphe",
+    "Anne",
+    "Gamaliel"
+   ],
+   "explain": "Le souverain sacrificateur Ananias ordonna de le frapper. (Actes 23:2)"
+  },
+  "en": {
+   "q": "Which high priest ordered Paul struck on the mouth?",
+   "options": [
+    "Ananias",
+    "Caiaphas",
+    "Annas",
+    "Gamaliel"
+   ],
+   "explain": "The high priest Ananias commanded to strike him on the mouth. (Acts 23:2)"
+  }
+ },
+ {
+  "id": "nt-hard-033",
+  "ref": {
+   "fr": "Actes 24:1",
+   "en": "Acts 24:1"
+  },
+  "fr": {
+   "q": "Quel orateur accusa Paul devant le gouverneur Félix ?",
+   "options": [
+    "Tertulle",
+    "Démétrius",
+    "Alexandre",
+    "Tyrannus"
+   ],
+   "explain": "L’orateur Tertulle porta l’accusation contre Paul. (Actes 24:1-2)"
+  },
+  "en": {
+   "q": "Which orator accused Paul before governor Felix?",
+   "options": [
+    "Tertullus",
+    "Demetrius",
+    "Alexander",
+    "Tyrannus"
+   ],
+   "explain": "The orator Tertullus brought the charge against Paul. (Acts 24:1-2)"
+  }
+ },
+ {
+  "id": "nt-hard-034",
+  "ref": {
+   "fr": "Actes 24:24",
+   "en": "Acts 24:24"
+  },
+  "fr": {
+   "q": "Comment se nommait l’épouse juive du gouverneur Félix ?",
+   "options": [
+    "Drusille",
+    "Bérénice",
+    "Damaris",
+    "Priscille"
+   ],
+   "explain": "Félix vint avec Drusille, sa femme, qui était juive. (Actes 24:24)"
+  },
+  "en": {
+   "q": "What was the name of the Jewish wife of governor Felix?",
+   "options": [
+    "Drusilla",
+    "Bernice",
+    "Damaris",
+    "Priscilla"
+   ],
+   "explain": "Felix came with Drusilla his wife, who was Jewish. (Acts 24:24)"
+  }
+ },
+ {
+  "id": "nt-hard-035",
+  "ref": {
+   "fr": "Actes 24:27",
+   "en": "Acts 24:27"
+  },
+  "fr": {
+   "q": "Quel gouverneur succéda à Félix et envoya Paul devant Agrippa ?",
+   "options": [
+    "Festus",
+    "Gallion",
+    "Lysias",
+    "Quirinius"
+   ],
+   "explain": "Porcius Festus succéda à Félix comme gouverneur. (Actes 24:27)"
+  },
+  "en": {
+   "q": "Which governor succeeded Felix and sent Paul before Agrippa?",
+   "options": [
+    "Festus",
+    "Gallio",
+    "Lysias",
+    "Quirinius"
+   ],
+   "explain": "Porcius Festus succeeded Felix as governor. (Acts 24:27)"
+  }
+ },
+ {
+  "id": "nt-hard-036",
+  "ref": {
+   "fr": "Actes 28:7",
+   "en": "Acts 28:7"
+  },
+  "fr": {
+   "q": "Quel premier personnage de Malte accueillit Paul après le naufrage ?",
+   "options": [
+    "Publius",
+    "Julius",
+    "Corneille",
+    "Sergius"
+   ],
+   "explain": "Publius, premier de l’île, les reçut avec bonté. (Actes 28:7)"
+  },
+  "en": {
+   "q": "Which chief man of Malta received Paul after the shipwreck?",
+   "options": [
+    "Publius",
+    "Julius",
+    "Cornelius",
+    "Sergius"
+   ],
+   "explain": "Publius, the chief of the island, received them kindly. (Acts 28:7)"
+  }
+ },
+ {
+  "id": "nt-hard-037",
+  "ref": {
+   "fr": "Actes 27:1",
+   "en": "Acts 27:1"
+  },
+  "fr": {
+   "q": "Quel centurion de la cohorte Auguste conduisit Paul vers Rome ?",
+   "options": [
+    "Julius",
+    "Corneille",
+    "Claude Lysias",
+    "Longin"
+   ],
+   "explain": "Le centenier Julius, de la cohorte Auguste, garda Paul. (Actes 27:1)"
+  },
+  "en": {
+   "q": "Which centurion of the Augustan band took Paul toward Rome?",
+   "options": [
+    "Julius",
+    "Cornelius",
+    "Claudius Lysias",
+    "Longinus"
+   ],
+   "explain": "The centurion Julius, of the Augustan band, guarded Paul. (Acts 27:1)"
+  }
+ },
+ {
+  "id": "nt-hard-038",
+  "ref": {
+   "fr": "Actes 27:37",
+   "en": "Acts 27:37"
+  },
+  "fr": {
+   "q": "Combien de personnes se trouvaient à bord du navire de Paul ?",
+   "options": [
+    "Deux cent soixante-seize",
+    "Cent cinquante-trois",
+    "Trois cents",
+    "Soixante-dix"
+   ],
+   "explain": "Nous étions en tout deux cent soixante-seize sur le navire. (Actes 27:37)"
+  },
+  "en": {
+   "q": "How many people were aboard Paul’s ship?",
+   "options": [
+    "276",
+    "153",
+    "300",
+    "70"
+   ],
+   "explain": "We were in all 276 souls on the ship. (Acts 27:37)"
+  }
+ },
+ {
+  "id": "nt-hard-039",
+  "ref": {
+   "fr": "Actes 12:14",
+   "en": "Acts 12:14"
+  },
+  "fr": {
+   "q": "Quelle servante reconnut la voix de Pierre et oublia d’ouvrir la porte ?",
+   "options": [
+    "Rhode",
+    "Dorcas",
+    "Lydie",
+    "Marie"
+   ],
+   "explain": "La servante Rhode reconnut la voix de Pierre et courut l’annoncer. (Actes 12:13-14)"
+  },
+  "en": {
+   "q": "Which servant girl recognized Peter’s voice and forgot to open the door?",
+   "options": [
+    "Rhoda",
+    "Dorcas",
+    "Lydia",
+    "Mary"
+   ],
+   "explain": "The servant girl Rhoda recognized Peter’s voice and ran to tell. (Acts 12:13-14)"
+  }
+ },
+ {
+  "id": "nt-hard-040",
+  "ref": {
+   "fr": "Actes 12:2",
+   "en": "Acts 12:2"
+  },
+  "fr": {
+   "q": "Quel apôtre Hérode fit-il mourir par l’épée, frère de Jean ?",
+   "options": [
+    "Jacques",
+    "Pierre",
+    "Thomas",
+    "Philippe"
+   ],
+   "explain": "Il fit mourir par l’épée Jacques, frère de Jean. (Actes 12:2)"
+  },
+  "en": {
+   "q": "Which apostle did Herod kill with the sword, the brother of John?",
+   "options": [
+    "James",
+    "Peter",
+    "Thomas",
+    "Philip"
+   ],
+   "explain": "He killed James, the brother of John, with the sword. (Acts 12:2)"
+  }
+ },
+ {
+  "id": "nt-hard-041",
+  "ref": {
+   "fr": "Actes 9:34",
+   "en": "Acts 9:34"
+  },
+  "fr": {
+   "q": "Quel paralytique de Lydde Pierre guérit-il au nom de Jésus-Christ ?",
+   "options": [
+    "Énée",
+    "Bartimée",
+    "Malchus",
+    "Eutychus"
+   ],
+   "explain": "« Énée, Jésus-Christ te guérit ; lève-toi. » (Actes 9:34)"
+  },
+  "en": {
+   "q": "Which paralytic of Lydda did Peter heal in the name of Jesus Christ?",
+   "options": [
+    "Aeneas",
+    "Bartimaeus",
+    "Malchus",
+    "Eutychus"
+   ],
+   "explain": "“Aeneas, Jesus Christ heals you; arise.” (Acts 9:34)"
+  }
+ },
+ {
+  "id": "nt-hard-042",
+  "ref": {
+   "fr": "Actes 9:43",
+   "en": "Acts 9:43"
+  },
+  "fr": {
+   "q": "Chez quel homme de métier Pierre logea-t-il à Joppé ?",
+   "options": [
+    "Simon le corroyeur",
+    "Simon le magicien",
+    "Simon de Cyrène",
+    "Simon le pharisien"
+   ],
+   "explain": "Pierre demeura assez longtemps à Joppé chez Simon, corroyeur. (Actes 9:43)"
+  },
+  "en": {
+   "q": "With which tradesman did Peter lodge at Joppa?",
+   "options": [
+    "Simon the tanner",
+    "Simon the sorcerer",
+    "Simon of Cyrene",
+    "Simon the Pharisee"
+   ],
+   "explain": "Peter stayed many days in Joppa with Simon, a tanner. (Acts 9:43)"
+  }
+ },
+ {
+  "id": "nt-hard-043",
+  "ref": {
+   "fr": "Actes 4:36",
+   "en": "Acts 4:36"
+  },
+  "fr": {
+   "q": "De quelle île était originaire le lévite surnommé Barnabas ?",
+   "options": [
+    "Chypre",
+    "Crète",
+    "Chio",
+    "Rhodes"
+   ],
+   "explain": "Joseph, lévite originaire de Chypre, surnommé Barnabas. (Actes 4:36)"
+  },
+  "en": {
+   "q": "From which island did the Levite surnamed Barnabas come?",
+   "options": [
+    "Cyprus",
+    "Crete",
+    "Chios",
+    "Rhodes"
+   ],
+   "explain": "Joseph, a Levite born in Cyprus, surnamed Barnabas. (Acts 4:36)"
+  }
+ },
+ {
+  "id": "nt-hard-044",
+  "ref": {
+   "fr": "Actes 1:23",
+   "en": "Acts 1:23"
+  },
+  "fr": {
+   "q": "Quel candidat, surnommé Justus, fut proposé avec Matthias ?",
+   "options": [
+    "Joseph Barsabbas",
+    "Judas Barsabbas",
+    "Silas",
+    "Étienne"
+   ],
+   "explain": "On présenta Joseph Barsabbas, dit Justus, et Matthias. (Actes 1:23)"
+  },
+  "en": {
+   "q": "Which candidate, surnamed Justus, was put forward with Matthias?",
+   "options": [
+    "Joseph Barsabbas",
+    "Judas Barsabbas",
+    "Silas",
+    "Stephen"
+   ],
+   "explain": "They put forward Joseph called Barsabbas (Justus) and Matthias. (Acts 1:23)"
+  }
+ },
+ {
+  "id": "nt-hard-045",
+  "ref": {
+   "fr": "Actes 15:22",
+   "en": "Acts 15:22"
+  },
+  "fr": {
+   "q": "Quels deux hommes furent envoyés de Jérusalem avec Paul et Barnabas ?",
+   "options": [
+    "Judas Barsabbas et Silas",
+    "Tite et Timothée",
+    "Luc et Marc",
+    "Tychique et Trophime"
+   ],
+   "explain": "On choisit Judas Barsabbas et Silas pour les envoyer. (Actes 15:22)"
+  },
+  "en": {
+   "q": "Which two men were sent from Jerusalem with Paul and Barnabas?",
+   "options": [
+    "Judas Barsabbas and Silas",
+    "Titus and Timothy",
+    "Luke and Mark",
+    "Tychicus and Trophimus"
+   ],
+   "explain": "They chose Judas Barsabbas and Silas to send them. (Acts 15:22)"
+  }
+ },
+ {
+  "id": "nt-hard-046",
+  "ref": {
+   "fr": "Romains 16:23",
+   "en": "Romans 16:23"
+  },
+  "fr": {
+   "q": "Quel trésorier de la ville salue les Romains dans l’épître de Paul ?",
+   "options": [
+    "Éraste",
+    "Quartus",
+    "Tertius",
+    "Gaïus"
+   ],
+   "explain": "Éraste, trésorier de la ville, vous salue. (Romains 16:23)"
+  },
+  "en": {
+   "q": "Which city treasurer greets the Romans in Paul’s letter?",
+   "options": [
+    "Erastus",
+    "Quartus",
+    "Tertius",
+    "Gaius"
+   ],
+   "explain": "Erastus, the city treasurer, greets you. (Romans 16:23)"
+  }
+ },
+ {
+  "id": "nt-hard-047",
+  "ref": {
+   "fr": "Éphésiens 6:21",
+   "en": "Ephesians 6:21"
+  },
+  "fr": {
+   "q": "Quel « frère bien-aimé » Paul charge-t-il de porter ses nouvelles aux Éphésiens ?",
+   "options": [
+    "Tychique",
+    "Épaphras",
+    "Onésime",
+    "Démas"
+   ],
+   "explain": "Tychique, frère bien-aimé, vous fera tout connaître. (Éphésiens 6:21)"
+  },
+  "en": {
+   "q": "Which “beloved brother” does Paul send with news to the Ephesians?",
+   "options": [
+    "Tychicus",
+    "Epaphras",
+    "Onesimus",
+    "Demas"
+   ],
+   "explain": "Tychicus, a beloved brother, will tell you everything. (Ephesians 6:21)"
+  }
+ },
+ {
+  "id": "nt-hard-048",
+  "ref": {
+   "fr": "Colossiens 4:12",
+   "en": "Colossians 4:12"
+  },
+  "fr": {
+   "q": "Quel serviteur de Colosses combattait pour eux dans ses prières ?",
+   "options": [
+    "Épaphras",
+    "Tychique",
+    "Archippe",
+    "Nymphas"
+   ],
+   "explain": "Épaphras combat toujours pour vous dans ses prières. (Colossiens 4:12)"
+  },
+  "en": {
+   "q": "Which servant from Colossae labored for them in his prayers?",
+   "options": [
+    "Epaphras",
+    "Tychicus",
+    "Archippus",
+    "Nymphas"
+   ],
+   "explain": "Epaphras is always striving for you in his prayers. (Colossians 4:12)"
+  }
+ },
+ {
+  "id": "nt-hard-049",
+  "ref": {
+   "fr": "Philippiens 2:27",
+   "en": "Philippians 2:27"
+  },
+  "fr": {
+   "q": "Quel compagnon de Paul fut malade à en mourir, mais Dieu eut pitié ?",
+   "options": [
+    "Épaphrodite",
+    "Épaphras",
+    "Trophime",
+    "Démas"
+   ],
+   "explain": "Épaphrodite a été malade, tout près de la mort. (Philippiens 2:27)"
+  },
+  "en": {
+   "q": "Which companion of Paul was sick near to death, but God had mercy?",
+   "options": [
+    "Epaphroditus",
+    "Epaphras",
+    "Trophimus",
+    "Demas"
+   ],
+   "explain": "Epaphroditus was sick, close to death. (Philippians 2:27)"
+  }
+ },
+ {
+  "id": "nt-hard-050",
+  "ref": {
+   "fr": "Actes 27:2",
+   "en": "Acts 27:2"
+  },
+  "fr": {
+   "q": "Quel Macédonien de Thessalonique accompagna Paul jusqu’en Italie ?",
+   "options": [
+    "Aristarque",
+    "Sopater",
+    "Secundus",
+    "Gaïus"
+   ],
+   "explain": "Aristarque, Macédonien de Thessalonique, était avec nous. (Actes 27:2)"
+  },
+  "en": {
+   "q": "Which Macedonian of Thessalonica accompanied Paul to Italy?",
+   "options": [
+    "Aristarchus",
+    "Sopater",
+    "Secundus",
+    "Gaius"
+   ],
+   "explain": "Aristarchus, a Macedonian of Thessalonica, was with us. (Acts 27:2)"
+  }
+ },
+ {
+  "id": "nt-hard-051",
+  "ref": {
+   "fr": "2 Timothée 4:10",
+   "en": "2 Timothy 4:10"
+  },
+  "fr": {
+   "q": "Quel compagnon abandonna Paul par amour du siècle présent ?",
+   "options": [
+    "Démas",
+    "Marc",
+    "Tite",
+    "Crescens"
+   ],
+   "explain": "Démas m’a abandonné, ayant aimé le siècle présent. (2 Timothée 4:10)"
+  },
+  "en": {
+   "q": "Which companion forsook Paul for love of this present world?",
+   "options": [
+    "Demas",
+    "Mark",
+    "Titus",
+    "Crescens"
+   ],
+   "explain": "Demas forsook me, having loved this present world. (2 Timothy 4:10)"
+  }
+ },
+ {
+  "id": "nt-hard-052",
+  "ref": {
+   "fr": "2 Timothée 4:14",
+   "en": "2 Timothy 4:14"
+  },
+  "fr": {
+   "q": "Quel artisan fit beaucoup de mal à Paul, selon 2 Timothée ?",
+   "options": [
+    "Alexandre le forgeron",
+    "Démétrius l’orfèvre",
+    "Simon le magicien",
+    "Élymas"
+   ],
+   "explain": "Alexandre, le forgeron, m’a fait beaucoup de mal. (2 Timothée 4:14)"
+  },
+  "en": {
+   "q": "Which craftsman did Paul much harm, according to 2 Timothy?",
+   "options": [
+    "Alexander the coppersmith",
+    "Demetrius the silversmith",
+    "Simon the sorcerer",
+    "Elymas"
+   ],
+   "explain": "Alexander the coppersmith did me much harm. (2 Timothy 4:14)"
+  }
+ },
+ {
+  "id": "nt-hard-053",
+  "ref": {
+   "fr": "2 Timothée 1:16",
+   "en": "2 Timothy 1:16"
+  },
+  "fr": {
+   "q": "Quel homme réconforta souvent Paul et n’eut pas honte de ses chaînes ?",
+   "options": [
+    "Onésiphore",
+    "Onésime",
+    "Tychique",
+    "Carpus"
+   ],
+   "explain": "Onésiphore m’a souvent consolé, sans rougir de mes chaînes. (2 Timothée 1:16)"
+  },
+  "en": {
+   "q": "Which man often refreshed Paul and was not ashamed of his chains?",
+   "options": [
+    "Onesiphorus",
+    "Onesimus",
+    "Tychicus",
+    "Carpus"
+   ],
+   "explain": "Onesiphorus often refreshed me, unashamed of my chains. (2 Timothy 1:16)"
+  }
+ },
+ {
+  "id": "nt-hard-054",
+  "ref": {
+   "fr": "2 Timothée 2:17",
+   "en": "2 Timothy 2:17"
+  },
+  "fr": {
+   "q": "Quels deux hommes prétendaient que la résurrection était déjà arrivée ?",
+   "options": [
+    "Hyménée et Philète",
+    "Anne et Caïphe",
+    "Jannès et Jambrès",
+    "Gog et Magog"
+   ],
+   "explain": "Hyménée et Philète se sont détournés de la vérité. (2 Timothée 2:17-18)"
+  },
+  "en": {
+   "q": "Which two men claimed the resurrection had already happened?",
+   "options": [
+    "Hymenaeus and Philetus",
+    "Annas and Caiaphas",
+    "Jannes and Jambres",
+    "Gog and Magog"
+   ],
+   "explain": "Hymenaeus and Philetus strayed, saying the resurrection is past. (2 Timothy 2:17-18)"
+  }
+ },
+ {
+  "id": "nt-hard-055",
+  "ref": {
+   "fr": "2 Timothée 4:11",
+   "en": "2 Timothy 4:11"
+  },
+  "fr": {
+   "q": "Selon 2 Timothée 4, quel compagnon seul restait auprès de Paul ?",
+   "options": [
+    "Luc",
+    "Marc",
+    "Tite",
+    "Tychique"
+   ],
+   "explain": "Luc seul est avec moi. (2 Timothée 4:11)"
+  },
+  "en": {
+   "q": "According to 2 Timothy 4, which companion alone remained with Paul?",
+   "options": [
+    "Luke",
+    "Mark",
+    "Titus",
+    "Tychicus"
+   ],
+   "explain": "Only Luke is with me. (2 Timothy 4:11)"
+  }
+ },
+ {
+  "id": "nt-hard-056",
+  "ref": {
+   "fr": "2 Timothée 4:13",
+   "en": "2 Timothy 4:13"
+  },
+  "fr": {
+   "q": "Chez qui Paul laissa-t-il son manteau à Troas ?",
+   "options": [
+    "Carpus",
+    "Tychique",
+    "Onésiphore",
+    "Alexandre"
+   ],
+   "explain": "Rapporte le manteau que j’ai laissé à Troas chez Carpus. (2 Timothée 4:13)"
+  },
+  "en": {
+   "q": "With whom did Paul leave his cloak at Troas?",
+   "options": [
+    "Carpus",
+    "Tychicus",
+    "Onesiphorus",
+    "Alexander"
+   ],
+   "explain": "Bring the cloak I left at Troas with Carpus. (2 Timothy 4:13)"
+  }
+ },
+ {
+  "id": "nt-hard-057",
+  "ref": {
+   "fr": "Tite 1:5",
+   "en": "Titus 1:5"
+  },
+  "fr": {
+   "q": "Dans quelle île Paul laissa-t-il Tite pour établir des anciens ?",
+   "options": [
+    "Crète",
+    "Chypre",
+    "Malte",
+    "Patmos"
+   ],
+   "explain": "Je t’ai laissé en Crète pour établir des anciens. (Tite 1:5)"
+  },
+  "en": {
+   "q": "On which island did Paul leave Titus to appoint elders?",
+   "options": [
+    "Crete",
+    "Cyprus",
+    "Malta",
+    "Patmos"
+   ],
+   "explain": "I left you in Crete to appoint elders. (Titus 1:5)"
+  }
+ },
+ {
+  "id": "nt-hard-058",
+  "ref": {
+   "fr": "Tite 1:12",
+   "en": "Titus 1:12"
+  },
+  "fr": {
+   "q": "Selon Tite, de quelle réputation étaient les Crétois d’après leur prophète ?",
+   "options": [
+    "Toujours menteurs",
+    "Toujours sages",
+    "Toujours pauvres",
+    "Toujours pieux"
+   ],
+   "explain": "« Crétois toujours menteurs », a dit l’un de leurs prophètes. (Tite 1:12)"
+  },
+  "en": {
+   "q": "In Titus, what was the Cretans’ reputation according to their own prophet?",
+   "options": [
+    "Always liars",
+    "Always wise",
+    "Always poor",
+    "Always godly"
+   ],
+   "explain": "“Cretans are always liars,” said one of their prophets. (Titus 1:12)"
+  }
+ },
+ {
+  "id": "nt-hard-059",
+  "ref": {
+   "fr": "Tite 3:12",
+   "en": "Titus 3:12"
+  },
+  "fr": {
+   "q": "Dans quelle ville Paul décida-t-il de passer l’hiver, selon l’épître à Tite ?",
+   "options": [
+    "Nicopolis",
+    "Corinthe",
+    "Antioche",
+    "Éphèse"
+   ],
+   "explain": "J’ai résolu de passer l’hiver à Nicopolis. (Tite 3:12)"
+  },
+  "en": {
+   "q": "In which city did Paul decide to winter, according to the letter to Titus?",
+   "options": [
+    "Nicopolis",
+    "Corinth",
+    "Antioch",
+    "Ephesus"
+   ],
+   "explain": "I have decided to spend the winter in Nicopolis. (Titus 3:12)"
+  }
+ },
+ {
+  "id": "nt-hard-060",
+  "ref": {
+   "fr": "1 Timothée 5:23",
+   "en": "1 Timothy 5:23"
+  },
+  "fr": {
+   "q": "Que Paul conseilla-t-il à Timothée de prendre à cause de son estomac ?",
+   "options": [
+    "Un peu de vin",
+    "Du pain seul",
+    "De l’huile",
+    "Du miel"
+   ],
+   "explain": "Use d’un peu de vin, à cause de ton estomac. (1 Timothée 5:23)"
+  },
+  "en": {
+   "q": "What did Paul advise Timothy to take for his stomach’s sake?",
+   "options": [
+    "A little wine",
+    "Bread only",
+    "Oil",
+    "Honey"
+   ],
+   "explain": "Use a little wine for your stomach’s sake. (1 Timothy 5:23)"
+  }
+ },
+ {
+  "id": "nt-hard-061",
+  "ref": {
+   "fr": "1 Timothée 5:9",
+   "en": "1 Timothy 5:9"
+  },
+  "fr": {
+   "q": "À partir de quel âge une veuve pouvait-elle être inscrite, selon 1 Timothée ?",
+   "options": [
+    "Soixante ans",
+    "Cinquante ans",
+    "Quarante ans",
+    "Trente ans"
+   ],
+   "explain": "Qu’une veuve, pour être inscrite, ait au moins soixante ans. (1 Timothée 5:9)"
+  },
+  "en": {
+   "q": "From what age could a widow be enrolled, according to 1 Timothy?",
+   "options": [
+    "Sixty years",
+    "Fifty years",
+    "Forty years",
+    "Thirty years"
+   ],
+   "explain": "Let a widow be enrolled if not less than sixty years old. (1 Timothy 5:9)"
+  }
+ },
+ {
+  "id": "nt-hard-062",
+  "ref": {
+   "fr": "2 Timothée 1:5",
+   "en": "2 Timothy 1:5"
+  },
+  "fr": {
+   "q": "Comment se nommait la grand-mère de Timothée, femme d’une foi sincère ?",
+   "options": [
+    "Loïs",
+    "Eunice",
+    "Lydie",
+    "Anne"
+   ],
+   "explain": "La foi qui habita d’abord dans ta grand-mère Loïs. (2 Timothée 1:5)"
+  },
+  "en": {
+   "q": "What was the name of Timothy’s grandmother, a woman of sincere faith?",
+   "options": [
+    "Lois",
+    "Eunice",
+    "Lydia",
+    "Anna"
+   ],
+   "explain": "The faith that first lived in your grandmother Lois. (2 Timothy 1:5)"
+  }
+ },
+ {
+  "id": "nt-hard-063",
+  "ref": {
+   "fr": "2 Timothée 4:7",
+   "en": "2 Timothy 4:7"
+  },
+  "fr": {
+   "q": "Comment Paul résume-t-il sa course : « J’ai combattu le bon… » quoi ?",
+   "options": [
+    "combat",
+    "chemin",
+    "dessein",
+    "service"
+   ],
+   "explain": "« J’ai combattu le bon combat, j’ai achevé la course. » (2 Timothée 4:7)"
+  },
+  "en": {
+   "q": "How does Paul sum up his race: “I have fought the good…” what?",
+   "options": [
+    "fight",
+    "road",
+    "plan",
+    "service"
+   ],
+   "explain": "“I have fought the good fight, I have finished the race.” (2 Timothy 4:7)"
+  }
+ },
+ {
+  "id": "nt-hard-064",
+  "ref": {
+   "fr": "1 Timothée 3:2",
+   "en": "1 Timothy 3:2"
+  },
+  "fr": {
+   "q": "Selon 1 Timothée 3, l’évêque doit être « mari d’une seule… » quoi ?",
+   "options": [
+    "femme",
+    "maison",
+    "tribu",
+    "alliance"
+   ],
+   "explain": "Il faut que l’évêque soit mari d’une seule femme. (1 Timothée 3:2)"
+  },
+  "en": {
+   "q": "According to 1 Timothy 3, the overseer must be “the husband of one…” what?",
+   "options": [
+    "wife",
+    "house",
+    "tribe",
+    "covenant"
+   ],
+   "explain": "The overseer must be the husband of one wife. (1 Timothy 3:2)"
+  }
+ },
+ {
+  "id": "nt-hard-065",
+  "ref": {
+   "fr": "1 Timothée 6:6",
+   "en": "1 Timothy 6:6"
+  },
+  "fr": {
+   "q": "Selon 1 Timothée 6, quel gain est « grand » quand on s’en contente ?",
+   "options": [
+    "La piété avec le contentement",
+    "La richesse",
+    "La sagesse",
+    "La renommée"
+   ],
+   "explain": "La piété avec le contentement est un grand gain. (1 Timothée 6:6)"
+  },
+  "en": {
+   "q": "According to 1 Timothy 6, what gain is “great” when joined to contentment?",
+   "options": [
+    "Godliness with contentment",
+    "Riches",
+    "Wisdom",
+    "Fame"
+   ],
+   "explain": "Godliness with contentment is great gain. (1 Timothy 6:6)"
+  }
+ },
+ {
+  "id": "nt-hard-066",
+  "ref": {
+   "fr": "Philémon 1:2",
+   "en": "Philemon 1:2"
+  },
+  "fr": {
+   "q": "Quelle femme et quel homme Paul salue-t-il au début de la lettre à Philémon ?",
+   "options": [
+    "Apphia et Archippe",
+    "Priscille et Aquilas",
+    "Loïs et Eunice",
+    "Marthe et Lazare"
+   ],
+   "explain": "À Apphia, notre sœur, et à Archippe, notre compagnon de combat. (Philémon 1:2)"
+  },
+  "en": {
+   "q": "Which woman and man does Paul greet at the start of the letter to Philemon?",
+   "options": [
+    "Apphia and Archippus",
+    "Priscilla and Aquila",
+    "Lois and Eunice",
+    "Martha and Lazarus"
+   ],
+   "explain": "To Apphia our sister and Archippus our fellow soldier. (Philemon 1:2)"
+  }
+ },
+ {
+  "id": "nt-hard-067",
+  "ref": {
+   "fr": "Galates 2:11",
+   "en": "Galatians 2:11"
+  },
+  "fr": {
+   "q": "Dans quelle ville Paul résista-t-il à Pierre en face, selon les Galates ?",
+   "options": [
+    "Antioche",
+    "Jérusalem",
+    "Éphèse",
+    "Corinthe"
+   ],
+   "explain": "Quand Céphas vint à Antioche, je lui résistai en face. (Galates 2:11)"
+  },
+  "en": {
+   "q": "In which city did Paul oppose Peter to his face, according to Galatians?",
+   "options": [
+    "Antioch",
+    "Jerusalem",
+    "Ephesus",
+    "Corinth"
+   ],
+   "explain": "When Cephas came to Antioch, I opposed him to his face. (Galatians 2:11)"
+  }
+ },
+ {
+  "id": "nt-hard-068",
+  "ref": {
+   "fr": "Galates 1:17",
+   "en": "Galatians 1:17"
+  },
+  "fr": {
+   "q": "Où Paul se rendit-il d’abord après sa conversion, selon Galates 1 ?",
+   "options": [
+    "En Arabie",
+    "À Rome",
+    "En Égypte",
+    "À Athènes"
+   ],
+   "explain": "Je partis pour l’Arabie, puis je revins à Damas. (Galates 1:17)"
+  },
+  "en": {
+   "q": "Where did Paul first go after his conversion, according to Galatians 1?",
+   "options": [
+    "To Arabia",
+    "To Rome",
+    "To Egypt",
+    "To Athens"
+   ],
+   "explain": "I went away into Arabia, then returned to Damascus. (Galatians 1:17)"
+  }
+ },
+ {
+  "id": "nt-hard-069",
+  "ref": {
+   "fr": "2 Corinthiens 11:24",
+   "en": "2 Corinthians 11:24"
+  },
+  "fr": {
+   "q": "Combien de coups Paul reçut-il cinq fois des Juifs, selon 2 Corinthiens ?",
+   "options": [
+    "Quarante moins un",
+    "Cent",
+    "Trente",
+    "Soixante-dix"
+   ],
+   "explain": "Cinq fois j’ai reçu des Juifs quarante coups moins un. (2 Corinthiens 11:24)"
+  },
+  "en": {
+   "q": "How many stripes did Paul receive five times from the Jews, per 2 Corinthians?",
+   "options": [
+    "Forty minus one",
+    "One hundred",
+    "Thirty",
+    "Seventy"
+   ],
+   "explain": "Five times I received forty stripes minus one. (2 Corinthians 11:24)"
+  }
+ },
+ {
+  "id": "nt-hard-070",
+  "ref": {
+   "fr": "2 Corinthiens 12:2",
+   "en": "2 Corinthians 12:2"
+  },
+  "fr": {
+   "q": "Jusqu’à quel ciel Paul dit-il avoir été ravi, en 2 Corinthiens 12 ?",
+   "options": [
+    "Le troisième ciel",
+    "Le septième ciel",
+    "Le premier ciel",
+    "Le plus haut des cieux"
+   ],
+   "explain": "Un homme fut ravi jusqu’au troisième ciel. (2 Corinthiens 12:2)"
+  },
+  "en": {
+   "q": "To which heaven does Paul say he was caught up, in 2 Corinthians 12?",
+   "options": [
+    "The third heaven",
+    "The seventh heaven",
+    "The first heaven",
+    "The highest heaven"
+   ],
+   "explain": "A man was caught up to the third heaven. (2 Corinthians 12:2)"
+  }
+ },
+ {
+  "id": "nt-hard-071",
+  "ref": {
+   "fr": "2 Corinthiens 12:7",
+   "en": "2 Corinthians 12:7"
+  },
+  "fr": {
+   "q": "Comment Paul appelle-t-il l’épreuve qui lui fut donnée, en 2 Corinthiens 12 ?",
+   "options": [
+    "Une écharde dans la chair",
+    "Un joug de fer",
+    "Une coupe amère",
+    "Un fardeau de plomb"
+   ],
+   "explain": "Il m’a été mis une écharde dans la chair. (2 Corinthiens 12:7)"
+  },
+  "en": {
+   "q": "What does Paul call the trial given to him, in 2 Corinthians 12?",
+   "options": [
+    "A thorn in the flesh",
+    "An iron yoke",
+    "A bitter cup",
+    "A load of lead"
+   ],
+   "explain": "A thorn in the flesh was given to me. (2 Corinthians 12:7)"
+  }
+ },
+ {
+  "id": "nt-hard-072",
+  "ref": {
+   "fr": "2 Corinthiens 11:32",
+   "en": "2 Corinthians 11:32"
+  },
+  "fr": {
+   "q": "Sous quel roi le gouverneur de Damas cherchait-il à saisir Paul ?",
+   "options": [
+    "Arétas",
+    "Hérode",
+    "Agrippa",
+    "César"
+   ],
+   "explain": "Le gouverneur du roi Arétas faisait garder la ville. (2 Corinthiens 11:32)"
+  },
+  "en": {
+   "q": "Under which king did the governor of Damascus seek to seize Paul?",
+   "options": [
+    "Aretas",
+    "Herod",
+    "Agrippa",
+    "Caesar"
+   ],
+   "explain": "The governor under King Aretas guarded the city. (2 Corinthians 11:32)"
+  }
+ },
+ {
+  "id": "nt-hard-073",
+  "ref": {
+   "fr": "Philippiens 4:2",
+   "en": "Philippians 4:2"
+  },
+  "fr": {
+   "q": "Quelles deux femmes Paul exhorte-t-il à s’accorder, en Philippiens 4 ?",
+   "options": [
+    "Évodie et Syntyche",
+    "Marthe et Marie",
+    "Loïs et Eunice",
+    "Priscille et Phœbé"
+   ],
+   "explain": "J’exhorte Évodie et Syntyche à être d’un même sentiment. (Philippiens 4:2)"
+  },
+  "en": {
+   "q": "Which two women does Paul urge to agree, in Philippians 4?",
+   "options": [
+    "Euodia and Syntyche",
+    "Martha and Mary",
+    "Lois and Eunice",
+    "Priscilla and Phoebe"
+   ],
+   "explain": "I urge Euodia and Syntyche to agree in the Lord. (Philippians 4:2)"
+  }
+ },
+ {
+  "id": "nt-hard-074",
+  "ref": {
+   "fr": "Colossiens 4:16",
+   "en": "Colossians 4:16"
+  },
+  "fr": {
+   "q": "Quelle autre lettre Paul demande-t-il aux Colossiens de lire aussi ?",
+   "options": [
+    "Celle de Laodicée",
+    "Celle de Rome",
+    "Celle d’Éphèse",
+    "Celle de Corinthe"
+   ],
+   "explain": "Faites que la lettre de Laodicée soit aussi lue chez vous. (Colossiens 4:16)"
+  },
+  "en": {
+   "q": "Which other letter does Paul ask the Colossians also to read?",
+   "options": [
+    "The one from Laodicea",
+    "The one to Rome",
+    "The one to Ephesus",
+    "The one to Corinth"
+   ],
+   "explain": "See that you also read the letter from Laodicea. (Colossians 4:16)"
+  }
+ },
+ {
+  "id": "nt-hard-075",
+  "ref": {
+   "fr": "Éphésiens 4:5",
+   "en": "Ephesians 4:5"
+  },
+  "fr": {
+   "q": "Selon Éphésiens 4, il y a un seul Seigneur, une seule foi et un seul… quoi ?",
+   "options": [
+    "baptême",
+    "temple",
+    "peuple",
+    "autel"
+   ],
+   "explain": "Un seul Seigneur, une seule foi, un seul baptême. (Éphésiens 4:5)"
+  },
+  "en": {
+   "q": "According to Ephesians 4, there is one Lord, one faith and one… what?",
+   "options": [
+    "baptism",
+    "temple",
+    "people",
+    "altar"
+   ],
+   "explain": "One Lord, one faith, one baptism. (Ephesians 4:5)"
+  }
+ },
+ {
+  "id": "nt-hard-076",
+  "ref": {
+   "fr": "1 Thessaloniciens 4:17",
+   "en": "1 Thessalonians 4:17"
+  },
+  "fr": {
+   "q": "Selon 1 Thessaloniciens 4, où les vivants seront-ils enlevés à la rencontre du Seigneur ?",
+   "options": [
+    "Sur les nuées",
+    "Au temple",
+    "Sur la montagne",
+    "Dans le désert"
+   ],
+   "explain": "Nous serons enlevés sur des nuées à la rencontre du Seigneur. (1 Thessaloniciens 4:17)"
+  },
+  "en": {
+   "q": "In 1 Thessalonians 4, where will the living be caught up to meet the Lord?",
+   "options": [
+    "In the clouds",
+    "To the temple",
+    "On the mountain",
+    "In the wilderness"
+   ],
+   "explain": "We will be caught up in the clouds to meet the Lord. (1 Thessalonians 4:17)"
+  }
+ },
+ {
+  "id": "nt-hard-077",
+  "ref": {
+   "fr": "1 Thessaloniciens 5:2",
+   "en": "1 Thessalonians 5:2"
+  },
+  "fr": {
+   "q": "À quoi le jour du Seigneur est-il comparé, en 1 Thessaloniciens 5 ?",
+   "options": [
+    "Un voleur dans la nuit",
+    "Un éclair",
+    "Une trompette",
+    "Un torrent"
+   ],
+   "explain": "Le jour du Seigneur viendra comme un voleur dans la nuit. (1 Thessaloniciens 5:2)"
+  },
+  "en": {
+   "q": "To what is the day of the Lord compared, in 1 Thessalonians 5?",
+   "options": [
+    "A thief in the night",
+    "A lightning flash",
+    "A trumpet",
+    "A flood"
+   ],
+   "explain": "The day of the Lord comes as a thief in the night. (1 Thessalonians 5:2)"
+  }
+ },
+ {
+  "id": "nt-hard-078",
+  "ref": {
+   "fr": "2 Thessaloniciens 2:3",
+   "en": "2 Thessalonians 2:3"
+  },
+  "fr": {
+   "q": "Comment 2 Thessaloniciens 2 nomme-t-il celui qui doit être révélé ?",
+   "options": [
+    "L’homme du péché",
+    "Le prince de la paix",
+    "Le faux témoin",
+    "Le dernier roi"
+   ],
+   "explain": "L’homme du péché, le fils de la perdition, doit être révélé. (2 Thessaloniciens 2:3)"
+  },
+  "en": {
+   "q": "What does 2 Thessalonians 2 call the one who must be revealed?",
+   "options": [
+    "The man of sin",
+    "The prince of peace",
+    "The false witness",
+    "The last king"
+   ],
+   "explain": "The man of sin, the son of perdition, will be revealed. (2 Thessalonians 2:3)"
+  }
+ },
+ {
+  "id": "nt-hard-079",
+  "ref": {
+   "fr": "Hébreux 7:1",
+   "en": "Hebrews 7:1"
+  },
+  "fr": {
+   "q": "De quelle ville Melchisédek était-il roi, selon l’épître aux Hébreux ?",
+   "options": [
+    "Salem",
+    "Sodome",
+    "Sichem",
+    "Sion"
+   ],
+   "explain": "Melchisédek, roi de Salem, sacrificateur du Dieu Très-Haut. (Hébreux 7:1)"
+  },
+  "en": {
+   "q": "Of which city was Melchizedek king, according to Hebrews?",
+   "options": [
+    "Salem",
+    "Sodom",
+    "Shechem",
+    "Zion"
+   ],
+   "explain": "Melchizedek, king of Salem, priest of God Most High. (Hebrews 7:1)"
+  }
+ },
+ {
+  "id": "nt-hard-080",
+  "ref": {
+   "fr": "Hébreux 5:10",
+   "en": "Hebrews 5:10"
+  },
+  "fr": {
+   "q": "Selon quel ordre Jésus est-il souverain sacrificateur, d’après les Hébreux ?",
+   "options": [
+    "L’ordre de Melchisédek",
+    "L’ordre d’Aaron",
+    "L’ordre de Lévi",
+    "L’ordre de Tsadok"
+   ],
+   "explain": "Souverain sacrificateur selon l’ordre de Melchisédek. (Hébreux 5:10)"
+  },
+  "en": {
+   "q": "After what order is Jesus a high priest, according to Hebrews?",
+   "options": [
+    "The order of Melchizedek",
+    "The order of Aaron",
+    "The order of Levi",
+    "The order of Zadok"
+   ],
+   "explain": "A high priest after the order of Melchizedek. (Hebrews 5:10)"
+  }
+ },
+ {
+  "id": "nt-hard-081",
+  "ref": {
+   "fr": "Hébreux 11:4",
+   "en": "Hebrews 11:4"
+  },
+  "fr": {
+   "q": "Selon Hébreux 11, qui offrit par la foi un sacrifice plus excellent que Caïn ?",
+   "options": [
+    "Abel",
+    "Énoch",
+    "Noé",
+    "Seth"
+   ],
+   "explain": "Par la foi, Abel offrit un sacrifice plus excellent que Caïn. (Hébreux 11:4)"
+  },
+  "en": {
+   "q": "In Hebrews 11, who by faith offered a more excellent sacrifice than Cain?",
+   "options": [
+    "Abel",
+    "Enoch",
+    "Noah",
+    "Seth"
+   ],
+   "explain": "By faith Abel offered a more excellent sacrifice than Cain. (Hebrews 11:4)"
+  }
+ },
+ {
+  "id": "nt-hard-082",
+  "ref": {
+   "fr": "Hébreux 11:5",
+   "en": "Hebrews 11:5"
+  },
+  "fr": {
+   "q": "Selon Hébreux 11, quel patriarche fut enlevé pour ne pas voir la mort ?",
+   "options": [
+    "Énoch",
+    "Noé",
+    "Abraham",
+    "Jacob"
+   ],
+   "explain": "Par la foi, Énoch fut enlevé pour qu’il ne vît pas la mort. (Hébreux 11:5)"
+  },
+  "en": {
+   "q": "In Hebrews 11, which patriarch was taken up so as not to see death?",
+   "options": [
+    "Enoch",
+    "Noah",
+    "Abraham",
+    "Jacob"
+   ],
+   "explain": "By faith Enoch was taken up so that he would not see death. (Hebrews 11:5)"
+  }
+ },
+ {
+  "id": "nt-hard-083",
+  "ref": {
+   "fr": "Jacques 1:1",
+   "en": "James 1:1"
+  },
+  "fr": {
+   "q": "À qui l’épître de Jacques est-elle adressée ?",
+   "options": [
+    "Aux douze tribus dispersées",
+    "Aux Romains",
+    "Aux élus de Babylone",
+    "Aux sept Églises"
+   ],
+   "explain": "Jacques, aux douze tribus qui sont dans la dispersion. (Jacques 1:1)"
+  },
+  "en": {
+   "q": "To whom is the epistle of James addressed?",
+   "options": [
+    "To the twelve scattered tribes",
+    "To the Romans",
+    "To the elect in Babylon",
+    "To the seven churches"
+   ],
+   "explain": "James, to the twelve tribes in the Dispersion. (James 1:1)"
+  }
+ },
+ {
+  "id": "nt-hard-084",
+  "ref": {
+   "fr": "Jacques 5:17",
+   "en": "James 5:17"
+  },
+  "fr": {
+   "q": "Combien de temps il ne plut pas quand Élie pria, selon Jacques 5 ?",
+   "options": [
+    "Trois ans et six mois",
+    "Sept ans",
+    "Un an",
+    "Quarante jours"
+   ],
+   "explain": "Il ne plut pas sur la terre durant trois ans et six mois. (Jacques 5:17)"
+  },
+  "en": {
+   "q": "How long did it not rain when Elijah prayed, according to James 5?",
+   "options": [
+    "Three years and six months",
+    "Seven years",
+    "One year",
+    "Forty days"
+   ],
+   "explain": "It did not rain on the earth for three years and six months. (James 5:17)"
+  }
+ },
+ {
+  "id": "nt-hard-085",
+  "ref": {
+   "fr": "1 Pierre 1:1",
+   "en": "1 Peter 1:1"
+  },
+  "fr": {
+   "q": "À quels croyants dispersés la première épître de Pierre est-elle adressée ?",
+   "options": [
+    "Pont, Galatie, Cappadoce, Asie, Bithynie",
+    "Judée et Samarie",
+    "Grèce et Macédoine",
+    "Égypte et Libye"
+   ],
+   "explain": "Aux élus dispersés dans le Pont, la Galatie, la Cappadoce... (1 Pierre 1:1)"
+  },
+  "en": {
+   "q": "To which scattered believers is the first epistle of Peter addressed?",
+   "options": [
+    "Pontus, Galatia, Cappadocia, Asia, Bithynia",
+    "Judea and Samaria",
+    "Greece and Macedonia",
+    "Egypt and Libya"
+   ],
+   "explain": "To the elect scattered in Pontus, Galatia, Cappadocia... (1 Peter 1:1)"
+  }
+ },
+ {
+  "id": "nt-hard-086",
+  "ref": {
+   "fr": "1 Pierre 5:13",
+   "en": "1 Peter 5:13"
+  },
+  "fr": {
+   "q": "Sous quel nom Pierre désigne-t-il l’Église qui salue, à la fin de sa lettre ?",
+   "options": [
+    "Babylone",
+    "Rome",
+    "Jérusalem",
+    "Sion"
+   ],
+   "explain": "L’Église des élus dans Babylone vous salue, et Marc, mon fils. (1 Pierre 5:13)"
+  },
+  "en": {
+   "q": "By what name does Peter call the church that greets, at his letter’s end?",
+   "options": [
+    "Babylon",
+    "Rome",
+    "Jerusalem",
+    "Zion"
+   ],
+   "explain": "She who is in Babylon greets you, and Mark, my son. (1 Peter 5:13)"
+  }
+ },
+ {
+  "id": "nt-hard-087",
+  "ref": {
+   "fr": "2 Pierre 3:8",
+   "en": "2 Peter 3:8"
+  },
+  "fr": {
+   "q": "Selon 2 Pierre 3, un jour est devant le Seigneur comme… quoi ?",
+   "options": [
+    "Mille ans",
+    "Un instant",
+    "Une heure",
+    "Cent ans"
+   ],
+   "explain": "Devant le Seigneur, un jour est comme mille ans. (2 Pierre 3:8)"
+  },
+  "en": {
+   "q": "According to 2 Peter 3, one day is before the Lord as… what?",
+   "options": [
+    "A thousand years",
+    "An instant",
+    "An hour",
+    "A hundred years"
+   ],
+   "explain": "With the Lord one day is as a thousand years. (2 Peter 3:8)"
+  }
+ },
+ {
+  "id": "nt-hard-088",
+  "ref": {
+   "fr": "2 Pierre 3:16",
+   "en": "2 Peter 3:16"
+  },
+  "fr": {
+   "q": "De quels écrits Pierre dit-il qu’ils renferment des points difficiles à comprendre ?",
+   "options": [
+    "Les lettres de Paul",
+    "Les Psaumes",
+    "Les prophètes",
+    "Les Évangiles"
+   ],
+   "explain": "Dans les épîtres de Paul, il y a des points difficiles à comprendre. (2 Pierre 3:16)"
+  },
+  "en": {
+   "q": "Of which writings does Peter say they contain things hard to understand?",
+   "options": [
+    "Paul’s letters",
+    "The Psalms",
+    "The prophets",
+    "The Gospels"
+   ],
+   "explain": "In Paul’s letters are some things hard to understand. (2 Peter 3:16)"
+  }
+ },
+ {
+  "id": "nt-hard-089",
+  "ref": {
+   "fr": "Jude 1:14",
+   "en": "Jude 1:14"
+  },
+  "fr": {
+   "q": "Quel patriarche antédiluvien Jude cite-t-il comme ayant prophétisé ?",
+   "options": [
+    "Énoch",
+    "Noé",
+    "Lémec",
+    "Seth"
+   ],
+   "explain": "Énoch, le septième depuis Adam, a aussi prophétisé. (Jude 1:14)"
+  },
+  "en": {
+   "q": "Which pre-flood patriarch does Jude cite as having prophesied?",
+   "options": [
+    "Enoch",
+    "Noah",
+    "Lamech",
+    "Seth"
+   ],
+   "explain": "Enoch, the seventh from Adam, also prophesied. (Jude 1:14)"
+  }
+ },
+ {
+  "id": "nt-hard-090",
+  "ref": {
+   "fr": "Jude 1:11",
+   "en": "Jude 1:11"
+  },
+  "fr": {
+   "q": "Selon Jude, dans la voie de quels trois hommes se perdent les impies ?",
+   "options": [
+    "Caïn, Balaam, Koré",
+    "Caïn, Ésaü, Acan",
+    "Nadab, Abihu, Koré",
+    "Saül, Absalom, Judas"
+   ],
+   "explain": "Ils suivent la voie de Caïn, l’erreur de Balaam et la révolte de Koré. (Jude 1:11)"
+  },
+  "en": {
+   "q": "According to Jude, in the way of which three men do the ungodly perish?",
+   "options": [
+    "Cain, Balaam, Korah",
+    "Cain, Esau, Achan",
+    "Nadab, Abihu, Korah",
+    "Saul, Absalom, Judas"
+   ],
+   "explain": "They walk in the way of Cain, the error of Balaam, the rebellion of Korah. (Jude 1:11)"
+  }
+ },
+ {
+  "id": "nt-hard-091",
+  "ref": {
+   "fr": "3 Jean 1:9",
+   "en": "3 John 1:9"
+  },
+  "fr": {
+   "q": "Quel homme, aimant être le premier, rejetait l’autorité de Jean, en 3 Jean ?",
+   "options": [
+    "Diotrèphe",
+    "Démétrius",
+    "Gaïus",
+    "Diotime"
+   ],
+   "explain": "Diotrèphe, qui aime à être le premier, ne nous reçoit point. (3 Jean 1:9)"
+  },
+  "en": {
+   "q": "Which man, loving to be first, rejected John’s authority, in 3 John?",
+   "options": [
+    "Diotrephes",
+    "Demetrius",
+    "Gaius",
+    "Diotimus"
+   ],
+   "explain": "Diotrephes, who loves preeminence, does not receive us. (3 John 1:9)"
+  }
+ },
+ {
+  "id": "nt-hard-092",
+  "ref": {
+   "fr": "2 Jean 1:1",
+   "en": "2 John 1:1"
+  },
+  "fr": {
+   "q": "À qui la deuxième épître de Jean est-elle adressée ?",
+   "options": [
+    "À la dame élue",
+    "À Gaïus",
+    "À Théophile",
+    "Aux anciens d’Éphèse"
+   ],
+   "explain": "L’ancien, à la dame élue et à ses enfants. (2 Jean 1:1)"
+  },
+  "en": {
+   "q": "To whom is the second epistle of John addressed?",
+   "options": [
+    "To the elect lady",
+    "To Gaius",
+    "To Theophilus",
+    "To the elders of Ephesus"
+   ],
+   "explain": "The elder, to the chosen lady and her children. (2 John 1:1)"
+  }
+ },
+ {
+  "id": "nt-hard-093",
+  "ref": {
+   "fr": "Jean 21:11",
+   "en": "John 21:11"
+  },
+  "fr": {
+   "q": "Combien de poissons furent pris dans le filet, en Jean 21 ?",
+   "options": [
+    "Cent cinquante-trois",
+    "Cent",
+    "Deux cents",
+    "Soixante-dix-sept"
+   ],
+   "explain": "Le filet était plein de cent cinquante-trois grands poissons. (Jean 21:11)"
+  },
+  "en": {
+   "q": "How many fish were caught in the net, in John 21?",
+   "options": [
+    "153",
+    "100",
+    "200",
+    "77"
+   ],
+   "explain": "The net was full of 153 large fish. (John 21:11)"
+  }
+ },
+ {
+  "id": "nt-hard-094",
+  "ref": {
+   "fr": "Jean 19:20",
+   "en": "John 19:20"
+  },
+  "fr": {
+   "q": "En quelles trois langues l’écriteau de la croix fut-il rédigé ?",
+   "options": [
+    "Hébreu, grec, latin",
+    "Hébreu, araméen, grec",
+    "Grec, latin, égyptien",
+    "Latin, syriaque, grec"
+   ],
+   "explain": "L’inscription était en hébreu, en grec et en latin. (Jean 19:20)"
+  },
+  "en": {
+   "q": "In which three languages was the sign on the cross written?",
+   "options": [
+    "Hebrew, Greek, Latin",
+    "Hebrew, Aramaic, Greek",
+    "Greek, Latin, Egyptian",
+    "Latin, Syriac, Greek"
+   ],
+   "explain": "The inscription was in Hebrew, Greek, and Latin. (John 19:20)"
+  }
+ },
+ {
+  "id": "nt-hard-095",
+  "ref": {
+   "fr": "Jean 19:23",
+   "en": "John 19:23"
+  },
+  "fr": {
+   "q": "Pourquoi les soldats tirèrent-ils au sort la tunique de Jésus au lieu de la déchirer ?",
+   "options": [
+    "Elle était sans couture",
+    "Elle était en or",
+    "Elle était trop grande",
+    "Pilate l’avait défendu"
+   ],
+   "explain": "La tunique était sans couture, tissée d’une seule pièce. (Jean 19:23-24)"
+  },
+  "en": {
+   "q": "Why did the soldiers cast lots for Jesus’ tunic instead of tearing it?",
+   "options": [
+    "It was seamless",
+    "It was made of gold",
+    "It was too large",
+    "Pilate forbade it"
+   ],
+   "explain": "The tunic was seamless, woven in one piece. (John 19:23-24)"
+  }
+ },
+ {
+  "id": "nt-hard-096",
+  "ref": {
+   "fr": "Jean 19:34",
+   "en": "John 19:34"
+  },
+  "fr": {
+   "q": "Que sortit du côté de Jésus quand un soldat le perça d’une lance ?",
+   "options": [
+    "Du sang et de l’eau",
+    "Du feu",
+    "De l’huile",
+    "De la lumière"
+   ],
+   "explain": "Aussitôt il sortit du sang et de l’eau. (Jean 19:34)"
+  },
+  "en": {
+   "q": "What came from Jesus’ side when a soldier pierced it with a spear?",
+   "options": [
+    "Blood and water",
+    "Fire",
+    "Oil",
+    "Light"
+   ],
+   "explain": "Immediately blood and water came out. (John 19:34)"
+  }
+ },
+ {
+  "id": "nt-hard-097",
+  "ref": {
+   "fr": "Marc 15:21",
+   "en": "Mark 15:21"
+  },
+  "fr": {
+   "q": "De quels deux fils Simon de Cyrène était-il le père, selon Marc ?",
+   "options": [
+    "Alexandre et Rufus",
+    "Jacques et Jean",
+    "Ananias et Saphira",
+    "Anne et Caïphe"
+   ],
+   "explain": "Simon de Cyrène, père d’Alexandre et de Rufus, porta la croix. (Marc 15:21)"
+  },
+  "en": {
+   "q": "Of which two sons was Simon of Cyrene the father, according to Mark?",
+   "options": [
+    "Alexander and Rufus",
+    "James and John",
+    "Ananias and Sapphira",
+    "Annas and Caiaphas"
+   ],
+   "explain": "Simon of Cyrene, the father of Alexander and Rufus, carried the cross. (Mark 15:21)"
+  }
+ },
+ {
+  "id": "nt-hard-098",
+  "ref": {
+   "fr": "Luc 8:2",
+   "en": "Luke 8:2"
+  },
+  "fr": {
+   "q": "De combien de démons Jésus avait-il délivré Marie de Magdala ?",
+   "options": [
+    "Sept",
+    "Trois",
+    "Douze",
+    "Deux"
+   ],
+   "explain": "Marie de Magdala, de qui étaient sortis sept démons. (Luc 8:2)"
+  },
+  "en": {
+   "q": "From how many demons had Jesus delivered Mary Magdalene?",
+   "options": [
+    "Seven",
+    "Three",
+    "Twelve",
+    "Two"
+   ],
+   "explain": "Mary Magdalene, from whom seven demons had gone out. (Luke 8:2)"
+  }
+ },
+ {
+  "id": "nt-hard-099",
+  "ref": {
+   "fr": "Luc 8:3",
+   "en": "Luke 8:3"
+  },
+  "fr": {
+   "q": "Quelle femme, épouse de Chuza intendant d’Hérode, servait Jésus de ses biens ?",
+   "options": [
+    "Jeanne",
+    "Suzanne",
+    "Salomé",
+    "Marthe"
+   ],
+   "explain": "Jeanne, femme de Chuza, intendant d’Hérode, l’assistait. (Luc 8:3)"
+  },
+  "en": {
+   "q": "Which woman, wife of Chuza Herod’s steward, served Jesus from her means?",
+   "options": [
+    "Joanna",
+    "Susanna",
+    "Salome",
+    "Martha"
+   ],
+   "explain": "Joanna, the wife of Chuza, Herod’s steward, provided for him. (Luke 8:3)"
+  }
+ },
+ {
+  "id": "nt-hard-100",
+  "ref": {
+   "fr": "1 Corinthiens 15:6",
+   "en": "1 Corinthians 15:6"
+  },
+  "fr": {
+   "q": "À combien de frères le Christ ressuscité apparut-il en une seule fois, selon Paul ?",
+   "options": [
+    "Plus de cinq cents",
+    "Cent vingt",
+    "Soixante-dix",
+    "Trois mille"
+   ],
+   "explain": "Il est apparu à plus de cinq cents frères à la fois. (1 Corinthiens 15:6)"
+  },
+  "en": {
+   "q": "To how many brothers did the risen Christ appear at once, according to Paul?",
+   "options": [
+    "More than five hundred",
+    "One hundred twenty",
+    "Seventy",
+    "Three thousand"
+   ],
+   "explain": "He appeared to more than five hundred brothers at once. (1 Corinthians 15:6)"
+  }
+ }
+]
