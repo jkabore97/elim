@@ -210,15 +210,29 @@ export interface Comment {
 export interface AppNotification {
   id: string;
   recipientId: string;
-  type: 'post_like' | 'comment_like' | 'post_comment' | 'comment_reply';
+  type: 'post_like' | 'comment_like' | 'post_comment' | 'comment_reply' | 'message';
   actorId: string;
   actorName: string;
   actorAvatar?: string;
-  postId: string;
+  postId?: string;
   commentId?: string;
+  conversationId?: string;
   preview?: string;
   read: boolean;
   createdAt: any;
+}
+
+// An admin broadcast queued to be sent at a future time by the
+// dispatchScheduledBroadcasts function.
+export interface ScheduledBroadcast {
+  id: string;
+  title: string;
+  body: string;
+  url?: string | null;
+  route?: string;
+  sendAt: any;
+  sent: boolean;
+  createdAt?: any;
 }
 
 // A broadcast message (quiz reminder, champion, app-update announcement…) shown

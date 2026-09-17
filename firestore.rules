@@ -411,6 +411,16 @@ service cloud.firestore {
       allow write: if false;
     }
 
+    // Admin-scheduled broadcasts, waiting to be sent by dispatchScheduledBroadcasts.
+    // Admins create and delete them; the dispatcher (Admin SDK) flips `sent` and
+    // stamps `sentAt`, so clients never update one.
+    match /scheduledBroadcasts/{id} {
+      allow read: if isAdmin();
+      allow create: if isAdmin() && request.resource.data.sent == false;
+      allow delete: if isAdmin();
+      allow update: if false;
+    }
+
     // ---- Donations (declarations) ----
     // A member declares a donation AFTER paying outside the app (mobile
     // money / PayPal / card link) - the app never touches the money itself.

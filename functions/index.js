@@ -3,7 +3,7 @@ const { onCall, onRequest, HttpsError } = require('firebase-functions/v2/https')
 const { onSchedule } = require('firebase-functions/v2/scheduler');
 const { defineSecret } = require('firebase-functions/params');
 const { initializeApp } = require('firebase-admin/app');
-const { getFirestore, FieldValue } = require('firebase-admin/firestore');
+const { getFirestore, FieldValue, Timestamp } = require('firebase-admin/firestore');
 const { getMessaging } = require('firebase-admin/messaging');
 const { getStorage } = require('firebase-admin/storage');
 const { Translate } = require('@google-cloud/translate').v2;
@@ -255,6 +255,20 @@ exports.notifyOnNewMessage = onDocumentCreated('messages/{messageId}', async (ev
   }
 
   if (recipientIds.length === 0) return;
+
+  // Record a bell entry for each recipient - WITHOUT the message text, so a
+  // shared or glanced-at phone never leaks a private conversation. It just says
+  // "you have a new message" and taps through to Messages. Runs for every
+  // recipient (even those with push disabled) so the in-app bell is complete.
+  await Promise.allSettled(recipientIds.map((rid) =>
+    addNotification(db, {
+      recipientId: rid,
+      type: 'message',
+      actorId: message.senderId || '',
+      actorName: message.senderName || 'Message',
+      conversationId: message.conversationId,
+    })
+  ));
 
   // Firestore 'in' queries cap at 30 values, and the recipient list here is
   // realistically 1-2 people, but chunking keeps this correct if that changes.
@@ -1109,6 +1123,90 @@ exports.announceUpdateV125 = onSchedule(
     // Mark as sent only after the push went out, so a failed run retries next
     // day rather than silently swallowing the announcement.
     await ref.set({ updateV125Sent2: true, updateV125At: FieldValue.serverTimestamp() }, { merge: true });
+  }
+);
+
+// ==================== ADMIN BROADCASTS ====================
+
+// Only admins/pastors may broadcast to the whole congregation.
+async function requireAdmin(request) {
+  if (!request.auth) throw new HttpsError('unauthenticated', 'Sign in first.');
+  const db = getFirestore();
+  const snap = await db.collection('users').doc(request.auth.uid).get();
+  const role = snap.exists ? snap.data().role : null;
+  if (!['admin', 'pastor'].includes(role)) {
+    throw new HttpsError('permission-denied', 'Admins only.');
+  }
+  return request.auth.uid;
+}
+
+function cleanBroadcast(data) {
+  const title = String((data && data.title) || '').trim().slice(0, 120);
+  const body = String((data && data.body) || '').trim().slice(0, 500);
+  const url = data && data.url ? String(data.url).trim().slice(0, 500) : null;
+  // A safe in-app route hint the bell understands; falls back to plain info.
+  const allowedRoutes = ['info', 'quiz', 'feed', 'update', 'messages'];
+  const route = data && allowedRoutes.includes(data.route) ? data.route : 'info';
+  if (!title || !body) throw new HttpsError('invalid-argument', 'Titre et message requis.');
+  return { title, body, url, route };
+}
+
+// Send a broadcast to everyone right now (push + in-app bell entry).
+exports.sendBroadcast = onCall({ region: 'us-central1' }, async (request) => {
+  await requireAdmin(request);
+  const db = getFirestore();
+  const { title, body, url, route } = cleanBroadcast(request.data);
+  await broadcastPush(db, { title, body, data: { kind: route, ...(url ? { url } : {}) } });
+  return { ok: true };
+});
+
+// Every 5 minutes, send any admin-scheduled broadcasts that have come due.
+exports.dispatchScheduledBroadcasts = onSchedule(
+  { schedule: '*/5 * * * *', region: 'us-central1' },
+  async () => {
+    const db = getFirestore();
+    const now = Timestamp.now();
+    const due = await db.collection('scheduledBroadcasts')
+      .where('sent', '==', false)
+      .where('sendAt', '<=', now)
+      .limit(20)
+      .get();
+    for (const d of due.docs) {
+      const b = d.data();
+      try {
+        await broadcastPush(db, {
+          title: b.title,
+          body: b.body,
+          data: { kind: b.route || 'info', ...(b.url ? { url: b.url } : {}) },
+        });
+        await d.ref.update({ sent: true, sentAt: FieldValue.serverTimestamp() });
+      } catch (e) {
+        console.error('scheduled broadcast failed', d.id, e);
+      }
+    }
+  }
+);
+
+// Keep the bell tidy: drop personal notifications and broadcast announcements
+// older than 30 days. Also clears already-sent scheduled broadcasts.
+exports.cleanupOldNotifications = onSchedule(
+  { schedule: '30 3 * * *', region: 'us-central1' },
+  async () => {
+    const db = getFirestore();
+    const cutoff = Timestamp.fromMillis(Date.now() - 30 * 24 * 60 * 60 * 1000);
+    for (const col of ['notifications', 'announcements', 'scheduledBroadcasts']) {
+      const field = col === 'scheduledBroadcasts' ? 'sentAt' : 'createdAt';
+      // Page through in batches so a large backlog can't blow the 500-write cap.
+      // eslint-disable-next-line no-constant-condition
+      while (true) {
+        const snap = await db.collection(col).where(field, '<', cutoff).limit(400).get();
+        if (snap.empty) break;
+        const batch = db.batch();
+        snap.docs.forEach((d) => batch.delete(d.ref));
+        await batch.commit();
+        if (snap.size < 400) break;
+      }
+    }
   }
 );
 
