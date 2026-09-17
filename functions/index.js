@@ -88,6 +88,15 @@ async function broadcastPush(db, { title, body, data }) {
   const tokens = [...tokenSet]; // dedupe: the same device token can appear twice
   if (tokens.length === 0) return;
 
+  // Where a clicked web notification lands: an explicit http(s) link wins,
+  // otherwise map the route hint to the right in-app screen.
+  const kind = (data && data.kind) || 'info';
+  const webLink =
+    (data && data.url && /^https?:\/\/.+/i.test(data.url)) ? data.url
+    : kind === 'message' ? 'https://ccelim.com/?tab=messages'
+    : kind === 'quiz' ? 'https://ccelim.com/?quiz=1'
+    : 'https://ccelim.com/';
+
   const messaging = getMessaging();
   const batches = chunk(tokens, 500);
   const results = await Promise.allSettled(
@@ -98,7 +107,7 @@ async function broadcastPush(db, { title, body, data }) {
         data: data || {},
         webpush: {
           notification: { icon: 'https://ccelim.com/elim-logo-mark.png' },
-          fcmOptions: { link: 'https://ccelim.com/?quiz=1' },
+          fcmOptions: { link: webLink },
         },
         android: {
           priority: 'high',
@@ -260,13 +269,21 @@ exports.notifyOnNewMessage = onDocumentCreated('messages/{messageId}', async (ev
   // shared or glanced-at phone never leaks a private conversation. It just says
   // "you have a new message" and taps through to Messages. Runs for every
   // recipient (even those with push disabled) so the in-app bell is complete.
+  //
+  // One deterministic doc per (conversation, recipient): each new message
+  // overwrites it (bumping createdAt and re-marking unread) instead of piling
+  // up, so a busy thread can't flood the bell or crowd out like/comment alerts.
+  const convKey = String(message.conversationId || '').replace(/\//g, '_');
   await Promise.allSettled(recipientIds.map((rid) =>
-    addNotification(db, {
+    db.collection('notifications').doc(`msg_${convKey}_${rid}`).set({
       recipientId: rid,
       type: 'message',
       actorId: message.senderId || '',
       actorName: message.senderName || 'Message',
+      actorAvatar: null,
       conversationId: message.conversationId,
+      read: false,
+      createdAt: FieldValue.serverTimestamp(),
     })
   ));
 
@@ -1148,8 +1165,10 @@ function cleanBroadcast(data) {
   // becomes the href of a bell entry shown to every member, so an unsafe scheme
   // would be stored XSS in each member's authenticated session.
   if (url && !/^https?:\/\//i.test(url)) url = null;
-  // A safe in-app route hint the bell understands; falls back to plain info.
-  const allowedRoutes = ['info', 'quiz', 'feed', 'update', 'messages'];
+  // A safe in-app route hint the bell + tap handlers understand; falls back to
+  // plain info. These MUST match the kinds handled in notifications.ts / the
+  // service worker / the bell tap handler.
+  const allowedRoutes = ['info', 'quiz', 'feed', 'update', 'message'];
   const route = data && allowedRoutes.includes(data.route) ? data.route : 'info';
   if (!title || !body) throw new HttpsError('invalid-argument', 'Titre et message requis.');
   return { title, body, url, route };

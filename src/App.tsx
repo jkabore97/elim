@@ -1209,6 +1209,10 @@ function AppInner() {
         setShowQuiz(true)
       } else if (route.kind === 'message') {
         setActiveTab('messages')
+      } else if (route.kind === 'feed') {
+        setActiveTab('feed')
+      } else if (route.kind === 'url') {
+        if (route.url && /^https?:\/\//i.test(route.url)) window.open(route.url, '_blank', 'noopener,noreferrer')
       } else {
         setActiveTab('feed')
         if (route.postId) {
@@ -1633,6 +1637,17 @@ function AppInner() {
 
   // Tapping a notification lands the person on the relevant post - opening its
   // comments when the notification is about a comment/reply/comment-like.
+  // Tapping a broadcast announcement routes by its kind (or opens its link).
+  const handleAnnouncementTap = (a: Announcement) => {
+    setShowNotifications(false)
+    const safeUrl = a.url && /^https?:\/\//i.test(a.url) ? a.url : null
+    if (a.kind === 'quiz') { setShowQuiz(true); return }
+    if (a.kind === 'message') { setActiveTab('messages'); return }
+    if (a.kind === 'feed') { setActiveTab('feed'); return }
+    if (safeUrl) { window.open(safeUrl, '_blank', 'noopener,noreferrer'); return }
+    setActiveTab('feed')
+  }
+
   const handleNotificationTap = (n: AppNotification) => {
     setShowNotifications(false)
     // A message notification lands on Messages (no post to open).
@@ -2288,6 +2303,7 @@ function AppInner() {
           newPostCount={seenNewPosts.length}
           onClose={() => setShowNotifications(false)}
           onTap={handleNotificationTap}
+          onTapAnnouncement={handleAnnouncementTap}
           onDismiss={dismissNotification}
           onDismissAnnouncement={dismissAnnouncement}
           onViewNewPosts={() => { setShowNotifications(false); setActiveTab('feed') }} />
@@ -2797,12 +2813,14 @@ function BroadcastPanel() {
   const [status, setStatus] = useState<'idle' | 'sent' | 'scheduled'>('idle')
   const [error, setError] = useState('')
   const [pending, setPending] = useState<ScheduledBroadcast[]>([])
+  const idleTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   useEffect(() => {
     const q = query(collection(db, 'scheduledBroadcasts'), where('sent', '==', false), orderBy('sendAt', 'asc'))
     return onSnapshot(q, snap => setPending(snap.docs.map(d => ({ id: d.id, ...d.data() } as ScheduledBroadcast))),
       () => { /* rules/offline - just show an empty pending list */ })
   }, [])
+  useEffect(() => () => { if (idleTimer.current) clearTimeout(idleTimer.current) }, [])
 
   const reset = () => { setTitle(''); setBody(''); setUrl(''); setRoute('info'); setWhen('') }
 
@@ -2822,7 +2840,7 @@ function BroadcastPanel() {
         setStatus('sent')
       }
       reset()
-      setTimeout(() => setStatus('idle'), 4000)
+      idleTimer.current = setTimeout(() => setStatus('idle'), 4000)
     } catch (e: any) {
       setError(e?.message || t('broadcast.failed'))
     } finally { setSending(false) }
@@ -2835,7 +2853,7 @@ function BroadcastPanel() {
     { id: 'info', label: t('broadcast.routeInfo') },
     { id: 'quiz', label: t('broadcast.routeQuiz') },
     { id: 'feed', label: t('broadcast.routeFeed') },
-    { id: 'messages', label: t('broadcast.routeMessages') },
+    { id: 'message', label: t('broadcast.routeMessages') },
     { id: 'update', label: t('broadcast.routeUpdate') },
   ]
 
@@ -4252,12 +4270,13 @@ function ReportsPanel({ user }: { user: AppUser }) {
   )
 }
 
-function NotificationsPanel({ notifications, announcements, newPostCount, onClose, onTap, onDismiss, onDismissAnnouncement, onViewNewPosts }: {
+function NotificationsPanel({ notifications, announcements, newPostCount, onClose, onTap, onTapAnnouncement, onDismiss, onDismissAnnouncement, onViewNewPosts }: {
   notifications: AppNotification[]
   announcements: Announcement[]
   newPostCount: number
   onClose: () => void
   onTap: (n: AppNotification) => void
+  onTapAnnouncement: (a: Announcement) => void
   onDismiss: (id: string) => void
   onDismissAnnouncement: (id: string) => void
   onViewNewPosts: () => void
@@ -4304,14 +4323,11 @@ function NotificationsPanel({ notifications, announcements, newPostCount, onClos
                 </div>
               </>
             )
-            // Defence in depth: only ever follow http(s) links, never
-            // javascript:/data: (the server already strips these).
-            const safeUrl = a.url && /^https?:\/\//i.test(a.url) ? a.url : null
             return (
               <div key={a.id} className="flex items-start gap-3 px-5 py-3.5 border-b border-slate-50">
-                {safeUrl
-                  ? <a href={safeUrl} target="_blank" rel="noopener noreferrer" className="flex items-start gap-3 flex-1 min-w-0">{inner}</a>
-                  : <div className="flex items-start gap-3 flex-1 min-w-0">{inner}</div>}
+                {/* Routes by kind or opens the link via the handler (which
+                    only follows http(s) urls). */}
+                <button onClick={() => onTapAnnouncement(a)} className="flex items-start gap-3 flex-1 text-left min-w-0">{inner}</button>
                 <button onClick={() => onDismissAnnouncement(a.id)} aria-label={t('post.delete')}
                   className="p-1 text-slate-300 hover:text-slate-500 shrink-0"><X size={15} /></button>
               </div>
