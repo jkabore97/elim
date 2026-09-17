@@ -790,6 +790,25 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
 
 // ==================== AUTH SCREENS ====================
 // Full-screen version — shown on phone & tablet (the "app style" experience).
+// "Get it on Google Play" button. Shown on the web welcome/landing pages only -
+// never inside the native app, where downloading the app makes no sense.
+function GooglePlayBadge({ className = '' }: { className?: string }) {
+  const { t } = useLanguage()
+  if (Capacitor.isNativePlatform()) return null
+  return (
+    <a href="https://play.google.com/store/apps/details?id=com.elim.app"
+      target="_blank" rel="noopener noreferrer"
+      aria-label={t('landing.downloadApp')}
+      className={`inline-flex items-center gap-3 px-5 py-3 rounded-2xl bg-slate-900 hover:bg-slate-800 text-white shadow-lg transition ${className}`}>
+      <Play size={22} fill="currentColor" className="shrink-0" />
+      <span className="text-left leading-tight">
+        <span className="block text-[10px] uppercase tracking-wide opacity-80">{t('landing.getItOn')}</span>
+        <span className="block text-base font-bold -mt-0.5">Google Play</span>
+      </span>
+    </a>
+  )
+}
+
 function AuthScreen({ onSuccess }: { onSuccess: (user: AppUser) => void }) {
   const { t } = useLanguage()
   const [showWelcome, setShowWelcome] = useState(true)
@@ -831,6 +850,13 @@ function AuthScreen({ onSuccess }: { onSuccess: (user: AppUser) => void }) {
               className="mt-10 w-full py-4 rounded-2xl bg-white hover:bg-white/95 text-affirm-700 font-bold text-[15px] transition flex items-center justify-center gap-2 shadow-xl shadow-orange-900/20">
               {t('landing.getStarted')} <ArrowRight size={18} />
             </button>
+
+            {!Capacitor.isNativePlatform() && (
+              <div className="mt-6 flex flex-col items-center gap-2">
+                <p className="text-white/70 text-xs">{t('landing.downloadHint')}</p>
+                <GooglePlayBadge />
+              </div>
+            )}
           </div>
         </div>
       ) : (
@@ -930,6 +956,12 @@ function LandingPage({ onSuccess }: { onSuccess: (user: AppUser) => void }) {
               {t('auth.signIn')}
             </button>
           </div>
+          {!Capacitor.isNativePlatform() && (
+            <div className="mt-8 flex flex-col items-center gap-2.5">
+              <p className="text-slate-500 text-sm">{t('landing.downloadHint')}</p>
+              <GooglePlayBadge />
+            </div>
+          )}
         </div>
       </section>
 
