@@ -1472,9 +1472,10 @@ function AppInner() {
     }, () => setComments([]))
   }, [user?.uid, user?.role, activeCommentsPost])
 
-  // Pending church signups (admin only)
+  // Pending church signups (staff only - admins AND pastors, who both process
+  // approvals and are both shown the Approvals section).
   useEffect(() => {
-    if (!user || user.role !== 'admin') return
+    if (!user || (user.role !== 'admin' && user.role !== 'pastor')) return
     const q = query(collection(db, 'users'), where('role', '==', 'pending_church'))
     const unsub = onSnapshot(q, (snap) => {
       setPendingChurches(snap.docs.map(d => ({ ...d.data() } as AppUser)))
@@ -2598,7 +2599,7 @@ function ProfileTab({ user, onProfileUpdated, onLogout }: {
         <h2 className="text-xl font-bold text-slate-900">{user.displayName}</h2>
         <p className="text-slate-400 text-sm mt-1">{user.email}</p>
         <div className="mt-4 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-affirm-50 text-affirm-700 text-xs font-semibold">
-          {user.role === 'church' ? <><CheckCircle2 size={14} /> {t('app.verifiedChurch')}</> : user.role === 'admin' ? <><ShieldCheck size={14} /> {t('app.admin')}</> : t('app.member')}
+          {user.role === 'church' ? <><CheckCircle2 size={14} /> {t('app.verifiedChurch')}</> : user.role === 'admin' ? <><ShieldCheck size={14} /> {t('app.admin')}</> : user.role === 'pastor' ? <><ShieldCheck size={14} /> {t('role.pastor')}</> : t('app.member')}
         </div>
         {avatarError && <p className="mt-4 text-xs text-red-500 bg-red-50 rounded-xl px-3 py-2 inline-block">{avatarError}</p>}
       </div>
