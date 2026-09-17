@@ -65,6 +65,12 @@ function rememberKidName(name: string): void {
 function forgetKidName(name: string): void {
   const list = loadKidNames().filter(n => kidKey(n) !== kidKey(name))
   try { storageSet(KID_NAMES_KEY, JSON.stringify(list)) } catch { /* ignore */ }
+  // Also clear the legacy single-name slot when it matches - otherwise
+  // loadKidNames() re-adds that child on the next read and it "comes back"
+  // after deletion. (Blanking it is enough; loadKidNames ignores an empty one.)
+  try {
+    if (kidKey(storageGet(KID_NAME_KEY) || '') === kidKey(name)) storageSet(KID_NAME_KEY, '')
+  } catch { /* ignore */ }
 }
 
 type Screen = 'home' | 'difficulty' | 'kidname' | 'playing' | 'results' | 'trophies' | 'leaders' | 'palmares'
