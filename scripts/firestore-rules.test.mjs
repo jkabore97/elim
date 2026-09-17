@@ -38,6 +38,10 @@ await env.withSecurityRulesDisabled(async (ctx) => {
   await setDoc(doc(db, 'notifications/n1'), { recipientId: 'member1', type: 'post_like', actorId: 'member2', actorName: 'M2', postId: 'p1', read: false })
   await setDoc(doc(db, 'notifications/n2'), { recipientId: 'member2', type: 'post_like', actorId: 'member1', actorName: 'M1', postId: 'p1', read: false })
   await setDoc(doc(db, 'config/donation'), { title: 'Give', providers: [] })
+  await setDoc(doc(db, 'quizKids/wk1__member1__leo'), { kidsWeekId: 'wk1', uid: 'member1', parentName: 'M1', childName: 'Leo', points: 10 })
+  await setDoc(doc(db, 'quizKids/wk1__member2__mia'), { kidsWeekId: 'wk1', uid: 'member2', parentName: 'M2', childName: 'Mia', points: 5 })
+  await setDoc(doc(db, 'announcements/a1'), { title: 'Hi', body: 'x', createdAt: serverTimestamp() })
+  await setDoc(doc(db, 'scheduledBroadcasts/s1'), { title: 'S', body: 'x', sent: false, sendAt: serverTimestamp() })
 })
 
 const m1 = env.authenticatedContext('member1').firestore()
@@ -141,6 +145,40 @@ await check('member CANNOT verify a donation',
   assertFails(updateDoc(doc(m1, 'donations/d1'), { status: 'verified' })))
 await check('nobody can delete a donation',
   assertFails(deleteDoc(doc(pastor, 'donations/d1'))))
+
+console.log('SEC-KIDS quizKids delete/create:')
+await check('parent creates own kid score',
+  assertSucceeds(setDoc(doc(m1, 'quizKids/wk2__member1__leo'), { kidsWeekId: 'wk2', uid: 'member1', parentName: 'M1', childName: 'Leo', points: 3 })))
+await check('parent CANNOT forge another parent kid score',
+  assertFails(setDoc(doc(m1, 'quizKids/wk2__member2__mia'), { kidsWeekId: 'wk2', uid: 'member2', parentName: 'M2', childName: 'Mia', points: 3 })))
+await check('parent deletes OWN kid score',
+  assertSucceeds(deleteDoc(doc(m1, 'quizKids/wk1__member1__leo'))))
+await check('parent CANNOT delete another parent kid score',
+  assertFails(deleteDoc(doc(m1, 'quizKids/wk1__member2__mia'))))
+
+console.log('SEC-BROADCAST announcements + scheduled + autoNotifs:')
+await check('member reads an announcement',
+  assertSucceeds(getDoc(doc(m1, 'announcements/a1'))))
+await check('member CANNOT write an announcement',
+  assertFails(setDoc(doc(m1, 'announcements/a2'), { title: 'x', body: 'y' })))
+await check('member CANNOT read scheduledBroadcasts',
+  assertFails(getDoc(doc(m1, 'scheduledBroadcasts/s1'))))
+await check('member CANNOT create a scheduledBroadcast',
+  assertFails(setDoc(doc(m1, 'scheduledBroadcasts/s2'), { title: 'x', body: 'y', sent: false, sendAt: serverTimestamp() })))
+await check('admin creates a scheduledBroadcast (sent=false)',
+  assertSucceeds(setDoc(doc(pastor, 'scheduledBroadcasts/s3'), { title: 'x', body: 'y', sent: false, sendAt: serverTimestamp() })))
+await check('admin CANNOT create an already-sent scheduledBroadcast',
+  assertFails(setDoc(doc(pastor, 'scheduledBroadcasts/s4'), { title: 'x', body: 'y', sent: true, sendAt: serverTimestamp() })))
+await check('admin CANNOT update a scheduledBroadcast (dispatcher only)',
+  assertFails(updateDoc(doc(pastor, 'scheduledBroadcasts/s3'), { sent: true })))
+await check('admin deletes a scheduledBroadcast',
+  assertSucceeds(deleteDoc(doc(pastor, 'scheduledBroadcasts/s1'))))
+await check('member reads autoNotifs config',
+  assertSucceeds(getDoc(doc(m1, 'config/autoNotifs'))))
+await check('member CANNOT write autoNotifs config',
+  assertFails(setDoc(doc(m1, 'config/autoNotifs'), { quizReminder: { enabled: false } })))
+await check('admin writes autoNotifs config',
+  assertSucceeds(setDoc(doc(pastor, 'config/autoNotifs'), { quizReminder: { title: 'X', body: 'Y', enabled: true } })))
 
 await env.cleanup()
 console.log(`\n${pass} passed, ${fail} failed`)
