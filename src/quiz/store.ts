@@ -37,8 +37,16 @@ function clean<T extends object>(o: T): T {
 // A short, stable key for a child's name (accents/case/space-insensitive), so
 // the same child keeps the same weekly row even with minor typing differences.
 export function childSlug(name: string): string {
-  return (name || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '')
-    .replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 40) || 'x'
+  const base = (name || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '')
+    .replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 40)
+  if (base) return base
+  // Non-Latin scripts (Arabic/Chinese/Hindi, etc.) strip to empty above; derive
+  // a stable short id from the normalized name so two distinct names don't
+  // collapse to the same key (which would merge their scores).
+  const norm = (name || '').trim().toLowerCase()
+  let h = 0
+  for (let i = 0; i < norm.length; i++) h = (h * 31 + norm.charCodeAt(i)) >>> 0
+  return 'k' + h.toString(36)
 }
 
 // ---- Career profile ---------------------------------------------------------
