@@ -63,6 +63,22 @@ function churchDayKey(d = new Date()) {
 // Send one notification to every user who has push enabled. Mirrors the
 // per-event senders: multicast in batches of 500, then prune dead tokens.
 async function broadcastPush(db, { title, body, data }) {
+  // Record every broadcast in the in-app notification center too, so members who
+  // miss (or clear) the system push still find it in the bell. A single shared
+  // doc that all clients read - read state is tracked per-device on the client -
+  // so there's no write-per-user fan-out. Best-effort: never fail the push.
+  try {
+    await db.collection('announcements').add({
+      title,
+      body,
+      kind: (data && data.kind) || 'info',
+      url: (data && data.url) || null,
+      createdAt: FieldValue.serverTimestamp(),
+    });
+  } catch (e) {
+    console.error('announcement log failed', e);
+  }
+
   const usersSnap = await db.collection('users').where('notificationsEnabled', '==', true).get();
   const tokenSet = new Set();
   usersSnap.forEach((doc) => {

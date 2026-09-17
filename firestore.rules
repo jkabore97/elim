@@ -401,6 +401,16 @@ service cloud.firestore {
       allow delete: if isSignedIn() && resource.data.recipientId == request.auth.uid;
     }
 
+    // Broadcast announcements (quiz reminders, champions, app-update notices):
+    // one shared doc per broadcast, readable by every signed-in member so the
+    // in-app bell can show it. Written ONLY by the broadcastPush Cloud Function
+    // (Admin SDK, which bypasses rules); clients can never create or change one.
+    // Read state is tracked per-device on the client, not stored here.
+    match /announcements/{announceId} {
+      allow read: if isSignedIn();
+      allow write: if false;
+    }
+
     // ---- Donations (declarations) ----
     // A member declares a donation AFTER paying outside the app (mobile
     // money / PayPal / card link) - the app never touches the money itself.

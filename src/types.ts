@@ -221,6 +221,19 @@ export interface AppNotification {
   createdAt: any;
 }
 
+// A broadcast message (quiz reminder, champion, app-update announcement…) shown
+// to everyone. Sent as a push AND recorded here so it's still in the in-app bell
+// if the system notification was missed. One shared doc for all members; the
+// read state is tracked per-device on the client, not written per user.
+export interface Announcement {
+  id: string;
+  title: string;
+  body: string;
+  kind?: string;
+  url?: string | null;
+  createdAt: any;
+}
+
 
 // Donation details, editable by an admin and shown to everyone in the
 // donation sheet. Stored as a single doc at config/donation.
