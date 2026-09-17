@@ -105,9 +105,17 @@ export default function BibleQuiz({ user, onClose }: { user: AppUser; onClose: (
     else backToHome()
   })
 
+  // profileReady gates starting an adult game until the real career profile has
+  // loaded - otherwise a game finished on the empty placeholder would overwrite
+  // the server's points on commit. A fallback flips it true so a slow/failed
+  // snapshot never locks the player out.
+  const [profileReady, setProfileReady] = useState(false)
   useEffect(() => {
-    const unsub = subscribeProfile(user.uid, user.displayName, user.avatar, setProfile)
-    return unsub
+    const unsub = subscribeProfile(user.uid, user.displayName, user.avatar,
+      p => { setProfile(p); setProfileReady(true) },
+      () => setProfileReady(true))
+    const fallback = setTimeout(() => setProfileReady(true), 6000)
+    return () => { unsub(); clearTimeout(fallback) }
   }, [user.uid, user.displayName, user.avatar])
 
   const dailyDone = profile.lastDailyDate === todayKey()
@@ -202,7 +210,7 @@ export default function BibleQuiz({ user, onClose }: { user: AppUser; onClose: (
         <div className="min-h-full max-w-lg mx-auto flex flex-col">
           {screen === 'home' && (
             <HomeScreen
-              profile={profile} dailyDone={dailyDone} loading={loading}
+              profile={profile} dailyDone={dailyDone} loading={loading || !profileReady}
               onClose={onClose}
               onPickCategory={c => { setPickedCat(c); setScreen('difficulty') }}
               onDaily={startDaily}
@@ -478,13 +486,18 @@ function KidNameScreen({ loading, onBack, onStart, onDeleteKid, onRenameKid }: {
   const [err, setErr] = useState('')
   const pressTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
   const longPressed = useRef(false)
+  // When the menu opened, so the synthetic click that follows a touch long-press
+  // (which hit-tests to the just-rendered backdrop) doesn't immediately close it.
+  const menuOpenedAt = useRef(0)
 
   useEffect(() => () => { if (pressTimer.current) clearTimeout(pressTimer.current) }, [])
 
+  const openMenu = (n: string) => { menuOpenedAt.current = Date.now(); setMenuFor(n) }
+  const closeMenu = () => { if (Date.now() - menuOpenedAt.current < 500) return; setMenuFor(null) }
   const refresh = () => { const next = loadKidNames(); setSaved(next); if (next.length === 0) setAdding(true) }
   const startPress = (n: string) => {
     longPressed.current = false
-    pressTimer.current = setTimeout(() => { longPressed.current = true; setMenuFor(n) }, 500)
+    pressTimer.current = setTimeout(() => { longPressed.current = true; openMenu(n) }, 500)
   }
   const endPress = () => { if (pressTimer.current) { clearTimeout(pressTimer.current); pressTimer.current = null } }
   const tapKid = (n: string) => { if (longPressed.current) { longPressed.current = false; return } if (!loading) onStart(n) }
@@ -534,7 +547,7 @@ function KidNameScreen({ loading, onBack, onStart, onDeleteKid, onRenameKid }: {
                   onClick={() => tapKid(n)}
                   onPointerDown={() => startPress(n)}
                   onPointerUp={endPress} onPointerLeave={endPress} onPointerCancel={endPress}
-                  onContextMenu={e => { e.preventDefault(); endPress(); setMenuFor(n) }}
+                  onContextMenu={e => { e.preventDefault(); endPress(); openMenu(n) }}
                   disabled={loading}
                   className="quiz-shine w-full rounded-2xl bg-white text-slate-800 font-extrabold text-lg py-4 px-4 shadow-lg flex items-center justify-center gap-2 disabled:opacity-60 truncate select-none">
                   🎈 <span className="truncate">{n}</span>
@@ -571,7 +584,7 @@ function KidNameScreen({ loading, onBack, onStart, onDeleteKid, onRenameKid }: {
 
       {/* Long-press options: edit or delete */}
       {menuFor && (
-        <div className="fixed inset-0 z-50 bg-black/50 flex items-end sm:items-center justify-center" onClick={() => setMenuFor(null)}>
+        <div className="fixed inset-0 z-50 bg-black/50 flex items-end sm:items-center justify-center" onClick={closeMenu}>
           <div className="w-full max-w-xs bg-white rounded-t-3xl sm:rounded-3xl p-4 sm:m-4 shadow-2xl" onClick={e => e.stopPropagation()}>
             <p className="text-center font-extrabold text-slate-800 mb-3 truncate">🎈 {menuFor}</p>
             <button onClick={() => beginEdit(menuFor)} className="w-full flex items-center gap-3 px-4 py-3 rounded-2xl hover:bg-slate-100 text-slate-800 font-semibold">

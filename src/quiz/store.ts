@@ -9,9 +9,9 @@
 //    are LEARNING points (new questions only) and reset each week simply
 //    because the query filters by the current weekId.
 //  - quizKids/{kidsWeekId__uid__childSlug} : the kids league, keyed by parent
-//    account + child name; a Sunday-Saturday week; points count each question
-//    once per week (weekly-distinct) so children are rewarded for covering
-//    ground, not for replaying.
+//    account + child name; a Sunday-Saturday week. Kids earn points for EVERY
+//    correct answer, every game (see commitKidsGame), so young children stay
+//    encouraged; the weekly doc simply accumulates the week's points.
 //  - quizChampions/{...} : weekly champion snapshots, written only by Cloud
 //    Functions at week close; world-readable for the Palmarès.
 import {
