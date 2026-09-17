@@ -45,7 +45,7 @@ import { subscribeProfile as subscribeQuizProfile } from './quiz/store'
 import { todayKey as quizTodayKey } from './quiz/engine'
 import { subscribeGroups } from './groups'
 import { GroupsPanel } from './Groups'
-import type { Post, Comment, AppUser, ActivityLog, AppNotification, DonationConfig, DonationProvider, Report, DonationType, Donation, Group } from './types'
+import type { Post, Comment, AppUser, ActivityLog, AppNotification, Announcement, DonationConfig, DonationProvider, Report, DonationType, Donation, Group } from './types'
 import { LanguageProvider, useLanguage, LANGUAGES, type Language } from './i18n'
 
 function timeAgo(date: any) {
@@ -1088,6 +1088,13 @@ function AppInner() {
   const [likedPostIds, setLikedPostIds] = useState<Set<string>>(new Set())
   const [likedCommentIds, setLikedCommentIds] = useState<Set<string>>(new Set())
   const [notifications, setNotifications] = useState<AppNotification[]>([])
+  // Broadcast announcements (shared docs) + the ids this device has already
+  // seen. Read state is per-device (localStorage), since announcements are one
+  // shared doc for everyone rather than a per-user record we could flag read.
+  const [announcements, setAnnouncements] = useState<Announcement[]>([])
+  const [seenAnnounceIds, setSeenAnnounceIds] = useState<Set<string>>(() => {
+    try { return new Set(JSON.parse(storageGet('elim_seen_announce') || '[]')) } catch { return new Set() }
+  })
   const [showNotifications, setShowNotifications] = useState(false)
   const [showQuiz, setShowQuiz] = useState(false)
   // Red dot on the Game button while today's daily challenge is unplayed.
@@ -1384,6 +1391,17 @@ function AppInner() {
     return unsub
   }, [user?.uid, user?.role])
 
+  // Broadcast announcements shared with everyone (quiz reminders, champions,
+  // app-update notices). Shown in the bell so a missed system push isn't lost.
+  useEffect(() => {
+    if (!user || user.role === 'pending_church') return
+    const q = query(collection(db, 'announcements'), orderBy('createdAt', 'desc'), limit(30))
+    const unsub = onSnapshot(q, (snap) => {
+      setAnnouncements(snap.docs.map(d => ({ id: d.id, ...d.data() } as Announcement)))
+    }, () => { /* offline/rules - the bell just shows personal notifs */ })
+    return unsub
+  }, [user?.uid, user?.role])
+
   // Donation details (mobile-money numbers), maintained by an admin.
   useEffect(() => {
     if (!user || user.role === 'pending_church') return
@@ -1576,16 +1594,25 @@ function AppInner() {
   const newPosts = posts.filter(p =>
     p.section !== 'musique' && p.churchId !== user?.uid && toMs(p.createdAt) > lastSeenFeed)
   const unreadNotifs = notifications.filter(n => !n.read).length
-  const bellCount = unreadNotifs + newPosts.length
+  const unseenAnnounce = announcements.filter(a => !seenAnnounceIds.has(a.id)).length
+  const bellCount = unreadNotifs + newPosts.length + unseenAnnounce
 
-  // Opening the bell clears both signals: notifications are marked read, and
-  // the feed "last seen" marker moves to now. The new-post list is snapshotted
-  // first so the panel can still show it after the marker has moved.
+  // Opening the bell clears every signal: personal notifications are marked
+  // read, announcements are marked seen (per device), and the feed "last seen"
+  // marker moves to now. The new-post list is snapshotted first so the panel
+  // can still show it after the marker has moved.
   const openNotifications = () => {
     setSeenNewPosts(newPosts)
     setShowNotifications(true)
     const unread = notifications.filter(n => !n.read)
     unread.forEach(n => { updateDoc(doc(db, 'notifications', n.id), { read: true }).catch(() => {}) })
+    if (announcements.length) {
+      // Keep the stored set bounded so it can't grow forever on a device.
+      const ids = [...new Set([...seenAnnounceIds, ...announcements.map(a => a.id)])].slice(-100)
+      const next = new Set(ids)
+      setSeenAnnounceIds(next)
+      try { storageSet('elim_seen_announce', JSON.stringify(ids)) } catch { /* storage blocked */ }
+    }
     const now = Date.now()
     setLastSeenFeed(now)
     storageSet('elim_lastSeenFeed', String(now))
@@ -2226,6 +2253,7 @@ function AppInner() {
       {showNotifications && (
         <NotificationsPanel
           notifications={notifications}
+          announcements={announcements}
           newPostCount={seenNewPosts.length}
           onClose={() => setShowNotifications(false)}
           onTap={handleNotificationTap}
@@ -4045,8 +4073,9 @@ function ReportsPanel({ user }: { user: AppUser }) {
   )
 }
 
-function NotificationsPanel({ notifications, newPostCount, onClose, onTap, onDismiss, onViewNewPosts }: {
+function NotificationsPanel({ notifications, announcements, newPostCount, onClose, onTap, onDismiss, onViewNewPosts }: {
   notifications: AppNotification[]
+  announcements: Announcement[]
   newPostCount: number
   onClose: () => void
   onTap: (n: AppNotification) => void
@@ -4078,9 +4107,27 @@ function NotificationsPanel({ notifications, newPostCount, onClose, onTap, onDis
               </div>
             </button>
           )}
-          {notifications.length === 0 && newPostCount === 0 && (
+          {notifications.length === 0 && announcements.length === 0 && newPostCount === 0 && (
             <p className="text-center text-slate-400 text-sm py-14">{t('notif.none')}</p>
           )}
+          {/* Broadcast announcements (church-wide): update notices, quiz
+              reminders, champions. Tapping one with a link opens it. */}
+          {announcements.map(a => {
+            const inner = (
+              <>
+                <div className="w-9 h-9 rounded-full bg-affirm-100 flex items-center justify-center text-affirm-600 shrink-0"><Sparkles size={16} /></div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm font-semibold text-slate-800 leading-snug">{a.title}</p>
+                  <p className="text-xs text-slate-500 mt-0.5 whitespace-pre-line break-words">{a.body}</p>
+                  <p className="text-[11px] text-slate-400 mt-0.5">{timeAgo(a.createdAt)}</p>
+                </div>
+              </>
+            )
+            return a.url
+              ? <a key={a.id} href={a.url} target="_blank" rel="noopener noreferrer"
+                  className="flex items-start gap-3 px-5 py-3.5 border-b border-slate-50 hover:bg-slate-50">{inner}</a>
+              : <div key={a.id} className="flex items-start gap-3 px-5 py-3.5 border-b border-slate-50">{inner}</div>
+          })}
           {notifications.map(n => {
             const RowIcon = n.type.includes('like') ? Heart : MessageCircle
             const isLike = n.type.includes('like')
