@@ -1143,7 +1143,11 @@ async function requireAdmin(request) {
 function cleanBroadcast(data) {
   const title = String((data && data.title) || '').trim().slice(0, 120);
   const body = String((data && data.body) || '').trim().slice(0, 500);
-  const url = data && data.url ? String(data.url).trim().slice(0, 500) : null;
+  let url = data && data.url ? String(data.url).trim().slice(0, 500) : null;
+  // Only http(s) links. Rejecting javascript:/data:/etc. is critical: this url
+  // becomes the href of a bell entry shown to every member, so an unsafe scheme
+  // would be stored XSS in each member's authenticated session.
+  if (url && !/^https?:\/\//i.test(url)) url = null;
   // A safe in-app route hint the bell understands; falls back to plain info.
   const allowedRoutes = ['info', 'quiz', 'feed', 'update', 'messages'];
   const route = data && allowedRoutes.includes(data.route) ? data.route : 'info';
@@ -1172,16 +1176,28 @@ exports.dispatchScheduledBroadcasts = onSchedule(
       .limit(20)
       .get();
     for (const d of due.docs) {
-      const b = d.data();
+      // Sanitize the same way sendBroadcast does (length bounds, route
+      // allowlist, http(s)-only url) - the doc was written straight to
+      // Firestore by the client, so it never passed through cleanBroadcast.
+      let clean;
+      try {
+        clean = cleanBroadcast(d.data());
+      } catch (e) {
+        // Malformed (e.g. missing title/body): don't retry it every 5 minutes.
+        console.error('invalid scheduled broadcast', d.id, e);
+        await d.ref.update({ sent: true, sentAt: FieldValue.serverTimestamp(), error: 'invalid' }).catch(() => {});
+        continue;
+      }
       try {
         await broadcastPush(db, {
-          title: b.title,
-          body: b.body,
-          data: { kind: b.route || 'info', ...(b.url ? { url: b.url } : {}) },
+          title: clean.title,
+          body: clean.body,
+          data: { kind: clean.route, ...(clean.url ? { url: clean.url } : {}) },
         });
         await d.ref.update({ sent: true, sentAt: FieldValue.serverTimestamp() });
       } catch (e) {
-        console.error('scheduled broadcast failed', d.id, e);
+        // Transient send failure: leave unsent so the next tick retries.
+        console.error('scheduled broadcast send failed', d.id, e);
       }
     }
   }

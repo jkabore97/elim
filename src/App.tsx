@@ -4304,10 +4304,13 @@ function NotificationsPanel({ notifications, announcements, newPostCount, onClos
                 </div>
               </>
             )
+            // Defence in depth: only ever follow http(s) links, never
+            // javascript:/data: (the server already strips these).
+            const safeUrl = a.url && /^https?:\/\//i.test(a.url) ? a.url : null
             return (
               <div key={a.id} className="flex items-start gap-3 px-5 py-3.5 border-b border-slate-50">
-                {a.url
-                  ? <a href={a.url} target="_blank" rel="noopener noreferrer" className="flex items-start gap-3 flex-1 min-w-0">{inner}</a>
+                {safeUrl
+                  ? <a href={safeUrl} target="_blank" rel="noopener noreferrer" className="flex items-start gap-3 flex-1 min-w-0">{inner}</a>
                   : <div className="flex items-start gap-3 flex-1 min-w-0">{inner}</div>}
                 <button onClick={() => onDismissAnnouncement(a.id)} aria-label={t('post.delete')}
                   className="p-1 text-slate-300 hover:text-slate-500 shrink-0"><X size={15} /></button>
