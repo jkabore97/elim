@@ -762,6 +762,7 @@ const en = {
   "quiz.kidDeleteWarn": 'This also erases all their quiz scores. This cannot be undone.',
   "quiz.kidDeleteRetype": 'Type the name to confirm:',
   "quiz.kidNameMismatch": "The name doesn't match.",
+  "quiz.kidNameTaken": 'Another child already has that name.',
   "quiz.kidActionFailed": 'Something went wrong. Please try again.',
   "quiz.ranking": 'Ranking',
   "quiz.grand": 'Grand champion',

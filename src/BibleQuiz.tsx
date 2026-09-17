@@ -20,7 +20,7 @@ import {
 import {
   subscribeProfile, commitAdultGame, commitKidsGame, fetchTopScorer,
   fetchGrandLeaders, fetchCategoryLeaders, fetchKidsLeaders, fetchChampions,
-  deleteKidEverywhere, renameKidEverywhere,
+  deleteKidEverywhere, renameKidEverywhere, childSlug,
   type LeaderRow, type KidRow, type ChampionDoc, type TopScorer,
 } from './quiz/store'
 
@@ -31,9 +31,12 @@ const PLAY_URL = 'https://play.google.com/store/apps/details?id=com.elim.app'
 const KID_NAME_KEY = 'elim-quiz-kidname'
 const KID_NAMES_KEY = 'elim-quiz-kidnames'
 
-// A loose key so "Djemi" and "djemi " count as the same saved child.
+// Identity key for a saved child. Delegates to the server's childSlug so the
+// LOCAL name list and the SERVER score docs (keyed by childSlug) always agree -
+// otherwise two locally-distinct names could share one score doc, and deleting
+// one would hit the other.
 function kidKey(name: string): string {
-  return name.trim().toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '')
+  return childSlug(name)
 }
 
 function loadKidNames(): string[] {
@@ -470,6 +473,8 @@ function KidNameScreen({ loading, onBack, onStart, onDeleteKid, onRenameKid }: {
   const pressTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
   const longPressed = useRef(false)
 
+  useEffect(() => () => { if (pressTimer.current) clearTimeout(pressTimer.current) }, [])
+
   const refresh = () => { const next = loadKidNames(); setSaved(next); if (next.length === 0) setAdding(true) }
   const startPress = (n: string) => {
     longPressed.current = false
@@ -484,6 +489,12 @@ function KidNameScreen({ loading, onBack, onStart, onDeleteKid, onRenameKid }: {
   const saveEdit = async () => {
     const nn = editName.trim()
     if (!editing || nn.length < 2 || busy) return
+    // Don't let a rename collide with a DIFFERENT existing child - that would
+    // merge two children's scores into one. (A pure case/spacing tweak of the
+    // same child has the same key and is allowed.)
+    if (kidKey(nn) !== kidKey(editing) && saved.some(o => kidKey(o) === kidKey(nn))) {
+      setErr(t('quiz.kidNameTaken')); return
+    }
     setBusy(true); setErr('')
     try { await onRenameKid(editing, nn); setEditing(null); refresh() }
     catch { setErr(t('quiz.kidActionFailed')) }

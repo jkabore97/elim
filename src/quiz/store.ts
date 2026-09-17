@@ -16,7 +16,7 @@
 //    Functions at week close; world-readable for the Palmarès.
 import {
   doc, collection, onSnapshot, setDoc, query, where, orderBy, limit,
-  getDocs, getDoc, deleteDoc, serverTimestamp, increment, writeBatch,
+  getDocs, deleteDoc, serverTimestamp, increment, writeBatch,
 } from 'firebase/firestore'
 import { db } from '../firebase'
 import {
@@ -199,13 +199,16 @@ export async function renameKidEverywhere(uid: string, oldName: string, newName:
     const data = d.data() as any
     const weekId = data.kidsWeekId
     const newRef = doc(db, KIDS, `${weekId}__${uid}__${newSlug}`)
-    const existing = await getDoc(newRef)
-    const merged = (existing.exists() ? (existing.data() as any).points || 0 : 0) + (data.points || 0)
-    await setDoc(newRef, clean({
+    // set (incrementing onto any existing target for that week) + delete in ONE
+    // batch: atomic, so a retry can't orphan the old doc or double-count, and
+    // increment means a concurrent game commit on the target isn't lost.
+    const batch = writeBatch(db)
+    batch.set(newRef, clean({
       kidsWeekId: weekId, uid, parentName: data.parentName || '',
-      childName: newName, points: merged, updatedAt: serverTimestamp(),
-    }))
-    await deleteDoc(d.ref)
+      childName: newName, points: increment(data.points || 0), updatedAt: serverTimestamp(),
+    }), { merge: true })
+    batch.delete(d.ref)
+    await batch.commit()
   }
 }
 
