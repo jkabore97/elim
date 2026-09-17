@@ -2791,14 +2791,93 @@ function AppVersionPanel() {
   )
 }
 
-// The recurring notifications the app sends on its own (Cloud Scheduler). Shown
-// read-only so an admin can see everything that's already scheduled at a glance.
-const AUTO_NOTIFS: { title: string; when: string }[] = [
-  { title: 'Quiz Biblique — rappel du défi', when: 'Tous les jours · 08:00' },
-  { title: 'Encouragement du soir', when: 'Tous les jours · 20:00' },
-  { title: 'Champions de la semaine', when: 'Lundi · 08:00' },
-  { title: 'Champion enfant de la semaine', when: 'Dimanche · 08:00' },
+// The recurring notifications the app sends on its own (Cloud Scheduler). The
+// schedule is fixed in code, but the title/body/on-off are editable and stored
+// in config/autoNotifs. Defaults here MUST match the server defaults in
+// functions/index.js so the editor shows what actually goes out. `vars` lists
+// the placeholders the server fills at send time.
+const AUTO_DEFS: { key: string; when: string; vars?: string; title: string; body: string }[] = [
+  {
+    key: 'quizReminder', when: 'Tous les jours · 08:00',
+    title: 'Quiz Biblique 🏆',
+    body: "Le défi du jour t'attend : 5 questions, +50 points et un badge !",
+  },
+  {
+    key: 'topScore', when: 'Tous les jours · 20:00', vars: '{name}',
+    title: '📖 On apprend la Bible ensemble',
+    body: "Aujourd'hui, {name} a pris le temps d'étudier la Parole avec E.L.I.M Quiz Biblique. Et toi, quel verset vas-tu découvrir ce soir ? 📖🙏",
+  },
+  {
+    key: 'weeklyChampions', when: 'Lundi · 08:00', vars: '{name}, {count}',
+    title: '🏆 Champion de la semaine',
+    body: "Bravo à {name} et à nos {count} champions par catégorie pour tout ce qu'ils ont appris dans la Parole cette semaine ! Une nouvelle semaine pour grandir dans la Bible commence. 📖",
+  },
+  {
+    key: 'kidsChampion', when: 'Dimanche · 08:00', vars: '{name}',
+    title: '🎉 Champion du Quiz Enfants',
+    body: "Bravo {name} ! Champion des enfants cette semaine. Récompense aujourd'hui à l'école du dimanche. 👏",
+  },
 ]
+
+// Editable card for one automatic notification (title, body, on/off).
+function AutoNotifRow({ def }: { def: typeof AUTO_DEFS[number] }) {
+  const { t } = useLanguage()
+  const [title, setTitle] = useState(def.title)
+  const [body, setBody] = useState(def.body)
+  const [enabled, setEnabled] = useState(true)
+  const [loaded, setLoaded] = useState(false)
+  const [saving, setSaving] = useState(false)
+  const [saved, setSaved] = useState(false)
+
+  useEffect(() => {
+    getDoc(doc(db, 'config', 'autoNotifs')).then(s => {
+      const c = (s.exists() ? (s.data() as any)[def.key] : null) || {}
+      if (typeof c.title === 'string' && c.title.trim()) setTitle(c.title)
+      if (typeof c.body === 'string' && c.body.trim()) setBody(c.body)
+      setEnabled(c.enabled !== false)
+    }).catch(() => {}).finally(() => setLoaded(true))
+  }, [def.key])
+
+  const save = async () => {
+    if (saving) return
+    setSaving(true)
+    try {
+      await setDoc(doc(db, 'config', 'autoNotifs'),
+        { [def.key]: { title: title.trim(), body: body.trim(), enabled } }, { merge: true })
+      setSaved(true); setTimeout(() => setSaved(false), 2000)
+    } catch { /* rules/offline */ } finally { setSaving(false) }
+  }
+
+  const resetDefaults = () => { setTitle(def.title); setBody(def.body) }
+
+  return (
+    <div className={`bg-white rounded-xl border border-slate-100 p-3 ${!enabled ? 'opacity-70' : ''}`}>
+      <div className="flex items-center justify-between gap-2 mb-2">
+        <p className="text-[11px] font-bold text-slate-400 uppercase tracking-wide">{def.when}</p>
+        <label className="flex items-center gap-1.5 text-xs font-semibold text-slate-600 cursor-pointer">
+          <input type="checkbox" checked={enabled} onChange={e => setEnabled(e.target.checked)} className="accent-affirm-600 w-4 h-4" />
+          {enabled ? t('broadcast.enabled') : t('broadcast.disabled')}
+        </label>
+      </div>
+      <input value={title} onChange={e => setTitle(e.target.value)} maxLength={120} disabled={!loaded}
+        placeholder={t('broadcast.titlePlaceholder')}
+        className="w-full px-3 py-2 rounded-lg border border-slate-200 text-sm bg-white mb-2 focus:outline-none focus:ring-2 focus:ring-affirm-400" />
+      <textarea value={body} onChange={e => setBody(e.target.value)} maxLength={500} rows={3} disabled={!loaded}
+        placeholder={t('broadcast.bodyPlaceholder')}
+        className="w-full px-3 py-2 rounded-lg border border-slate-200 text-sm bg-white resize-none focus:outline-none focus:ring-2 focus:ring-affirm-400" />
+      {def.vars && <p className="text-[11px] text-slate-400 mt-1">{t('broadcast.varsHint')} <code className="text-affirm-600">{def.vars}</code></p>}
+      <div className="flex items-center gap-2 mt-2">
+        <button onClick={save} disabled={saving || !loaded}
+          className="px-3 py-1.5 rounded-lg bg-affirm-600 text-white font-semibold text-xs disabled:opacity-50">
+          {saved ? t('appVersion.saved') : t('post.save')}
+        </button>
+        <button onClick={resetDefaults} className="px-3 py-1.5 rounded-lg text-slate-500 font-semibold text-xs hover:bg-slate-100">
+          {t('broadcast.resetDefault')}
+        </button>
+      </div>
+    </div>
+  )
+}
 
 // Admin broadcast centre: compose a push to everyone (now or scheduled), see
 // the app's automatic notifications, and manage pending scheduled ones.
@@ -2840,6 +2919,7 @@ function BroadcastPanel() {
         setStatus('sent')
       }
       reset()
+      if (idleTimer.current) clearTimeout(idleTimer.current)
       idleTimer.current = setTimeout(() => setStatus('idle'), 4000)
     } catch (e: any) {
       setError(e?.message || t('broadcast.failed'))
@@ -2920,20 +3000,12 @@ function BroadcastPanel() {
         )}
       </div>
 
-      {/* Automatic (Cloud Scheduler) notifications - read-only reference */}
+      {/* Automatic (Cloud Scheduler) notifications - editable text + on/off */}
       <div className="glass-soft rounded-2xl p-4">
         <h3 className="font-bold text-slate-800 mb-1">{t('broadcast.autoTitle')}</h3>
         <p className="text-xs text-slate-500 mb-3">{t('broadcast.autoHint')}</p>
-        <div className="space-y-2">
-          {AUTO_NOTIFS.map((n, i) => (
-            <div key={i} className="flex items-center gap-3 bg-white rounded-xl border border-slate-100 px-3 py-2.5">
-              <div className="w-8 h-8 rounded-full bg-affirm-100 flex items-center justify-center text-affirm-600 shrink-0"><Bell size={15} /></div>
-              <div className="flex-1 min-w-0">
-                <p className="text-sm font-semibold text-slate-800 truncate">{n.title}</p>
-                <p className="text-[11px] text-slate-400">{n.when}</p>
-              </div>
-            </div>
-          ))}
+        <div className="space-y-3">
+          {AUTO_DEFS.map(def => <AutoNotifRow key={def.key} def={def} />)}
         </div>
       </div>
     </div>

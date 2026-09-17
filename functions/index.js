@@ -146,6 +146,36 @@ async function broadcastPush(db, { title, body, data }) {
   }
 }
 
+// ---- Editable automatic notifications ----
+// The recurring quiz/champion pushes read their title/body/enabled from
+// config/autoNotifs (admin-editable in the app). Anything not set falls back to
+// the built-in default, so the app still works before an admin touches it.
+async function loadAutoConfig(db) {
+  try {
+    const s = await db.collection('config').doc('autoNotifs').get();
+    return s.exists ? (s.data() || {}) : {};
+  } catch (_e) {
+    return {};
+  }
+}
+
+// Replace {name}, {count}, ... placeholders with the run's real values.
+function fillTemplate(str, vars) {
+  return String(str == null ? '' : str).replace(/\{(\w+)\}/g, (m, k) =>
+    (vars && Object.prototype.hasOwnProperty.call(vars, k)) ? String(vars[k]) : m);
+}
+
+// Returns { title, body } for an automatic notification, or null if an admin
+// has switched it off. `def` is the built-in default; `vars` fills placeholders.
+function resolveAuto(cfg, key, def, vars) {
+  const c = (cfg && cfg[key]) || {};
+  if (c.enabled === false) return null;
+  const title = fillTemplate((c.title != null && String(c.title).trim()) ? c.title : def.title, vars).slice(0, 120);
+  const body = fillTemplate((c.body != null && String(c.body).trim()) ? c.body : def.body, vars).slice(0, 500);
+  if (!title || !body) return null;
+  return { title, body };
+}
+
 exports.notifyOnNewPost = onDocumentCreated('posts/{postId}', async (event) => {
   const snapshot = event.data;
   if (!snapshot) return;
@@ -1107,11 +1137,13 @@ exports.dailyQuizReminder = onSchedule(
   { schedule: '0 8 * * *', timeZone: CHURCH_TZ, region: 'us-central1' },
   async () => {
     const db = getFirestore();
-    await broadcastPush(db, {
+    const cfg = await loadAutoConfig(db);
+    const m = resolveAuto(cfg, 'quizReminder', {
       title: 'Quiz Biblique 🏆',
       body: "Le défi du jour t'attend : 5 questions, +50 points et un badge !",
-      data: { kind: 'quiz' },
-    });
+    }, {});
+    if (!m) return; // admin switched it off
+    await broadcastPush(db, { title: m.title, body: m.body, data: { kind: 'quiz' } });
   }
 );
 
@@ -1265,11 +1297,13 @@ exports.dailyTopScore = onSchedule(
     const pts = top.dayPoints || 0;
     if (pts <= 0) return;
     const name = (top.displayName || 'Un membre').toString().slice(0, 40);
-    await broadcastPush(db, {
+    const cfg = await loadAutoConfig(db);
+    const m = resolveAuto(cfg, 'topScore', {
       title: '📖 On apprend la Bible ensemble',
-      body: `Aujourd'hui, ${name} a pris le temps d'étudier la Parole avec E.L.I.M Quiz Biblique. Et toi, quel verset vas-tu découvrir ce soir ? 📖🙏`,
-      data: { kind: 'quiz' },
-    });
+      body: "Aujourd'hui, {name} a pris le temps d'étudier la Parole avec E.L.I.M Quiz Biblique. Et toi, quel verset vas-tu découvrir ce soir ? 📖🙏",
+    }, { name });
+    if (!m) return;
+    await broadcastPush(db, { title: m.title, body: m.body, data: { kind: 'quiz' } });
   }
 );
 
@@ -1353,11 +1387,14 @@ exports.weeklyCategoryChampions = onSchedule(
     if (!created) return; // another run already recorded this week; don't re-announce
 
     const catCount = Object.keys(categories).length;
-    await broadcastPush(db, {
+    const cfg = await loadAutoConfig(db);
+    const m = resolveAuto(cfg, 'weeklyChampions', {
       title: '🏆 Champion de la semaine',
-      body: `Bravo à ${grand.name} et à nos ${catCount} champions par catégorie pour tout ce qu'ils ont appris dans la Parole cette semaine ! Une nouvelle semaine pour grandir dans la Bible commence. 📖`,
-      data: { kind: 'quiz' },
-    });
+      body: "Bravo à {name} et à nos {count} champions par catégorie pour tout ce qu'ils ont appris dans la Parole cette semaine ! Une nouvelle semaine pour grandir dans la Bible commence. 📖",
+    }, { name: grand.name, count: catCount });
+    // Recording/crowning already happened above; only the announcement is
+    // editable/skippable.
+    if (m) await broadcastPush(db, { title: m.title, body: m.body, data: { kind: 'quiz' } });
   }
 );
 
@@ -1388,10 +1425,12 @@ exports.kidsWeeklyChampion = onSchedule(
       winner: { uid: v.uid, childName, parentName, points: v.points },
     });
 
-    await broadcastPush(db, {
+    const cfg = await loadAutoConfig(db);
+    const m = resolveAuto(cfg, 'kidsChampion', {
       title: '🎉 Champion du Quiz Enfants',
-      body: `Bravo ${childName} ! Champion des enfants cette semaine. Récompense aujourd'hui à l'école du dimanche. 👏`,
-      data: { kind: 'quiz' },
-    });
+      body: "Bravo {name} ! Champion des enfants cette semaine. Récompense aujourd'hui à l'école du dimanche. 👏",
+    }, { name: childName });
+    // The winner is already recorded above; only the announcement is editable.
+    if (m) await broadcastPush(db, { title: m.title, body: m.body, data: { kind: 'quiz' } });
   }
 );
