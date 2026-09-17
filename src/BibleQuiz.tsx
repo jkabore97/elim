@@ -516,7 +516,11 @@ function KidNameScreen({ loading, onBack, onStart, onDeleteKid, onRenameKid }: {
     }
     setBusy(true); setErr('')
     try { await onRenameKid(editing, nn); setEditing(null); refresh() }
-    catch { setErr(t('quiz.kidActionFailed')) }
+    catch (e: any) {
+      // Server caught a collision the local list couldn't see (target child
+      // exists only on another device).
+      setErr(e?.message === 'KID_NAME_TAKEN' ? t('quiz.kidNameTaken') : t('quiz.kidActionFailed'))
+    }
     finally { setBusy(false) }
   }
   const confirmDelete = async () => {

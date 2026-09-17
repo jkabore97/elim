@@ -62,19 +62,26 @@ function churchDayKey(d = new Date()) {
 
 // Send one notification to every user who has push enabled. Mirrors the
 // per-event senders: multicast in batches of 500, then prune dead tokens.
-async function broadcastPush(db, { title, body, data }) {
+async function broadcastPush(db, { title, body, data }, opts = {}) {
   // Record every broadcast in the in-app notification center too, so members who
   // miss (or clear) the system push still find it in the bell. A single shared
   // doc that all clients read - read state is tracked per-device on the client -
   // so there's no write-per-user fan-out. Best-effort: never fail the push.
+  // When announcementId is given (scheduled broadcasts), the doc is keyed
+  // deterministically so a retry overwrites it instead of adding a duplicate.
   try {
-    await db.collection('announcements').add({
+    const payload = {
       title,
       body,
       kind: (data && data.kind) || 'info',
       url: (data && data.url) || null,
       createdAt: FieldValue.serverTimestamp(),
-    });
+    };
+    if (opts.announcementId) {
+      await db.collection('announcements').doc(opts.announcementId).set(payload, { merge: true });
+    } else {
+      await db.collection('announcements').add(payload);
+    }
   } catch (e) {
     console.error('announcement log failed', e);
   }
@@ -1239,16 +1246,27 @@ exports.dispatchScheduledBroadcasts = onSchedule(
         await d.ref.update({ sent: true, sentAt: FieldValue.serverTimestamp(), error: 'invalid' }).catch(() => {});
         continue;
       }
+      // Claim it BEFORE sending (mark sent), so a failure of the post-send
+      // bookkeeping can't leave it to re-send next tick. If the send itself
+      // throws, un-claim it so it retries. The announcement doc is keyed on this
+      // scheduled id, so even a rare double-run overwrites one bell entry rather
+      // than adding a duplicate.
+      try {
+        await d.ref.update({ sent: true, sentAt: FieldValue.serverTimestamp() });
+      } catch (e) {
+        console.error('scheduled broadcast claim failed', d.id, e);
+        continue; // couldn't claim - try again next tick
+      }
       try {
         await broadcastPush(db, {
           title: clean.title,
           body: clean.body,
           data: { kind: clean.route, ...(clean.url ? { url: clean.url } : {}) },
-        });
-        await d.ref.update({ sent: true, sentAt: FieldValue.serverTimestamp() });
+        }, { announcementId: `sched_${d.id}` });
       } catch (e) {
-        // Transient send failure: leave unsent so the next tick retries.
+        // Send failed after claiming: release the claim so it retries.
         console.error('scheduled broadcast send failed', d.id, e);
+        await d.ref.update({ sent: false, sentAt: FieldValue.delete() }).catch(() => {});
       }
     }
   }
