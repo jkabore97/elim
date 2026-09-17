@@ -195,13 +195,26 @@ export async function deleteKidEverywhere(uid: string, childName: string): Promi
 // (e.g. just a capitalisation tweak) we update the display name in place;
 // otherwise each weekly doc is re-keyed to the new slug, summing into any
 // existing doc for that week, then the old doc is removed.
+// Thrown when a slug-changing rename would collide with a child that already
+// has scores under the new name (possibly created on another device). The UI
+// turns this into the "name already taken" message.
+export const KID_NAME_TAKEN = 'KID_NAME_TAKEN'
+
 export async function renameKidEverywhere(uid: string, oldName: string, newName: string): Promise<void> {
   const oldSlug = childSlug(oldName)
   const newSlug = childSlug(newName)
-  const mine = await kidScoreDocs(uid, oldName)
+  // Query the parent's whole kids collection ONCE: it lets us both find the
+  // child being renamed and detect a collision the local device list can't see
+  // (e.g. the target child was only ever played on another device).
+  const all = await getDocs(query(collection(db, KIDS), where('uid', '==', uid)))
+  const mine = all.docs.filter(d => childSlug((d.data() as any).childName || '') === oldSlug)
   if (oldSlug === newSlug) {
     await Promise.all(mine.map(d => setDoc(d.ref, { childName: newName }, { merge: true })))
     return
+  }
+  // Refuse to merge into a different existing child.
+  if (all.docs.some(d => childSlug((d.data() as any).childName || '') === newSlug)) {
+    throw new Error(KID_NAME_TAKEN)
   }
   for (const d of mine) {
     const data = d.data() as any
