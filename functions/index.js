@@ -1068,6 +1068,30 @@ exports.dailyQuizReminder = onSchedule(
   }
 );
 
+// ── One-time announcement: v1.25 (build 129) is live on the Play Store ────────
+// Tells members a new version with the Bible Quiz is available. Scheduled at
+// 09:00 church time (Ouagadougou, UTC+0); a config flag makes it send EXACTLY
+// ONCE, then it no-ops forever - so the daily cron never nags twice, and the
+// function is safe to leave deployed (or remove in a later cleanup).
+const ELIM_PLAY_URL = 'https://play.google.com/store/apps/details?id=com.elim.app';
+exports.announceUpdateV125 = onSchedule(
+  { schedule: '0 9 * * *', timeZone: CHURCH_TZ, region: 'us-central1' },
+  async () => {
+    const db = getFirestore();
+    const ref = db.collection('config').doc('broadcasts');
+    const snap = await ref.get();
+    if (snap.exists && snap.data().updateV125Sent) return; // already sent once
+    await broadcastPush(db, {
+      title: '🎉 Nouvelle version E.L.I.M disponible',
+      body: `Mettez à jour l'application sur le Play Store pour découvrir le nouveau Quiz Biblique 🏆 et de nombreuses améliorations ! 👉 ${ELIM_PLAY_URL}`,
+      data: { kind: 'update', url: ELIM_PLAY_URL },
+    });
+    // Mark as sent only after the push went out, so a failed run retries next
+    // day rather than silently swallowing the announcement.
+    await ref.set({ updateV125Sent: true, updateV125At: FieldValue.serverTimestamp() }, { merge: true });
+  }
+);
+
 // Evening encouragement: gently celebrate the member who studied the most
 // today, to encourage everyone to keep learning the Bible - not a competitive
 // scoreboard. Fires at 20:00 church time. Skips quietly if nobody played.
