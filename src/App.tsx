@@ -1425,6 +1425,14 @@ function AppInner() {
   const caps = useMemo(() => {
     const staff = user?.role === 'admin' || user?.role === 'pastor'
     if (staff) return { post: true, sante: true, books: true, transcribe: true }
+    // Only publisher accounts (church/admin/pastor) may publish at all — this
+    // mirrors the server's canPublish(). A simple member is NEVER shown a
+    // publishing surface, even if they were never placed in a group (the
+    // grandfather clause below is for legacy publishers, not for members).
+    if (user?.role !== 'church') return { post: false, sante: false, books: false, transcribe: false }
+    // A church/lead account never placed in a group is grandfathered to full
+    // rights (it predates the groups system); once assigned, its stamped caps
+    // are what apply.
     if (myGroupCaps == null) return { post: true, sante: true, books: true, transcribe: true }
     return {
       post: !!myGroupCaps.post, sante: !!myGroupCaps.sante,
@@ -1924,6 +1932,15 @@ function AppInner() {
                   ))}
                 </div>
 
+                {/* Publishing lives here (leads/admin/pastor only), not in the
+                    bottom bar — a simple member never sees it. */}
+                {canPost && (
+                  <button onClick={() => setShowCreate(true)}
+                    className="w-full flex items-center justify-center gap-2 py-3.5 rounded-2xl bg-affirm-600 hover:bg-affirm-700 text-white font-semibold text-sm transition shadow-lg shadow-affirm-500/20">
+                    <PlusCircle size={18} /> {t('nav.newPost')}
+                  </button>
+                )}
+
                 {loading && <p className="text-center py-16"><span className="scrim inline-block px-4 py-2 text-sm text-slate-600">{t('app.loading')}</span></p>}
                 {!loading && visiblePosts.length === 0 && (
                   <div className="text-center py-12 px-6 my-6 scrim">
@@ -2133,17 +2150,6 @@ function AppInner() {
                 </button>
               )
             })}
-            {canPost && (
-              <button onClick={() => setShowCreate(true)}
-                className="nav-item flex flex-col items-center justify-center flex-1 min-w-0 h-full">
-                <div className="w-10 h-10 rounded-full bg-affirm-600 text-white flex items-center justify-center shadow-lg shadow-affirm-500/40 -mt-4">
-                  <PlusCircle size={22} />
-                </div>
-                <span className="text-[9px] mt-1 font-medium leading-[1.1] text-center px-0.5 max-w-full break-words">
-                  {t('nav.post')}
-                </span>
-              </button>
-            )}
           </div>
         </nav>
       </div>
