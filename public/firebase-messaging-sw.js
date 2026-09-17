@@ -37,9 +37,14 @@ const messaging = firebase.messaging();
 self.addEventListener('notificationclick', (event) => {
   event.notification.close();
   const data = event.notification.data?.FCM_MSG?.data || event.notification.data || {};
-  const target = data.kind === 'message'
-    ? '/?tab=messages'
-    : data.postId ? `/?post=${data.postId}` : '/';
+  const httpUrl = typeof data.url === 'string' && /^https?:\/\//i.test(data.url) ? data.url : null;
+  const target = httpUrl
+    ? httpUrl
+    : data.kind === 'message'
+      ? '/?tab=messages'
+      : data.kind === 'quiz'
+        ? '/?quiz=1'
+        : data.postId ? `/?post=${data.postId}` : '/';
 
   event.waitUntil(
     clients.matchAll({ type: 'window', includeUncontrolled: true }).then((list) => {

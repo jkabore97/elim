@@ -178,6 +178,11 @@ export async function initNativeNotifications() {
         emitNotificationRoute({ kind: 'post', postId: data.postId })
       } else if (data.kind === 'quiz') {
         emitNotificationRoute({ kind: 'quiz' })
+      } else if (data.kind === 'feed') {
+        emitNotificationRoute({ kind: 'feed' })
+      } else if (data.url) {
+        // A broadcast carrying a link (e.g. the "update" route) opens it.
+        emitNotificationRoute({ kind: 'url', url: data.url })
       }
     })
 
@@ -349,6 +354,8 @@ export type NotificationRoute =
   | { kind: 'post'; postId?: string }
   | { kind: 'message'; conversationId?: string }
   | { kind: 'quiz' }
+  | { kind: 'feed' }
+  | { kind: 'url'; url?: string }
 
 export function emitNotificationRoute(route: NotificationRoute) {
   window.dispatchEvent(new CustomEvent('elim:route', { detail: route }))

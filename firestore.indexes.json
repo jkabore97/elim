@@ -26,6 +26,14 @@
       ]
     },
     {
+      "collectionGroup": "scheduledBroadcasts",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "sent", "order": "ASCENDING" },
+        { "fieldPath": "sendAt", "order": "ASCENDING" }
+      ]
+    },
+    {
       "collectionGroup": "quizProfiles",
       "queryScope": "COLLECTION",
       "fields": [

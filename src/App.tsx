@@ -4,11 +4,11 @@ import {
   Image as ImageIcon, Video, Mic, X, Send, LogOut,
   Youtube, Facebook, CheckCircle2, Clock, ArrowRight, ShieldCheck, UserX, Sparkles,
   Trash2, Camera, FileText, Upload, Pencil, Globe, Eye, EyeOff, Search, Bell, ScrollText, Mail, Play, Pause, HeartPulse, Download, AlertTriangle, BookOpen, Music,
-  HandCoins, Copy, Check, Plus, Flag, Users, CreditCard, Loader2, Trophy
+  HandCoins, Copy, Check, Plus, Flag, Users, CreditCard, Loader2, Trophy, ChevronDown, Megaphone
 } from 'lucide-react'
 import {
   collection, addDoc, onSnapshot, query, orderBy, where,
-  serverTimestamp, doc, updateDoc, deleteDoc, increment, setDoc, getDoc, getDocs, limit, writeBatch
+  serverTimestamp, doc, updateDoc, deleteDoc, increment, setDoc, getDoc, getDocs, limit, writeBatch, Timestamp
 } from 'firebase/firestore'
 import {
   createUserWithEmailAndPassword, signInWithEmailAndPassword,
@@ -45,7 +45,7 @@ import { subscribeProfile as subscribeQuizProfile } from './quiz/store'
 import { todayKey as quizTodayKey } from './quiz/engine'
 import { subscribeGroups } from './groups'
 import { GroupsPanel } from './Groups'
-import type { Post, Comment, AppUser, ActivityLog, AppNotification, Announcement, DonationConfig, DonationProvider, Report, DonationType, Donation, Group } from './types'
+import type { Post, Comment, AppUser, ActivityLog, AppNotification, Announcement, ScheduledBroadcast, DonationConfig, DonationProvider, Report, DonationType, Donation, Group } from './types'
 import { LanguageProvider, useLanguage, LANGUAGES, type Language } from './i18n'
 
 function timeAgo(date: any) {
@@ -1095,6 +1095,18 @@ function AppInner() {
   const [seenAnnounceIds, setSeenAnnounceIds] = useState<Set<string>>(() => {
     try { return new Set(JSON.parse(storageGet('elim_seen_announce') || '[]')) } catch { return new Set() }
   })
+  // Announcements a user chose to remove from their own bell. Shared docs can't
+  // be deleted per-user server-side, so this is a per-device hide list.
+  const [dismissedAnnounceIds, setDismissedAnnounceIds] = useState<Set<string>>(() => {
+    try { return new Set(JSON.parse(storageGet('elim_dismissed_announce') || '[]')) } catch { return new Set() }
+  })
+  const dismissAnnouncement = (id: string) => {
+    setDismissedAnnounceIds(prev => {
+      const next = new Set(prev); next.add(id)
+      try { storageSet('elim_dismissed_announce', JSON.stringify([...next].slice(-200))) } catch { /* storage blocked */ }
+      return next
+    })
+  }
   const [showNotifications, setShowNotifications] = useState(false)
   const [showQuiz, setShowQuiz] = useState(false)
   // Red dot on the Game button while today's daily challenge is unplayed.
@@ -1124,7 +1136,7 @@ function AppInner() {
   const [musiqueSearch, setMusiqueSearch] = useState('')
   const [showCreateMusique, setShowCreateMusique] = useState(false)
   const [showBulkMusique, setShowBulkMusique] = useState(false)
-  const [adminSection, setAdminSection] = useState<'approvals' | 'groups' | 'reports' | 'dons' | 'logs' | 'data'>(
+  const [adminSection, setAdminSection] = useState<'approvals' | 'groups' | 'reports' | 'broadcast' | 'dons' | 'logs' | 'data'>(
     user?.role === 'church' ? 'data' : 'approvals'
   )
   // user is null at mount, so the initializer above always resolves to
@@ -1197,6 +1209,10 @@ function AppInner() {
         setShowQuiz(true)
       } else if (route.kind === 'message') {
         setActiveTab('messages')
+      } else if (route.kind === 'feed') {
+        setActiveTab('feed')
+      } else if (route.kind === 'url') {
+        if (route.url && /^https?:\/\//i.test(route.url)) window.open(route.url, '_blank', 'noopener,noreferrer')
       } else {
         setActiveTab('feed')
         if (route.postId) {
@@ -1594,7 +1610,8 @@ function AppInner() {
   const newPosts = posts.filter(p =>
     p.section !== 'musique' && p.churchId !== user?.uid && toMs(p.createdAt) > lastSeenFeed)
   const unreadNotifs = notifications.filter(n => !n.read).length
-  const unseenAnnounce = announcements.filter(a => !seenAnnounceIds.has(a.id)).length
+  const visibleAnnouncements = announcements.filter(a => !dismissedAnnounceIds.has(a.id))
+  const unseenAnnounce = visibleAnnouncements.filter(a => !seenAnnounceIds.has(a.id)).length
   const bellCount = unreadNotifs + newPosts.length + unseenAnnounce
 
   // Opening the bell clears every signal: personal notifications are marked
@@ -1620,14 +1637,29 @@ function AppInner() {
 
   // Tapping a notification lands the person on the relevant post - opening its
   // comments when the notification is about a comment/reply/comment-like.
+  // Tapping a broadcast announcement routes by its kind (or opens its link).
+  const handleAnnouncementTap = (a: Announcement) => {
+    setShowNotifications(false)
+    const safeUrl = a.url && /^https?:\/\//i.test(a.url) ? a.url : null
+    if (a.kind === 'quiz') { setShowQuiz(true); return }
+    if (a.kind === 'message') { setActiveTab('messages'); return }
+    if (a.kind === 'feed') { setActiveTab('feed'); return }
+    if (safeUrl) { window.open(safeUrl, '_blank', 'noopener,noreferrer'); return }
+    setActiveTab('feed')
+  }
+
   const handleNotificationTap = (n: AppNotification) => {
     setShowNotifications(false)
+    // A message notification lands on Messages (no post to open).
+    if (n.type === 'message') { setActiveTab('messages'); return }
+    if (!n.postId) return
+    const pid = n.postId
     setActiveTab('feed')
-    setHighlightPostId(n.postId)
+    setHighlightPostId(pid)
     // Clear the highlight after a beat so the post doesn't stay outlined until
     // the next tap (matches the deep-link route behavior).
-    setTimeout(() => setHighlightPostId(prev => prev === n.postId ? null : prev), 4000)
-    if (n.type !== 'post_like') setActiveCommentsPost(n.postId)
+    setTimeout(() => setHighlightPostId(prev => prev === pid ? null : prev), 4000)
+    if (n.type !== 'post_like') setActiveCommentsPost(pid)
   }
 
   const dismissNotification = (id: string) => {
@@ -2117,30 +2149,44 @@ function AppInner() {
 
             {activeTab === 'admin' && isStaffUser && (
               <div className="space-y-4">
-                <div className="flex gap-2 overflow-x-auto pb-1">
-                  {[
+                {(() => {
+                  const sections = [
                     ...(isStaffUser ? [{ id: 'approvals' as const, label: t('admin.subApprovals') }] : []),
                     ...(isStaffUser ? [{ id: 'groups' as const, label: t('groups.tab') }] : []),
                     ...(isStaffUser ? [{ id: 'reports' as const, label: t('reports.tab') }] : []),
+                    ...(isStaffUser ? [{ id: 'broadcast' as const, label: t('broadcast.tab') }] : []),
                     ...(isStaffUser ? [{ id: 'dons' as const, label: t('dons.tab') }] : []),
                     ...(isStaffUser ? [{ id: 'logs' as const, label: t('nav.logs') }] : []),
                     { id: 'data' as const, label: t('nav.data') }
-                  ].map(sub => (
-                    <button key={sub.id} onClick={() => setAdminSection(sub.id)}
-                      className={`shrink-0 px-4 py-2 rounded-full text-sm font-semibold transition ${
-                        adminSection === sub.id
-                          ? 'bg-affirm-600 text-white border border-affirm-400/60'
-                          : 'glass-soft text-slate-600 hover:text-slate-900'}`}>
-                      {sub.label}
-                    </button>
-                  ))}
-                </div>
+                  ]
+                  const currentPending = adminSection === 'approvals' && pendingChurches.length > 0
+                  return (
+                    <div className="relative">
+                      <label className="block text-[11px] font-bold uppercase tracking-wide text-slate-400 mb-1.5">{t('admin.section')}</label>
+                      <div className="relative">
+                        <select value={adminSection} onChange={e => setAdminSection(e.target.value as typeof adminSection)}
+                          className="w-full appearance-none glass-soft rounded-2xl pl-4 pr-11 py-3.5 text-[15px] font-semibold text-slate-800 focus:outline-none focus:ring-2 focus:ring-affirm-400 cursor-pointer">
+                          {sections.map(s => (
+                            <option key={s.id} value={s.id}>{s.label}</option>
+                          ))}
+                        </select>
+                        <ChevronDown size={18} className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" />
+                        {!currentPending && pendingChurches.length > 0 && adminSection !== 'approvals' && (
+                          <span className="absolute right-11 top-1/2 -translate-y-1/2 min-w-[20px] h-5 px-1.5 rounded-full bg-red-500 text-white text-[10px] font-bold flex items-center justify-center pointer-events-none">
+                            {pendingChurches.length}
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                  )
+                })()}
 
                 {adminSection === 'approvals' && isStaffUser && (
                   <AdminPanel pendingChurches={pendingChurches} onApprove={handleApproveChurch} onDeny={handleDenyChurch} />
                 )}
                 {adminSection === 'groups' && isStaffUser && <GroupsPanel user={user} groups={groups} />}
                 {adminSection === 'reports' && isStaffUser && <ReportsPanel user={user} />}
+                {adminSection === 'broadcast' && isStaffUser && <BroadcastPanel />}
                 {adminSection === 'dons' && isStaffUser && <DonationsPanel user={user} />}
                 {adminSection === 'logs' && isStaffUser && <LogsPanel />}
                 {adminSection === 'data' && isStaffUser && <AppVersionPanel />}
@@ -2253,11 +2299,13 @@ function AppInner() {
       {showNotifications && (
         <NotificationsPanel
           notifications={notifications}
-          announcements={announcements}
+          announcements={visibleAnnouncements}
           newPostCount={seenNewPosts.length}
           onClose={() => setShowNotifications(false)}
           onTap={handleNotificationTap}
+          onTapAnnouncement={handleAnnouncementTap}
           onDismiss={dismissNotification}
+          onDismissAnnouncement={dismissAnnouncement}
           onViewNewPosts={() => { setShowNotifications(false); setActiveTab('feed') }} />
       )}
       {showDonation && (
@@ -2738,6 +2786,227 @@ function AppVersionPanel() {
           className="shrink-0 px-4 py-2.5 rounded-xl bg-affirm-600 text-white font-semibold text-sm disabled:opacity-50">
           {saved ? t('appVersion.saved') : t('appVersion.save')}
         </button>
+      </div>
+    </div>
+  )
+}
+
+// The recurring notifications the app sends on its own (Cloud Scheduler). The
+// schedule is fixed in code, but the title/body/on-off are editable and stored
+// in config/autoNotifs. Defaults here MUST match the server defaults in
+// functions/index.js so the editor shows what actually goes out. `vars` lists
+// the placeholders the server fills at send time.
+const AUTO_DEFS: { key: string; when: string; vars?: string; title: string; body: string }[] = [
+  {
+    key: 'quizReminder', when: 'Tous les jours · 08:00',
+    title: 'Quiz Biblique 🏆',
+    body: "Le défi du jour t'attend : 5 questions, +50 points et un badge !",
+  },
+  {
+    key: 'topScore', when: 'Tous les jours · 20:00', vars: '{name}',
+    title: '📖 On apprend la Bible ensemble',
+    body: "Aujourd'hui, {name} a pris le temps d'étudier la Parole avec E.L.I.M Quiz Biblique. Et toi, quel verset vas-tu découvrir ce soir ? 📖🙏",
+  },
+  {
+    key: 'weeklyChampions', when: 'Lundi · 08:00', vars: '{name}, {count}',
+    title: '🏆 Champion de la semaine',
+    body: "Bravo à {name} et à nos {count} champions par catégorie pour tout ce qu'ils ont appris dans la Parole cette semaine ! Une nouvelle semaine pour grandir dans la Bible commence. 📖",
+  },
+  {
+    key: 'kidsChampion', when: 'Dimanche · 08:00', vars: '{name}',
+    title: '🎉 Champion du Quiz Enfants',
+    body: "Bravo {name} ! Champion des enfants cette semaine. Récompense aujourd'hui à l'école du dimanche. 👏",
+  },
+]
+
+// Editable card for one automatic notification (title, body, on/off).
+function AutoNotifRow({ def }: { def: typeof AUTO_DEFS[number] }) {
+  const { t } = useLanguage()
+  const [title, setTitle] = useState(def.title)
+  const [body, setBody] = useState(def.body)
+  const [enabled, setEnabled] = useState(true)
+  const [loaded, setLoaded] = useState(false)
+  const [saving, setSaving] = useState(false)
+  const [saved, setSaved] = useState(false)
+
+  useEffect(() => {
+    getDoc(doc(db, 'config', 'autoNotifs')).then(s => {
+      const c = (s.exists() ? (s.data() as any)[def.key] : null) || {}
+      if (typeof c.title === 'string' && c.title.trim()) setTitle(c.title)
+      if (typeof c.body === 'string' && c.body.trim()) setBody(c.body)
+      setEnabled(c.enabled !== false)
+    }).catch(() => {}).finally(() => setLoaded(true))
+  }, [def.key])
+
+  const save = async () => {
+    if (saving) return
+    setSaving(true)
+    try {
+      await setDoc(doc(db, 'config', 'autoNotifs'),
+        { [def.key]: { title: title.trim(), body: body.trim(), enabled } }, { merge: true })
+      setSaved(true); setTimeout(() => setSaved(false), 2000)
+    } catch { /* rules/offline */ } finally { setSaving(false) }
+  }
+
+  const resetDefaults = () => { setTitle(def.title); setBody(def.body) }
+
+  return (
+    <div className={`bg-white rounded-xl border border-slate-100 p-3 ${!enabled ? 'opacity-70' : ''}`}>
+      <div className="flex items-center justify-between gap-2 mb-2">
+        <p className="text-[11px] font-bold text-slate-400 uppercase tracking-wide">{def.when}</p>
+        <label className="flex items-center gap-1.5 text-xs font-semibold text-slate-600 cursor-pointer">
+          <input type="checkbox" checked={enabled} onChange={e => setEnabled(e.target.checked)} className="accent-affirm-600 w-4 h-4" />
+          {enabled ? t('broadcast.enabled') : t('broadcast.disabled')}
+        </label>
+      </div>
+      <input value={title} onChange={e => setTitle(e.target.value)} maxLength={120} disabled={!loaded}
+        placeholder={t('broadcast.titlePlaceholder')}
+        className="w-full px-3 py-2 rounded-lg border border-slate-200 text-sm bg-white mb-2 focus:outline-none focus:ring-2 focus:ring-affirm-400" />
+      <textarea value={body} onChange={e => setBody(e.target.value)} maxLength={500} rows={3} disabled={!loaded}
+        placeholder={t('broadcast.bodyPlaceholder')}
+        className="w-full px-3 py-2 rounded-lg border border-slate-200 text-sm bg-white resize-none focus:outline-none focus:ring-2 focus:ring-affirm-400" />
+      {def.vars && <p className="text-[11px] text-slate-400 mt-1">{t('broadcast.varsHint')} <code className="text-affirm-600">{def.vars}</code></p>}
+      <div className="flex items-center gap-2 mt-2">
+        <button onClick={save} disabled={saving || !loaded}
+          className="px-3 py-1.5 rounded-lg bg-affirm-600 text-white font-semibold text-xs disabled:opacity-50">
+          {saved ? t('appVersion.saved') : t('post.save')}
+        </button>
+        <button onClick={resetDefaults} className="px-3 py-1.5 rounded-lg text-slate-500 font-semibold text-xs hover:bg-slate-100">
+          {t('broadcast.resetDefault')}
+        </button>
+      </div>
+    </div>
+  )
+}
+
+// Admin broadcast centre: compose a push to everyone (now or scheduled), see
+// the app's automatic notifications, and manage pending scheduled ones.
+function BroadcastPanel() {
+  const { t } = useLanguage()
+  const [title, setTitle] = useState('')
+  const [body, setBody] = useState('')
+  const [url, setUrl] = useState('')
+  const [route, setRoute] = useState('info')
+  const [when, setWhen] = useState('')
+  const [sending, setSending] = useState(false)
+  const [status, setStatus] = useState<'idle' | 'sent' | 'scheduled'>('idle')
+  const [error, setError] = useState('')
+  const [pending, setPending] = useState<ScheduledBroadcast[]>([])
+  const idleTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
+
+  useEffect(() => {
+    const q = query(collection(db, 'scheduledBroadcasts'), where('sent', '==', false), orderBy('sendAt', 'asc'))
+    return onSnapshot(q, snap => setPending(snap.docs.map(d => ({ id: d.id, ...d.data() } as ScheduledBroadcast))),
+      () => { /* rules/offline - just show an empty pending list */ })
+  }, [])
+  useEffect(() => () => { if (idleTimer.current) clearTimeout(idleTimer.current) }, [])
+
+  const reset = () => { setTitle(''); setBody(''); setUrl(''); setRoute('info'); setWhen('') }
+
+  const submit = async () => {
+    if (!title.trim() || !body.trim() || sending) return
+    setSending(true); setError(''); setStatus('idle')
+    const payload = { title: title.trim(), body: body.trim(), url: url.trim() || null, route }
+    try {
+      if (when) {
+        const at = new Date(when)
+        if (isNaN(at.getTime()) || at.getTime() <= Date.now()) { setError(t('broadcast.pastTime')); setSending(false); return }
+        await addDoc(collection(db, 'scheduledBroadcasts'),
+          { ...payload, sendAt: Timestamp.fromDate(at), sent: false, createdAt: serverTimestamp() })
+        setStatus('scheduled')
+      } else {
+        await httpsCallable(functions, 'sendBroadcast')(payload)
+        setStatus('sent')
+      }
+      reset()
+      if (idleTimer.current) clearTimeout(idleTimer.current)
+      idleTimer.current = setTimeout(() => setStatus('idle'), 4000)
+    } catch (e: any) {
+      setError(e?.message || t('broadcast.failed'))
+    } finally { setSending(false) }
+  }
+
+  const cancelPending = async (id: string) => { await deleteDoc(doc(db, 'scheduledBroadcasts', id)).catch(() => {}) }
+  const fmt = (ts: any) => { try { return ts?.toDate ? ts.toDate().toLocaleString() : '' } catch { return '' } }
+
+  const ROUTES = [
+    { id: 'info', label: t('broadcast.routeInfo') },
+    { id: 'quiz', label: t('broadcast.routeQuiz') },
+    { id: 'feed', label: t('broadcast.routeFeed') },
+    { id: 'message', label: t('broadcast.routeMessages') },
+    { id: 'update', label: t('broadcast.routeUpdate') },
+  ]
+
+  return (
+    <div className="space-y-4">
+      {/* Compose */}
+      <div className="glass-soft rounded-2xl p-4">
+        <h3 className="font-bold text-slate-800 mb-1 flex items-center gap-2"><Megaphone size={18} /> {t('broadcast.composeTitle')}</h3>
+        <p className="text-xs text-slate-500 mb-3">{t('broadcast.composeHint')}</p>
+        <div className="space-y-2.5">
+          <input value={title} onChange={e => setTitle(e.target.value)} maxLength={120}
+            placeholder={t('broadcast.titlePlaceholder')}
+            className="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-affirm-400" />
+          <textarea value={body} onChange={e => setBody(e.target.value)} maxLength={500}
+            placeholder={t('broadcast.bodyPlaceholder')} rows={3}
+            className="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm bg-white resize-none focus:outline-none focus:ring-2 focus:ring-affirm-400" />
+          <input value={url} onChange={e => setUrl(e.target.value)} maxLength={500} inputMode="url"
+            placeholder={t('broadcast.linkPlaceholder')}
+            className="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-affirm-400" />
+          <div className="grid grid-cols-2 gap-2">
+            <div>
+              <label className="block text-[11px] font-semibold text-slate-500 mb-1">{t('broadcast.route')}</label>
+              <select value={route} onChange={e => setRoute(e.target.value)}
+                className="w-full px-3 py-2.5 rounded-xl border border-slate-200 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-affirm-400">
+                {ROUTES.map(r => <option key={r.id} value={r.id}>{r.label}</option>)}
+              </select>
+            </div>
+            <div>
+              <label className="block text-[11px] font-semibold text-slate-500 mb-1">{t('broadcast.whenLabel')}</label>
+              <input type="datetime-local" value={when} onChange={e => setWhen(e.target.value)}
+                className="w-full px-3 py-2.5 rounded-xl border border-slate-200 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-affirm-400" />
+            </div>
+          </div>
+          <p className="text-[11px] text-slate-400">{t('broadcast.whenHint')}</p>
+          {error && <p className="text-xs text-red-500 bg-red-50 rounded-lg px-3 py-2">{error}</p>}
+          {status === 'sent' && <p className="text-xs text-emerald-600 bg-emerald-50 rounded-lg px-3 py-2">{t('broadcast.sent')}</p>}
+          {status === 'scheduled' && <p className="text-xs text-emerald-600 bg-emerald-50 rounded-lg px-3 py-2">{t('broadcast.scheduled')}</p>}
+          <button onClick={submit} disabled={!title.trim() || !body.trim() || sending}
+            className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-affirm-600 text-white font-semibold text-sm disabled:opacity-50">
+            {sending ? <Loader2 size={16} className="animate-spin" /> : <Send size={16} />}
+            {when ? t('broadcast.scheduleBtn') : t('broadcast.sendNow')}
+          </button>
+        </div>
+      </div>
+
+      {/* Pending scheduled */}
+      <div className="glass-soft rounded-2xl p-4">
+        <h3 className="font-bold text-slate-800 mb-3">{t('broadcast.pendingTitle')}</h3>
+        {pending.length === 0 ? (
+          <p className="text-xs text-slate-400">{t('broadcast.noPending')}</p>
+        ) : (
+          <div className="space-y-2">
+            {pending.map(p => (
+              <div key={p.id} className="flex items-start gap-3 bg-white rounded-xl border border-slate-100 px-3 py-2.5">
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm font-semibold text-slate-800 truncate">{p.title}</p>
+                  <p className="text-xs text-slate-500 truncate">{p.body}</p>
+                  <p className="text-[11px] text-affirm-600 font-medium mt-0.5">🕒 {fmt(p.sendAt)}</p>
+                </div>
+                <button onClick={() => cancelPending(p.id)} className="text-xs font-semibold text-red-500 hover:text-red-700 shrink-0 px-2 py-1">{t('broadcast.cancel')}</button>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+
+      {/* Automatic (Cloud Scheduler) notifications - editable text + on/off */}
+      <div className="glass-soft rounded-2xl p-4">
+        <h3 className="font-bold text-slate-800 mb-1">{t('broadcast.autoTitle')}</h3>
+        <p className="text-xs text-slate-500 mb-3">{t('broadcast.autoHint')}</p>
+        <div className="space-y-3">
+          {AUTO_DEFS.map(def => <AutoNotifRow key={def.key} def={def} />)}
+        </div>
       </div>
     </div>
   )
@@ -4073,13 +4342,15 @@ function ReportsPanel({ user }: { user: AppUser }) {
   )
 }
 
-function NotificationsPanel({ notifications, announcements, newPostCount, onClose, onTap, onDismiss, onViewNewPosts }: {
+function NotificationsPanel({ notifications, announcements, newPostCount, onClose, onTap, onTapAnnouncement, onDismiss, onDismissAnnouncement, onViewNewPosts }: {
   notifications: AppNotification[]
   announcements: Announcement[]
   newPostCount: number
   onClose: () => void
   onTap: (n: AppNotification) => void
+  onTapAnnouncement: (a: Announcement) => void
   onDismiss: (id: string) => void
+  onDismissAnnouncement: (id: string) => void
   onViewNewPosts: () => void
 }) {
   const { t } = useLanguage()
@@ -4087,6 +4358,7 @@ function NotificationsPanel({ notifications, announcements, newPostCount, onClos
     type === 'post_like' ? t('notif.postLike')
       : type === 'comment_like' ? t('notif.commentLike')
       : type === 'post_comment' ? t('notif.postComment')
+      : type === 'message' ? t('notif.message')
       : t('notif.commentReply')
 
   return (
@@ -4115,7 +4387,7 @@ function NotificationsPanel({ notifications, announcements, newPostCount, onClos
           {announcements.map(a => {
             const inner = (
               <>
-                <div className="w-9 h-9 rounded-full bg-affirm-100 flex items-center justify-center text-affirm-600 shrink-0"><Sparkles size={16} /></div>
+                <div className="w-9 h-9 rounded-full bg-affirm-100 flex items-center justify-center text-affirm-600 shrink-0"><Megaphone size={16} /></div>
                 <div className="flex-1 min-w-0">
                   <p className="text-sm font-semibold text-slate-800 leading-snug">{a.title}</p>
                   <p className="text-xs text-slate-500 mt-0.5 whitespace-pre-line break-words">{a.body}</p>
@@ -4123,22 +4395,29 @@ function NotificationsPanel({ notifications, announcements, newPostCount, onClos
                 </div>
               </>
             )
-            return a.url
-              ? <a key={a.id} href={a.url} target="_blank" rel="noopener noreferrer"
-                  className="flex items-start gap-3 px-5 py-3.5 border-b border-slate-50 hover:bg-slate-50">{inner}</a>
-              : <div key={a.id} className="flex items-start gap-3 px-5 py-3.5 border-b border-slate-50">{inner}</div>
+            return (
+              <div key={a.id} className="flex items-start gap-3 px-5 py-3.5 border-b border-slate-50">
+                {/* Routes by kind or opens the link via the handler (which
+                    only follows http(s) urls). */}
+                <button onClick={() => onTapAnnouncement(a)} className="flex items-start gap-3 flex-1 text-left min-w-0">{inner}</button>
+                <button onClick={() => onDismissAnnouncement(a.id)} aria-label={t('post.delete')}
+                  className="p-1 text-slate-300 hover:text-slate-500 shrink-0"><X size={15} /></button>
+              </div>
+            )
           })}
           {notifications.map(n => {
-            const RowIcon = n.type.includes('like') ? Heart : MessageCircle
+            const isMessage = n.type === 'message'
             const isLike = n.type.includes('like')
+            const RowIcon = isMessage ? Mail : isLike ? Heart : MessageCircle
+            const badgeColor = isMessage ? 'bg-emerald-500' : isLike ? 'bg-rose-500' : 'bg-sky-500'
             return (
               <div key={n.id} className={`flex items-start gap-3 px-5 py-3.5 border-b border-slate-50 ${!n.read ? 'bg-affirm-50/40' : ''}`}>
                 <button onClick={() => onTap(n)} className="flex items-start gap-3 flex-1 text-left min-w-0">
                   <div className="relative shrink-0">
                     {n.actorAvatar
                       ? <img src={n.actorAvatar} alt="" className="w-9 h-9 rounded-full object-cover" />
-                      : <div className="w-9 h-9 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 font-semibold text-sm">{n.actorName.charAt(0)}</div>}
-                    <span className={`absolute -bottom-0.5 -right-0.5 w-4 h-4 rounded-full flex items-center justify-center text-white ${isLike ? 'bg-rose-500' : 'bg-sky-500'}`}>
+                      : <div className="w-9 h-9 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 font-semibold text-sm">{(n.actorName || '?').charAt(0)}</div>}
+                    <span className={`absolute -bottom-0.5 -right-0.5 w-4 h-4 rounded-full flex items-center justify-center text-white ${badgeColor}`}>
                       <RowIcon size={9} fill={isLike ? 'currentColor' : 'none'} />
                     </span>
                   </div>
@@ -4146,7 +4425,9 @@ function NotificationsPanel({ notifications, announcements, newPostCount, onClos
                     <p className="text-sm text-slate-700 leading-snug">
                       <span className="font-semibold">{n.actorName}</span> {label(n.type)}
                     </p>
-                    {n.preview && <p className="text-xs text-slate-400 truncate mt-0.5">“{n.preview}”</p>}
+                    {/* Message previews are deliberately omitted (privacy) - only
+                        like/comment notifications carry a snippet. */}
+                    {!isMessage && n.preview && <p className="text-xs text-slate-400 truncate mt-0.5">“{n.preview}”</p>}
                     <p className="text-[11px] text-slate-400 mt-0.5">{timeAgo(n.createdAt)}</p>
                   </div>
                 </button>

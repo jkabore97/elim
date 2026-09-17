@@ -16,7 +16,7 @@
 //    Functions at week close; world-readable for the Palmarès.
 import {
   doc, collection, onSnapshot, setDoc, query, where, orderBy, limit,
-  getDocs, serverTimestamp, increment, writeBatch,
+  getDocs, deleteDoc, serverTimestamp, increment, writeBatch,
 } from 'firebase/firestore'
 import { db } from '../firebase'
 import {
@@ -37,8 +37,16 @@ function clean<T extends object>(o: T): T {
 // A short, stable key for a child's name (accents/case/space-insensitive), so
 // the same child keeps the same weekly row even with minor typing differences.
 export function childSlug(name: string): string {
-  return (name || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '')
-    .replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 40) || 'x'
+  const base = (name || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '')
+    .replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 40)
+  if (base) return base
+  // Non-Latin scripts (Arabic/Chinese/Hindi, etc.) strip to empty above; derive
+  // a stable short id from the normalized name so two distinct names don't
+  // collapse to the same key (which would merge their scores).
+  const norm = (name || '').trim().toLowerCase()
+  let h = 0
+  for (let i = 0; i < norm.length; i++) h = (h * 31 + norm.charCodeAt(i)) >>> 0
+  return 'k' + h.toString(36)
 }
 
 // ---- Career profile ---------------------------------------------------------
@@ -165,6 +173,51 @@ export async function commitKidsGame(
     updatedAt: serverTimestamp(),
   }), { merge: true })
   return gained
+}
+
+// All of a parent's quizKids score docs for one child (across every week),
+// matched by the child's slug so it survives case/spacing differences.
+async function kidScoreDocs(uid: string, childName: string) {
+  const slug = childSlug(childName)
+  const snap = await getDocs(query(collection(db, KIDS), where('uid', '==', uid)))
+  return snap.docs.filter(d => childSlug((d.data() as any).childName || '') === slug)
+}
+
+// Delete a child's score everywhere: every weekly quizKids doc for that child
+// under this parent account. (Palmarès champion snapshots are immutable admin
+// records and are intentionally left untouched.)
+export async function deleteKidEverywhere(uid: string, childName: string): Promise<void> {
+  const mine = await kidScoreDocs(uid, childName)
+  await Promise.all(mine.map(d => deleteDoc(d.ref)))
+}
+
+// Rename a child, carrying their scores over. When the slug is unchanged
+// (e.g. just a capitalisation tweak) we update the display name in place;
+// otherwise each weekly doc is re-keyed to the new slug, summing into any
+// existing doc for that week, then the old doc is removed.
+export async function renameKidEverywhere(uid: string, oldName: string, newName: string): Promise<void> {
+  const oldSlug = childSlug(oldName)
+  const newSlug = childSlug(newName)
+  const mine = await kidScoreDocs(uid, oldName)
+  if (oldSlug === newSlug) {
+    await Promise.all(mine.map(d => setDoc(d.ref, { childName: newName }, { merge: true })))
+    return
+  }
+  for (const d of mine) {
+    const data = d.data() as any
+    const weekId = data.kidsWeekId
+    const newRef = doc(db, KIDS, `${weekId}__${uid}__${newSlug}`)
+    // set (incrementing onto any existing target for that week) + delete in ONE
+    // batch: atomic, so a retry can't orphan the old doc or double-count, and
+    // increment means a concurrent game commit on the target isn't lost.
+    const batch = writeBatch(db)
+    batch.set(newRef, clean({
+      kidsWeekId: weekId, uid, parentName: data.parentName || '',
+      childName: newName, points: increment(data.points || 0), updatedAt: serverTimestamp(),
+    }), { merge: true })
+    batch.delete(d.ref)
+    await batch.commit()
+  }
 }
 
 // ---- Palmarès (Hall of Fame) ------------------------------------------------

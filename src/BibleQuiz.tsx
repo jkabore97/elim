@@ -1,7 +1,7 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import {
   Trophy, Medal, ArrowRight, X, RotateCcw, Share2,
-  ChevronLeft, Check, Loader2, BookOpen, Crown, ScrollText,
+  ChevronLeft, Check, Loader2, BookOpen, Crown, ScrollText, Pencil, Trash2,
 } from 'lucide-react'
 import { Share } from '@capacitor/share'
 import { useLanguage } from './i18n'
@@ -20,6 +20,7 @@ import {
 import {
   subscribeProfile, commitAdultGame, commitKidsGame, fetchTopScorer,
   fetchGrandLeaders, fetchCategoryLeaders, fetchKidsLeaders, fetchChampions,
+  deleteKidEverywhere, renameKidEverywhere, childSlug,
   type LeaderRow, type KidRow, type ChampionDoc, type TopScorer,
 } from './quiz/store'
 
@@ -30,9 +31,12 @@ const PLAY_URL = 'https://play.google.com/store/apps/details?id=com.elim.app'
 const KID_NAME_KEY = 'elim-quiz-kidname'
 const KID_NAMES_KEY = 'elim-quiz-kidnames'
 
-// A loose key so "Djemi" and "djemi " count as the same saved child.
+// Identity key for a saved child. Delegates to the server's childSlug so the
+// LOCAL name list and the SERVER score docs (keyed by childSlug) always agree -
+// otherwise two locally-distinct names could share one score doc, and deleting
+// one would hit the other.
 function kidKey(name: string): string {
-  return name.trim().toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '')
+  return childSlug(name)
 }
 
 function loadKidNames(): string[] {
@@ -61,6 +65,12 @@ function rememberKidName(name: string): void {
 function forgetKidName(name: string): void {
   const list = loadKidNames().filter(n => kidKey(n) !== kidKey(name))
   try { storageSet(KID_NAMES_KEY, JSON.stringify(list)) } catch { /* ignore */ }
+  // Also clear the legacy single-name slot when it matches - otherwise
+  // loadKidNames() re-adds that child on the next read and it "comes back"
+  // after deletion. (Blanking it is enough; loadKidNames ignores an empty one.)
+  try {
+    if (kidKey(storageGet(KID_NAME_KEY) || '') === kidKey(name)) storageSet(KID_NAME_KEY, '')
+  } catch { /* ignore */ }
 }
 
 type Screen = 'home' | 'difficulty' | 'kidname' | 'playing' | 'results' | 'trophies' | 'leaders' | 'palmares'
@@ -134,6 +144,19 @@ export default function BibleQuiz({ user, onClose }: { user: AppUser; onClose: (
     return launch(() => buildRandom(lang), q => ({ questions: q, category: 'random', difficulty: 'easy', mode: 'adult' }))
   }
 
+  // Delete a child everywhere (scores server-side + the local name list). Throws
+  // on failure so the confirm dialog can keep itself open and show an error.
+  async function deleteKid(name: string) {
+    await deleteKidEverywhere(user.uid, name)
+    forgetKidName(name)
+  }
+  // Rename a child, migrating their scores, then update the local name list.
+  async function renameKid(oldName: string, newName: string) {
+    await renameKidEverywhere(user.uid, oldName, newName)
+    forgetKidName(oldName)
+    rememberKidName(newName)
+  }
+
   function startKids(childName: string) {
     rememberKidName(childName)
     const diff: QuizDifficulty = bankAvailable('kids', 'easy') ? 'easy' : bankAvailable('kids', 'medium') ? 'medium' : 'hard'
@@ -194,7 +217,8 @@ export default function BibleQuiz({ user, onClose }: { user: AppUser; onClose: (
               onBack={backToHome} onStart={diff => startGame(pickedCat, diff)} />
           )}
           {screen === 'kidname' && (
-            <KidNameScreen loading={loading} onBack={backToHome} onStart={startKids} />
+            <KidNameScreen loading={loading} onBack={backToHome} onStart={startKids}
+              onDeleteKid={deleteKid} onRenameKid={renameKid} />
           )}
           {screen === 'playing' && game && (
             <PlayScreen questions={game.questions}
@@ -430,8 +454,10 @@ function DifficultyScreen({ category, profile, loading, onBack, onStart }: {
 }
 
 // ---- Kids name entry --------------------------------------------------------
-function KidNameScreen({ loading, onBack, onStart }: {
+function KidNameScreen({ loading, onBack, onStart, onDeleteKid, onRenameKid }: {
   loading: boolean; onBack: () => void; onStart: (name: string) => void
+  onDeleteKid: (name: string) => Promise<void>
+  onRenameKid: (oldName: string, newName: string) => Promise<void>
 }) {
   const { t } = useLanguage()
   const [saved, setSaved] = useState<string[]>(() => loadKidNames())
@@ -441,7 +467,53 @@ function KidNameScreen({ loading, onBack, onStart }: {
   const [name, setName] = useState('')
   const ok = name.trim().length >= 2
 
-  const remove = (n: string) => { forgetKidName(n); const next = loadKidNames(); setSaved(next); if (next.length === 0) setAdding(true) }
+  // Long-press (or right-click) a child to open Edit / Delete. A plain tap still
+  // starts the game - longPressed guards the click that follows a long press.
+  const [menuFor, setMenuFor] = useState<string | null>(null)
+  const [editing, setEditing] = useState<string | null>(null)
+  const [editName, setEditName] = useState('')
+  const [deleting, setDeleting] = useState<string | null>(null)
+  const [confirmText, setConfirmText] = useState('')
+  const [busy, setBusy] = useState(false)
+  const [err, setErr] = useState('')
+  const pressTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const longPressed = useRef(false)
+
+  useEffect(() => () => { if (pressTimer.current) clearTimeout(pressTimer.current) }, [])
+
+  const refresh = () => { const next = loadKidNames(); setSaved(next); if (next.length === 0) setAdding(true) }
+  const startPress = (n: string) => {
+    longPressed.current = false
+    pressTimer.current = setTimeout(() => { longPressed.current = true; setMenuFor(n) }, 500)
+  }
+  const endPress = () => { if (pressTimer.current) { clearTimeout(pressTimer.current); pressTimer.current = null } }
+  const tapKid = (n: string) => { if (longPressed.current) { longPressed.current = false; return } if (!loading) onStart(n) }
+
+  const beginEdit = (n: string) => { setMenuFor(null); setErr(''); setEditName(n); setEditing(n) }
+  const beginDelete = (n: string) => { setMenuFor(null); setErr(''); setConfirmText(''); setDeleting(n) }
+
+  const saveEdit = async () => {
+    const nn = editName.trim()
+    if (!editing || nn.length < 2 || busy) return
+    // Don't let a rename collide with a DIFFERENT existing child - that would
+    // merge two children's scores into one. (A pure case/spacing tweak of the
+    // same child has the same key and is allowed.)
+    if (kidKey(nn) !== kidKey(editing) && saved.some(o => kidKey(o) === kidKey(nn))) {
+      setErr(t('quiz.kidNameTaken')); return
+    }
+    setBusy(true); setErr('')
+    try { await onRenameKid(editing, nn); setEditing(null); refresh() }
+    catch { setErr(t('quiz.kidActionFailed')) }
+    finally { setBusy(false) }
+  }
+  const confirmDelete = async () => {
+    if (!deleting || busy) return
+    if (kidKey(confirmText) !== kidKey(deleting)) { setErr(t('quiz.kidNameMismatch')); return }
+    setBusy(true); setErr('')
+    try { await onDeleteKid(deleting); setDeleting(null); refresh() }
+    catch { setErr(t('quiz.kidActionFailed')) }
+    finally { setBusy(false) }
+  }
 
   return (
     <div className="px-4 pt-4 pb-10 safe-top flex flex-col min-h-full">
@@ -454,19 +526,19 @@ function KidNameScreen({ loading, onBack, onStart }: {
 
         {!adding && saved.length > 0 ? (
           <>
-            <p className="text-on-bg mb-5">{t('quiz.kidWhoPlaying')} 😊</p>
+            <p className="text-on-bg mb-1">{t('quiz.kidWhoPlaying')} 😊</p>
+            <p className="text-on-bg text-xs opacity-80 mb-4">{t('quiz.kidLongPressHint')}</p>
             <div className="w-full max-w-xs space-y-2 mb-5">
               {saved.map(n => (
-                <div key={n} className="flex items-center gap-2">
-                  <button onClick={() => !loading && onStart(n)} disabled={loading}
-                    className="quiz-shine flex-1 rounded-2xl bg-white text-slate-800 font-extrabold text-lg py-4 px-4 shadow-lg flex items-center justify-center gap-2 disabled:opacity-60 truncate">
-                    🎈 <span className="truncate">{n}</span>
-                  </button>
-                  <button onClick={() => remove(n)} aria-label={t('quiz.kidRemove')}
-                    className="shrink-0 w-11 h-11 rounded-2xl bg-white/15 text-white flex items-center justify-center hover:bg-white/25">
-                    <X size={18} />
-                  </button>
-                </div>
+                <button key={n}
+                  onClick={() => tapKid(n)}
+                  onPointerDown={() => startPress(n)}
+                  onPointerUp={endPress} onPointerLeave={endPress} onPointerCancel={endPress}
+                  onContextMenu={e => { e.preventDefault(); endPress(); setMenuFor(n) }}
+                  disabled={loading}
+                  className="quiz-shine w-full rounded-2xl bg-white text-slate-800 font-extrabold text-lg py-4 px-4 shadow-lg flex items-center justify-center gap-2 disabled:opacity-60 truncate select-none">
+                  🎈 <span className="truncate">{n}</span>
+                </button>
               ))}
             </div>
             <button onClick={() => { setName(''); setAdding(true) }}
@@ -496,6 +568,66 @@ function KidNameScreen({ loading, onBack, onStart }: {
           </>
         )}
       </div>
+
+      {/* Long-press options: edit or delete */}
+      {menuFor && (
+        <div className="fixed inset-0 z-50 bg-black/50 flex items-end sm:items-center justify-center" onClick={() => setMenuFor(null)}>
+          <div className="w-full max-w-xs bg-white rounded-t-3xl sm:rounded-3xl p-4 sm:m-4 shadow-2xl" onClick={e => e.stopPropagation()}>
+            <p className="text-center font-extrabold text-slate-800 mb-3 truncate">🎈 {menuFor}</p>
+            <button onClick={() => beginEdit(menuFor)} className="w-full flex items-center gap-3 px-4 py-3 rounded-2xl hover:bg-slate-100 text-slate-800 font-semibold">
+              <Pencil size={18} /> {t('quiz.kidEdit')}
+            </button>
+            <button onClick={() => beginDelete(menuFor)} className="w-full flex items-center gap-3 px-4 py-3 rounded-2xl hover:bg-red-50 text-red-600 font-semibold">
+              <Trash2 size={18} /> {t('quiz.kidDelete')}
+            </button>
+            <button onClick={() => setMenuFor(null)} className="w-full text-center px-4 py-3 mt-1 rounded-2xl text-slate-500 font-semibold hover:bg-slate-100">
+              {t('quiz.kidCancel')}
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Edit (rename) a child */}
+      {editing && (
+        <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4" onClick={() => !busy && setEditing(null)}>
+          <div className="w-full max-w-xs bg-white rounded-3xl p-5 shadow-2xl" onClick={e => e.stopPropagation()}>
+            <h3 className="font-extrabold text-slate-800 text-lg mb-3">{t('quiz.kidEditTitle')}</h3>
+            <input value={editName} onChange={e => setEditName(e.target.value)} maxLength={40} autoFocus
+              onKeyDown={e => { if (e.key === 'Enter') saveEdit() }}
+              className="w-full text-center text-lg font-bold rounded-2xl bg-slate-100 text-slate-800 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-affirm-400 mb-2" />
+            {err && <p className="text-red-500 text-sm mb-1 text-center">{err}</p>}
+            <div className="flex gap-2 mt-2">
+              <button onClick={() => setEditing(null)} disabled={busy} className="flex-1 py-3 rounded-2xl bg-slate-100 text-slate-600 font-bold">{t('quiz.kidCancel')}</button>
+              <button onClick={saveEdit} disabled={busy || editName.trim().length < 2} className="flex-1 py-3 rounded-2xl bg-affirm-600 text-white font-bold disabled:opacity-50 flex items-center justify-center gap-2">
+                {busy ? <Loader2 size={18} className="animate-spin" /> : t('quiz.kidSave')}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Delete a child - must retype the name first */}
+      {deleting && (
+        <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4" onClick={() => !busy && setDeleting(null)}>
+          <div className="w-full max-w-xs bg-white rounded-3xl p-5 shadow-2xl" onClick={e => e.stopPropagation()}>
+            <div className="w-12 h-12 rounded-full bg-red-100 flex items-center justify-center text-red-600 mx-auto mb-3"><Trash2 size={22} /></div>
+            <h3 className="font-extrabold text-slate-800 text-lg text-center mb-1">{t('quiz.kidDeleteTitle')}</h3>
+            <p className="text-slate-500 text-sm text-center mb-4">{t('quiz.kidDeleteWarn')}</p>
+            <p className="text-slate-600 text-sm text-center mb-2">{t('quiz.kidDeleteRetype')} <b className="text-slate-800">{deleting}</b></p>
+            <input value={confirmText} onChange={e => setConfirmText(e.target.value)} maxLength={40} autoFocus
+              placeholder={deleting}
+              onKeyDown={e => { if (e.key === 'Enter') confirmDelete() }}
+              className="w-full text-center text-base font-bold rounded-2xl bg-slate-100 text-slate-800 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-red-400 mb-2" />
+            {err && <p className="text-red-500 text-sm mb-1 text-center">{err}</p>}
+            <div className="flex gap-2 mt-2">
+              <button onClick={() => setDeleting(null)} disabled={busy} className="flex-1 py-3 rounded-2xl bg-slate-100 text-slate-600 font-bold">{t('quiz.kidCancel')}</button>
+              <button onClick={confirmDelete} disabled={busy || kidKey(confirmText) !== kidKey(deleting)} className="flex-1 py-3 rounded-2xl bg-red-600 text-white font-bold disabled:opacity-50 flex items-center justify-center gap-2">
+                {busy ? <Loader2 size={18} className="animate-spin" /> : t('quiz.kidDelete')}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

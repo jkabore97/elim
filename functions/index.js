@@ -3,7 +3,7 @@ const { onCall, onRequest, HttpsError } = require('firebase-functions/v2/https')
 const { onSchedule } = require('firebase-functions/v2/scheduler');
 const { defineSecret } = require('firebase-functions/params');
 const { initializeApp } = require('firebase-admin/app');
-const { getFirestore, FieldValue } = require('firebase-admin/firestore');
+const { getFirestore, FieldValue, Timestamp } = require('firebase-admin/firestore');
 const { getMessaging } = require('firebase-admin/messaging');
 const { getStorage } = require('firebase-admin/storage');
 const { Translate } = require('@google-cloud/translate').v2;
@@ -88,6 +88,15 @@ async function broadcastPush(db, { title, body, data }) {
   const tokens = [...tokenSet]; // dedupe: the same device token can appear twice
   if (tokens.length === 0) return;
 
+  // Where a clicked web notification lands: an explicit http(s) link wins,
+  // otherwise map the route hint to the right in-app screen.
+  const kind = (data && data.kind) || 'info';
+  const webLink =
+    (data && data.url && /^https?:\/\/.+/i.test(data.url)) ? data.url
+    : kind === 'message' ? 'https://ccelim.com/?tab=messages'
+    : kind === 'quiz' ? 'https://ccelim.com/?quiz=1'
+    : 'https://ccelim.com/';
+
   const messaging = getMessaging();
   const batches = chunk(tokens, 500);
   const results = await Promise.allSettled(
@@ -98,7 +107,7 @@ async function broadcastPush(db, { title, body, data }) {
         data: data || {},
         webpush: {
           notification: { icon: 'https://ccelim.com/elim-logo-mark.png' },
-          fcmOptions: { link: 'https://ccelim.com/?quiz=1' },
+          fcmOptions: { link: webLink },
         },
         android: {
           priority: 'high',
@@ -135,6 +144,36 @@ async function broadcastPush(db, { title, body, data }) {
         }))
     );
   }
+}
+
+// ---- Editable automatic notifications ----
+// The recurring quiz/champion pushes read their title/body/enabled from
+// config/autoNotifs (admin-editable in the app). Anything not set falls back to
+// the built-in default, so the app still works before an admin touches it.
+async function loadAutoConfig(db) {
+  try {
+    const s = await db.collection('config').doc('autoNotifs').get();
+    return s.exists ? (s.data() || {}) : {};
+  } catch (_e) {
+    return {};
+  }
+}
+
+// Replace {name}, {count}, ... placeholders with the run's real values.
+function fillTemplate(str, vars) {
+  return String(str == null ? '' : str).replace(/\{(\w+)\}/g, (m, k) =>
+    (vars && Object.prototype.hasOwnProperty.call(vars, k)) ? String(vars[k]) : m);
+}
+
+// Returns { title, body } for an automatic notification, or null if an admin
+// has switched it off. `def` is the built-in default; `vars` fills placeholders.
+function resolveAuto(cfg, key, def, vars) {
+  const c = (cfg && cfg[key]) || {};
+  if (c.enabled === false) return null;
+  const title = fillTemplate((c.title != null && String(c.title).trim()) ? c.title : def.title, vars).slice(0, 120);
+  const body = fillTemplate((c.body != null && String(c.body).trim()) ? c.body : def.body, vars).slice(0, 500);
+  if (!title || !body) return null;
+  return { title, body };
 }
 
 exports.notifyOnNewPost = onDocumentCreated('posts/{postId}', async (event) => {
@@ -255,6 +294,28 @@ exports.notifyOnNewMessage = onDocumentCreated('messages/{messageId}', async (ev
   }
 
   if (recipientIds.length === 0) return;
+
+  // Record a bell entry for each recipient - WITHOUT the message text, so a
+  // shared or glanced-at phone never leaks a private conversation. It just says
+  // "you have a new message" and taps through to Messages. Runs for every
+  // recipient (even those with push disabled) so the in-app bell is complete.
+  //
+  // One deterministic doc per (conversation, recipient): each new message
+  // overwrites it (bumping createdAt and re-marking unread) instead of piling
+  // up, so a busy thread can't flood the bell or crowd out like/comment alerts.
+  const convKey = String(message.conversationId || '').replace(/\//g, '_');
+  await Promise.allSettled(recipientIds.map((rid) =>
+    db.collection('notifications').doc(`msg_${convKey}_${rid}`).set({
+      recipientId: rid,
+      type: 'message',
+      actorId: message.senderId || '',
+      actorName: message.senderName || 'Message',
+      actorAvatar: null,
+      conversationId: message.conversationId,
+      read: false,
+      createdAt: FieldValue.serverTimestamp(),
+    })
+  ));
 
   // Firestore 'in' queries cap at 30 values, and the recipient list here is
   // realistically 1-2 people, but chunking keeps this correct if that changes.
@@ -1076,11 +1137,13 @@ exports.dailyQuizReminder = onSchedule(
   { schedule: '0 8 * * *', timeZone: CHURCH_TZ, region: 'us-central1' },
   async () => {
     const db = getFirestore();
-    await broadcastPush(db, {
+    const cfg = await loadAutoConfig(db);
+    const m = resolveAuto(cfg, 'quizReminder', {
       title: 'Quiz Biblique 🏆',
       body: "Le défi du jour t'attend : 5 questions, +50 points et un badge !",
-      data: { kind: 'quiz' },
-    });
+    }, {});
+    if (!m) return; // admin switched it off
+    await broadcastPush(db, { title: m.title, body: m.body, data: { kind: 'quiz' } });
   }
 );
 
@@ -1112,6 +1175,108 @@ exports.announceUpdateV125 = onSchedule(
   }
 );
 
+// ==================== ADMIN BROADCASTS ====================
+
+// Only admins/pastors may broadcast to the whole congregation.
+async function requireAdmin(request) {
+  if (!request.auth) throw new HttpsError('unauthenticated', 'Sign in first.');
+  const db = getFirestore();
+  const snap = await db.collection('users').doc(request.auth.uid).get();
+  const role = snap.exists ? snap.data().role : null;
+  if (!['admin', 'pastor'].includes(role)) {
+    throw new HttpsError('permission-denied', 'Admins only.');
+  }
+  return request.auth.uid;
+}
+
+function cleanBroadcast(data) {
+  const title = String((data && data.title) || '').trim().slice(0, 120);
+  const body = String((data && data.body) || '').trim().slice(0, 500);
+  let url = data && data.url ? String(data.url).trim().slice(0, 500) : null;
+  // Only http(s) links. Rejecting javascript:/data:/etc. is critical: this url
+  // becomes the href of a bell entry shown to every member, so an unsafe scheme
+  // would be stored XSS in each member's authenticated session.
+  if (url && !/^https?:\/\//i.test(url)) url = null;
+  // A safe in-app route hint the bell + tap handlers understand; falls back to
+  // plain info. These MUST match the kinds handled in notifications.ts / the
+  // service worker / the bell tap handler.
+  const allowedRoutes = ['info', 'quiz', 'feed', 'update', 'message'];
+  const route = data && allowedRoutes.includes(data.route) ? data.route : 'info';
+  if (!title || !body) throw new HttpsError('invalid-argument', 'Titre et message requis.');
+  return { title, body, url, route };
+}
+
+// Send a broadcast to everyone right now (push + in-app bell entry).
+exports.sendBroadcast = onCall({ region: 'us-central1' }, async (request) => {
+  await requireAdmin(request);
+  const db = getFirestore();
+  const { title, body, url, route } = cleanBroadcast(request.data);
+  await broadcastPush(db, { title, body, data: { kind: route, ...(url ? { url } : {}) } });
+  return { ok: true };
+});
+
+// Every 5 minutes, send any admin-scheduled broadcasts that have come due.
+exports.dispatchScheduledBroadcasts = onSchedule(
+  { schedule: '*/5 * * * *', region: 'us-central1' },
+  async () => {
+    const db = getFirestore();
+    const now = Timestamp.now();
+    const due = await db.collection('scheduledBroadcasts')
+      .where('sent', '==', false)
+      .where('sendAt', '<=', now)
+      .limit(20)
+      .get();
+    for (const d of due.docs) {
+      // Sanitize the same way sendBroadcast does (length bounds, route
+      // allowlist, http(s)-only url) - the doc was written straight to
+      // Firestore by the client, so it never passed through cleanBroadcast.
+      let clean;
+      try {
+        clean = cleanBroadcast(d.data());
+      } catch (e) {
+        // Malformed (e.g. missing title/body): don't retry it every 5 minutes.
+        console.error('invalid scheduled broadcast', d.id, e);
+        await d.ref.update({ sent: true, sentAt: FieldValue.serverTimestamp(), error: 'invalid' }).catch(() => {});
+        continue;
+      }
+      try {
+        await broadcastPush(db, {
+          title: clean.title,
+          body: clean.body,
+          data: { kind: clean.route, ...(clean.url ? { url: clean.url } : {}) },
+        });
+        await d.ref.update({ sent: true, sentAt: FieldValue.serverTimestamp() });
+      } catch (e) {
+        // Transient send failure: leave unsent so the next tick retries.
+        console.error('scheduled broadcast send failed', d.id, e);
+      }
+    }
+  }
+);
+
+// Keep the bell tidy: drop personal notifications and broadcast announcements
+// older than 30 days. Also clears already-sent scheduled broadcasts.
+exports.cleanupOldNotifications = onSchedule(
+  { schedule: '30 3 * * *', region: 'us-central1' },
+  async () => {
+    const db = getFirestore();
+    const cutoff = Timestamp.fromMillis(Date.now() - 30 * 24 * 60 * 60 * 1000);
+    for (const col of ['notifications', 'announcements', 'scheduledBroadcasts']) {
+      const field = col === 'scheduledBroadcasts' ? 'sentAt' : 'createdAt';
+      // Page through in batches so a large backlog can't blow the 500-write cap.
+      // eslint-disable-next-line no-constant-condition
+      while (true) {
+        const snap = await db.collection(col).where(field, '<', cutoff).limit(400).get();
+        if (snap.empty) break;
+        const batch = db.batch();
+        snap.docs.forEach((d) => batch.delete(d.ref));
+        await batch.commit();
+        if (snap.size < 400) break;
+      }
+    }
+  }
+);
+
 // Evening encouragement: gently celebrate the member who studied the most
 // today, to encourage everyone to keep learning the Bible - not a competitive
 // scoreboard. Fires at 20:00 church time. Skips quietly if nobody played.
@@ -1132,11 +1297,13 @@ exports.dailyTopScore = onSchedule(
     const pts = top.dayPoints || 0;
     if (pts <= 0) return;
     const name = (top.displayName || 'Un membre').toString().slice(0, 40);
-    await broadcastPush(db, {
+    const cfg = await loadAutoConfig(db);
+    const m = resolveAuto(cfg, 'topScore', {
       title: '📖 On apprend la Bible ensemble',
-      body: `Aujourd'hui, ${name} a pris le temps d'étudier la Parole avec E.L.I.M Quiz Biblique. Et toi, quel verset vas-tu découvrir ce soir ? 📖🙏`,
-      data: { kind: 'quiz' },
-    });
+      body: "Aujourd'hui, {name} a pris le temps d'étudier la Parole avec E.L.I.M Quiz Biblique. Et toi, quel verset vas-tu découvrir ce soir ? 📖🙏",
+    }, { name });
+    if (!m) return;
+    await broadcastPush(db, { title: m.title, body: m.body, data: { kind: 'quiz' } });
   }
 );
 
@@ -1220,11 +1387,14 @@ exports.weeklyCategoryChampions = onSchedule(
     if (!created) return; // another run already recorded this week; don't re-announce
 
     const catCount = Object.keys(categories).length;
-    await broadcastPush(db, {
+    const cfg = await loadAutoConfig(db);
+    const m = resolveAuto(cfg, 'weeklyChampions', {
       title: '🏆 Champion de la semaine',
-      body: `Bravo à ${grand.name} et à nos ${catCount} champions par catégorie pour tout ce qu'ils ont appris dans la Parole cette semaine ! Une nouvelle semaine pour grandir dans la Bible commence. 📖`,
-      data: { kind: 'quiz' },
-    });
+      body: "Bravo à {name} et à nos {count} champions par catégorie pour tout ce qu'ils ont appris dans la Parole cette semaine ! Une nouvelle semaine pour grandir dans la Bible commence. 📖",
+    }, { name: grand.name, count: catCount });
+    // Recording/crowning already happened above; only the announcement is
+    // editable/skippable.
+    if (m) await broadcastPush(db, { title: m.title, body: m.body, data: { kind: 'quiz' } });
   }
 );
 
@@ -1255,10 +1425,12 @@ exports.kidsWeeklyChampion = onSchedule(
       winner: { uid: v.uid, childName, parentName, points: v.points },
     });
 
-    await broadcastPush(db, {
+    const cfg = await loadAutoConfig(db);
+    const m = resolveAuto(cfg, 'kidsChampion', {
       title: '🎉 Champion du Quiz Enfants',
-      body: `Bravo ${childName} ! Champion des enfants cette semaine. Récompense aujourd'hui à l'école du dimanche. 👏`,
-      data: { kind: 'quiz' },
-    });
+      body: "Bravo {name} ! Champion des enfants cette semaine. Récompense aujourd'hui à l'école du dimanche. 👏",
+    }, { name: childName });
+    // The winner is already recorded above; only the announcement is editable.
+    if (m) await broadcastPush(db, { title: m.title, body: m.body, data: { kind: 'quiz' } });
   }
 );

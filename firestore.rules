@@ -411,6 +411,16 @@ service cloud.firestore {
       allow write: if false;
     }
 
+    // Admin-scheduled broadcasts, waiting to be sent by dispatchScheduledBroadcasts.
+    // Admins create and delete them; the dispatcher (Admin SDK) flips `sent` and
+    // stamps `sentAt`, so clients never update one.
+    match /scheduledBroadcasts/{id} {
+      allow read: if isAdmin();
+      allow create: if isAdmin() && request.resource.data.sent == false;
+      allow delete: if isAdmin();
+      allow update: if false;
+    }
+
     // ---- Donations (declarations) ----
     // A member declares a donation AFTER paying outside the app (mobile
     // money / PayPal / card link) - the app never touches the money itself.
@@ -536,7 +546,10 @@ service cloud.firestore {
     // Sunday-school prize.
     match /quizKids/{docId} {
       allow read: if isSignedIn();
-      allow write: if isSignedIn() && request.resource.data.uid == request.auth.uid;
+      allow create, update: if isSignedIn() && request.resource.data.uid == request.auth.uid;
+      // Delete has no request.resource.data - authorise by the stored owner so a
+      // parent can wipe their own child's score everywhere.
+      allow delete: if isSignedIn() && resource.data.uid == request.auth.uid;
     }
 
     // ---- Bible quiz champions (Hall of Fame) ----
