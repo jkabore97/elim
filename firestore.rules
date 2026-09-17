@@ -546,7 +546,10 @@ service cloud.firestore {
     // Sunday-school prize.
     match /quizKids/{docId} {
       allow read: if isSignedIn();
-      allow write: if isSignedIn() && request.resource.data.uid == request.auth.uid;
+      allow create, update: if isSignedIn() && request.resource.data.uid == request.auth.uid;
+      // Delete has no request.resource.data - authorise by the stored owner so a
+      // parent can wipe their own child's score everywhere.
+      allow delete: if isSignedIn() && resource.data.uid == request.auth.uid;
     }
 
     // ---- Bible quiz champions (Hall of Fame) ----

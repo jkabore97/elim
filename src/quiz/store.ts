@@ -16,7 +16,7 @@
 //    Functions at week close; world-readable for the Palmarès.
 import {
   doc, collection, onSnapshot, setDoc, query, where, orderBy, limit,
-  getDocs, serverTimestamp, increment, writeBatch,
+  getDocs, getDoc, deleteDoc, serverTimestamp, increment, writeBatch,
 } from 'firebase/firestore'
 import { db } from '../firebase'
 import {
@@ -165,6 +165,48 @@ export async function commitKidsGame(
     updatedAt: serverTimestamp(),
   }), { merge: true })
   return gained
+}
+
+// All of a parent's quizKids score docs for one child (across every week),
+// matched by the child's slug so it survives case/spacing differences.
+async function kidScoreDocs(uid: string, childName: string) {
+  const slug = childSlug(childName)
+  const snap = await getDocs(query(collection(db, KIDS), where('uid', '==', uid)))
+  return snap.docs.filter(d => childSlug((d.data() as any).childName || '') === slug)
+}
+
+// Delete a child's score everywhere: every weekly quizKids doc for that child
+// under this parent account. (Palmarès champion snapshots are immutable admin
+// records and are intentionally left untouched.)
+export async function deleteKidEverywhere(uid: string, childName: string): Promise<void> {
+  const mine = await kidScoreDocs(uid, childName)
+  await Promise.all(mine.map(d => deleteDoc(d.ref)))
+}
+
+// Rename a child, carrying their scores over. When the slug is unchanged
+// (e.g. just a capitalisation tweak) we update the display name in place;
+// otherwise each weekly doc is re-keyed to the new slug, summing into any
+// existing doc for that week, then the old doc is removed.
+export async function renameKidEverywhere(uid: string, oldName: string, newName: string): Promise<void> {
+  const oldSlug = childSlug(oldName)
+  const newSlug = childSlug(newName)
+  const mine = await kidScoreDocs(uid, oldName)
+  if (oldSlug === newSlug) {
+    await Promise.all(mine.map(d => setDoc(d.ref, { childName: newName }, { merge: true })))
+    return
+  }
+  for (const d of mine) {
+    const data = d.data() as any
+    const weekId = data.kidsWeekId
+    const newRef = doc(db, KIDS, `${weekId}__${uid}__${newSlug}`)
+    const existing = await getDoc(newRef)
+    const merged = (existing.exists() ? (existing.data() as any).points || 0 : 0) + (data.points || 0)
+    await setDoc(newRef, clean({
+      kidsWeekId: weekId, uid, parentName: data.parentName || '',
+      childName: newName, points: merged, updatedAt: serverTimestamp(),
+    }))
+    await deleteDoc(d.ref)
+  }
 }
 
 // ---- Palmarès (Hall of Fame) ------------------------------------------------
