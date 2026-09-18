@@ -174,6 +174,12 @@ function toPlay(q: BankQuestion, cat: QuizCategory, diff: QuizDifficulty, lang: 
   }
 }
 
+// Turn a bank question into a ready-to-play one (options shuffled). Public so
+// the spaced-repetition selector (review.ts) can present the questions it picks.
+export function present(q: BankQuestion, cat: QuizCategory, diff: QuizDifficulty, lang: QuizLang): PlayQuestion {
+  return toPlay(q, cat, diff, lang, Math.random)
+}
+
 export async function buildGame(cat: QuizCategory, diff: QuizDifficulty, lang: QuizLang): Promise<PlayQuestion[]> {
   const bank = await loadBank(cat, diff)
   if (bank.length) {
