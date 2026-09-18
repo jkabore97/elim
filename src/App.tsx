@@ -37,6 +37,7 @@ import { ImageLightbox } from './ImageLightbox'
 import { initBackButton, useBackHandler } from './backButton'
 import { MessagesTab, useUnreadCount } from './Messages'
 import { playMessageAlert, isAlertMuted, setAlertMuted } from './messageAlert'
+import { getSoundSettings, setSoundSettings, emit as playFeedback, type SoundChannel } from './feedback'
 import { DataManagementTab } from './DataManagement'
 import { LibraryTab } from './Library'
 import BibleQuiz from './BibleQuiz'
@@ -2467,6 +2468,70 @@ const COUNTRY_CODES = [
 ]
 
 // ==================== COMPONENTS ====================
+// A folded profile group: header always visible, body one tap away and never
+// deeper than this (NN/g: past two levels people get lost). Progressive
+// disclosure keeps the profile short and unintimidating.
+function Fold({ title, children, defaultOpen = false }: { title: string; children: React.ReactNode; defaultOpen?: boolean }) {
+  const [open, setOpen] = useState(defaultOpen)
+  return (
+    <div className="glass rounded-3xl shadow-sm border border-slate-100 overflow-hidden">
+      <button onClick={() => setOpen(o => !o)} aria-expanded={open}
+        className="w-full flex items-center justify-between gap-3 px-5 py-4 text-left">
+        <span className="font-bold text-slate-900">{title}</span>
+        <ChevronDown size={18} className={`text-slate-400 transition-transform ${open ? 'rotate-180' : ''}`} />
+      </button>
+      {open && <div className="px-5 pb-5 space-y-4">{children}</div>}
+    </div>
+  )
+}
+
+// The app's one sound control surface (Part C of the blueprint): a master
+// switch, per-channel toggles, quiet hours and the Sunday-service mute — all
+// backed by feedback.ts. A tap on a channel previews its earcon.
+function SoundSettingsPanel() {
+  const { t } = useLanguage()
+  const [s, setS] = useState(getSoundSettings)
+  const save = (patch: Parameters<typeof setSoundSettings>[0]) => setS(setSoundSettings(patch))
+  const Row = ({ label, on, onToggle }: { label: string; on: boolean; onToggle: () => void }) => (
+    <div className="flex items-center justify-between gap-4 py-1">
+      <span className="text-sm text-slate-700">{label}</span>
+      <button onClick={onToggle} role="switch" aria-checked={on}
+        className={`relative shrink-0 w-12 h-7 rounded-full transition ${on ? 'bg-affirm-600' : 'bg-slate-200'}`}>
+        <span className={`absolute top-1 left-1 w-5 h-5 rounded-full bg-white shadow transition-transform ${on ? 'translate-x-5' : ''}`} />
+      </button>
+    </div>
+  )
+  const chan = (c: SoundChannel, label: string) => (
+    <Row label={label} on={s.channels[c]} onToggle={() => { const on = !s.channels[c]; save({ channels: { ...s.channels, [c]: on } }); if (on) playFeedback(c === 'quiz' ? 'quiz.correct' : c === 'messages' ? 'message' : c === 'announcements' ? 'announce' : 'tick') }} />
+  )
+  return (
+    <div className="pt-2 border-t border-slate-100">
+      <h3 className="font-bold text-slate-900 text-sm mb-2">{t('sound.title')}</h3>
+      <Row label={t('sound.master')} on={s.master} onToggle={() => save({ master: !s.master })} />
+      <Row label={t('sound.haptics')} on={s.haptics} onToggle={() => save({ haptics: !s.haptics })} />
+      {s.master && (
+        <div className="mt-1 pl-1 space-y-0.5">
+          {chan('quiz', t('sound.chQuiz'))}
+          {chan('messages', t('sound.chMessages'))}
+          {chan('announcements', t('sound.chAnnounce'))}
+          {chan('social', t('sound.chSocial'))}
+          <div className="pt-2 mt-1 border-t border-slate-50">
+            <Row label={t('sound.quiet')} on={s.quietEnabled} onToggle={() => save({ quietEnabled: !s.quietEnabled })} />
+            {s.quietEnabled && (
+              <div className="flex items-center gap-2 text-xs text-slate-500 pl-1 pb-1">
+                <input type="time" value={s.quietFrom} onChange={e => save({ quietFrom: e.target.value })} className="rounded-lg border border-slate-200 px-2 py-1" />
+                <span>→</span>
+                <input type="time" value={s.quietTo} onChange={e => save({ quietTo: e.target.value })} className="rounded-lg border border-slate-200 px-2 py-1" />
+              </div>
+            )}
+            <Row label={t('sound.serviceMute')} on={s.serviceMute} onToggle={() => save({ serviceMute: !s.serviceMute })} />
+          </div>
+        </div>
+      )}
+    </div>
+  )
+}
+
 function ProfileTab({ user, onProfileUpdated, onLogout }: {
   user: AppUser
   onProfileUpdated: (updates: Partial<AppUser>) => void
@@ -2609,9 +2674,8 @@ function ProfileTab({ user, onProfileUpdated, onLogout }: {
         {avatarError && <p className="mt-4 text-xs text-red-500 bg-red-50 rounded-xl px-3 py-2 inline-block">{avatarError}</p>}
       </div>
 
-      <form onSubmit={handleSaveProfile} className="glass rounded-3xl p-6 shadow-sm border border-slate-100 space-y-4">
-        <h3 className="font-bold text-slate-900 px-1">{t('profile.details')}</h3>
-
+      <Fold title={t('profile.groupAccount')} defaultOpen>
+      <form onSubmit={handleSaveProfile} className="space-y-4">
         <div>
           <label className="text-xs font-semibold text-slate-500 px-1">{t('profile.church')}</label>
           <input value={churchName} onChange={e => setChurchName(e.target.value)} placeholder={t('profile.churchPlaceholder')}
@@ -2648,10 +2712,11 @@ function ProfileTab({ user, onProfileUpdated, onLogout }: {
           {saving ? t('profile.saving') : t('profile.saveChanges')}
         </button>
       </form>
-
       <LanguagePicker />
+      </Fold>
 
-      <div className="glass rounded-3xl p-6 shadow-sm border border-slate-100">
+      <Fold title={t('profile.groupNotif')}>
+      <div>
         <div className="flex items-center justify-between gap-4">
           <div>
             <h3 className="font-bold text-slate-900">{t('profile.notifications')}</h3>
@@ -2720,8 +2785,11 @@ function ProfileTab({ user, onProfileUpdated, onLogout }: {
           </div>
         )}
       </div>
+      <SoundSettingsPanel />
+      </Fold>
 
-      <div className="glass rounded-3xl p-6 shadow-sm border border-slate-100">
+      <Fold title={t('profile.groupHelp')}>
+      <div>
         <h3 className="font-bold text-slate-900">{t('support.title')}</h3>
         <p className="text-xs text-slate-400 mt-0.5 leading-relaxed">{t('support.note')}</p>
 
@@ -2757,6 +2825,7 @@ function ProfileTab({ user, onProfileUpdated, onLogout }: {
           </a>
         </div>
       </div>
+      </Fold>
 
       <button onClick={onLogout}
         className="w-full flex items-center justify-center gap-2 py-3.5 rounded-2xl bg-white border border-red-100 text-red-600 font-semibold text-sm hover:bg-red-50 transition shadow-sm">
