@@ -8,7 +8,7 @@ import { doc, addDoc, onSnapshot, deleteDoc, collection, serverTimestamp, query,
 import { ref, uploadBytesResumable, deleteObject } from 'firebase/storage'
 import { functions, db, storage } from './firebase'
 
-export interface TranscriptDoc { status?: 'processing' | 'done' | 'error'; text?: string; error?: string }
+export interface TranscriptDoc { status?: 'processing' | 'done' | 'error'; text?: string; error?: string; progress?: number; fileUrl?: string | null }
 export interface TranscriptJob extends TranscriptDoc { id: string; fileName?: string; createdAt?: any }
 
 // Callable. The client-side timeout is generous, but the Firestore

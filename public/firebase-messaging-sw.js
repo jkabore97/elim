@@ -38,13 +38,20 @@ self.addEventListener('notificationclick', (event) => {
   event.notification.close();
   const data = event.notification.data?.FCM_MSG?.data || event.notification.data || {};
   const httpUrl = typeof data.url === 'string' && /^https?:\/\//i.test(data.url) ? data.url : null;
-  const target = httpUrl
-    ? httpUrl
-    : data.kind === 'message'
-      ? '/?tab=messages'
-      : data.kind === 'quiz'
-        ? '/?quiz=1'
-        : data.postId ? `/?post=${data.postId}` : '/';
+
+  // An external link (e.g. a transcript .txt download) opens in its own tab so
+  // it never navigates the app tab away. The browser triggers the download from
+  // the file's attachment disposition.
+  if (httpUrl) {
+    event.waitUntil(clients.openWindow(httpUrl));
+    return;
+  }
+
+  const target = data.kind === 'message'
+    ? '/?tab=messages'
+    : data.kind === 'quiz'
+      ? '/?quiz=1'
+      : data.postId ? `/?post=${data.postId}` : '/';
 
   event.waitUntil(
     clients.matchAll({ type: 'window', includeUncontrolled: true }).then((list) => {

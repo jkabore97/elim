@@ -642,7 +642,7 @@ async function recognizeChunk(bucket, stagedPath) {
 // Download -> ffmpeg to 16 kHz mono FLAC, split into fixed-length chunks ->
 // transcribe each chunk from GCS -> stitch in order -> clean up. Returns the
 // joined transcript. Throws on failure; callers record the error.
-async function runTranscription(objectPath) {
+async function runTranscription(objectPath, onProgress) {
   const bucket = getStorage().bucket();
   const id = crypto.randomUUID();
   const localIn = path.join(os.tmpdir(), `stt-in-${id}`);
@@ -687,6 +687,9 @@ async function runTranscription(objectPath) {
     const chunks = localChunks();
     if (chunks.length === 0) { await cleanup(); return ''; }
 
+    // Splitting done: report a little progress before the (longer) recognize loop.
+    if (onProgress) { try { await onProgress(0.05); } catch (_e) { /* ignore */ } }
+
     const parts = [];
     // Sequential: one chunk in memory/GCS at a time keeps a long file well
     // within the function's memory and avoids hammering the STT quota. A single
@@ -702,6 +705,8 @@ async function runTranscription(objectPath) {
       }
       try { await bucket.file(staged).delete({ ignoreNotFound: true }); } catch (_e) { /* ignore */ }
       try { fs.unlinkSync(chunks[i]); } catch (_e) { /* ignore */ }
+      // Progress across the recognize loop: 5% (split) -> 100% (last chunk).
+      if (onProgress) { try { await onProgress(0.05 + 0.95 * ((i + 1) / chunks.length)); } catch (_e) { /* ignore */ } }
     }
     await cleanup();
     return parts.filter(Boolean).join(' ').trim();
@@ -717,6 +722,36 @@ async function runTranscription(objectPath) {
 
 // Transcribe a lead's scratch UPLOAD, then delete it from Storage. The result
 // is written to the caller-created transcribeJobs/{jobId} doc they subscribe to.
+// When a transcript is ready, tell the lead who requested it AND every
+// admin/pastor: a bell entry + a push, both carrying the .txt download link.
+async function notifyTranscriptReady(db, requesterUid, name, fileUrl) {
+  const staff = await db.collection('users').where('role', 'in', ['admin', 'pastor']).get();
+  const recipients = [...new Set([requesterUid, ...staff.docs.map((d) => d.id)])];
+  const title = '📝 Transcription prête';
+  const body = `« ${name} » est prête. Touchez pour télécharger le fichier texte.`;
+
+  await Promise.allSettled(recipients.map((rid) => addNotification(db, {
+    recipientId: rid, type: 'transcript', actorId: requesterUid, actorName: name,
+    url: fileUrl || null,
+  })));
+
+  const tokens = [];
+  for (const grp of chunk(recipients, 30)) {
+    const us = await db.collection('users').where('__name__', 'in', grp).get();
+    us.forEach((d) => { const x = d.data(); if (x.notificationsEnabled && Array.isArray(x.fcmTokens)) tokens.push(...x.fcmTokens); });
+  }
+  const uniq = [...new Set(tokens)];
+  if (uniq.length === 0) return;
+  const messaging = getMessaging();
+  await Promise.allSettled(chunk(uniq, 500).map((batch) => messaging.sendEachForMulticast({
+    tokens: batch,
+    notification: { title, body },
+    data: { kind: 'transcript', ...(fileUrl ? { url: fileUrl } : {}) },
+    webpush: { notification: { icon: 'https://ccelim.com/elim-logo-mark.png' }, fcmOptions: { link: fileUrl || 'https://ccelim.com/' } },
+    android: { priority: 'high', notification: { color: '#f97316', channelId: 'elim-default', icon: 'ic_stat_notify', defaultSound: true } },
+  })));
+}
+
 exports.transcribeUpload = onCall(TRANSCRIBE_OPTS, async (request) => {
   const uid = await requireLead(request);
   const jobId = String(request.data?.jobId || '').trim();
@@ -729,11 +764,40 @@ exports.transcribeUpload = onCall(TRANSCRIBE_OPTS, async (request) => {
 
   const db = getFirestore();
   const ref = db.collection('transcribeJobs').doc(jobId);
+  const snap0 = await ref.get();
+  const origName = (snap0.exists && snap0.data().fileName) ? String(snap0.data().fileName) : '';
   try {
-    const text = await runTranscription(objectPath);
+    // Report progress to the job doc as each chunk finishes, so the UI shows a
+    // real progress bar.
+    let lastPct = -1;
+    const text = await runTranscription(objectPath, async (frac) => {
+      const pct = Math.min(99, Math.max(0, Math.round(frac * 100)));
+      if (pct === lastPct) return;
+      lastPct = pct;
+      try { await ref.set({ progress: pct }, { merge: true }); } catch (_e) { /* ignore */ }
+    });
     // The upload was a scratch file only needed for the transcript: remove it.
     try { await getStorage().bucket().file(objectPath).delete({ ignoreNotFound: true }); } catch (_e) { /* ignore */ }
-    await ref.set({ ownerUid: uid, status: 'done', text, updatedAt: FieldValue.serverTimestamp() }, { merge: true });
+
+    // Save the transcript as a downloadable .txt (token URL, forced download).
+    const base = (origName.replace(/\.[^.]+$/, '') || 'transcription').replace(/[^\w\-. ]+/g, '_').slice(0, 60) || 'transcription';
+    const filePath = `transcripts/${uid}/${jobId}.txt`;
+    const token = crypto.randomUUID();
+    let fileUrl = null;
+    try {
+      await getStorage().bucket().file(filePath).save(Buffer.from(text || '', 'utf8'), {
+        contentType: 'text/plain; charset=utf-8',
+        metadata: {
+          contentDisposition: `attachment; filename="${base}.txt"`,
+          metadata: { firebaseStorageDownloadTokens: token },
+        },
+      });
+      const bucketName = getStorage().bucket().name;
+      fileUrl = `https://firebasestorage.googleapis.com/v0/b/${bucketName}/o/${encodeURIComponent(filePath)}?alt=media&token=${token}`;
+    } catch (e) { console.error('transcript file save failed', e); }
+
+    await ref.set({ ownerUid: uid, status: 'done', text, progress: 100, fileUrl, updatedAt: FieldValue.serverTimestamp() }, { merge: true });
+    try { await notifyTranscriptReady(db, uid, base, fileUrl); } catch (e) { console.error('transcript notify failed', e); }
     return { text };
   } catch (err) {
     try { await getStorage().bucket().file(objectPath).delete({ ignoreNotFound: true }); } catch (_e) { /* ignore */ }

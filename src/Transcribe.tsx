@@ -2,7 +2,7 @@
 //  - TranscribeTool: the Read-tab tool where a lead uploads an audio/video file
 //    and gets its transcript; the upload is deleted server-side once done.
 import { useEffect, useRef, useState } from 'react'
-import { ScrollText, X, Copy, Check, Loader2, Upload, RotateCcw } from 'lucide-react'
+import { ScrollText, X, Copy, Check, Loader2, Upload, RotateCcw, Download } from 'lucide-react'
 import { Portal } from './Portal'
 import { useLanguage } from './i18n'
 import type { AppUser } from './types'
@@ -43,6 +43,8 @@ export function TranscribeTool({ user }: { user: AppUser }) {
   const [open, setOpen] = useState(false)
   const [phase, setPhase] = useState<'idle' | 'uploading' | 'processing' | 'done' | 'error'>('idle')
   const [progress, setProgress] = useState(0)
+  const [procPct, setProcPct] = useState(0)
+  const [fileUrl, setFileUrl] = useState<string | null>(null)
   const [text, setText] = useState('')
   const [errMsg, setErrMsg] = useState('')
   const [recent, setRecent] = useState<TranscriptJob[]>([])
@@ -57,7 +59,7 @@ export function TranscribeTool({ user }: { user: AppUser }) {
     if (unsubRef.current) { unsubRef.current(); unsubRef.current = null }
     if (failsafeRef.current) { clearTimeout(failsafeRef.current); failsafeRef.current = null }
     jobRef.current = null
-    setPhase('idle'); setProgress(0); setText(''); setErrMsg('')
+    setPhase('idle'); setProgress(0); setProcPct(0); setFileUrl(null); setText(''); setErrMsg('')
   }
   useEffect(() => () => {
     if (unsubRef.current) unsubRef.current()
@@ -85,7 +87,8 @@ export function TranscribeTool({ user }: { user: AppUser }) {
     }
     unsubRef.current = subscribeJob(jobId, (j: TranscriptDoc | null) => {
       if (!j) return
-      if (j.status === 'done') finish(() => { setText(j.text || ''); setPhase('done') })
+      if (typeof j.progress === 'number') setProcPct(j.progress)
+      if (j.status === 'done') finish(() => { setText(j.text || ''); setFileUrl(j.fileUrl || null); setPhase('done') })
       else if (j.status === 'error') finish(() => { setErrMsg(j.error || ''); setPhase('error') })
     })
     failsafeRef.current = setTimeout(
@@ -97,9 +100,9 @@ export function TranscribeTool({ user }: { user: AppUser }) {
   // Open a job from the recent list.
   const openRecent = (job: TranscriptJob) => {
     setErrMsg(''); setText('')
-    if (job.status === 'done') { jobRef.current = job.id; setText(job.text || ''); setPhase('done') }
+    if (job.status === 'done') { jobRef.current = job.id; setText(job.text || ''); setFileUrl(job.fileUrl || null); setPhase('done') }
     else if (job.status === 'error') { jobRef.current = job.id; setErrMsg(job.error || ''); setPhase('error') }
-    else { setPhase('processing'); watchJob(job.id) }
+    else { setProcPct(job.progress || 0); setPhase('processing'); watchJob(job.id) }
   }
 
   const deleteRecent = (id: string) => { clearJob(id); if (jobRef.current === id) reset() }
@@ -206,14 +209,24 @@ export function TranscribeTool({ user }: { user: AppUser }) {
                 {phase === 'processing' && (
                   <div className="py-8 text-center text-slate-500">
                     <Loader2 size={26} className="animate-spin mx-auto mb-3 text-affirm-500" />
-                    <p className="text-sm font-medium">{t('script.working')}</p>
-                    <p className="text-xs text-slate-400 mt-1">{t('script.workingHint')}</p>
+                    <p className="text-sm font-medium">{t('script.working')}{procPct > 0 ? ` — ${procPct}%` : ''}</p>
+                    {/* Real progress bar, driven by the server's per-chunk updates. */}
+                    <div className="mt-3 mx-auto max-w-xs h-2 rounded-full bg-slate-200 overflow-hidden">
+                      <div className="h-full bg-affirm-500 rounded-full transition-all duration-500"
+                        style={{ width: `${Math.max(4, procPct)}%` }} />
+                    </div>
+                    <p className="text-xs text-slate-400 mt-3">{t('script.workingHint')}</p>
+                    <p className="text-xs text-slate-400 mt-1">{t('script.backgroundHint')}</p>
                   </div>
                 )}
                 {phase === 'done' && (
                   <>
-                    <div className="mb-4 flex items-center gap-2">
+                    <div className="mb-4 flex items-center gap-2 flex-wrap">
                       <CopyAllButton text={text} />
+                      {fileUrl && (
+                        <a href={fileUrl} target="_blank" rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-slate-900 text-white text-sm font-semibold"><Download size={15} /> {t('script.download')}</a>
+                      )}
                       <button onClick={reset} className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-slate-100 text-slate-600 text-sm font-semibold"><RotateCcw size={15} /> {t('script.another')}</button>
                     </div>
                     <p className="whitespace-pre-wrap text-[15px] leading-relaxed text-slate-800">{text || t('script.empty')}</p>

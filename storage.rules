@@ -71,6 +71,15 @@ service firebase.storage {
       );
     }
 
+    // Finished transcripts (.txt), written ONLY by the Cloud Function (Admin
+    // SDK bypasses these rules). The owner may read via the SDK; the download
+    // link sent in the notification is a tokenized URL that works regardless.
+    // Admins receive that same link, so they don't need a path-read grant here.
+    match /transcripts/{uid}/{fileName} {
+      allow read: if isOwner(uid);
+      allow write: if false;
+    }
+
     // Deny everything else by default.
     match /{allPaths=**} {
       allow read, write: if false;

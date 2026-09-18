@@ -1683,6 +1683,8 @@ function AppInner() {
 
   const handleNotificationTap = (n: AppNotification) => {
     setShowNotifications(false)
+    // A transcript-ready notification downloads the .txt via its link.
+    if (n.type === 'transcript') { if (n.url && /^https?:\/\//i.test(n.url)) window.open(n.url, '_blank', 'noopener,noreferrer'); return }
     // A message notification lands on Messages (no post to open).
     if (n.type === 'message') { setActiveTab('messages'); return }
     if (!n.postId) return
@@ -4392,6 +4394,7 @@ function NotificationsPanel({ notifications, announcements, newPostCount, onClos
       : type === 'comment_like' ? t('notif.commentLike')
       : type === 'post_comment' ? t('notif.postComment')
       : type === 'message' ? t('notif.message')
+      : type === 'transcript' ? t('notif.transcript')
       : t('notif.commentReply')
 
   return (
@@ -4440,9 +4443,10 @@ function NotificationsPanel({ notifications, announcements, newPostCount, onClos
           })}
           {notifications.map(n => {
             const isMessage = n.type === 'message'
+            const isTranscript = n.type === 'transcript'
             const isLike = n.type.includes('like')
-            const RowIcon = isMessage ? Mail : isLike ? Heart : MessageCircle
-            const badgeColor = isMessage ? 'bg-emerald-500' : isLike ? 'bg-rose-500' : 'bg-sky-500'
+            const RowIcon = isTranscript ? Download : isMessage ? Mail : isLike ? Heart : MessageCircle
+            const badgeColor = isTranscript ? 'bg-slate-800' : isMessage ? 'bg-emerald-500' : isLike ? 'bg-rose-500' : 'bg-sky-500'
             return (
               <div key={n.id} className={`flex items-start gap-3 px-5 py-3.5 border-b border-slate-50 ${!n.read ? 'bg-affirm-50/40' : ''}`}>
                 <button onClick={() => onTap(n)} className="flex items-start gap-3 flex-1 text-left min-w-0">
