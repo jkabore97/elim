@@ -130,6 +130,12 @@ export function todayKey(d = new Date()): string {
   return `${y}-${String(m).padStart(2, '0')}-${String(day).padStart(2, '0')}`
 }
 
+// Whole-day index for a YYYY-MM-DD key, for gap arithmetic (streak grace).
+export function dayNumber(key: string): number {
+  const [y, m, d] = key.split('-').map(Number)
+  return Math.floor(Date.UTC(y || 1970, (m || 1) - 1, d || 1) / 86400000)
+}
+
 // Adult competition categories - every category except Kids, which runs its
 // own separate weekly league (see kidsWeekKey).
 export const ADULT_CATEGORIES = QUIZ_CATEGORIES.filter(c => c !== 'kids') as Exclude<QuizCategory, 'kids'>[]
@@ -273,6 +279,7 @@ export interface QuizProfile {
   correct: number
   dailyStreak: number
   lastDailyDate?: string   // YYYY-MM-DD of the last completed daily challenge
+  graceMonth?: string      // YYYY-MM in which the monthly streak grace was used
   badges: string[]
   // Best score (right answers out of 10) per "category-difficulty".
   best: Record<string, number>
@@ -351,10 +358,19 @@ export function applyResult(p: QuizProfile, r: GameResult, day = todayKey()): { 
   } else if (p.lastDailyDate !== day) {
     // Daily streak: consecutive days with a completed challenge. The +50 daily
     // bonus is awarded HERE, gated to the first completion of the day, so
-    // replaying the daily can't farm it (it used to be added unconditionally
-    // by the caller on every daily game).
-    const y = new Date(); y.setDate(y.getDate() - 1)
-    next.dailyStreak = p.lastDailyDate === todayKey(y) ? p.dailyStreak + 1 : 1
+    // replaying the daily can't farm it. A GRACE DAY forgives exactly one
+    // missed day per calendar month, so a single lapse doesn't reset a long
+    // streak (removes the loss-aversion cliff that makes streaks feel punishing).
+    const gap = p.lastDailyDate ? dayNumber(day) - dayNumber(p.lastDailyDate) : 999
+    const month = day.slice(0, 7)
+    if (gap === 1) {
+      next.dailyStreak = p.dailyStreak + 1
+    } else if (gap === 2 && p.graceMonth !== month) {
+      next.dailyStreak = p.dailyStreak + 1   // one missed day, forgiven
+      next.graceMonth = month
+    } else {
+      next.dailyStreak = 1
+    }
     next.lastDailyDate = day
     next.points += DAILY_BONUS
   }
