@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import {
   Trophy, Medal, ArrowRight, X, RotateCcw, Share2,
-  ChevronLeft, Check, Loader2, BookOpen, Crown, ScrollText, Pencil, Trash2,
+  ChevronLeft, Check, Loader2, BookOpen, Crown, ScrollText, Pencil, Trash2, Lock, Star,
 } from 'lucide-react'
 import { Share } from '@capacitor/share'
 import { useLanguage } from './i18n'
@@ -21,6 +21,11 @@ import {
   pickForCategory, pickReview, recordAnswer, reviewSummary,
   type DueItem, type ReviewSummary,
 } from './quiz/review'
+import {
+  lessonsOf, lessonId, lessonStars, lessonPassed, levelState, levelUnlocked, recordLessonResult,
+  type LevelState,
+} from './quiz/lessons'
+import type { BankQuestion } from './quiz/engine'
 import {
   subscribeProfile, commitAdultGame, commitKidsGame, fetchTopScorer,
   fetchGrandLeaders, fetchCategoryLeaders, fetchKidsLeaders, fetchChampions,
@@ -90,6 +95,7 @@ interface Game {
   mode: 'adult' | 'kids'
   childName?: string
   review?: boolean   // a "revise what you missed" round (drives replay routing)
+  lesson?: { cat: QuizCategory; diff: QuizDifficulty; index: number } // a Parcours lesson
 }
 
 export default function BibleQuiz({ user, onClose }: { user: AppUser; onClose: () => void }) {
@@ -205,6 +211,17 @@ export default function BibleQuiz({ user, onClose }: { user: AppUser; onClose: (
     return launch(() => buildGame('kids', diff, lang), q => ({ questions: q, category: 'kids', difficulty: diff, mode: 'kids', childName }))
   }
 
+  // Parcours: play the fixed 5 questions of one lesson, in order (not random) -
+  // completing a lesson is repeatable, so the set has to be stable.
+  function startLesson(cat: QuizCategory, diff: QuizDifficulty, index: number) {
+    return launch(async () => {
+      const bank = await loadBank(cat, diff)
+      const lesson = lessonsOf(bank)[index]
+      if (!lesson?.length) return []
+      return lesson.map(q => present(q, cat, diff, lang))
+    }, q => ({ questions: q, category: cat, difficulty: diff, mode: 'adult', lesson: { cat, diff, index } }))
+  }
+
   async function finishGame(correctQuestions: PlayQuestion[]) {
     if (!game) return
     const total = game.questions.length
@@ -231,6 +248,10 @@ export default function BibleQuiz({ user, onClose }: { user: AppUser; onClose: (
       total, correct, points: careerPoints, learningPoints: learningTotal,
       newIds: newQs.map(q => q.id),
     }
+    // Parcours: record this lesson's best stars / pass locally. Completion and
+    // unlock derive from `mastered` (updated below), so no score is added here.
+    if (game.lesson) recordLessonResult(user.uid, lessonId(game.lesson.cat, game.lesson.diff, game.lesson.index), correct, total)
+
     const { profile: next, unlocked } = applyResult(profile, result)
     setProfile(next)
     setLastResult({ result, unlocked })
@@ -257,8 +278,10 @@ export default function BibleQuiz({ user, onClose }: { user: AppUser; onClose: (
               onTrophies={() => setScreen('trophies')} />
           )}
           {screen === 'difficulty' && pickedCat && (
-            <DifficultyScreen category={pickedCat} profile={profile} loading={loading}
-              onBack={backToHome} onStart={diff => startGame(pickedCat, diff)} />
+            <ParcoursScreen category={pickedCat} profile={profile} uid={user.uid} loading={loading}
+              onBack={backToHome}
+              onStartLesson={(diff, i) => startLesson(pickedCat, diff, i)}
+              onQuickPlay={diff => startGame(pickedCat, diff)} />
           )}
           {screen === 'kidname' && (
             <KidNameScreen loading={loading} onBack={backToHome} onStart={startKids}
@@ -280,7 +303,7 @@ export default function BibleQuiz({ user, onClose }: { user: AppUser; onClose: (
           )}
           {screen === 'results' && !kidResult && lastResult && game && (
             <ResultsScreen result={lastResult.result} unlocked={lastResult.unlocked} profile={profile}
-              onReplay={() => { if (game.review) startReview(); else if (game.category === 'daily') startDaily(); else if (game.category === 'random') startRandom(); else startGame(game.category as QuizCategory, game.difficulty) }}
+              onReplay={() => { if (game.lesson) startLesson(game.lesson.cat, game.lesson.diff, game.lesson.index); else if (game.review) startReview(); else if (game.category === 'daily') startDaily(); else if (game.category === 'random') startRandom(); else startGame(game.category as QuizCategory, game.difficulty) }}
               onHome={backToHome} onLeaders={() => setScreen('leaders')} />
           )}
           {screen === 'trophies' && (
@@ -477,43 +500,136 @@ function Stat({ n, label }: { n: number | string; label: string }) {
 }
 
 // ---- Difficulty picker ------------------------------------------------------
-function DifficultyScreen({ category, profile, loading, onBack, onStart }: {
-  category: QuizCategory; profile: QuizProfile; loading: boolean
-  onBack: () => void; onStart: (d: QuizDifficulty) => void
+// The category screen is now the PARCOURS: three levels of five-question
+// lessons, each level unlocking the next. Completion is derived from the
+// player's mastered map (so it back-fills), with a local star record.
+function ParcoursScreen({ category, profile, uid, loading, onBack, onStartLesson, onQuickPlay }: {
+  category: QuizCategory; profile: QuizProfile; uid: string; loading: boolean
+  onBack: () => void
+  onStartLesson: (d: QuizDifficulty, index: number) => void
+  onQuickPlay: (d: QuizDifficulty) => void
 }) {
   const { t } = useLanguage()
   const meta = CATEGORY_META[category]
+  const [banks, setBanks] = useState<Record<QuizDifficulty, BankQuestion[]> | null>(null)
+  const [level, setLevel] = useState<QuizDifficulty>('easy')
+
+  useEffect(() => {
+    let alive = true
+    Promise.all(QUIZ_DIFFICULTIES.map(d => loadBank(category, d)))
+      .then(([easy, medium, hard]) => { if (alive) setBanks({ easy, medium, hard }) })
+      .catch(() => { if (alive) setBanks({ easy: [], medium: [], hard: [] }) })
+    return () => { alive = false }
+  }, [category])
+
+  // Level completion/unlock derive live from the current mastered map, so
+  // finishing a lesson updates the map on the next screen visit.
+  const states = useMemo(() => {
+    const b = banks || { easy: [], medium: [], hard: [] }
+    const s = {} as Record<QuizDifficulty, LevelState>
+    for (const d of QUIZ_DIFFICULTIES) s[d] = levelState(b[d], profile.mastered, category, d, uid)
+    return s
+  }, [banks, profile.mastered, category, uid])
+  const complete = { easy: states.easy.complete, medium: states.medium.complete, hard: states.hard.complete }
+
+  // Land on the first unlocked, unfinished level.
+  useEffect(() => {
+    if (!banks) return
+    const target = QUIZ_DIFFICULTIES.find(d => levelUnlocked(d, complete) && !complete[d])
+      || [...QUIZ_DIFFICULTIES].reverse().find(d => levelUnlocked(d, complete)) || 'easy'
+    setLevel(target)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [banks])
+
+  const cur = states[level]
   const dots: Record<QuizDifficulty, string> = { easy: '●○○', medium: '●●○', hard: '●●●' }
+
   return (
     <div className="px-4 pt-4 pb-10 safe-top">
       <button onClick={onBack} className="p-2 -ml-2 rounded-full text-white/90 hover:bg-white/10 flex items-center gap-1 text-sm font-semibold">
         <ChevronLeft size={20} /> {t('quiz.back')}
       </button>
-      <div className="text-center my-6">
+      <div className="text-center my-5">
         <div className={`w-20 h-20 mx-auto rounded-3xl ${meta.tint} flex items-center justify-center text-4xl mb-3`}>{meta.emoji}</div>
         <h1 className="text-2xl font-extrabold text-white">{t(`quiz.cat.${category}` as any)}</h1>
-        <p className="text-on-bg text-sm mt-1 flex items-center justify-center gap-1.5"><BookOpen size={14} /> {t('quiz.openBookHint')}</p>
       </div>
-      <div className="space-y-3">
+
+      {/* Level tabs */}
+      <div className="grid grid-cols-3 gap-2 mb-4">
         {QUIZ_DIFFICULTIES.map(diff => {
-          // Every level is playable: if a level has no dedicated bank yet, the
-          // game draws random questions from the category's available pool.
-          const best = profile.best[`${category}-${diff}`]
+          const unlocked = levelUnlocked(diff, complete)
+          const st = states[diff]
+          const active = level === diff
           return (
-            <button key={diff} onClick={() => !loading && onStart(diff)} disabled={loading}
-              className="w-full glass glass-hover rounded-2xl p-4 flex items-center gap-4 transition">
-              <div className="text-affirm-500 tracking-widest text-lg font-bold w-14">{dots[diff]}</div>
-              <div className="flex-1 text-left">
-                <p className="font-bold text-slate-800">{t(`quiz.${diff}` as any)}</p>
-                <p className="text-xs text-slate-500">
-                  {QUESTIONS_PER_GAME} {t('quiz.questionsCount')}{best != null ? ` · ${t('quiz.best')} ${best}/${QUESTIONS_PER_GAME}` : ''}
-                </p>
+            <button key={diff} disabled={!unlocked} onClick={() => setLevel(diff)}
+              className={`rounded-2xl px-2 py-2.5 text-center border transition ${
+                active ? 'bg-white border-white shadow' : 'bg-white/10 border-white/20'} ${!unlocked ? 'opacity-50' : ''}`}>
+              <div className={`text-xs tracking-widest font-bold ${active ? 'text-affirm-600' : 'text-white/90'}`}>{dots[diff]}</div>
+              <div className={`text-sm font-bold ${active ? 'text-slate-800' : 'text-white'}`}>{t(`quiz.${diff}` as any)}</div>
+              <div className={`text-[11px] font-semibold flex items-center justify-center gap-1 ${active ? 'text-slate-500' : 'text-white/80'}`}>
+                {!unlocked ? <><Lock size={11} /> {t('quiz.locked')}</>
+                  : st.complete ? <><Check size={12} className="text-emerald-500" /> {t('quiz.done')}</>
+                  : st.total ? `${st.passed}/${st.total}` : '—'}
               </div>
-              {loading ? <Loader2 size={18} className="animate-spin text-slate-400" /> : <ArrowRight size={18} className="text-affirm-500" />}
             </button>
           )
         })}
       </div>
+
+      {!banks ? (
+        <div className="py-16 text-center"><Loader2 size={26} className="animate-spin mx-auto text-white/70" /></div>
+      ) : !levelUnlocked(level, complete) ? (
+        <p className="text-center text-white/80 text-sm py-10">{t('quiz.levelLocked')}</p>
+      ) : cur.total === 0 ? (
+        <div className="glass rounded-2xl p-5 text-center">
+          <p className="text-sm text-slate-600 mb-3">{t('quiz.noLessonsYet')}</p>
+          <button onClick={() => !loading && onQuickPlay(level)} disabled={loading}
+            className="inline-flex items-center gap-2 px-5 py-3 rounded-2xl bg-affirm-600 text-white font-semibold">
+            {loading ? <Loader2 size={16} className="animate-spin" /> : <ArrowRight size={16} />} {t('quiz.train10')}
+          </button>
+        </div>
+      ) : (
+        <>
+          {/* Level progress */}
+          <div className="glass rounded-2xl p-3.5 mb-3">
+            <div className="flex items-center justify-between mb-1.5">
+              <span className="text-xs font-bold uppercase tracking-wide text-slate-500">{t('quiz.lessons')}</span>
+              <span className="text-xs font-bold text-affirm-600">{cur.passed}/{cur.total}{cur.complete ? ' ✓' : ''}</span>
+            </div>
+            <div className="h-2 rounded-full bg-slate-200 overflow-hidden">
+              <div className="h-full bg-emerald-500 rounded-full transition-all" style={{ width: `${(cur.passed / cur.total) * 100}%` }} />
+            </div>
+          </div>
+
+          {/* Lesson grid */}
+          <div className="grid grid-cols-4 gap-2.5 mb-4">
+            {cur.lessons.map((lesson, i) => {
+              const id = lessonId(category, level, i)
+              const stars = lessonStars(uid, id)
+              const isDone = lessonPassed(lesson, profile.mastered, uid, id)
+              return (
+                <button key={i} onClick={() => !loading && onStartLesson(level, i)} disabled={loading}
+                  className={`aspect-square rounded-2xl flex flex-col items-center justify-center gap-1 border-2 transition ${
+                    isDone ? 'bg-emerald-50 border-emerald-300' : 'glass border-white/40'}`}>
+                  <span className={`text-lg font-extrabold ${isDone ? 'text-emerald-600' : 'text-slate-700'}`}>
+                    {isDone ? <Check size={20} /> : i + 1}
+                  </span>
+                  <span className="flex gap-0.5">
+                    {[0, 1, 2].map(s => (
+                      <Star key={s} size={9} className={s < stars ? 'text-amber-400 fill-amber-400' : 'text-slate-300'} />
+                    ))}
+                  </span>
+                </button>
+              )
+            })}
+          </div>
+
+          <button onClick={() => !loading && onQuickPlay(level)} disabled={loading}
+            className="w-full glass glass-hover rounded-2xl p-3.5 flex items-center justify-center gap-2 text-sm font-bold text-slate-700">
+            {loading ? <Loader2 size={16} className="animate-spin" /> : <RotateCcw size={16} className="text-affirm-500" />} {t('quiz.train10')}
+          </button>
+        </>
+      )}
     </div>
   )
 }
