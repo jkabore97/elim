@@ -1276,13 +1276,12 @@ function AppInner() {
       if (actuallyEnabled !== !!user.notificationsEnabled) {
         setUser(prev => prev ? { ...prev, notificationsEnabled: actuallyEnabled } : prev)
       }
-      // Prompt anyone who hasn't made a decision yet - but only once per
-      // session, and never for someone who explicitly denied it (that would
-      // be nagging, and the OS won't re-prompt after a denial anyway).
+      // Notifications are meant to be ON for everyone. If they aren't actually
+      // enabled (OS permission not granted), nudge on EVERY app open - not just
+      // once - so the reminder keeps coming back until the person allows them.
       if (!actuallyEnabled) {
         const perm = await checkNotificationPermission()
-        if (!cancelled && perm === 'prompt' && !storageGet('elim-notif-prompted', true)) {
-          storageSet('elim-notif-prompted', '1', true)
+        if (!cancelled && perm !== 'granted') {
           setShowNotifPrompt(true)
         }
       }
@@ -2294,6 +2293,9 @@ function AppInner() {
               setShowNotifPrompt(false)
               const ok = await enableNotifications(user.uid)
               if (ok) setUser(prev => prev ? { ...prev, notificationsEnabled: true } : prev)
+              // Already denied at the OS level: the app can't re-prompt, so send
+              // them straight to the notification settings screen instead.
+              else if ((await checkNotificationPermission()) === 'denied') openNotificationSettings()
             }}
               className="flex-1 py-2.5 rounded-xl bg-affirm-600 hover:bg-affirm-700 text-white text-sm font-semibold transition">
               {t('notifPrompt.enable')}
