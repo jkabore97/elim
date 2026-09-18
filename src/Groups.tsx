@@ -12,6 +12,7 @@ import {
   createGroup, updateGroup, deleteGroup, setLead, removeLead, bulkAssignAuthorToGroup,
   setGroupPerm, importChurchesAsGroups,
 } from './groups'
+import { GroupLogo, groupLogoKind } from './GroupLogo'
 
 const PERM_KEYS = ['post', 'sante', 'books', 'transcribe'] as const
 
@@ -142,6 +143,7 @@ function GroupCard({ group, users }: { group: Group; users: DirUser[] }) {
     <div className="glass-soft rounded-2xl p-4 space-y-3">
       <div className="flex items-center gap-2">
         {avatar ? <img src={avatar} alt="" className="w-9 h-9 rounded-full object-cover shrink-0" />
+          : groupLogoKind(group.name) ? <GroupLogo name={group.name} size={36} />
           : <div className="w-9 h-9 rounded-full bg-gradient-to-br from-affirm-400 to-teal-500 text-white font-bold flex items-center justify-center shrink-0">{(group.name || 'G').charAt(0)}</div>}
         <input value={name} onChange={e => setName(e.target.value)} maxLength={60}
           className="flex-1 min-w-0 px-3 py-2 rounded-xl border border-slate-200 text-sm font-semibold bg-white focus:outline-none focus:ring-2 focus:ring-affirm-400" />

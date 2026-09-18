@@ -45,6 +45,7 @@ import { subscribeProfile as subscribeQuizProfile } from './quiz/store'
 import { todayKey as quizTodayKey } from './quiz/engine'
 import { subscribeGroups } from './groups'
 import { GroupsPanel } from './Groups'
+import { GroupLogo, groupLogoKind } from './GroupLogo'
 import type { Post, Comment, AppUser, ActivityLog, AppNotification, Announcement, ScheduledBroadcast, DonationConfig, DonationProvider, Report, DonationType, Donation, Group } from './types'
 import { LanguageProvider, useLanguage, LANGUAGES, type Language } from './i18n'
 
@@ -3350,6 +3351,9 @@ function PostCard({ post, onLike, onOpenComments, currentUser, isLiked, onEdit, 
   // Prefix the author with their title in the group (e.g. "Docteur", "Pasteur").
   const titledAuthor = post.authorTitle ? `${post.authorTitle} ${author}` : author
   let bigName: string, subName: string, headAvatar: string | undefined, headInitial: string
+  // When the header stands for the GROUP (not a featured person), its name backs
+  // the built-in ministry logo shown in place of a plain initial.
+  let headGroupName: string | undefined
   if (post.groupId && post.groupName) {
     if (post.featured) {
       // Pastor-forward: their own (titled) name and photo lead, group as subtitle.
@@ -3358,6 +3362,7 @@ function PostCard({ post, onLike, onOpenComments, currentUser, isLiked, onEdit, 
     } else {
       bigName = post.groupName; subName = post.authorName ? titledAuthor : ''; headInitial = post.groupName.charAt(0)
       headAvatar = post.groupAvatar || undefined
+      headGroupName = post.groupName
     }
   } else {
     headAvatar = post.churchAvatar
@@ -3384,6 +3389,8 @@ function PostCard({ post, onLike, onOpenComments, currentUser, isLiked, onEdit, 
       <div className="flex items-center gap-3 p-4">
         {headAvatar ? (
           <img src={headAvatar} alt="" className="w-11 h-11 rounded-full object-cover shrink-0" />
+        ) : headGroupName && groupLogoKind(headGroupName) ? (
+          <GroupLogo name={headGroupName} size={44} />
         ) : (
           <div className="w-11 h-11 rounded-full bg-gradient-to-br from-affirm-400 to-teal-500 flex items-center justify-center text-white font-bold text-sm shrink-0">
             {headInitial}
