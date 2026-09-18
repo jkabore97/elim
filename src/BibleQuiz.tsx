@@ -27,6 +27,7 @@ import {
 } from './quiz/lessons'
 import type { BankQuestion } from './quiz/engine'
 import { recordDailyPlayed, weekCalendar, dailyThemeIndex } from './quiz/daily'
+import { emit } from './feedback'
 import {
   subscribeProfile, commitAdultGame, commitKidsGame, fetchTopScorer,
   fetchGrandLeaders, fetchCategoryLeaders, fetchKidsLeaders, fetchChampions,
@@ -926,7 +927,8 @@ function PlayScreen({ questions, kid, kidName, onAnswered, onQuit, onFinish }: {
   function lockAnswer(choice: number) {
     if (picked !== null || tries.has(choice)) return
     const correct = choice === q.correct
-    if (kid && !correct) { setTries(prev => new Set(prev).add(choice)); return } // try again
+    if (kid && !correct) { emit('quiz.retry'); setTries(prev => new Set(prev).add(choice)); return } // try again
+    emit(correct ? 'quiz.correct' : 'quiz.wrong')
     const pts = correct ? pointsFor(q.difficulty) : 0
     if (correct) { setCorrectList(prev => [...prev, q]); setPoints(p => p + pts) }
     setGained(pts)
@@ -1040,6 +1042,9 @@ function ResultsScreen({ result, unlocked, profile, onReplay, onHome, onLeaders 
 }) {
   const { t } = useLanguage()
   const stars = starsFor(result.correct, result.total)
+  // A celebratory earcon on landing: the bigger fanfare when a badge was
+  // unlocked or the round was perfect, otherwise a warm result chord.
+  useEffect(() => { emit(unlocked.length > 0 || stars >= 3 ? 'quiz.levelup' : 'quiz.result') }, [])  // eslint-disable-line react-hooks/exhaustive-deps
   const medal = stars >= 3 ? '🥇' : stars === 2 ? '🥈' : stars === 1 ? '🥉' : '🎖️'
   const good = result.correct >= result.total / 2
   const lvl = levelProgress(profile.points)
