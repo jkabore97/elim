@@ -544,6 +544,19 @@ service cloud.firestore {
                    && request.resource.data.uid == uid;
     }
 
+    // ---- Bible quiz difficulty stats (one doc per question) ----
+    // Aggregate attempt/correct counters written by the client (increments) and
+    // turned into a measured difficulty by the weekly calibrateQuiz function.
+    // Any signed-in player may bump the counters; the write is limited to those
+    // three fields so nothing else can be smuggled in. Low-stakes: it only
+    // affects difficulty calibration, never points or leaderboards. The
+    // function's own writes (Admin SDK) bypass these rules.
+    match /quizStats/{qid} {
+      allow read: if isSignedIn();
+      allow write: if isSignedIn()
+                   && request.resource.data.keys().hasOnly(['attempts', 'correct', 'updatedAt']);
+    }
+
     // ---- Bible quiz weekly leaderboards (adults) ----
     // One doc per (week, league, player); league is a category id or 'grand'.
     // World-readable (the congregation sees the ranking); a player may only

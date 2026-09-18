@@ -99,6 +99,23 @@ export async function commitAdultGame(
   await batch.commit()
 }
 
+// Feed the difficulty-calibration collector (quizStats): one attempt plus a
+// correct flag per question. Best-effort, a single small batch per adult game;
+// the nightly calibrateQuiz Cloud Function turns these counts into a measured
+// difficulty. Never blocks a game and never touches scores.
+export async function recordQuizStats(outcomes: { qid: string; correct: boolean }[]): Promise<void> {
+  if (!outcomes.length) return
+  const batch = writeBatch(db)
+  for (const o of outcomes.slice(0, 20)) {
+    batch.set(doc(db, 'quizStats', o.qid), {
+      attempts: increment(1),
+      correct: increment(o.correct ? 1 : 0),
+      updatedAt: serverTimestamp(),
+    }, { merge: true })
+  }
+  try { await batch.commit() } catch { /* stats are best-effort */ }
+}
+
 // ---- Leaderboards -----------------------------------------------------------
 export interface LeaderRow { uid: string; name: string; avatar?: string; points: number; weeksWon?: number }
 

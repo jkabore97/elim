@@ -1516,3 +1516,37 @@ exports.kidsWeeklyChampion = onSchedule(
     if (m) await broadcastPush(db, { title: m.title, body: m.body, data: { kind: 'quiz' } });
   }
 );
+
+// Weekly quiz difficulty CALIBRATION. Turns the congregation's own answers
+// (quizStats: attempts + correct per question, written by the client) into a
+// MEASURED difficulty per question — a 1-parameter logit where higher = harder
+// — so mislabelled questions surface and future selection can target difficulty
+// precisely instead of trusting the authored easy/medium/hard tier. Only
+// questions with enough data are calibrated. Runs Sunday 03:00 church time.
+exports.calibrateQuiz = onSchedule(
+  { schedule: '0 3 * * 0', timeZone: CHURCH_TZ, region: 'us-central1' },
+  async () => {
+    const db = getFirestore();
+    const MIN_ATTEMPTS = 20; // below this a rate is too noisy to trust
+    const snap = await db.collection('quizStats').get();
+    let batch = db.batch();
+    let n = 0;
+    for (const d of snap.docs) {
+      const v = d.data() || {};
+      const attempts = v.attempts || 0;
+      const correct = v.correct || 0;
+      if (attempts < MIN_ATTEMPTS) continue;
+      const rate = Math.min(0.99, Math.max(0.01, correct / attempts));
+      const b = -Math.log(rate / (1 - rate)); // logit difficulty; higher = harder
+      batch.set(d.ref, {
+        b: Number(b.toFixed(3)),
+        rate: Number(rate.toFixed(3)),
+        n: attempts,
+        calibratedAt: FieldValue.serverTimestamp(),
+      }, { merge: true });
+      if (++n % 400 === 0) { await batch.commit(); batch = db.batch(); }
+    }
+    if (n % 400 !== 0) await batch.commit();
+    console.log(`calibrateQuiz: calibrated ${n} questions`);
+  }
+);
