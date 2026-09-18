@@ -380,6 +380,7 @@ const fr = {
   "landing.getStartedFree": 'Commencer gratuitement',
   "landing.downloadApp": "Télécharger l'application",
   "landing.downloadHint": "Installez l'application pour la meilleure expérience",
+  "landing.contactSupport": 'Contacter le support technique',
   "landing.getItOn": 'Disponible sur',
   "landing.valueProp.photos": 'Photos et actualités',
   "landing.valueProp.audio": 'Messages audio',

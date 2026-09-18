@@ -873,7 +873,13 @@ function AuthScreen({ onSuccess }: { onSuccess: (user: AppUser) => void }) {
         </div>
       )}
 
-      <div className="relative pb-6 px-6 text-center">
+      <div className="relative pb-6 px-6 text-center flex flex-col items-center gap-3">
+        {/* Reachable BEFORE sign-in, so anyone stuck at login can message the
+            technical team by email. */}
+        <a href={`mailto:hello@kaj-consulting.com?subject=${encodeURIComponent('ELIM — Support technique')}&body=${encodeURIComponent('\n\n(Décrivez votre problème ici / Describe your problem here)')}`}
+          className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/12 hover:bg-white/20 border border-white/25 text-white text-sm font-semibold transition">
+          <Mail size={15} /> {t('landing.contactSupport')}
+        </a>
         <p className="text-[11px] text-white/70">{COPYRIGHT}</p>
       </div>
     </div>

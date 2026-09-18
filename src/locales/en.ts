@@ -380,6 +380,7 @@ const en = {
   "landing.getStartedFree": 'Get Started Free',
   "landing.downloadApp": 'Download the app',
   "landing.downloadHint": 'Get the app for the best experience',
+  "landing.contactSupport": 'Contact technical support',
   "landing.getItOn": 'Get it on',
   "landing.valueProp.photos": 'Photos & Updates',
   "landing.valueProp.audio": 'Audio Messages',
