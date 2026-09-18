@@ -26,6 +26,7 @@ import {
   type LevelState,
 } from './quiz/lessons'
 import type { BankQuestion } from './quiz/engine'
+import { recordDailyPlayed, weekCalendar, dailyThemeIndex } from './quiz/daily'
 import {
   subscribeProfile, commitAdultGame, commitKidsGame, fetchTopScorer,
   fetchGrandLeaders, fetchCategoryLeaders, fetchKidsLeaders, fetchChampions,
@@ -251,6 +252,9 @@ export default function BibleQuiz({ user, onClose }: { user: AppUser; onClose: (
     // Parcours: record this lesson's best stars / pass locally. Completion and
     // unlock derive from `mastered` (updated below), so no score is added here.
     if (game.lesson) recordLessonResult(user.uid, lessonId(game.lesson.cat, game.lesson.diff, game.lesson.index), correct, total)
+    // Daily: note today in the local streak calendar (the authoritative streak
+    // count + grace day are applied on the profile by applyResult).
+    if (game.category === 'daily') recordDailyPlayed(user.uid, todayKey())
 
     const { profile: next, unlocked } = applyResult(profile, result)
     setProfile(next)
@@ -322,6 +326,33 @@ export default function BibleQuiz({ user, onClose }: { user: AppUser; onClose: (
 }
 
 // ---- Home -------------------------------------------------------------------
+// The trailing-week streak calendar under the daily card: played days are ticked,
+// today is ringed, and the current streak (grace-protected) shows on the right.
+function StreakStrip({ uid, streak }: { uid: string; streak: number }) {
+  const { language } = useLanguage()
+  const cells = weekCalendar(uid, todayKey())
+  const loc = language === 'fr' ? 'fr-FR' : 'en-US'
+  return (
+    <div className="px-4 pb-3 pt-0.5 flex items-end justify-between gap-1">
+      {cells.map(c => {
+        const label = new Date(c.key + 'T00:00:00Z').toLocaleDateString(loc, { weekday: 'narrow', timeZone: 'UTC' })
+        return (
+          <div key={c.key} className="flex flex-col items-center gap-1">
+            <span className="text-[9px] text-white/70 font-semibold uppercase">{label}</span>
+            <div className={`w-6 h-6 rounded-full flex items-center justify-center text-[11px] font-bold ${
+              c.played ? 'bg-white text-orange-700'
+                : c.isToday ? 'bg-white/25 text-white ring-2 ring-white/60'
+                : 'bg-white/10 text-white/50'}`}>
+              {c.played ? '✓' : c.isToday ? '•' : ''}
+            </div>
+          </div>
+        )
+      })}
+      {streak > 0 && <span className="text-white font-extrabold text-sm ml-1 self-center">🔥{streak}</span>}
+    </div>
+  )
+}
+
 function HomeScreen({ profile, dailyDone, loading, reviewInfo, onClose, onPickCategory, onDaily, onContinue, onReview, onKids, onLeaders, onPalmares, onTrophies }: {
   profile: QuizProfile; dailyDone: boolean; loading: boolean; reviewInfo: ReviewSummary
   onClose: () => void; onPickCategory: (c: QuizCategory) => void; onDaily: () => void; onContinue: () => void
@@ -407,16 +438,19 @@ function HomeScreen({ profile, dailyDone, loading, reviewInfo, onClose, onPickCa
         </div>
       </button>
 
-      {/* Daily challenge */}
-      <button onClick={onDaily} disabled={loading}
-        className="w-full text-left rounded-3xl p-4 mb-4 flex items-center gap-3 bg-gradient-to-r from-orange-700 to-amber-700 shadow-lg disabled:opacity-70">
-        <div className="text-3xl shrink-0 quiz-anim-wiggle">⭐</div>
-        <div className="flex-1 min-w-0">
-          <p className="font-bold text-white">{t('quiz.daily')}</p>
-          <p className="text-xs text-white/80">{dailyDone ? `${t('quiz.dailyDone')} ✓` : t('quiz.dailyDesc')}</p>
-        </div>
-        <span className="shrink-0 bg-white text-orange-700 font-bold text-sm rounded-full px-4 py-2">{t('quiz.play')}</span>
-      </button>
+      {/* Daily challenge + streak calendar */}
+      <div className="rounded-3xl mb-4 bg-gradient-to-r from-orange-700 to-amber-700 shadow-lg overflow-hidden">
+        <button onClick={onDaily} disabled={loading}
+          className="w-full text-left p-4 flex items-center gap-3 disabled:opacity-70">
+          <div className="text-3xl shrink-0 quiz-anim-wiggle">⭐</div>
+          <div className="flex-1 min-w-0">
+            <p className="font-bold text-white">{t('quiz.daily')} · <span className="font-semibold text-white/85">{t(`quiz.theme${dailyThemeIndex(todayKey())}` as any)}</span></p>
+            <p className="text-xs text-white/80">{dailyDone ? `${t('quiz.dailyDone')} ✓` : t('quiz.dailyDesc')}</p>
+          </div>
+          <span className="shrink-0 bg-white text-orange-700 font-bold text-sm rounded-full px-4 py-2">{t('quiz.play')}</span>
+        </button>
+        <StreakStrip uid={profile.uid} streak={profile.dailyStreak} />
+      </div>
 
       {/* Spaced-repetition review: appears once the player has questions due to
           come back (mistakes first). Tapping builds a round from just those. */}
