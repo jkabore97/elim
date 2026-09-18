@@ -764,6 +764,7 @@ const fr = {
   "quiz.kidDeleteTitle": 'Supprimer ce profil ?',
   "quiz.kidDeleteWarn": 'Cela efface aussi tous ses scores au quiz. Action irréversible.',
   "quiz.kidDeleteRetype": 'Retapez le nom pour confirmer :',
+  "quiz.kidDeleteInputPlaceholder": 'Tapez le nom ici…',
   "quiz.kidNameMismatch": 'Le nom ne correspond pas.',
   "quiz.kidNameTaken": 'Un autre enfant porte déjà ce nom.',
   "quiz.kidActionFailed": "Une erreur s'est produite. Réessayez.",

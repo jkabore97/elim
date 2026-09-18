@@ -632,9 +632,9 @@ function KidNameScreen({ loading, onBack, onStart, onDeleteKid, onRenameKid }: {
             <p className="text-slate-500 text-sm text-center mb-4">{t('quiz.kidDeleteWarn')}</p>
             <p className="text-slate-600 text-sm text-center mb-2">{t('quiz.kidDeleteRetype')} <b className="text-slate-800">{deleting}</b></p>
             <input value={confirmText} onChange={e => setConfirmText(e.target.value)} maxLength={40} autoFocus
-              placeholder={deleting}
+              placeholder={t('quiz.kidDeleteInputPlaceholder')}
               onKeyDown={e => { if (e.key === 'Enter') confirmDelete() }}
-              className="w-full text-center text-base font-bold rounded-2xl bg-slate-100 text-slate-800 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-red-400 mb-2" />
+              className="w-full text-center text-base font-bold rounded-2xl bg-slate-100 text-slate-800 placeholder:font-normal placeholder:text-slate-400 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-red-400 mb-2" />
             {err && <p className="text-red-500 text-sm mb-1 text-center">{err}</p>}
             <div className="flex gap-2 mt-2">
               <button onClick={() => setDeleting(null)} disabled={busy} className="flex-1 py-3 rounded-2xl bg-slate-100 text-slate-600 font-bold">{t('quiz.kidCancel')}</button>
