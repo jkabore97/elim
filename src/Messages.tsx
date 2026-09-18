@@ -1247,8 +1247,29 @@ function ChannelChooser({ user, onOpen }: {
 
 // ==================== TAB ENTRY POINT ====================
 
-export function MessagesTab({ user }: { user: AppUser }) {
+export function MessagesTab({ user, initialChannel, onConsumed }: {
+  user: AppUser
+  initialChannel?: 'tech' | 'pastor' | null
+  onConsumed?: () => void
+}) {
   const [open, setOpen] = useState<Conversation | null>(null)
+
+  // Deep-link: a support button elsewhere can drop the member straight into the
+  // technical-support (or pastor) channel instead of the chooser. Staff answer
+  // channels rather than open them, so this only applies to members.
+  useEffect(() => {
+    if (initialChannel && !isStaff(user)) {
+      setOpen({
+        id: initialChannel === 'pastor' ? pastorConversationId(user.uid) : techConversationId(user.uid),
+        type: initialChannel,
+        participantIds: [user.uid],
+        participantNames: { [user.uid]: user.displayName },
+        ownerRole: user.role,
+      })
+    }
+    onConsumed?.()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   // Back returns to the inbox / channel list rather than leaving the app.
   useBackHandler(!!open, () => setOpen(null))
