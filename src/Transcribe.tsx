@@ -36,13 +36,18 @@ export function TranscribeTool({ user }: { user: AppUser }) {
   const fileRef = useRef<HTMLInputElement>(null)
   const jobRef = useRef<string | null>(null)
   const unsubRef = useRef<(() => void) | null>(null)
+  const failsafeRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   const reset = () => {
     if (unsubRef.current) { unsubRef.current(); unsubRef.current = null }
+    if (failsafeRef.current) { clearTimeout(failsafeRef.current); failsafeRef.current = null }
     if (jobRef.current) { clearJob(jobRef.current); jobRef.current = null }
     setPhase('idle'); setProgress(0); setText(''); setErrMsg('')
   }
-  useEffect(() => () => { if (unsubRef.current) unsubRef.current() }, [])
+  useEffect(() => () => {
+    if (unsubRef.current) unsubRef.current()
+    if (failsafeRef.current) clearTimeout(failsafeRef.current)
+  }, [])
 
   const onFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
@@ -53,18 +58,38 @@ export function TranscribeTool({ user }: { user: AppUser }) {
       const path = await uploadForTranscription(user.uid, file, setProgress)
       setPhase('processing')
       let settled = false
-      const finish = (fn: () => void) => { if (!settled) { settled = true; fn() } }
+      const finish = (fn: () => void) => {
+        if (settled) return
+        settled = true
+        if (failsafeRef.current) { clearTimeout(failsafeRef.current); failsafeRef.current = null }
+        fn()
+      }
       const { jobId, done } = await startUploadTranscription(user.uid, path)
       jobRef.current = jobId
+      // The job doc is the source of truth: the function keeps transcribing on
+      // the server (up to ~1h) and writes 'done'/'error' here, even if the
+      // callable connection below has already timed out.
       unsubRef.current = subscribeJob(jobId, (j: TranscriptDoc | null) => {
         if (!j) return
         if (j.status === 'done') finish(() => { setText(j.text || ''); setPhase('done') })
         else if (j.status === 'error') finish(() => { setErrMsg(j.error || ''); setPhase('error') })
       })
-      // If the callable itself rejects (auth/permission thrown before a status
-      // is written, or a timeout), surface it rather than spinning forever. The
-      // job-doc 'done' above wins the race when the function completes normally.
-      done.catch((err: any) => finish(() => { setErrMsg(err?.message || String(err)); setPhase('error') }))
+      // The callable only KICKS OFF the work. A timeout (deadline-exceeded /
+      // cancelled / unavailable) just means we stopped waiting on the call - the
+      // server is still going and the subscription above will deliver the
+      // result. Only an immediate, terminal error (auth / permission / bad
+      // input) should fail the UI.
+      done.catch((err: any) => {
+        const code = String(err?.code || '')
+        const transient = /deadline-exceeded|cancelled|unavailable|aborted|internal/.test(code)
+          || /deadline|timeout/i.test(String(err?.message || ''))
+        if (!transient) finish(() => { setErrMsg(err?.message || String(err)); setPhase('error') })
+      })
+      // Absolute safety net: if the server never reports back (e.g. it was
+      // killed mid-run), stop the spinner after 30 min instead of forever.
+      failsafeRef.current = setTimeout(
+        () => finish(() => { setErrMsg(t('script.timeout')); setPhase('error') }),
+        30 * 60 * 1000)
     } catch (err: any) {
       setErrMsg(err?.message || String(err)); setPhase('error')
     }
