@@ -78,5 +78,15 @@ const review = pickReview(pool, UID, 10, T + 2)
 ok('review round only contains due questions', review.length > 0)
 ok('the unresolved mistake (q0) is first in the review round', review[0]?.q.id === 'q0')
 
+// --- 7. Composition: due is capped so new material still appears -------------
+const U2 = 'mix-' + Math.random().toString(36).slice(2)
+const mixBank: BankQuestion[] = Array.from({ length: 30 }, (_, i) => mk('m' + i))
+// Make 20 questions due (wrong yesterday), leave 10 unseen.
+for (let i = 0; i < 20; i++) { recordAnswer(U2, 'm' + i, false, T - 1) }
+const round = pickForCategory(mixBank, U2, 10, T)
+const newInRound = round.filter(q => Number(q.id.slice(1)) >= 20).length
+ok('with 20 due, the round still includes new (unseen) questions', newInRound >= 2)
+ok('the round is not ALL reviews (due capped ~half)', round.filter(q => Number(q.id.slice(1)) < 20).length <= 8)
+
 console.log(`\n${pass} passed, ${fail} failed`)
 process.exit(fail === 0 ? 0 : 1)
