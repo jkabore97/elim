@@ -72,6 +72,40 @@ function rememberKidName(name: string): void {
   try { storageSet(KID_NAMES_KEY, JSON.stringify(list.slice(0, 12))) } catch { /* storage full/blocked */ }
 }
 
+// A child's age band → an age-appropriate difficulty. Stored per child (local),
+// so a 5-year-old plays the easy kids bank and a 11-year-old the hard one.
+type AgeBand = 'young' | 'mid' | 'older' // 4–6 · 7–9 · 10–12
+const KID_BANDS_KEY = 'elim-quiz-kidbands'
+const BAND_DIFF: Record<AgeBand, QuizDifficulty> = { young: 'easy', mid: 'medium', older: 'hard' }
+function getKidBand(name: string): AgeBand {
+  try {
+    const o = JSON.parse(storageGet(KID_BANDS_KEY) || '{}')
+    const b = o[kidKey(name)]
+    if (b === 'young' || b === 'mid' || b === 'older') return b
+  } catch { /* default below */ }
+  return 'mid'
+}
+function setKidBand(name: string, band: AgeBand): void {
+  let o: Record<string, string> = {}
+  try { o = JSON.parse(storageGet(KID_BANDS_KEY) || '{}') } catch { /* start fresh */ }
+  o[kidKey(name)] = band
+  try { storageSet(KID_BANDS_KEY, JSON.stringify(o)) } catch { /* ignore */ }
+}
+
+// A child's confidence = how many distinct kids questions they've answered
+// correctly, kept per child on the device (encouragement, never a ranking).
+const KID_MASTERY_KEY = (name: string) => `elim-quiz-kidmastery-${kidKey(name)}`
+function recordKidMastery(name: string, correctIds: string[]): void {
+  if (!correctIds.length) return
+  let set: string[] = []
+  try { const a = JSON.parse(storageGet(KID_MASTERY_KEY(name)) || '[]'); if (Array.isArray(a)) set = a } catch { /* fresh */ }
+  const merged = [...new Set([...set, ...correctIds])]
+  try { storageSet(KID_MASTERY_KEY(name), JSON.stringify(merged)) } catch { /* ignore */ }
+}
+function kidMasteryCount(name: string): number {
+  try { const a = JSON.parse(storageGet(KID_MASTERY_KEY(name)) || '[]'); return Array.isArray(a) ? a.length : 0 } catch { return 0 }
+}
+
 function forgetKidName(name: string): void {
   const list = loadKidNames().filter(n => kidKey(n) !== kidKey(name))
   try { storageSet(KID_NAMES_KEY, JSON.stringify(list)) } catch { /* ignore */ }
@@ -208,7 +242,9 @@ export default function BibleQuiz({ user, onClose }: { user: AppUser; onClose: (
 
   function startKids(childName: string) {
     rememberKidName(childName)
-    const diff: QuizDifficulty = bankAvailable('kids', 'easy') ? 'easy' : bankAvailable('kids', 'medium') ? 'medium' : 'hard'
+    // Age-appropriate difficulty, falling back to whatever kids bank ships.
+    const want = BAND_DIFF[getKidBand(childName)]
+    const diff = ([want, 'easy', 'medium', 'hard'] as QuizDifficulty[]).find(d => bankAvailable('kids', d)) || 'easy'
     return launch(() => buildGame('kids', diff, lang), q => ({ questions: q, category: 'kids', difficulty: diff, mode: 'kids', childName }))
   }
 
@@ -230,6 +266,7 @@ export default function BibleQuiz({ user, onClose }: { user: AppUser; onClose: (
 
     if (game.mode === 'kids') {
       const childName = game.childName || t('quiz.kidFriend')
+      recordKidMastery(childName, correctQuestions.map(q => q.id)) // confidence count
       let gained = 0
       try { gained = await commitKidsGame(user.uid, user.displayName, childName, correctQuestions.map(q => q.id)) } catch { /* offline */ }
       setKidResult({ childName, correct, total, gained })
@@ -680,6 +717,7 @@ function KidNameScreen({ loading, onBack, onStart, onDeleteKid, onRenameKid }: {
   // otherwise show the picker so a returning family lands on their children.
   const [adding, setAdding] = useState(() => saved.length === 0)
   const [name, setName] = useState('')
+  const [band, setBand] = useState<AgeBand>('mid')
   const ok = name.trim().length >= 2
 
   // Long-press (or right-click) a child to open Edit / Delete. A plain tap still
@@ -760,8 +798,9 @@ function KidNameScreen({ loading, onBack, onStart, onDeleteKid, onRenameKid }: {
                   onPointerUp={endPress} onPointerLeave={endPress} onPointerCancel={endPress}
                   onContextMenu={e => { e.preventDefault(); endPress(); openMenu(n) }}
                   disabled={loading}
-                  className="quiz-shine w-full rounded-2xl bg-white text-slate-800 font-extrabold text-lg py-4 px-4 shadow-lg flex items-center justify-center gap-2 disabled:opacity-60 truncate select-none">
+                  className="quiz-shine w-full rounded-2xl bg-white text-slate-800 font-extrabold text-lg py-4 px-4 shadow-lg flex items-center justify-center gap-2 disabled:opacity-60 select-none">
                   🎈 <span className="truncate">{n}</span>
+                  {kidMasteryCount(n) > 0 && <span className="ml-1 text-xs font-bold text-violet-500 shrink-0">⭐{kidMasteryCount(n)}</span>}
                 </button>
               ))}
             </div>
@@ -776,10 +815,19 @@ function KidNameScreen({ loading, onBack, onStart, onDeleteKid, onRenameKid }: {
             <input
               value={name} onChange={e => setName(e.target.value)}
               placeholder={t('quiz.kidNamePlaceholder')} autoFocus maxLength={40}
-              onKeyDown={e => { if (e.key === 'Enter' && ok && !loading) onStart(name.trim()) }}
-              className="w-full max-w-xs text-center text-lg font-bold rounded-2xl bg-white text-slate-800 px-4 py-4 shadow-lg focus:outline-none focus:ring-4 focus:ring-white/50 mb-2" />
-            <p className="text-on-bg text-xs mb-6">{t('quiz.kidNameHint')}</p>
-            <button onClick={() => ok && onStart(name.trim())} disabled={!ok || loading}
+              onKeyDown={e => { if (e.key === 'Enter' && ok && !loading) { setKidBand(name.trim(), band); onStart(name.trim()) } }}
+              className="w-full max-w-xs text-center text-lg font-bold rounded-2xl bg-white text-slate-800 px-4 py-4 shadow-lg focus:outline-none focus:ring-4 focus:ring-white/50 mb-3" />
+            <p className="text-on-bg text-xs font-semibold mb-2">{t('quiz.kidAge')}</p>
+            <div className="w-full max-w-xs grid grid-cols-3 gap-2 mb-6">
+              {(['young', 'mid', 'older'] as AgeBand[]).map(b => (
+                <button key={b} onClick={() => setBand(b)}
+                  className={`rounded-2xl py-2.5 text-sm font-bold border-2 transition ${
+                    band === b ? 'bg-white text-violet-600 border-white' : 'bg-white/10 text-white border-white/30'}`}>
+                  {t(`quiz.kidAge_${b}` as any)}
+                </button>
+              ))}
+            </div>
+            <button onClick={() => { if (ok) { setKidBand(name.trim(), band); onStart(name.trim()) } }} disabled={!ok || loading}
               className="quiz-shine w-full max-w-xs rounded-2xl bg-gradient-to-r from-pink-500 to-violet-500 text-white font-extrabold text-lg py-4 shadow-xl disabled:opacity-60 flex items-center justify-center gap-2">
               {loading ? <Loader2 className="animate-spin" size={20} /> : <>{t('quiz.kidStart')} 🎉</>}
             </button>
@@ -868,13 +916,17 @@ function PlayScreen({ questions, kid, kidName, onAnswered, onQuit, onFinish }: {
   const [correctList, setCorrectList] = useState<PlayQuestion[]>([])
   const [points, setPoints] = useState(0)
   const [gained, setGained] = useState(0)
+  // Kids only: options tried and found wrong stay disabled, but the child keeps
+  // trying until they get it right — errorless learning, no penalty, no shame.
+  const [tries, setTries] = useState<Set<number>>(() => new Set())
 
   const q = questions[idx]
   const answered = picked !== null
 
   function lockAnswer(choice: number) {
-    if (picked !== null) return
+    if (picked !== null || tries.has(choice)) return
     const correct = choice === q.correct
+    if (kid && !correct) { setTries(prev => new Set(prev).add(choice)); return } // try again
     const pts = correct ? pointsFor(q.difficulty) : 0
     if (correct) { setCorrectList(prev => [...prev, q]); setPoints(p => p + pts) }
     setGained(pts)
@@ -884,7 +936,7 @@ function PlayScreen({ questions, kid, kidName, onAnswered, onQuit, onFinish }: {
 
   function next() {
     if (idx + 1 >= questions.length) { onFinish(correctList); return }
-    setIdx(i => i + 1); setPicked(null); setGained(0)
+    setIdx(i => i + 1); setPicked(null); setGained(0); setTries(new Set())
   }
 
   return (
@@ -920,24 +972,29 @@ function PlayScreen({ questions, kid, kidName, onAnswered, onQuit, onFinish }: {
           {q.options.map((opt, i) => {
             const isCorrect = i === q.correct
             const isPicked = i === picked
+            const isTried = tries.has(i) // kid: tried and wrong (disabled, not fatal)
             let cls = 'border-slate-200 bg-white'
             let badge = 'bg-slate-100 text-slate-500'
             if (answered && isCorrect) { cls = 'border-emerald-400 bg-emerald-50'; badge = 'bg-emerald-500 text-white' }
-            else if (answered && isPicked && !isCorrect) { cls = 'border-red-400 bg-red-50'; badge = 'bg-red-500 text-white' }
+            else if ((answered && isPicked && !isCorrect) || isTried) { cls = 'border-red-400 bg-red-50'; badge = 'bg-red-500 text-white' }
             else if (answered) { cls = 'border-slate-200 bg-white opacity-60' }
-            const anim = !answered ? 'quiz-anim-in' : isCorrect ? 'quiz-anim-correct' : (isPicked ? 'quiz-anim-shake' : '')
+            const anim = isTried ? 'quiz-anim-shake' : !answered ? 'quiz-anim-in' : isCorrect ? 'quiz-anim-correct' : (isPicked ? 'quiz-anim-shake' : '')
             return (
-              <button key={i} onClick={() => lockAnswer(i)} disabled={answered}
-                style={!answered ? { animationDelay: `${i * 70}ms` } : undefined}
+              <button key={i} onClick={() => lockAnswer(i)} disabled={answered || isTried}
+                style={!answered && !isTried ? { animationDelay: `${i * 70}ms` } : undefined}
                 className={`w-full flex items-center gap-3 rounded-2xl border-2 p-3.5 text-left transition ${cls} ${anim}`}>
                 <span className={`w-8 h-8 rounded-full grid place-items-center font-bold text-sm shrink-0 ${badge}`}>
-                  {answered && isCorrect ? <Check size={16} /> : answered && isPicked && !isCorrect ? <X size={16} /> : String.fromCharCode(65 + i)}
+                  {answered && isCorrect ? <Check size={16} /> : (isTried || (answered && isPicked && !isCorrect)) ? <X size={16} /> : String.fromCharCode(65 + i)}
                 </span>
                 <span className="font-semibold text-slate-800 text-[15px]">{opt}</span>
               </button>
             )
           })}
         </div>
+
+        {kid && tries.size > 0 && !answered && (
+          <p className="mt-3 text-center text-sm font-bold text-violet-500 quiz-anim-in">{t('quiz.kidTryAgain')} 💪</p>
+        )}
 
         {answered && (
           <div className={`mt-4 rounded-2xl p-3.5 text-sm font-medium quiz-anim-in ${gained > 0 ? 'bg-emerald-50 text-emerald-800' : 'bg-red-50 text-red-800'}`}>
