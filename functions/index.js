@@ -1246,6 +1246,26 @@ exports.announceUpdateV125 = onSchedule(
   }
 );
 
+// One-time notice: after the live-site switch, everyone must sign in once. Sent
+// once (guarded by a marker), reassuring and actionable — it points a member
+// who forgot their PIN to a leader, who can now reset it in the admin tool.
+// Runs daily at 09:00 church time; the first run sends it, then it stops.
+exports.announceReloginNotice = onSchedule(
+  { schedule: '0 9 * * *', timeZone: CHURCH_TZ, region: 'us-central1' },
+  async () => {
+    const db = getFirestore();
+    const ref = db.collection('config').doc('broadcasts');
+    const snap = await ref.get();
+    if (snap.exists && snap.data().reloginNoticeSent) return; // already sent once
+    await broadcastPush(db, {
+      title: '🔐 Reconnexion requise une seule fois',
+      body: "Après la récente mise à jour, veuillez vous reconnecter une seule fois avec votre numéro de téléphone et votre code PIN. Ensuite, tout fonctionne comme avant. Code PIN oublié ? Un responsable peut le réinitialiser pour vous. 🙏",
+      data: { kind: 'info' },
+    });
+    await ref.set({ reloginNoticeSent: true, reloginNoticeAt: FieldValue.serverTimestamp() }, { merge: true });
+  }
+);
+
 // ==================== ADMIN BROADCASTS ====================
 
 // Only admins/pastors may broadcast to the whole congregation.
