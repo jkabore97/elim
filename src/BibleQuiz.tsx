@@ -12,11 +12,15 @@ import type { AppUser } from './types'
 import {
   QUIZ_DIFFICULTIES, ADULT_CATEGORIES, CATEGORY_META, BADGE_IDS, BADGE_EMOJI,
   QUESTIONS_PER_GAME,
-  bankAvailable, buildGame, buildDaily, buildRandom, pointsFor, starsFor, levelProgress,
+  bankAvailable, buildGame, buildDaily, buildRandom, loadBank, present, pointsFor, starsFor, levelProgress,
   applyResult, emptyProfile, todayKey,
   type QuizCategory, type QuizDifficulty, type QuizLang, type PlayQuestion,
   type QuizProfile, type GameResult, type BadgeId,
 } from './quiz/engine'
+import {
+  pickForCategory, pickReview, recordAnswer, reviewSummary,
+  type DueItem, type ReviewSummary,
+} from './quiz/review'
 import {
   subscribeProfile, commitAdultGame, commitKidsGame, fetchTopScorer,
   fetchGrandLeaders, fetchCategoryLeaders, fetchKidsLeaders, fetchChampions,
@@ -85,6 +89,7 @@ interface Game {
   difficulty: QuizDifficulty
   mode: 'adult' | 'kids'
   childName?: string
+  review?: boolean   // a "revise what you missed" round (drives replay routing)
 }
 
 export default function BibleQuiz({ user, onClose }: { user: AppUser; onClose: () => void }) {
@@ -120,6 +125,11 @@ export default function BibleQuiz({ user, onClose }: { user: AppUser; onClose: (
 
   const dailyDone = profile.lastDailyDate === todayKey()
 
+  // Spaced-repetition snapshot for the home "Révision" card. Recomputed on
+  // every return to the home screen (a game just changed the local schedule).
+  const [reviewInfo, setReviewInfo] = useState<ReviewSummary>({ due: 0, missed: 0, learning: 0 })
+  useEffect(() => { if (screen === 'home') setReviewInfo(reviewSummary(user.uid)) }, [screen, user.uid])
+
   function backToHome() {
     setScreen('home'); setGame(null); setPickedCat(null); setLastResult(null); setKidResult(null)
   }
@@ -130,17 +140,26 @@ export default function BibleQuiz({ user, onClose }: { user: AppUser; onClose: (
   async function launch(
     build: () => Promise<PlayQuestion[]>,
     make: (questions: PlayQuestion[]) => Game,
+    emptyMsg?: string,
   ) {
     setLoading(true)
     let questions: PlayQuestion[] = []
     try { questions = await build() } catch { questions = [] } finally { setLoading(false) }
-    if (!questions.length) { alert(t('quiz.loadFailed')); return }
+    if (!questions.length) { alert(emptyMsg || t('quiz.loadFailed')); return }
     setGame(make(questions))
     setScreen('playing')
   }
 
+  // Smart selection: instead of shuffling the whole bank, pick due reviews of
+  // past misses first, then unseen questions, then whatever was seen least
+  // recently - so you rarely see a repeat until it's genuinely time to review
+  // it. Falls back to the plain builder when a level has no dedicated bank.
   function startGame(cat: QuizCategory, diff: QuizDifficulty) {
-    return launch(() => buildGame(cat, diff, lang), q => ({ questions: q, category: cat, difficulty: diff, mode: 'adult' }))
+    return launch(async () => {
+      const bank = await loadBank(cat, diff)
+      if (!bank.length) return buildGame(cat, diff, lang)
+      return pickForCategory(bank, user.uid, QUESTIONS_PER_GAME).map(q => present(q, cat, diff, lang))
+    }, q => ({ questions: q, category: cat, difficulty: diff, mode: 'adult' }))
   }
 
   function startDaily() {
@@ -150,6 +169,21 @@ export default function BibleQuiz({ user, onClose }: { user: AppUser; onClose: (
   // Quick game from the home level card: random questions across everything.
   function startRandom() {
     return launch(() => buildRandom(lang), q => ({ questions: q, category: 'random', difficulty: 'easy', mode: 'adult' }))
+  }
+
+  // "Révision": a round built only from questions that are DUE for review -
+  // the ones you got wrong come back first - across every category. Each
+  // question keeps its real category and difficulty, so points stay fair.
+  function startReview() {
+    return launch(async () => {
+      const loaded = await Promise.all(
+        ADULT_CATEGORIES.flatMap(cat => QUIZ_DIFFICULTIES.map(d => loadBank(cat, d).then(b => ({ cat, d, b }))))
+      )
+      const pool: DueItem[] = []
+      for (const { cat, d, b } of loaded) for (const q of b) pool.push({ cat, diff: d, q })
+      return pickReview(pool, user.uid, QUESTIONS_PER_GAME).map(it => present(it.q, it.cat, it.diff, lang))
+    }, q => ({ questions: q, category: 'random', difficulty: 'medium', mode: 'adult', review: true }),
+    t('quiz.reviewCaughtUp'))
   }
 
   // Delete a child everywhere (scores server-side + the local name list). Throws
@@ -211,10 +245,12 @@ export default function BibleQuiz({ user, onClose }: { user: AppUser; onClose: (
           {screen === 'home' && (
             <HomeScreen
               profile={profile} dailyDone={dailyDone} loading={loading || !profileReady}
+              reviewInfo={reviewInfo}
               onClose={onClose}
               onPickCategory={c => { setPickedCat(c); setScreen('difficulty') }}
               onDaily={startDaily}
               onContinue={startRandom}
+              onReview={startReview}
               onKids={() => setScreen('kidname')}
               onLeaders={() => setScreen('leaders')}
               onPalmares={() => setScreen('palmares')}
@@ -231,6 +267,9 @@ export default function BibleQuiz({ user, onClose }: { user: AppUser; onClose: (
           {screen === 'playing' && game && (
             <PlayScreen questions={game.questions}
               kid={game.mode === 'kids'} kidName={game.childName}
+              onAnswered={game.mode === 'adult'
+                ? (qid, correct) => recordAnswer(user.uid, qid, correct)
+                : undefined}
               onQuit={() => { if (confirm(t('quiz.quitConfirm'))) backToHome() }}
               onFinish={finishGame} />
           )}
@@ -241,7 +280,7 @@ export default function BibleQuiz({ user, onClose }: { user: AppUser; onClose: (
           )}
           {screen === 'results' && !kidResult && lastResult && game && (
             <ResultsScreen result={lastResult.result} unlocked={lastResult.unlocked} profile={profile}
-              onReplay={() => { if (game.category === 'daily') startDaily(); else if (game.category === 'random') startRandom(); else startGame(game.category as QuizCategory, game.difficulty) }}
+              onReplay={() => { if (game.review) startReview(); else if (game.category === 'daily') startDaily(); else if (game.category === 'random') startRandom(); else startGame(game.category as QuizCategory, game.difficulty) }}
               onHome={backToHome} onLeaders={() => setScreen('leaders')} />
           )}
           {screen === 'trophies' && (
@@ -260,10 +299,10 @@ export default function BibleQuiz({ user, onClose }: { user: AppUser; onClose: (
 }
 
 // ---- Home -------------------------------------------------------------------
-function HomeScreen({ profile, dailyDone, loading, onClose, onPickCategory, onDaily, onContinue, onKids, onLeaders, onPalmares, onTrophies }: {
-  profile: QuizProfile; dailyDone: boolean; loading: boolean
+function HomeScreen({ profile, dailyDone, loading, reviewInfo, onClose, onPickCategory, onDaily, onContinue, onReview, onKids, onLeaders, onPalmares, onTrophies }: {
+  profile: QuizProfile; dailyDone: boolean; loading: boolean; reviewInfo: ReviewSummary
   onClose: () => void; onPickCategory: (c: QuizCategory) => void; onDaily: () => void; onContinue: () => void
-  onKids: () => void; onLeaders: () => void; onPalmares: () => void; onTrophies: () => void
+  onReview: () => void; onKids: () => void; onLeaders: () => void; onPalmares: () => void; onTrophies: () => void
 }) {
   const { t } = useLanguage()
   const lvl = levelProgress(profile.points)
@@ -355,6 +394,24 @@ function HomeScreen({ profile, dailyDone, loading, onClose, onPickCategory, onDa
         </div>
         <span className="shrink-0 bg-white text-orange-700 font-bold text-sm rounded-full px-4 py-2">{t('quiz.play')}</span>
       </button>
+
+      {/* Spaced-repetition review: appears once the player has questions due to
+          come back (mistakes first). Tapping builds a round from just those. */}
+      {reviewInfo.due > 0 && (
+        <button onClick={onReview} disabled={loading}
+          className="w-full text-left rounded-3xl p-4 mb-4 flex items-center gap-3 bg-gradient-to-r from-emerald-600 to-teal-700 shadow-lg disabled:opacity-70">
+          <div className="text-3xl shrink-0">🎯</div>
+          <div className="flex-1 min-w-0">
+            <p className="font-bold text-white">{t('quiz.reviewTitle')}</p>
+            <p className="text-xs text-white/80">
+              {reviewInfo.missed > 0
+                ? t('quiz.reviewMissed').replace('{n}', String(reviewInfo.missed))
+                : t('quiz.reviewDue').replace('{n}', String(reviewInfo.due))}
+            </p>
+          </div>
+          <span className="shrink-0 bg-white text-teal-700 font-bold text-sm rounded-full px-4 py-2">{t('quiz.reviewCta')}</span>
+        </button>
+      )}
 
       {/* Weekly ranking preview - the main motivation, front and centre */}
       <button onClick={onLeaders} className="w-full glass glass-hover rounded-3xl p-4 mb-3 text-left">
@@ -650,8 +707,9 @@ function KidNameScreen({ loading, onBack, onStart, onDeleteKid, onRenameKid }: {
 }
 
 // ---- Playing ----------------------------------------------------------------
-function PlayScreen({ questions, kid, kidName, onQuit, onFinish }: {
+function PlayScreen({ questions, kid, kidName, onAnswered, onQuit, onFinish }: {
   questions: PlayQuestion[]; kid?: boolean; kidName?: string
+  onAnswered?: (qid: string, correct: boolean) => void
   onQuit: () => void; onFinish: (correct: PlayQuestion[]) => void
 }) {
   const { t } = useLanguage()
@@ -671,6 +729,7 @@ function PlayScreen({ questions, kid, kidName, onQuit, onFinish }: {
     if (correct) { setCorrectList(prev => [...prev, q]); setPoints(p => p + pts) }
     setGained(pts)
     setPicked(choice)
+    onAnswered?.(q.id, correct)   // feed the spaced-repetition schedule
   }
 
   function next() {

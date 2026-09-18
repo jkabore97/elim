@@ -8,6 +8,7 @@
     "build": "tsc -b && vite build",
     "lint": "oxlint",
     "test:rules": "npx -y firebase-tools emulators:exec --only firestore --project demo-elim \"node scripts/firestore-rules.test.mjs\"",
+    "test:quiz": "npx -y esbuild scripts/quiz-review.test.mts --bundle --format=esm --platform=node --log-level=warning --outfile=node_modules/.cache/quiz-review.test.mjs && node node_modules/.cache/quiz-review.test.mjs",
     "preview": "vite preview",
     "cap:sync": "npm run build && npx cap sync",
     "cap:ios": "npm run cap:sync && npx cap open ios",
