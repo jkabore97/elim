@@ -1171,7 +1171,7 @@ function AppInner() {
   const [musiqueSearch, setMusiqueSearch] = useState('')
   const [showCreateMusique, setShowCreateMusique] = useState(false)
   const [showBulkMusique, setShowBulkMusique] = useState(false)
-  const [adminSection, setAdminSection] = useState<'approvals' | 'groups' | 'reports' | 'broadcast' | 'dons' | 'logs' | 'data' | 'quizsounds'>(
+  const [adminSection, setAdminSection] = useState<'approvals' | 'groups' | 'passwords' | 'reports' | 'broadcast' | 'dons' | 'logs' | 'data' | 'quizsounds'>(
     user?.role === 'church' ? 'data' : 'approvals'
   )
   // user is null at mount, so the initializer above always resolves to
@@ -2203,6 +2203,7 @@ function AppInner() {
                     { label: t('admin.grpPeople'), items: [
                       { id: 'approvals', label: t('admin.subApprovals') },
                       { id: 'groups', label: t('groups.tab') },
+                      { id: 'passwords', label: t('pwreset.tab') },
                     ] },
                     { label: t('admin.grpContent'), items: [
                       { id: 'reports', label: t('reports.tab') },
@@ -2243,6 +2244,7 @@ function AppInner() {
                   <AdminPanel pendingChurches={pendingChurches} onApprove={handleApproveChurch} onDeny={handleDenyChurch} />
                 )}
                 {adminSection === 'groups' && isStaffUser && <GroupsPanel user={user} groups={groups} />}
+                {adminSection === 'passwords' && isStaffUser && <AdminPasswordPanel />}
                 {adminSection === 'reports' && isStaffUser && <ReportsPanel user={user} />}
                 {adminSection === 'broadcast' && isStaffUser && <BroadcastPanel />}
                 {adminSection === 'dons' && isStaffUser && <DonationsPanel user={user} />}
@@ -2907,6 +2909,101 @@ function AdminOverview({ pending, onGo }: { pending: number; onGo: (s: 'approval
         <Tile n={reportsOpen} label={t('admin.kpiReports')} go={() => onGo('reports')} alert={(reportsOpen || 0) > 0} />
         <Tile n={scheduled} label={t('admin.kpiScheduled')} go={() => onGo('broadcast')} alert={false} />
       </div>
+    </div>
+  )
+}
+
+// Admin password / PIN reset: find any member and set them a new sign-in code,
+// then read it out to them. Backed by the adminSetPassword Cloud Function (only
+// the Admin SDK can set another user's password). Staff-gated in the UI and
+// again on the server.
+function AdminPasswordPanel() {
+  const { t } = useLanguage()
+  const [users, setUsers] = useState<{ uid: string; name: string; phone: string; role: string }[]>([])
+  const [q, setQ] = useState('')
+  const [picked, setPicked] = useState<{ uid: string; name: string; phone: string } | null>(null)
+  const [code, setCode] = useState('')
+  const [busy, setBusy] = useState(false)
+  const [done, setDone] = useState('')
+  const [err, setErr] = useState('')
+
+  useEffect(() => {
+    let alive = true
+    getDocs(collection(db, 'users')).then(snap => {
+      if (!alive) return
+      setUsers(snap.docs.map(d => {
+        const v = d.data() as any
+        return { uid: d.id, name: v.displayName || '—', phone: v.phone || '', role: v.role || 'member' }
+      }).sort((a, b) => a.name.localeCompare(b.name)))
+    }).catch(() => { /* directory unavailable */ })
+    return () => { alive = false }
+  }, [])
+
+  const filtered = useMemo(() => {
+    const s = q.trim().toLowerCase()
+    if (!s) return [] as typeof users
+    return users.filter(u => u.name.toLowerCase().includes(s) || u.phone.replace(/\s/g, '').includes(s.replace(/\s/g, ''))).slice(0, 12)
+  }, [q, users])
+
+  const submit = async () => {
+    if (!picked || code.trim().length < 4 || busy) return
+    setBusy(true); setErr(''); setDone('')
+    try {
+      await httpsCallable(functions, 'adminSetPassword')({ uid: picked.uid, password: code.trim() })
+      setDone(t('pwreset.done').replace('{name}', picked.name).replace('{code}', code.trim()))
+      setCode(''); setPicked(null); setQ('')
+    } catch (e: any) {
+      setErr(e?.message || t('pwreset.failed'))
+    } finally { setBusy(false) }
+  }
+
+  return (
+    <div className="glass-soft rounded-2xl p-4 space-y-3">
+      <div>
+        <h3 className="font-bold text-slate-800 flex items-center gap-2">🔑 {t('pwreset.title')}</h3>
+        <p className="text-xs text-slate-500 mt-0.5">{t('pwreset.intro')}</p>
+      </div>
+
+      {picked ? (
+        <div className="flex items-center gap-2 bg-white/70 rounded-xl px-3 py-2.5">
+          <div className="flex-1 min-w-0">
+            <p className="text-sm font-semibold text-slate-800 truncate">{picked.name}</p>
+            {picked.phone && <p className="text-xs text-slate-400 truncate">{picked.phone}</p>}
+          </div>
+          <button onClick={() => setPicked(null)} className="text-slate-400 hover:text-slate-600"><X size={16} /></button>
+        </div>
+      ) : (
+        <div>
+          <input value={q} onChange={e => setQ(e.target.value)} placeholder={t('pwreset.search')}
+            className="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-affirm-400" />
+          {filtered.length > 0 && (
+            <div className="mt-2 border border-slate-100 rounded-xl bg-white overflow-hidden max-h-56 overflow-y-auto">
+              {filtered.map(u => (
+                <button key={u.uid} onClick={() => { setPicked(u); setDone('') }}
+                  className="w-full text-left px-3 py-2 hover:bg-affirm-50 border-b border-slate-50 last:border-0">
+                  <span className="text-sm font-semibold text-slate-800">{u.name}</span>
+                  {u.phone && <span className="text-xs text-slate-400"> · {u.phone}</span>}
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
+
+      {picked && (
+        <>
+          <input value={code} onChange={e => setCode(e.target.value)} maxLength={64}
+            placeholder={t('pwreset.newCode')} autoComplete="off"
+            className="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-affirm-400" />
+          <p className="text-[11px] text-slate-400">{t('pwreset.hint')}</p>
+          <button onClick={submit} disabled={busy || code.trim().length < 4}
+            className="w-full py-3 rounded-2xl bg-affirm-600 text-white font-semibold text-sm disabled:opacity-60 flex items-center justify-center gap-2">
+            {busy ? <Loader2 size={16} className="animate-spin" /> : null} {t('pwreset.set')}
+          </button>
+        </>
+      )}
+      {err && <p className="text-sm text-red-600 bg-red-50 rounded-xl px-3 py-2">{err}</p>}
+      {done && <p className="text-sm text-affirm-700 bg-affirm-50 rounded-xl px-3 py-2 font-medium">{done}</p>}
     </div>
   )
 }
