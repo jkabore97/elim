@@ -210,7 +210,7 @@ export interface Comment {
 export interface AppNotification {
   id: string;
   recipientId: string;
-  type: 'post_like' | 'comment_like' | 'post_comment' | 'comment_reply' | 'message';
+  type: 'post_like' | 'comment_like' | 'post_comment' | 'comment_reply' | 'message' | 'transcript';
   actorId: string;
   actorName: string;
   actorAvatar?: string;
@@ -218,6 +218,7 @@ export interface AppNotification {
   commentId?: string;
   conversationId?: string;
   preview?: string;
+  url?: string | null;
   read: boolean;
   createdAt: any;
 }

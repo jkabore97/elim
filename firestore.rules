@@ -19,6 +19,16 @@ service cloud.firestore {
       return isSignedIn() && (role() == 'church' || role() == 'admin' || role() == 'pastor');
     }
 
+    // Who may use the transcription tool AND see the shared Scripts library:
+    // admins/pastors, plus church leads with the 'transcribe' group capability
+    // (legacy leads with no group stamp are grandfathered, like publishing).
+    function canTranscribe() {
+      return isSignedIn() && (
+        isAdmin() ||
+        (canPublish() && (!managedByGroups() || groupCap('transcribe')))
+      );
+    }
+
     // 'pastor' carries full admin rights - approvals, logs, everything -
     // so every existing isAdmin() check covers both accounts.
     function isAdmin() {
@@ -287,13 +297,17 @@ service cloud.firestore {
     // fills in the text (Admin SDK). The lead may read and delete their own
     // job, but never edit it - the result must come from the function.
     match /transcribeJobs/{jobId} {
-      allow read: if isSignedIn() && resource.data.ownerUid == request.auth.uid;
+      // The Scripts library is SHARED: anyone with transcription access (leads
+      // with the cap, admins/pastors) can read every job. The owner can always
+      // read their own.
+      allow read: if canTranscribe() || (isSignedIn() && resource.data.ownerUid == request.auth.uid);
       allow create: if canPublish()
                     && request.resource.data.ownerUid == request.auth.uid
                     && request.resource.data.status == 'processing'
                     && (isAdmin() || !managedByGroups() || groupCap('transcribe'));
       allow update: if false;
-      allow delete: if isSignedIn() && resource.data.ownerUid == request.auth.uid;
+      // Delete: the owner, or an admin/pastor tidying the shared library.
+      allow delete: if isSignedIn() && (isAdmin() || resource.data.ownerUid == request.auth.uid);
     }
 
     // ---- Posts ----

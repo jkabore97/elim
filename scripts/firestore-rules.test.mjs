@@ -42,6 +42,8 @@ await env.withSecurityRulesDisabled(async (ctx) => {
   await setDoc(doc(db, 'quizKids/wk1__member2__mia'), { kidsWeekId: 'wk1', uid: 'member2', parentName: 'M2', childName: 'Mia', points: 5 })
   await setDoc(doc(db, 'announcements/a1'), { title: 'Hi', body: 'x', createdAt: serverTimestamp() })
   await setDoc(doc(db, 'scheduledBroadcasts/s1'), { title: 'S', body: 'x', sent: false, sendAt: serverTimestamp() })
+  await setDoc(doc(db, 'transcribeJobs/jobChurch'), { ownerUid: 'church1', status: 'done', text: 'sermon', createdAt: serverTimestamp() })
+  await setDoc(doc(db, 'transcribeJobs/jobPastor'), { ownerUid: 'pastor1', status: 'processing', createdAt: serverTimestamp() })
 })
 
 const m1 = env.authenticatedContext('member1').firestore()
@@ -179,6 +181,25 @@ await check('member CANNOT write autoNotifs config',
   assertFails(setDoc(doc(m1, 'config/autoNotifs'), { quizReminder: { enabled: false } })))
 await check('admin writes autoNotifs config',
   assertSucceeds(setDoc(doc(pastor, 'config/autoNotifs'), { quizReminder: { title: 'X', body: 'Y', enabled: true } })))
+
+console.log('Transcribe jobs (shared Scripts library):')
+// The library is shared among users with transcription access.
+await check('lead reads ANOTHER user\'s transcript job (shared library)',
+  assertSucceeds(getDoc(doc(church, 'transcribeJobs/jobPastor'))))
+await check('admin reads any transcript job',
+  assertSucceeds(getDoc(doc(pastor, 'transcribeJobs/jobChurch'))))
+await check('member CANNOT read a transcript job they do not own',
+  assertFails(getDoc(doc(m1, 'transcribeJobs/jobChurch'))))
+await check('lead creates own transcript job (status processing)',
+  assertSucceeds(addDoc(collection(church, 'transcribeJobs'), { ownerUid: 'church1', status: 'processing', createdAt: serverTimestamp() })))
+await check('member CANNOT create a transcript job',
+  assertFails(addDoc(collection(m1, 'transcribeJobs'), { ownerUid: 'member1', status: 'processing', createdAt: serverTimestamp() })))
+await check('lead CANNOT update a transcript job (function only)',
+  assertFails(updateDoc(doc(church, 'transcribeJobs/jobChurch'), { text: 'tampered' })))
+await check('lead deletes own transcript job',
+  assertSucceeds(deleteDoc(doc(church, 'transcribeJobs/jobChurch'))))
+await check('admin deletes any transcript job',
+  assertSucceeds(deleteDoc(doc(pastor, 'transcribeJobs/jobPastor'))))
 
 await env.cleanup()
 console.log(`\n${pass} passed, ${fail} failed`)

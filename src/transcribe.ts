@@ -8,8 +8,8 @@ import { doc, addDoc, onSnapshot, deleteDoc, collection, serverTimestamp, query,
 import { ref, uploadBytesResumable, deleteObject } from 'firebase/storage'
 import { functions, db, storage } from './firebase'
 
-export interface TranscriptDoc { status?: 'processing' | 'done' | 'error'; text?: string; error?: string }
-export interface TranscriptJob extends TranscriptDoc { id: string; fileName?: string; createdAt?: any }
+export interface TranscriptDoc { status?: 'processing' | 'done' | 'error'; text?: string; error?: string; progress?: number; fileUrl?: string | null }
+export interface TranscriptJob extends TranscriptDoc { id: string; fileName?: string; ownerUid?: string; ownerName?: string; createdAt?: any }
 
 // Callable. The client-side timeout is generous, but the Firestore
 // subscription is the source of truth for the finished transcript.
@@ -30,7 +30,17 @@ export function subscribeMyJobs(uid: string, cb: (jobs: TranscriptJob[]) => void
   const q = query(collection(db, 'transcribeJobs'),
     where('ownerUid', '==', uid), orderBy('createdAt', 'desc'), limit(15))
   return onSnapshot(q,
-    snap => cb(snap.docs.map(d => ({ id: d.id, ...(d.data() as TranscriptDoc & { fileName?: string; createdAt?: any }) }))),
+    snap => cb(snap.docs.map(d => ({ id: d.id, ...(d.data() as any) }))),
+    () => cb([]))
+}
+
+// The SHARED Scripts library: every job, newest first. Readable only by users
+// with transcription access (enforced by rules), so the whole transcription
+// team + admins see one shared folder of scripts.
+export function subscribeAllJobs(cb: (jobs: TranscriptJob[]) => void, max = 100): () => void {
+  const q = query(collection(db, 'transcribeJobs'), orderBy('createdAt', 'desc'), limit(max))
+  return onSnapshot(q,
+    snap => cb(snap.docs.map(d => ({ id: d.id, ...(d.data() as any) }))),
     () => cb([]))
 }
 
@@ -54,10 +64,11 @@ export function uploadForTranscription(
 // an auth/permission error thrown before the function writes a status, or a
 // timeout) - the UI awaits it so the spinner can't run forever.
 export async function startUploadTranscription(
-  uid: string, path: string, fileName?: string,
+  uid: string, path: string, fileName?: string, ownerName?: string,
 ): Promise<{ jobId: string; done: Promise<void> }> {
   const jobRef = await addDoc(collection(db, 'transcribeJobs'), {
     ownerUid: uid, status: 'processing',
+    ...(ownerName ? { ownerName: ownerName.slice(0, 80) } : {}),
     ...(fileName ? { fileName: fileName.slice(0, 120) } : {}),
     createdAt: serverTimestamp(),
   })
