@@ -1,16 +1,15 @@
-// One feedback service for the whole app: short synthesised earcons + haptics,
-// spent by MEANING through a single gate. The failure mode of app sound is a
-// noise per feature until people mute everything; here every cue passes one
-// gate (master switch · per-channel setting · quiet hours · Sunday-service
-// mute) before it can play, and the palette is one warm mallet in C-major
-// pentatonic so success rises and resolves while a mistake falls gently — never
-// a shaming buzzer (this matters most for children).
+// One feedback service for the whole app: rich synthesised sounds + haptics,
+// spent by MEANING through a single gate. Every cue passes one gate (master ·
+// per-channel setting · quiet hours · Sunday-service mute) before it can play.
+// The actual sounds come from a 20-strong library (quiz/soundlib.ts); which
+// sound fires for each quiz event is admin-configurable (config/quizSounds),
+// so the church can pick the feel they want.
 //
-// No audio assets (synthesised on the Web Audio API, starts instantly, nothing
-// to cache) and no native dependency (haptics via navigator.vibrate, which the
-// Android WebView honours; desktop/iOS silently ignore it).
+// No audio assets (synthesised on the Web Audio API, instant) and no native
+// dependency (haptics via navigator.vibrate, honoured by the Android WebView).
 
 import { storageGet, storageSet } from './safeStorage'
+import { playSound } from './quiz/soundlib'
 
 // ---- Settings ---------------------------------------------------------------
 export type SoundChannel = 'quiz' | 'messages' | 'announcements' | 'social'
@@ -87,44 +86,41 @@ function allow(channel: SoundChannel, kind: 'sound' | 'haptic'): boolean {
   return !!s.channels[channel]
 }
 
-// ---- Synthesis --------------------------------------------------------------
-let ctx: AudioContext | null = null
-function audio(): AudioContext | null {
-  try {
-    if (!ctx) ctx = new (window.AudioContext || (window as any).webkitAudioContext)()
-    if (ctx.state === 'suspended') ctx.resume().catch(() => {})
-    return ctx
-  } catch { return null }
-}
-// A soft mallet note with a click-free ramp and exponential decay.
-function note(a: AudioContext, freq: number, at: number, dur: number, peak = 0.16) {
-  const osc = a.createOscillator(), gain = a.createGain()
-  osc.type = 'triangle'; osc.frequency.value = freq
-  gain.gain.setValueAtTime(0, at)
-  gain.gain.linearRampToValueAtTime(peak, at + 0.012)
-  gain.gain.exponentialRampToValueAtTime(0.0008, at + dur)
-  osc.connect(gain); gain.connect(a.destination)
-  osc.start(at); osc.stop(at + dur + 0.03)
-}
-// C-major pentatonic across two octaves.
-const N = { C5: 523.25, D5: 587.33, E5: 659.25, G5: 783.99, A5: 880, C6: 1046.5, E6: 1318.5 }
+// ---- Events → channel, sound, haptics --------------------------------------
+export type QuizEvent = 'quiz.correct' | 'quiz.wrong' | 'quiz.retry' | 'quiz.levelup' | 'quiz.result'
+type Event = QuizEvent | 'message' | 'announce' | 'tick'
+export const QUIZ_EVENTS: QuizEvent[] = ['quiz.correct', 'quiz.wrong', 'quiz.retry', 'quiz.levelup', 'quiz.result']
 
-type Event =
-  | 'quiz.correct' | 'quiz.wrong' | 'quiz.retry' | 'quiz.levelup' | 'quiz.result'
-  | 'message' | 'announce' | 'tick'
+const CHANNEL: Record<Event, SoundChannel> = {
+  'quiz.correct': 'quiz', 'quiz.wrong': 'quiz', 'quiz.retry': 'quiz', 'quiz.levelup': 'quiz', 'quiz.result': 'quiz',
+  message: 'messages', announce: 'announcements', tick: 'social',
+}
+const BUZZ: Record<Event, number[]> = {
+  'quiz.correct': [15], 'quiz.wrong': [26, 40, 26], 'quiz.retry': [18],
+  'quiz.levelup': [15, 45, 15, 45, 25], 'quiz.result': [20],
+  message: [40, 60, 40], announce: [30], tick: [12],
+}
+// Which library sound fires for each event. Non-quiz events are fixed; quiz
+// events default here but the admin can reassign them (config/quizSounds).
+const DEFAULT_SOUND: Record<Event, string> = {
+  'quiz.correct': 'powerup', 'quiz.wrong': 'softdown', 'quiz.retry': 'bloop',
+  'quiz.levelup': 'epicwin', 'quiz.result': 'fanfare',
+  message: 'ding', announce: 'bell', tick: 'tick',
+}
 
-// event → [channel, notes[freq,delay,dur], haptic pattern]
-function spec(e: Event): { ch: SoundChannel; seq: [number, number, number][]; buzz: number[] } {
-  switch (e) {
-    case 'quiz.correct': return { ch: 'quiz', seq: [[N.E5, 0, .1], [N.G5, .07, .1], [N.C6, .14, .16]], buzz: [15] }
-    case 'quiz.wrong':   return { ch: 'quiz', seq: [[N.G5, 0, .14], [N.E5, .12, .2]], buzz: [26, 40, 26] }
-    case 'quiz.retry':   return { ch: 'quiz', seq: [[N.D5, 0, .12]], buzz: [18] }
-    case 'quiz.levelup': return { ch: 'quiz', seq: [[N.C5, 0, .1], [N.E5, .09, .1], [N.G5, .18, .1], [N.C6, .27, .26]], buzz: [15, 45, 15, 45, 25] }
-    case 'quiz.result':  return { ch: 'quiz', seq: [[N.C5, 0, .3], [N.E5, 0, .3], [N.G5, 0, .34], [N.C6, .12, .34]], buzz: [20] }
-    case 'message':      return { ch: 'messages', seq: [[N.E5, 0, .12], [N.A5, .1, .18]], buzz: [40, 60, 40] }
-    case 'announce':     return { ch: 'announcements', seq: [[N.A5, 0, .5]], buzz: [30] }
-    case 'tick':         return { ch: 'social', seq: [[N.C6, 0, .05]], buzz: [12] }
-  }
+// The admin's chosen quiz sounds, cached locally so they apply instantly and
+// offline; App keeps this in sync with config/quizSounds.
+const MAP_KEY = 'elim-quiz-sound-map'
+let quizMap: Partial<Record<QuizEvent, string>> = (() => {
+  try { const o = JSON.parse(storageGet(MAP_KEY) || '{}'); return o && typeof o === 'object' ? o : {} } catch { return {} }
+})()
+
+export function setEventSounds(map: Partial<Record<QuizEvent, string>>): void {
+  quizMap = { ...quizMap, ...map }
+  try { storageSet(MAP_KEY, JSON.stringify(quizMap)) } catch { /* ignore */ }
+}
+export function getEventSound(e: QuizEvent): string {
+  return quizMap[e] || DEFAULT_SOUND[e]
 }
 
 let last = 0
@@ -132,11 +128,8 @@ export function emit(e: Event): void {
   const now = Date.now()
   if (now - last < 60) return   // debounce a flood into one cue
   last = now
-  const { ch, seq, buzz } = spec(e)
-  if (allow(ch, 'sound')) {
-    try { const a = audio(); if (a) { const t = a.currentTime; for (const [f, d, dur] of seq) note(a, f, t + d, dur) } } catch { /* audio is a nicety */ }
-  }
-  if (allow(ch, 'haptic')) {
-    try { if ('vibrate' in navigator) navigator.vibrate(buzz) } catch { /* ignore */ }
-  }
+  const ch = CHANNEL[e]
+  const soundId = (e.startsWith('quiz.') ? quizMap[e as QuizEvent] : undefined) || DEFAULT_SOUND[e]
+  if (allow(ch, 'sound')) playSound(soundId)
+  if (allow(ch, 'haptic')) { try { if ('vibrate' in navigator) navigator.vibrate(BUZZ[e]) } catch { /* ignore */ } }
 }

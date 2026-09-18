@@ -37,7 +37,8 @@ import { ImageLightbox } from './ImageLightbox'
 import { initBackButton, useBackHandler } from './backButton'
 import { MessagesTab, useUnreadCount } from './Messages'
 import { playMessageAlert, isAlertMuted, setAlertMuted } from './messageAlert'
-import { getSoundSettings, setSoundSettings, emit as playFeedback, type SoundChannel } from './feedback'
+import { getSoundSettings, setSoundSettings, setEventSounds, getEventSound, emit as playFeedback, QUIZ_EVENTS, type SoundChannel, type QuizEvent } from './feedback'
+import { SOUND_IDS, SOUND_NAMES, playSound } from './quiz/soundlib'
 import { DataManagementTab } from './DataManagement'
 import { LibraryTab } from './Library'
 import BibleQuiz from './BibleQuiz'
@@ -1170,7 +1171,7 @@ function AppInner() {
   const [musiqueSearch, setMusiqueSearch] = useState('')
   const [showCreateMusique, setShowCreateMusique] = useState(false)
   const [showBulkMusique, setShowBulkMusique] = useState(false)
-  const [adminSection, setAdminSection] = useState<'approvals' | 'groups' | 'reports' | 'broadcast' | 'dons' | 'logs' | 'data'>(
+  const [adminSection, setAdminSection] = useState<'approvals' | 'groups' | 'reports' | 'broadcast' | 'dons' | 'logs' | 'data' | 'quizsounds'>(
     user?.role === 'church' ? 'data' : 'approvals'
   )
   // user is null at mount, so the initializer above always resolves to
@@ -1457,6 +1458,16 @@ function AppInner() {
     const unsub = onSnapshot(doc(db, 'config', 'donation'), (snap) => {
       setDonation(snap.exists() ? (snap.data() as DonationConfig) : { providers: [] })
     }, () => setDonation({ providers: [] }))
+    return unsub
+  }, [user?.uid, user?.role])
+
+  // Admin-chosen quiz sounds → the feedback service (cached locally so they
+  // apply instantly). config/quizSounds is written by the admin sound picker.
+  useEffect(() => {
+    if (!user || user.role === 'pending_church') return
+    const unsub = onSnapshot(doc(db, 'config', 'quizSounds'), (snap) => {
+      if (snap.exists()) setEventSounds(snap.data() as Partial<Record<QuizEvent, string>>)
+    }, () => { /* offline: cached map still applies */ })
     return unsub
   }, [user?.uid, user?.role])
 
@@ -2199,6 +2210,7 @@ function AppInner() {
                     ] },
                     { label: t('admin.grpMoney'), items: [{ id: 'dons', label: t('dons.tab') }] },
                     { label: t('admin.grpSystem'), items: [
+                      { id: 'quizsounds', label: t('quizsound.tab') },
                       { id: 'logs', label: t('nav.logs') },
                       { id: 'data', label: t('nav.data') },
                     ] },
@@ -2234,6 +2246,7 @@ function AppInner() {
                 {adminSection === 'reports' && isStaffUser && <ReportsPanel user={user} />}
                 {adminSection === 'broadcast' && isStaffUser && <BroadcastPanel />}
                 {adminSection === 'dons' && isStaffUser && <DonationsPanel user={user} />}
+                {adminSection === 'quizsounds' && isStaffUser && <QuizSoundsPanel />}
                 {adminSection === 'logs' && isStaffUser && <LogsPanel />}
                 {adminSection === 'data' && isStaffUser && <AppVersionPanel />}
                 {adminSection === 'data' && <DataManagementTab user={user} />}
@@ -2894,6 +2907,54 @@ function AdminOverview({ pending, onGo }: { pending: number; onGo: (s: 'approval
         <Tile n={reportsOpen} label={t('admin.kpiReports')} go={() => onGo('reports')} alert={(reportsOpen || 0) > 0} />
         <Tile n={scheduled} label={t('admin.kpiScheduled')} go={() => onGo('broadcast')} alert={false} />
       </div>
+    </div>
+  )
+}
+
+// Admin sound picker: choose which of the 20 library sounds fires for each quiz
+// event, preview any of them, and save to config/quizSounds (applies to everyone).
+function QuizSoundsPanel() {
+  const { t } = useLanguage()
+  const [map, setMap] = useState<Record<string, string>>({})
+  const [saving, setSaving] = useState(false)
+  const [saved, setSaved] = useState(false)
+  useEffect(() => {
+    let alive = true
+    getDoc(doc(db, 'config', 'quizSounds')).then(s => { if (alive && s.exists()) setMap(s.data() as Record<string, string>) }).catch(() => {})
+    return () => { alive = false }
+  }, [])
+  const save = async () => {
+    setSaving(true); setSaved(false)
+    try {
+      await setDoc(doc(db, 'config', 'quizSounds'), map, { merge: true })
+      setEventSounds(map as Partial<Record<QuizEvent, string>>)
+      setSaved(true); setTimeout(() => setSaved(false), 2500)
+    } catch { /* ignore */ } finally { setSaving(false) }
+  }
+  return (
+    <div className="glass-soft rounded-2xl p-4 space-y-3">
+      <div>
+        <h3 className="font-bold text-slate-800 flex items-center gap-2">🔊 {t('quizsound.title')}</h3>
+        <p className="text-xs text-slate-500 mt-0.5">{t('quizsound.intro')}</p>
+      </div>
+      {QUIZ_EVENTS.map(ev => {
+        const current = map[ev] || getEventSound(ev)
+        return (
+          <div key={ev} className="flex items-center gap-2 bg-white/70 rounded-xl px-3 py-2.5">
+            <span className="flex-1 min-w-0 text-sm font-semibold text-slate-700 truncate">{t(`quizsound.ev.${ev}` as any)}</span>
+            <select value={current} onChange={e => setMap(m => ({ ...m, [ev]: e.target.value }))}
+              className="shrink-0 max-w-[45%] appearance-none rounded-lg border border-slate-200 bg-white px-2.5 py-1.5 text-sm">
+              {SOUND_IDS.map(id => <option key={id} value={id}>{SOUND_NAMES[id]}</option>)}
+            </select>
+            <button onClick={() => playSound(current)} aria-label={t('quizsound.preview')}
+              className="shrink-0 w-9 h-9 rounded-lg bg-affirm-600 text-white flex items-center justify-center">▶</button>
+          </div>
+        )
+      })}
+      <button onClick={save} disabled={saving}
+        className="w-full py-3 rounded-2xl bg-affirm-600 text-white font-semibold text-sm disabled:opacity-60">
+        {saving ? t('profile.saving') : saved ? `✓ ${t('profile.updated')}` : t('quizsound.save')}
+      </button>
     </div>
   )
 }
