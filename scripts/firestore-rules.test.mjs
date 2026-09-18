@@ -201,6 +201,14 @@ await check('lead deletes own transcript job',
 await check('admin deletes any transcript job',
   assertSucceeds(deleteDoc(doc(pastor, 'transcribeJobs/jobPastor'))))
 
+console.log('Quiz stats (difficulty calibration):')
+await check('member writes quizStats counters',
+  assertSucceeds(setDoc(doc(m1, 'quizStats/q1'), { attempts: 1, correct: 1, updatedAt: serverTimestamp() }, { merge: true })))
+await check('member CANNOT smuggle an extra field into quizStats',
+  assertFails(setDoc(doc(m1, 'quizStats/q1'), { attempts: 1, correct: 1, updatedAt: serverTimestamp(), b: -5 })))
+await check('member reads quizStats',
+  assertSucceeds(getDoc(doc(m1, 'quizStats/q1'))))
+
 await env.cleanup()
 console.log(`\n${pass} passed, ${fail} failed`)
 process.exit(fail === 0 ? 0 : 1)

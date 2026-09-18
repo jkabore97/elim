@@ -29,7 +29,7 @@ import type { BankQuestion } from './quiz/engine'
 import { recordDailyPlayed, weekCalendar, dailyThemeIndex } from './quiz/daily'
 import { emit } from './feedback'
 import {
-  subscribeProfile, commitAdultGame, commitKidsGame, fetchTopScorer,
+  subscribeProfile, commitAdultGame, commitKidsGame, recordQuizStats, fetchTopScorer,
   fetchGrandLeaders, fetchCategoryLeaders, fetchKidsLeaders, fetchChampions,
   deleteKidEverywhere, renameKidEverywhere, childSlug,
   type LeaderRow, type KidRow, type ChampionDoc, type TopScorer,
@@ -298,6 +298,9 @@ export default function BibleQuiz({ user, onClose }: { user: AppUser; onClose: (
     setProfile(next)
     setLastResult({ result, unlocked })
     setScreen('results')
+    // Difficulty calibration: log first-attempt outcomes per question (adult
+    // answers lock on the first pick, so this is a clean signal). Best-effort.
+    recordQuizStats(game.questions.map(q => ({ qid: q.id, correct: correctQuestions.some(c => c.id === q.id) }))).catch(() => {})
     try { await commitAdultGame(next, perCat, learningTotal) } catch { /* offline: cache retries */ }
   }
 
