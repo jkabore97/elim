@@ -112,20 +112,6 @@ export function reviewSummary(uid: string, today = dayIndex()): ReviewSummary {
   return { due, missed, learning }
 }
 
-// Lower = show sooner. The bands (chosen far apart) enforce the order:
-//   due-missed  ≪  unseen  ≪  due-review  ≪  not-due(least-recent)  ≪  seen-today
-function priority(r: QReview | undefined, today: number): number {
-  if (!r) return 100_000                                  // unseen: fresh material
-  if (r.seen >= today) return 900_000                     // already seen today: last resort
-  if (r.due <= today) {
-    const overdue = today - r.due
-    return r.w > 0
-      ? -1000 - overdue * 10 - r.w * 50                   // due & previously missed: first
-      : 200_000 - overdue                                 // due & mastered: spaced review
-  }
-  return 500_000 - (today - r.seen)                       // not due yet: least-recently-seen first
-}
-
 function shuffled<T>(a: T[]): T[] {
   const r = a.slice()
   for (let i = r.length - 1; i > 0; i--) {
@@ -135,17 +121,45 @@ function shuffled<T>(a: T[]): T[] {
   return r
 }
 
-// Pick `n` questions from one category's bank, smartly. A small random jitter
-// only shuffles WITHIN a priority band, so two games in a row aren't identical
-// yet due misses still always come first.
+// How forgotten a due card is — higher = show sooner. Overdue relative to the
+// last interval (a recall proxy), with missed cards weighted up. This ranks the
+// review pool so the questions you're closest to forgetting come first.
+function forgottenness(r: QReview, today: number): number {
+  const interval = Math.max(1, r.due - r.seen)
+  return (today - r.due) / interval + (r.w > 0 ? 2 : 0)
+}
+
+// Compose a round of `n` from one category's bank: the blueprint's adaptive
+// 5-due / 3-new / 2-stretch mix, then fill leftover slots in learning order.
+// Capping "due" at ~half means new material still appears even when a lot is
+// overdue, and when you're caught up the round leans to new + stretch.
 export function pickForCategory(bank: BankQuestion[], uid: string, n: number, today = dayIndex()): BankQuestion[] {
   if (bank.length <= n) return shuffled(bank)
   const s = load(uid)
-  return bank
-    .map(q => ({ q, p: priority(s.q[q.id], today) + Math.random() * 7 }))
-    .sort((a, b) => a.p - b.p)
-    .slice(0, n)
-    .map(x => x.q)
+  const due: { q: BankQuestion; k: number }[] = []
+  const unseen: BankQuestion[] = []
+  const rest: { q: BankQuestion; seen: number }[] = []
+  const seenToday: BankQuestion[] = []
+  for (const q of bank) {
+    const r = s.q[q.id]
+    if (!r) { unseen.push(q); continue }
+    if (r.seen >= today) { seenToday.push(q); continue }   // avoid same-day repeats
+    if (r.due <= today) due.push({ q, k: forgottenness(r, today) })
+    else rest.push({ q, seen: r.seen })
+  }
+  const dueQ = due.sort((a, b) => b.k - a.k).map(d => d.q)          // most forgotten first
+  const newQ = shuffled(unseen)
+  const stretchQ = rest.sort((a, b) => a.seen - b.seen).map(d => d.q) // least-recently-seen
+
+  const DUE = 5, NEW = 3, STRETCH = 2
+  const out: BankQuestion[] = []
+  const take = (pool: BankQuestion[], k: number) => {
+    for (const q of pool) { if (out.length >= n || k <= 0) break; if (!out.includes(q)) { out.push(q); k-- } }
+  }
+  take(dueQ, DUE); take(newQ, NEW); take(stretchQ, STRETCH)
+  // Fill any remaining slots from the deeper pools, learning-priority order.
+  for (const pool of [dueQ, newQ, stretchQ, seenToday]) { take(pool, n - out.length); if (out.length >= n) break }
+  return out.slice(0, n)
 }
 
 export interface DueItem { cat: QuizCategory; diff: QuizDifficulty; q: BankQuestion }
