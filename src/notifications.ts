@@ -234,26 +234,38 @@ export async function checkNotificationPermission(): Promise<'granted' | 'denied
   }
 }
 
-// Called at startup: if our stored flag says notifications are on but the OS
-// disagrees, the flag is stale and gets corrected so the UI reflects reality.
+// Called at startup to make the stored flag match reality - and to keep
+// notifications ON BY DEFAULT for anyone the OS actually allows.
+//
+//  - OS permission NOT granted -> the toggle can't honestly be on, so a stale
+//    "on" flag is corrected to off (the on-open prompt then nudges them to
+//    allow it).
+//  - OS permission granted -> notifications are on by default: we make sure the
+//    stored flag is on and the push token is registered, even if the flag had
+//    drifted off (a failed token save, a momentary "not granted" earlier, an
+//    old account created before this default). This is what stops the toggle
+//    from silently sitting off while the phone would happily receive pushes.
 export async function reconcileNotificationState(uid: string, storedEnabled: boolean): Promise<boolean> {
   const actual = await checkNotificationPermission()
-  if (storedEnabled && actual !== 'granted') {
-    await updateDoc(doc(db, 'users', uid), { notificationsEnabled: false }).catch(() => {})
+  if (actual !== 'granted') {
+    if (storedEnabled) {
+      await updateDoc(doc(db, 'users', uid), { notificationsEnabled: false }).catch(() => {})
+    }
     return false
   }
-  // Permission is granted and the flag agrees - but the token may have been
-  // rotated or cleared (OS reinstall, cleared data), so re-register to be safe.
-  // Throttled to once a day: reconcile runs on every launch, and re-registering
-  // (getToken + an fcmTokens write) each time is wasted work when nothing changed.
-  if (storedEnabled && actual === 'granted') {
-    let last = 0
-    try { last = Number(storageGet(REG_AT_KEY)) || 0 } catch { last = 0 }
-    if (Date.now() - last > REG_THROTTLE_MS) {
-      enableNotifications(uid).catch(() => {})
-    }
+  // Permission granted. Register the token (throttled to once a day, since the
+  // token may have rotated), and whenever the flag is off, flip it on now -
+  // enableNotifications() itself persists notificationsEnabled: true, but that
+  // can lag a token round-trip, so we don't wait on it to report "on".
+  let last = 0
+  try { last = Number(storageGet(REG_AT_KEY)) || 0 } catch { last = 0 }
+  if (!storedEnabled || Date.now() - last > REG_THROTTLE_MS) {
+    enableNotifications(uid).catch(() => {})
   }
-  return storedEnabled && actual === 'granted'
+  if (!storedEnabled) {
+    await updateDoc(doc(db, 'users', uid), { notificationsEnabled: true }).catch(() => {})
+  }
+  return true
 }
 
 // Foreground web notifications don't show natively (that's browser
