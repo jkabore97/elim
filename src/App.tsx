@@ -3,7 +3,7 @@ import {
   Home, Church, PlusCircle, User, MessageCircle, Heart, Share2,
   Image as ImageIcon, Video, Mic, X, Send, LogOut,
   Youtube, Facebook, CheckCircle2, Clock, ArrowRight, ShieldCheck, UserX, Sparkles,
-  Trash2, Camera, FileText, Upload, Pencil, Globe, Eye, EyeOff, Search, Bell, ScrollText, Mail, Play, Pause, HeartPulse, Download, AlertTriangle, BookOpen, Music,
+  Trash2, Camera, FileText, Upload, Pencil, Globe, Eye, EyeOff, Search, Bell, ScrollText, Mail, Play, Pause, HeartPulse, Download, AlertTriangle, BookOpen, Music, LifeBuoy,
   HandCoins, Copy, Check, Plus, Flag, Users, CreditCard, Loader2, Trophy, ChevronDown, Megaphone
 } from 'lucide-react'
 import {
@@ -1116,6 +1116,9 @@ function AppInner() {
   const [user, setUser] = useState<AppUser | null>(null)
   const [authLoading, setAuthLoading] = useState(true)
   const [activeTab, setActiveTab] = useState('feed')
+  // When a support button deep-links into a messaging channel, this tells the
+  // Messages tab which channel to open on arrival (cleared once consumed).
+  const [msgChannel, setMsgChannel] = useState<'tech' | 'pastor' | null>(null)
   const [posts, setPosts] = useState<Post[]>([])
   const [groups, setGroups] = useState<Group[]>([])
   // undefined = loading, null = not managed (grandfathered), object = enforced caps
@@ -2084,12 +2087,13 @@ function AppInner() {
 
             {activeTab === 'messages' && (
               <div className="animate-rise">
-                <MessagesTab user={user} />
+                <MessagesTab user={user} initialChannel={msgChannel} onConsumed={() => setMsgChannel(null)} />
               </div>
             )}
 
             {activeTab === 'profile' && (
-              <ProfileTab user={user} onLogout={handleLogout} onProfileUpdated={(updates) => setUser(prev => prev ? { ...prev, ...updates } : prev)} />
+              <ProfileTab user={user} onLogout={handleLogout} onProfileUpdated={(updates) => setUser(prev => prev ? { ...prev, ...updates } : prev)}
+                onContactSupport={() => { setMsgChannel('tech'); setActiveTab('messages') }} />
             )}
 
             {activeTab === 'library' && (
@@ -2563,10 +2567,11 @@ function SoundSettingsPanel() {
   )
 }
 
-function ProfileTab({ user, onProfileUpdated, onLogout }: {
+function ProfileTab({ user, onProfileUpdated, onLogout, onContactSupport }: {
   user: AppUser
   onProfileUpdated: (updates: Partial<AppUser>) => void
   onLogout: () => void
+  onContactSupport: () => void
 }) {
   const { t } = useLanguage()
   const [uploading, setUploading] = useState(false)
@@ -2822,6 +2827,16 @@ function ProfileTab({ user, onProfileUpdated, onLogout }: {
       <Fold title={t('profile.groupHelp')}>
       <div>
         <h3 className="font-bold text-slate-900">{t('support.title')}</h3>
+        {/* Primary support path: the in-app Technical support chat (goes to the
+            tech team). Email stays below as a fallback. */}
+        <button onClick={onContactSupport}
+          className="mt-3 w-full flex items-center gap-3 px-4 py-3 rounded-2xl bg-affirm-600 hover:bg-affirm-700 text-white transition">
+          <div className="w-9 h-9 rounded-xl bg-white/20 flex items-center justify-center shrink-0"><LifeBuoy size={16} /></div>
+          <div className="min-w-0 text-left">
+            <p className="text-sm font-semibold">{t('support.chatTech')}</p>
+            <p className="text-xs text-white/80 truncate">{t('support.chatTechNote')}</p>
+          </div>
+        </button>
         <p className="text-xs text-slate-400 mt-0.5 leading-relaxed">{t('support.note')}</p>
 
         <div className="mt-4 space-y-2">

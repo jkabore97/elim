@@ -241,6 +241,8 @@ const fr = {
   "msg.noConversationsHint": 'Les messages qui vous sont adressés apparaîtront ici',
   "msg.noMessagesYet": 'Aucun message',
   "support.title": 'Assistance',
+  "support.chatTech": 'Écrire au support technique',
+  "support.chatTechNote": 'Envoyez un message à l\'équipe technique dans l\'application',
   "support.note": 'Un problème ou une question ? Contactez-nous, nous vous aiderons.',
   "support.emailUs": 'Assistance par e-mail',
   "support.visitSite": 'Visiter notre site web',

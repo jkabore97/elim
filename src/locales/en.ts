@@ -241,6 +241,8 @@ const en = {
   "msg.noConversationsHint": 'Messages sent to you will appear here',
   "msg.noMessagesYet": 'No messages yet',
   "support.title": 'Support',
+  "support.chatTech": 'Message technical support',
+  "support.chatTechNote": 'Send a message to the tech team inside the app',
   "support.note": "Having trouble or have a question? Get in touch and we'll help.",
   "support.emailUs": 'Email support',
   "support.visitSite": 'Visit our website',
