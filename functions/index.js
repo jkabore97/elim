@@ -1550,3 +1550,30 @@ exports.calibrateQuiz = onSchedule(
     console.log(`calibrateQuiz: calibrated ${n} questions`);
   }
 );
+
+// Admin-driven password / PIN reset. Members here aren't comfortable with
+// self-service resets, so an admin or pastor sets a new sign-in code for anyone
+// and reads it out to them. Only the Admin SDK can set another user's password
+// (a client never can), so this runs server-side and is gated to staff. For a
+// member the auth password IS their PIN, so the same call resets either.
+exports.adminSetPassword = onCall({ region: 'us-central1' }, async (request) => {
+  if (!request.auth) throw new HttpsError('unauthenticated', 'Sign in first.');
+  const db = getFirestore();
+  const me = await db.collection('users').doc(request.auth.uid).get();
+  const role = me.exists ? me.data().role : null;
+  if (!['admin', 'pastor'].includes(role)) {
+    throw new HttpsError('permission-denied', 'Only an admin or pastor can reset a code.');
+  }
+  const uid = String(request.data?.uid || '').trim();
+  const password = String(request.data?.password || '');
+  if (!uid) throw new HttpsError('invalid-argument', 'No user selected.');
+  if (password.length < 4 || password.length > 64) {
+    throw new HttpsError('invalid-argument', 'The code must be 4 to 64 characters.');
+  }
+  const target = await db.collection('users').doc(uid).get();
+  if (!target.exists) throw new HttpsError('not-found', 'That user no longer exists.');
+  const { getAuth } = require('firebase-admin/auth');
+  await getAuth().updateUser(uid, { password });
+  console.log(`adminSetPassword: ${request.auth.uid} reset the code for ${uid}`);
+  return { ok: true, name: target.data().displayName || '' };
+});
