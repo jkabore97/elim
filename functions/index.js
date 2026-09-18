@@ -1279,7 +1279,7 @@ exports.cleanupOldNotifications = onSchedule(
   async () => {
     const db = getFirestore();
     const cutoff = Timestamp.fromMillis(Date.now() - 30 * 24 * 60 * 60 * 1000);
-    for (const col of ['notifications', 'announcements', 'scheduledBroadcasts']) {
+    for (const col of ['notifications', 'announcements', 'scheduledBroadcasts', 'transcribeJobs']) {
       const field = col === 'scheduledBroadcasts' ? 'sentAt' : 'createdAt';
       // Page through in batches so a large backlog can't blow the 500-write cap.
       // eslint-disable-next-line no-constant-condition
