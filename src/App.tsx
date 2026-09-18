@@ -2185,15 +2185,23 @@ function AppInner() {
 
             {activeTab === 'admin' && isStaffUser && (
               <div className="space-y-4">
+                <AdminOverview pending={pendingChurches.length} onGo={setAdminSection} />
                 {(() => {
-                  const sections = [
-                    ...(isStaffUser ? [{ id: 'approvals' as const, label: t('admin.subApprovals') }] : []),
-                    ...(isStaffUser ? [{ id: 'groups' as const, label: t('groups.tab') }] : []),
-                    ...(isStaffUser ? [{ id: 'reports' as const, label: t('reports.tab') }] : []),
-                    ...(isStaffUser ? [{ id: 'broadcast' as const, label: t('broadcast.tab') }] : []),
-                    ...(isStaffUser ? [{ id: 'dons' as const, label: t('dons.tab') }] : []),
-                    ...(isStaffUser ? [{ id: 'logs' as const, label: t('nav.logs') }] : []),
-                    { id: 'data' as const, label: t('nav.data') }
+                  // Tools grouped so the menu reads as four areas, not one long list.
+                  const groups: { label: string; items: { id: typeof adminSection; label: string }[] }[] = [
+                    { label: t('admin.grpPeople'), items: [
+                      { id: 'approvals', label: t('admin.subApprovals') },
+                      { id: 'groups', label: t('groups.tab') },
+                    ] },
+                    { label: t('admin.grpContent'), items: [
+                      { id: 'reports', label: t('reports.tab') },
+                      { id: 'broadcast', label: t('broadcast.tab') },
+                    ] },
+                    { label: t('admin.grpMoney'), items: [{ id: 'dons', label: t('dons.tab') }] },
+                    { label: t('admin.grpSystem'), items: [
+                      { id: 'logs', label: t('nav.logs') },
+                      { id: 'data', label: t('nav.data') },
+                    ] },
                   ]
                   const currentPending = adminSection === 'approvals' && pendingChurches.length > 0
                   return (
@@ -2202,8 +2210,10 @@ function AppInner() {
                       <div className="relative">
                         <select value={adminSection} onChange={e => setAdminSection(e.target.value as typeof adminSection)}
                           className="w-full appearance-none glass-soft rounded-2xl pl-4 pr-11 py-3.5 text-[15px] font-semibold text-slate-800 focus:outline-none focus:ring-2 focus:ring-affirm-400 cursor-pointer">
-                          {sections.map(s => (
-                            <option key={s.id} value={s.id}>{s.label}</option>
+                          {groups.map(g => (
+                            <optgroup key={g.label} label={g.label}>
+                              {g.items.map(s => <option key={s.id} value={s.id}>{s.label}</option>)}
+                            </optgroup>
                           ))}
                         </select>
                         <ChevronDown size={18} className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" />
@@ -2854,6 +2864,40 @@ function ProfileTab({ user, onProfileUpdated, onLogout }: {
 // build number that is now live on the store, and every member on an older
 // build then sees the Update button. Nothing auto-bumps this, so a staff test
 // install can't nag the congregation.
+// Admin "answer first" overview: the handful of numbers that need a decision,
+// scanned in the first seconds (F-pattern top row). Each tile jumps to its
+// tool. The one that needs action wears a colour, not just a number.
+function AdminOverview({ pending, onGo }: { pending: number; onGo: (s: 'approvals' | 'reports' | 'broadcast') => void }) {
+  const { t } = useLanguage()
+  const [reportsOpen, setReportsOpen] = useState<number | null>(null)
+  const [scheduled, setScheduled] = useState<number | null>(null)
+  useEffect(() => {
+    let alive = true
+    getDocs(query(collection(db, 'reports'), where('status', '==', 'open')))
+      .then(s => { if (alive) setReportsOpen(s.size) }).catch(() => { if (alive) setReportsOpen(0) })
+    getDocs(query(collection(db, 'scheduledBroadcasts'), where('sent', '==', false)))
+      .then(s => { if (alive) setScheduled(s.size) }).catch(() => { if (alive) setScheduled(0) })
+    return () => { alive = false }
+  }, [])
+  const Tile = ({ n, label, go, alert }: { n: number | null; label: string; go: () => void; alert: boolean }) => (
+    <button onClick={go}
+      className={`glass-soft rounded-2xl p-3 text-left transition ${alert ? 'ring-2 ring-red-300' : ''}`}>
+      <div className={`text-2xl font-extrabold leading-none ${alert ? 'text-red-600' : 'text-slate-800'}`}>{n ?? '—'}</div>
+      <div className="text-[11px] text-slate-500 font-semibold mt-1 leading-tight">{label}</div>
+    </button>
+  )
+  return (
+    <div>
+      <label className="block text-[11px] font-bold uppercase tracking-wide text-slate-400 mb-1.5">{t('admin.toTreat')}</label>
+      <div className="grid grid-cols-3 gap-2">
+        <Tile n={pending} label={t('admin.kpiApprovals')} go={() => onGo('approvals')} alert={pending > 0} />
+        <Tile n={reportsOpen} label={t('admin.kpiReports')} go={() => onGo('reports')} alert={(reportsOpen || 0) > 0} />
+        <Tile n={scheduled} label={t('admin.kpiScheduled')} go={() => onGo('broadcast')} alert={false} />
+      </div>
+    </div>
+  )
+}
+
 function AppVersionPanel() {
   const { t } = useLanguage()
   const PLAY_URL = 'https://play.google.com/store/apps/details?id=com.elim.app'
