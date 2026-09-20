@@ -517,6 +517,19 @@ exports.reconcilePostShares = onDocumentCreated('postShares/{id}', async (event)
   await db.collection('posts').doc(s.postId).set({ shares: c.data().count }, { merge: true }).catch(() => {});
 });
 
+// posts.commentsCount = the real number of comment docs for the post. Keeps the
+// counter honest (self-healing) if a comment is ever deleted — the client still
+// nudges +1 on add for instant feedback, and this sets the exact value.
+exports.reconcileCommentsCount = onDocumentWritten('comments/{commentId}', async (event) => {
+  const before = event.data.before.exists ? event.data.before.data() : null;
+  const after = event.data.after.exists ? event.data.after.data() : null;
+  const postId = (after && after.postId) || (before && before.postId);
+  if (!postId) return;
+  const db = getFirestore();
+  const c = await db.collection('comments').where('postId', '==', postId).count().get();
+  await db.collection('posts').doc(postId).set({ commentsCount: c.data().count }, { merge: true }).catch(() => {});
+});
+
 // Names of everyone in the app, for the comment @mention picker. Members can't
 // read the users collection directly (privacy), so this callable returns names
 // only — no phone, email or anything else. Any signed-in user may call it.
@@ -595,6 +608,18 @@ exports.backfillPostViews = onSchedule(
   }
 );
 
+// comments.likes = the real number of commentLikes docs for that comment, so
+// the comment like counter self-heals like the post counters.
+exports.reconcileCommentLikes = onDocumentWritten('commentLikes/{likeId}', async (event) => {
+  const before = event.data.before.exists ? event.data.before.data() : null;
+  const after = event.data.after.exists ? event.data.after.data() : null;
+  const commentId = (after && after.commentId) || (before && before.commentId);
+  if (!commentId) return;
+  const db = getFirestore();
+  const c = await db.collection('commentLikes').where('commentId', '==', commentId).count().get();
+  await db.collection('comments').doc(commentId).set({ likes: c.data().count }, { merge: true }).catch(() => {});
+});
+
 // Someone liked a comment -> tell the comment's author.
 exports.notifyOnCommentLike = onDocumentCreated('commentLikes/{likeId}', async (event) => {
   const like = event.data && event.data.data();
@@ -625,7 +650,9 @@ exports.notifyOnComment = onDocumentCreated('comments/{commentId}', async (event
   const actor = await resolveActor(db, comment.userId);
   const notified = new Set([comment.userId]); // never the commenter themselves
   const preview = (comment.text || '').slice(0, 80);
-  const data = { kind: 'comment', postId: comment.postId, commentId };
+  // kind 'post' so tapping the push opens the post (the client routes 'post';
+  // 'comment' is not a route it knows).
+  const data = { kind: 'post', postId: comment.postId, commentId };
 
   // Notify + push in one place, so a bell notification always reaches the phone.
   const notify = async (recipientId, type, body) => {
