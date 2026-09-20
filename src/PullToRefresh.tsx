@@ -20,8 +20,8 @@ export function PullToRefresh({ onRefresh, children }: {
   const refreshingRef = useRef(false)
   const dragging = useRef(false)
 
-  const THRESHOLD = 70   // px of pull needed to trigger
-  const MAX = 100        // capped travel
+  const THRESHOLD = 95   // px of pull needed to trigger — deliberate, not a graze
+  const MAX = 130        // capped travel
 
   useEffect(() => {
     const atTop = () => (window.scrollY || document.documentElement.scrollTop || 0) <= 0
@@ -52,8 +52,14 @@ export function PullToRefresh({ onRefresh, children }: {
         refreshingRef.current = true
         setRefreshing(true)
         setPull(THRESHOLD)
-        // Let the spinner paint before the reload takes over the screen.
-        Promise.resolve(onRefresh()).catch(() => {})
+        // Run the (in-place) refresh, then settle back — the user stays on the
+        // same page, so the spinner must reset itself when the refresh is done.
+        Promise.resolve(onRefresh()).catch(() => {}).finally(() => {
+          refreshingRef.current = false
+          setRefreshing(false)
+          pullRef.current = 0
+          setPull(0)
+        })
       } else {
         pullRef.current = 0
         setPull(0)
