@@ -30,7 +30,7 @@ import { recordDailyPlayed, weekCalendar, dailyThemeIndex } from './quiz/daily'
 import { emit } from './feedback'
 import {
   subscribeProfile, commitAdultGame, commitKidsGame, recordQuizStats, fetchTopScorer,
-  fetchGrandLeaders, fetchCategoryLeaders, fetchKidsLeaders, fetchChampions,
+  fetchGrandLeaders, fetchCategoryLeaders, fetchKidsLeaders, fetchChampions, fetchKidsChampions,
   deleteKidEverywhere, renameKidEverywhere, childSlug,
   type LeaderRow, type KidRow, type ChampionDoc, type TopScorer,
 } from './quiz/store'
@@ -118,7 +118,7 @@ function forgetKidName(name: string): void {
   } catch { /* ignore */ }
 }
 
-type Screen = 'home' | 'difficulty' | 'kidname' | 'playing' | 'results' | 'trophies' | 'leaders' | 'palmares'
+type Screen = 'home' | 'difficulty' | 'kidname' | 'playing' | 'results' | 'trophies' | 'leaders' | 'palmares' | 'kidsfame'
 
 function playLang(language: string): QuizLang {
   return language === 'fr' ? 'fr' : 'en'
@@ -330,7 +330,8 @@ export default function BibleQuiz({ user, onClose }: { user: AppUser; onClose: (
           )}
           {screen === 'kidname' && (
             <KidNameScreen loading={loading} onBack={backToHome} onStart={startKids}
-              onDeleteKid={deleteKid} onRenameKid={renameKid} />
+              onDeleteKid={deleteKid} onRenameKid={renameKid}
+              onKidsFame={() => setScreen('kidsfame')} />
           )}
           {screen === 'playing' && game && (
             <PlayScreen questions={game.questions}
@@ -344,7 +345,8 @@ export default function BibleQuiz({ user, onClose }: { user: AppUser; onClose: (
           {screen === 'results' && kidResult && (
             <KidResults r={kidResult}
               onReplay={() => startKids(kidResult.childName)}
-              onLeaders={() => setScreen('leaders')} onHome={backToHome} />
+              onLeaders={() => setScreen('leaders')} onHome={backToHome}
+              onKidsFame={() => setScreen('kidsfame')} />
           )}
           {screen === 'results' && !kidResult && lastResult && game && (
             <ResultsScreen result={lastResult.result} unlocked={lastResult.unlocked} profile={profile}
@@ -355,10 +357,14 @@ export default function BibleQuiz({ user, onClose }: { user: AppUser; onClose: (
             <TrophiesScreen profile={profile} onBack={backToHome} onLeaders={() => setScreen('leaders')} />
           )}
           {screen === 'leaders' && (
-            <LeadersScreen uid={user.uid} onBack={backToHome} onPalmares={() => setScreen('palmares')} />
+            <LeadersScreen uid={user.uid} onBack={backToHome} onPalmares={() => setScreen('palmares')}
+              onKidsFame={() => setScreen('kidsfame')} />
           )}
           {screen === 'palmares' && (
             <PalmaresScreen onBack={backToHome} />
+          )}
+          {screen === 'kidsfame' && (
+            <KidsFameScreen onBack={backToHome} />
           )}
         </div>
       </div>
@@ -710,10 +716,11 @@ function ParcoursScreen({ category, profile, uid, loading, onBack, onStartLesson
 }
 
 // ---- Kids name entry --------------------------------------------------------
-function KidNameScreen({ loading, onBack, onStart, onDeleteKid, onRenameKid }: {
+function KidNameScreen({ loading, onBack, onStart, onDeleteKid, onRenameKid, onKidsFame }: {
   loading: boolean; onBack: () => void; onStart: (name: string) => void
   onDeleteKid: (name: string) => Promise<void>
   onRenameKid: (oldName: string, newName: string) => Promise<void>
+  onKidsFame: () => void
 }) {
   const { t } = useLanguage()
   const [saved, setSaved] = useState<string[]>(() => loadKidNames())
@@ -843,6 +850,13 @@ function KidNameScreen({ loading, onBack, onStart, onDeleteKid, onRenameKid }: {
             )}
           </>
         )}
+
+        {/* Always reachable from the kids hub: the celebratory list of past
+            weekly kid champions. */}
+        <button onClick={onKidsFame}
+          className="mt-6 w-full max-w-xs rounded-2xl bg-white/15 border border-white/30 text-white font-bold text-base py-3 hover:bg-white/25 flex items-center justify-center gap-2">
+          🏆 {t('quiz.kidsFame')}
+        </button>
       </div>
 
       {/* Long-press options: edit or delete */}
@@ -1113,9 +1127,9 @@ function ResultsScreen({ result, unlocked, profile, onReplay, onHome, onLeaders 
 }
 
 // ---- Results (kids) ---------------------------------------------------------
-function KidResults({ r, onReplay, onLeaders, onHome }: {
+function KidResults({ r, onReplay, onLeaders, onHome, onKidsFame }: {
   r: { childName: string; correct: number; total: number; gained: number }
-  onReplay: () => void; onLeaders: () => void; onHome: () => void
+  onReplay: () => void; onLeaders: () => void; onHome: () => void; onKidsFame: () => void
 }) {
   const { t } = useLanguage()
   const stars = starsFor(r.correct, r.total)
@@ -1139,6 +1153,7 @@ function KidResults({ r, onReplay, onLeaders, onHome }: {
         <button onClick={onReplay} className="glass rounded-2xl py-3.5 font-bold text-fuchsia-700 flex items-center justify-center gap-2"><RotateCcw size={17} /> {t('quiz.replay')}</button>
         <button onClick={onLeaders} className="glass rounded-2xl py-3.5 font-bold text-fuchsia-700 flex items-center justify-center gap-2"><Medal size={17} /> {t('quiz.ranking')}</button>
       </div>
+      <button onClick={onKidsFame} className="w-full glass rounded-2xl py-3 mb-3 font-bold text-fuchsia-700 flex items-center justify-center gap-2"><Crown size={17} /> {t('quiz.kidsFame')}</button>
       <button onClick={onHome} className="w-full py-2 text-white/80 font-semibold text-sm">{t('quiz.back')}</button>
     </div>
   )
@@ -1206,7 +1221,7 @@ function TrophiesScreen({ profile, onBack, onLeaders }: { profile: QuizProfile; 
 
 // ---- Leaderboards -----------------------------------------------------------
 type LeagueTab = 'grand' | 'kids' | QuizCategory
-function LeadersScreen({ uid, onBack, onPalmares }: { uid: string; onBack: () => void; onPalmares: () => void }) {
+function LeadersScreen({ uid, onBack, onPalmares, onKidsFame }: { uid: string; onBack: () => void; onPalmares: () => void; onKidsFame: () => void }) {
   const { t } = useLanguage()
   const [tab, setTab] = useState<LeagueTab>('grand')
   const [rows, setRows] = useState<LeaderRow[] | null>(null)
@@ -1255,6 +1270,13 @@ function LeadersScreen({ uid, onBack, onPalmares }: { uid: string; onBack: () =>
           </button>
         ))}
       </div>
+
+      {tab === 'kids' && (
+        <button onClick={onKidsFame}
+          className="w-full glass glass-hover rounded-2xl py-3 mb-3 flex items-center justify-center gap-2 font-bold text-fuchsia-700">
+          <Crown size={17} /> {t('quiz.kidsFame')}
+        </button>
+      )}
 
       <div className="glass rounded-3xl p-3">
         {tab === 'kids' ? (
@@ -1353,6 +1375,79 @@ function PalmaresScreen({ onBack }: { onBack: () => void }) {
             </div>
           ))}
         </div>
+      )}
+    </div>
+  )
+}
+
+// ---- Kids Hall of Fame ------------------------------------------------------
+// A celebratory, child-friendly wall of past weekly kid champions: the most
+// recent winner gets a big hero card, earlier ones follow as a medalled list.
+function KidsFameScreen({ onBack }: { onBack: () => void }) {
+  const { t } = useLanguage()
+  const [champs, setChamps] = useState<ChampionDoc[] | null>(null)
+  useEffect(() => {
+    let alive = true
+    fetchKidsChampions(30).then(c => { if (alive) setChamps(c) }).catch(() => { if (alive) setChamps([]) })
+    return () => { alive = false }
+  }, [])
+
+  const hero = champs && champs[0]
+  const rest = champs ? champs.slice(1) : []
+  const medal = (i: number) => (i === 0 ? '🥈' : i === 1 ? '🥉' : '🏅')
+
+  return (
+    <div className="px-4 pt-4 pb-10 safe-top">
+      <button onClick={onBack} className="p-2 -ml-2 rounded-full text-white/90 hover:bg-white/10 flex items-center gap-1 text-sm font-semibold">
+        <ChevronLeft size={20} /> {t('quiz.back')}
+      </button>
+      <div className="text-center my-4">
+        <div className="text-5xl mb-1 quiz-anim-bounce">🏆</div>
+        <h1 className="text-2xl font-extrabold text-white">{t('quiz.kidsFame')}</h1>
+        <p className="text-on-bg text-sm mt-1">{t('quiz.kidsFameSub')}</p>
+      </div>
+
+      {champs === null ? <Spinner /> : champs.length === 0 ? (
+        <div className="glass rounded-3xl p-6"><Empty text={t('quiz.kidsFameEmpty')} /></div>
+      ) : (
+        <>
+          {hero && hero.winner && (
+            <div className="relative overflow-hidden glass rounded-3xl p-6 mb-4 text-center">
+              <PrizeBurst strong={false} />
+              <p className="text-[11px] font-bold text-fuchsia-500 uppercase tracking-wide">{t('quiz.kidsFameLatest')}</p>
+              <div className="relative w-28 h-28 mx-auto my-2 grid place-items-center">
+                <div className="absolute w-24 h-24 rounded-full bg-fuchsia-300/50 blur-2xl quiz-anim-glow" />
+                <div className="relative text-7xl quiz-anim-medal">👑</div>
+              </div>
+              <p className="text-2xl font-extrabold text-slate-800 truncate">🎈 {hero.winner.childName}</p>
+              {hero.winner.parentName && <p className="text-xs text-slate-400 truncate mt-0.5">{hero.winner.parentName}</p>}
+              <p className="mt-2 inline-block bg-fuchsia-100 text-fuchsia-700 font-extrabold rounded-full px-4 py-1">
+                {hero.winner.points.toLocaleString()} {t('quiz.pts')}
+              </p>
+              {hero.weekLabel && <p className="text-[11px] text-slate-400 mt-2">{hero.weekLabel}</p>}
+            </div>
+          )}
+
+          {rest.length > 0 && (
+            <>
+              <p className="text-xs font-bold text-on-bg px-1 mb-2">{t('quiz.kidsFamePast')}</p>
+              <div className="space-y-2">
+                {rest.map((c, i) => c.winner && (
+                  <div key={c.id} className="glass rounded-2xl p-3 flex items-center gap-3">
+                    <span className="text-2xl shrink-0">{medal(i)}</span>
+                    <div className="flex-1 min-w-0">
+                      <p className="font-extrabold text-slate-800 truncate">🎈 {c.winner.childName}</p>
+                      <p className="text-[11px] text-slate-400 truncate">
+                        {c.weekLabel || c.id}{c.winner.parentName ? ` · ${c.winner.parentName}` : ''}
+                      </p>
+                    </div>
+                    <span className="font-extrabold text-fuchsia-600 shrink-0">{c.winner.points.toLocaleString()}</span>
+                  </div>
+                ))}
+              </div>
+            </>
+          )}
+        </>
       )}
     </div>
   )

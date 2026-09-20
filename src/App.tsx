@@ -393,10 +393,14 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
       .map(name => ({ value: name, label: countryLabel(name) }))
       .sort((a, b) => a.label.localeCompare(b.label, language || 'fr'))
   }, [language])
-  // Dial-code picker, alphabetical by (French) name so a member can find
-  // their own country instead of scanning a code-only list.
+  // Dial-code picker, alphabetical by name so a member can find their own
+  // country instead of scanning a code-only list. The name follows the UI
+  // language: French label by default, the English country name in English
+  // mode (`country` is the matching COUNTRIES entry, which is in English).
   const dialOptions = useMemo(() =>
-    [...COUNTRY_CODES].sort((a, b) => a.name.localeCompare(b.name, language || 'fr'))
+    COUNTRY_CODES
+      .map(c => ({ region: c.region, code: c.code, label: language === 'en' ? c.country : c.name }))
+      .sort((a, b) => a.label.localeCompare(b.label, language || 'fr'))
   , [language])
   // Profession / interest labels: French list is the stored value, English
   // labels shown only when the UI language is English.
@@ -701,7 +705,7 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
             <select value={countryCode} onChange={e => setCountryCode(e.target.value)}
               aria-label={t('auth.country')} className={selectClass}>
               {dialOptions.map(c => (
-                <option key={c.region} value={c.code}>{c.name} ({c.code})</option>
+                <option key={c.region} value={c.code}>{c.label} ({c.code})</option>
               ))}
             </select>
             {/* National number only — the code above is shown as a fixed badge
