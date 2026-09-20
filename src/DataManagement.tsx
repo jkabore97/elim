@@ -99,7 +99,7 @@ function download(filename: string, content: string, mime: string) {
 // Every collection the app writes, so the browser can reach all of them rather
 // than only users. Ordered by how often you'd actually want to look.
 const BROWSABLE = [
-  'users', 'posts', 'healthTips', 'comments', 'likes',
+  'users', 'posts', 'healthTips', 'comments', 'likes', 'postViews', 'postShares',
   'conversations', 'messages', 'activityLogs', 'churchDirectory'
 ]
 
