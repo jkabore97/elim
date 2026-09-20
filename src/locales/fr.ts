@@ -189,6 +189,7 @@ const fr = {
   "reg.logs": 'Journal des connexions, publications et actions administratives. Ajout uniquement.',
   "reg.directory": "Liste publique des églises approuvées, utilisée par le menu d'inscription.",
   "nav.messages": 'Messages',
+  "profileCard.notFound": 'Profil introuvable',
   "role.pastor": 'Pasteur',
   "role.admin": 'Support technique',
   "role.church": 'Lead',

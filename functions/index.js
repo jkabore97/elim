@@ -620,6 +620,28 @@ exports.reconcileCommentLikes = onDocumentWritten('commentLikes/{likeId}', async
   await db.collection('comments').doc(commentId).set({ likes: c.data().count }, { merge: true }).catch(() => {});
 });
 
+// One member's public-ish profile for the tap-to-view popup: name, photo,
+// profession, church departments (interests) and role. No phone, email or date
+// of birth — members can't read the users collection directly, so this callable
+// returns only what's safe to show others. Any signed-in user may call it.
+exports.getMemberProfile = onCall({ region: 'us-central1' }, async (request) => {
+  if (!request.auth) throw new HttpsError('unauthenticated', 'Sign in first.');
+  const uid = String(request.data?.uid || '').trim();
+  if (!uid) throw new HttpsError('invalid-argument', 'No user.');
+  const db = getFirestore();
+  const snap = await db.collection('users').doc(uid).get();
+  if (!snap.exists) return { found: false };
+  const v = snap.data();
+  return {
+    found: true,
+    name: (v.displayName || '').toString(),
+    avatar: v.avatar || null,
+    profession: v.profession || '',
+    interests: Array.isArray(v.interests) ? v.interests.slice(0, 20) : [],
+    role: v.role || 'member',
+  };
+});
+
 // Someone liked a comment -> tell the comment's author.
 exports.notifyOnCommentLike = onDocumentCreated('commentLikes/{likeId}', async (event) => {
   const like = event.data && event.data.data();
