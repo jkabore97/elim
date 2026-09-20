@@ -4,7 +4,7 @@ import {
   Image as ImageIcon, Video, Mic, X, Send, LogOut,
   Youtube, Facebook, CheckCircle2, Clock, ArrowRight, ShieldCheck, UserX, Sparkles,
   Trash2, Camera, FileText, Upload, Pencil, Globe, Eye, EyeOff, Search, Bell, ScrollText, Mail, Play, Pause, HeartPulse, Download, AlertTriangle, BookOpen, Music, LifeBuoy,
-  HandCoins, Copy, Check, Plus, Flag, Users, CreditCard, Loader2, Trophy, ChevronDown, Megaphone
+  HandCoins, Copy, Check, Plus, Flag, Users, CreditCard, Loader2, Trophy, ChevronDown, Megaphone, AtSign
 } from 'lucide-react'
 import {
   collection, addDoc, onSnapshot, query, orderBy, where,
@@ -1781,10 +1781,11 @@ function AppInner() {
       `${data.section === 'sante' ? 'Santé' : 'Fil'} · ${finalType} - ${data.content.slice(0, 60)}`)
   }
 
-  const handleAddComment = async (text: string, parentId?: string) => {
+  const handleAddComment = async (text: string, parentId?: string, mentions?: { uid: string; name: string }[]) => {
     if (!activeCommentsPost || !user) return
     // Write the comment and bump the post's counter atomically, so a failure
     // can't leave the count out of step with the actual comments.
+    const tagged = (mentions || []).filter(m => m.uid && m.uid !== user.uid)
     const batch = writeBatch(db)
     batch.set(doc(collection(db, 'comments')), {
       postId: activeCommentsPost,
@@ -1792,6 +1793,7 @@ function AppInner() {
       userId: user.uid,
       ...(user.avatar ? { userAvatar: user.avatar } : {}),
       ...(parentId ? { parentId } : {}),
+      ...(tagged.length ? { mentions: tagged.map(m => m.uid), mentionNames: tagged.map(m => m.name) } : {}),
       text,
       likes: 0,
       createdAt: serverTimestamp()
@@ -2553,11 +2555,15 @@ function AppInner() {
       {editingPost && (
         <EditPostModal post={editingPost} onClose={() => setEditingPost(null)} onSave={handleEditPost} />
       )}
-      {activeCommentsPost && (
-        <CommentsSheet postId={activeCommentsPost} comments={comments}
-          onClose={() => setActiveCommentsPost(null)} onAdd={handleAddComment}
-          onLikeComment={handleLikeComment} likedCommentIds={likedCommentIds} currentUser={user} />
-      )}
+      {activeCommentsPost && (() => {
+        const cp = posts.find(p => p.id === activeCommentsPost)
+        const postAuthor = cp ? { uid: cp.authorId || cp.churchId, name: cp.authorName || cp.churchName || '' } : null
+        return (
+          <CommentsSheet postId={activeCommentsPost} comments={comments} postAuthor={postAuthor}
+            onClose={() => setActiveCommentsPost(null)} onAdd={handleAddComment}
+            onLikeComment={handleLikeComment} likedCommentIds={likedCommentIds} currentUser={user} />
+        )
+      })()}
       {showNotifications && (
         <NotificationsPanel
           notifications={notifications}
@@ -3941,7 +3947,7 @@ function PostCard({ post, onLike, onOpenComments, currentUser, isLiked, onEdit, 
       const seen = e.isIntersecting && (e.intersectionRatio >= 0.5 || e.intersectionRect.height >= 200)
       if (seen) {
         if (!timer) timer = setTimeout(() => {
-          recordPostView(post.id, currentUserUid, post.authorId || post.churchId)
+          recordPostView(post.id, currentUserUid)
           io.disconnect()
         }, 1200)
       } else if (timer) { clearTimeout(timer); timer = null }
@@ -4652,11 +4658,12 @@ function CommentRow({ c, isReply, liked, likeCount, onLike, onReply, onReport, c
   )
 }
 
-function CommentsSheet({ postId, comments, onClose, onAdd, onLikeComment, likedCommentIds, currentUser }: {
+function CommentsSheet({ postId, comments, postAuthor, onClose, onAdd, onLikeComment, likedCommentIds, currentUser }: {
   postId: string
   comments: Comment[]
+  postAuthor: { uid: string; name: string } | null
   onClose: () => void
-  onAdd: (text: string, parentId?: string) => void | Promise<void>
+  onAdd: (text: string, parentId?: string, mentions?: { uid: string; name: string }[]) => void | Promise<void>
   onLikeComment: (commentId: string) => void
   likedCommentIds: Set<string>
   currentUser: AppUser
@@ -4666,6 +4673,42 @@ function CommentsSheet({ postId, comments, onClose, onAdd, onLikeComment, likedC
   const [text, setText] = useState('')
   const [sending, setSending] = useState(false)
   const [replyTo, setReplyTo] = useState<{ id: string; name: string } | null>(null)
+  const inputRef = useRef<HTMLInputElement>(null)
+  // Who can be @mentioned: the people already in this conversation — the post's
+  // author plus everyone who has commented. (Member accounts can't read the
+  // full user list by design, so mentions are scoped to the thread, which is
+  // also the natural place to tag someone.)
+  const mentionCandidates = useMemo(() => {
+    const map = new Map<string, string>()   // uid -> name
+    if (postAuthor?.uid && postAuthor.name) map.set(postAuthor.uid, postAuthor.name)
+    comments.forEach(c => { if (c.userId && c.userName) map.set(c.userId, c.userName) })
+    map.delete(currentUser.uid)              // don't tag yourself
+    return [...map.entries()].map(([uid, name]) => ({ uid, name }))
+  }, [comments, postAuthor, currentUser.uid])
+  // The active "@query" the caret is sitting in, or null. Drives the picker.
+  const [mentionQuery, setMentionQuery] = useState<string | null>(null)
+  const norm = (s: string) => s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '')
+  const mentionMatches = mentionQuery === null ? []
+    : mentionCandidates.filter(c => norm(c.name).includes(norm(mentionQuery))).slice(0, 6)
+
+  // Recompute the active @token from the text up to the caret.
+  const onType = (value: string) => {
+    setText(value)
+    const caret = inputRef.current?.selectionStart ?? value.length
+    const before = value.slice(0, caret)
+    const m = /@([^@\n]{0,40})$/.exec(before)
+    setMentionQuery(m ? m[1] : null)
+  }
+  const pickMention = (c: { uid: string; name: string }) => {
+    const el = inputRef.current
+    const caret = el?.selectionStart ?? text.length
+    const before = text.slice(0, caret).replace(/@([^@\n]{0,40})$/, `@${c.name} `)
+    const next = before + text.slice(caret)
+    setText(next)
+    setMentionQuery(null)
+    // Restore focus + caret after the inserted mention.
+    requestAnimationFrame(() => { el?.focus(); const p = before.length; el?.setSelectionRange(p, p) })
+  }
   // Optimistic like overrides keyed by commentId, so the heart responds on tap
   // instead of waiting for the server round-trip. Reverted if the write fails.
   const [likeOverride, setLikeOverride] = useState<Record<string, boolean>>({})
@@ -4702,10 +4745,13 @@ function CommentsSheet({ postId, comments, onClose, onAdd, onLikeComment, likedC
     const value = text.trim()
     if (!value || sending) return
     const parentId = replyTo?.id
+    // Mentions = candidates whose "@Name" is still present in the final text.
+    const mentions = mentionCandidates.filter(c => value.includes('@' + c.name))
     setText('')
+    setMentionQuery(null)
     setSending(true)
     try {
-      await onAdd(value, parentId)
+      await onAdd(value, parentId, mentions)
       setReplyTo(null)
     } catch {
       setText(value)       // restore so a failed send doesn't lose the text
@@ -4752,11 +4798,26 @@ function CommentsSheet({ postId, comments, onClose, onAdd, onLikeComment, likedC
               </button>
             </div>
           )}
+          {/* @mention picker — people in this conversation. */}
+          {mentionMatches.length > 0 && (
+            <div className="mb-2 rounded-2xl border border-slate-200 bg-white shadow-lg overflow-hidden max-h-44 overflow-y-auto">
+              <p className="px-3.5 pt-2 pb-1 text-[10px] font-bold uppercase tracking-wide text-slate-400">{t('comments.mentionTitle')}</p>
+              {mentionMatches.map(c => (
+                <button key={c.uid} type="button" onMouseDown={e => { e.preventDefault(); pickMention(c) }}
+                  className="w-full flex items-center gap-2.5 px-3.5 py-2 text-left hover:bg-affirm-500/10">
+                  <span className="w-7 h-7 rounded-full bg-affirm-100 flex items-center justify-center text-affirm-700 font-semibold text-xs shrink-0">{c.name.charAt(0)}</span>
+                  <span className="text-sm text-slate-700 truncate">{c.name}</span>
+                </button>
+              ))}
+            </div>
+          )}
           <div className="flex gap-2">
-            <input value={text} onChange={e => setText(e.target.value)}
+            <input ref={inputRef} value={text}
+              onChange={e => onType(e.target.value)}
+              onKeyUp={e => onType((e.target as HTMLInputElement).value)}
               placeholder={replyTo ? t('comments.replyPlaceholder') : t('comments.writePlaceholder')}
               className="flex-1 bg-slate-100 rounded-full px-5 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-affirm-400"
-              onKeyDown={e => { if (e.key === 'Enter') submit() }} />
+              onKeyDown={e => { if (e.key === 'Enter' && mentionMatches.length === 0) submit() }} />
             <button onClick={submit} disabled={!text.trim() || sending}
               className="w-11 h-11 rounded-full bg-affirm-600 text-white flex items-center justify-center shadow-lg shadow-affirm-200 disabled:opacity-40 shrink-0">
               <Send size={16} />
@@ -5002,6 +5063,7 @@ function NotificationsPanel({ notifications, announcements, newPostCount, onClos
     type === 'post_like' ? t('notif.postLike')
       : type === 'comment_like' ? t('notif.commentLike')
       : type === 'post_comment' ? t('notif.postComment')
+      : type === 'comment_mention' ? t('notif.commentMention')
       : type === 'message' ? t('notif.message')
       : type === 'transcript' ? t('notif.transcript')
       : t('notif.commentReply')
@@ -5053,9 +5115,10 @@ function NotificationsPanel({ notifications, announcements, newPostCount, onClos
           {notifications.map(n => {
             const isMessage = n.type === 'message'
             const isTranscript = n.type === 'transcript'
+            const isMention = n.type === 'comment_mention'
             const isLike = n.type.includes('like')
-            const RowIcon = isTranscript ? Download : isMessage ? Mail : isLike ? Heart : MessageCircle
-            const badgeColor = isTranscript ? 'bg-slate-800' : isMessage ? 'bg-emerald-500' : isLike ? 'bg-rose-500' : 'bg-sky-500'
+            const RowIcon = isTranscript ? Download : isMessage ? Mail : isMention ? AtSign : isLike ? Heart : MessageCircle
+            const badgeColor = isTranscript ? 'bg-slate-800' : isMessage ? 'bg-emerald-500' : isMention ? 'bg-violet-500' : isLike ? 'bg-rose-500' : 'bg-sky-500'
             return (
               <div key={n.id} className={`flex items-start gap-3 px-5 py-3.5 border-b border-slate-50 ${!n.read ? 'bg-affirm-50/40' : ''}`}>
                 <button onClick={() => onTap(n)} className="flex items-start gap-3 flex-1 text-left min-w-0">
