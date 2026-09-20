@@ -787,12 +787,13 @@ function ChatView({ conversation, user, onBack }: {
               className="w-11 h-11 rounded-2xl glass-soft hover:bg-slate-200 text-slate-500 flex items-center justify-center shrink-0 transition disabled:opacity-50">
               <Mic size={18} />
             </button>
-            <input
+            <textarea
               value={text}
+              rows={1}
               onChange={e => { setText(e.target.value); signalTyping() }}
-              onKeyDown={e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); handleSend() } }}
+              onInput={e => { const el = e.currentTarget; el.style.height = 'auto'; el.style.height = Math.min(el.scrollHeight, 128) + 'px' }}
               placeholder={t('msg.writePlaceholder')}
-              className="flex-1 min-w-0 px-4 py-3 rounded-2xl glass-input text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-affirm-400/60 text-[15px]"
+              className="flex-1 min-w-0 px-4 py-3 rounded-2xl glass-input text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-affirm-400/60 text-[15px] resize-none max-h-32 leading-snug"
             />
             <button onClick={handleSend} disabled={!text.trim() || sending}
               className="w-11 h-11 rounded-2xl bg-affirm-600 hover:bg-affirm-700 disabled:opacity-40 text-white flex items-center justify-center shrink-0 transition">
