@@ -292,6 +292,16 @@ service cloud.firestore {
       allow write: if isAdmin();
     }
 
+    // Shareable projection of each user (name, photo, profession, interests,
+    // role) — the safe fields shown in the tap-to-view profile popup. Members
+    // can't read the users collection, so this world-readable mirror powers the
+    // popup via a direct Firestore read. Written ONLY by the syncPublicProfile /
+    // backfillPublicProfiles functions (Admin SDK); no client writes.
+    match /publicProfiles/{uid} {
+      allow read: if isSignedIn();
+      allow write: if false;
+    }
+
     // ---- Publishing groups ----
     // Ministries / departments a post can be attributed to. Readable by any
     // signed-in user (a lead's composer lists the groups they may publish

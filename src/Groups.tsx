@@ -122,18 +122,21 @@ function GroupCard({ group, users }: { group: Group; users: DirUser[] }) {
   const { t } = useLanguage()
   const [name, setName] = useState(group.name)
   const [avatar, setAvatar] = useState(group.avatar || '')
+  const [description, setDescription] = useState(group.description || '')
   const [savingMeta, setSavingMeta] = useState(false)
   const [pickerOpen, setPickerOpen] = useState(false)
 
-  useEffect(() => { setName(group.name); setAvatar(group.avatar || '') }, [group.name, group.avatar])
+  useEffect(() => { setName(group.name); setAvatar(group.avatar || ''); setDescription(group.description || '') }, [group.name, group.avatar, group.description])
 
-  const dirty = name.trim() !== group.name || (avatar.trim() || '') !== (group.avatar || '')
+  const dirty = name.trim() !== group.name
+    || (avatar.trim() || '') !== (group.avatar || '')
+    || (description.trim() || '') !== (group.description || '')
   const leadEntries = Object.entries(group.leads || {})
 
   const saveMeta = async () => {
     if (!dirty || !name.trim()) return
     setSavingMeta(true)
-    try { await updateGroup(group.id, { name, avatar: avatar.trim() || null }) } finally { setSavingMeta(false) }
+    try { await updateGroup(group.id, { name, avatar: avatar.trim() || null, description: description.trim() || null }) } finally { setSavingMeta(false) }
   }
   const remove = async () => {
     if (confirm(t('groups.deleteConfirm').replace('{name}', group.name))) await deleteGroup(group.id)
@@ -152,6 +155,9 @@ function GroupCard({ group, users }: { group: Group; users: DirUser[] }) {
       </div>
       <input value={avatar} onChange={e => setAvatar(e.target.value)} placeholder={t('groups.avatarPlaceholder')}
         className="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs bg-white focus:outline-none focus:ring-2 focus:ring-affirm-400" />
+      <textarea value={description} onChange={e => setDescription(e.target.value)} placeholder={t('groups.descriptionPlaceholder')}
+        maxLength={400} rows={2}
+        className="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs bg-white focus:outline-none focus:ring-2 focus:ring-affirm-400 resize-none" />
       {dirty && (
         <button onClick={saveMeta} disabled={savingMeta || !name.trim()}
           className="text-xs font-semibold text-affirm-600 flex items-center gap-1 disabled:opacity-50">

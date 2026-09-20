@@ -1328,6 +1328,8 @@ function AppInner() {
   const [showQuiz, setShowQuiz] = useState(false)
   // When set, the tap-to-view profile popup is open for this member's uid.
   const [profileUid, setProfileUid] = useState<string | null>(null)
+  // When set, the tap-to-view GROUP popup is open for this group's id.
+  const [groupPopupId, setGroupPopupId] = useState<string | null>(null)
   // Red dot on the Game button while today's daily challenge is unplayed.
   const [quizDailyPending, setQuizDailyPending] = useState(false)
   // Set to the store URL when a newer app version is available (native only).
@@ -2277,7 +2279,7 @@ function AppInner() {
                       ? 'rounded-3xl ring-2 ring-affirm-400 ring-offset-2 ring-offset-[#0f172a] transition'
                       : ''}>
                     <PostCard post={post} onLike={handleLike} onOpenComments={setActiveCommentsPost}
-                      currentUser={user} isLiked={likedPostIds.has(post.id)} onEdit={setEditingPost} onDelete={handleDeletePost} onOpenProfile={setProfileUid} />
+                      currentUser={user} isLiked={likedPostIds.has(post.id)} onEdit={setEditingPost} onDelete={handleDeletePost} onOpenProfile={setProfileUid} onOpenGroup={setGroupPopupId} />
                   </div>
                 ))}
               </div>
@@ -2354,7 +2356,7 @@ function AppInner() {
                   </div>
                 ) : musiquePosts.map(post => (
                   <PostCard key={post.id} post={post} onLike={handleLike} onOpenComments={setActiveCommentsPost}
-                    currentUser={user} isLiked={likedPostIds.has(post.id)} onEdit={setEditingPost} onDelete={handleDeletePost} onOpenProfile={setProfileUid} />
+                    currentUser={user} isLiked={likedPostIds.has(post.id)} onEdit={setEditingPost} onDelete={handleDeletePost} onOpenProfile={setProfileUid} onOpenGroup={setGroupPopupId} />
                 ))}
               </div>
             )}
@@ -2395,7 +2397,7 @@ function AppInner() {
                   </div>
                 ) : santePosts.map(post => (
                   <PostCard key={post.id} post={post} onLike={handleLike} onOpenComments={setActiveCommentsPost}
-                    currentUser={user} isLiked={likedPostIds.has(post.id)} onEdit={setEditingPost} onDelete={handleDeletePost} onOpenProfile={setProfileUid} />
+                    currentUser={user} isLiked={likedPostIds.has(post.id)} onEdit={setEditingPost} onDelete={handleDeletePost} onOpenProfile={setProfileUid} onOpenGroup={setGroupPopupId} />
                 ))}
               </div>
             )}
@@ -2595,6 +2597,9 @@ function AppInner() {
       )}
       {profileUid && (
         <ProfilePopup uid={profileUid} onClose={() => setProfileUid(null)} />
+      )}
+      {groupPopupId && (
+        <GroupPopup groupId={groupPopupId} onClose={() => setGroupPopupId(null)} />
       )}
     </div>
   )
@@ -3845,7 +3850,7 @@ function AdminPanel({ pendingChurches, onApprove, onDeny }: {
   )
 }
 
-function PostCard({ post, onLike, onOpenComments, currentUser, isLiked, onEdit, onDelete, onOpenProfile }: {
+function PostCard({ post, onLike, onOpenComments, currentUser, isLiked, onEdit, onDelete, onOpenProfile, onOpenGroup }: {
   post: Post
   onLike: (id: string) => Promise<void>
   onOpenComments: (id: string) => void
@@ -3854,6 +3859,7 @@ function PostCard({ post, onLike, onOpenComments, currentUser, isLiked, onEdit, 
   onEdit: (post: Post) => void
   onDelete: (id: string) => void | Promise<void>
   onOpenProfile?: (uid: string) => void
+  onOpenGroup?: (groupId: string) => void
 }) {
   const { t } = useLanguage()
   const currentUserUid = currentUser.uid
@@ -3997,10 +4003,19 @@ function PostCard({ post, onLike, onOpenComments, currentUser, isLiked, onEdit, 
   }
   const viewCount = post.views || 0
 
+  // Tapping the header opens the GROUP popup when the header stands for a group
+  // (a non-featured group post, where the big name is the group), otherwise the
+  // author's member profile.
+  const openHeader = () => {
+    if (headGroupName && post.groupId && onOpenGroup) { onOpenGroup(post.groupId); return }
+    const u = post.authorId || post.churchId
+    if (u && onOpenProfile) onOpenProfile(u)
+  }
+
   return (
     <article ref={cardRef} className="glass rounded-3xl shadow-sm border border-slate-100/80 overflow-hidden">
       <div className="flex items-center gap-3 p-4">
-        <button type="button" onClick={() => { const u = post.authorId || post.churchId; if (u && onOpenProfile) onOpenProfile(u) }}
+        <button type="button" onClick={openHeader}
           className="shrink-0" aria-label={bigName}>
           {headAvatar ? (
             <img src={headAvatar} alt="" className="w-11 h-11 rounded-full object-cover" />
@@ -4014,7 +4029,7 @@ function PostCard({ post, onLike, onOpenComments, currentUser, isLiked, onEdit, 
         </button>
         <div className="flex-1 min-w-0">
           {/* Group name (or author) leads; the smaller line carries the other. */}
-          <h3 onClick={() => { const u = post.authorId || post.churchId; if (u && onOpenProfile) onOpenProfile(u) }}
+          <h3 onClick={openHeader}
             className="font-semibold text-slate-900 truncate cursor-pointer">
             {bigName}
           </h3>
@@ -4740,6 +4755,55 @@ function ProfilePopup({ uid, onClose }: { uid: string; onClose: () => void }) {
                   ))}
                 </div>
               </>
+            )}
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
+
+// Popup shown when a member taps a group's name/photo on one of its posts:
+// the group's photo (or built-in ministry logo), name and description. Groups
+// are world-readable (firestore.rules), so this reads the doc directly.
+function GroupPopup({ groupId, onClose }: { groupId: string; onClose: () => void }) {
+  const { t } = useLanguage()
+  const [g, setG] = useState<Group | null>(null)
+  const [loading, setLoading] = useState(true)
+  useBackHandler(true, onClose)
+  useEffect(() => {
+    let alive = true
+    setLoading(true)
+    getDoc(doc(db, 'groups', groupId))
+      .then(s => {
+        if (!alive) return
+        if (s.exists()) {
+          const v = s.data() as any
+          setG({ id: s.id, name: v.name || '', avatar: v.avatar || undefined, description: v.description || undefined, leads: {}, leadIds: [] })
+        } else setG(null)
+        setLoading(false)
+      })
+      .catch(() => { if (alive) { setG(null); setLoading(false) } })
+    return () => { alive = false }
+  }, [groupId])
+  return (
+    <div className="fixed inset-0 z-[60] bg-black/50 backdrop-blur-sm flex items-center justify-center p-4" onClick={onClose}>
+      <div className="bg-white rounded-3xl shadow-2xl w-full max-w-sm p-6 relative" onClick={e => e.stopPropagation()}>
+        <button onClick={onClose} className="absolute top-4 right-4 p-1.5 rounded-full hover:bg-slate-100 text-slate-400"><X size={18} /></button>
+        {loading ? (
+          <div className="py-12 flex justify-center"><Loader2 className="animate-spin text-slate-400" /></div>
+        ) : !g ? (
+          <p className="py-12 text-center text-sm text-slate-500">{t('profileCard.notFound')}</p>
+        ) : (
+          <div className="text-center">
+            {g.avatar
+              ? <img src={g.avatar} alt="" className="w-24 h-24 rounded-full object-cover mx-auto" />
+              : groupLogoKind(g.name)
+                ? <div className="mx-auto w-fit"><GroupLogo name={g.name} size={96} /></div>
+                : <div className="w-24 h-24 rounded-full bg-gradient-to-br from-affirm-400 to-teal-500 text-white font-bold text-3xl flex items-center justify-center mx-auto">{(g.name || 'G').charAt(0)}</div>}
+            <h3 className="mt-4 text-xl font-bold text-slate-900 break-words">{g.name}</h3>
+            {g.description && (
+              <p className="mt-3 text-sm text-slate-600 whitespace-pre-line break-words">{g.description}</p>
             )}
           </div>
         )}

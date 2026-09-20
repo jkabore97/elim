@@ -38,6 +38,7 @@ export function subscribeGroups(
         id: d.id,
         name: v.name || '',
         avatar: v.avatar || undefined,
+        description: v.description || undefined,
         leads: v.leads && typeof v.leads === 'object' ? v.leads : {},
         leadIds: Array.isArray(v.leadIds) ? v.leadIds : [],
         perms: v.perms && typeof v.perms === 'object' ? v.perms : {},
@@ -57,10 +58,11 @@ export async function createGroup(name: string, avatar?: string): Promise<void> 
   })
 }
 
-export async function updateGroup(id: string, patch: { name?: string; avatar?: string | null }): Promise<void> {
+export async function updateGroup(id: string, patch: { name?: string; avatar?: string | null; description?: string | null }): Promise<void> {
   const data: Record<string, any> = { updatedAt: serverTimestamp() }
   if (patch.name !== undefined) data.name = patch.name.trim()
   if (patch.avatar !== undefined) data.avatar = patch.avatar || deleteField()
+  if (patch.description !== undefined) data.description = patch.description || deleteField()
   await updateDoc(doc(db, GROUPS, id), data)
 }
 
