@@ -6,7 +6,7 @@ import { functions } from './firebase'
 // that returns names only (no phone/email). Cached for the session so the
 // picker is instant after the first open; a failed call clears the cache so a
 // later open retries.
-export type MemberName = { uid: string; name: string }
+export type MemberName = { uid: string; name: string; avatar?: string | null }
 let cache: Promise<MemberName[]> | null = null
 
 export function fetchMemberNames(): Promise<MemberName[]> {
