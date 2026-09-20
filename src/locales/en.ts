@@ -189,6 +189,7 @@ const en = {
   "reg.logs": 'Audit trail of sign-ins, publications and administrative actions. Append-only.',
   "reg.directory": 'Public list of approved church names, used by the signup dropdown.',
   "nav.messages": 'Messages',
+  "profileCard.notFound": 'Profile not found',
   "role.pastor": 'Pastor',
   "role.admin": 'Technical Support',
   "role.church": 'Lead',

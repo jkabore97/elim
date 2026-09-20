@@ -54,7 +54,8 @@ import { FR_COUNTRY, EN_PROFESSION, EN_INTEREST } from './labels'
 import { dialFor } from './countries'
 import { recordPostView, recordPostShare } from './engagement'
 import { PullToRefresh } from './PullToRefresh'
-import { fetchMemberNames } from './members'
+import { fetchMemberNames, fetchMemberProfile, type MemberProfile } from './members'
+import { TValue } from './TValue'
 
 function timeAgo(date: any) {
   if (!date) return ''
@@ -1325,6 +1326,8 @@ function AppInner() {
   }, [user?.uid])
   const [showNotifications, setShowNotifications] = useState(false)
   const [showQuiz, setShowQuiz] = useState(false)
+  // When set, the tap-to-view profile popup is open for this member's uid.
+  const [profileUid, setProfileUid] = useState<string | null>(null)
   // Red dot on the Game button while today's daily challenge is unplayed.
   const [quizDailyPending, setQuizDailyPending] = useState(false)
   // Set to the store URL when a newer app version is available (native only).
@@ -2274,7 +2277,7 @@ function AppInner() {
                       ? 'rounded-3xl ring-2 ring-affirm-400 ring-offset-2 ring-offset-[#0f172a] transition'
                       : ''}>
                     <PostCard post={post} onLike={handleLike} onOpenComments={setActiveCommentsPost}
-                      currentUser={user} isLiked={likedPostIds.has(post.id)} onEdit={setEditingPost} onDelete={handleDeletePost} />
+                      currentUser={user} isLiked={likedPostIds.has(post.id)} onEdit={setEditingPost} onDelete={handleDeletePost} onOpenProfile={setProfileUid} />
                   </div>
                 ))}
               </div>
@@ -2351,7 +2354,7 @@ function AppInner() {
                   </div>
                 ) : musiquePosts.map(post => (
                   <PostCard key={post.id} post={post} onLike={handleLike} onOpenComments={setActiveCommentsPost}
-                    currentUser={user} isLiked={likedPostIds.has(post.id)} onEdit={setEditingPost} onDelete={handleDeletePost} />
+                    currentUser={user} isLiked={likedPostIds.has(post.id)} onEdit={setEditingPost} onDelete={handleDeletePost} onOpenProfile={setProfileUid} />
                 ))}
               </div>
             )}
@@ -2392,7 +2395,7 @@ function AppInner() {
                   </div>
                 ) : santePosts.map(post => (
                   <PostCard key={post.id} post={post} onLike={handleLike} onOpenComments={setActiveCommentsPost}
-                    currentUser={user} isLiked={likedPostIds.has(post.id)} onEdit={setEditingPost} onDelete={handleDeletePost} />
+                    currentUser={user} isLiked={likedPostIds.has(post.id)} onEdit={setEditingPost} onDelete={handleDeletePost} onOpenProfile={setProfileUid} />
                 ))}
               </div>
             )}
@@ -2567,7 +2570,8 @@ function AppInner() {
         return (
           <CommentsSheet postId={activeCommentsPost} comments={comments} postAuthor={postAuthor}
             onClose={() => setActiveCommentsPost(null)} onAdd={handleAddComment}
-            onLikeComment={handleLikeComment} likedCommentIds={likedCommentIds} currentUser={user} />
+            onLikeComment={handleLikeComment} likedCommentIds={likedCommentIds} currentUser={user}
+            onOpenProfile={setProfileUid} />
         )
       })()}
       {showNotifications && (
@@ -2587,7 +2591,10 @@ function AppInner() {
           onClose={() => setShowDonation(false)} />
       )}
       {showQuiz && (
-        <BibleQuiz user={user} onClose={() => setShowQuiz(false)} />
+        <BibleQuiz user={user} onClose={() => { setShowQuiz(false); setActiveTab('feed') }} />
+      )}
+      {profileUid && (
+        <ProfilePopup uid={profileUid} onClose={() => setProfileUid(null)} />
       )}
     </div>
   )
@@ -3838,7 +3845,7 @@ function AdminPanel({ pendingChurches, onApprove, onDeny }: {
   )
 }
 
-function PostCard({ post, onLike, onOpenComments, currentUser, isLiked, onEdit, onDelete }: {
+function PostCard({ post, onLike, onOpenComments, currentUser, isLiked, onEdit, onDelete, onOpenProfile }: {
   post: Post
   onLike: (id: string) => Promise<void>
   onOpenComments: (id: string) => void
@@ -3846,6 +3853,7 @@ function PostCard({ post, onLike, onOpenComments, currentUser, isLiked, onEdit, 
   isLiked: boolean
   onEdit: (post: Post) => void
   onDelete: (id: string) => void | Promise<void>
+  onOpenProfile?: (uid: string) => void
 }) {
   const { t } = useLanguage()
   const currentUserUid = currentUser.uid
@@ -3992,18 +4000,22 @@ function PostCard({ post, onLike, onOpenComments, currentUser, isLiked, onEdit, 
   return (
     <article ref={cardRef} className="glass rounded-3xl shadow-sm border border-slate-100/80 overflow-hidden">
       <div className="flex items-center gap-3 p-4">
-        {headAvatar ? (
-          <img src={headAvatar} alt="" className="w-11 h-11 rounded-full object-cover shrink-0" />
-        ) : headGroupName && groupLogoKind(headGroupName) ? (
-          <GroupLogo name={headGroupName} size={44} />
-        ) : (
-          <div className="w-11 h-11 rounded-full bg-gradient-to-br from-affirm-400 to-teal-500 flex items-center justify-center text-white font-bold text-sm shrink-0">
-            {headInitial}
-          </div>
-        )}
+        <button type="button" onClick={() => { const u = post.authorId || post.churchId; if (u && onOpenProfile) onOpenProfile(u) }}
+          className="shrink-0" aria-label={bigName}>
+          {headAvatar ? (
+            <img src={headAvatar} alt="" className="w-11 h-11 rounded-full object-cover" />
+          ) : headGroupName && groupLogoKind(headGroupName) ? (
+            <GroupLogo name={headGroupName} size={44} />
+          ) : (
+            <div className="w-11 h-11 rounded-full bg-gradient-to-br from-affirm-400 to-teal-500 flex items-center justify-center text-white font-bold text-sm">
+              {headInitial}
+            </div>
+          )}
+        </button>
         <div className="flex-1 min-w-0">
           {/* Group name (or author) leads; the smaller line carries the other. */}
-          <h3 className="font-semibold text-slate-900 truncate">
+          <h3 onClick={() => { const u = post.authorId || post.churchId; if (u && onOpenProfile) onOpenProfile(u) }}
+            className="font-semibold text-slate-900 truncate cursor-pointer">
             {bigName}
           </h3>
           <p className="text-xs text-slate-400 truncate">
@@ -4622,7 +4634,7 @@ function EditPostModal({ post, onClose, onSave }: {
   )
 }
 
-function CommentRow({ c, isReply, liked, likeCount, onLike, onReply, onReport, canReport, avatar, t }: {
+function CommentRow({ c, isReply, liked, likeCount, onLike, onReply, onReport, canReport, avatar, onOpenProfile, t }: {
   c: Comment
   isReply: boolean
   liked: boolean
@@ -4635,19 +4647,23 @@ function CommentRow({ c, isReply, liked, likeCount, onLike, onReply, onReport, c
   // always shows the same avatar across all their comments — not the one frozen
   // on the comment when it was written.
   avatar?: string | null
+  onOpenProfile?: (uid: string) => void
   t: (k: any) => string
 }) {
   const pic = avatar || c.userAvatar
+  const openProfile = () => { if (c.userId && onOpenProfile) onOpenProfile(c.userId) }
   return (
     <div className={`flex gap-3 ${isReply ? 'ml-11' : ''}`}>
-      {pic
-        ? <img src={pic} alt="" className="w-9 h-9 rounded-full object-cover shrink-0" />
-        : <div className="w-9 h-9 rounded-full bg-affirm-100 flex items-center justify-center text-affirm-700 font-semibold text-sm shrink-0">
-            {c.userName.charAt(0)}
-          </div>}
+      <button type="button" onClick={openProfile} className="shrink-0" aria-label={c.userName}>
+        {pic
+          ? <img src={pic} alt="" className="w-9 h-9 rounded-full object-cover" />
+          : <div className="w-9 h-9 rounded-full bg-affirm-100 flex items-center justify-center text-affirm-700 font-semibold text-sm">
+              {c.userName.charAt(0)}
+            </div>}
+      </button>
       <div className="flex-1 min-w-0">
         <div className="bg-slate-50 rounded-2xl px-3.5 py-2.5">
-          <p className="text-sm font-semibold text-slate-800">{c.userName}</p>
+          <button type="button" onClick={openProfile} className="text-sm font-semibold text-slate-800 text-left hover:underline">{c.userName}</button>
           {c.mentionNames && c.mentionNames.length > 0 && (
             <p className="text-sm font-semibold text-blue-600 break-words leading-snug">
               {c.mentionNames.map(n => `@${n}`).join(' ')}
@@ -4679,6 +4695,59 @@ function CommentRow({ c, isReply, liked, likeCount, onLike, onReply, onReport, c
   )
 }
 
+// Tap-to-view profile: a member's photo, name, title/profession and the church
+// departments they serve in. Fetched on open via a callable (members can't read
+// the users collection directly), showing only what's safe to share.
+function ProfilePopup({ uid, onClose }: { uid: string; onClose: () => void }) {
+  const { t } = useLanguage()
+  const [p, setP] = useState<MemberProfile | null>(null)
+  const [loading, setLoading] = useState(true)
+  useBackHandler(true, onClose)
+  useEffect(() => {
+    let alive = true
+    setLoading(true)
+    fetchMemberProfile(uid).then(r => { if (alive) { setP(r); setLoading(false) } })
+    return () => { alive = false }
+  }, [uid])
+  const roleLabel = p?.role === 'pastor' ? t('role.pastor')
+    : p?.role === 'admin' ? t('role.admin')
+    : p?.role === 'church' ? t('role.church') : ''
+  return (
+    <div className="fixed inset-0 z-[60] bg-black/50 backdrop-blur-sm flex items-center justify-center p-4" onClick={onClose}>
+      <div className="bg-white rounded-3xl shadow-2xl w-full max-w-sm p-6 relative" onClick={e => e.stopPropagation()}>
+        <button onClick={onClose} className="absolute top-4 right-4 p-1.5 rounded-full hover:bg-slate-100 text-slate-400"><X size={18} /></button>
+        {loading ? (
+          <div className="py-12 flex justify-center"><Loader2 className="animate-spin text-slate-400" /></div>
+        ) : !p || !p.found ? (
+          <p className="py-12 text-center text-sm text-slate-500">{t('profileCard.notFound')}</p>
+        ) : (
+          <div className="text-center">
+            {p.avatar
+              ? <img src={p.avatar} alt="" className="w-24 h-24 rounded-full object-cover mx-auto" />
+              : <div className="w-24 h-24 rounded-full bg-affirm-100 text-affirm-700 font-bold text-3xl flex items-center justify-center mx-auto">{(p.name || '?').charAt(0)}</div>}
+            <h3 className="mt-4 text-xl font-bold text-slate-900 break-words">{p.name}</h3>
+            {(roleLabel || p.profession) && (
+              <p className="mt-1 text-sm text-slate-500">{[roleLabel, p.profession].filter(Boolean).join(' · ')}</p>
+            )}
+            {p.interests && p.interests.length > 0 && (
+              <>
+                <p className="mt-5 mb-2 text-[11px] font-bold uppercase tracking-wide text-slate-400">{t('auth.interests')}</p>
+                <div className="flex flex-wrap gap-1.5 justify-center">
+                  {p.interests.map(i => (
+                    <span key={i} className="text-[11px] font-medium text-slate-600 bg-slate-100 rounded-full px-2.5 py-1">
+                      <TValue text={i} source="fr" />
+                    </span>
+                  ))}
+                </div>
+              </>
+            )}
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
+
 // Height (px) the on-screen keyboard is covering, from the VisualViewport API.
 // Used to lift bottom sheets above the keyboard so their input isn't hidden
 // behind it — the software keyboard doesn't move `position: fixed` elements on
@@ -4697,7 +4766,7 @@ function useKeyboardInset() {
   return inset
 }
 
-function CommentsSheet({ postId, comments, postAuthor, onClose, onAdd, onLikeComment, likedCommentIds, currentUser }: {
+function CommentsSheet({ postId, comments, postAuthor, onClose, onAdd, onLikeComment, likedCommentIds, currentUser, onOpenProfile }: {
   postId: string
   comments: Comment[]
   postAuthor: { uid: string; name: string } | null
@@ -4706,6 +4775,7 @@ function CommentsSheet({ postId, comments, postAuthor, onClose, onAdd, onLikeCom
   onLikeComment: (commentId: string) => void
   likedCommentIds: Set<string>
   currentUser: AppUser
+  onOpenProfile: (uid: string) => void
 }) {
   const { t } = useLanguage()
   const kbInset = useKeyboardInset()
@@ -4845,12 +4915,12 @@ function CommentsSheet({ postId, comments, postAuthor, onClose, onAdd, onLikeCom
               <CommentRow c={c} isReply={false} liked={isLiked(c)} likeCount={likeCount(c)}
                 onLike={() => toggleLike(c)} onReply={startReply}
                 onReport={setReportingComment} canReport={c.userId !== currentUser.uid}
-                avatar={c.userId ? avatarByUid.get(c.userId) : undefined} t={t} />
+                avatar={c.userId ? avatarByUid.get(c.userId) : undefined} onOpenProfile={onOpenProfile} t={t} />
               {(repliesByParent[c.id] || []).map(r => (
                 <CommentRow key={r.id} c={r} isReply liked={isLiked(r)} likeCount={likeCount(r)}
                   onLike={() => toggleLike(r)} onReply={startReply}
                   onReport={setReportingComment} canReport={r.userId !== currentUser.uid}
-                  avatar={r.userId ? avatarByUid.get(r.userId) : undefined} t={t} />
+                  avatar={r.userId ? avatarByUid.get(r.userId) : undefined} onOpenProfile={onOpenProfile} t={t} />
               ))}
             </div>
           ))}

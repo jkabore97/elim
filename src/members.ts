@@ -17,3 +17,21 @@ export function fetchMemberNames(): Promise<MemberName[]> {
   }
   return cache
 }
+
+// One member's public profile for the tap-to-view popup (name, photo,
+// profession, interests, role). Fetched on demand; never cached long since a
+// person can update their profile.
+export type MemberProfile = {
+  found: boolean
+  name: string
+  avatar?: string | null
+  profession?: string
+  interests?: string[]
+  role?: string
+}
+export async function fetchMemberProfile(uid: string): Promise<MemberProfile | null> {
+  try {
+    const r: any = await httpsCallable(functions, 'getMemberProfile')({ uid })
+    return r?.data as MemberProfile
+  } catch { return null }
+}
