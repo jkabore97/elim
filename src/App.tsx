@@ -51,6 +51,7 @@ import { GroupLogo, groupLogoKind } from './GroupLogo'
 import type { Post, Comment, AppUser, ActivityLog, AppNotification, Announcement, ScheduledBroadcast, DonationConfig, DonationProvider, Report, DonationType, Donation, Group } from './types'
 import { LanguageProvider, useLanguage, LANGUAGES, type Language } from './i18n'
 import { FR_COUNTRY, EN_PROFESSION, EN_INTEREST } from './labels'
+import { dialFor } from './countries'
 
 function timeAgo(date: any) {
   if (!date) return ''
@@ -270,6 +271,63 @@ function ageFrom(isoDate: string): number {
   return age
 }
 
+// A searchable country picker. A plain <select> of ~195 countries is a long
+// scroll on a phone; this lets people type to filter (accent/case-insensitive)
+// and pick from the short matching list. `options` are pre-localized + sorted.
+function CountryCombobox({ value, onChange, options, placeholder, className, noMatch }: {
+  value: string
+  onChange: (v: string) => void
+  options: { value: string; label: string }[]
+  placeholder: string
+  className: string
+  noMatch: string
+}) {
+  const [open, setOpen] = useState(false)
+  const [query, setQuery] = useState('')
+  const boxRef = useRef<HTMLDivElement>(null)
+  const selectedLabel = options.find(o => o.value === value)?.label || ''
+
+  useEffect(() => {
+    if (!open) return
+    const onDoc = (e: MouseEvent) => {
+      if (boxRef.current && !boxRef.current.contains(e.target as Node)) setOpen(false)
+    }
+    document.addEventListener('mousedown', onDoc)
+    return () => document.removeEventListener('mousedown', onDoc)
+  }, [open])
+
+  const norm = (s: string) => s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '')
+  const q = norm(query.trim())
+  const filtered = q ? options.filter(o => norm(o.label).includes(q)) : options
+
+  return (
+    <div ref={boxRef} className="relative">
+      <Search size={17} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" />
+      <input type="text" value={open ? query : selectedLabel}
+        onChange={e => { setQuery(e.target.value); if (!open) setOpen(true) }}
+        onFocus={() => { setQuery(''); setOpen(true) }}
+        placeholder={placeholder} role="combobox" aria-expanded={open} autoComplete="off"
+        className={className + ' pl-11'} />
+      {open && (
+        <ul className="absolute z-40 mt-1 w-full max-h-64 overflow-auto rounded-2xl glass-input shadow-xl py-1">
+          {filtered.length === 0 ? (
+            <li className="px-4 py-2.5 text-sm text-slate-400">{noMatch}</li>
+          ) : filtered.map(o => (
+            <li key={o.value}>
+              <button type="button"
+                onMouseDown={e => { e.preventDefault(); onChange(o.value); setQuery(''); setOpen(false) }}
+                className={`w-full text-left px-4 py-2.5 text-[15px] hover:bg-affirm-500/10 ${
+                  o.value === value ? 'font-bold text-affirm-700' : 'text-slate-700'}`}>
+                {o.label}
+              </button>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  )
+}
+
 function AuthForm({ onSuccess, initialMode = 'login' }: {
   onSuccess: (user: AppUser) => void
   initialMode?: 'login' | 'register'
@@ -393,15 +451,6 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
       .map(name => ({ value: name, label: countryLabel(name) }))
       .sort((a, b) => a.label.localeCompare(b.label, language || 'fr'))
   }, [language])
-  // Dial-code picker, alphabetical by name so a member can find their own
-  // country instead of scanning a code-only list. The name follows the UI
-  // language: French label by default, the English country name in English
-  // mode (`country` is the matching COUNTRIES entry, which is in English).
-  const dialOptions = useMemo(() =>
-    COUNTRY_CODES
-      .map(c => ({ region: c.region, code: c.code, label: language === 'en' ? c.country : c.name }))
-      .sort((a, b) => a.label.localeCompare(b.label, language || 'fr'))
-  , [language])
   // Profession / interest labels: French list is the stored value, English
   // labels shown only when the UI language is English.
   const isEn = language === 'en'
@@ -418,6 +467,13 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
       }).catch(() => {})
     }
   }, [mode, accountType])
+
+  // The dial code always follows the selected country — the member never picks
+  // it by hand. (dialFor falls back to the device default for the rare country
+  // with no code in the map.)
+  useEffect(() => {
+    setCountryCode(dialFor(signupCountry, localeDefault.code))
+  }, [signupCountry, localeDefault.code])
 
   const switchMode = (m: 'login' | 'register') => {
     setMode(m)
@@ -650,10 +706,9 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
               {PROFESSIONS.map(p => <option key={p} value={p}>{professionLabel(p)}</option>)}
             </select>
 
-            <select required value={signupCountry} onChange={e => setSignupCountry(e.target.value)} className={selectClass}>
-              <option value="" disabled>{t('auth.country')}</option>
-              {countryOptions.map(c => <option key={c.value} value={c.value}>{c.label}</option>)}
-            </select>
+            <CountryCombobox value={signupCountry} onChange={setSignupCountry}
+              options={countryOptions} placeholder={t('auth.countrySearch')}
+              className={inputClass} noMatch={t('auth.countryNoMatch')} />
 
             <div className="flex gap-3">
               <input required value={signupCity} onChange={e => setSignupCity(e.target.value)}
@@ -699,16 +754,15 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
                 {t('auth.phoneLabel')}
               </label>
             )}
-            {/* Country picked by full name (defaults to the device's country),
-                so the dial code is set for the member — they never have to
-                know or change it themselves. */}
-            <select value={countryCode} onChange={e => setCountryCode(e.target.value)}
-              aria-label={t('auth.country')} className={selectClass}>
-              {dialOptions.map(c => (
-                <option key={c.region} value={c.code}>{c.label} ({c.code})</option>
-              ))}
-            </select>
-            {/* National number only — the code above is shown as a fixed badge
+            {/* At login the profile country field isn't shown, so the member
+                picks their country here to set the dial code. At register the
+                country chosen above already drives it — no code picker at all. */}
+            {mode === 'login' && accountType === 'member' && (
+              <CountryCombobox value={signupCountry} onChange={setSignupCountry}
+                options={countryOptions} placeholder={t('auth.countrySearch')}
+                className={inputClass} noMatch={t('auth.countryNoMatch')} />
+            )}
+            {/* National number only — the derived code shows as a fixed badge
                 so people don't retype it. If they paste a full +226… number
                 anyway, stripDialCode drops the code for them. */}
             <div className="flex gap-2">
