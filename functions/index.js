@@ -390,6 +390,29 @@ async function resolveActor(db, uid) {
   }
 }
 
+// Send a push to one user's devices (if they have notifications on). Used so
+// bell notifications (comments, mentions) also reach the phone, not just the
+// in-app list.
+async function pushToUser(db, uid, { title, body, data }) {
+  try {
+    const snap = await db.collection('users').doc(uid).get();
+    if (!snap.exists) return;
+    const d = snap.data();
+    if (!d.notificationsEnabled || !Array.isArray(d.fcmTokens) || d.fcmTokens.length === 0) return;
+    const messaging = getMessaging();
+    const link = 'https://ccelim.com/' + (data && data.postId ? ('?post=' + data.postId) : '');
+    await Promise.allSettled(chunk(d.fcmTokens, 500).map((tokens) =>
+      messaging.sendEachForMulticast({
+        tokens,
+        notification: { title, body },
+        data: data || {},
+        webpush: { notification: { icon: 'https://ccelim.com/elim-logo-mark.png' }, fcmOptions: { link } },
+        android: { priority: 'high', notification: { color: '#f97316', channelId: 'elim-default', icon: 'ic_stat_notify', defaultSound: true } },
+      })
+    ));
+  } catch (_e) { /* best-effort */ }
+}
+
 async function addNotification(db, notif) {
   await db.collection('notifications').add({
     read: false,
@@ -494,35 +517,40 @@ exports.notifyOnComment = onDocumentCreated('comments/{commentId}', async (event
   const db = getFirestore();
   const actor = await resolveActor(db, comment.userId);
   const notified = new Set([comment.userId]); // never the commenter themselves
+  const preview = (comment.text || '').slice(0, 80);
+  const data = { kind: 'comment', postId: comment.postId, commentId };
+
+  // Notify + push in one place, so a bell notification always reaches the phone.
+  const notify = async (recipientId, type, body) => {
+    if (!recipientId || notified.has(recipientId)) return;
+    notified.add(recipientId);
+    await addNotification(db, {
+      recipientId, type,
+      actorId: comment.userId, actorName: actor.name, actorAvatar: actor.avatar,
+      postId: comment.postId, commentId, preview,
+    });
+    await pushToUser(db, recipientId, { title: actor.name, body: `${body} : "${preview}"`, data });
+  };
+
+  // Mentions FIRST, so a tagged person gets the distinct "mentioned you"
+  // notification rather than a generic comment/reply one.
+  const mentions = Array.isArray(comment.mentions) ? comment.mentions : [];
+  for (const uid of mentions) {
+    await notify(uid, 'comment_mention', 'vous a mentionné dans un commentaire');
+  }
 
   // Reply -> the parent comment's author.
   if (comment.parentId) {
     const parentSnap = await db.collection('comments').doc(comment.parentId).get();
     if (parentSnap.exists) {
-      const parentAuthor = parentSnap.data().userId;
-      if (parentAuthor && !notified.has(parentAuthor)) {
-        notified.add(parentAuthor);
-        await addNotification(db, {
-          recipientId: parentAuthor, type: 'comment_reply',
-          actorId: comment.userId, actorName: actor.name, actorAvatar: actor.avatar,
-          postId: comment.postId, commentId, preview: (comment.text || '').slice(0, 80)
-        });
-      }
+      await notify(parentSnap.data().userId, 'comment_reply', 'a répondu à votre commentaire');
     }
   }
 
   // Comment on a post -> the post's author.
   const postSnap = await db.collection('posts').doc(comment.postId).get();
   if (postSnap.exists) {
-    const postAuthor = postSnap.data().churchId;
-    if (postAuthor && !notified.has(postAuthor)) {
-      notified.add(postAuthor);
-      await addNotification(db, {
-        recipientId: postAuthor, type: 'post_comment',
-        actorId: comment.userId, actorName: actor.name, actorAvatar: actor.avatar,
-        postId: comment.postId, commentId, preview: (comment.text || '').slice(0, 80)
-      });
-    }
+    await notify(postSnap.data().churchId, 'post_comment', 'a commenté votre publication');
   }
 });
 

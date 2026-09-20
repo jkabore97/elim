@@ -29,11 +29,11 @@ const SHARE_KEY = 'elim-shared-posts'
 const viewed = loadSet(VIEW_KEY)
 const shared = loadSet(SHARE_KEY)
 
-// Record that `uid` has seen `postId`. No-op if already recorded on this device,
-// or if the viewer is the author (a post's own author shouldn't inflate its
-// reach). Best-effort: a failed write is silently ignored.
-export async function recordPostView(postId: string, uid: string, authorUid?: string): Promise<void> {
-  if (!postId || !uid || uid === authorUid) return
+// Record that `uid` has seen `postId`. No-op if already recorded on this
+// device. The author's own views ARE counted. Best-effort: a failed write is
+// silently ignored.
+export async function recordPostView(postId: string, uid: string): Promise<void> {
+  if (!postId || !uid) return
   if (viewed.has(postId)) return
   viewed.add(postId); saveSet(VIEW_KEY, viewed)
   try {

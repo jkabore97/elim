@@ -210,6 +210,11 @@ export interface Comment {
   // Denormalised like counter (mirrors Post.likes). The authoritative per-user
   // state lives in the commentLikes collection.
   likes?: number;
+  // Uids @mentioned in this comment (tagged in the thread). They get a distinct
+  // "mentioned you" notification. mentionNames is kept alongside so the text can
+  // highlight the tags without a lookup.
+  mentions?: string[];
+  mentionNames?: string[];
 }
 
 
@@ -221,7 +226,7 @@ export interface Comment {
 export interface AppNotification {
   id: string;
   recipientId: string;
-  type: 'post_like' | 'comment_like' | 'post_comment' | 'comment_reply' | 'message' | 'transcript';
+  type: 'post_like' | 'comment_like' | 'post_comment' | 'comment_reply' | 'comment_mention' | 'message' | 'transcript';
   actorId: string;
   actorName: string;
   actorAvatar?: string;
