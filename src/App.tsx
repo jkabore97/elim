@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo, useRef } from 'react'
+import { useState, useEffect, useMemo, useRef, useCallback } from 'react'
 import {
   Home, Church, PlusCircle, User, MessageCircle, Heart, Share2,
   Image as ImageIcon, Video, Mic, X, Send, LogOut,
@@ -53,6 +53,7 @@ import { LanguageProvider, useLanguage, LANGUAGES, type Language } from './i18n'
 import { FR_COUNTRY, EN_PROFESSION, EN_INTEREST } from './labels'
 import { dialFor } from './countries'
 import { recordPostView, recordPostShare } from './engagement'
+import { PullToRefresh } from './PullToRefresh'
 
 function timeAgo(date: any) {
   if (!date) return ''
@@ -1265,7 +1266,10 @@ function AppInner() {
   const { t } = useLanguage()
   const [user, setUser] = useState<AppUser | null>(null)
   const [authLoading, setAuthLoading] = useState(true)
-  const [activeTab, setActiveTab] = useState('feed')
+  // Persisted in sessionStorage so a pull-to-refresh reload returns to the same
+  // tab instead of jumping back to the feed.
+  const [activeTab, setActiveTab] = useState(() => storageGet('elim_activeTab', true) || 'feed')
+  useEffect(() => { storageSet('elim_activeTab', activeTab, true) }, [activeTab])
   // When a support button deep-links into a messaging channel, this tells the
   // Messages tab which channel to open on arrival (cleared once consumed).
   const [msgChannel, setMsgChannel] = useState<'tech' | 'pastor' | null>(null)
@@ -1301,6 +1305,23 @@ function AppInner() {
       return next
     })
   }
+  // Authoritative "already seen" marker: the last time this account opened the
+  // bell, persisted per uid in localStorage. Anything older is treated as seen,
+  // so a notification/announcement that was already seen never comes back as
+  // "new" after a reload or re-login — even if the per-doc read write didn't
+  // land (offline) or the WebView dropped its storage between sessions. Keyed
+  // by uid so a different account on the same device starts fresh.
+  const [notifSeenAt, setNotifSeenAt] = useState<number>(0)
+  useEffect(() => {
+    if (!user?.uid) return
+    const key = 'elim_notifSeen_' + user.uid
+    const v = storageGet(key)
+    const parsed = v ? parseInt(v, 10) : NaN
+    if (Number.isFinite(parsed)) { setNotifSeenAt(parsed); return }
+    const now = Date.now()   // first time for this account: don't flag the back catalogue
+    setNotifSeenAt(now)
+    storageSet(key, String(now))
+  }, [user?.uid])
   const [showNotifications, setShowNotifications] = useState(false)
   const [showQuiz, setShowQuiz] = useState(false)
   // Red dot on the Game button while today's daily challenge is unplayed.
@@ -1813,9 +1834,13 @@ function AppInner() {
   const toMs = (ts: any) => (ts?.toMillis ? ts.toMillis() : 0)
   const newPosts = posts.filter(p =>
     p.section !== 'musique' && p.churchId !== user?.uid && toMs(p.createdAt) > lastSeenFeed)
-  const unreadNotifs = notifications.filter(n => !n.read).length
+  // "New" also requires being newer than the last time the bell was opened, so
+  // a seen item can't reappear after a reload/re-login if its read/seen write
+  // didn't persist.
+  const unreadNotifs = notifications.filter(n => !n.read && toMs(n.createdAt) > notifSeenAt).length
   const visibleAnnouncements = announcements.filter(a => !dismissedAnnounceIds.has(a.id))
-  const unseenAnnounce = visibleAnnouncements.filter(a => !seenAnnounceIds.has(a.id)).length
+  const unseenAnnounce = visibleAnnouncements.filter(a =>
+    !seenAnnounceIds.has(a.id) && toMs(a.createdAt) > notifSeenAt).length
   const bellCount = unreadNotifs + newPosts.length + unseenAnnounce
 
   // Opening the bell clears every signal: personal notifications are marked
@@ -1837,6 +1862,10 @@ function AppInner() {
     const now = Date.now()
     setLastSeenFeed(now)
     storageSet('elim_lastSeenFeed', String(now))
+    // The authoritative per-account seen marker (survives reload / re-login /
+    // a failed per-doc read write).
+    setNotifSeenAt(now)
+    if (user?.uid) storageSet('elim_notifSeen_' + user.uid, String(now))
   }
 
   // Tapping a notification lands the person on the relevant post - opening its
@@ -1872,6 +1901,13 @@ function AppInner() {
     setNotifications(prev => prev.filter(n => n.id !== id))
     deleteDoc(doc(db, 'notifications', id)).catch(() => {})
   }
+
+  // Pull-to-refresh: a full reload re-establishes every realtime listener and
+  // re-fetches content. The active tab is restored from sessionStorage, so the
+  // reload is seamless. The short delay lets the spinner paint first.
+  const handlePullRefresh = useCallback(() => new Promise<void>(() => {
+    setTimeout(() => window.location.reload(), 350)
+  }), [])
 
   const handleLike = async (postId: string) => {
     if (!user) return
@@ -2154,6 +2190,7 @@ function AppInner() {
           </header>
 
           <main className={`${playerTrack ? 'pb-48 lg:pb-32' : 'pb-28 lg:pb-16'} px-4 lg:px-10 pt-4 lg:pt-10 lg:max-w-3xl xl:max-w-4xl lg:mx-auto transition-[padding]`}>
+            <PullToRefresh onRefresh={handlePullRefresh}>
             {updateUrl && (
               <a href={updateUrl} target="_blank" rel="noopener noreferrer"
                 className="mb-4 flex items-center gap-3 rounded-2xl bg-gradient-to-r from-emerald-600 to-teal-600 text-white p-3.5 shadow-md">
@@ -2414,6 +2451,7 @@ function AppInner() {
                 {adminSection === 'data' && <DataManagementTab user={user} />}
               </div>
             )}
+            </PullToRefresh>
           </main>
         </div>
 
