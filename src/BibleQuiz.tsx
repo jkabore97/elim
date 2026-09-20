@@ -31,8 +31,9 @@ import { emit } from './feedback'
 import {
   subscribeProfile, commitAdultGame, commitKidsGame, recordQuizStats, fetchTopScorer,
   fetchGrandLeaders, fetchCategoryLeaders, fetchKidsLeaders, fetchChampions, fetchKidsChampions,
+  fetchGrandPodium, fetchKidsPodium,
   deleteKidEverywhere, renameKidEverywhere, childSlug,
-  type LeaderRow, type KidRow, type ChampionDoc, type TopScorer,
+  type LeaderRow, type KidRow, type ChampionDoc, type TopScorer, type PodiumRow,
 } from './quiz/store'
 
 const PLAY_URL = 'https://play.google.com/store/apps/details?id=com.elim.app'
@@ -375,9 +376,9 @@ export default function BibleQuiz({ user, onClose }: { user: AppUser; onClose: (
 // ---- Home -------------------------------------------------------------------
 // The trailing-week streak calendar under the daily card: played days are ticked,
 // today is ringed, and the current streak (grace-protected) shows on the right.
-function StreakStrip({ uid, streak }: { uid: string; streak: number }) {
+function StreakStrip({ uid, streak, lastDailyDate }: { uid: string; streak: number; lastDailyDate?: string }) {
   const { language } = useLanguage()
-  const cells = weekCalendar(uid, todayKey())
+  const cells = weekCalendar(uid, todayKey(), { lastDailyDate, dailyStreak: streak })
   const loc = language === 'fr' ? 'fr-FR' : 'en-US'
   return (
     <div className="px-4 pb-3 pt-0.5 flex items-end justify-between gap-1">
@@ -496,7 +497,7 @@ function HomeScreen({ profile, dailyDone, loading, reviewInfo, onClose, onPickCa
           </div>
           <span className="shrink-0 bg-white text-orange-700 font-bold text-sm rounded-full px-4 py-2">{t('quiz.play')}</span>
         </button>
-        <StreakStrip uid={profile.uid} streak={profile.dailyStreak} />
+        <StreakStrip uid={profile.uid} streak={profile.dailyStreak} lastDailyDate={profile.lastDailyDate} />
       </div>
 
       {/* Spaced-repetition review: appears once the player has questions due to
@@ -1315,6 +1316,33 @@ function LeadersScreen({ uid, onBack, onPalmares, onKidsFame }: { uid: string; o
 function Spinner() { return <div className="py-6 flex justify-center"><Loader2 className="animate-spin text-slate-400" /></div> }
 function Empty({ text }: { text: string }) { return <p className="text-sm text-slate-500 py-4 text-center">{text}</p> }
 
+// The top-3 scorers of a past week (adults grand league, or kids), with medals
+// and their scores. Computed live from the immutable weekly score docs, so it
+// works for every recorded week.
+const MEDALS = ['🥇', '🥈', '🥉']
+function PodiumList({ kind, weekId }: { kind: 'grand' | 'kids'; weekId?: string }) {
+  const [rows, setRows] = useState<PodiumRow[] | null>(null)
+  useEffect(() => {
+    let alive = true
+    if (!weekId) { setRows([]); return }
+    const p = kind === 'kids' ? fetchKidsPodium(weekId, 3) : fetchGrandPodium(weekId, 3)
+    p.then(r => { if (alive) setRows(r) }).catch(() => { if (alive) setRows([]) })
+    return () => { alive = false }
+  }, [kind, weekId])
+  if (rows === null || rows.length === 0) return null
+  return (
+    <div className="mt-2 space-y-1">
+      {rows.map((r, i) => (
+        <div key={i} className="flex items-center gap-2 text-sm">
+          <span className="shrink-0 w-5 text-center">{MEDALS[i] || '•'}</span>
+          <span className="flex-1 font-bold text-slate-800 truncate">{kind === 'kids' ? `🎈 ${r.name}` : r.name}</span>
+          <span className="shrink-0 font-extrabold text-affirm-600">{r.points.toLocaleString()}</span>
+        </div>
+      ))}
+    </div>
+  )
+}
+
 // ---- Palmarès (Hall of Fame) ------------------------------------------------
 function PalmaresScreen({ onBack }: { onBack: () => void }) {
   const { t } = useLanguage()
@@ -1341,26 +1369,40 @@ function PalmaresScreen({ onBack }: { onBack: () => void }) {
           {champs.map(c => (
             <div key={c.id} className="glass rounded-2xl p-4">
               <p className="text-xs font-bold text-slate-400 mb-2">{c.weekLabel || c.id}</p>
-              {c.kind === 'kids' && c.winner ? (
-                <div className="flex items-center gap-3">
-                  <Crown size={22} className="text-fuchsia-500 shrink-0" />
-                  <div className="flex-1 min-w-0">
-                    <p className="font-extrabold text-slate-800 truncate">🎈 {c.winner.childName}</p>
-                    {c.winner.parentName && <p className="text-[11px] text-slate-400 truncate">{c.winner.parentName}</p>}
+              {c.kind === 'kids' ? (
+                <>
+                  <div className="flex items-center gap-2 mb-1">
+                    <Crown size={20} className="text-fuchsia-500 shrink-0" />
+                    <span className="text-xs font-bold text-fuchsia-500 uppercase">{t('quiz.top3Kids')}</span>
                   </div>
-                  <span className="font-extrabold text-fuchsia-600">{c.winner.points.toLocaleString()}</span>
-                </div>
+                  {/* Top-3 kids for the week, with scores. Falls back to the single
+                      crowned winner for very old docs that predate the podium. */}
+                  <PodiumList kind="kids" weekId={c.kidsWeekId} />
+                  {!c.kidsWeekId && c.winner && (
+                    <div className="flex items-center gap-2 text-sm">
+                      <span className="shrink-0 w-5 text-center">🥇</span>
+                      <span className="flex-1 font-bold text-slate-800 truncate">🎈 {c.winner.childName}</span>
+                      <span className="shrink-0 font-extrabold text-fuchsia-600">{c.winner.points.toLocaleString()}</span>
+                    </div>
+                  )}
+                </>
               ) : (
                 <>
-                  {c.grand && (
-                    <div className="flex items-center gap-2 mb-2">
-                      <Crown size={20} className="text-amber-500 shrink-0" />
+                  <div className="flex items-center gap-2 mb-1">
+                    <Crown size={20} className="text-amber-500 shrink-0" />
+                    <span className="text-xs font-bold text-amber-500 uppercase">{t('quiz.top3Adult')}</span>
+                  </div>
+                  {/* Top-3 adults (grand league) for the week, with scores. */}
+                  <PodiumList kind="grand" weekId={c.weekId} />
+                  {!c.weekId && c.grand && (
+                    <div className="flex items-center gap-2 text-sm">
+                      <span className="shrink-0 w-5 text-center">🥇</span>
                       <span className="flex-1 font-extrabold text-slate-800 truncate">{c.grand.name}</span>
-                      <span className="text-xs font-bold text-slate-400">{t('quiz.grand')}</span>
+                      <span className="shrink-0 font-extrabold text-affirm-600">{c.grand.points.toLocaleString()}</span>
                     </div>
                   )}
                   {c.categories && (
-                    <div className="grid grid-cols-1 gap-1">
+                    <div className="grid grid-cols-1 gap-1 mt-3 pt-2 border-t border-slate-100">
                       {Object.entries(c.categories).map(([cat, w]) => (
                         <div key={cat} className="flex items-center gap-2 text-sm">
                           <span className="shrink-0">{CATEGORY_META[cat as QuizCategory]?.emoji || '•'}</span>

@@ -256,9 +256,41 @@ export interface ChampionDoc {
   kind: 'adult' | 'kids'
   weekLabel?: string
   endedAt?: any
+  // Week identifiers stored on the doc, used to fetch that week's top-3 podium
+  // live from the immutable weekly score docs.
+  weekId?: string
+  kidsWeekId?: string
   grand?: { uid: string; name: string; points: number }
   categories?: Record<string, { uid: string; name: string; points: number }>
   winner?: { uid: string; childName: string; parentName: string; points: number }
+}
+
+// Top-3 podium for a PAST week, computed live from the immutable per-week score
+// docs (quizWeekly / quizKids) — so the Palmarès can show 1st/2nd/3rd with their
+// scores for every recorded week, not just the single crowned winner.
+export interface PodiumRow { name: string; points: number }
+
+export async function fetchGrandPodium(weekId: string, top = 3): Promise<PodiumRow[]> {
+  try {
+    const q = query(collection(db, WEEKLY),
+      where('weekId', '==', weekId), where('league', '==', 'grand'),
+      orderBy('points', 'desc'), limit(top))
+    const snap = await getDocs(q)
+    return snap.docs
+      .map(d => { const v = d.data() as any; return { name: v.name || '—', points: v.points ?? 0 } })
+      .filter(r => r.points > 0)
+  } catch { return [] }
+}
+
+export async function fetchKidsPodium(kidsWeekId: string, top = 3): Promise<PodiumRow[]> {
+  try {
+    const q = query(collection(db, KIDS),
+      where('kidsWeekId', '==', kidsWeekId), orderBy('points', 'desc'), limit(top))
+    const snap = await getDocs(q)
+    return snap.docs
+      .map(d => { const v = d.data() as any; return { name: v.childName || '—', points: v.points ?? 0 } })
+      .filter(r => r.points > 0)
+  } catch { return [] }
 }
 
 export async function fetchChampions(top = 12): Promise<ChampionDoc[]> {

@@ -877,6 +877,8 @@ const fr = {
   "quiz.weeksWon": 'semaines gagnées',
   "quiz.palmares": 'Palmarès',
   "quiz.palmaresSub": 'Les champions des semaines passées',
+  "quiz.top3Adult": 'Top 3 adultes',
+  "quiz.top3Kids": 'Top 3 enfants',
   "quiz.palmaresEmpty": 'Les premiers champions apparaîtront ici après cette semaine.',
   "quiz.kidsFame": 'Palmarès des enfants',
   "quiz.kidsFameSub": 'Nos champions du quiz enfants',

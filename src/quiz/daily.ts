@@ -39,13 +39,29 @@ export function recordDailyPlayed(uid: string, day: string): void {
 export interface DayCell { key: string; weekday: number; played: boolean; isToday: boolean }
 
 // The trailing 7 days ending today, oldest first — for the calendar strip.
-export function weekCalendar(uid: string, todayKey: string): DayCell[] {
+// `streak` merges in the AUTHORITATIVE played days from the synced profile
+// (lastDailyDate going back dailyStreak-1 days), so the calendar is correct even
+// after a reload, a cache clear, or on another device — not only for days played
+// on this device (the local set). The local set still fills in same-day plays
+// instantly, before the profile round-trips.
+export function weekCalendar(
+  uid: string,
+  todayKey: string,
+  streak?: { lastDailyDate?: string; dailyStreak?: number },
+): DayCell[] {
   const set = playedDays(uid)
+  // Days implied by the current streak run ending at lastDailyDate.
+  const streakDays = new Set<string>()
+  if (streak?.lastDailyDate) {
+    const last = keyToNum(streak.lastDailyDate)
+    const run = Math.max(1, streak.dailyStreak || 1)
+    for (let i = 0; i < run; i++) streakDays.add(numToKey(last - i))
+  }
   const t = keyToNum(todayKey)
   const out: DayCell[] = []
   for (let i = 6; i >= 0; i--) {
     const k = numToKey(t - i)
-    out.push({ key: k, weekday: new Date((t - i) * 86400000).getUTCDay(), played: set.has(k), isToday: i === 0 })
+    out.push({ key: k, weekday: new Date((t - i) * 86400000).getUTCDay(), played: set.has(k) || streakDays.has(k), isToday: i === 0 })
   }
   return out
 }
