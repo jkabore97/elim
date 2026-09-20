@@ -397,6 +397,11 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
   const dialOptions = useMemo(() =>
     [...COUNTRY_CODES].sort((a, b) => a.name.localeCompare(b.name, language || 'fr'))
   , [language])
+  // Profession / interest labels: French list is the stored value, English
+  // labels shown only when the UI language is English.
+  const isEn = language === 'en'
+  const professionLabel = (p: string) => isEn ? (EN_PROFESSION[p] || p) : p
+  const interestLabel = (i: string) => isEn ? (EN_INTEREST[i] || i) : i
 
   // The church picker needs to be readable before anyone is signed in —
   // fetched once when member+register is selected (churchDirectory is a
@@ -637,7 +642,7 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
 
             <select required value={profession} onChange={e => setProfession(e.target.value)} className={selectClass}>
               <option value="" disabled>{t('auth.selectProfession')}</option>
-              {PROFESSIONS.map(p => <option key={p} value={p}>{p}</option>)}
+              {PROFESSIONS.map(p => <option key={p} value={p}>{professionLabel(p)}</option>)}
             </select>
 
             <select required value={signupCountry} onChange={e => setSignupCountry(e.target.value)} className={selectClass}>
@@ -667,7 +672,7 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
                         on ? prev.filter(i => i !== item) : [...prev, item])}
                       className={`px-3 py-1.5 rounded-full text-xs font-medium transition ${
                         on ? 'chip-btn-active' : 'chip-btn'}`}>
-                      {item}
+                      {interestLabel(item)}
                     </button>
                   )
                 })}
@@ -2559,6 +2564,23 @@ const PROFESSIONS = [
   'Sans emploi', 'Secrétaire', 'Technicien', 'Autre'
 ]
 
+// English labels for the profession list. Same approach as FR_COUNTRY: the
+// value stored on the profile stays the French key (so existing profiles and
+// any filtering keep working) and only the label shown to an English-language
+// user is translated.
+const EN_PROFESSION: Record<string, string> = {
+  'Agriculteur / Éleveur': 'Farmer / Herder', 'Artisan': 'Craftsperson',
+  'Commerçant': 'Trader / Merchant', 'Chauffeur': 'Driver',
+  'Enseignant': 'Teacher', 'Étudiant': 'Student', 'Fonctionnaire': 'Civil servant',
+  'Infirmier / Sage-femme': 'Nurse / Midwife', 'Informaticien': 'IT specialist',
+  'Ingénieur': 'Engineer', 'Journaliste': 'Journalist', 'Juriste / Avocat': 'Lawyer',
+  'Médecin': 'Doctor', 'Militaire / Sécurité': 'Military / Security',
+  'Ménagère / Au foyer': 'Homemaker', 'Ouvrier': 'Manual worker',
+  'Pasteur / Ministre': 'Pastor / Minister', 'Pharmacien': 'Pharmacist',
+  'Retraité': 'Retired', 'Sans emploi': 'Unemployed', 'Secrétaire': 'Secretary',
+  'Technicien': 'Technician', 'Autre': 'Other',
+}
+
 // Church departments a member can belong to or wish to join.
 const INTERESTS = [
   'Chorale / Louange', 'Musique / Instruments', 'Intercession / Prière',
@@ -2566,6 +2588,17 @@ const INTERESTS = [
   'Accueil / Protocole', 'Sonorisation / Technique', 'Média / Communication',
   'Action sociale', 'Santé', 'Finances', 'Logistique', 'Enseignement'
 ]
+
+// English labels for the interest/department chips (see EN_PROFESSION).
+const EN_INTEREST: Record<string, string> = {
+  'Chorale / Louange': 'Choir / Worship', 'Musique / Instruments': 'Music / Instruments',
+  'Intercession / Prière': 'Intercession / Prayer', 'Évangélisation': 'Evangelism',
+  'École du dimanche': 'Sunday school', 'Jeunesse': 'Youth', 'Femmes': 'Women',
+  'Hommes': 'Men', 'Accueil / Protocole': 'Welcome / Protocol',
+  'Sonorisation / Technique': 'Sound / Technical', 'Média / Communication': 'Media / Communication',
+  'Action sociale': 'Social action', 'Santé': 'Health', 'Finances': 'Finance',
+  'Logistique': 'Logistics', 'Enseignement': 'Teaching',
+}
 
 // Calling codes for the phone input's country picker. Not exhaustive (that's
 // what COUNTRIES above is for) - just a curated, sensible set prioritizing
