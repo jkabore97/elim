@@ -413,6 +413,35 @@ async function pushToUser(db, uid, { title, body, data }) {
   } catch (_e) { /* best-effort */ }
 }
 
+// Push to EVERYONE with notifications on (like a new post), skipping the uids in
+// `exclude` (e.g. the commenter and people already sent a specific push). No
+// bell/announcement doc is written — this is push-only, matching how new posts
+// notify the whole church.
+async function pushToEveryone(db, { title, body, data }, exclude = new Set()) {
+  try {
+    const usersSnap = await db.collection('users').where('notificationsEnabled', '==', true).get();
+    const tokenSet = new Set();
+    usersSnap.forEach((doc) => {
+      if (exclude.has(doc.id)) return;
+      const arr = doc.data().fcmTokens;
+      if (Array.isArray(arr)) arr.forEach((t) => t && tokenSet.add(t));
+    });
+    const tokens = [...tokenSet];
+    if (tokens.length === 0) return;
+    const messaging = getMessaging();
+    const link = 'https://ccelim.com/' + (data && data.postId ? ('?post=' + data.postId) : '');
+    await Promise.allSettled(chunk(tokens, 500).map((batchTokens) =>
+      messaging.sendEachForMulticast({
+        tokens: batchTokens,
+        notification: { title, body },
+        data: data || {},
+        webpush: { notification: { icon: 'https://ccelim.com/elim-logo-mark.png' }, fcmOptions: { link } },
+        android: { priority: 'high', notification: { color: '#f97316', channelId: 'elim-default', icon: 'ic_stat_notify', defaultSound: true } },
+      })
+    ));
+  } catch (_e) { /* best-effort */ }
+}
+
 async function addNotification(db, notif) {
   await db.collection('notifications').add({
     read: false,
@@ -627,9 +656,21 @@ exports.notifyOnComment = onDocumentCreated('comments/{commentId}', async (event
 
   // Comment on a post -> the post's author.
   const postSnap = await db.collection('posts').doc(comment.postId).get();
-  if (postSnap.exists) {
-    await notify(postSnap.data().churchId, 'post_comment', 'a commenté votre publication');
+  const post = postSnap.exists ? postSnap.data() : null;
+  if (post) {
+    await notify(post.churchId, 'post_comment', 'a commenté votre publication');
   }
+
+  // Everyone else gets a push too (like a new post) — the whole church is told
+  // a conversation is happening, even if it's not their post and they haven't
+  // commented. People already sent a specific notification above (author,
+  // mentions, reply) and the commenter are skipped so no one is pushed twice.
+  const postName = (post && (post.churchName || post.authorName)) || 'ELIM';
+  await pushToEveryone(db, {
+    title: postName,
+    body: `${actor.name} a commenté : "${preview}"`,
+    data: { kind: 'post', postId: comment.postId, commentId },
+  }, notified);
 });
 
 
