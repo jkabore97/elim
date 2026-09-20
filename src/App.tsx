@@ -3352,6 +3352,22 @@ function AppVersionPanel() {
     } catch { /* rules/offline */ } finally { setSaving(false) }
   }
 
+  // One-tap backfill of the like/view/share counters + the "last liker" name on
+  // every existing post, so posts that were liked before the feature shipped
+  // show "X et N autres" straight away instead of nothing.
+  const [backfilling, setBackfilling] = useState(false)
+  const [backfillMsg, setBackfillMsg] = useState('')
+  const runBackfill = async () => {
+    if (backfilling) return
+    setBackfilling(true); setBackfillMsg('')
+    try {
+      const res: any = await httpsCallable(functions, 'backfillPostEngagement')({})
+      setBackfillMsg(t('engagement.backfillDone').replace('{count}', String(res?.data?.posts ?? 0)))
+    } catch {
+      setBackfillMsg(t('engagement.backfillError'))
+    } finally { setBackfilling(false) }
+  }
+
   return (
     <div className="glass-soft rounded-2xl p-4 mb-4">
       <h3 className="font-bold text-slate-800 mb-1">{t('appVersion.title')}</h3>
@@ -3365,6 +3381,16 @@ function AppVersionPanel() {
           className="shrink-0 px-4 py-2.5 rounded-xl bg-affirm-600 text-white font-semibold text-sm disabled:opacity-50">
           {saved ? t('appVersion.saved') : t('appVersion.save')}
         </button>
+      </div>
+
+      <div className="mt-4 pt-4 border-t border-slate-200/70">
+        <p className="text-xs text-slate-500 mb-2">{t('engagement.backfillHint')}</p>
+        <button onClick={runBackfill} disabled={backfilling}
+          className="w-full px-4 py-2.5 rounded-xl bg-slate-800 text-white font-semibold text-sm disabled:opacity-50 flex items-center justify-center gap-2">
+          {backfilling ? <Loader2 size={15} className="animate-spin" /> : <Heart size={15} />}
+          {t('engagement.backfill')}
+        </button>
+        {backfillMsg && <p className="text-xs text-slate-500 mt-2">{backfillMsg}</p>}
       </div>
     </div>
   )
@@ -3949,8 +3975,9 @@ function PostCard({ post, onLike, onOpenComments, currentUser, isLiked, onEdit, 
 
   // "Awa and 4 others like this" — social proof from the real like count plus
   // the denormalized most-recent liker. The current user is named first ("You")
-  // when they're among the likers; if no name is known yet we fall back to a
-  // plain count.
+  // when they're among the likers. Shown ONLY when we actually have a name;
+  // with no name it would just repeat the heart's number, so we show nothing
+  // extra and let the heart button carry the count.
   const likeCount = post.likes || 0
   const others = likeCount - 1
   const fillName = (k: string, name?: string) =>
@@ -3963,8 +3990,6 @@ function PostCard({ post, onLike, onOpenComments, currentUser, isLiked, onEdit, 
     } else if (post.lastLikeName) {
       likeLine = likeCount === 1 ? fillName('post.likeName', post.lastLikeName)
         : fillName(others === 1 ? 'post.likeNameOther' : 'post.likeNameOthers', post.lastLikeName)
-    } else {
-      likeLine = t('post.likeCount').replace('{count}', String(likeCount))
     }
   }
   const viewCount = post.views || 0

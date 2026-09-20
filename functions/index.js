@@ -465,6 +465,49 @@ exports.reconcilePostShares = onDocumentCreated('postShares/{id}', async (event)
   await db.collection('posts').doc(s.postId).set({ shares: c.data().count }, { merge: true }).catch(() => {});
 });
 
+// Manual one-off: recompute likes/views/shares counts AND the most-recent-liker
+// name for EVERY post from the real docs. Needed once so posts liked before the
+// engagement feature shipped show "X et N autres" (their likes predate the
+// per-like reconcile trigger). Admin/pastor only.
+exports.backfillPostEngagement = onCall({ region: 'us-central1' }, async (request) => {
+  if (!request.auth) throw new HttpsError('unauthenticated', 'Sign in first.');
+  const db = getFirestore();
+  const me = await db.collection('users').doc(request.auth.uid).get();
+  if (!['admin', 'pastor'].includes(me.exists ? me.data().role : null)) {
+    throw new HttpsError('permission-denied', 'Admins only.');
+  }
+  const nameCache = {};
+  const nameFor = async (uid) => {
+    if (!uid) return '';
+    if (nameCache[uid] !== undefined) return nameCache[uid];
+    const u = await db.collection('users').doc(uid).get();
+    return (nameCache[uid] = u.exists ? (u.data().displayName || '') : '');
+  };
+  const posts = await db.collection('posts').get();
+  let updated = 0;
+  for (const p of posts.docs) {
+    const postId = p.id;
+    const likesCol = db.collection('likes').where('postId', '==', postId);
+    const update = { likes: (await likesCol.count().get()).data().count };
+    if (update.likes > 0) {
+      const recent = await likesCol.orderBy('createdAt', 'desc').limit(1).get();
+      if (!recent.empty) {
+        const v = recent.docs[0].data();
+        update.lastLikeUid = v.userId;
+        const name = v.userName || (await nameFor(v.userId));
+        if (name) update.lastLikeName = name;
+      }
+    }
+    const views = (await db.collection('postViews').where('postId', '==', postId).count().get()).data().count;
+    const shares = (await db.collection('postShares').where('postId', '==', postId).count().get()).data().count;
+    if (views) update.views = views;
+    if (shares) update.shares = shares;
+    await p.ref.set(update, { merge: true }).catch(() => {});
+    updated++;
+  }
+  return { ok: true, posts: updated };
+});
+
 // Someone liked a comment -> tell the comment's author.
 exports.notifyOnCommentLike = onDocumentCreated('commentLikes/{likeId}', async (event) => {
   const like = event.data && event.data.data();
