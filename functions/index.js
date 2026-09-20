@@ -511,13 +511,15 @@ exports.listMemberNames = onCall({ region: 'us-central1' }, async (request) => {
 // flag in config/backfills so the heavy pass runs only once; afterwards this is
 // a single cheap read per tick. Runs hourly, church time.
 exports.backfillPostViews = onSchedule(
-  { schedule: '0 * * * *', timeZone: CHURCH_TZ, region: 'us-central1' },
+  { schedule: '*/10 * * * *', timeZone: CHURCH_TZ, region: 'us-central1' },
   async () => {
     const db = getFirestore();
     const flagRef = db.collection('config').doc('backfills');
     const flag = await flagRef.get();
-    // Bumped to v2 so it runs once more to also seed the last-liker name.
-    if (flag.exists && flag.data().postViewsSeeded_v2) return;
+    // Bumped to v3 so it runs once more (last-liker name) soon after deploy —
+    // every 10 min instead of hourly so the "X aime…" line appears quickly;
+    // no-ops cheaply once the flag is set.
+    if (flag.exists && flag.data().postViewsSeeded_v3) return;
     const nameCache = {};
     const nameFor = async (uid) => {
       if (!uid) return '';
@@ -559,7 +561,7 @@ exports.backfillPostViews = onSchedule(
       }
       await p.ref.set(update, { merge: true }).catch(() => {});
     }
-    await flagRef.set({ postViewsSeeded: true, postViewsSeeded_v2: true, postViewsSeededAt: FieldValue.serverTimestamp() }, { merge: true });
+    await flagRef.set({ postViewsSeeded: true, postViewsSeeded_v2: true, postViewsSeeded_v3: true, postViewsSeededAt: FieldValue.serverTimestamp() }, { merge: true });
     console.log(`backfillPostViews: seeded ${posts.size} posts`);
   }
 );

@@ -4673,6 +4673,24 @@ function CommentRow({ c, isReply, liked, likeCount, onLike, onReply, onReport, c
   )
 }
 
+// Height (px) the on-screen keyboard is covering, from the VisualViewport API.
+// Used to lift bottom sheets above the keyboard so their input isn't hidden
+// behind it — the software keyboard doesn't move `position: fixed` elements on
+// its own in the WebView.
+function useKeyboardInset() {
+  const [inset, setInset] = useState(0)
+  useEffect(() => {
+    const vv = window.visualViewport
+    if (!vv) return
+    const onChange = () => setInset(Math.max(0, window.innerHeight - vv.height - vv.offsetTop))
+    vv.addEventListener('resize', onChange)
+    vv.addEventListener('scroll', onChange)
+    onChange()
+    return () => { vv.removeEventListener('resize', onChange); vv.removeEventListener('scroll', onChange) }
+  }, [])
+  return inset
+}
+
 function CommentsSheet({ postId, comments, postAuthor, onClose, onAdd, onLikeComment, likedCommentIds, currentUser }: {
   postId: string
   comments: Comment[]
@@ -4684,6 +4702,7 @@ function CommentsSheet({ postId, comments, postAuthor, onClose, onAdd, onLikeCom
   currentUser: AppUser
 }) {
   const { t } = useLanguage()
+  const kbInset = useKeyboardInset()
   const [reportingComment, setReportingComment] = useState<Comment | null>(null)
   const [text, setText] = useState('')
   const [sending, setSending] = useState(false)
@@ -4798,7 +4817,8 @@ function CommentsSheet({ postId, comments, postAuthor, onClose, onAdd, onLikeCom
   const startReply = (c: Comment) => setReplyTo({ id: c.parentId || c.id, name: c.userName })
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-end">
+    <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-end"
+      style={{ bottom: kbInset }}>
       <div className="glass-bar w-full max-w-lg mx-auto rounded-t-3xl max-h-[75vh] flex flex-col shadow-2xl">
         <div className="px-5 py-4 border-b border-slate-100 flex items-center justify-between">
           <h3 className="font-bold">{t('comments.title')}</h3>
