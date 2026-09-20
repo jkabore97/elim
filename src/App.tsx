@@ -1391,7 +1391,14 @@ function AppInner() {
       setTimeout(() => setMessageToast(false), 5000)
     }
   }, [unreadMessages, activeTab])
-  const [splashDone, setSplashDone] = useState(false)
+  // Skip the animated splash when this load is a pull-to-refresh reload (a flag
+  // set just before reload), so refreshing doesn't replay the splash each time.
+  const [splashDone, setSplashDone] = useState(() => {
+    try {
+      if (sessionStorage.getItem('elim-skip-splash')) { sessionStorage.removeItem('elim-skip-splash'); return true }
+    } catch { /* storage blocked: fall back to showing the splash */ }
+    return false
+  })
   const [feedFilter, setFeedFilter] = useState<'all' | 'video' | 'audio' | 'posts'>('all')
   const [searchQuery, setSearchQuery] = useState('')
 
@@ -1914,8 +1921,11 @@ function AppInner() {
 
   // Pull-to-refresh: a full reload re-establishes every realtime listener and
   // re-fetches content. The active tab is restored from sessionStorage, so the
-  // reload is seamless. The short delay lets the spinner paint first.
+  // reload is seamless. We set a flag so the reload SKIPS the animated splash
+  // (it shouldn't replay on every refresh). The short delay lets the spinner
+  // paint first.
   const handlePullRefresh = useCallback(() => new Promise<void>(() => {
+    try { sessionStorage.setItem('elim-skip-splash', '1') } catch { /* storage blocked */ }
     setTimeout(() => window.location.reload(), 350)
   }), [])
 
