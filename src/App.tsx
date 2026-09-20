@@ -3614,13 +3614,14 @@ function LogsPanel() {
   useEffect(() => {
     // Last 30 days of activity. The limit() stays as a hard ceiling so a very
     // busy month can't pull an unbounded collection into memory - raised to
-    // 2000 so a normal month of history isn't silently truncated.
+    // 10000 because views are logged too (one per person per post), so the
+    // older sign-ins / posts / likes aren't pushed out of the window by them.
     const cutoff = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000)
     const q = query(
       collection(db, 'activityLogs'),
       where('createdAt', '>=', cutoff),
       orderBy('createdAt', 'desc'),
-      limit(2000)
+      limit(10000)
     )
     const unsub = onSnapshot(q, snap => {
       setLogs(snap.docs.map(d => ({ id: d.id, ...d.data() } as ActivityLog)))
