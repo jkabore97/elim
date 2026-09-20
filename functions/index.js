@@ -870,6 +870,38 @@ exports.stripDobToPrivate = onDocumentWritten(
   }
 );
 
+// Keep the quiz's DENORMALISED name copies in sync with the user's real name.
+// The leaderboards store a copy of displayName on the score docs (stamped when a
+// game is played), so editing users/{uid}.displayName alone leaves the old name
+// on the boards. On any user-doc write we compare the quiz career name and, if
+// it's stale, fix it everywhere it's copied: the career profile (General
+// board), the weekly rows (name), and the kids rows (parentName). Cheap: one
+// read per write, and it only writes when there's an actual mismatch — so it
+// also back-fills a rename that happened before this function existed, the next
+// time that user's doc is touched (their own app open re-writes it).
+exports.propagateDisplayName = onDocumentWritten(
+  { region: 'us-central1', document: 'users/{uid}' },
+  async (event) => {
+    const after = event.data.after.exists ? event.data.after.data() : null;
+    if (!after) return;
+    const uid = event.params.uid;
+    const name = (after.displayName || '').toString().slice(0, 80);
+    if (!name) return;
+    const db = getFirestore();
+    const prof = await db.collection('quizProfiles').doc(uid).get();
+    if (!prof.exists) return;                                   // never played the quiz
+    if ((prof.data().displayName || '') === name) return;        // already in sync
+    const batch = db.batch();
+    batch.set(prof.ref, { displayName: name }, { merge: true });
+    const weekly = await db.collection('quizWeekly').where('uid', '==', uid).get();
+    weekly.forEach((d) => { if ((d.data().name || '') !== name) batch.update(d.ref, { name }); });
+    const kids = await db.collection('quizKids').where('uid', '==', uid).get();
+    kids.forEach((d) => { if ((d.data().parentName || '') !== name) batch.update(d.ref, { parentName: name }); });
+    await batch.commit();
+    console.log(`propagateDisplayName: synced quiz name for ${uid} -> "${name}"`);
+  }
+);
+
 exports.translateContent = onCall({ region: 'us-central1' }, async (request) => {
   if (!request.auth) {
     throw new HttpsError('unauthenticated', 'Sign in to translate.');
