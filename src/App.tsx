@@ -891,6 +891,11 @@ function GooglePlayBadge({ className = '' }: { className?: string }) {
 function AuthScreen({ onSuccess }: { onSuccess: (user: AppUser) => void }) {
   const { t } = useLanguage()
   const [showWelcome, setShowWelcome] = useState(true)
+  // Which tab the auth form opens on. A first-time visitor should land on
+  // "Create account", not on a phone+PIN login for an account they don't
+  // have yet, so the welcome screen sets this explicitly.
+  const [authMode, setAuthMode] = useState<'login' | 'register'>('register')
+  const openAuth = (m: 'login' | 'register') => { setAuthMode(m); setShowWelcome(false) }
 
   return (
     <div className="min-h-screen heavenly-bg flex flex-col relative overflow-hidden">
@@ -909,7 +914,22 @@ function AuthScreen({ onSuccess }: { onSuccess: (user: AppUser) => void }) {
             </p>
             <p className="mt-4 text-white/75 leading-relaxed">{t('auth.peacefulPlace')}</p>
 
-            <div className="mt-10 grid grid-cols-2 gap-4">
+            {/* The two actions come first, above the feature preview, so the
+                way in is never below the fold. Creating an account is the
+                dominant, primary button; signing in is the quieter option for
+                people who already have one. */}
+            <div className="mt-8 space-y-3">
+              <button onClick={() => openAuth('register')}
+                className="w-full py-4 rounded-2xl bg-white hover:bg-white/95 text-affirm-700 font-bold text-[15px] transition flex items-center justify-center gap-2 shadow-xl shadow-orange-900/20">
+                {t('auth.createAccount')} <ArrowRight size={18} />
+              </button>
+              <button onClick={() => openAuth('login')}
+                className="w-full py-3.5 rounded-2xl bg-white/10 hover:bg-white/20 border border-white/30 text-white font-semibold text-[15px] transition">
+                {t('landing.haveAccount')}
+              </button>
+            </div>
+
+            <div className="mt-8 grid grid-cols-2 gap-4">
               {[
                 { icon: ImageIcon, label: t('landing.valueProp.photos') },
                 { icon: Mic, label: t('landing.valueProp.audio') },
@@ -925,11 +945,6 @@ function AuthScreen({ onSuccess }: { onSuccess: (user: AppUser) => void }) {
               ))}
             </div>
 
-            <button onClick={() => setShowWelcome(false)}
-              className="mt-10 w-full py-4 rounded-2xl bg-white hover:bg-white/95 text-affirm-700 font-bold text-[15px] transition flex items-center justify-center gap-2 shadow-xl shadow-orange-900/20">
-              {t('landing.getStarted')} <ArrowRight size={18} />
-            </button>
-
             {!Capacitor.isNativePlatform() && (
               <div className="mt-6 flex flex-col items-center gap-2">
                 <p className="text-white/70 text-xs">{t('landing.downloadHint')}</p>
@@ -943,7 +958,7 @@ function AuthScreen({ onSuccess }: { onSuccess: (user: AppUser) => void }) {
           <div className="w-full max-w-md">
             <AuthBanner subtitle="Centre Chrétien E.L.I.M." />
             <div className="glass rounded-3xl shadow-2xl p-8">
-              <AuthForm onSuccess={onSuccess} />
+              <AuthForm onSuccess={onSuccess} initialMode={authMode} />
             </div>
           </div>
         </div>

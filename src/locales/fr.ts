@@ -383,6 +383,7 @@ const fr = {
   "landing.heroLine2": 'famille d\'église.',
   "landing.heroSubtitle": 'ELIM apporte les sermons, actualités et messages d\'encouragement de votre église directement dans votre poche — photos, audio, vidéo et vraies conversations, le tout dans un espace paisible et dédié.',
   "landing.getStarted": 'Commencer',
+  "landing.haveAccount": "J'ai déjà un compte",
   "landing.getStartedFree": 'Commencer gratuitement',
   "landing.downloadApp": "Télécharger l'application",
   "landing.downloadHint": "Installez l'application pour la meilleure expérience",
