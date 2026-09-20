@@ -32,14 +32,17 @@ const shared = loadSet(SHARE_KEY)
 // Record that `uid` has seen `postId`. No-op if already recorded on this
 // device. The author's own views ARE counted. Best-effort: a failed write is
 // silently ignored.
-export async function recordPostView(postId: string, uid: string): Promise<void> {
-  if (!postId || !uid) return
-  if (viewed.has(postId)) return
+// Returns true only when a NEW view was written (first time on this device), so
+// the caller can log it once and not on every re-appearance.
+export async function recordPostView(postId: string, uid: string): Promise<boolean> {
+  if (!postId || !uid) return false
+  if (viewed.has(postId)) return false
   viewed.add(postId); saveSet(VIEW_KEY, viewed)
   try {
     await setDoc(doc(db, 'postViews', `${postId}_${uid}`),
       { postId, userId: uid, createdAt: serverTimestamp() }, { merge: true })
-  } catch { viewed.delete(postId) /* let a later view retry */ }
+    return true
+  } catch { viewed.delete(postId); return false /* let a later view retry */ }
 }
 
 // Record that `uid` shared `postId` (unique per person). Called only after the

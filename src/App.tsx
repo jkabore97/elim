@@ -3651,13 +3651,14 @@ function LogsPanel() {
     like_added: { label: t('logs.likeAdded'), color: 'bg-rose-50 text-rose-600', Icon: Heart },
     like_removed: { label: t('logs.likeRemoved'), color: 'bg-slate-100 text-slate-500', Icon: Heart },
     comment_added: { label: t('logs.commentAdded'), color: 'bg-sky-50 text-sky-600', Icon: MessageCircle },
+    post_view: { label: t('logs.postView'), color: 'bg-slate-100 text-slate-500', Icon: Eye },
   }
 
   const visible = useMemo(() => {
     let result = logs
     if (filter === 'auth') result = result.filter(l => ['signin', 'signup'].includes(l.action))
     else if (filter === 'posts') result = result.filter(l => l.action.startsWith('post_'))
-    else if (filter === 'engagement') result = result.filter(l => l.action.startsWith('like_') || l.action.startsWith('comment_'))
+    else if (filter === 'engagement') result = result.filter(l => l.action.startsWith('like_') || l.action.startsWith('comment_') || l.action === 'post_view')
     else if (filter === 'admin') result = result.filter(l => l.action.startsWith('church_') || l.action === 'directory_synced')
 
     const q = search.trim().toLowerCase()
@@ -3953,7 +3954,11 @@ function PostCard({ post, onLike, onOpenComments, currentUser, isLiked, onEdit, 
       const seen = e.isIntersecting && (e.intersectionRatio >= 0.5 || e.intersectionRect.height >= 200)
       if (seen) {
         if (!timer) timer = setTimeout(() => {
-          recordPostView(post.id, currentUserUid)
+          recordPostView(post.id, currentUserUid).then(wrote => {
+            // Log the view once (first time on this device) so it shows in the
+            // admin activity log alongside likes and comments.
+            if (wrote) logActivity(currentUser, 'post_view', (post.content || post.churchName || '').slice(0, 60))
+          })
           io.disconnect()
         }, 1200)
       } else if (timer) { clearTimeout(timer); timer = null }
@@ -4183,11 +4188,10 @@ function PostCard({ post, onLike, onOpenComments, currentUser, isLiked, onEdit, 
               <MessageCircle size={18} />
               {post.commentsCount || 0}
             </button>
-            {viewCount > 0 && (
-              <span className="flex items-center gap-1.5 text-sm font-medium text-slate-400" title={t('post.views')}>
-                <Eye size={18} /> {viewCount.toLocaleString()}
-              </span>
-            )}
+            {/* Always shown so every post carries the view icon, even at 0. */}
+            <span className="flex items-center gap-1.5 text-sm font-medium text-slate-400" title={t('post.views')}>
+              <Eye size={18} /> {viewCount.toLocaleString()}
+            </span>
           </div>
           <div className="flex items-center gap-3">
             {post.mediaUrl && ['text-image', 'audio', 'video', 'document'].includes(post.type) && (
@@ -4815,7 +4819,8 @@ function CommentsSheet({ postId, comments, postAuthor, onClose, onAdd, onLikeCom
             </div>
           ))}
         </div>
-        <div className="p-4 border-t border-slate-100">
+        <div className="px-4 pt-4 border-t border-slate-100"
+          style={{ paddingBottom: 'calc(env(safe-area-inset-bottom, 0px) + 1rem)' }}>
           {likeError && (
             <p className="text-[11px] text-red-500 bg-red-50 rounded-lg px-3 py-1.5 mb-2">{likeError}</p>
           )}
@@ -5119,7 +5124,7 @@ function NotificationsPanel({ notifications, announcements, newPostCount, onClos
           <h3 className="font-bold flex items-center gap-2"><Bell size={18} /> {t('notif.title')}</h3>
           <button onClick={onClose} className="p-1.5 rounded-full hover:bg-slate-100"><X size={18} /></button>
         </div>
-        <div className="flex-1 overflow-y-auto">
+        <div className="flex-1 overflow-y-auto" style={{ paddingBottom: 'env(safe-area-inset-bottom, 0px)' }}>
           {newPostCount > 0 && (
             <button onClick={onViewNewPosts}
               className="w-full flex items-center gap-3 px-5 py-4 border-b border-slate-100 hover:bg-slate-50 text-left">
