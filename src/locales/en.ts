@@ -358,6 +358,8 @@ const en = {
   "auth.confirmPhone": 'Re-type your number (without the code)',
   "auth.phonesDontMatch": "The two phone numbers don't match.",
   "auth.country": 'Country',
+  "auth.countrySearch": 'Country (type to search)',
+  "auth.countryNoMatch": 'No country found',
   "auth.city": 'City',
   "auth.quartier": 'Neighbourhood',
   "auth.firstName": 'First name',
