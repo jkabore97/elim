@@ -114,6 +114,17 @@ export interface Post {
   fileName?: string;
   likes: number;
   commentsCount: number;
+  // Engagement counters kept accurate by Cloud Functions from the per-user
+  // source docs (likes / postViews / postShares), so they reflect the real
+  // number of documents rather than a client-side guess. Optional because
+  // older posts predate them.
+  views?: number;
+  shares?: number;
+  // The most recent person to like the post, denormalized for the "Awa and N
+  // others" line without an extra read. Maintained (and kept fresh on unlike /
+  // rename) by the reconcilePostLikes / propagateDisplayName functions.
+  lastLikeName?: string;
+  lastLikeUid?: string;
   createdAt: any;
 }
 
