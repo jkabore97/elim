@@ -642,6 +642,75 @@ exports.getMemberProfile = onCall({ region: 'us-central1' }, async (request) => 
   };
 });
 
+// The shareable projection of a user, written to publicProfiles/{uid}. Members
+// can't read the users collection (it holds phone/email/DOB), so this mirrors
+// ONLY the fields that are safe to show anyone: name, photo, profession, church
+// departments (interests) and role. The client reads publicProfiles directly
+// (world-readable to signed-in users), which is more robust than a callable.
+function publicProfileOf(v) {
+  return {
+    name: (v.displayName || '').toString().slice(0, 80),
+    avatar: v.avatar || null,
+    profession: (v.profession || '').toString().slice(0, 80),
+    interests: Array.isArray(v.interests) ? v.interests.slice(0, 20) : [],
+    role: v.role || 'member',
+    updatedAt: FieldValue.serverTimestamp(),
+  };
+}
+
+// Keep publicProfiles/{uid} in sync with the user doc: upsert on any change to a
+// projected field, delete when the user is removed.
+exports.syncPublicProfile = onDocumentWritten(
+  { region: 'us-central1', document: 'users/{uid}' },
+  async (event) => {
+    const db = getFirestore();
+    const uid = event.params.uid;
+    const before = event.data.before.exists ? event.data.before.data() : null;
+    const after = event.data.after.exists ? event.data.after.data() : null;
+    if (!after) {
+      await db.collection('publicProfiles').doc(uid).delete().catch(() => {});
+      return;
+    }
+    // Skip when no projected field changed, so ordinary user writes (e.g. an
+    // fcmToken refresh) don't churn the projection.
+    if (before) {
+      const same =
+        (before.displayName || '') === (after.displayName || '') &&
+        (before.avatar || '') === (after.avatar || '') &&
+        (before.profession || '') === (after.profession || '') &&
+        (before.role || '') === (after.role || '') &&
+        JSON.stringify(before.interests || []) === JSON.stringify(after.interests || []);
+      if (same) return;
+    }
+    await db.collection('publicProfiles').doc(uid).set(publicProfileOf(after), { merge: true }).catch(() => {});
+  }
+);
+
+// One-time (flag-guarded) backfill so publicProfiles exists for every current
+// user right after deploy, not only for those who edit their profile later.
+// Runs every 10 min until the flag is set, then no-ops cheaply.
+exports.backfillPublicProfiles = onSchedule(
+  { schedule: '*/10 * * * *', timeZone: CHURCH_TZ, region: 'us-central1' },
+  async () => {
+    const db = getFirestore();
+    const flagRef = db.collection('config').doc('backfills');
+    const flag = await flagRef.get();
+    if (flag.exists && flag.data().publicProfilesSeeded_v1) return;
+    const users = await db.collection('users').get();
+    let n = 0;
+    for (let i = 0; i < users.docs.length; i += 400) {
+      const b = db.batch();
+      users.docs.slice(i, i + 400).forEach((d) => {
+        b.set(db.collection('publicProfiles').doc(d.id), publicProfileOf(d.data()), { merge: true });
+        n++;
+      });
+      await b.commit();
+    }
+    await flagRef.set({ publicProfilesSeeded_v1: true, publicProfilesSeededAt: FieldValue.serverTimestamp() }, { merge: true });
+    console.log(`backfillPublicProfiles: seeded ${n} profiles`);
+  }
+);
+
 // Someone liked a comment -> tell the comment's author.
 exports.notifyOnCommentLike = onDocumentCreated('commentLikes/{likeId}', async (event) => {
   const like = event.data && event.data.data();

@@ -75,6 +75,7 @@ const en = {
   "groups.delete": 'Delete',
   "groups.deleteConfirm": 'Delete the group "{name}"? Posts already published keep their current display.',
   "groups.avatarPlaceholder": 'Logo link (optional)',
+  "groups.descriptionPlaceholder": 'Group description (optional)',
   "groups.save": 'Save',
   "groups.leads": 'Leads',
   "groups.noLeads": 'No leads yet. Add who can publish under the group.',

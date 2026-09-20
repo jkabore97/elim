@@ -75,6 +75,7 @@ const fr = {
   "groups.delete": 'Supprimer',
   "groups.deleteConfirm": 'Supprimer le groupe « {name} » ? Les publications déjà faites gardent leur affichage.',
   "groups.avatarPlaceholder": 'Lien du logo (optionnel)',
+  "groups.descriptionPlaceholder": 'Description du groupe (optionnel)',
   "groups.save": 'Enregistrer',
   "groups.leads": 'Responsables',
   "groups.noLeads": 'Aucun responsable. Ajoutez qui peut publier au nom du groupe.',

@@ -71,6 +71,9 @@ export interface Group {
   id: string;
   name: string;
   avatar?: string;
+  // Short public description shown in the group popup when a member taps the
+  // group name/photo on one of its posts.
+  description?: string;
   // Leads keyed by uid. Only leads may publish under the group; leadIds mirrors
   // the keys so the composer can find "my groups" with an array-contains query.
   leads: Record<string, GroupLead>;

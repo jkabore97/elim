@@ -1,5 +1,6 @@
 import { httpsCallable } from 'firebase/functions'
-import { functions } from './firebase'
+import { doc, getDoc } from 'firebase/firestore'
+import { db, functions } from './firebase'
 
 // Names of everyone in the app, for @mention pickers. Members can't read the
 // users collection directly (privacy rules), so this goes through a callable
@@ -30,6 +31,24 @@ export type MemberProfile = {
   role?: string
 }
 export async function fetchMemberProfile(uid: string): Promise<MemberProfile | null> {
+  // Prefer the world-readable projection (publicProfiles/{uid}) — a plain
+  // Firestore read that always works for signed-in members. Fall back to the
+  // callable only if that doc doesn't exist yet (e.g. before the backfill has
+  // run for a brand-new account).
+  try {
+    const s = await getDoc(doc(db, 'publicProfiles', uid))
+    if (s.exists()) {
+      const v = s.data() as any
+      return {
+        found: true,
+        name: (v.name || '').toString(),
+        avatar: v.avatar || null,
+        profession: v.profession || '',
+        interests: Array.isArray(v.interests) ? v.interests : [],
+        role: v.role || 'member',
+      }
+    }
+  } catch { /* fall through to the callable */ }
   try {
     const r: any = await httpsCallable(functions, 'getMemberProfile')({ uid })
     return r?.data as MemberProfile
