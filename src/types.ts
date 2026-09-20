@@ -336,6 +336,8 @@ export interface Book {
   uploadedById: string;
   uploadedByName: string;
   createdAt?: any;
+  // Incremented once each time someone opens the book to read it.
+  views?: number;
 }
 
 

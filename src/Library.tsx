@@ -1,12 +1,12 @@
 import { useState, useEffect, useMemo, useRef } from 'react'
 import {
-  collection, addDoc, deleteDoc, doc, onSnapshot,
+  collection, addDoc, deleteDoc, doc, onSnapshot, updateDoc, increment,
   query, orderBy, limit, serverTimestamp
 } from 'firebase/firestore'
 import { ref, uploadBytesResumable, getDownloadURL, deleteObject } from 'firebase/storage'
 import { Document, Page, pdfjs } from 'react-pdf'
 import {
-  BookOpen, Plus, X, Search, Trash2, Download, ArrowLeft,
+  BookOpen, Plus, X, Search, Trash2, Download, ArrowLeft, Eye,
   ChevronLeft, ChevronRight, ZoomIn, ZoomOut, Upload, Loader
 } from 'lucide-react'
 import { db, storage } from './firebase'
@@ -330,6 +330,13 @@ export function LibraryTab({ user, canUpload, canTranscribe = false }: { user: A
     })
   }, [books, search, category])
 
+  // Open a book to read it, and count the open (one view per open, as asked).
+  // The increment is best-effort so a rules/offline hiccup never blocks reading.
+  const openBook = (b: Book) => {
+    setReading(b)
+    updateDoc(doc(db, 'books', b.id), { views: increment(1) }).catch(() => {})
+  }
+
   const remove = async (b: Book) => {
     try {
       await deleteDoc(doc(db, 'books', b.id))
@@ -398,7 +405,7 @@ export function LibraryTab({ user, canUpload, canTranscribe = false }: { user: A
       <div className="space-y-3">
         {visible.map(b => (
           <div key={b.id} className="glass rounded-3xl p-4 shadow-sm border border-slate-100 flex items-center gap-4">
-            <button onClick={() => setReading(b)}
+            <button onClick={() => openBook(b)}
               className={`w-14 h-16 rounded-xl flex items-center justify-center shrink-0 ${
                 b.category === 'Bible'
                   ? 'bg-gradient-to-br from-amber-400 to-amber-600 text-white'
@@ -406,7 +413,7 @@ export function LibraryTab({ user, canUpload, canTranscribe = false }: { user: A
               <BookOpen size={22} />
             </button>
 
-            <button onClick={() => setReading(b)} className="min-w-0 flex-1 text-left">
+            <button onClick={() => openBook(b)} className="min-w-0 flex-1 text-left">
               <h3 className="font-bold text-slate-900 leading-snug line-clamp-2">{b.title}</h3>
               {b.author && <p className="text-xs text-slate-500 mt-0.5 truncate">{b.author}</p>}
               <div className="flex items-center gap-2 mt-1.5 flex-wrap">
@@ -415,6 +422,9 @@ export function LibraryTab({ user, canUpload, canTranscribe = false }: { user: A
                   {b.category}
                 </span>
                 <span className="text-[10px] text-slate-400">{humanSize(b.sizeBytes)}</span>
+                {(b.views || 0) > 0 && (
+                  <span className="text-[10px] text-slate-400 flex items-center gap-1"><Eye size={12} /> {b.views}</span>
+                )}
               </div>
             </button>
 

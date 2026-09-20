@@ -54,6 +54,7 @@ import { FR_COUNTRY, EN_PROFESSION, EN_INTEREST } from './labels'
 import { dialFor } from './countries'
 import { recordPostView, recordPostShare } from './engagement'
 import { PullToRefresh } from './PullToRefresh'
+import { fetchMemberNames } from './members'
 
 function timeAgo(date: any) {
   if (!date) return ''
@@ -1783,6 +1784,8 @@ function AppInner() {
 
   const handleAddComment = async (text: string, parentId?: string, mentions?: { uid: string; name: string }[]) => {
     if (!activeCommentsPost || !user) return
+    // Commenting means they've seen the post — count the view too.
+    recordPostView(activeCommentsPost, user.uid)
     // Write the comment and bump the post's counter atomically, so a failure
     // can't leave the count out of step with the actual comments.
     const tagged = (mentions || []).filter(m => m.uid && m.uid !== user.uid)
@@ -1913,6 +1916,9 @@ function AppInner() {
 
   const handleLike = async (postId: string) => {
     if (!user) return
+    // Liking means they've seen it — make sure the view is counted too, so a
+    // post can never show more likes/comments than views.
+    recordPostView(postId, user.uid)
     // Guard against a double-tap racing two writes: both would read the same
     // "not yet liked" state and each fire increment(1), permanently inflating
     // the counter against a single like doc.
@@ -4674,22 +4680,26 @@ function CommentsSheet({ postId, comments, postAuthor, onClose, onAdd, onLikeCom
   const [sending, setSending] = useState(false)
   const [replyTo, setReplyTo] = useState<{ id: string; name: string } | null>(null)
   const inputRef = useRef<HTMLInputElement>(null)
-  // Who can be @mentioned: the people already in this conversation — the post's
-  // author plus everyone who has commented. (Member accounts can't read the
-  // full user list by design, so mentions are scoped to the thread, which is
-  // also the natural place to tag someone.)
+  // Everyone in the app can be @mentioned. The full name list comes from a
+  // callable (members can't read the users collection directly); the post
+  // author + commenters are merged in as a fallback so mentions still work if
+  // that call is slow or offline.
+  const [allMembers, setAllMembers] = useState<{ uid: string; name: string }[]>([])
+  useEffect(() => { fetchMemberNames().then(setAllMembers).catch(() => {}) }, [])
   const mentionCandidates = useMemo(() => {
     const map = new Map<string, string>()   // uid -> name
     if (postAuthor?.uid && postAuthor.name) map.set(postAuthor.uid, postAuthor.name)
     comments.forEach(c => { if (c.userId && c.userName) map.set(c.userId, c.userName) })
+    allMembers.forEach(m => { if (m.uid && m.name) map.set(m.uid, m.name) })
     map.delete(currentUser.uid)              // don't tag yourself
     return [...map.entries()].map(([uid, name]) => ({ uid, name }))
-  }, [comments, postAuthor, currentUser.uid])
+      .sort((a, b) => a.name.localeCompare(b.name))
+  }, [comments, postAuthor, allMembers, currentUser.uid])
   // The active "@query" the caret is sitting in, or null. Drives the picker.
   const [mentionQuery, setMentionQuery] = useState<string | null>(null)
   const norm = (s: string) => s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '')
   const mentionMatches = mentionQuery === null ? []
-    : mentionCandidates.filter(c => norm(c.name).includes(norm(mentionQuery))).slice(0, 6)
+    : mentionCandidates.filter(c => norm(c.name).includes(norm(mentionQuery))).slice(0, 25)
 
   // Recompute the active @token from the text up to the caret.
   const onType = (value: string) => {

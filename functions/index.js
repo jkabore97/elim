@@ -488,6 +488,61 @@ exports.reconcilePostShares = onDocumentCreated('postShares/{id}', async (event)
   await db.collection('posts').doc(s.postId).set({ shares: c.data().count }, { merge: true }).catch(() => {});
 });
 
+// Names of everyone in the app, for the comment @mention picker. Members can't
+// read the users collection directly (privacy), so this callable returns names
+// only — no phone, email or anything else. Any signed-in user may call it.
+exports.listMemberNames = onCall({ region: 'us-central1' }, async (request) => {
+  if (!request.auth) throw new HttpsError('unauthenticated', 'Sign in first.');
+  const db = getFirestore();
+  const snap = await db.collection('users').limit(3000).get();
+  const members = [];
+  snap.forEach((d) => {
+    const v = d.data();
+    const name = (v.displayName || '').toString().trim();
+    if (name && v.role !== 'pending_church') members.push({ uid: d.id, name });
+  });
+  return { members };
+});
+
+// One-time backfill so posts from before view-tracking show a sensible view
+// count instead of "2 comments, 1 view". Anyone who liked, commented on, or
+// authored a post has certainly seen it, so we create a real postViews doc for
+// each of them (which the count is then derived from — no faking). Guarded by a
+// flag in config/backfills so the heavy pass runs only once; afterwards this is
+// a single cheap read per tick. Runs hourly, church time.
+exports.backfillPostViews = onSchedule(
+  { schedule: '0 * * * *', timeZone: CHURCH_TZ, region: 'us-central1' },
+  async () => {
+    const db = getFirestore();
+    const flagRef = db.collection('config').doc('backfills');
+    const flag = await flagRef.get();
+    if (flag.exists && flag.data().postViewsSeeded) return;
+    const posts = await db.collection('posts').get();
+    for (const p of posts.docs) {
+      const postId = p.id;
+      const uids = new Set();
+      const author = p.data().authorId || p.data().churchId;
+      if (author) uids.add(author);
+      (await db.collection('likes').where('postId', '==', postId).get())
+        .forEach((d) => { const u = d.data().userId; if (u) uids.add(u); });
+      (await db.collection('comments').where('postId', '==', postId).get())
+        .forEach((d) => { const u = d.data().userId; if (u) uids.add(u); });
+      const ids = [...uids];
+      for (let i = 0; i < ids.length; i += 400) {
+        const b = db.batch();
+        ids.slice(i, i + 400).forEach((uid) => b.set(
+          db.collection('postViews').doc(`${postId}_${uid}`),
+          { postId, userId: uid, createdAt: FieldValue.serverTimestamp() }, { merge: true }));
+        await b.commit();
+      }
+      const count = (await db.collection('postViews').where('postId', '==', postId).count().get()).data().count;
+      await p.ref.set({ views: count }, { merge: true }).catch(() => {});
+    }
+    await flagRef.set({ postViewsSeeded: true, postViewsSeededAt: FieldValue.serverTimestamp() }, { merge: true });
+    console.log(`backfillPostViews: seeded ${posts.size} posts`);
+  }
+);
+
 // Someone liked a comment -> tell the comment's author.
 exports.notifyOnCommentLike = onDocumentCreated('commentLikes/{likeId}', async (event) => {
   const like = event.data && event.data.data();
