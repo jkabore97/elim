@@ -3352,22 +3352,6 @@ function AppVersionPanel() {
     } catch { /* rules/offline */ } finally { setSaving(false) }
   }
 
-  // One-tap backfill of the like/view/share counters + the "last liker" name on
-  // every existing post, so posts that were liked before the feature shipped
-  // show "X et N autres" straight away instead of nothing.
-  const [backfilling, setBackfilling] = useState(false)
-  const [backfillMsg, setBackfillMsg] = useState('')
-  const runBackfill = async () => {
-    if (backfilling) return
-    setBackfilling(true); setBackfillMsg('')
-    try {
-      const res: any = await httpsCallable(functions, 'backfillPostEngagement')({})
-      setBackfillMsg(t('engagement.backfillDone').replace('{count}', String(res?.data?.posts ?? 0)))
-    } catch {
-      setBackfillMsg(t('engagement.backfillError'))
-    } finally { setBackfilling(false) }
-  }
-
   return (
     <div className="glass-soft rounded-2xl p-4 mb-4">
       <h3 className="font-bold text-slate-800 mb-1">{t('appVersion.title')}</h3>
@@ -3381,16 +3365,6 @@ function AppVersionPanel() {
           className="shrink-0 px-4 py-2.5 rounded-xl bg-affirm-600 text-white font-semibold text-sm disabled:opacity-50">
           {saved ? t('appVersion.saved') : t('appVersion.save')}
         </button>
-      </div>
-
-      <div className="mt-4 pt-4 border-t border-slate-200/70">
-        <p className="text-xs text-slate-500 mb-2">{t('engagement.backfillHint')}</p>
-        <button onClick={runBackfill} disabled={backfilling}
-          className="w-full px-4 py-2.5 rounded-xl bg-slate-800 text-white font-semibold text-sm disabled:opacity-50 flex items-center justify-center gap-2">
-          {backfilling ? <Loader2 size={15} className="animate-spin" /> : <Heart size={15} />}
-          {t('engagement.backfill')}
-        </button>
-        {backfillMsg && <p className="text-xs text-slate-500 mt-2">{backfillMsg}</p>}
       </div>
     </div>
   )
@@ -3952,9 +3926,11 @@ function PostCard({ post, onLike, onOpenComments, currentUser, isLiked, onEdit, 
     }
   }
 
-  // Count a view once the card has been meaningfully on screen — ≥60% visible
-  // for ~1.5s — rather than on every scroll-past. recordPostView is itself
-  // idempotent per device and skips the author, so this only ever writes once.
+  // Count a view once the card has been meaningfully on screen for ~1.2s,
+  // rather than on every scroll-past. A ratio test alone fails for posts taller
+  // than the screen (their ratio can never reach a high threshold), so we also
+  // accept a decent visible height. recordPostView is idempotent per device and
+  // skips the author, so this only ever writes once.
   const cardRef = useRef<HTMLElement>(null)
   useEffect(() => {
     const el = cardRef.current
@@ -3962,13 +3938,14 @@ function PostCard({ post, onLike, onOpenComments, currentUser, isLiked, onEdit, 
     let timer: ReturnType<typeof setTimeout> | null = null
     const io = new IntersectionObserver(entries => {
       const e = entries[0]
-      if (e.isIntersecting && e.intersectionRatio >= 0.6) {
+      const seen = e.isIntersecting && (e.intersectionRatio >= 0.5 || e.intersectionRect.height >= 200)
+      if (seen) {
         if (!timer) timer = setTimeout(() => {
           recordPostView(post.id, currentUserUid, post.authorId || post.churchId)
           io.disconnect()
-        }, 1500)
+        }, 1200)
       } else if (timer) { clearTimeout(timer); timer = null }
-    }, { threshold: [0, 0.6] })
+    }, { threshold: [0, 0.25, 0.5, 0.75, 1] })
     io.observe(el)
     return () => { if (timer) clearTimeout(timer); io.disconnect() }
   }, [post.id, currentUserUid, post.authorId, post.churchId])
@@ -4175,60 +4152,59 @@ function PostCard({ post, onLike, onOpenComments, currentUser, isLiked, onEdit, 
         </div>
       )}
 
-      {(likeLine || viewCount > 0) && (
-        <div className="flex items-center justify-between gap-3 px-4 pt-2.5 -mb-1">
-          <span className="text-[12px] text-slate-500 truncate min-w-0">
-            {likeLine && <><Heart size={12} className="inline -mt-0.5 mr-1 text-red-500" fill="currentColor" />{likeLine}</>}
-          </span>
-          {viewCount > 0 && (
-            <span className="text-[12px] text-slate-400 shrink-0 flex items-center gap-1">
-              <Eye size={13} /> {viewCount.toLocaleString()}
-            </span>
-          )}
+      <div className="px-4 py-3 border-t border-slate-50">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-5 relative">
+            <button onClick={handleLikeClick}
+              className={`flex items-center gap-1.5 text-sm font-medium transition ${
+                isLiked ? 'text-red-500' : 'text-slate-400 hover:text-red-500'}`}>
+              <Heart size={18} fill={isLiked ? 'currentColor' : 'none'} />
+              {post.likes || 0}
+            </button>
+            {likeError && (
+              <span className="absolute -top-7 left-0 text-[11px] font-medium text-red-500 bg-red-50 rounded-full px-2.5 py-1 whitespace-nowrap">
+                {t('post.couldntUpdate')}
+              </span>
+            )}
+            <button onClick={() => onOpenComments(post.id)}
+              className="flex items-center gap-1.5 text-sm font-medium text-slate-400 hover:text-affirm-600">
+              <MessageCircle size={18} />
+              {post.commentsCount || 0}
+            </button>
+            {viewCount > 0 && (
+              <span className="flex items-center gap-1.5 text-sm font-medium text-slate-400" title={t('post.views')}>
+                <Eye size={18} /> {viewCount.toLocaleString()}
+              </span>
+            )}
+          </div>
+          <div className="flex items-center gap-3">
+            {post.mediaUrl && ['text-image', 'audio', 'video', 'document'].includes(post.type) && (
+              <button onClick={() => downloadMedia(post.mediaUrl!, fileNameFor(post))}
+                aria-label={t('post.download')}
+                className="text-slate-300 hover:text-affirm-600">
+                <Download size={18} />
+              </button>
+            )}
+            {post.churchId !== currentUserUid && (
+              <button onClick={() => setReporting(true)} aria-label={t('report.action')} title={t('report.action')}
+                className="text-slate-300 hover:text-affirm-600">
+                <Flag size={17} />
+              </button>
+            )}
+            <button onClick={handleShare} className="relative flex items-center gap-1.5 text-sm font-medium text-slate-300 hover:text-affirm-600">
+              <Share2 size={18} />
+              {(post.shares || 0) > 0 && <span className="text-slate-400">{post.shares}</span>}
+              {shareCopied && (
+                <span className="absolute -top-8 right-0 text-[11px] font-medium text-affirm-700 bg-affirm-50 rounded-full px-2.5 py-1 whitespace-nowrap">
+                  {t('post.linkCopied')}
+                </span>
+              )}
+            </button>
+          </div>
         </div>
-      )}
-
-      <div className="flex items-center justify-between px-4 py-3 border-t border-slate-50">
-        <div className="flex items-center gap-5 relative">
-          <button onClick={handleLikeClick}
-            className={`flex items-center gap-1.5 text-sm font-medium transition ${
-              isLiked ? 'text-red-500' : 'text-slate-400 hover:text-red-500'}`}>
-            <Heart size={18} fill={isLiked ? 'currentColor' : 'none'} />
-            {post.likes || 0}
-          </button>
-          {likeError && (
-            <span className="absolute -top-7 left-0 text-[11px] font-medium text-red-500 bg-red-50 rounded-full px-2.5 py-1 whitespace-nowrap">
-              {t('post.couldntUpdate')}
-            </span>
-          )}
-          <button onClick={() => onOpenComments(post.id)}
-            className="flex items-center gap-1.5 text-sm font-medium text-slate-400 hover:text-affirm-600">
-            <MessageCircle size={18} />
-            {post.commentsCount || 0}
-          </button>
-        </div>
-        {post.mediaUrl && ['text-image', 'audio', 'video', 'document'].includes(post.type) && (
-          <button onClick={() => downloadMedia(post.mediaUrl!, fileNameFor(post))}
-            aria-label={t('post.download')}
-            className="text-slate-300 hover:text-affirm-600 mr-1">
-            <Download size={18} />
-          </button>
-        )}
-        {post.churchId !== currentUserUid && (
-          <button onClick={() => setReporting(true)} aria-label={t('report.action')} title={t('report.action')}
-            className="text-slate-300 hover:text-affirm-600 mr-3">
-            <Flag size={17} />
-          </button>
-        )}
-        <button onClick={handleShare} className="relative flex items-center gap-1.5 text-sm font-medium text-slate-300 hover:text-affirm-600">
-          <Share2 size={18} />
-          {(post.shares || 0) > 0 && <span className="text-slate-400">{post.shares}</span>}
-          {shareCopied && (
-            <span className="absolute -top-8 right-0 text-[11px] font-medium text-affirm-700 bg-affirm-50 rounded-full px-2.5 py-1 whitespace-nowrap">
-              {t('post.linkCopied')}
-            </span>
-          )}
-        </button>
+        {/* Simple social-proof text under the like button: "Awa aime cette
+            publication" / "Awa et N autres…". Only when a liker name is known. */}
+        {likeLine && <p className="text-[12px] text-slate-500 mt-2">{likeLine}</p>}
       </div>
       {lightbox && <ImageLightbox src={lightbox} onClose={() => setLightbox(null)} />}
       {reporting && (
