@@ -417,6 +417,54 @@ exports.notifyOnPostLike = onDocumentCreated('likes/{likeId}', async (event) => 
   });
 });
 
+// Keep posts.likes and the most-recent-liker fields honest. Recomputed from
+// the real `likes` documents on every like/unlike, so the count always equals
+// the number of like docs (self-healing, never a client guess) and the
+// "Awa and N others" line never goes stale when the last liker unlikes.
+exports.reconcilePostLikes = onDocumentWritten('likes/{likeId}', async (event) => {
+  const before = event.data.before.exists ? event.data.before.data() : null;
+  const after = event.data.after.exists ? event.data.after.data() : null;
+  const postId = (after && after.postId) || (before && before.postId);
+  if (!postId) return;
+  const db = getFirestore();
+  const col = db.collection('likes').where('postId', '==', postId);
+  const countSnap = await col.count().get();
+  const update = { likes: countSnap.data().count };
+  const recent = await col.orderBy('createdAt', 'desc').limit(1).get();
+  if (recent.empty) {
+    update.lastLikeName = FieldValue.delete();
+    update.lastLikeUid = FieldValue.delete();
+  } else {
+    const v = recent.docs[0].data();
+    update.lastLikeUid = v.userId || FieldValue.delete();
+    let name = v.userName;
+    if (!name && v.userId) {
+      const u = await db.collection('users').doc(v.userId).get();
+      name = u.exists ? (u.data().displayName || '') : '';
+    }
+    update.lastLikeName = name || FieldValue.delete();
+  }
+  await db.collection('posts').doc(postId).set(update, { merge: true }).catch(() => {});
+});
+
+// posts.views = the real number of unique postViews docs for the post.
+exports.reconcilePostViews = onDocumentCreated('postViews/{id}', async (event) => {
+  const v = event.data && event.data.data();
+  if (!v || !v.postId) return;
+  const db = getFirestore();
+  const c = await db.collection('postViews').where('postId', '==', v.postId).count().get();
+  await db.collection('posts').doc(v.postId).set({ views: c.data().count }, { merge: true }).catch(() => {});
+});
+
+// posts.shares = the real number of unique postShares docs for the post.
+exports.reconcilePostShares = onDocumentCreated('postShares/{id}', async (event) => {
+  const s = event.data && event.data.data();
+  if (!s || !s.postId) return;
+  const db = getFirestore();
+  const c = await db.collection('postShares').where('postId', '==', s.postId).count().get();
+  await db.collection('posts').doc(s.postId).set({ shares: c.data().count }, { merge: true }).catch(() => {});
+});
+
 // Someone liked a comment -> tell the comment's author.
 exports.notifyOnCommentLike = onDocumentCreated('commentLikes/{likeId}', async (event) => {
   const like = event.data && event.data.data();
@@ -912,7 +960,15 @@ async function syncDisplayName(db, uid, name) {
   const csnap = await db.collection('comments').where('userId', '==', uid).get();
   const cRefs = csnap.docs.filter((d) => (d.data().userName || '') !== name).map((d) => d.ref);
   await setField(cRefs, 'userName');
-  return { quiz: quizWrites, posts: postRefs.size, comments: cRefs.length };
+  // Likes (userName) — the denormalized liker name behind "Awa and N others".
+  const lsnap = await db.collection('likes').where('userId', '==', uid).get();
+  const lRefs = lsnap.docs.filter((d) => (d.data().userName || '') !== name).map((d) => d.ref);
+  await setField(lRefs, 'userName');
+  // Posts where this person is the shown most-recent liker.
+  const llsnap = await db.collection('posts').where('lastLikeUid', '==', uid).get();
+  const llRefs = llsnap.docs.filter((d) => (d.data().lastLikeName || '') !== name).map((d) => d.ref);
+  await setField(llRefs, 'lastLikeName');
+  return { quiz: quizWrites, posts: postRefs.size, comments: cRefs.length, likes: lRefs.length };
 }
 
 // Automatic: whenever a user's displayName actually changes, propagate it.

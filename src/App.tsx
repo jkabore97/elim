@@ -52,6 +52,7 @@ import type { Post, Comment, AppUser, ActivityLog, AppNotification, Announcement
 import { LanguageProvider, useLanguage, LANGUAGES, type Language } from './i18n'
 import { FR_COUNTRY, EN_PROFESSION, EN_INTEREST } from './labels'
 import { dialFor } from './countries'
+import { recordPostView, recordPostShare } from './engagement'
 
 function timeAgo(date: any) {
   if (!date) return ''
@@ -1892,7 +1893,7 @@ function AppInner() {
         logActivity(user, 'like_removed', detail)
       } else {
         batch.set(doc(db, 'likes', likeDocId), {
-          postId, userId: user.uid, createdAt: serverTimestamp()
+          postId, userId: user.uid, userName: user.displayName || '', createdAt: serverTimestamp()
         })
         batch.update(doc(db, 'posts', postId), { likes: increment(1) })
         await batch.commit()
@@ -3826,17 +3827,18 @@ function PostCard({ post, onLike, onOpenComments, currentUser, isLiked, onEdit, 
       // Native share sheet on Android/iOS.
       if (Capacitor.isNativePlatform()) {
         await Share.share({ title: shareTitle, text: shareText, url: shareUrl })
-        return
-      }
-      // Web Share API where supported (most mobile browsers).
-      if (navigator.share) {
+      } else if (navigator.share) {
+        // Web Share API where supported (most mobile browsers).
         await navigator.share({ title: shareTitle, text: shareText, url: shareUrl })
-        return
+      } else {
+        // Desktop browsers: copy to clipboard and confirm visually.
+        await navigator.clipboard.writeText(shareUrl)
+        setShareCopied(true)
+        setTimeout(() => setShareCopied(false), 2000)
       }
-      // Desktop browsers: copy to clipboard and confirm visually.
-      await navigator.clipboard.writeText(shareUrl)
-      setShareCopied(true)
-      setTimeout(() => setShareCopied(false), 2000)
+      // Reached only when the share/copy resolved (a cancelled share sheet
+      // throws and skips this): record it so the count reflects a real share.
+      recordPostShare(post.id, currentUserUid)
     } catch {
       // User dismissing the share sheet throws too - not worth surfacing
       // as an error, so this stays silent.
@@ -3886,8 +3888,51 @@ function PostCard({ post, onLike, onOpenComments, currentUser, isLiked, onEdit, 
     }
   }
 
+  // Count a view once the card has been meaningfully on screen — ≥60% visible
+  // for ~1.5s — rather than on every scroll-past. recordPostView is itself
+  // idempotent per device and skips the author, so this only ever writes once.
+  const cardRef = useRef<HTMLElement>(null)
+  useEffect(() => {
+    const el = cardRef.current
+    if (!el || typeof IntersectionObserver === 'undefined') return
+    let timer: ReturnType<typeof setTimeout> | null = null
+    const io = new IntersectionObserver(entries => {
+      const e = entries[0]
+      if (e.isIntersecting && e.intersectionRatio >= 0.6) {
+        if (!timer) timer = setTimeout(() => {
+          recordPostView(post.id, currentUserUid, post.authorId || post.churchId)
+          io.disconnect()
+        }, 1500)
+      } else if (timer) { clearTimeout(timer); timer = null }
+    }, { threshold: [0, 0.6] })
+    io.observe(el)
+    return () => { if (timer) clearTimeout(timer); io.disconnect() }
+  }, [post.id, currentUserUid, post.authorId, post.churchId])
+
+  // "Awa and 4 others like this" — social proof from the real like count plus
+  // the denormalized most-recent liker. The current user is named first ("You")
+  // when they're among the likers; if no name is known yet we fall back to a
+  // plain count.
+  const likeCount = post.likes || 0
+  const others = likeCount - 1
+  const fillName = (k: string, name?: string) =>
+    t(k as any).replace('{count}', String(others)).replace('{name}', name || '')
+  let likeLine = ''
+  if (likeCount > 0) {
+    if (isLiked) {
+      likeLine = likeCount === 1 ? t('post.likeYou')
+        : fillName(others === 1 ? 'post.likeYouOther' : 'post.likeYouOthers')
+    } else if (post.lastLikeName) {
+      likeLine = likeCount === 1 ? fillName('post.likeName', post.lastLikeName)
+        : fillName(others === 1 ? 'post.likeNameOther' : 'post.likeNameOthers', post.lastLikeName)
+    } else {
+      likeLine = t('post.likeCount').replace('{count}', String(likeCount))
+    }
+  }
+  const viewCount = post.views || 0
+
   return (
-    <article className="glass rounded-3xl shadow-sm border border-slate-100/80 overflow-hidden">
+    <article ref={cardRef} className="glass rounded-3xl shadow-sm border border-slate-100/80 overflow-hidden">
       <div className="flex items-center gap-3 p-4">
         {headAvatar ? (
           <img src={headAvatar} alt="" className="w-11 h-11 rounded-full object-cover shrink-0" />
@@ -4067,6 +4112,19 @@ function PostCard({ post, onLike, onOpenComments, currentUser, isLiked, onEdit, 
         </div>
       )}
 
+      {(likeLine || viewCount > 0) && (
+        <div className="flex items-center justify-between gap-3 px-4 pt-2.5 -mb-1">
+          <span className="text-[12px] text-slate-500 truncate min-w-0">
+            {likeLine && <><Heart size={12} className="inline -mt-0.5 mr-1 text-red-500" fill="currentColor" />{likeLine}</>}
+          </span>
+          {viewCount > 0 && (
+            <span className="text-[12px] text-slate-400 shrink-0 flex items-center gap-1">
+              <Eye size={13} /> {viewCount.toLocaleString()}
+            </span>
+          )}
+        </div>
+      )}
+
       <div className="flex items-center justify-between px-4 py-3 border-t border-slate-50">
         <div className="flex items-center gap-5 relative">
           <button onClick={handleLikeClick}
@@ -4099,8 +4157,9 @@ function PostCard({ post, onLike, onOpenComments, currentUser, isLiked, onEdit, 
             <Flag size={17} />
           </button>
         )}
-        <button onClick={handleShare} className="relative text-slate-300 hover:text-affirm-600">
+        <button onClick={handleShare} className="relative flex items-center gap-1.5 text-sm font-medium text-slate-300 hover:text-affirm-600">
           <Share2 size={18} />
+          {(post.shares || 0) > 0 && <span className="text-slate-400">{post.shares}</span>}
           {shareCopied && (
             <span className="absolute -top-8 right-0 text-[11px] font-medium text-affirm-700 bg-affirm-50 rounded-full px-2.5 py-1 whitespace-nowrap">
               {t('post.linkCopied')}

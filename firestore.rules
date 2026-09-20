@@ -394,6 +394,29 @@ service cloud.firestore {
       allow update: if false;
     }
 
+    // ---- Post views / shares ----
+    // One doc per postId+userId (ID "{postId}_{userId}"), exactly like likes:
+    // the per-user doc is the source of truth and a Cloud Function recomputes
+    // posts.views / posts.shares from the real number of these docs. A person
+    // can only ever write their own single doc per post, so the counts can't be
+    // inflated. Immutable once written; the count lives on the post, not here.
+    match /postViews/{viewId} {
+      allow read: if isSignedIn();
+      allow create: if isSignedIn()
+                    && request.resource.data.userId == request.auth.uid
+                    && viewId == (request.resource.data.postId + '_' + request.auth.uid);
+      allow update: if false;
+      allow delete: if isSignedIn() && (resource.data.userId == request.auth.uid || isAdmin());
+    }
+    match /postShares/{shareId} {
+      allow read: if isSignedIn();
+      allow create: if isSignedIn()
+                    && request.resource.data.userId == request.auth.uid
+                    && shareId == (request.resource.data.postId + '_' + request.auth.uid);
+      allow update: if false;
+      allow delete: if isSignedIn() && (resource.data.userId == request.auth.uid || isAdmin());
+    }
+
     // ---- App config (donation details, etc.) ----
     // Readable by any signed-in user (everyone sees how to give); only
     // admins/pastors can edit.
