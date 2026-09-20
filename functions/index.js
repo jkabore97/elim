@@ -174,11 +174,11 @@ function fillTemplate(str, vars) {
 
 // Returns { title, body } for an automatic notification, or null if an admin
 // has switched it off. `def` is the built-in default; `vars` fills placeholders.
-function resolveAuto(cfg, key, def, vars) {
+function resolveAuto(cfg, key, def, vars, maxBody = 500) {
   const c = (cfg && cfg[key]) || {};
   if (c.enabled === false) return null;
   const title = fillTemplate((c.title != null && String(c.title).trim()) ? c.title : def.title, vars).slice(0, 120);
-  const body = fillTemplate((c.body != null && String(c.body).trim()) ? c.body : def.body, vars).slice(0, 500);
+  const body = fillTemplate((c.body != null && String(c.body).trim()) ? c.body : def.body, vars).slice(0, maxBody);
   if (!title || !body) return null;
   return { title, body };
 }
@@ -1846,6 +1846,32 @@ async function topOfLeague(db, weekId, league) {
   return { uid: v.uid, name: (v.name || 'Un membre').toString().slice(0, 60), points: v.points };
 }
 
+// Top N of a league for a week (e.g. the grand-league podium), highest first.
+async function podiumOfLeague(db, weekId, league, n = 3) {
+  const snap = await db.collection('quizWeekly')
+    .where('weekId', '==', weekId).where('league', '==', league)
+    .orderBy('points', 'desc').limit(n).get();
+  return snap.docs
+    .map((d) => d.data())
+    .filter((v) => v.points > 0)
+    .map((v) => ({ uid: v.uid, name: (v.name || 'Un membre').toString().slice(0, 60), points: v.points }));
+}
+
+// French labels + emojis for the adult categories, for the weekly champion
+// message. Kept in sync with CATEGORY_META / quiz.cat.* on the client.
+const QUIZ_CAT_LABELS_FR = {
+  ot: '📜 Ancien Testament',
+  nt: '✝️ Nouveau Testament',
+  parables: '🌱 Paraboles de Jésus',
+  people: '👑 Personnages bibliques',
+  verses: '📖 Versets à compléter',
+  miracles: '✨ Miracles',
+  geography: '🗺️ Géographie biblique',
+  business: '💼 Principes des affaires',
+  morality: '⚖️ Moralité',
+};
+const PODIUM_MEDALS = ['🥇', '🥈', '🥉'];
+
 // Monday 08:00 church time: snapshot last week's category + grand champions
 // into the Palmarès, bump the grand champion's crown, and announce it.
 exports.weeklyCategoryChampions = onSchedule(
@@ -1889,11 +1915,22 @@ exports.weeklyCategoryChampions = onSchedule(
     if (!created) return; // another run already recorded this week; don't re-announce
 
     const catCount = Object.keys(categories).length;
+
+    // Build the message content: the overall top-3 podium and EVERY category
+    // champion by name. The podium is the grand league's top 3; categories lists
+    // only those that had a winner this week, in a fixed order.
+    const podium = await podiumOfLeague(db, weekId, 'grand', 3);
+    const top3 = podium.map((p, i) => `${PODIUM_MEDALS[i] || '•'} ${p.name}`).join(' · ');
+    const categoriesList = Object.keys(QUIZ_CAT_LABELS_FR)
+      .filter((cat) => categories[cat])
+      .map((cat) => `${QUIZ_CAT_LABELS_FR[cat]} : ${categories[cat].name}`)
+      .join('\n');
+
     const cfg = await loadAutoConfig(db);
     const m = resolveAuto(cfg, 'weeklyChampions', {
-      title: '🏆 Champion de la semaine',
-      body: "Bravo à {name} et à nos {count} champions par catégorie pour tout ce qu'ils ont appris dans la Parole cette semaine ! Une nouvelle semaine pour grandir dans la Bible commence. 📖",
-    }, { name: grand.name, count: catCount });
+      title: '🏆 Champions de la semaine',
+      body: "Top 3 : {top3}\n\nChampions par catégorie :\n{categories}\n\nBravo à tous pour ce que vous avez appris dans la Parole cette semaine ! Une nouvelle semaine pour grandir commence. 📖",
+    }, { name: grand.name, count: catCount, top3, categories: categoriesList }, 1200);
     // Recording/crowning already happened above; only the announcement is
     // editable/skippable.
     if (m) await broadcastPush(db, { title: m.title, body: m.body, data: { kind: 'quiz' } });
