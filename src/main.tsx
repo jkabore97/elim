@@ -6,13 +6,13 @@ import App from './App.tsx'
 import { ErrorBoundary } from './ErrorBoundary'
 
 // In the phone app the same live site renders noticeably larger than in a
-// desktop browser. Zoom the whole app to 90% on native only (via the viewport
-// scale, so it reflows to fill the screen with no gaps) — the browser keeps
-// its own scale untouched.
+// desktop browser. Zoom the whole app OUT to 90% on native only. CSS `zoom` on
+// the root enlarges the layout viewport and scales it down, so content reflows
+// to fill the screen exactly — smaller, with no horizontal panning and no gaps.
+// (The earlier viewport initial-scale approach widened the layout and caused
+// left/right scrolling — this doesn't.) The browser keeps its own scale.
 if (Capacitor.isNativePlatform()) {
-  const vp = document.querySelector('meta[name="viewport"]')
-  if (vp) vp.setAttribute('content',
-    'width=device-width, initial-scale=0.9, maximum-scale=0.9, user-scalable=no, viewport-fit=cover')
+  document.documentElement.style.zoom = '0.9'
 }
 
 createRoot(document.getElementById('root')!).render(
