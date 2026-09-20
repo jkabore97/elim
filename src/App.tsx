@@ -4638,8 +4638,13 @@ function CommentRow({ c, isReply, liked, likeCount, onLike, onReply, onReport, c
       <div className="flex-1 min-w-0">
         <div className="bg-slate-50 rounded-2xl px-3.5 py-2.5">
           <p className="text-sm font-semibold text-slate-800">{c.userName}</p>
-          <AutoTranslate text={c.text}
-            textClass="text-sm text-slate-600 break-words whitespace-pre-wrap" />
+          {c.mentionNames && c.mentionNames.length > 0 && (
+            <p className="text-sm font-semibold text-blue-600 break-words leading-snug">
+              {c.mentionNames.map(n => `@${n}`).join(' ')}
+            </p>
+          )}
+          {c.text && <AutoTranslate text={c.text}
+            textClass="text-sm text-slate-600 break-words whitespace-pre-wrap" />}
         </div>
         <div className="flex items-center gap-4 mt-1 ml-1">
           <span className="text-[11px] text-slate-400">{timeAgo(c.createdAt)}</span>
@@ -4679,7 +4684,9 @@ function CommentsSheet({ postId, comments, postAuthor, onClose, onAdd, onLikeCom
   const [text, setText] = useState('')
   const [sending, setSending] = useState(false)
   const [replyTo, setReplyTo] = useState<{ id: string; name: string } | null>(null)
-  const inputRef = useRef<HTMLInputElement>(null)
+  const inputRef = useRef<HTMLTextAreaElement>(null)
+  // People tagged in the comment being written, shown as blue removable chips.
+  const [mentions, setMentions] = useState<{ uid: string; name: string }[]>([])
   // Everyone in the app can be @mentioned. The full name list comes from a
   // callable (members can't read the users collection directly); the post
   // author + commenters are merged in as a fallback so mentions still work if
@@ -4699,26 +4706,36 @@ function CommentsSheet({ postId, comments, postAuthor, onClose, onAdd, onLikeCom
   const [mentionQuery, setMentionQuery] = useState<string | null>(null)
   const norm = (s: string) => s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '')
   const mentionMatches = mentionQuery === null ? []
-    : mentionCandidates.filter(c => norm(c.name).includes(norm(mentionQuery))).slice(0, 25)
+    : mentionCandidates
+        .filter(c => !mentions.some(m => m.uid === c.uid))
+        .filter(c => norm(c.name).includes(norm(mentionQuery)))
+        .slice(0, 25)
 
+  const autoGrow = () => {
+    const el = inputRef.current
+    if (el) { el.style.height = 'auto'; el.style.height = Math.min(el.scrollHeight, 128) + 'px' }
+  }
   // Recompute the active @token from the text up to the caret.
   const onType = (value: string) => {
     setText(value)
+    requestAnimationFrame(autoGrow)
     const caret = inputRef.current?.selectionStart ?? value.length
-    const before = value.slice(0, caret)
-    const m = /@([^@\n]{0,40})$/.exec(before)
+    const m = /@([^@\n]{0,40})$/.exec(value.slice(0, caret))
     setMentionQuery(m ? m[1] : null)
   }
+  // Picking a name turns the half-typed "@query" into a blue chip above the box
+  // (removable as a whole) rather than leaving plain "@Name" text in the field.
   const pickMention = (c: { uid: string; name: string }) => {
     const el = inputRef.current
     const caret = el?.selectionStart ?? text.length
-    const before = text.slice(0, caret).replace(/@([^@\n]{0,40})$/, `@${c.name} `)
+    const before = text.slice(0, caret).replace(/@([^@\n]{0,40})$/, '')
     const next = before + text.slice(caret)
     setText(next)
+    setMentions(prev => prev.some(m => m.uid === c.uid) ? prev : [...prev, c])
     setMentionQuery(null)
-    // Restore focus + caret after the inserted mention.
-    requestAnimationFrame(() => { el?.focus(); const p = before.length; el?.setSelectionRange(p, p) })
+    requestAnimationFrame(() => { el?.focus(); const p = before.length; el?.setSelectionRange(p, p); autoGrow() })
   }
+  const removeMention = (uid: string) => setMentions(prev => prev.filter(m => m.uid !== uid))
   // Optimistic like overrides keyed by commentId, so the heart responds on tap
   // instead of waiting for the server round-trip. Reverted if the write fails.
   const [likeOverride, setLikeOverride] = useState<Record<string, boolean>>({})
@@ -4753,18 +4770,20 @@ function CommentsSheet({ postId, comments, postAuthor, onClose, onAdd, onLikeCom
 
   const submit = async () => {
     const value = text.trim()
-    if (!value || sending) return
+    // A comment needs some text OR at least one tag to be worth sending.
+    if ((!value && mentions.length === 0) || sending) return
     const parentId = replyTo?.id
-    // Mentions = candidates whose "@Name" is still present in the final text.
-    const mentions = mentionCandidates.filter(c => value.includes('@' + c.name))
+    const tagged = mentions
     setText('')
+    setMentions([])
     setMentionQuery(null)
     setSending(true)
     try {
-      await onAdd(value, parentId, mentions)
+      await onAdd(value, parentId, tagged)
       setReplyTo(null)
+      requestAnimationFrame(autoGrow)
     } catch {
-      setText(value)       // restore so a failed send doesn't lose the text
+      setText(value); setMentions(tagged)   // restore on failure
     } finally {
       setSending(false)
     }
@@ -4808,27 +4827,42 @@ function CommentsSheet({ postId, comments, postAuthor, onClose, onAdd, onLikeCom
               </button>
             </div>
           )}
-          {/* @mention picker — people in this conversation. */}
+          {/* @mention picker — a compact card that sits just above the box. */}
           {mentionMatches.length > 0 && (
-            <div className="mb-2 rounded-2xl border border-slate-200 bg-white shadow-lg overflow-hidden max-h-44 overflow-y-auto">
-              <p className="px-3.5 pt-2 pb-1 text-[10px] font-bold uppercase tracking-wide text-slate-400">{t('comments.mentionTitle')}</p>
-              {mentionMatches.map(c => (
-                <button key={c.uid} type="button" onMouseDown={e => { e.preventDefault(); pickMention(c) }}
-                  className="w-full flex items-center gap-2.5 px-3.5 py-2 text-left hover:bg-affirm-500/10">
-                  <span className="w-7 h-7 rounded-full bg-affirm-100 flex items-center justify-center text-affirm-700 font-semibold text-xs shrink-0">{c.name.charAt(0)}</span>
-                  <span className="text-sm text-slate-700 truncate">{c.name}</span>
-                </button>
+            <div className="mb-2 rounded-2xl border border-slate-200 bg-white shadow-xl overflow-hidden">
+              <p className="px-3.5 pt-2.5 pb-1 text-[10px] font-bold uppercase tracking-wide text-slate-400">{t('comments.mentionTitle')}</p>
+              <div className="max-h-40 overflow-y-auto pb-1">
+                {mentionMatches.map(c => (
+                  <button key={c.uid} type="button" onMouseDown={e => { e.preventDefault(); pickMention(c) }}
+                    className="w-full flex items-center gap-2.5 px-3.5 py-2 text-left hover:bg-affirm-500/10">
+                    <span className="w-7 h-7 rounded-full bg-affirm-100 flex items-center justify-center text-affirm-700 font-semibold text-xs shrink-0">{c.name.charAt(0)}</span>
+                    <span className="text-sm text-slate-700 truncate">{c.name}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+          {/* Chosen tags — blue, each removable as a whole. */}
+          {mentions.length > 0 && (
+            <div className="flex flex-wrap gap-1.5 mb-2">
+              {mentions.map(m => (
+                <span key={m.uid} className="inline-flex items-center gap-1 bg-blue-100 text-blue-700 rounded-full pl-2.5 pr-1.5 py-1 text-xs font-semibold">
+                  @{m.name}
+                  <button type="button" onClick={() => removeMention(m.uid)} aria-label="×"
+                    className="w-4 h-4 rounded-full hover:bg-blue-200 flex items-center justify-center">
+                    <X size={11} />
+                  </button>
+                </span>
               ))}
             </div>
           )}
-          <div className="flex gap-2">
-            <input ref={inputRef} value={text}
+          <div className="flex gap-2 items-end">
+            <textarea ref={inputRef} value={text} rows={1}
               onChange={e => onType(e.target.value)}
-              onKeyUp={e => onType((e.target as HTMLInputElement).value)}
+              onKeyUp={e => onType((e.target as HTMLTextAreaElement).value)}
               placeholder={replyTo ? t('comments.replyPlaceholder') : t('comments.writePlaceholder')}
-              className="flex-1 bg-slate-100 rounded-full px-5 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-affirm-400"
-              onKeyDown={e => { if (e.key === 'Enter' && mentionMatches.length === 0) submit() }} />
-            <button onClick={submit} disabled={!text.trim() || sending}
+              className="flex-1 bg-slate-100 rounded-3xl px-5 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-affirm-400 resize-none max-h-32 leading-snug" />
+            <button onClick={submit} disabled={(!text.trim() && mentions.length === 0) || sending}
               className="w-11 h-11 rounded-full bg-affirm-600 text-white flex items-center justify-center shadow-lg shadow-affirm-200 disabled:opacity-40 shrink-0">
               <Send size={16} />
             </button>
