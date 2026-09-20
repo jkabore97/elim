@@ -3021,6 +3021,21 @@ function AdminPasswordPanel() {
             className="w-full py-3 rounded-2xl bg-affirm-600 text-white font-semibold text-sm disabled:opacity-60 flex items-center justify-center gap-2">
             {busy ? <Loader2 size={16} className="animate-spin" /> : null} {t('pwreset.set')}
           </button>
+          {/* Push a name changed in the database out to the leaderboards, posts
+              and comments (which each stored a copy of the old name). */}
+          <button onClick={async () => {
+            if (busy) return
+            setBusy(true); setErr(''); setDone('')
+            try {
+              const res: any = await httpsCallable(functions, 'adminResyncName')({ uid: picked.uid })
+              const d = res?.data || {}
+              setDone(t('pwreset.resyncDone').replace('{name}', d.name || picked.name))
+            } catch (e: any) { setErr(e?.message || t('pwreset.failed')) }
+            finally { setBusy(false) }
+          }} disabled={busy}
+            className="w-full py-2.5 rounded-2xl bg-slate-100 text-slate-700 font-semibold text-sm disabled:opacity-60">
+            {t('pwreset.resync')}
+          </button>
         </>
       )}
       {err && <p className="text-sm text-red-600 bg-red-50 rounded-xl px-3 py-2">{err}</p>}

@@ -497,6 +497,8 @@ const fr = {
   "pwreset.set": 'Définir le nouveau code',
   "pwreset.done": 'Nouveau code défini pour {name} : {code} — communiquez-le-lui.',
   "pwreset.failed": 'Échec. Réessayez.',
+  "pwreset.resync": 'Synchroniser le nom (scores & publications)',
+  "pwreset.resyncDone": 'Nom synchronisé partout pour {name}.',
   "quizsound.tab": 'Sons du quiz',
   "quizsound.title": 'Sons du quiz',
   "quizsound.intro": 'Choisissez le son joué pour chaque événement du quiz. Appuyez sur ▶ pour écouter.',

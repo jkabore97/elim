@@ -879,28 +879,75 @@ exports.stripDobToPrivate = onDocumentWritten(
 // read per write, and it only writes when there's an actual mismatch — so it
 // also back-fills a rename that happened before this function existed, the next
 // time that user's doc is touched (their own app open re-writes it).
+// Sync a user's name to every place the app copied it at write time: the quiz
+// score docs (career profile, weekly rows, kids rows), plus posts (authorName)
+// and comments (userName). Only stale docs are written. Shared by the automatic
+// trigger and the admin "resync" button. Returns what it touched.
+async function syncDisplayName(db, uid, name) {
+  const setField = async (refs, field) => {
+    for (let i = 0; i < refs.length; i += 450) {
+      const b = db.batch();
+      refs.slice(i, i + 450).forEach((r) => b.update(r, { [field]: name }));
+      await b.commit();
+    }
+  };
+  // Quiz.
+  const prof = await db.collection('quizProfiles').doc(uid).get();
+  const qb = db.batch();
+  let quizWrites = 0;
+  if (prof.exists && (prof.data().displayName || '') !== name) { qb.set(prof.ref, { displayName: name }, { merge: true }); quizWrites++; }
+  const weekly = await db.collection('quizWeekly').where('uid', '==', uid).get();
+  weekly.forEach((d) => { if ((d.data().name || '') !== name) { qb.update(d.ref, { name }); quizWrites++; } });
+  const kids = await db.collection('quizKids').where('uid', '==', uid).get();
+  kids.forEach((d) => { if ((d.data().parentName || '') !== name) { qb.update(d.ref, { parentName: name }); quizWrites++; } });
+  if (quizWrites) await qb.commit();
+  // Posts (authorName) — modern authorId + legacy churchId.
+  const postRefs = new Map();
+  for (const field of ['authorId', 'churchId']) {
+    const snap = await db.collection('posts').where(field, '==', uid).get();
+    snap.forEach((d) => { const an = d.data().authorName; if (an != null && an !== name) postRefs.set(d.id, d.ref); });
+  }
+  await setField([...postRefs.values()], 'authorName');
+  // Comments (userName).
+  const csnap = await db.collection('comments').where('userId', '==', uid).get();
+  const cRefs = csnap.docs.filter((d) => (d.data().userName || '') !== name).map((d) => d.ref);
+  await setField(cRefs, 'userName');
+  return { quiz: quizWrites, posts: postRefs.size, comments: cRefs.length };
+}
+
+// Automatic: whenever a user's displayName actually changes, propagate it.
 exports.propagateDisplayName = onDocumentWritten(
   { region: 'us-central1', document: 'users/{uid}' },
   async (event) => {
+    const before = event.data.before.exists ? event.data.before.data() : null;
     const after = event.data.after.exists ? event.data.after.data() : null;
     if (!after) return;
-    const uid = event.params.uid;
     const name = (after.displayName || '').toString().slice(0, 80);
     if (!name) return;
-    const db = getFirestore();
-    const prof = await db.collection('quizProfiles').doc(uid).get();
-    if (!prof.exists) return;                                   // never played the quiz
-    if ((prof.data().displayName || '') === name) return;        // already in sync
-    const batch = db.batch();
-    batch.set(prof.ref, { displayName: name }, { merge: true });
-    const weekly = await db.collection('quizWeekly').where('uid', '==', uid).get();
-    weekly.forEach((d) => { if ((d.data().name || '') !== name) batch.update(d.ref, { name }); });
-    const kids = await db.collection('quizKids').where('uid', '==', uid).get();
-    kids.forEach((d) => { if ((d.data().parentName || '') !== name) batch.update(d.ref, { parentName: name }); });
-    await batch.commit();
-    console.log(`propagateDisplayName: synced quiz name for ${uid} -> "${name}"`);
+    if (before && (before.displayName || '') === name) return; // name didn't change
+    const r = await syncDisplayName(getFirestore(), event.params.uid, name);
+    console.log(`propagateDisplayName: ${event.params.uid} -> "${name}"`, r);
   }
 );
+
+// Manual: an admin resyncs a chosen user's name everywhere — for a rename made
+// (e.g. directly in the database) before the automatic trigger could catch it.
+exports.adminResyncName = onCall({ region: 'us-central1' }, async (request) => {
+  if (!request.auth) throw new HttpsError('unauthenticated', 'Sign in first.');
+  const db = getFirestore();
+  const me = await db.collection('users').doc(request.auth.uid).get();
+  if (!['admin', 'pastor'].includes(me.exists ? me.data().role : null)) {
+    throw new HttpsError('permission-denied', 'Admins only.');
+  }
+  const uid = String(request.data?.uid || '').trim();
+  if (!uid) throw new HttpsError('invalid-argument', 'No user selected.');
+  const target = await db.collection('users').doc(uid).get();
+  if (!target.exists) throw new HttpsError('not-found', 'That user no longer exists.');
+  const name = (target.data().displayName || '').toString().slice(0, 80);
+  if (!name) throw new HttpsError('failed-precondition', 'That user has no name set.');
+  const r = await syncDisplayName(db, uid, name);
+  return { ok: true, name, ...r };
+});
 
 exports.translateContent = onCall({ region: 'us-central1' }, async (request) => {
   if (!request.auth) {
