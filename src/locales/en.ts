@@ -383,6 +383,7 @@ const en = {
   "landing.heroLine2": 'church family.',
   "landing.heroSubtitle": 'ELIM brings sermons, updates, and encouragement from your church straight to your pocket — photos, audio, video, and real conversation, all in one gentle, focused space.',
   "landing.getStarted": 'Get Started',
+  "landing.haveAccount": 'I already have an account',
   "landing.getStartedFree": 'Get Started Free',
   "landing.downloadApp": 'Download the app',
   "landing.downloadHint": 'Get the app for the best experience',
