@@ -269,20 +269,11 @@ function ageFrom(isoDate: string): number {
   return age
 }
 
-// The latest date of birth that still satisfies the 13+ rule. Fed to the
-// date input's max attribute so the picker simply won't offer anything
-// younger - stopping the mistake rather than reporting it afterwards.
-function maxDobForAge(minAge: number): string {
-  const d = new Date()
-  d.setFullYear(d.getFullYear() - minAge)
-  return d.toISOString().split('T')[0]
-}
-
 function AuthForm({ onSuccess, initialMode = 'login' }: {
   onSuccess: (user: AppUser) => void
   initialMode?: 'login' | 'register'
 }) {
-  const { t } = useLanguage()
+  const { t, language } = useLanguage()
   const [mode, setMode] = useState<'login' | 'register'>(initialMode)
   const [accountType, setAccountType] = useState<'member' | 'church'>('member')
 
@@ -290,17 +281,27 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
 
-  // Phone — used by: member signup, member login, church signup
-  const [countryCode, setCountryCode] = useState('+226')
+  // Phone — used by: member signup, member login, church signup.
+  // Defaults to the device's country so a member abroad (or in a neighbouring
+  // country) isn't stuck on +226 and forced to hunt for their own code.
+  const localeDefault = useMemo(() => defaultCountryEntry(), [])
+  const [countryCode, setCountryCode] = useState(localeDefault.code)
   const [phone, setPhone] = useState('')
 
   // Member-only
   // Empty, not 'other': with the "no church" option gone there is no valid
   // default, so this starts blank and the field is required.
-  const [dateOfBirth, setDateOfBirth] = useState('')
+  // Birthday is entered as three separate day/month/year pickers (typeable
+  // and unambiguous for everyone) and composed into an ISO date.
+  const [dobDay, setDobDay] = useState('')
+  const [dobMonth, setDobMonth] = useState('')
+  const [dobYear, setDobYear] = useState('')
+  const dateOfBirth = (dobDay && dobMonth && dobYear)
+    ? `${dobYear}-${dobMonth.padStart(2, '0')}-${dobDay.padStart(2, '0')}`
+    : ''
   const [gender, setGender] = useState<'homme' | 'femme' | ''>('')
   const [profession, setProfession] = useState('')
-  const [signupCountry, setSignupCountry] = useState('Burkina Faso')
+  const [signupCountry, setSignupCountry] = useState(localeDefault.country)
   const [signupCity, setSignupCity] = useState('')
   const [quartier, setQuartier] = useState('')
   const [interests, setInterests] = useState<string[]>([])
@@ -360,6 +361,42 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
 
   const inputClass = "w-full px-4 py-3.5 rounded-2xl glass-input text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-affirm-400/60 focus:border-affirm-400/60 text-[15px]"
   const selectClass = inputClass + " appearance-none"
+
+  // Birthday pickers. Three plain selects (day / month / year) instead of a
+  // single native date field: on the low-end Android phones most members use,
+  // the date popup is fiddly and only reaches back a few years by default, so
+  // people couldn't get to their birth year at all. Selects are typeable,
+  // never locale-ambiguous (no DD/MM vs MM/DD), and everyone understands them.
+  const monthNames = useMemo(() => {
+    const fmt = new Intl.DateTimeFormat(language || 'fr', { month: 'long' })
+    return Array.from({ length: 12 }, (_, i) => {
+      const label = fmt.format(new Date(2000, i, 1))
+      return { value: String(i + 1), label: label.charAt(0).toUpperCase() + label.slice(1) }
+    })
+  }, [language])
+  const dobYears = useMemo(() => {
+    const max = new Date().getFullYear() - 13   // 13+ rule, matches the check below
+    const years: number[] = []
+    for (let y = max; y >= 1900; y--) years.push(y)
+    return years
+  }, [])
+  const dobDays = useMemo(() => Array.from({ length: 31 }, (_, i) => i + 1), [])
+
+  // French display name for the full country list. The device country is used
+  // as the default, but people still need to recognise their own country in
+  // the list rather than hunting for an English name.
+  const countryLabel = (name: string) => (language === 'fr' || !language)
+    ? (FR_COUNTRY[name] || name) : name
+  const countryOptions = useMemo(() => {
+    return [...COUNTRIES]
+      .map(name => ({ value: name, label: countryLabel(name) }))
+      .sort((a, b) => a.label.localeCompare(b.label, language || 'fr'))
+  }, [language])
+  // Dial-code picker, alphabetical by (French) name so a member can find
+  // their own country instead of scanning a code-only list.
+  const dialOptions = useMemo(() =>
+    [...COUNTRY_CODES].sort((a, b) => a.name.localeCompare(b.name, language || 'fr'))
+  , [language])
 
   // The church picker needs to be readable before anyone is signed in —
   // fetched once when member+register is selected (churchDirectory is a
@@ -506,27 +543,27 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
 
   return (
     <div>
-      <div className="flex bg-white/5 border border-white/10 rounded-2xl p-1 mb-5">
+      <div className="flex seg-track rounded-2xl p-1 mb-5">
         <button onClick={() => switchMode('login')}
-          className={`flex-1 py-2.5 rounded-xl text-sm font-semibold transition ${mode === 'login' ? 'bg-white text-slate-800 shadow-sm' : 'text-slate-500'}`}>
+          className={`flex-1 py-2.5 rounded-xl text-sm font-semibold transition ${mode === 'login' ? 'seg-item-active' : 'seg-item'}`}>
           {t('auth.signIn')}
         </button>
         <button onClick={() => switchMode('register')}
-          className={`flex-1 py-2.5 rounded-xl text-sm font-semibold transition ${mode === 'register' ? 'bg-white text-slate-800 shadow-sm' : 'text-slate-500'}`}>
+          className={`flex-1 py-2.5 rounded-xl text-sm font-semibold transition ${mode === 'register' ? 'seg-item-active' : 'seg-item'}`}>
           {t('auth.createAccount')}
         </button>
       </div>
 
-      <p className="text-xs font-semibold text-slate-500 mb-2 px-1">{t('auth.iAmA')}</p>
+      <p className="text-xs font-semibold field-label mb-2 px-1">{t('auth.iAmA')}</p>
       <div className="flex gap-3 mb-6">
         <button onClick={() => { setAccountType('member'); setError('') }}
-          className={`flex-1 py-3 rounded-2xl border-2 text-sm font-medium transition ${
-            accountType === 'member' ? 'border-affirm-500 bg-affirm-500/10 text-affirm-700' : 'border-white/10 text-slate-400'}`}>
+          className={`flex-1 py-3 rounded-2xl text-sm font-medium transition ${
+            accountType === 'member' ? 'opt-btn-active' : 'opt-btn'}`}>
           {t('auth.memberSignIn')}
         </button>
         <button onClick={() => { setAccountType('church'); setError('') }}
-          className={`flex-1 py-3 rounded-2xl border-2 text-sm font-medium transition ${
-            accountType === 'church' ? 'border-affirm-500 bg-affirm-500/10 text-affirm-700' : 'border-white/10 text-slate-400'}`}>
+          className={`flex-1 py-3 rounded-2xl text-sm font-medium transition ${
+            accountType === 'church' ? 'opt-btn-active' : 'opt-btn'}`}>
           {t('auth.churchSignIn')}
         </button>
       </div>
@@ -539,7 +576,7 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
 
       <form onSubmit={handleSubmit} className="space-y-4">
         {mode === 'register' && (
-          <p className="text-[11px] text-slate-500 px-1 -mb-1">{t('auth.allRequired')}</p>
+          <p className="text-[11px] field-hint px-1 -mb-1">{t('auth.allRequired')}</p>
         )}
 
         {mode === 'register' && (
@@ -554,30 +591,44 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
         {mode === 'register' && (
           <>
             <div>
-              <label className="text-xs font-semibold text-slate-400 px-1 mb-1.5 block">
-                {t('auth.dateOfBirth')}
+              <label className="text-xs font-semibold field-label px-1 mb-1.5 block">
+                {t('auth.dateOfBirth')} <span className="text-affirm-400">*</span>
               </label>
-              <input required type="date" value={dateOfBirth}
-                onChange={e => setDateOfBirth(e.target.value)}
-                max={maxDobForAge(13)}
-                min="1900-01-01"
-                className={inputClass} />
-              <p className="text-[11px] text-slate-500 mt-1.5 px-1 leading-relaxed">
+              {/* Day / Month / Year — see monthNames/dobYears above for why. */}
+              <div className="flex gap-2">
+                <select required aria-label={t('auth.dobDay')} value={dobDay}
+                  onChange={e => setDobDay(e.target.value)}
+                  className={selectClass + " flex-[0_0_28%]"}>
+                  <option value="" disabled>{t('auth.dobDay')}</option>
+                  {dobDays.map(d => <option key={d} value={d}>{d}</option>)}
+                </select>
+                <select required aria-label={t('auth.dobMonth')} value={dobMonth}
+                  onChange={e => setDobMonth(e.target.value)}
+                  className={selectClass + " flex-1"}>
+                  <option value="" disabled>{t('auth.dobMonth')}</option>
+                  {monthNames.map(m => <option key={m.value} value={m.value}>{m.label}</option>)}
+                </select>
+                <select required aria-label={t('auth.dobYear')} value={dobYear}
+                  onChange={e => setDobYear(e.target.value)}
+                  className={selectClass + " flex-[0_0_28%]"}>
+                  <option value="" disabled>{t('auth.dobYear')}</option>
+                  {dobYears.map(y => <option key={y} value={y}>{y}</option>)}
+                </select>
+              </div>
+              <p className="text-[11px] field-hint mt-1.5 px-1 leading-relaxed">
                 {t('auth.ageNotice')}
               </p>
             </div>
 
             <div>
-              <label className="text-xs font-semibold text-slate-400 px-1 mb-1.5 block">
+              <label className="text-xs font-semibold field-label px-1 mb-1.5 block">
                 {t('auth.gender')} <span className="text-affirm-400">*</span>
               </label>
               <div className="flex gap-3">
                 {(['homme', 'femme'] as const).map(g => (
                   <button key={g} type="button" onClick={() => setGender(g)}
-                    className={`flex-1 py-3 rounded-2xl border-2 text-sm font-medium transition ${
-                      gender === g
-                        ? 'border-affirm-500 bg-affirm-500/10 text-affirm-700'
-                        : 'border-white/10 text-slate-400'}`}>
+                    className={`flex-1 py-3 rounded-2xl text-sm font-medium transition ${
+                      gender === g ? 'opt-btn-active' : 'opt-btn'}`}>
                     {t(g === 'homme' ? 'auth.male' : 'auth.female')}
                   </button>
                 ))}
@@ -591,7 +642,7 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
 
             <select required value={signupCountry} onChange={e => setSignupCountry(e.target.value)} className={selectClass}>
               <option value="" disabled>{t('auth.country')}</option>
-              {COUNTRIES.map(c => <option key={c} value={c}>{c}</option>)}
+              {countryOptions.map(c => <option key={c.value} value={c.value}>{c.label}</option>)}
             </select>
 
             <div className="flex gap-3">
@@ -602,7 +653,7 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
             </div>
 
             <div>
-              <label className="text-xs font-semibold text-slate-400 px-1 mb-1.5 block">
+              <label className="text-xs font-semibold field-label px-1 mb-1.5 block">
                 {t('auth.interests')} <span className="text-affirm-400">*</span>
               </label>
               {/* Multi-select as chips rather than a <select multiple>, which is
@@ -614,17 +665,15 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
                     <button key={item} type="button"
                       onClick={() => setInterests(prev =>
                         on ? prev.filter(i => i !== item) : [...prev, item])}
-                      className={`px-3 py-1.5 rounded-full text-xs font-medium border transition ${
-                        on
-                          ? 'border-affirm-400 bg-affirm-500/15 text-affirm-700'
-                          : 'border-slate-200 text-slate-500 hover:text-slate-700 hover:border-slate-300'}`}>
+                      className={`px-3 py-1.5 rounded-full text-xs font-medium transition ${
+                        on ? 'chip-btn-active' : 'chip-btn'}`}>
                       {item}
                     </button>
                   )
                 })}
               </div>
               <p className={`text-[11px] mt-2 px-1 ${
-                interests.length === 0 ? 'text-amber-600' : 'text-slate-500'}`}>
+                interests.length === 0 ? 'text-amber-600' : 'field-hint'}`}>
                 {interests.length === 0 ? t('auth.interestsRequired') : t('auth.interestsHint')}
               </p>
             </div>
@@ -635,13 +684,29 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
 
         {(accountType === 'member' || mode === 'register') && (
           <div className="space-y-2">
+            {mode === 'register' && (
+              <label className="text-xs font-semibold field-label px-1 block">
+                {t('auth.phoneLabel')}
+              </label>
+            )}
+            {/* Country picked by full name (defaults to the device's country),
+                so the dial code is set for the member — they never have to
+                know or change it themselves. */}
+            <select value={countryCode} onChange={e => setCountryCode(e.target.value)}
+              aria-label={t('auth.country')} className={selectClass}>
+              {dialOptions.map(c => (
+                <option key={c.region} value={c.code}>{c.name} ({c.code})</option>
+              ))}
+            </select>
+            {/* National number only — the code above is shown as a fixed badge
+                so people don't retype it. If they paste a full +226… number
+                anyway, stripDialCode drops the code for them. */}
             <div className="flex gap-2">
-              <select value={countryCode} onChange={e => setCountryCode(e.target.value)}
-                aria-label={t('auth.country')}
-                className="w-[104px] shrink-0 px-3 py-3.5 rounded-2xl glass-input text-slate-800 font-medium focus:outline-none focus:ring-2 focus:ring-affirm-400/60 focus:border-affirm-400/60 text-[15px] appearance-none text-center">
-                {COUNTRY_CODES.map(c => <option key={c.name} value={c.code}>{c.code}</option>)}
-              </select>
-              <input required type="tel" value={phone} onChange={e => setPhone(e.target.value)}
+              <span className="code-badge shrink-0 flex items-center px-3 rounded-2xl font-medium text-[15px]">
+                {countryCode}
+              </span>
+              <input required type="tel" inputMode="tel" value={phone}
+                onChange={e => setPhone(stripDialCode(e.target.value, countryCode))}
                 placeholder={t('auth.phoneNumber')} className={inputClass} />
             </div>
 
@@ -650,11 +715,16 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
                 {/* Typed twice on purpose, and paste is blocked. For a member
                     the phone number IS the login, so one typo locks them out of
                     the account they just made with no email to recover it. */}
-                <input required type="tel" value={confirmPhone}
-                  onChange={e => setConfirmPhone(e.target.value)}
-                  onPaste={e => e.preventDefault()}
-                  placeholder={t('auth.confirmPhone')}
-                  className={inputClass} />
+                <div className="flex gap-2">
+                  <span className="code-badge shrink-0 flex items-center px-3 rounded-2xl font-medium text-[15px]">
+                    {countryCode}
+                  </span>
+                  <input required type="tel" inputMode="tel" value={confirmPhone}
+                    onChange={e => setConfirmPhone(stripDialCode(e.target.value, countryCode))}
+                    onPaste={e => e.preventDefault()}
+                    placeholder={t('auth.confirmPhone')}
+                    className={inputClass} />
+                </div>
                 {confirmPhone.trim() !== '' && sanitizeDigits(phone) !== sanitizeDigits(confirmPhone) && (
                   <p className="text-[11px] text-amber-600 px-1">{t('auth.phonesDontMatch')}</p>
                 )}
@@ -2419,6 +2489,41 @@ const COUNTRIES = [
   'Uzbekistan', 'Vanuatu', 'Vatican City', 'Venezuela', 'Vietnam', 'Yemen', 'Zambia', 'Zimbabwe'
 ]
 
+// French names for the countries the ELIM community is actually spread across
+// (francophone Africa plus the diaspora) and the other most common ones.
+// Anything not listed falls back to its English name in COUNTRIES, so the
+// list is never broken — only progressively better. Keys are the exact
+// English strings in COUNTRIES; the stored value stays the English key so
+// existing profiles and filters keep working.
+const FR_COUNTRY: Record<string, string> = {
+  'Burkina Faso': 'Burkina Faso', 'Ivory Coast': "Côte d'Ivoire", 'Mali': 'Mali',
+  'Niger': 'Niger', 'Senegal': 'Sénégal', 'Ghana': 'Ghana', 'Togo': 'Togo',
+  'Benin': 'Bénin', 'Guinea': 'Guinée', 'Guinea-Bissau': 'Guinée-Bissau',
+  'Sierra Leone': 'Sierra Leone', 'Liberia': 'Libéria', 'Gambia': 'Gambie',
+  'Mauritania': 'Mauritanie', 'Nigeria': 'Nigéria', 'Cameroon': 'Cameroun',
+  'Chad': 'Tchad', 'Gabon': 'Gabon', 'Congo (Brazzaville)': 'Congo (Brazzaville)',
+  'Democratic Republic of the Congo': 'République démocratique du Congo',
+  'Central African Republic': 'République centrafricaine', 'Morocco': 'Maroc',
+  'Algeria': 'Algérie', 'Tunisia': 'Tunisie', 'Egypt': 'Égypte',
+  'South Africa': 'Afrique du Sud', 'Kenya': 'Kenya', 'Rwanda': 'Rwanda',
+  'Burundi': 'Burundi', 'Cabo Verde': 'Cap-Vert', 'Djibouti': 'Djibouti',
+  'Madagascar': 'Madagascar', 'Comoros': 'Comores', 'Equatorial Guinea': 'Guinée équatoriale',
+  'Sao Tome and Principe': 'Sao Tomé-et-Principe', 'Angola': 'Angola',
+  'Mozambique': 'Mozambique', 'Tanzania': 'Tanzanie', 'Uganda': 'Ouganda',
+  'Ethiopia': 'Éthiopie', 'Somalia': 'Somalie', 'Sudan': 'Soudan',
+  'South Sudan': 'Soudan du Sud', 'Zambia': 'Zambie', 'Zimbabwe': 'Zimbabwe',
+  'Malawi': 'Malawi', 'Botswana': 'Botswana', 'Namibia': 'Namibie',
+  'France': 'France', 'Belgium': 'Belgique', 'Switzerland': 'Suisse',
+  'Italy': 'Italie', 'Germany': 'Allemagne', 'Spain': 'Espagne',
+  'Portugal': 'Portugal', 'Netherlands': 'Pays-Bas', 'United Kingdom': 'Royaume-Uni',
+  'Ireland': 'Irlande', 'Canada': 'Canada', 'United States': 'États-Unis',
+  'Brazil': 'Brésil', 'China': 'Chine', 'India': 'Inde', 'Japan': 'Japon',
+  'Turkey': 'Turquie', 'Lebanon': 'Liban', 'Saudi Arabia': 'Arabie saoudite',
+  'United Arab Emirates': 'Émirats arabes unis', 'Qatar': 'Qatar',
+  'Greece': 'Grèce', 'Sweden': 'Suède', 'Norway': 'Norvège', 'Denmark': 'Danemark',
+  'Austria': 'Autriche', 'Poland': 'Pologne', 'Russia': 'Russie', 'Australia': 'Australie',
+}
+
 // Profession options for signup. Kept broad rather than exhaustive - a huge
 // list is worse to scroll on a phone than a short one plus 'Autre'.
 // One church, and everyone belongs to it - so this is a constant rather than
@@ -2466,41 +2571,83 @@ const INTERESTS = [
 // what COUNTRIES above is for) - just a curated, sensible set prioritizing
 // Burkina Faso and neighboring West African countries first, since that's
 // this app's primary user base, followed by other common ones.
+// `name` is the French label shown to users (a member in Côte d'Ivoire
+// should see "Côte d'Ivoire", not "Ivory Coast"); `region` is the ISO code
+// used to auto-select the right entry from the device locale; `country` is
+// the matching value in the COUNTRIES list so the profile's country field
+// can be defaulted at the same time.
 const COUNTRY_CODES = [
-  { name: 'Burkina Faso', code: '+226' },
-  { name: "Côte d'Ivoire", code: '+225' },
-  { name: 'Mali', code: '+223' },
-  { name: 'Niger', code: '+227' },
-  { name: 'Senegal', code: '+221' },
-  { name: 'Ghana', code: '+233' },
-  { name: 'Togo', code: '+228' },
-  { name: 'Benin', code: '+229' },
-  { name: 'Guinea', code: '+224' },
-  { name: 'Guinea-Bissau', code: '+245' },
-  { name: 'Sierra Leone', code: '+232' },
-  { name: 'Liberia', code: '+231' },
-  { name: 'The Gambia', code: '+220' },
-  { name: 'Mauritania', code: '+222' },
-  { name: 'Nigeria', code: '+234' },
-  { name: 'Cameroon', code: '+237' },
-  { name: 'Chad', code: '+235' },
-  { name: 'Gabon', code: '+241' },
-  { name: 'Congo (Brazzaville)', code: '+242' },
-  { name: 'DR Congo', code: '+243' },
-  { name: 'Central African Republic', code: '+236' },
-  { name: 'Morocco', code: '+212' },
-  { name: 'Algeria', code: '+213' },
-  { name: 'Tunisia', code: '+216' },
-  { name: 'France', code: '+33' },
-  { name: 'Belgium', code: '+32' },
-  { name: 'Switzerland', code: '+41' },
-  { name: 'Italy', code: '+39' },
-  { name: 'Germany', code: '+49' },
-  { name: 'Spain', code: '+34' },
-  { name: 'United Kingdom', code: '+44' },
-  { name: 'Canada', code: '+1' },
-  { name: 'United States', code: '+1' },
+  { name: 'Burkina Faso', code: '+226', region: 'BF', country: 'Burkina Faso' },
+  { name: "Côte d'Ivoire", code: '+225', region: 'CI', country: 'Ivory Coast' },
+  { name: 'Mali', code: '+223', region: 'ML', country: 'Mali' },
+  { name: 'Niger', code: '+227', region: 'NE', country: 'Niger' },
+  { name: 'Sénégal', code: '+221', region: 'SN', country: 'Senegal' },
+  { name: 'Ghana', code: '+233', region: 'GH', country: 'Ghana' },
+  { name: 'Togo', code: '+228', region: 'TG', country: 'Togo' },
+  { name: 'Bénin', code: '+229', region: 'BJ', country: 'Benin' },
+  { name: 'Guinée', code: '+224', region: 'GN', country: 'Guinea' },
+  { name: 'Guinée-Bissau', code: '+245', region: 'GW', country: 'Guinea-Bissau' },
+  { name: 'Sierra Leone', code: '+232', region: 'SL', country: 'Sierra Leone' },
+  { name: 'Libéria', code: '+231', region: 'LR', country: 'Liberia' },
+  { name: 'Gambie', code: '+220', region: 'GM', country: 'Gambia' },
+  { name: 'Mauritanie', code: '+222', region: 'MR', country: 'Mauritania' },
+  { name: 'Nigéria', code: '+234', region: 'NG', country: 'Nigeria' },
+  { name: 'Cameroun', code: '+237', region: 'CM', country: 'Cameroon' },
+  { name: 'Tchad', code: '+235', region: 'TD', country: 'Chad' },
+  { name: 'Gabon', code: '+241', region: 'GA', country: 'Gabon' },
+  { name: 'Congo (Brazzaville)', code: '+242', region: 'CG', country: 'Congo (Brazzaville)' },
+  { name: 'RD Congo', code: '+243', region: 'CD', country: 'Democratic Republic of the Congo' },
+  { name: 'République centrafricaine', code: '+236', region: 'CF', country: 'Central African Republic' },
+  { name: 'Maroc', code: '+212', region: 'MA', country: 'Morocco' },
+  { name: 'Algérie', code: '+213', region: 'DZ', country: 'Algeria' },
+  { name: 'Tunisie', code: '+216', region: 'TN', country: 'Tunisia' },
+  { name: 'France', code: '+33', region: 'FR', country: 'France' },
+  { name: 'Belgique', code: '+32', region: 'BE', country: 'Belgium' },
+  { name: 'Suisse', code: '+41', region: 'CH', country: 'Switzerland' },
+  { name: 'Italie', code: '+39', region: 'IT', country: 'Italy' },
+  { name: 'Allemagne', code: '+49', region: 'DE', country: 'Germany' },
+  { name: 'Espagne', code: '+34', region: 'ES', country: 'Spain' },
+  { name: 'Royaume-Uni', code: '+44', region: 'GB', country: 'United Kingdom' },
+  { name: 'Canada', code: '+1', region: 'CA', country: 'Canada' },
+  { name: 'États-Unis', code: '+1', region: 'US', country: 'United States' },
 ]
+
+// Best-effort country of the device, from the locale region subtag
+// (e.g. "fr-CI" -> "CI"). Used only to pre-select a sensible default so a
+// member in Abidjan isn't left on +226; they can still change it.
+function detectRegion(): string {
+  try {
+    const langs = navigator.languages?.length ? navigator.languages : [navigator.language]
+    for (const l of langs) {
+      const m = /[-_]([A-Za-z]{2})\b/.exec(l || '')
+      if (m) return m[1].toUpperCase()
+    }
+  } catch { /* ignore */ }
+  return ''
+}
+
+// The COUNTRY_CODES entry matching the device region, or Burkina Faso.
+function defaultCountryEntry() {
+  const r = detectRegion()
+  return COUNTRY_CODES.find(c => c.region === r) || COUNTRY_CODES[0]
+}
+
+// If someone types their full international number into a national-number
+// field, drop the leading country code so the two phone fields stay
+// comparable and the login email is built from the national part only.
+// Only strips an explicit international prefix ("+225…" or "00225…") — a
+// bare national number that happens to begin with those digits is left
+// alone. `raw` is the original text (so we can see the "+"), `code` the
+// selected dial code, e.g. "+225".
+function stripDialCode(raw: string, code: string): string {
+  const cc = sanitizeDigits(code)
+  const trimmed = raw.trimStart()
+  const digits = sanitizeDigits(raw)
+  if (!cc) return digits
+  if (trimmed.startsWith('+') && digits.startsWith(cc)) return digits.slice(cc.length)
+  if (digits.startsWith('00' + cc)) return digits.slice(2 + cc.length)
+  return digits
+}
 
 // ==================== COMPONENTS ====================
 // A folded profile group: header always visible, body one tap away and never
