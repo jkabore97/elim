@@ -1272,6 +1272,10 @@ function AppInner() {
   // tab instead of jumping back to the feed.
   const [activeTab, setActiveTab] = useState(() => storageGet('elim_activeTab', true) || 'feed')
   useEffect(() => { storageSet('elim_activeTab', activeTab, true) }, [activeTab])
+  // Bumped by pull-to-refresh to re-attach the realtime listeners in place (no
+  // page reload), so a refresh keeps the user on the same page and never replays
+  // the splash. Threaded into the content subscriptions' deps below.
+  const [refreshNonce, setRefreshNonce] = useState(0)
   // When a support button deep-links into a messaging channel, this tells the
   // Messages tab which channel to open on arrival (cleared once consumed).
   const [msgChannel, setMsgChannel] = useState<'tech' | 'pastor' | null>(null)
@@ -1391,14 +1395,9 @@ function AppInner() {
       setTimeout(() => setMessageToast(false), 5000)
     }
   }, [unreadMessages, activeTab])
-  // Skip the animated splash when this load is a pull-to-refresh reload (a flag
-  // set just before reload), so refreshing doesn't replay the splash each time.
-  const [splashDone, setSplashDone] = useState(() => {
-    try {
-      if (sessionStorage.getItem('elim-skip-splash')) { sessionStorage.removeItem('elim-skip-splash'); return true }
-    } catch { /* storage blocked: fall back to showing the splash */ }
-    return false
-  })
+  // The animated splash shows only on a real app open. Pull-to-refresh refreshes
+  // in place (no reload), so it never reaches here again.
+  const [splashDone, setSplashDone] = useState(false)
   const [feedFilter, setFeedFilter] = useState<'all' | 'video' | 'audio' | 'posts'>('all')
   const [searchQuery, setSearchQuery] = useState('')
 
@@ -1572,7 +1571,7 @@ function AppInner() {
       setLoading(false)
     })
     return unsub
-  }, [user?.uid, user?.role])
+  }, [user?.uid, user?.role, refreshNonce])
 
   // Publishing groups (ministries/departments). Small collection, world-
   // readable; needed by the composer (a lead's "my groups") and the admin panel.
@@ -1632,7 +1631,7 @@ function AppInner() {
       setNotifications(snap.docs.map(d => ({ id: d.id, ...d.data() } as AppNotification)))
     }, () => { /* index still building or offline - the bell just stays empty */ })
     return unsub
-  }, [user?.uid, user?.role])
+  }, [user?.uid, user?.role, refreshNonce])
 
   // Broadcast announcements shared with everyone (quiz reminders, champions,
   // app-update notices). Shown in the bell so a missed system push isn't lost.
@@ -1643,7 +1642,7 @@ function AppInner() {
       setAnnouncements(snap.docs.map(d => ({ id: d.id, ...d.data() } as Announcement)))
     }, () => { /* offline/rules - the bell just shows personal notifs */ })
     return unsub
-  }, [user?.uid, user?.role])
+  }, [user?.uid, user?.role, refreshNonce])
 
   // Donation details (mobile-money numbers), maintained by an admin.
   useEffect(() => {
@@ -1919,15 +1918,14 @@ function AppInner() {
     deleteDoc(doc(db, 'notifications', id)).catch(() => {})
   }
 
-  // Pull-to-refresh: a full reload re-establishes every realtime listener and
-  // re-fetches content. The active tab is restored from sessionStorage, so the
-  // reload is seamless. We set a flag so the reload SKIPS the animated splash
-  // (it shouldn't replay on every refresh). The short delay lets the spinner
-  // paint first.
-  const handlePullRefresh = useCallback(() => new Promise<void>(() => {
-    try { sessionStorage.setItem('elim-skip-splash', '1') } catch { /* storage blocked */ }
-    setTimeout(() => window.location.reload(), 350)
-  }), [])
+  // Pull-to-refresh: re-attach the realtime listeners IN PLACE (bump the nonce)
+  // instead of reloading the page. The user stays exactly where they are — same
+  // tab, same scroll — and the splash never replays (it only shows on a real app
+  // open). The short wait lets the listeners re-deliver and the spinner show.
+  const handlePullRefresh = useCallback(async () => {
+    setRefreshNonce(n => n + 1)
+    await new Promise<void>(r => setTimeout(r, 600))
+  }, [])
 
   const handleLike = async (postId: string) => {
     if (!user) return
