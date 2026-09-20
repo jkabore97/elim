@@ -268,3 +268,17 @@ export async function fetchChampions(top = 12): Promise<ChampionDoc[]> {
     return snap.docs.map(d => ({ id: d.id, ...(d.data() as any) }))
   } catch { return [] }
 }
+
+// Past KIDS champions only, most recent first — the Kids Hall of Fame. Filtered
+// client-side from the same ordered feed so it needs no extra composite index;
+// we over-fetch because each week adds one adult doc and one kids doc.
+export async function fetchKidsChampions(top = 24): Promise<ChampionDoc[]> {
+  try {
+    const q = query(collection(db, CHAMPIONS), orderBy('endedAt', 'desc'), limit(top * 2))
+    const snap = await getDocs(q)
+    return snap.docs
+      .map(d => ({ id: d.id, ...(d.data() as any) } as ChampionDoc))
+      .filter(c => c.kind === 'kids' && c.winner)
+      .slice(0, top)
+  } catch { return [] }
+}
