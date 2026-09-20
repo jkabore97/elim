@@ -4622,7 +4622,7 @@ function EditPostModal({ post, onClose, onSave }: {
   )
 }
 
-function CommentRow({ c, isReply, liked, likeCount, onLike, onReply, onReport, canReport, t }: {
+function CommentRow({ c, isReply, liked, likeCount, onLike, onReply, onReport, canReport, avatar, t }: {
   c: Comment
   isReply: boolean
   liked: boolean
@@ -4631,12 +4631,17 @@ function CommentRow({ c, isReply, liked, likeCount, onLike, onReply, onReport, c
   onReply: (c: Comment) => void
   onReport: (c: Comment) => void
   canReport: boolean
+  // The commenter's CURRENT profile picture (resolved live), so the same person
+  // always shows the same avatar across all their comments — not the one frozen
+  // on the comment when it was written.
+  avatar?: string | null
   t: (k: any) => string
 }) {
+  const pic = avatar || c.userAvatar
   return (
     <div className={`flex gap-3 ${isReply ? 'ml-11' : ''}`}>
-      {c.userAvatar
-        ? <img src={c.userAvatar} alt="" className="w-9 h-9 rounded-full object-cover shrink-0" />
+      {pic
+        ? <img src={pic} alt="" className="w-9 h-9 rounded-full object-cover shrink-0" />
         : <div className="w-9 h-9 rounded-full bg-affirm-100 flex items-center justify-center text-affirm-700 font-semibold text-sm shrink-0">
             {c.userName.charAt(0)}
           </div>}
@@ -4715,8 +4720,16 @@ function CommentsSheet({ postId, comments, postAuthor, onClose, onAdd, onLikeCom
   // callable (members can't read the users collection directly); the post
   // author + commenters are merged in as a fallback so mentions still work if
   // that call is slow or offline.
-  const [allMembers, setAllMembers] = useState<{ uid: string; name: string }[]>([])
+  const [allMembers, setAllMembers] = useState<{ uid: string; name: string; avatar?: string | null }[]>([])
   useEffect(() => { fetchMemberNames().then(setAllMembers).catch(() => {}) }, [])
+  // uid -> current profile picture, so every comment by a person shows the same
+  // (live) avatar rather than the one frozen on the comment when it was written.
+  const avatarByUid = useMemo(() => {
+    const m = new Map<string, string>()
+    if (currentUser.avatar) m.set(currentUser.uid, currentUser.avatar)
+    allMembers.forEach(x => { if (x.avatar) m.set(x.uid, x.avatar) })
+    return m
+  }, [allMembers, currentUser.uid, currentUser.avatar])
   const mentionCandidates = useMemo(() => {
     const map = new Map<string, string>()   // uid -> name
     if (postAuthor?.uid && postAuthor.name) map.set(postAuthor.uid, postAuthor.name)
@@ -4831,11 +4844,13 @@ function CommentsSheet({ postId, comments, postAuthor, onClose, onAdd, onLikeCom
             <div key={c.id} className="space-y-3">
               <CommentRow c={c} isReply={false} liked={isLiked(c)} likeCount={likeCount(c)}
                 onLike={() => toggleLike(c)} onReply={startReply}
-                onReport={setReportingComment} canReport={c.userId !== currentUser.uid} t={t} />
+                onReport={setReportingComment} canReport={c.userId !== currentUser.uid}
+                avatar={c.userId ? avatarByUid.get(c.userId) : undefined} t={t} />
               {(repliesByParent[c.id] || []).map(r => (
                 <CommentRow key={r.id} c={r} isReply liked={isLiked(r)} likeCount={likeCount(r)}
                   onLike={() => toggleLike(r)} onReply={startReply}
-                  onReport={setReportingComment} canReport={r.userId !== currentUser.uid} t={t} />
+                  onReport={setReportingComment} canReport={r.userId !== currentUser.uid}
+                  avatar={r.userId ? avatarByUid.get(r.userId) : undefined} t={t} />
               ))}
             </div>
           ))}

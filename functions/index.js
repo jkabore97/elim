@@ -541,7 +541,7 @@ exports.listMemberNames = onCall({ region: 'us-central1' }, async (request) => {
   snap.forEach((d) => {
     const v = d.data();
     const name = (v.displayName || '').toString().trim();
-    if (name && v.role !== 'pending_church') members.push({ uid: d.id, name });
+    if (name && v.role !== 'pending_church') members.push({ uid: d.id, name, avatar: v.avatar || null });
   });
   return { members };
 });
