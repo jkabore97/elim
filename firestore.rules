@@ -241,7 +241,18 @@ service cloud.firestore {
       allow create: if canPublish()
                     && request.resource.data.uploadedById == request.auth.uid
                     && (isAdmin() || !managedByGroups() || groupCap('books'));
-      allow update: if isSignedIn() && (resource.data.uploadedById == request.auth.uid || isAdmin());
+      // The uploader/admin may edit the book; any signed-in reader may bump the
+      // 'views' counter by one when they open it (same bounded-nudge pattern as
+      // post likes, so it can't be set to an arbitrary value).
+      allow update: if isSignedIn() && (
+                      resource.data.uploadedById == request.auth.uid || isAdmin() ||
+                      (request.resource.data.diff(resource.data).affectedKeys().hasOnly(['views'])
+                        && request.resource.data.views is int
+                        && request.resource.data.views >= 0
+                        && (!('views' in resource.data)
+                            || (request.resource.data.views >= resource.data.views
+                                && request.resource.data.views <= resource.data.views + 1)))
+                    );
       allow delete: if isSignedIn() && (resource.data.uploadedById == request.auth.uid || isAdmin());
     }
 
