@@ -5287,6 +5287,17 @@ function NotificationsPanel({ notifications, announcements, newPostCount, onClos
       : type === 'transcript' ? t('notif.transcript')
       : t('notif.commentReply')
 
+  // One list, most recent first — announcements and personal notifications
+  // interleaved by time, instead of all announcements always sitting on top.
+  const ms = (ts: any) => (ts?.toMillis ? ts.toMillis() : (ts?.seconds ? ts.seconds * 1000 : 0))
+  type FeedRow =
+    | { key: string; ts: number; kind: 'ann'; a: Announcement }
+    | { key: string; ts: number; kind: 'notif'; n: AppNotification }
+  const feed: FeedRow[] = [
+    ...announcements.map(a => ({ key: 'a' + a.id, ts: ms(a.createdAt), kind: 'ann' as const, a })),
+    ...notifications.map(n => ({ key: 'n' + n.id, ts: ms(n.createdAt), kind: 'notif' as const, n })),
+  ].sort((x, y) => y.ts - x.ts)
+
   return (
     <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-end sm:items-center justify-center" onClick={onClose}>
       <div className="glass-bar w-full max-w-lg mx-auto rounded-t-3xl sm:rounded-3xl max-h-[80vh] flex flex-col shadow-2xl" onClick={e => e.stopPropagation()}>
@@ -5308,30 +5319,29 @@ function NotificationsPanel({ notifications, announcements, newPostCount, onClos
           {notifications.length === 0 && announcements.length === 0 && newPostCount === 0 && (
             <p className="text-center text-slate-400 text-sm py-14">{t('notif.none')}</p>
           )}
-          {/* Broadcast announcements (church-wide): update notices, quiz
-              reminders, champions. Tapping one with a link opens it. */}
-          {announcements.map(a => {
-            const inner = (
-              <>
-                <div className="w-9 h-9 rounded-full bg-affirm-100 flex items-center justify-center text-affirm-600 shrink-0"><Megaphone size={16} /></div>
-                <div className="flex-1 min-w-0">
-                  <p className="text-sm font-semibold text-slate-800 leading-snug">{a.title}</p>
-                  <p className="text-xs text-slate-500 mt-0.5 whitespace-pre-line break-words">{a.body}</p>
-                  <p className="text-[11px] text-slate-400 mt-0.5">{timeAgo(a.createdAt)}</p>
+          {/* Announcements (church-wide broadcasts) and personal notifications
+              interleaved, most recent first. */}
+          {feed.map(row => {
+            if (row.kind === 'ann') {
+              const a = row.a
+              return (
+                <div key={row.key} className="flex items-start gap-3 px-5 py-3.5 border-b border-slate-50">
+                  {/* Routes by kind or opens the link via the handler (which
+                      only follows http(s) urls). */}
+                  <button onClick={() => onTapAnnouncement(a)} className="flex items-start gap-3 flex-1 text-left min-w-0">
+                    <div className="w-9 h-9 rounded-full bg-affirm-100 flex items-center justify-center text-affirm-600 shrink-0"><Megaphone size={16} /></div>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-sm font-semibold text-slate-800 leading-snug">{a.title}</p>
+                      <p className="text-xs text-slate-500 mt-0.5 whitespace-pre-line break-words">{a.body}</p>
+                      <p className="text-[11px] text-slate-400 mt-0.5">{timeAgo(a.createdAt)}</p>
+                    </div>
+                  </button>
+                  <button onClick={() => onDismissAnnouncement(a.id)} aria-label={t('post.delete')}
+                    className="p-1 text-slate-300 hover:text-slate-500 shrink-0"><X size={15} /></button>
                 </div>
-              </>
-            )
-            return (
-              <div key={a.id} className="flex items-start gap-3 px-5 py-3.5 border-b border-slate-50">
-                {/* Routes by kind or opens the link via the handler (which
-                    only follows http(s) urls). */}
-                <button onClick={() => onTapAnnouncement(a)} className="flex items-start gap-3 flex-1 text-left min-w-0">{inner}</button>
-                <button onClick={() => onDismissAnnouncement(a.id)} aria-label={t('post.delete')}
-                  className="p-1 text-slate-300 hover:text-slate-500 shrink-0"><X size={15} /></button>
-              </div>
-            )
-          })}
-          {notifications.map(n => {
+              )
+            }
+            const n = row.n
             const isMessage = n.type === 'message'
             const isTranscript = n.type === 'transcript'
             const isMention = n.type === 'comment_mention'
@@ -5339,7 +5349,7 @@ function NotificationsPanel({ notifications, announcements, newPostCount, onClos
             const RowIcon = isTranscript ? Download : isMessage ? Mail : isMention ? AtSign : isLike ? Heart : MessageCircle
             const badgeColor = isTranscript ? 'bg-slate-800' : isMessage ? 'bg-emerald-500' : isMention ? 'bg-violet-500' : isLike ? 'bg-rose-500' : 'bg-sky-500'
             return (
-              <div key={n.id} className={`flex items-start gap-3 px-5 py-3.5 border-b border-slate-50 ${!n.read ? 'bg-affirm-50/40' : ''}`}>
+              <div key={row.key} className={`flex items-start gap-3 px-5 py-3.5 border-b border-slate-50 ${!n.read ? 'bg-affirm-50/40' : ''}`}>
                 <button onClick={() => onTap(n)} className="flex items-start gap-3 flex-1 text-left min-w-0">
                   <div className="relative shrink-0">
                     {n.actorAvatar
