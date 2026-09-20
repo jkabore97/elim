@@ -516,7 +516,15 @@ exports.backfillPostViews = onSchedule(
     const db = getFirestore();
     const flagRef = db.collection('config').doc('backfills');
     const flag = await flagRef.get();
-    if (flag.exists && flag.data().postViewsSeeded) return;
+    // Bumped to v2 so it runs once more to also seed the last-liker name.
+    if (flag.exists && flag.data().postViewsSeeded_v2) return;
+    const nameCache = {};
+    const nameFor = async (uid) => {
+      if (!uid) return '';
+      if (nameCache[uid] !== undefined) return nameCache[uid];
+      const u = await db.collection('users').doc(uid).get();
+      return (nameCache[uid] = u.exists ? (u.data().displayName || '') : '');
+    };
     const posts = await db.collection('posts').get();
     for (const p of posts.docs) {
       const postId = p.id;
@@ -535,10 +543,23 @@ exports.backfillPostViews = onSchedule(
           { postId, userId: uid, createdAt: FieldValue.serverTimestamp() }, { merge: true }));
         await b.commit();
       }
-      const count = (await db.collection('postViews').where('postId', '==', postId).count().get()).data().count;
-      await p.ref.set({ views: count }, { merge: true }).catch(() => {});
+      const update = { views: (await db.collection('postViews').where('postId', '==', postId).count().get()).data().count };
+      // Most-recent liker -> the "X aime cette publication" line under the post.
+      const likeCount = (await db.collection('likes').where('postId', '==', postId).count().get()).data().count;
+      update.likes = likeCount;
+      if (likeCount > 0) {
+        const recent = await db.collection('likes').where('postId', '==', postId)
+          .orderBy('createdAt', 'desc').limit(1).get();
+        if (!recent.empty) {
+          const v = recent.docs[0].data();
+          update.lastLikeUid = v.userId;
+          const name = v.userName || (await nameFor(v.userId));
+          if (name) update.lastLikeName = name;
+        }
+      }
+      await p.ref.set(update, { merge: true }).catch(() => {});
     }
-    await flagRef.set({ postViewsSeeded: true, postViewsSeededAt: FieldValue.serverTimestamp() }, { merge: true });
+    await flagRef.set({ postViewsSeeded: true, postViewsSeeded_v2: true, postViewsSeededAt: FieldValue.serverTimestamp() }, { merge: true });
     console.log(`backfillPostViews: seeded ${posts.size} posts`);
   }
 );

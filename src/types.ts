@@ -133,7 +133,7 @@ export type ActivityAction =
   | 'post_created' | 'post_edited' | 'post_deleted'
   | 'church_approved' | 'church_denied'
   | 'directory_synced'
-  | 'like_added' | 'like_removed' | 'comment_added';
+  | 'like_added' | 'like_removed' | 'comment_added' | 'post_view';
 
 export interface ActivityLog {
   id: string;
