@@ -153,6 +153,19 @@ export default function BibleQuiz({ user, onClose }: { user: AppUser; onClose: (
     else backToHome()
   })
 
+  // Lock the feed behind the full-screen game so its own scroller owns the
+  // gesture: otherwise the page underneath scroll-chains and pull-to-refresh
+  // (a global listener) fights a downward drag when the feed is at the top.
+  useEffect(() => {
+    const html = document.documentElement
+    const body = document.body
+    const prevHtml = html.style.overflow
+    const prevBody = body.style.overflow
+    html.style.overflow = 'hidden'
+    body.style.overflow = 'hidden'
+    return () => { html.style.overflow = prevHtml; body.style.overflow = prevBody }
+  }, [])
+
   // profileReady gates starting an adult game until the real career profile has
   // loaded - otherwise a game finished on the empty placeholder would overwrite
   // the server's points on commit. A fallback flips it true so a slow/failed
@@ -307,7 +320,7 @@ export default function BibleQuiz({ user, onClose }: { user: AppUser; onClose: (
 
   return (
     <Portal>
-      <div className="fixed inset-0 z-[70] quiz-bg overflow-y-auto">
+      <div className="fixed inset-0 z-[70] quiz-bg overflow-y-auto overscroll-contain">
         <div className="min-h-full max-w-lg mx-auto flex flex-col">
           {screen === 'home' && (
             <HomeScreen
