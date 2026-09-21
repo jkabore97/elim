@@ -6,7 +6,6 @@ import { db, functions } from './firebase'
 import { useLanguage } from './i18n'
 import { Portal } from './Portal'
 import { useBackHandler } from './backButton'
-import type { AppUser } from './types'
 
 // A free "live radio": the church broadcasts audio through YouTube Live (from a
 // computer) or Facebook Live (from a phone) — both host the stream AND keep the
@@ -140,7 +139,7 @@ export function LiveRadioBanner() {
 // Admin control (in the Admin tab): paste the YouTube/Facebook live link, name
 // it, and go live / end (keep as replay) / remove. Going live can also push a
 // notice to everyone, reusing the existing broadcast pipeline.
-export function LiveRadioAdmin({ user }: { user: AppUser }) {
+export function LiveRadioAdmin({ onDone }: { onDone?: () => void }) {
   const { t } = useLanguage()
   const radio = useLiveRadio()
   const [title, setTitle] = useState('')
@@ -181,6 +180,7 @@ export function LiveRadioAdmin({ user }: { user: AppUser }) {
         } catch { /* the go-live still succeeded even if the push didn't */ }
       }
       setMsg(status === 'live' ? t('radio.nowLive') : status === 'replay' ? t('radio.nowReplay') : t('radio.nowOff'))
+      onDone?.()
     } catch (e: any) {
       setMsg(e?.message || 'Error')
     } finally { setBusy(false) }
@@ -192,11 +192,11 @@ export function LiveRadioAdmin({ user }: { user: AppUser }) {
     try {
       await setDoc(RADIO_DOC(), { status: 'off', updatedAt: serverTimestamp() }, { merge: true })
       setMsg(t('radio.nowOff'))
+      onDone?.()
     } catch (e: any) { setMsg(e?.message || 'Error') }
     finally { setBusy(false) }
   }
 
-  void user
   return (
     <div className="glass-soft rounded-2xl p-4 space-y-3">
       <h3 className="font-bold text-slate-800 flex items-center gap-2"><Radio size={18} /> {t('radio.admin.title')}</h3>

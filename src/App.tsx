@@ -4,7 +4,7 @@ import {
   Image as ImageIcon, Video, Mic, X, Send, LogOut,
   Youtube, Facebook, CheckCircle2, Clock, ArrowRight, ShieldCheck, UserX, Sparkles,
   Trash2, Camera, FileText, Upload, Pencil, Globe, Eye, EyeOff, Search, Bell, ScrollText, Mail, Play, Pause, HeartPulse, Download, AlertTriangle, BookOpen, Music, LifeBuoy,
-  HandCoins, Copy, Check, Plus, Flag, Users, CreditCard, Loader2, Trophy, ChevronDown, Megaphone, AtSign
+  HandCoins, Copy, Check, Plus, Flag, Users, CreditCard, Loader2, Trophy, ChevronDown, Megaphone, AtSign, Radio
 } from 'lucide-react'
 import {
   collection, addDoc, onSnapshot, query, orderBy, where,
@@ -2472,12 +2472,7 @@ function AppInner() {
                 {adminSection === 'groups' && isStaffUser && <GroupsPanel user={user} groups={groups} />}
                 {adminSection === 'passwords' && isStaffUser && <AdminPasswordPanel />}
                 {adminSection === 'reports' && isStaffUser && <ReportsPanel user={user} />}
-                {adminSection === 'broadcast' && isStaffUser && (
-                  <div className="space-y-4">
-                    <LiveRadioAdmin user={user} />
-                    <BroadcastPanel />
-                  </div>
-                )}
+                {adminSection === 'broadcast' && isStaffUser && <BroadcastPanel />}
                 {adminSection === 'dons' && isStaffUser && <DonationsPanel user={user} />}
                 {adminSection === 'quizsounds' && isStaffUser && <QuizSoundsPanel />}
                 {adminSection === 'logs' && isStaffUser && <LogsPanel />}
@@ -2582,7 +2577,7 @@ function AppInner() {
       )}
 
       {showCreate && canPost && (
-        <CreatePostModal onClose={() => setShowCreate(false)} onSubmit={handleCreatePost} uploaderUid={user.uid} myGroups={myGroups} />
+        <CreatePostModal onClose={() => setShowCreate(false)} onSubmit={handleCreatePost} uploaderUid={user.uid} myGroups={myGroups} canGoLive={user.role === 'admin' || user.role === 'pastor'} />
       )}
       {editingPost && (
         <EditPostModal post={editingPost} onClose={() => setEditingPost(null)} onSave={handleEditPost} />
@@ -4403,15 +4398,20 @@ function BulkMusicModal({ user, onClose }: { user: AppUser; onClose: () => void 
   )
 }
 
-function CreatePostModal({ onClose, onSubmit, uploaderUid, section = 'feed', myGroups = [] }: {
+function CreatePostModal({ onClose, onSubmit, uploaderUid, section = 'feed', myGroups = [], canGoLive = false }: {
   onClose: () => void
   onSubmit: (data: { type: Post['type']; content: string; mediaUrl?: string; coverUrl?: string; fileName?: string; section?: 'feed' | 'sante' | 'musique'; category?: string; groupId?: string }) => void | Promise<void>
   uploaderUid: string
   section?: 'feed' | 'sante' | 'musique'
   myGroups?: Group[]
+  canGoLive?: boolean
 }) {
   const { t } = useLanguage()
+  useScrollLock()
   const [type, setType] = useState<Post['type']>('text-image')
+  // "En direct": a special composer mode that goes live via YouTube/Facebook
+  // instead of creating a post. Only offered to staff (config write is admin).
+  const [liveMode, setLiveMode] = useState(false)
   const [content, setContent] = useState('')
   const [mediaUrl, setMediaUrl] = useState('')
   const [coverUrl, setCoverUrl] = useState('')
@@ -4497,10 +4497,11 @@ function CreatePostModal({ onClose, onSubmit, uploaderUid, section = 'feed', myG
 
   return (
     <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-end sm:items-center justify-center">
-      <div className="glass-bar w-full max-w-lg rounded-t-3xl sm:rounded-3xl max-h-[90vh] overflow-y-auto shadow-2xl">
+      <div className="glass-bar w-full max-w-lg rounded-t-3xl sm:rounded-3xl max-h-[90vh] overflow-y-auto overscroll-contain shadow-2xl">
         <div className="sticky top-0 bg-white/90 backdrop-blur border-b border-slate-100 px-5 py-4 flex items-center justify-between">
           <button onClick={handleClose} className="p-1.5 rounded-full hover:bg-slate-100"><X size={20} /></button>
-          <h2 className="font-bold text-lg">{section === 'sante' ? t('sante.newTip') : t('post.new')}</h2>
+          <h2 className="font-bold text-lg">{section === 'sante' ? t('sante.newTip') : liveMode ? t('radio.title') : t('post.new')}</h2>
+          {liveMode ? <span className="w-8" /> : (
           <button onClick={async () => {
             if (content.trim() && !uploading && !publishing) {
               setPublishing(true)
@@ -4529,6 +4530,7 @@ function CreatePostModal({ onClose, onSubmit, uploaderUid, section = 'feed', myG
           }}
             disabled={!content.trim() || uploading || publishing}
             className="text-affirm-600 font-semibold disabled:opacity-40">{t('post.publish')}</button>
+          )}
         </div>
 
         <div className="p-5 space-y-5">
@@ -4560,18 +4562,30 @@ function CreatePostModal({ onClose, onSubmit, uploaderUid, section = 'feed', myG
             }, {
               id: 'youtube', icon: Youtube, label: 'YouTube'
             }, {
-              id: 'facebook', icon: Facebook, label: 'Facebook'
-            }, {
               id: 'video', icon: Video, label: t('post.video')
-            }].map(opt => (
-              <button key={opt.id} onClick={() => { discardPendingUpload(); setType(opt.id as Post['type']); setMediaUrl(''); setFileName(''); setUploadError(''); setUploading(false) }}
+            },
+            // "Facebook" is replaced by "En direct" (live) for staff, on the feed.
+            ...(canGoLive && section === 'feed' ? [{ id: 'live', icon: Radio, label: t('radio.title') }] : [])
+            ].map(opt => {
+              const selected = opt.id === 'live' ? liveMode : (!liveMode && type === opt.id)
+              return (
+              <button key={opt.id} onClick={() => {
+                discardPendingUpload()
+                if (opt.id === 'live') { setLiveMode(true); return }
+                setLiveMode(false); setType(opt.id as Post['type']); setMediaUrl(''); setFileName(''); setUploadError(''); setUploading(false)
+              }}
                 className={`flex flex-col items-center gap-1.5 py-3 rounded-2xl border-2 transition ${
-                  type === opt.id ? 'border-affirm-500 bg-affirm-50 text-affirm-700' : 'border-slate-100 text-slate-400'}`}>
+                  selected ? 'border-affirm-500 bg-affirm-50 text-affirm-700' : 'border-slate-100 text-slate-400'}`}>
                 <opt.icon size={20} />
                 <span className="text-[11px] font-medium">{opt.label}</span>
               </button>
-            ))}
+            )})}
           </div>
+
+          {liveMode ? (
+            <LiveRadioAdmin onDone={handleClose} />
+          ) : (
+          <>{/* normal post form */}
 
           <textarea value={content} onChange={e => setContent(e.target.value)}
             placeholder={t('post.contentPlaceholder')}
@@ -4628,6 +4642,8 @@ function CreatePostModal({ onClose, onSubmit, uploaderUid, section = 'feed', myG
               placeholder={t('post.pasteCoverUrl')}
               className="w-full px-4 py-3.5 rounded-2xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-affirm-400" />
           )}
+          </>
+          )}
         </div>
       </div>
     </div>
@@ -4640,6 +4656,7 @@ function EditPostModal({ post, onClose, onSave }: {
   onSave: (id: string, content: string) => Promise<void>
 }) {
   const { t } = useLanguage()
+  useScrollLock()
   const [content, setContent] = useState(post.content)
   const [saving, setSaving] = useState(false)
 
