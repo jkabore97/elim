@@ -4,11 +4,9 @@ import {
   collection, query, where, getCountFromServer, Timestamp,
 } from 'firebase/firestore'
 import { httpsCallable } from 'firebase/functions'
-import { Radio, X, Loader2, Check, Trash2, Eye } from 'lucide-react'
+import { Radio, Loader2, Check, Trash2, Eye } from 'lucide-react'
 import { db, functions } from './firebase'
 import { useLanguage } from './i18n'
-import { Portal } from './Portal'
-import { useBackHandler } from './backButton'
 
 // A free "live radio": the church broadcasts audio through YouTube Live (from a
 // computer) or Facebook Live (from a phone) — both host the stream AND keep the
@@ -100,95 +98,51 @@ function useLivePresence(uid: string, active: boolean) {
   }, [uid, active])
 }
 
-// The full-screen in-app player: just the embedded audio stream (a static image
-// shows for audio-only broadcasts), a title, and a back button. No chat, no
-// viewer count of our own.
-function RadioPlayer({ radio, uid, onClose }: { radio: LiveRadio; uid: string; onClose: () => void }) {
-  const { t } = useLanguage()
-  useBackHandler(true, onClose)
-  // Count this viewer while the player is open, and show the live total.
-  useLivePresence(uid, radio.status === 'live')
-  const count = useLiveCount(radio.status === 'live')
-  useEffect(() => {
-    const html = document.documentElement, body = document.body
-    const ph = html.style.overflow, pb = body.style.overflow
-    html.style.overflow = 'hidden'; body.style.overflow = 'hidden'
-    return () => { html.style.overflow = ph; body.style.overflow = pb }
-  }, [])
-  const src = embedUrl(radio)
-  return (
-    <Portal>
-      <div className="fixed inset-0 z-[70] bg-[#0f172a] flex flex-col">
-        <div className="flex items-center gap-3 px-4 py-3 border-b border-white/10 shrink-0" style={{ paddingTop: 'calc(env(safe-area-inset-top, 0px) + 0.5rem)' }}>
-          <button onClick={onClose} aria-label={t('quiz.back')}
-            className="p-1.5 -ml-1.5 rounded-full hover:bg-white/5 text-slate-300"><X size={20} /></button>
-          <div className="min-w-0 flex-1">
-            <h2 className="font-bold text-white truncate text-sm flex items-center gap-2">
-              {radio.status === 'live' && <span className="inline-block w-2 h-2 rounded-full bg-red-500 animate-pulse" />}
-              {radio.title || t('radio.title')}
-            </h2>
-            <p className="text-[11px] text-slate-400 truncate">
-              {radio.status === 'live' ? t('radio.live') : t('radio.replay')}
-            </p>
-          </div>
-          {radio.status === 'live' && count != null && (
-            <span className="shrink-0 flex items-center gap-1 text-xs font-semibold text-white bg-white/10 rounded-full px-2.5 py-1" title={t('radio.watching')}>
-              <Eye size={14} /> {count.toLocaleString()}
-            </span>
-          )}
-        </div>
-        <div className="flex-1 flex items-center justify-center p-3">
-          {src ? (
-            <div className="w-full max-w-2xl aspect-video bg-black rounded-2xl overflow-hidden">
-              <iframe src={src} title={radio.title || 'radio'} className="w-full h-full"
-                allow="autoplay; encrypted-media; picture-in-picture" allowFullScreen />
-            </div>
-          ) : (
-            <p className="text-sm text-slate-400 px-8 text-center">{t('radio.badUrl')}</p>
-          )}
-        </div>
-      </div>
-    </Portal>
-  )
-}
-
-// The card shown at the top of the feed when a broadcast is live or a recording
-// is available to replay. Tapping it opens the in-app player.
+// The live shown as a POST at the top of the feed: the embedded player plays
+// inline in the card (no separate screen). Header carries the name, the EN
+// DIRECT badge and the live watcher count; the body is the embedded stream.
 export function LiveRadioBanner({ uid }: { uid: string }) {
   const { t } = useLanguage()
   const radio = useLiveRadio()
-  const [open, setOpen] = useState(false)
   const live = !!radio && radio.status === 'live'
-  // A gentle 30s poll on the card so the "N watching" stays roughly current
-  // without every feed viewer hammering the count.
-  const count = useLiveCount(live, 30000)
+  // Count this person as watching while the live card is on their feed.
+  useLivePresence(uid, live)
+  const count = useLiveCount(live, 20000)
   if (!radio || radio.status === 'off' || !radio.url) return null
+  const src = embedUrl(radio)
   return (
-    <>
-      <button onClick={() => setOpen(true)}
-        className={`w-full flex items-center gap-3 rounded-2xl px-4 py-3.5 text-left transition shadow-lg ${
-          live ? 'bg-gradient-to-r from-red-600 to-rose-600 text-white shadow-red-500/20'
-               : 'bg-gradient-to-r from-slate-700 to-slate-800 text-white'}`}>
-        <div className="w-10 h-10 rounded-full bg-white/15 flex items-center justify-center shrink-0">
+    <article className="glass rounded-3xl shadow-sm border border-slate-100/80 overflow-hidden">
+      <div className="flex items-center gap-3 p-4">
+        <div className={`w-11 h-11 rounded-full flex items-center justify-center text-white shrink-0 ${
+          live ? 'bg-gradient-to-br from-red-500 to-rose-600' : 'bg-gradient-to-br from-slate-500 to-slate-700'}`}>
           <Radio size={20} />
         </div>
-        <div className="min-w-0 flex-1">
+        <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2">
-            {live && <span className="inline-flex items-center gap-1 text-[10px] font-extrabold uppercase tracking-wide bg-white text-red-600 rounded-full px-2 py-0.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-red-600 animate-pulse" /> {t('radio.live')}
-            </span>}
-            <p className="font-bold truncate">{radio.title || t('radio.title')}</p>
+            {live && (
+              <span className="inline-flex items-center gap-1 text-[10px] font-extrabold uppercase tracking-wide bg-red-600 text-white rounded-full px-2 py-0.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" /> {t('radio.live')}
+              </span>
+            )}
+            <h3 className="font-semibold text-slate-900 truncate">{radio.title || t('radio.title')}</h3>
           </div>
-          <p className="text-xs text-white/80 mt-0.5">{live ? t('radio.tapToListen') : t('radio.replay')}</p>
+          <p className="text-xs text-slate-400 mt-0.5">{live ? t('radio.live') : t('radio.replay')}</p>
         </div>
         {live && count != null && count > 0 && (
-          <span className="shrink-0 flex items-center gap-1 text-xs font-bold text-white bg-white/15 rounded-full px-2.5 py-1">
-            <Eye size={14} /> {count.toLocaleString()}
+          <span className="shrink-0 flex items-center gap-1 text-xs font-bold text-slate-500" title={t('radio.watching')}>
+            <Eye size={15} /> {count.toLocaleString()}
           </span>
         )}
-      </button>
-      {open && <RadioPlayer radio={radio} uid={uid} onClose={() => setOpen(false)} />}
-    </>
+      </div>
+      {src ? (
+        <div className="w-full aspect-video bg-black">
+          <iframe src={src} title={radio.title || 'live'} className="w-full h-full"
+            allow="autoplay; encrypted-media; picture-in-picture" allowFullScreen />
+        </div>
+      ) : (
+        <p className="text-sm text-slate-500 px-5 py-8 text-center">{t('radio.badUrl')}</p>
+      )}
+    </article>
   )
 }
 
