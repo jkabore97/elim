@@ -536,6 +536,7 @@ const fr = {
   "radio.live": 'En direct',
   "radio.replay": 'Rediffusion',
   "radio.tapToListen": 'Appuyez pour regarder',
+  "radio.watching": 'En train de regarder',
   "radio.badUrl": 'Lien invalide. Collez un lien YouTube ou Facebook Live.',
   "radio.ytHint": 'Collez le lien de la vidéo (youtube.com/watch?v=… ou youtube.com/live/…), pas le lien de la chaîne.',
   "radio.goLive": 'Passer en direct',

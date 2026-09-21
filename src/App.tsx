@@ -2259,9 +2259,9 @@ function AppInner() {
                   ))}
                 </div>
 
-                {/* Live radio card (shown to everyone when a broadcast is live
-                    or a recording is available to replay). */}
-                <LiveRadioBanner />
+                {/* Live card (shown to everyone when a broadcast is live or a
+                    recording is available to replay). */}
+                <LiveRadioBanner uid={user.uid} />
 
                 {/* Publishing lives here (leads/admin/pastor only), not in the
                     bottom bar — a simple member never sees it. */}

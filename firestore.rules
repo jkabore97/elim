@@ -302,6 +302,14 @@ service cloud.firestore {
       allow write: if false;
     }
 
+    // Live presence heartbeats: one doc per uid (doc id == uid), refreshed while
+    // a person has the live player open, so the app can count who's watching.
+    // A viewer writes only their OWN doc; everyone signed in may read/count.
+    match /livePresence/{uid} {
+      allow read: if isSignedIn();
+      allow write: if isSignedIn() && request.auth.uid == uid;
+    }
+
     // ---- Publishing groups ----
     // Ministries / departments a post can be attributed to. Readable by any
     // signed-in user (a lead's composer lists the groups they may publish
