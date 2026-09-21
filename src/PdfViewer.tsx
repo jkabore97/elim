@@ -58,11 +58,11 @@ export function PdfThumb({ url, className }: { url: string; className?: string }
   )
 }
 
-// One page in the continuous scroll. Renders the actual PDF page only once its
-// slot nears the viewport (lazy), so a long document scrolls smoothly instead of
-// rendering every page up front. Before it renders, it reserves an approximate
-// height (A4 ratio) so the scrollbar and page positions don't jump.
-function LazyPage({ pageNumber, width, root }: { pageNumber: number; width: number; root: HTMLElement | null }) {
+// One page = one full-screen "slide". Each sits in a section at least the height
+// of the viewport, centered, with scroll-snap so scrolling moves exactly one
+// page at a time (the current page leaves, the next fills the screen). The page
+// is rendered only once its slot nears the viewport (lazy).
+function LazyPage({ pageNumber, width, height, root }: { pageNumber: number; width: number; height: number; root: HTMLElement | null }) {
   const [show, setShow] = useState(pageNumber === 1)
   const ref = useRef<HTMLDivElement>(null)
   useEffect(() => {
@@ -71,18 +71,18 @@ function LazyPage({ pageNumber, width, root }: { pageNumber: number; width: numb
     if (typeof IntersectionObserver === 'undefined') { setShow(true); return }
     const io = new IntersectionObserver(es => {
       if (es[0].isIntersecting) { setShow(true); io.disconnect() }
-    }, { root: root || null, rootMargin: '800px 0px' })
+    }, { root: root || null, rootMargin: '400px 0px' })
     io.observe(el)
     return () => io.disconnect()
   }, [root, show])
-  const approxH = Math.round(width * 1.414)
   return (
-    <div ref={ref} data-page={pageNumber} className="mb-3 mx-auto"
-      style={{ width, minHeight: show ? undefined : approxH }}>
+    <div ref={ref} data-page={pageNumber}
+      className="flex items-center justify-center"
+      style={{ minHeight: height, scrollSnapAlign: 'center' }}>
       {show && (
         <Page pageNumber={pageNumber} width={width}
           renderAnnotationLayer={false} renderTextLayer={false}
-          loading={<div style={{ height: approxH, width }} />} />
+          loading={<div style={{ height: Math.min(height, Math.round(width * 1.3)), width }} />} />
       )}
     </div>
   )
@@ -100,6 +100,10 @@ export function PdfViewer({ url, title, onClose }: { url: string; title?: string
   const [scale, setScale] = useState(1)
   const [error, setError] = useState('')
   const [width, setWidth] = useState(0)
+  const [holderH, setHolderH] = useState(0)
+  // Page aspect ratio (w/h), read from the first page, so each page can be fit
+  // to the screen (one page per view) instead of just fit to width.
+  const [aspect, setAspect] = useState(0)
   const holderRef = useRef<HTMLDivElement>(null)
   const innerRef = useRef<HTMLDivElement>(null)
 
@@ -187,29 +191,39 @@ export function PdfViewer({ url, title, onClose }: { url: string; title?: string
   }, [])
 
   useEffect(() => {
-    const measure = () => setWidth(holderRef.current?.clientWidth || 0)
+    const measure = () => {
+      setWidth(holderRef.current?.clientWidth || 0)
+      setHolderH(holderRef.current?.clientHeight || 0)
+    }
     measure()
     window.addEventListener('resize', measure)
     return () => window.removeEventListener('resize', measure)
   }, [])
 
-  // Update the "Page X / Y" indicator from the scroll position: the current page
-  // is the last one whose top has scrolled above ~40% of the viewport height.
+  // Update the "Page X / Y" indicator: the current page is the one whose section
+  // covers the middle of the viewport.
   const onScroll = () => {
     const holder = holderRef.current
     if (!holder) return
-    const top = holder.getBoundingClientRect().top
-    const mark = holder.clientHeight * 0.4
+    const mid = holder.getBoundingClientRect().top + holder.clientHeight / 2
     let cur = 1
     holder.querySelectorAll<HTMLElement>('[data-page]').forEach(el => {
-      if (el.getBoundingClientRect().top - top <= mark) cur = Number(el.dataset.page) || cur
+      const r = el.getBoundingClientRect()
+      if (r.top <= mid) cur = Number(el.dataset.page) || cur
     })
     setCurrent(cur)
   }
 
-  // width includes the p-4 padding (16px each side); subtract it so a base page
-  // fits without a stray horizontal scrollbar, then scale for zoom.
-  const pageWidth = width ? Math.min(width - 32, 900) * scale : 320
+  // Fit each page to the SCREEN (width and height) so one whole page shows at a
+  // time; zoom then scales up from that fit. The section height is the viewport
+  // so pages snap one per screen.
+  const availW = width ? width - 32 : 320
+  const availH = holderH ? holderH - 24 : 480
+  const fitW = aspect ? Math.min(availW, availH * aspect) : availW
+  const pageWidth = Math.max(120, fitW * scale)
+  // Each section is the full viewport height, so exactly one page snaps into
+  // view at a time; the fit page (slightly smaller) is centered within it.
+  const sectionH = holderH || availH
 
   return (
     <Portal>
@@ -234,7 +248,10 @@ export function PdfViewer({ url, title, onClose }: { url: string; title?: string
         </div>
 
         <div ref={holderRef} onScroll={onScroll}
-          className="flex-1 overflow-auto overscroll-contain bg-slate-800 p-4">
+          className="flex-1 overflow-auto overscroll-contain bg-slate-800 px-4"
+          // One page per screen: snap while at fit (scale 1); when zoomed in,
+          // turn snapping off so you can freely pan around the enlarged page.
+          style={{ scrollSnapType: scale <= 1 ? 'y mandatory' : 'none' }}>
           {error ? (
             <div className="text-center px-8 pt-16">
               <FileText size={30} className="text-slate-500 mx-auto mb-3" />
@@ -246,10 +263,17 @@ export function PdfViewer({ url, title, onClose }: { url: string; title?: string
               </a>
             </div>
           ) : (
-            <div ref={innerRef} className="w-fit mx-auto">
+            <div ref={innerRef}>
               <Document
                 file={url}
-                onLoadSuccess={({ numPages }) => { setNumPages(numPages); setError('') }}
+                onLoadSuccess={async (pdf) => {
+                  setNumPages(pdf.numPages); setError('')
+                  try {
+                    const p = await pdf.getPage(1)
+                    const vp = p.getViewport({ scale: 1 })
+                    if (vp.width && vp.height) setAspect(vp.width / vp.height)
+                  } catch { /* keep width-only fit */ }
+                }}
                 onLoadError={e => setError(e?.message || String(e))}
                 loading={
                   <div className="flex flex-col items-center pt-20 gap-3">
@@ -258,7 +282,7 @@ export function PdfViewer({ url, title, onClose }: { url: string; title?: string
                   </div>
                 }>
                 {Array.from({ length: numPages }, (_, i) => (
-                  <LazyPage key={i + 1} pageNumber={i + 1} width={pageWidth} root={holderRef.current} />
+                  <LazyPage key={i + 1} pageNumber={i + 1} width={pageWidth} height={sectionH} root={holderRef.current} />
                 ))}
               </Document>
             </div>
