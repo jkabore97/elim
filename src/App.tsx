@@ -4820,6 +4820,22 @@ function GroupPopup({ groupId, onClose }: { groupId: string; onClose: () => void
   )
 }
 
+// Lock the page behind an open overlay so dragging on (or past the end of) the
+// overlay scrolls the overlay, never the feed underneath. Without this, a short
+// comment list or a scroll that hits the list's top/bottom "chains" to the page
+// and only the background moves. Restores the previous overflow on close.
+function useScrollLock() {
+  useEffect(() => {
+    const html = document.documentElement
+    const body = document.body
+    const prevHtml = html.style.overflow
+    const prevBody = body.style.overflow
+    html.style.overflow = 'hidden'
+    body.style.overflow = 'hidden'
+    return () => { html.style.overflow = prevHtml; body.style.overflow = prevBody }
+  }, [])
+}
+
 // Height (px) the on-screen keyboard is covering, from the VisualViewport API.
 // Used to lift bottom sheets above the keyboard so their input isn't hidden
 // behind it — the software keyboard doesn't move `position: fixed` elements on
@@ -4850,6 +4866,7 @@ function CommentsSheet({ postId, comments, postAuthor, onClose, onAdd, onLikeCom
   onOpenProfile: (uid: string) => void
 }) {
   const { t } = useLanguage()
+  useScrollLock()
   const kbInset = useKeyboardInset()
   const [reportingComment, setReportingComment] = useState<Comment | null>(null)
   const [text, setText] = useState('')
@@ -4980,7 +4997,7 @@ function CommentsSheet({ postId, comments, postAuthor, onClose, onAdd, onLikeCom
           <h3 className="font-bold">{t('comments.title')}</h3>
           <button onClick={onClose} className="p-1.5 rounded-full hover:bg-slate-100"><X size={18} /></button>
         </div>
-        <div className="flex-1 overflow-y-auto p-5 space-y-4">
+        <div className="flex-1 overflow-y-auto overscroll-contain p-5 space-y-4">
           {topLevel.length === 0 && <p className="text-center text-slate-400 text-sm py-10">{t('comments.none')}</p>}
           {topLevel.map(c => (
             <div key={c.id} className="space-y-3">
@@ -5286,6 +5303,7 @@ function NotificationsPanel({ notifications, announcements, newPostCount, onClos
   onViewNewPosts: () => void
 }) {
   const { t } = useLanguage()
+  useScrollLock()
   const label = (type: AppNotification['type']) =>
     type === 'post_like' ? t('notif.postLike')
       : type === 'comment_like' ? t('notif.commentLike')
@@ -5313,7 +5331,7 @@ function NotificationsPanel({ notifications, announcements, newPostCount, onClos
           <h3 className="font-bold flex items-center gap-2"><Bell size={18} /> {t('notif.title')}</h3>
           <button onClick={onClose} className="p-1.5 rounded-full hover:bg-slate-100"><X size={18} /></button>
         </div>
-        <div className="flex-1 overflow-y-auto" style={{ paddingBottom: 'env(safe-area-inset-bottom, 0px)' }}>
+        <div className="flex-1 overflow-y-auto overscroll-contain" style={{ paddingBottom: 'env(safe-area-inset-bottom, 0px)' }}>
           {newPostCount > 0 && (
             <button onClick={onViewNewPosts}
               className="w-full flex items-center gap-3 px-5 py-4 border-b border-slate-100 hover:bg-slate-50 text-left">
