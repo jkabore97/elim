@@ -27,6 +27,9 @@ export function PullToRefresh({ onRefresh, children }: {
     const atTop = () => (window.scrollY || document.documentElement.scrollTop || 0) <= 0
 
     const onStart = (e: TouchEvent) => {
+      // When an overlay (comments/notifications sheet, popup) has locked the page
+      // scroll, the gesture belongs to that overlay — don't also pull-to-refresh.
+      if (document.body.style.overflow === 'hidden') { startY.current = null; return }
       if (refreshingRef.current || e.touches.length !== 1 || !atTop()) { startY.current = null; return }
       startY.current = e.touches[0].clientY
       dragging.current = false
