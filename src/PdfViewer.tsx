@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { Document, Page, pdfjs } from 'react-pdf'
 import {
-  ArrowLeft, ChevronLeft, ChevronRight, ZoomIn, ZoomOut, Download, Loader, FileText,
+  ArrowLeft, ZoomIn, ZoomOut, Download, Loader, FileText,
 } from 'lucide-react'
 import { useLanguage } from './i18n'
 import { Portal } from './Portal'
@@ -58,14 +58,45 @@ export function PdfThumb({ url, className }: { url: string; className?: string }
   )
 }
 
-// A full-screen, in-app PDF viewer (Portal) with a back button that returns to
-// the previous page, plus zoom and a page pager. The hardware/browser back
-// button closes it too (useBackHandler). Locks the page behind it so the feed
-// doesn't scroll underneath.
+// One page in the continuous scroll. Renders the actual PDF page only once its
+// slot nears the viewport (lazy), so a long document scrolls smoothly instead of
+// rendering every page up front. Before it renders, it reserves an approximate
+// height (A4 ratio) so the scrollbar and page positions don't jump.
+function LazyPage({ pageNumber, width, root }: { pageNumber: number; width: number; root: HTMLElement | null }) {
+  const [show, setShow] = useState(pageNumber === 1)
+  const ref = useRef<HTMLDivElement>(null)
+  useEffect(() => {
+    const el = ref.current
+    if (!el || show) return
+    if (typeof IntersectionObserver === 'undefined') { setShow(true); return }
+    const io = new IntersectionObserver(es => {
+      if (es[0].isIntersecting) { setShow(true); io.disconnect() }
+    }, { root: root || null, rootMargin: '800px 0px' })
+    io.observe(el)
+    return () => io.disconnect()
+  }, [root, show])
+  const approxH = Math.round(width * 1.414)
+  return (
+    <div ref={ref} data-page={pageNumber} className="mb-3 flex justify-center"
+      style={!show ? { minHeight: approxH } : undefined}>
+      {show && (
+        <Page pageNumber={pageNumber} width={width}
+          renderAnnotationLayer={false} renderTextLayer={false}
+          loading={<div style={{ height: approxH, width }} />} />
+      )}
+    </div>
+  )
+}
+
+// A full-screen, in-app PDF viewer (Portal). Pages are stacked and you scroll
+// down to move from page to page; the header shows the current page. A back
+// button (and the hardware/browser back button, via useBackHandler) returns to
+// the previous page. Zoom re-flows the page width. Locks the page behind it so
+// the feed doesn't scroll underneath.
 export function PdfViewer({ url, title, onClose }: { url: string; title?: string; onClose: () => void }) {
   const { t } = useLanguage()
   const [numPages, setNumPages] = useState(0)
-  const [page, setPage] = useState(1)
+  const [current, setCurrent] = useState(1)
   const [scale, setScale] = useState(1)
   const [error, setError] = useState('')
   const [width, setWidth] = useState(0)
@@ -90,10 +121,21 @@ export function PdfViewer({ url, title, onClose }: { url: string; title?: string
     return () => window.removeEventListener('resize', measure)
   }, [])
 
-  const go = (delta: number) => {
-    setPage(p => Math.min(Math.max(1, p + delta), numPages || 1))
-    holderRef.current?.scrollTo({ top: 0, behavior: 'smooth' })
+  // Update the "Page X / Y" indicator from the scroll position: the current page
+  // is the last one whose top has scrolled above ~40% of the viewport height.
+  const onScroll = () => {
+    const holder = holderRef.current
+    if (!holder) return
+    const top = holder.getBoundingClientRect().top
+    const mark = holder.clientHeight * 0.4
+    let cur = 1
+    holder.querySelectorAll<HTMLElement>('[data-page]').forEach(el => {
+      if (el.getBoundingClientRect().top - top <= mark) cur = Number(el.dataset.page) || cur
+    })
+    setCurrent(cur)
   }
+
+  const pageWidth = width ? Math.min(width - 16, 900) * scale : 320
 
   return (
     <Portal>
@@ -106,7 +148,7 @@ export function PdfViewer({ url, title, onClose }: { url: string; title?: string
           <div className="min-w-0 flex-1">
             <h2 className="font-bold text-white truncate text-sm">{title || t('post.document.fallback')}</h2>
             <p className="text-[11px] text-slate-400 truncate">
-              {numPages ? `${t('lib.page')} ${page} / ${numPages}` : t('app.loading')}
+              {numPages ? `${t('lib.page')} ${current} / ${numPages}` : t('app.loading')}
             </p>
           </div>
           <button onClick={() => setScale(s => Math.max(0.6, s - 0.2))} aria-label={t('lib.zoomOut')}
@@ -117,7 +159,8 @@ export function PdfViewer({ url, title, onClose }: { url: string; title?: string
             className="p-2 rounded-full hover:bg-white/5 text-slate-300"><Download size={17} /></a>
         </div>
 
-        <div ref={holderRef} className="flex-1 overflow-auto overscroll-contain bg-slate-800 flex justify-center py-4">
+        <div ref={holderRef} onScroll={onScroll}
+          className="flex-1 overflow-auto overscroll-contain bg-slate-800 py-4">
           {error ? (
             <div className="text-center px-8 pt-16">
               <FileText size={30} className="text-slate-500 mx-auto mb-3" />
@@ -139,31 +182,12 @@ export function PdfViewer({ url, title, onClose }: { url: string; title?: string
                   <p className="text-xs text-slate-400">{t('app.loading')}</p>
                 </div>
               }>
-              <Page
-                pageNumber={page}
-                width={width ? Math.min(width - 16, 900) * scale : undefined}
-                renderAnnotationLayer={false}
-                loading={<div className="h-96" />}
-              />
+              {Array.from({ length: numPages }, (_, i) => (
+                <LazyPage key={i + 1} pageNumber={i + 1} width={pageWidth} root={holderRef.current} />
+              ))}
             </Document>
           )}
         </div>
-
-        {numPages > 1 && !error && (
-          <div className="flex items-center gap-3 px-4 py-3 border-t border-white/10 shrink-0" style={{ paddingBottom: 'calc(env(safe-area-inset-bottom, 0px) + 0.5rem)' }}>
-            <button onClick={() => go(-1)} disabled={page <= 1}
-              className="w-10 h-10 rounded-full bg-white/5 hover:bg-white/10 disabled:opacity-30 text-slate-200 flex items-center justify-center">
-              <ChevronLeft size={18} />
-            </button>
-            <input type="range" min={1} max={numPages} value={page}
-              onChange={e => setPage(Number(e.target.value))}
-              className="flex-1 h-1 accent-affirm-400 bg-white/10" />
-            <button onClick={() => go(1)} disabled={page >= numPages}
-              className="w-10 h-10 rounded-full bg-white/5 hover:bg-white/10 disabled:opacity-30 text-slate-200 flex items-center justify-center">
-              <ChevronRight size={18} />
-            </button>
-          </div>
-        )}
       </div>
     </Portal>
   )
