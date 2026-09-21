@@ -537,6 +537,7 @@ const en = {
   "radio.replay": 'Replay',
   "radio.tapToListen": 'Tap to watch',
   "radio.badUrl": 'Invalid link. Paste a YouTube or Facebook Live link.',
+  "radio.ytHint": 'Paste the video link (youtube.com/watch?v=… or youtube.com/live/…), not the channel link.',
   "radio.goLive": 'Go live',
   "radio.endReplay": 'End (keep as replay)',
   "radio.remove": 'Remove',

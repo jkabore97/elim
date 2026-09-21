@@ -156,7 +156,11 @@ export function LiveRadioAdmin({ onDone }: { onDone?: () => void }) {
   }, [radio?.url])
 
   const parsed = parseRadioUrl(url)
-  const urlOk = parsed.provider !== 'unknown'
+  // A link is only usable if we can actually embed it: YouTube needs a resolvable
+  // video id (a channel/@handle "/live" link has none — paste the video link),
+  // Facebook needs a video/permalink URL.
+  const urlOk = parsed.provider === 'facebook' || (parsed.provider === 'youtube' && !!parsed.videoId)
+  const ytNeedsVideo = parsed.provider === 'youtube' && !parsed.videoId
 
   const write = async (status: LiveRadio['status']) => {
     if (busy) return
@@ -212,7 +216,7 @@ export function LiveRadioAdmin({ onDone }: { onDone?: () => void }) {
         className="w-full px-3 py-2.5 rounded-xl border border-slate-200 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-affirm-400" />
       <input value={url} onChange={e => setUrl(e.target.value)} placeholder={t('radio.admin.url')}
         className="w-full px-3 py-2.5 rounded-xl border border-slate-200 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-affirm-400" />
-      {url && !urlOk && <p className="text-[11px] text-red-500">{t('radio.badUrl')}</p>}
+      {url && !urlOk && <p className="text-[11px] text-red-500">{ytNeedsVideo ? t('radio.ytHint') : t('radio.badUrl')}</p>}
       {urlOk && <p className="text-[11px] text-slate-400">{parsed.provider === 'youtube' ? 'YouTube' : 'Facebook'}</p>}
 
       <label className="flex items-center gap-2 text-xs text-slate-600">
