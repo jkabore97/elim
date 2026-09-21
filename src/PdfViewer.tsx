@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useLayoutEffect, useRef } from 'react'
 import { Document, Page, pdfjs } from 'react-pdf'
 import {
   ArrowLeft, ZoomIn, ZoomOut, Download, Loader, FileText,
@@ -105,35 +105,50 @@ export function PdfViewer({ url, title, onClose }: { url: string; title?: string
 
   useBackHandler(true, onClose)
 
-  // Pinch-to-zoom with two fingers. During the gesture we apply a fast CSS
-  // transform for smooth feedback, then commit the new scale on release so the
-  // pages re-render crisply at the new size. A native non-passive listener is
-  // needed so the two-finger move can preventDefault (stop the browser zooming
-  // the whole page); single-finger scrolling is untouched.
-  const pinch = useRef<{ startDist: number; base: number; live: number } | null>(null)
+  // Pinch-to-zoom with two fingers, anchored on the point BETWEEN the fingers so
+  // you can zoom into any part of the page (a corner, a figure), not just the
+  // centre. During the gesture a CSS transform gives smooth feedback around that
+  // focal point; on release the scale is committed (pages re-render crisply) and
+  // the scroll is adjusted so the same point stays under your fingers — then you
+  // can pan freely to any edge. A native non-passive listener lets the two-finger
+  // move preventDefault (so the browser doesn't zoom the whole app); one-finger
+  // scrolling is untouched.
+  const MIN = 1, MAX = 6
+  const pinch = useRef<{ startDist: number; base: number; live: number; sx: number; sy: number; fx: number; fy: number } | null>(null)
+  const pendingFocal = useRef<{ base: number; live: number; sx: number; sy: number; fx: number; fy: number } | null>(null)
   useEffect(() => {
     const holder = holderRef.current
     if (!holder) return
     const dist = (t: TouchList) => Math.hypot(t[0].clientX - t[1].clientX, t[0].clientY - t[1].clientY)
     const onStart = (e: TouchEvent) => {
-      if (e.touches.length === 2) pinch.current = { startDist: dist(e.touches), base: scale, live: scale }
+      if (e.touches.length !== 2) return
+      const hr = holder.getBoundingClientRect()
+      const fx = (e.touches[0].clientX + e.touches[1].clientX) / 2 - hr.left
+      const fy = (e.touches[0].clientY + e.touches[1].clientY) / 2 - hr.top
+      pinch.current = { startDist: dist(e.touches), base: scale, live: scale, sx: holder.scrollLeft, sy: holder.scrollTop, fx, fy }
     }
     const onMove = (e: TouchEvent) => {
-      if (!pinch.current || e.touches.length !== 2) return
+      const p = pinch.current
+      if (!p || e.touches.length !== 2) return
       if (e.cancelable) e.preventDefault()
-      const live = Math.min(4, Math.max(0.6, pinch.current.base * (dist(e.touches) / pinch.current.startDist)))
-      pinch.current.live = live
+      const live = Math.min(MAX, Math.max(MIN, p.base * (dist(e.touches) / p.startDist)))
+      p.live = live
       if (innerRef.current) {
-        innerRef.current.style.transformOrigin = '50% 0'
-        innerRef.current.style.transform = `scale(${live / pinch.current.base})`
+        // Origin at the focal point, expressed in the inner's own coordinates
+        // (its content is currently scaled at `base`, and it sits at scroll sx/sy).
+        const r = innerRef.current.getBoundingClientRect()
+        const hr = holder.getBoundingClientRect()
+        innerRef.current.style.transformOrigin = `${(p.fx + hr.left) - r.left}px ${(p.fy + hr.top) - r.top}px`
+        innerRef.current.style.transform = `scale(${live / p.base})`
       }
     }
     const onEnd = (e: TouchEvent) => {
-      if (!pinch.current || e.touches.length >= 2) return
-      const live = pinch.current.live
+      const p = pinch.current
+      if (!p || e.touches.length >= 2) return
       pinch.current = null
-      if (innerRef.current) innerRef.current.style.transform = ''
-      setScale(Math.round(live * 100) / 100)
+      if (innerRef.current) { innerRef.current.style.transform = ''; innerRef.current.style.transformOrigin = '' }
+      pendingFocal.current = { base: p.base, live: p.live, sx: p.sx, sy: p.sy, fx: p.fx, fy: p.fy }
+      setScale(Math.round(p.live * 100) / 100)
     }
     holder.addEventListener('touchstart', onStart, { passive: true })
     holder.addEventListener('touchmove', onMove, { passive: false })
@@ -145,6 +160,20 @@ export function PdfViewer({ url, title, onClose }: { url: string; title?: string
       holder.removeEventListener('touchend', onEnd)
       holder.removeEventListener('touchcancel', onEnd)
     }
+  }, [scale])
+
+  // After a pinch commits a new scale, move the scroll so the focal point stays
+  // under the fingers (keeps the zoom precise). The whole scrollable content
+  // grows by ratio, so the content point (start scroll + focal offset) scales
+  // and we subtract the focal offset back out.
+  useLayoutEffect(() => {
+    const pf = pendingFocal.current
+    const holder = holderRef.current
+    if (!pf || !holder) return
+    pendingFocal.current = null
+    const ratio = pf.live / pf.base
+    holder.scrollLeft = (pf.sx + pf.fx) * ratio - pf.fx
+    holder.scrollTop = (pf.sy + pf.fy) * ratio - pf.fy
   }, [scale])
 
   useEffect(() => {
@@ -178,7 +207,9 @@ export function PdfViewer({ url, title, onClose }: { url: string; title?: string
     setCurrent(cur)
   }
 
-  const pageWidth = width ? Math.min(width - 16, 900) * scale : 320
+  // width includes the p-4 padding (16px each side); subtract it so a base page
+  // fits without a stray horizontal scrollbar, then scale for zoom.
+  const pageWidth = width ? Math.min(width - 32, 900) * scale : 320
 
   return (
     <Portal>
@@ -194,16 +225,16 @@ export function PdfViewer({ url, title, onClose }: { url: string; title?: string
               {numPages ? `${t('lib.page')} ${current} / ${numPages}` : t('app.loading')}
             </p>
           </div>
-          <button onClick={() => setScale(s => Math.max(0.6, s - 0.2))} aria-label={t('lib.zoomOut')}
+          <button onClick={() => setScale(s => Math.max(MIN, Math.round((s - 0.25) * 100) / 100))} aria-label={t('lib.zoomOut')}
             className="p-2 rounded-full hover:bg-white/5 text-slate-300"><ZoomOut size={17} /></button>
-          <button onClick={() => setScale(s => Math.min(3, s + 0.2))} aria-label={t('lib.zoomIn')}
+          <button onClick={() => setScale(s => Math.min(MAX, Math.round((s + 0.25) * 100) / 100))} aria-label={t('lib.zoomIn')}
             className="p-2 rounded-full hover:bg-white/5 text-slate-300"><ZoomIn size={17} /></button>
           <a href={url} target="_blank" rel="noreferrer" aria-label={t('post.download')}
             className="p-2 rounded-full hover:bg-white/5 text-slate-300"><Download size={17} /></a>
         </div>
 
         <div ref={holderRef} onScroll={onScroll}
-          className="flex-1 overflow-auto overscroll-contain bg-slate-800 py-4">
+          className="flex-1 overflow-auto overscroll-contain bg-slate-800 p-4">
           {error ? (
             <div className="text-center px-8 pt-16">
               <FileText size={30} className="text-slate-500 mx-auto mb-3" />
