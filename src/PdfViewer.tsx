@@ -77,8 +77,8 @@ function LazyPage({ pageNumber, width, root }: { pageNumber: number; width: numb
   }, [root, show])
   const approxH = Math.round(width * 1.414)
   return (
-    <div ref={ref} data-page={pageNumber} className="mb-3 flex justify-center"
-      style={!show ? { minHeight: approxH } : undefined}>
+    <div ref={ref} data-page={pageNumber} className="mb-3 mx-auto"
+      style={{ width, minHeight: show ? undefined : approxH }}>
       {show && (
         <Page pageNumber={pageNumber} width={width}
           renderAnnotationLayer={false} renderTextLayer={false}
@@ -101,8 +101,51 @@ export function PdfViewer({ url, title, onClose }: { url: string; title?: string
   const [error, setError] = useState('')
   const [width, setWidth] = useState(0)
   const holderRef = useRef<HTMLDivElement>(null)
+  const innerRef = useRef<HTMLDivElement>(null)
 
   useBackHandler(true, onClose)
+
+  // Pinch-to-zoom with two fingers. During the gesture we apply a fast CSS
+  // transform for smooth feedback, then commit the new scale on release so the
+  // pages re-render crisply at the new size. A native non-passive listener is
+  // needed so the two-finger move can preventDefault (stop the browser zooming
+  // the whole page); single-finger scrolling is untouched.
+  const pinch = useRef<{ startDist: number; base: number; live: number } | null>(null)
+  useEffect(() => {
+    const holder = holderRef.current
+    if (!holder) return
+    const dist = (t: TouchList) => Math.hypot(t[0].clientX - t[1].clientX, t[0].clientY - t[1].clientY)
+    const onStart = (e: TouchEvent) => {
+      if (e.touches.length === 2) pinch.current = { startDist: dist(e.touches), base: scale, live: scale }
+    }
+    const onMove = (e: TouchEvent) => {
+      if (!pinch.current || e.touches.length !== 2) return
+      if (e.cancelable) e.preventDefault()
+      const live = Math.min(4, Math.max(0.6, pinch.current.base * (dist(e.touches) / pinch.current.startDist)))
+      pinch.current.live = live
+      if (innerRef.current) {
+        innerRef.current.style.transformOrigin = '50% 0'
+        innerRef.current.style.transform = `scale(${live / pinch.current.base})`
+      }
+    }
+    const onEnd = (e: TouchEvent) => {
+      if (!pinch.current || e.touches.length >= 2) return
+      const live = pinch.current.live
+      pinch.current = null
+      if (innerRef.current) innerRef.current.style.transform = ''
+      setScale(Math.round(live * 100) / 100)
+    }
+    holder.addEventListener('touchstart', onStart, { passive: true })
+    holder.addEventListener('touchmove', onMove, { passive: false })
+    holder.addEventListener('touchend', onEnd, { passive: true })
+    holder.addEventListener('touchcancel', onEnd, { passive: true })
+    return () => {
+      holder.removeEventListener('touchstart', onStart)
+      holder.removeEventListener('touchmove', onMove)
+      holder.removeEventListener('touchend', onEnd)
+      holder.removeEventListener('touchcancel', onEnd)
+    }
+  }, [scale])
 
   useEffect(() => {
     const html = document.documentElement
@@ -172,20 +215,22 @@ export function PdfViewer({ url, title, onClose }: { url: string; title?: string
               </a>
             </div>
           ) : (
-            <Document
-              file={url}
-              onLoadSuccess={({ numPages }) => { setNumPages(numPages); setError('') }}
-              onLoadError={e => setError(e?.message || String(e))}
-              loading={
-                <div className="flex flex-col items-center pt-20 gap-3">
-                  <Loader size={26} className="text-affirm-400 animate-spin" />
-                  <p className="text-xs text-slate-400">{t('app.loading')}</p>
-                </div>
-              }>
-              {Array.from({ length: numPages }, (_, i) => (
-                <LazyPage key={i + 1} pageNumber={i + 1} width={pageWidth} root={holderRef.current} />
-              ))}
-            </Document>
+            <div ref={innerRef} className="w-fit mx-auto">
+              <Document
+                file={url}
+                onLoadSuccess={({ numPages }) => { setNumPages(numPages); setError('') }}
+                onLoadError={e => setError(e?.message || String(e))}
+                loading={
+                  <div className="flex flex-col items-center pt-20 gap-3">
+                    <Loader size={26} className="text-affirm-400 animate-spin" />
+                    <p className="text-xs text-slate-400">{t('app.loading')}</p>
+                  </div>
+                }>
+                {Array.from({ length: numPages }, (_, i) => (
+                  <LazyPage key={i + 1} pageNumber={i + 1} width={pageWidth} root={holderRef.current} />
+                ))}
+              </Document>
+            </div>
           )}
         </div>
       </div>
