@@ -54,6 +54,7 @@ import { FR_COUNTRY, EN_PROFESSION, EN_INTEREST } from './labels'
 import { dialFor } from './countries'
 import { recordPostView, recordPostShare } from './engagement'
 import { PullToRefresh } from './PullToRefresh'
+import { PdfViewer, PdfThumb } from './PdfViewer'
 import { fetchMemberNames, fetchMemberProfile, type MemberProfile } from './members'
 import { TValue } from './TValue'
 
@@ -1334,6 +1335,8 @@ function AppInner() {
   const [profileUid, setProfileUid] = useState<string | null>(null)
   // When set, the tap-to-view GROUP popup is open for this group's id.
   const [groupPopupId, setGroupPopupId] = useState<string | null>(null)
+  // When set, the in-app PDF viewer is open for this document.
+  const [viewingDoc, setViewingDoc] = useState<{ url: string; title?: string } | null>(null)
   // Red dot on the Game button while today's daily challenge is unplayed.
   const [quizDailyPending, setQuizDailyPending] = useState(false)
   // Set to the store URL when a newer app version is available (native only).
@@ -2287,7 +2290,7 @@ function AppInner() {
                       ? 'rounded-3xl ring-2 ring-affirm-400 ring-offset-2 ring-offset-[#0f172a] transition'
                       : ''}>
                     <PostCard post={post} onLike={handleLike} onOpenComments={setActiveCommentsPost}
-                      currentUser={user} isLiked={likedPostIds.has(post.id)} onEdit={setEditingPost} onDelete={handleDeletePost} onOpenProfile={setProfileUid} onOpenGroup={setGroupPopupId} />
+                      currentUser={user} isLiked={likedPostIds.has(post.id)} onEdit={setEditingPost} onDelete={handleDeletePost} onOpenProfile={setProfileUid} onOpenGroup={setGroupPopupId} onOpenDoc={setViewingDoc} />
                   </div>
                 ))}
               </div>
@@ -2364,7 +2367,7 @@ function AppInner() {
                   </div>
                 ) : musiquePosts.map(post => (
                   <PostCard key={post.id} post={post} onLike={handleLike} onOpenComments={setActiveCommentsPost}
-                    currentUser={user} isLiked={likedPostIds.has(post.id)} onEdit={setEditingPost} onDelete={handleDeletePost} onOpenProfile={setProfileUid} onOpenGroup={setGroupPopupId} />
+                    currentUser={user} isLiked={likedPostIds.has(post.id)} onEdit={setEditingPost} onDelete={handleDeletePost} onOpenProfile={setProfileUid} onOpenGroup={setGroupPopupId} onOpenDoc={setViewingDoc} />
                 ))}
               </div>
             )}
@@ -2405,7 +2408,7 @@ function AppInner() {
                   </div>
                 ) : santePosts.map(post => (
                   <PostCard key={post.id} post={post} onLike={handleLike} onOpenComments={setActiveCommentsPost}
-                    currentUser={user} isLiked={likedPostIds.has(post.id)} onEdit={setEditingPost} onDelete={handleDeletePost} onOpenProfile={setProfileUid} onOpenGroup={setGroupPopupId} />
+                    currentUser={user} isLiked={likedPostIds.has(post.id)} onEdit={setEditingPost} onDelete={handleDeletePost} onOpenProfile={setProfileUid} onOpenGroup={setGroupPopupId} onOpenDoc={setViewingDoc} />
                 ))}
               </div>
             )}
@@ -2608,6 +2611,9 @@ function AppInner() {
       )}
       {groupPopupId && (
         <GroupPopup groupId={groupPopupId} onClose={() => setGroupPopupId(null)} />
+      )}
+      {viewingDoc && (
+        <PdfViewer url={viewingDoc.url} title={viewingDoc.title} onClose={() => setViewingDoc(null)} />
       )}
     </div>
   )
@@ -3858,7 +3864,7 @@ function AdminPanel({ pendingChurches, onApprove, onDeny }: {
   )
 }
 
-function PostCard({ post, onLike, onOpenComments, currentUser, isLiked, onEdit, onDelete, onOpenProfile, onOpenGroup }: {
+function PostCard({ post, onLike, onOpenComments, currentUser, isLiked, onEdit, onDelete, onOpenProfile, onOpenGroup, onOpenDoc }: {
   post: Post
   onLike: (id: string) => Promise<void>
   onOpenComments: (id: string) => void
@@ -3868,6 +3874,7 @@ function PostCard({ post, onLike, onOpenComments, currentUser, isLiked, onEdit, 
   onDelete: (id: string) => void | Promise<void>
   onOpenProfile?: (uid: string) => void
   onOpenGroup?: (groupId: string) => void
+  onOpenDoc?: (doc: { url: string; title?: string }) => void
 }) {
   const { t } = useLanguage()
   const currentUserUid = currentUser.uid
@@ -4192,16 +4199,21 @@ function PostCard({ post, onLike, onOpenComments, currentUser, isLiked, onEdit, 
 
       {post.type === 'document' && post.mediaUrl && (
         <div className="px-4 pb-4">
-          <a href={post.mediaUrl} target="_blank" rel="noreferrer"
-            className="flex items-center gap-3 bg-slate-50 hover:bg-slate-100 rounded-2xl px-4 py-3.5 transition">
-            <div className="w-10 h-10 rounded-xl bg-red-50 flex items-center justify-center text-red-500 shrink-0">
-              <FileText size={19} />
+          <button type="button"
+            onClick={() => onOpenDoc?.({ url: post.mediaUrl!, title: post.fileName })}
+            className="block w-full text-left bg-slate-50 hover:bg-slate-100 rounded-2xl overflow-hidden transition">
+            {/* First-page preview (renders when the card is near the viewport). */}
+            <PdfThumb url={post.mediaUrl} className="w-full max-h-72 overflow-hidden flex justify-center bg-white border-b border-slate-100" />
+            <div className="flex items-center gap-3 px-4 py-3.5">
+              <div className="w-10 h-10 rounded-xl bg-red-50 flex items-center justify-center text-red-500 shrink-0">
+                <FileText size={19} />
+              </div>
+              <div className="min-w-0 flex-1">
+                <p className="text-sm font-semibold text-slate-800 truncate">{post.fileName || t('post.document.fallback')}</p>
+                <p className="text-xs text-slate-400">{t('post.tapToOpen')}</p>
+              </div>
             </div>
-            <div className="min-w-0 flex-1">
-              <p className="text-sm font-semibold text-slate-800 truncate">{post.fileName || t('post.document.fallback')}</p>
-              <p className="text-xs text-slate-400">{t('post.tapToOpen')}</p>
-            </div>
-          </a>
+          </button>
         </div>
       )}
 
