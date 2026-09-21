@@ -1342,6 +1342,9 @@ function AppInner() {
   const [quizDailyPending, setQuizDailyPending] = useState(false)
   // Set to the store URL when a newer app version is available (native only).
   const [updateUrl, setUpdateUrl] = useState<string | null>(null)
+  // When the installed build is below the admin-set REQUIRED minimum, the app is
+  // hard-blocked behind a full-screen "update required" gate (native only).
+  const [requiredUpdateUrl, setRequiredUpdateUrl] = useState<string | null>(null)
   const [donation, setDonation] = useState<DonationConfig | null>(null)
   const [showDonation, setShowDonation] = useState(false)
   const [seenNewPosts, setSeenNewPosts] = useState<Post[]>([])
@@ -1531,9 +1534,13 @@ function AppInner() {
       if (cancelled) return
       const data = snap.exists() ? snap.data() : null
       const latest = Number(data?.latestBuild || 0)
+      const minBuild = Number(data?.minBuild || 0)
       const url = (data?.updateUrl && String(data.updateUrl)) || PLAY_URL
-      // Older than what's published -> offer the update.
-      setUpdateUrl(myBuild > 0 && latest > myBuild ? url : null)
+      // Below the REQUIRED minimum -> hard-block the whole app. Otherwise, if
+      // simply older than the latest published build, offer a dismissible update.
+      const mustUpdate = myBuild > 0 && minBuild > 0 && myBuild < minBuild
+      setRequiredUpdateUrl(mustUpdate ? url : null)
+      setUpdateUrl(!mustUpdate && myBuild > 0 && latest > myBuild ? url : null)
     }, () => {})
     return () => { cancelled = true; unsub() }
   }, [user?.uid, user?.role])
@@ -2034,6 +2041,12 @@ function AppInner() {
   // the animation, so this usually costs no extra wait at all.
   if (!splashDone) {
     return <AnimatedSplash onDone={() => setSplashDone(true)} />
+  }
+
+  // Hard update gate: an installed build below the required minimum can't use
+  // the app until it updates from the store.
+  if (requiredUpdateUrl) {
+    return <UpdateRequiredGate url={requiredUpdateUrl} />
   }
 
   if (authLoading) {
@@ -3369,28 +3382,53 @@ function QuizSoundsPanel() {
   )
 }
 
+// Full-screen block shown when the installed app is too old (below the required
+// minimum build). No way past it but updating from the store — the whole app is
+// unreachable until then.
+function UpdateRequiredGate({ url }: { url: string }) {
+  const { t } = useLanguage()
+  return (
+    <div className="fixed inset-0 z-[100] flex flex-col items-center justify-center text-center px-8"
+      style={{ background: 'linear-gradient(180deg,#f97316,#ea580c)', paddingTop: 'env(safe-area-inset-top,0px)', paddingBottom: 'env(safe-area-inset-bottom,0px)' }}>
+      <div className="w-24 h-24 rounded-3xl bg-white/15 flex items-center justify-center mb-6">
+        <Download size={44} className="text-white" />
+      </div>
+      <h1 className="text-2xl font-extrabold text-white mb-2">{t('forceUpdate.title')}</h1>
+      <p className="text-white/90 text-sm max-w-xs leading-relaxed mb-8">{t('forceUpdate.body')}</p>
+      <a href={url} target="_blank" rel="noopener noreferrer"
+        className="inline-flex items-center gap-2 bg-white text-orange-700 font-bold rounded-full px-7 py-3.5 shadow-lg">
+        <Download size={18} /> {t('forceUpdate.button')}
+      </a>
+    </div>
+  )
+}
+
 function AppVersionPanel() {
   const { t } = useLanguage()
   const PLAY_URL = 'https://play.google.com/store/apps/details?id=com.elim.app'
   const [current, setCurrent] = useState<number | null>(null)
   const [value, setValue] = useState('')
+  const [minValue, setMinValue] = useState('')
   const [saving, setSaving] = useState(false)
   const [saved, setSaved] = useState(false)
 
   useEffect(() => {
     getDoc(doc(db, 'config', 'app')).then(s => {
-      const n = Number((s.data() as any)?.latestBuild || 0)
+      const d = s.data() as any
+      const n = Number(d?.latestBuild || 0)
       setCurrent(n); setValue(n ? String(n) : '')
+      setMinValue(d?.minBuild ? String(Number(d.minBuild)) : '')
     }).catch(() => setCurrent(0))
   }, [])
 
   const save = async () => {
     const n = parseInt(value, 10)
     if (!Number.isFinite(n) || n <= 0 || saving) return
+    const min = parseInt(minValue, 10)
     setSaving(true)
     try {
       await setDoc(doc(db, 'config', 'app'),
-        { latestBuild: n, updateUrl: PLAY_URL, updatedAt: serverTimestamp() }, { merge: true })
+        { latestBuild: n, minBuild: (Number.isFinite(min) && min > 0) ? min : 0, updateUrl: PLAY_URL, updatedAt: serverTimestamp() }, { merge: true })
       setCurrent(n); setSaved(true); setTimeout(() => setSaved(false), 2000)
     } catch { /* rules/offline */ } finally { setSaving(false) }
   }
@@ -3409,6 +3447,14 @@ function AppVersionPanel() {
           {saved ? t('appVersion.saved') : t('appVersion.save')}
         </button>
       </div>
+      {/* Required minimum build: any installed app older than this is blocked
+          with a full-screen "update required" screen until it updates. Leave
+          empty (or 0) to force no one. */}
+      <label className="block text-[11px] font-semibold text-slate-500 mt-3 mb-1">{t('appVersion.minLabel')}</label>
+      <input value={minValue} onChange={e => setMinValue(e.target.value.replace(/[^0-9]/g, ''))}
+        inputMode="numeric" placeholder={t('appVersion.minPlaceholder')}
+        className="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-red-400" />
+      <p className="text-[11px] text-slate-400 mt-1">{t('appVersion.minHint')}</p>
     </div>
   )
 }
