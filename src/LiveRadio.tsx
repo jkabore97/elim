@@ -1,7 +1,10 @@
 import { useEffect, useState } from 'react'
-import { doc, onSnapshot, setDoc, serverTimestamp } from 'firebase/firestore'
+import {
+  doc, onSnapshot, setDoc, deleteDoc, serverTimestamp,
+  collection, query, where, getCountFromServer, Timestamp,
+} from 'firebase/firestore'
 import { httpsCallable } from 'firebase/functions'
-import { Radio, X, Loader2, Check, Trash2 } from 'lucide-react'
+import { Radio, X, Loader2, Check, Trash2, Eye } from 'lucide-react'
 import { db, functions } from './firebase'
 import { useLanguage } from './i18n'
 import { Portal } from './Portal'
@@ -60,12 +63,52 @@ function useLiveRadio(): LiveRadio | null {
   return radio
 }
 
+// The number of people watching/listening IN THE APP right now, counted from
+// livePresence heartbeats (one doc per uid, refreshed while the player is open).
+// Uses a cheap count() aggregation of the docs seen in the last ~45s, so a
+// viewer who left (or whose app was killed) drops out on its own.
+const PRESENCE_WINDOW_MS = 45000
+function useLiveCount(active: boolean, everyMs = 15000): number | null {
+  const [n, setN] = useState<number | null>(null)
+  useEffect(() => {
+    if (!active) { setN(null); return }
+    let alive = true
+    const tick = async () => {
+      try {
+        const cutoff = Timestamp.fromMillis(Date.now() - PRESENCE_WINDOW_MS)
+        const s = await getCountFromServer(query(collection(db, 'livePresence'), where('lastSeen', '>', cutoff)))
+        if (alive) setN(s.data().count)
+      } catch { /* index building / offline: just don't show a number */ }
+    }
+    tick()
+    const iv = setInterval(tick, everyMs)
+    return () => { alive = false; clearInterval(iv) }
+  }, [active, everyMs])
+  return n
+}
+
+// While `active`, mark this viewer present with a heartbeat (doc id = uid, so a
+// person is only ever counted once) and remove it on close.
+function useLivePresence(uid: string, active: boolean) {
+  useEffect(() => {
+    if (!uid || !active) return
+    const ref = doc(db, 'livePresence', uid)
+    const beat = () => setDoc(ref, { uid, lastSeen: serverTimestamp() }, { merge: true }).catch(() => {})
+    beat()
+    const iv = setInterval(beat, 20000)
+    return () => { clearInterval(iv); deleteDoc(ref).catch(() => {}) }
+  }, [uid, active])
+}
+
 // The full-screen in-app player: just the embedded audio stream (a static image
 // shows for audio-only broadcasts), a title, and a back button. No chat, no
 // viewer count of our own.
-function RadioPlayer({ radio, onClose }: { radio: LiveRadio; onClose: () => void }) {
+function RadioPlayer({ radio, uid, onClose }: { radio: LiveRadio; uid: string; onClose: () => void }) {
   const { t } = useLanguage()
   useBackHandler(true, onClose)
+  // Count this viewer while the player is open, and show the live total.
+  useLivePresence(uid, radio.status === 'live')
+  const count = useLiveCount(radio.status === 'live')
   useEffect(() => {
     const html = document.documentElement, body = document.body
     const ph = html.style.overflow, pb = body.style.overflow
@@ -88,6 +131,11 @@ function RadioPlayer({ radio, onClose }: { radio: LiveRadio; onClose: () => void
               {radio.status === 'live' ? t('radio.live') : t('radio.replay')}
             </p>
           </div>
+          {radio.status === 'live' && count != null && (
+            <span className="shrink-0 flex items-center gap-1 text-xs font-semibold text-white bg-white/10 rounded-full px-2.5 py-1" title={t('radio.watching')}>
+              <Eye size={14} /> {count.toLocaleString()}
+            </span>
+          )}
         </div>
         <div className="flex-1 flex items-center justify-center p-3">
           {src ? (
@@ -106,12 +154,15 @@ function RadioPlayer({ radio, onClose }: { radio: LiveRadio; onClose: () => void
 
 // The card shown at the top of the feed when a broadcast is live or a recording
 // is available to replay. Tapping it opens the in-app player.
-export function LiveRadioBanner() {
+export function LiveRadioBanner({ uid }: { uid: string }) {
   const { t } = useLanguage()
   const radio = useLiveRadio()
   const [open, setOpen] = useState(false)
+  const live = !!radio && radio.status === 'live'
+  // A gentle 30s poll on the card so the "N watching" stays roughly current
+  // without every feed viewer hammering the count.
+  const count = useLiveCount(live, 30000)
   if (!radio || radio.status === 'off' || !radio.url) return null
-  const live = radio.status === 'live'
   return (
     <>
       <button onClick={() => setOpen(true)}
@@ -130,8 +181,13 @@ export function LiveRadioBanner() {
           </div>
           <p className="text-xs text-white/80 mt-0.5">{live ? t('radio.tapToListen') : t('radio.replay')}</p>
         </div>
+        {live && count != null && count > 0 && (
+          <span className="shrink-0 flex items-center gap-1 text-xs font-bold text-white bg-white/15 rounded-full px-2.5 py-1">
+            <Eye size={14} /> {count.toLocaleString()}
+          </span>
+        )}
       </button>
-      {open && <RadioPlayer radio={radio} onClose={() => setOpen(false)} />}
+      {open && <RadioPlayer radio={radio} uid={uid} onClose={() => setOpen(false)} />}
     </>
   )
 }
