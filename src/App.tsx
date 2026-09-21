@@ -55,6 +55,7 @@ import { dialFor } from './countries'
 import { recordPostView, recordPostShare } from './engagement'
 import { PullToRefresh } from './PullToRefresh'
 import { PdfViewer, PdfThumb } from './PdfViewer'
+import { LiveRadioBanner, LiveRadioAdmin } from './LiveRadio'
 import { fetchMemberNames, fetchMemberProfile, type MemberProfile } from './members'
 import { TValue } from './TValue'
 
@@ -2258,6 +2259,10 @@ function AppInner() {
                   ))}
                 </div>
 
+                {/* Live radio card (shown to everyone when a broadcast is live
+                    or a recording is available to replay). */}
+                <LiveRadioBanner />
+
                 {/* Publishing lives here (leads/admin/pastor only), not in the
                     bottom bar — a simple member never sees it. */}
                 {canPost && (
@@ -2467,7 +2472,12 @@ function AppInner() {
                 {adminSection === 'groups' && isStaffUser && <GroupsPanel user={user} groups={groups} />}
                 {adminSection === 'passwords' && isStaffUser && <AdminPasswordPanel />}
                 {adminSection === 'reports' && isStaffUser && <ReportsPanel user={user} />}
-                {adminSection === 'broadcast' && isStaffUser && <BroadcastPanel />}
+                {adminSection === 'broadcast' && isStaffUser && (
+                  <div className="space-y-4">
+                    <LiveRadioAdmin user={user} />
+                    <BroadcastPanel />
+                  </div>
+                )}
                 {adminSection === 'dons' && isStaffUser && <DonationsPanel user={user} />}
                 {adminSection === 'quizsounds' && isStaffUser && <QuizSoundsPanel />}
                 {adminSection === 'logs' && isStaffUser && <LogsPanel />}
