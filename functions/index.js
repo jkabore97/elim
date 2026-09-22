@@ -711,6 +711,33 @@ exports.backfillPublicProfiles = onSchedule(
   }
 );
 
+// While a live broadcast is on, sample the in-app audience once a minute and
+// keep the running PEAK (highest simultaneous watchers) and UNIQUE count
+// (distinct viewers over the whole broadcast) on config/liveRadio. A client
+// can't do this (config is admin-write only, and no single client is present
+// the whole time), so the Admin SDK does it here. No-ops cheaply when off.
+exports.sampleLivePresence = onSchedule(
+  { schedule: '* * * * *', timeZone: CHURCH_TZ, region: 'us-central1' },
+  async () => {
+    const db = getFirestore();
+    const ref = db.collection('config').doc('liveRadio');
+    const snap = await ref.get();
+    if (!snap.exists) return;
+    const d = snap.data() || {};
+    if (d.status !== 'live' || !d.liveId) return;
+    const liveId = String(d.liveId);
+    // "Active now": heartbeats seen in the last ~70s (client beats every 20s).
+    const cutoff = Timestamp.fromMillis(Date.now() - 70000);
+    const active = (await db.collection('livePresence')
+      .where('liveId', '==', liveId).where('lastSeen', '>', cutoff).count().get()).data().count;
+    // "Unique": every distinct viewer (one doc per uid) tagged with this liveId.
+    const unique = (await db.collection('livePresence')
+      .where('liveId', '==', liveId).count().get()).data().count;
+    const peak = Math.max(Number(d.peak || 0), active);
+    await ref.set({ peak, uniqueCount: unique }, { merge: true }).catch(() => {});
+  }
+);
+
 // Someone liked a comment -> tell the comment's author.
 exports.notifyOnCommentLike = onDocumentCreated('commentLikes/{likeId}', async (event) => {
   const like = event.data && event.data.data();
