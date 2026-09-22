@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import {
   doc, onSnapshot, setDoc, deleteDoc, serverTimestamp,
   collection, query, where, getCountFromServer, Timestamp,
+  getDocs, orderBy, limit,
 } from 'firebase/firestore'
 import { httpsCallable } from 'firebase/functions'
 import { Radio, Loader2, Check, Trash2, Eye } from 'lucide-react'
@@ -19,6 +20,11 @@ export interface LiveRadio {
   provider: RadioProvider
   url: string
   title?: string
+  // Identifies one broadcast, so presence + audience stats reset each go-live.
+  liveId?: string
+  peak?: number        // highest simultaneous in-app watchers (sampled server-side)
+  uniqueCount?: number // distinct in-app viewers over the whole broadcast
+  startedAt?: any
   updatedAt?: any
 }
 
@@ -66,7 +72,7 @@ function useLiveRadio(): LiveRadio | null {
 // Uses a cheap count() aggregation of the docs seen in the last ~45s, so a
 // viewer who left (or whose app was killed) drops out on its own.
 const PRESENCE_WINDOW_MS = 45000
-function useLiveCount(active: boolean, everyMs = 15000): number | null {
+function useLiveCount(active: boolean, liveId?: string, everyMs = 15000): number | null {
   const [n, setN] = useState<number | null>(null)
   useEffect(() => {
     if (!active) { setN(null); return }
@@ -74,28 +80,33 @@ function useLiveCount(active: boolean, everyMs = 15000): number | null {
     const tick = async () => {
       try {
         const cutoff = Timestamp.fromMillis(Date.now() - PRESENCE_WINDOW_MS)
-        const s = await getCountFromServer(query(collection(db, 'livePresence'), where('lastSeen', '>', cutoff)))
+        // Scope to THIS broadcast when we have an id (older lives had none).
+        const q = liveId
+          ? query(collection(db, 'livePresence'), where('liveId', '==', liveId), where('lastSeen', '>', cutoff))
+          : query(collection(db, 'livePresence'), where('lastSeen', '>', cutoff))
+        const s = await getCountFromServer(q)
         if (alive) setN(s.data().count)
       } catch { /* index building / offline: just don't show a number */ }
     }
     tick()
     const iv = setInterval(tick, everyMs)
     return () => { alive = false; clearInterval(iv) }
-  }, [active, everyMs])
+  }, [active, liveId, everyMs])
   return n
 }
 
 // While `active`, mark this viewer present with a heartbeat (doc id = uid, so a
-// person is only ever counted once) and remove it on close.
-function useLivePresence(uid: string, active: boolean) {
+// person is only ever counted once) tagged with the current broadcast id, and
+// remove it on close.
+function useLivePresence(uid: string, active: boolean, liveId?: string) {
   useEffect(() => {
     if (!uid || !active) return
     const ref = doc(db, 'livePresence', uid)
-    const beat = () => setDoc(ref, { uid, lastSeen: serverTimestamp() }, { merge: true }).catch(() => {})
+    const beat = () => setDoc(ref, { uid, lastSeen: serverTimestamp(), ...(liveId ? { liveId } : {}) }, { merge: true }).catch(() => {})
     beat()
     const iv = setInterval(beat, 20000)
     return () => { clearInterval(iv); deleteDoc(ref).catch(() => {}) }
-  }, [uid, active])
+  }, [uid, active, liveId])
 }
 
 // The live shown as a POST at the top of the feed: the embedded player plays
@@ -106,10 +117,14 @@ export function LiveRadioBanner({ uid }: { uid: string }) {
   const radio = useLiveRadio()
   const live = !!radio && radio.status === 'live'
   // Count this person as watching while the live card is on their feed.
-  useLivePresence(uid, live)
-  const count = useLiveCount(live, 20000)
+  useLivePresence(uid, live, radio?.liveId)
+  const count = useLiveCount(live, radio?.liveId, 20000)
   if (!radio || radio.status === 'off' || !radio.url) return null
   const src = embedUrl(radio)
+  // After the live, show how many watched (unique) and the simultaneous peak.
+  const replayStats = radio.status === 'replay' && (radio.uniqueCount || radio.peak)
+    ? `${(radio.uniqueCount || 0).toLocaleString()} ${t('radio.watchers')} · ${t('radio.peak')} ${(radio.peak || 0).toLocaleString()}`
+    : ''
   return (
     <article className="glass rounded-3xl shadow-sm border border-slate-100/80 overflow-hidden">
       <div className="flex items-center gap-3 p-4">
@@ -126,7 +141,7 @@ export function LiveRadioBanner({ uid }: { uid: string }) {
             )}
             <h3 className="font-semibold text-slate-900 truncate">{radio.title || t('radio.title')}</h3>
           </div>
-          <p className="text-xs text-slate-400 mt-0.5">{live ? t('radio.live') : t('radio.replay')}</p>
+          <p className="text-xs text-slate-400 mt-0.5">{replayStats || (live ? t('radio.live') : t('radio.replay'))}</p>
         </div>
         {live && count != null && count > 0 && (
           <span className="shrink-0 flex items-center gap-1 text-xs font-bold text-slate-500" title={t('radio.watching')}>
@@ -172,17 +187,44 @@ export function LiveRadioAdmin({ onDone }: { onDone?: () => void }) {
   const urlOk = parsed.provider === 'facebook' || (parsed.provider === 'youtube' && !!parsed.videoId)
   const ytNeedsVideo = parsed.provider === 'youtube' && !parsed.videoId
 
+  // Save the finished broadcast's audience stats to history (best-effort), so
+  // the peak + unique count survive even after the next go-live resets the doc.
+  const saveHistory = async () => {
+    const id = radio?.liveId
+    if (!id) return
+    try {
+      await setDoc(doc(db, 'liveSessions', id), {
+        liveId: id,
+        title: radio?.title || '',
+        provider: radio?.provider || 'unknown',
+        peak: radio?.peak || 0,
+        uniqueCount: radio?.uniqueCount || 0,
+        startedAt: radio?.startedAt || null,
+        endedAt: serverTimestamp(),
+      }, { merge: true })
+    } catch { /* history is best-effort */ }
+  }
+
   const write = async (status: LiveRadio['status']) => {
     if (busy) return
     setBusy(true); setMsg('')
     try {
-      await setDoc(RADIO_DOC(), {
+      if (status === 'replay') await saveHistory()
+      const data: any = {
         status,
         provider: parsed.provider,
         url: url.trim(),
         title: title.trim(),
         updatedAt: serverTimestamp(),
-      } as LiveRadio, { merge: true })
+      }
+      // A fresh broadcast: new id, audience counters reset to zero.
+      if (status === 'live') {
+        data.liveId = String(Date.now())
+        data.peak = 0
+        data.uniqueCount = 0
+        data.startedAt = serverTimestamp()
+      }
+      await setDoc(RADIO_DOC(), data, { merge: true })
       if (status === 'live' && notify) {
         try {
           await httpsCallable(functions, 'sendBroadcast')({
@@ -204,6 +246,7 @@ export function LiveRadioAdmin({ onDone }: { onDone?: () => void }) {
     if (busy) return
     setBusy(true); setMsg('')
     try {
+      if (radio?.status === 'live') await saveHistory()
       await setDoc(RADIO_DOC(), { status: 'off', updatedAt: serverTimestamp() }, { merge: true })
       setMsg(t('radio.nowOff'))
       onDone?.()
@@ -219,6 +262,11 @@ export function LiveRadioAdmin({ onDone }: { onDone?: () => void }) {
       {radio && radio.status !== 'off' && (
         <div className={`text-xs font-semibold rounded-xl px-3 py-2 ${radio.status === 'live' ? 'bg-red-50 text-red-600' : 'bg-slate-100 text-slate-600'}`}>
           {radio.status === 'live' ? `🔴 ${t('radio.live')}` : t('radio.replay')} · {radio.title || t('radio.title')}
+          {(radio.uniqueCount || radio.peak) ? (
+            <span className="block font-medium text-slate-500 mt-0.5">
+              {(radio.uniqueCount || 0).toLocaleString()} {t('radio.watchers')} · {t('radio.peak')} {(radio.peak || 0).toLocaleString()}
+            </span>
+          ) : null}
         </div>
       )}
 
@@ -249,6 +297,37 @@ export function LiveRadioAdmin({ onDone }: { onDone?: () => void }) {
         </button>
       </div>
       {msg && <p className="text-xs text-affirm-700 font-medium">{msg}</p>}
+
+      <LiveHistory />
+    </div>
+  )
+}
+
+// The last few finished broadcasts with their audience stats — so staff can see
+// afterward how many watched, even once a newer live has replaced the card.
+function LiveHistory() {
+  const { t } = useLanguage()
+  const [rows, setRows] = useState<Array<{ id: string; title?: string; peak?: number; uniqueCount?: number }>>([])
+  useEffect(() => {
+    let alive = true
+    getDocs(query(collection(db, 'liveSessions'), orderBy('endedAt', 'desc'), limit(5)))
+      .then(s => { if (alive) setRows(s.docs.map(d => ({ id: d.id, ...(d.data() as any) }))) })
+      .catch(() => { /* index building / none yet */ })
+    return () => { alive = false }
+  }, [])
+  if (rows.length === 0) return null
+  return (
+    <div className="pt-3 mt-1 border-t border-slate-100">
+      <p className="text-[11px] font-bold uppercase tracking-wide text-slate-400 mb-2">{t('radio.pastLives')}</p>
+      <div className="space-y-1.5">
+        {rows.map(r => (
+          <div key={r.id} className="flex items-center gap-2 text-xs">
+            <span className="flex-1 min-w-0 truncate text-slate-700">{r.title || t('radio.title')}</span>
+            <span className="shrink-0 text-slate-500 flex items-center gap-1"><Eye size={12} /> {(r.uniqueCount || 0).toLocaleString()}</span>
+            <span className="shrink-0 text-slate-400">· {t('radio.peak')} {(r.peak || 0).toLocaleString()}</span>
+          </div>
+        ))}
+      </div>
     </div>
   )
 }

@@ -81,6 +81,14 @@
         { "fieldPath": "kidsWeekId", "order": "ASCENDING" },
         { "fieldPath": "points", "order": "DESCENDING" }
       ]
+    },
+    {
+      "collectionGroup": "livePresence",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "liveId", "order": "ASCENDING" },
+        { "fieldPath": "lastSeen", "order": "ASCENDING" }
+      ]
     }
   ],
   "fieldOverrides": []

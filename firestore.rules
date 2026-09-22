@@ -310,6 +310,13 @@ service cloud.firestore {
       allow write: if isSignedIn() && request.auth.uid == uid;
     }
 
+    // Finished-broadcast audience stats (peak + unique count), written by an
+    // admin when a live ends. Readable by any signed-in user.
+    match /liveSessions/{sessionId} {
+      allow read: if isSignedIn();
+      allow write: if isAdmin();
+    }
+
     // ---- Publishing groups ----
     // Ministries / departments a post can be attributed to. Readable by any
     // signed-in user (a lead's composer lists the groups they may publish
