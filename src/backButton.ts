@@ -9,8 +9,10 @@ import { App as CapApp } from '@capacitor/app'
 // leaving a conversation, or exiting a fullscreen video all quit the app
 // instead, which is jarring and loses the person's place.
 //
-// Overlays register a dismiss function while they're open. Back pops the top
-// one. Only when the stack is empty does the default (leave the app) apply.
+// Overlays register a dismiss function while they're open. Back runs the top
+// one (leaving it registered — it's removed when its component unmounts), so a
+// handler that stays mounted and navigates internally keeps catching back until
+// it closes. Only when the stack is empty does the default (leave the app) apply.
 type Handler = () => void
 const stack: Handler[] = []
 
@@ -50,7 +52,13 @@ function handleBack(): boolean {
     return true
   }
 
-  const handler = stack.pop()
+  // PEEK the top handler — don't remove it here. A handler is unregistered by
+  // its own component (useBackHandler's cleanup on unmount). Popping it would
+  // break handlers that stay mounted and navigate internally across several back
+  // presses — e.g. the game moves results/leaders → home → feed, and each press
+  // must reach the same handler. Popping consumed it after the first press, so
+  // the later "leave the game" press fell through to exitApp instead.
+  const handler = stack[stack.length - 1]
   if (handler) {
     handler()
     return true
