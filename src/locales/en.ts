@@ -99,6 +99,7 @@ const en = {
   "groups.perm.sante": 'Health',
   "groups.perm.books": 'Library',
   "groups.perm.transcribe": 'Transcription',
+  "groups.perm.moderate": 'Delete posts',
   "groups.titlePlaceholder": 'Title (e.g. Docteur, Pasteur) — optional',
   "groups.importChurches": 'Import churches as groups',
   "groups.importDone": '{n} group(s) created from churches.',

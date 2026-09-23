@@ -392,7 +392,18 @@ service cloud.firestore {
                             || (request.resource.data.commentsCount >= resource.data.commentsCount - 1
                                 && request.resource.data.commentsCount <= resource.data.commentsCount + 1)))
                     );
-      allow delete: if isSignedIn() && (resource.data.churchId == request.auth.uid || isAdmin());
+      // The owner and admins/pastors may delete. A group's LEADS may also delete
+      // any post published under that group, when the group grants the 'moderate'
+      // permission — group moderation. (Safe map access so a group missing
+      // leadIds/perms just denies rather than erroring.)
+      allow delete: if isSignedIn() && (
+                      resource.data.churchId == request.auth.uid
+                      || isAdmin()
+                      || (('groupId' in resource.data) && resource.data.groupId != null
+                          && exists(/databases/$(database)/documents/groups/$(resource.data.groupId))
+                          && get(/databases/$(database)/documents/groups/$(resource.data.groupId)).data.get('leadIds', []).hasAny([request.auth.uid])
+                          && get(/databases/$(database)/documents/groups/$(resource.data.groupId)).data.get('perms', {}).get('moderate', false) == true)
+                    );
     }
 
     // ---- Comments ----
