@@ -1361,6 +1361,11 @@ function AppInner() {
     return Number.isFinite(parsed) ? parsed : Date.now()
   })
   const [showNotifPrompt, setShowNotifPrompt] = useState(false)
+  // When set (from a tapped notification), the matching post scrolls into view
+  // and shows a ring. Kept armed until the post actually loads into the feed —
+  // important on a slow cold-start where the feed isn't ready when you tap — then
+  // cleared shortly after. A hard fallback clears it if the post never appears
+  // (e.g. it was deleted), so it can't stay armed forever.
   const [highlightPostId, setHighlightPostId] = useState<string | null>(null)
   const [santeCategory, setSanteCategory] = useState('all')
   const [showCreateSante, setShowCreateSante] = useState(false)
@@ -1449,12 +1454,10 @@ function AppInner() {
         if (route.url && /^https?:\/\//i.test(route.url)) window.open(route.url, '_blank', 'noopener,noreferrer')
       } else {
         setActiveTab('feed')
-        if (route.postId) {
-          setHighlightPostId(route.postId)
-          // Clear the highlight after a moment so it reads as "here it is"
-          // rather than leaving a post permanently marked.
-          setTimeout(() => setHighlightPostId(null), 4000)
-        }
+        // The highlight (and the scroll-into-view it drives) is cleared by the
+        // effect below, once the target post has actually loaded — not on a
+        // fixed timer that can expire before a slow cold-start finishes loading.
+        if (route.postId) setHighlightPostId(route.postId)
       }
     })
     // Web: read any target off the launch URL the service worker opened.
@@ -1463,6 +1466,17 @@ function AppInner() {
     initBackButton()
     return () => off()
   }, [])
+
+  // Clear a tapped-notification highlight once its post has loaded into the feed
+  // (the post's ref scrolls it into view while armed). Waiting for the post to
+  // load makes the deep link survive a slow cold-start; the longer fallback
+  // handles a post that never appears (deleted) so the ring can't linger.
+  useEffect(() => {
+    if (!highlightPostId) return
+    const loaded = posts.some(p => p.id === highlightPostId)
+    const t = setTimeout(() => setHighlightPostId(null), loaded ? 4000 : 12000)
+    return () => clearTimeout(t)
+  }, [highlightPostId, posts])
 
   // Reconcile our stored notificationsEnabled flag against what the OS
   // actually reports whenever a user loads. Handles the case where someone
@@ -1917,10 +1931,7 @@ function AppInner() {
     if (!n.postId) return
     const pid = n.postId
     setActiveTab('feed')
-    setHighlightPostId(pid)
-    // Clear the highlight after a beat so the post doesn't stay outlined until
-    // the next tap (matches the deep-link route behavior).
-    setTimeout(() => setHighlightPostId(prev => prev === pid ? null : prev), 4000)
+    setHighlightPostId(pid)  // cleared by the effect below, once it has loaded
     if (n.type !== 'post_like') setActiveCommentsPost(pid)
   }
 
