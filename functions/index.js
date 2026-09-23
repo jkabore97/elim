@@ -63,6 +63,11 @@ function churchDayKey(d = new Date()) {
 // Send one notification to every user who has push enabled. Mirrors the
 // per-event senders: multicast in batches of 500, then prune dead tokens.
 async function broadcastPush(db, { title, body, data }, opts = {}) {
+  // Never emit a blank notification: guarantee a title, and if both title and
+  // body are empty, don't send anything at all.
+  title = (title == null ? '' : String(title)).trim() || 'ELIM';
+  body = (body == null ? '' : String(body)).trim();
+  if (title === 'ELIM' && !body) return;
   // Record every broadcast in the in-app notification center too, so members who
   // miss (or clear) the system push still find it in the bell. A single shared
   // doc that all clients read - read state is tracked per-device on the client -
@@ -206,7 +211,15 @@ exports.notifyOnNewPost = onDocumentCreated('posts/{postId}', async (event) => {
 
   const title = post.churchName || 'ELIM';
   const rawBody = (post.content || '').trim();
-  const body = rawBody.length > 120 ? rawBody.slice(0, 117) + '...' : rawBody;
+  let body = rawBody.length > 120 ? rawBody.slice(0, 117) + '...' : rawBody;
+  // A media post with no caption would otherwise push a BLANK notification.
+  // Fall back to a short, type-aware line so the push always says something.
+  if (!body) {
+    body = post.type === 'audio' ? '🎵 Nouvel audio'
+      : (post.type === 'video' || post.type === 'youtube' || post.type === 'facebook') ? '🎬 Nouvelle vidéo'
+      : post.type === 'document' ? '📄 Nouveau document'
+      : '📷 Nouvelle publication';
+  }
 
   const messaging = getMessaging();
   const batches = chunk(tokens, 500);

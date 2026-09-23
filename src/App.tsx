@@ -1983,7 +1983,7 @@ function AppInner() {
     if (church) {
       await setDoc(doc(db, 'churchDirectory', uid), { name: church.churchName || church.displayName })
     }
-    logActivity(user, 'church_approved', church?.churchName || church?.displayName || uid)
+    logActivity(user, 'church_approved', church?.displayName || church?.churchName || uid)
   }
 
   const handleDenyChurch = async (uid: string) => {
@@ -1991,7 +1991,7 @@ function AppInner() {
     // Deny doesn't delete the account — it just drops them back to a normal
     // member so they aren't stuck pending forever and can still use the app.
     await updateDoc(doc(db, 'users', uid), { role: 'member' })
-    logActivity(user, 'church_denied', church?.churchName || church?.displayName || uid)
+    logActivity(user, 'church_denied', church?.displayName || church?.churchName || uid)
   }
 
   // Filtering and search run client-side over the already-loaded feed. At
