@@ -209,7 +209,10 @@ exports.notifyOnNewPost = onDocumentCreated('posts/{postId}', async (event) => {
 
   if (tokens.length === 0) return;
 
-  const title = post.churchName || 'ELIM';
+  // Show who published: the GROUP name when the post is attributed to a group,
+  // otherwise the author's name, falling back to the church name. (The old
+  // church-only title always read "Centre Chrétien E.L.I.M" for group posts.)
+  const title = post.groupName || post.authorName || post.churchName || 'ELIM';
   const rawBody = (post.content || '').trim();
   let body = rawBody.length > 120 ? rawBody.slice(0, 117) + '...' : rawBody;
   // A media post with no caption would otherwise push a BLANK notification.
@@ -823,7 +826,7 @@ exports.notifyOnComment = onDocumentCreated('comments/{commentId}', async (event
   // a conversation is happening, even if it's not their post and they haven't
   // commented. People already sent a specific notification above (author,
   // mentions, reply) and the commenter are skipped so no one is pushed twice.
-  const postName = (post && (post.churchName || post.authorName)) || 'ELIM';
+  const postName = (post && (post.groupName || post.authorName || post.churchName)) || 'ELIM';
   await pushToEveryone(db, {
     title: postName,
     body: `${actor.name} a commenté : "${preview}"`,
