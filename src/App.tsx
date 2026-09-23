@@ -1745,6 +1745,16 @@ function AppInner() {
     return groups.filter(g => staff || !!g.leads[user.uid])
   }, [groups, user])
 
+  // Can the current user delete this post as a GROUP moderator? True when the
+  // post belongs to a group that grants 'moderate' and the user leads it (staff
+  // can already delete anything). Mirrors the Firestore delete rule.
+  const canModeratePost = (p: Post) => {
+    if (!user || !p.groupId) return false
+    const g = groups.find(x => x.id === p.groupId)
+    if (!g || !g.perms?.moderate) return false
+    return user.role === 'admin' || user.role === 'pastor' || !!g.leads[user.uid]
+  }
+
   const handleLogout = async () => {
     // Detach this device's push token BEFORE signing out (the write needs the
     // still-authenticated session), so the next person to log in on a shared
@@ -2319,7 +2329,7 @@ function AppInner() {
                       ? 'rounded-3xl ring-2 ring-affirm-400 ring-offset-2 ring-offset-[#0f172a] transition'
                       : ''}>
                     <PostCard post={post} onLike={handleLike} onOpenComments={setActiveCommentsPost}
-                      currentUser={user} isLiked={likedPostIds.has(post.id)} onEdit={setEditingPost} onDelete={handleDeletePost} onOpenProfile={setProfileUid} onOpenGroup={setGroupPopupId} onOpenDoc={setViewingDoc} />
+                      currentUser={user} isLiked={likedPostIds.has(post.id)} onEdit={setEditingPost} onDelete={handleDeletePost} onOpenProfile={setProfileUid} onOpenGroup={setGroupPopupId} onOpenDoc={setViewingDoc} canModerate={canModeratePost(post)} />
                   </div>
                 ))}
               </div>
@@ -2396,7 +2406,7 @@ function AppInner() {
                   </div>
                 ) : musiquePosts.map(post => (
                   <PostCard key={post.id} post={post} onLike={handleLike} onOpenComments={setActiveCommentsPost}
-                    currentUser={user} isLiked={likedPostIds.has(post.id)} onEdit={setEditingPost} onDelete={handleDeletePost} onOpenProfile={setProfileUid} onOpenGroup={setGroupPopupId} onOpenDoc={setViewingDoc} />
+                    currentUser={user} isLiked={likedPostIds.has(post.id)} onEdit={setEditingPost} onDelete={handleDeletePost} onOpenProfile={setProfileUid} onOpenGroup={setGroupPopupId} onOpenDoc={setViewingDoc} canModerate={canModeratePost(post)} />
                 ))}
               </div>
             )}
@@ -2437,7 +2447,7 @@ function AppInner() {
                   </div>
                 ) : santePosts.map(post => (
                   <PostCard key={post.id} post={post} onLike={handleLike} onOpenComments={setActiveCommentsPost}
-                    currentUser={user} isLiked={likedPostIds.has(post.id)} onEdit={setEditingPost} onDelete={handleDeletePost} onOpenProfile={setProfileUid} onOpenGroup={setGroupPopupId} onOpenDoc={setViewingDoc} />
+                    currentUser={user} isLiked={likedPostIds.has(post.id)} onEdit={setEditingPost} onDelete={handleDeletePost} onOpenProfile={setProfileUid} onOpenGroup={setGroupPopupId} onOpenDoc={setViewingDoc} canModerate={canModeratePost(post)} />
                 ))}
               </div>
             )}
@@ -3926,7 +3936,7 @@ function AdminPanel({ pendingChurches, onApprove, onDeny }: {
   )
 }
 
-function PostCard({ post, onLike, onOpenComments, currentUser, isLiked, onEdit, onDelete, onOpenProfile, onOpenGroup, onOpenDoc }: {
+function PostCard({ post, onLike, onOpenComments, currentUser, isLiked, onEdit, onDelete, onOpenProfile, onOpenGroup, onOpenDoc, canModerate = false }: {
   post: Post
   onLike: (id: string) => Promise<void>
   onOpenComments: (id: string) => void
@@ -3936,6 +3946,8 @@ function PostCard({ post, onLike, onOpenComments, currentUser, isLiked, onEdit, 
   onDelete: (id: string) => void | Promise<void>
   onOpenProfile?: (uid: string) => void
   onOpenGroup?: (groupId: string) => void
+  // A group lead with the 'moderate' permission may delete this group's posts.
+  canModerate?: boolean
   onOpenDoc?: (doc: { url: string; title?: string }) => void
 }) {
   const { t } = useLanguage()
@@ -4114,7 +4126,7 @@ function PostCard({ post, onLike, onOpenComments, currentUser, isLiked, onEdit, 
             {subName ? `${subName} · ` : ''}{timeAgo(post.createdAt)}
           </p>
         </div>
-        {isOwner && (
+        {(isOwner || canModerate) && (
           confirmingDelete ? (
             <div className="flex items-center gap-1.5 shrink-0">
               <button disabled={deleting} onClick={async () => {
@@ -4139,10 +4151,14 @@ function PostCard({ post, onLike, onOpenComments, currentUser, isLiked, onEdit, 
             </div>
           ) : (
             <div className="flex items-center gap-0.5 shrink-0">
-              <button onClick={() => onEdit(post)}
-                className="p-2 rounded-full text-slate-300 hover:text-affirm-600 hover:bg-affirm-50 transition">
-                <Pencil size={16} />
-              </button>
+              {/* Editing is owner-only; a moderating lead can delete but not
+                  rewrite someone else's post. */}
+              {isOwner && (
+                <button onClick={() => onEdit(post)}
+                  className="p-2 rounded-full text-slate-300 hover:text-affirm-600 hover:bg-affirm-50 transition">
+                  <Pencil size={16} />
+                </button>
+              )}
               <button onClick={() => setConfirmingDelete(true)}
                 className="p-2 rounded-full text-slate-300 hover:text-red-500 hover:bg-red-50 transition">
                 <Trash2 size={17} />

@@ -66,6 +66,7 @@ export interface GroupPerms {
   sante?: boolean;      // publish health tips
   books?: boolean;      // upload library books
   transcribe?: boolean; // use the audio/video transcription tool
+  moderate?: boolean;   // delete any post published under this group
 }
 export interface Group {
   id: string;

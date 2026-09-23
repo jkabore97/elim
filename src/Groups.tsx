@@ -14,7 +14,7 @@ import {
 } from './groups'
 import { GroupLogo, groupLogoKind } from './GroupLogo'
 
-const PERM_KEYS = ['post', 'sante', 'books', 'transcribe'] as const
+const PERM_KEYS = ['post', 'sante', 'books', 'transcribe', 'moderate'] as const
 
 interface DirUser { uid: string; name: string }
 

@@ -121,7 +121,7 @@ export async function setLead(
 
 // Toggle a capability the group grants to its leads.
 export async function setGroupPerm(
-  groupId: string, key: 'post' | 'sante' | 'books' | 'transcribe', value: boolean,
+  groupId: string, key: 'post' | 'sante' | 'books' | 'transcribe' | 'moderate', value: boolean,
 ): Promise<void> {
   await updateDoc(doc(db, GROUPS, groupId), {
     [`perms.${key}`]: value,
