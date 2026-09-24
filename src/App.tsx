@@ -40,7 +40,7 @@ import { playMessageAlert, isAlertMuted, setAlertMuted } from './messageAlert'
 import { getSoundSettings, setSoundSettings, setEventSounds, getEventSound, emit as playFeedback, QUIZ_EVENTS, type SoundChannel, type QuizEvent } from './feedback'
 import { SOUND_IDS, SOUND_NAMES, playSound } from './quiz/soundlib'
 import { DataManagementTab } from './DataManagement'
-import { LibraryTab } from './Library'
+import { LibraryTab, useUnreadBooks } from './Library'
 import BibleQuiz from './BibleQuiz'
 import { App as CapApp } from '@capacitor/app'
 import { subscribeProfile as subscribeQuizProfile } from './quiz/store'
@@ -1366,6 +1366,7 @@ function AppInner() {
   // with the whole back catalogue as unread.
   const [feedSeenAt, setFeedSeenAt] = useState<number>(0)
   const [santeSeenAt, setSanteSeenAt] = useState<number>(0)
+  const [librarySeenAt, setLibrarySeenAt] = useState<number>(0)
   useEffect(() => {
     if (!user?.uid) return
     const init = (key: string, set: (n: number) => void) => {
@@ -1377,6 +1378,7 @@ function AppInner() {
     }
     init('elim_feedSeen_' + user.uid, setFeedSeenAt)
     init('elim_santeSeen_' + user.uid, setSanteSeenAt)
+    init('elim_librarySeen_' + user.uid, setLibrarySeenAt)
   }, [user?.uid])
   const [showNotifPrompt, setShowNotifPrompt] = useState(false)
   // When set (from a tapped notification), the matching post scrolls into view
@@ -1403,6 +1405,7 @@ function AppInner() {
   }, [user?.role])
   const { track: playerTrack } = useMediaPlayer()
   const unreadMessages = useUnreadCount(user as AppUser)
+  const unreadLibrary = useUnreadBooks(user?.uid, librarySeenAt)
   const [messageToast, setMessageToast] = useState(false)
   const prevUnread = useRef<number | null>(null)
   const likeInFlight = useRef<Set<string>>(new Set())
@@ -1918,7 +1921,7 @@ function AppInner() {
   const isOwnPost = (p: Post) => p.churchId === user?.uid || (p as any).authorId === user?.uid
   const unreadFeed = posts.filter(p => (p.section || 'feed') === 'feed' && !isOwnPost(p) && toMs(p.createdAt) > feedSeenAt).length
   const unreadSante = posts.filter(p => p.section === 'sante' && !isOwnPost(p) && toMs(p.createdAt) > santeSeenAt).length
-  const tabUnread: Record<string, number> = { feed: unreadFeed, sante: unreadSante, messages: unreadMessages }
+  const tabUnread: Record<string, number> = { feed: unreadFeed, sante: unreadSante, messages: unreadMessages, library: unreadLibrary }
 
   // Opening a tab clears its badge; staying on it keeps it clear as new posts
   // arrive (you are looking at them). Ties into the per-uid markers above.
@@ -1928,9 +1931,12 @@ function AppInner() {
       const now = Date.now(); setFeedSeenAt(now); storageSet('elim_feedSeen_' + user.uid, String(now))
     } else if (activeTab === 'sante') {
       const now = Date.now(); setSanteSeenAt(now); storageSet('elim_santeSeen_' + user.uid, String(now))
+    } else if (activeTab === 'library') {
+      const now = Date.now(); setLibrarySeenAt(now); storageSet('elim_librarySeen_' + user.uid, String(now))
     }
-    // posts.length so a post arriving while you're already on the tab still counts as seen.
-  }, [activeTab, posts.length, user?.uid])
+    // posts.length / unreadLibrary so an item arriving while you're already on
+    // the tab still counts as seen.
+  }, [activeTab, posts.length, unreadLibrary, user?.uid])
 
   // Opening the bell clears every signal: personal notifications are marked
   // read, announcements are marked seen (per device), and the feed "last seen"
