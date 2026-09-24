@@ -1499,6 +1499,27 @@ function AppInner() {
     return () => clearTimeout(t)
   }, [highlightPostId, posts])
 
+  // A tapped post lives in whichever tab its section belongs to — a Santé tip is
+  // NOT in the feed, so routing everything to 'feed' left the scroll target
+  // missing and the user stranded on the feed. Once the post is known, switch to
+  // its tab and clear that tab's filters so nothing hides it.
+  useEffect(() => {
+    if (!highlightPostId) return
+    const p = posts.find(x => x.id === highlightPostId)
+    if (!p) return
+    const section = p.section || 'feed'
+    if (section === 'sante') {
+      setSanteCategory('all')
+      setActiveTab(prev => prev === 'sante' ? prev : 'sante')
+    } else if (section === 'musique' && MUSIQUE_ENABLED) {
+      setMusiqueCategory('all'); setMusiqueSearch('')
+      setActiveTab(prev => prev === 'musique' ? prev : 'musique')
+    } else {
+      setFeedFilter('all'); setSearchQuery('')
+      setActiveTab(prev => prev === 'feed' ? prev : 'feed')
+    }
+  }, [highlightPostId, posts])
+
   // Reconcile our stored notificationsEnabled flag against what the OS
   // actually reports whenever a user loads. Handles the case where someone
   // granted permission in-app but later revoked it in system settings -
@@ -2449,8 +2470,16 @@ function AppInner() {
                     </p>
                   </div>
                 ) : musiquePosts.map(post => (
-                  <PostCard key={post.id} post={post} onLike={handleLike} onOpenComments={setActiveCommentsPost}
-                    currentUser={user} isLiked={likedPostIds.has(post.id)} onEdit={setEditingPost} onDelete={handleDeletePost} onOpenProfile={setProfileUid} onOpenGroup={setGroupPopupId} onOpenDoc={setViewingDoc} canModerate={canModeratePost(post)} />
+                  <div key={post.id}
+                    ref={post.id === highlightPostId
+                      ? (el) => el?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+                      : undefined}
+                    className={post.id === highlightPostId
+                      ? 'rounded-3xl ring-2 ring-affirm-400 ring-offset-2 ring-offset-[#0f172a] transition'
+                      : ''}>
+                    <PostCard post={post} onLike={handleLike} onOpenComments={setActiveCommentsPost}
+                      currentUser={user} isLiked={likedPostIds.has(post.id)} onEdit={setEditingPost} onDelete={handleDeletePost} onOpenProfile={setProfileUid} onOpenGroup={setGroupPopupId} onOpenDoc={setViewingDoc} canModerate={canModeratePost(post)} />
+                  </div>
                 ))}
               </div>
             )}
@@ -2490,8 +2519,16 @@ function AppInner() {
                     <p className="text-sm text-slate-400 mt-1">{t('sante.emptyHint')}</p>
                   </div>
                 ) : santePosts.map(post => (
-                  <PostCard key={post.id} post={post} onLike={handleLike} onOpenComments={setActiveCommentsPost}
-                    currentUser={user} isLiked={likedPostIds.has(post.id)} onEdit={setEditingPost} onDelete={handleDeletePost} onOpenProfile={setProfileUid} onOpenGroup={setGroupPopupId} onOpenDoc={setViewingDoc} canModerate={canModeratePost(post)} />
+                  <div key={post.id}
+                    ref={post.id === highlightPostId
+                      ? (el) => el?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+                      : undefined}
+                    className={post.id === highlightPostId
+                      ? 'rounded-3xl ring-2 ring-affirm-400 ring-offset-2 ring-offset-[#0f172a] transition'
+                      : ''}>
+                    <PostCard post={post} onLike={handleLike} onOpenComments={setActiveCommentsPost}
+                      currentUser={user} isLiked={likedPostIds.has(post.id)} onEdit={setEditingPost} onDelete={handleDeletePost} onOpenProfile={setProfileUid} onOpenGroup={setGroupPopupId} onOpenDoc={setViewingDoc} canModerate={canModeratePost(post)} />
+                  </div>
                 ))}
               </div>
             )}
