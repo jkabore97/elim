@@ -10,8 +10,9 @@ import { useLanguage } from './i18n'
 import type { AppUser, Group, GroupLead } from './types'
 import {
   createGroup, updateGroup, deleteGroup, setLead, removeLead, bulkAssignAuthorToGroup,
-  setGroupPerm, importChurchesAsGroups,
+  setGroupPerm, importChurchesAsGroups, fetchAuthorPosts, assignPostToGroup,
 } from './groups'
+import type { AuthorPost } from './groups'
 import { GroupLogo, groupLogoKind } from './GroupLogo'
 
 const PERM_KEYS = ['post', 'sante', 'books', 'transcribe', 'moderate'] as const
@@ -211,6 +212,7 @@ function BulkAssign({ groups, users }: { groups: Group[]; users: DirUser[] }) {
   const [groupId, setGroupId] = useState('')
   const [busy, setBusy] = useState(false)
   const [done, setDone] = useState('')
+  const [mode, setMode] = useState<'bulk' | 'single'>('bulk')
 
   const apply = async (clear: boolean) => {
     if (!author || busy) return
@@ -243,24 +245,105 @@ function BulkAssign({ groups, users }: { groups: Group[]; users: DirUser[] }) {
 
       {author && (
         <>
-          <select value={groupId} onChange={e => setGroupId(e.target.value)}
-            className="w-full px-3 py-2.5 rounded-xl border border-slate-200 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-affirm-400">
-            <option value="">{t('groups.pickGroup')}</option>
-            {groups.map(g => <option key={g.id} value={g.id}>{g.name}</option>)}
-          </select>
-          <div className="flex flex-wrap gap-2">
-            <button onClick={() => apply(false)} disabled={!groupId || busy}
-              className="px-4 py-2 rounded-xl bg-affirm-600 text-white font-semibold text-sm flex items-center gap-1.5 disabled:opacity-50">
-              {busy ? <Loader2 size={15} className="animate-spin" /> : <Check size={15} />} {t('groups.bulkApply')}
+          {/* Choose whether to re-attach ALL of this author's posts at once, or
+              pick a group per publication. */}
+          <div className="flex gap-1 bg-slate-100 rounded-xl p-1 text-xs font-semibold">
+            <button onClick={() => setMode('bulk')}
+              className={`flex-1 py-1.5 rounded-lg ${mode === 'bulk' ? 'bg-white text-affirm-700 shadow-sm' : 'text-slate-500'}`}>
+              {t('groups.modeBulk')}
             </button>
-            <button onClick={() => apply(true)} disabled={busy}
-              className="px-4 py-2 rounded-xl bg-slate-100 text-slate-600 font-semibold text-sm disabled:opacity-50">
-              {t('groups.bulkClear')}
+            <button onClick={() => setMode('single')}
+              className={`flex-1 py-1.5 rounded-lg ${mode === 'single' ? 'bg-white text-affirm-700 shadow-sm' : 'text-slate-500'}`}>
+              {t('groups.modeSingle')}
             </button>
           </div>
-          {done && <p className="text-xs text-affirm-700 font-medium">{done}</p>}
+
+          {mode === 'bulk' ? (
+            <>
+              <select value={groupId} onChange={e => setGroupId(e.target.value)}
+                className="w-full px-3 py-2.5 rounded-xl border border-slate-200 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-affirm-400">
+                <option value="">{t('groups.pickGroup')}</option>
+                {groups.map(g => <option key={g.id} value={g.id}>{g.name}</option>)}
+              </select>
+              <div className="flex flex-wrap gap-2">
+                <button onClick={() => apply(false)} disabled={!groupId || busy}
+                  className="px-4 py-2 rounded-xl bg-affirm-600 text-white font-semibold text-sm flex items-center gap-1.5 disabled:opacity-50">
+                  {busy ? <Loader2 size={15} className="animate-spin" /> : <Check size={15} />} {t('groups.bulkApply')}
+                </button>
+                <button onClick={() => apply(true)} disabled={busy}
+                  className="px-4 py-2 rounded-xl bg-slate-100 text-slate-600 font-semibold text-sm disabled:opacity-50">
+                  {t('groups.bulkClear')}
+                </button>
+              </div>
+              {done && <p className="text-xs text-affirm-700 font-medium">{done}</p>}
+            </>
+          ) : (
+            <PostAssignList author={author} groups={groups} />
+          )}
         </>
       )}
+    </div>
+  )
+}
+
+// A short human label for one publication in the per-post assign list: the
+// caption if there is one, otherwise a type-aware placeholder (media posts
+// often have no text).
+function postLabel(post: AuthorPost): string {
+  const c = (post.content || '').trim()
+  if (c) return c.length > 90 ? c.slice(0, 88) + '…' : c
+  return post.type === 'audio' ? '🎵 Audio'
+    : (post.type === 'video' || post.type === 'youtube' || post.type === 'facebook') ? '🎬 Vidéo'
+    : post.type === 'document' ? '📄 Document'
+    : '📷 Publication'
+}
+
+// Per-publication group assignment: list one author's posts and let the admin
+// set (or clear) each post's group individually. Saves immediately on change.
+function PostAssignList({ author, groups }: { author: DirUser; groups: Group[] }) {
+  const { t } = useLanguage()
+  const [posts, setPosts] = useState<AuthorPost[] | null>(null)
+  const [savingId, setSavingId] = useState<string | null>(null)
+
+  useEffect(() => {
+    let alive = true
+    setPosts(null)
+    fetchAuthorPosts(author.uid)
+      .then(p => { if (alive) setPosts(p) })
+      .catch(() => { if (alive) setPosts([]) })
+    return () => { alive = false }
+  }, [author.uid])
+
+  const change = async (post: AuthorPost, gid: string) => {
+    setSavingId(post.id)
+    try {
+      const group = gid ? groups.find(g => g.id === gid) || null : null
+      await assignPostToGroup(post.id, author.uid, group)
+      setPosts(prev => prev
+        ? prev.map(p => p.id === post.id ? { ...p, groupId: group?.id, groupName: group?.name } : p)
+        : prev)
+    } catch { /* leave the select on its previous value */ }
+    finally { setSavingId(null) }
+  }
+
+  if (posts === null) return <div className="py-6 flex justify-center"><Loader2 size={18} className="animate-spin text-slate-400" /></div>
+  if (posts.length === 0) return <p className="text-xs text-slate-400 py-3">{t('groups.noPosts')}</p>
+
+  return (
+    <div className="space-y-2 max-h-96 overflow-y-auto">
+      {posts.map(post => (
+        <div key={post.id} className="bg-white/70 rounded-xl px-3 py-2 space-y-1.5">
+          <p className="text-xs text-slate-600 line-clamp-2">{postLabel(post)}</p>
+          <div className="flex items-center gap-2">
+            <select value={post.groupId || ''} onChange={e => change(post, e.target.value)} disabled={savingId === post.id}
+              className="flex-1 px-2.5 py-1.5 rounded-lg border border-slate-200 text-xs bg-white focus:outline-none focus:ring-2 focus:ring-affirm-400 disabled:opacity-50">
+              <option value="">{t('groups.noGroup')}</option>
+              {groups.map(g => <option key={g.id} value={g.id}>{g.name}</option>)}
+            </select>
+            {savingId === post.id && <Loader2 size={14} className="animate-spin text-affirm-500" />}
+          </div>
+        </div>
+      ))}
     </div>
   )
 }
