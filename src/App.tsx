@@ -3980,6 +3980,59 @@ function AdminPanel({ pendingChurches, onApprove, onDeny }: {
   )
 }
 
+// A nicer inline video preview than a bare <video>: a real first-frame poster
+// (the element defaults to a big pixelated play button on a grey gradient) with
+// a clean circular play button and a duration badge. Tapping swaps in the
+// native controls and starts playback.
+function PostVideo({ src }: { src: string }) {
+  const ref = useRef<HTMLVideoElement>(null)
+  const [started, setStarted] = useState(false)
+  const [duration, setDuration] = useState('')
+
+  const onMeta = () => {
+    const v = ref.current
+    if (!v) return
+    // Nudge off 0s so the poster shows a real frame instead of a black/blank
+    // rectangle on browsers that don't paint the first frame for metadata.
+    try { if (v.currentTime === 0) v.currentTime = 0.1 } catch { /* seeking may be blocked; ignore */ }
+    const d = v.duration
+    if (Number.isFinite(d) && d > 0) {
+      const m = Math.floor(d / 60)
+      const s = Math.floor(d % 60)
+      setDuration(`${m}:${s.toString().padStart(2, '0')}`)
+    }
+  }
+
+  const play = () => {
+    const v = ref.current
+    if (!v) return
+    setStarted(true)
+    v.controls = true
+    v.play().catch(() => { /* autoplay/gesture edge cases: user can tap again */ })
+  }
+
+  return (
+    <div className="relative w-full bg-black">
+      <video ref={ref} src={src} playsInline preload="metadata" onLoadedMetadata={onMeta}
+        controls={started} className="w-full max-h-72 bg-black" />
+      {!started && (
+        <button onClick={play} aria-label="Play" className="absolute inset-0 flex items-center justify-center group">
+          {/* Gentle darkening so the button always reads over any frame. */}
+          <span className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-black/25" />
+          <span className="relative w-16 h-16 rounded-full bg-white/95 shadow-xl flex items-center justify-center transition group-active:scale-95">
+            <Play size={26} className="text-slate-900 ml-1" fill="currentColor" />
+          </span>
+          {duration && (
+            <span className="absolute bottom-2 right-2 px-1.5 py-0.5 rounded-md bg-black/70 text-white text-[11px] font-semibold tabular-nums">
+              {duration}
+            </span>
+          )}
+        </button>
+      )}
+    </div>
+  )
+}
+
 function PostCard({ post, onLike, onOpenComments, currentUser, isLiked, onEdit, onDelete, onOpenProfile, onOpenGroup, onOpenDoc, canModerate = false }: {
   post: Post
   onLike: (id: string) => Promise<void>
@@ -4275,7 +4328,7 @@ function PostCard({ post, onLike, onOpenComments, currentUser, isLiked, onEdit, 
       )}
 
       {post.type === 'video' && post.mediaUrl && !ytId && (
-        <video src={post.mediaUrl} controls playsInline preload="metadata" className="w-full max-h-72 bg-black" />
+        <PostVideo src={post.mediaUrl} />
       )}
 
       {post.type === 'audio' && post.mediaUrl && (
