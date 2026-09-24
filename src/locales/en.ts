@@ -478,6 +478,8 @@ const en = {
   "post.likeCount": '{count} likes',
   "post.delete": 'Delete',
   "post.cancel": 'Cancel',
+  "post.resend": 'Resend notification to everyone',
+  "post.resendConfirm": 'Resend to all',
   "post.edit": 'Edit Post',
   "post.save": 'Save',
   "post.saving": 'Saving...',

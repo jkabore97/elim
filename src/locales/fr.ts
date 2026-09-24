@@ -478,6 +478,8 @@ const fr = {
   "post.likeCount": "{count} j'aime",
   "post.delete": 'Supprimer',
   "post.cancel": 'Annuler',
+  "post.resend": 'Renvoyer la notification à tous',
+  "post.resendConfirm": 'Renvoyer à tous',
   "post.edit": 'Modifier la publication',
   "post.save": 'Enregistrer',
   "post.saving": 'Enregistrement...',
