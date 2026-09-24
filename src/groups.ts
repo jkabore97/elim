@@ -137,6 +137,60 @@ export async function removeLead(groupId: string, uid: string): Promise<void> {
   })
 }
 
+// The fields that carry a post's group attribution. Used by both the bulk
+// back-fill and the single-post assign so a publication ends up identical
+// however it was attached.
+function groupPatch(authorId: string, group: Group | null) {
+  return group
+    ? {
+        groupId: group.id,
+        groupName: group.name,
+        groupAvatar: group.avatar || null,
+        featured: !!group.leads[authorId]?.featured,
+        authorTitle: group.leads[authorId]?.title || deleteField(),
+      }
+    : { groupId: deleteField(), groupName: deleteField(), groupAvatar: deleteField(), featured: deleteField(), authorTitle: deleteField() }
+}
+
+// One author's existing publications (matched by authorId and by the legacy
+// churchId), newest first, with just enough to show and re-attach each one
+// individually in the admin panel.
+export interface AuthorPost {
+  id: string
+  content: string
+  type?: string
+  createdAt?: any
+  groupId?: string
+  groupName?: string
+}
+
+export async function fetchAuthorPosts(authorId: string): Promise<AuthorPost[]> {
+  const byId = new Map<string, AuthorPost>()
+  for (const field of ['authorId', 'churchId'] as const) {
+    try {
+      const snap = await getDocs(query(collection(db, POSTS), where(field, '==', authorId)))
+      snap.docs.forEach(d => {
+        const v = d.data() as any
+        byId.set(d.id, {
+          id: d.id,
+          content: (v.content || '').toString(),
+          type: v.type,
+          createdAt: v.createdAt,
+          groupId: v.groupId || undefined,
+          groupName: v.groupName || undefined,
+        })
+      })
+    } catch { /* one field may need an index; the other still applies */ }
+  }
+  const millis = (c: any) => (c?.toMillis ? c.toMillis() : (c?.seconds ? c.seconds * 1000 : 0))
+  return [...byId.values()].sort((a, b) => millis(b.createdAt) - millis(a.createdAt))
+}
+
+// Attach (or clear, with group null) a group on a SINGLE publication.
+export async function assignPostToGroup(postId: string, authorId: string, group: Group | null): Promise<void> {
+  await updateDoc(doc(db, POSTS, postId), groupPatch(authorId, group) as any)
+}
+
 // Apply (or clear) a group on EVERY existing post by one author, so past
 // publications can be back-filled with their group. `group` null clears it.
 // Matches posts by authorId and by churchId (older posts predate authorId),
@@ -149,15 +203,7 @@ export async function bulkAssignAuthorToGroup(authorId: string, group: Group | n
       snap.docs.forEach(d => ids.add(d.id))
     } catch { /* one of the two may need an index; the other still applies */ }
   }
-  const patch = group
-    ? {
-        groupId: group.id,
-        groupName: group.name,
-        groupAvatar: group.avatar || null,
-        featured: !!group.leads[authorId]?.featured,
-        authorTitle: group.leads[authorId]?.title || deleteField(),
-      }
-    : { groupId: deleteField(), groupName: deleteField(), groupAvatar: deleteField(), featured: deleteField(), authorTitle: deleteField() }
+  const patch = groupPatch(authorId, group)
 
   const all = [...ids]
   // Firestore caps a batch at 500 writes; chunk to stay well under it.

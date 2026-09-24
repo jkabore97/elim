@@ -171,20 +171,21 @@ export async function initNativeNotifications() {
     // Tapping a notification (app closed OR backgrounded) routes to the
     // thing it was about.
     await PushNotifications.addListener('pushNotificationActionPerformed', (action) => {
-      const data: any = action?.notification?.data || {}
-      if (data.kind === 'message') {
-        emitNotificationRoute({ kind: 'message', conversationId: data.conversationId })
-      } else if (data.kind === 'post') {
-        emitNotificationRoute({ kind: 'post', postId: data.postId })
-      } else if (data.kind === 'quiz') {
-        emitNotificationRoute({ kind: 'quiz' })
-      } else if (data.kind === 'feed') {
-        emitNotificationRoute({ kind: 'feed' })
-      } else if (data.url) {
-        // A broadcast carrying a link (e.g. the "update" route) opens it.
-        emitNotificationRoute({ kind: 'url', url: data.url })
-      }
+      // Tap on a notification FCM itself displayed (app backgrounded or killed).
+      routeFromNotificationData(action?.notification?.data)
     })
+
+    // Route a tap on a FOREGROUND-shown local notification (see the received
+    // handler below). Registered ONCE here - not inside the received handler,
+    // which would stack a new listener on every incoming push.
+    try {
+      const { LocalNotifications } = await import('@capacitor/local-notifications')
+      await LocalNotifications.addListener('localNotificationActionPerformed', (action) => {
+        routeFromNotificationData(action?.notification?.extra)
+      })
+    } catch {
+      // Local notifications unavailable; the foreground path degrades to no-op.
+    }
 
     await PushNotifications.addListener('pushNotificationReceived', async (notification) => {
       try {
@@ -195,7 +196,11 @@ export async function initNativeNotifications() {
             title: notification.title || 'ELIM',
             body: notification.body || '',
             channelId: 'elim-default',
-            smallIcon: 'ic_stat_notify'
+            smallIcon: 'ic_stat_notify',
+            // Carry the push's routing payload so a tap on THIS foreground
+            // notification can open the post/message it was about. Without it
+            // the local notification was a dead end - tapping it did nothing.
+            extra: notification.data || {}
           }]
         })
       } catch {
@@ -371,6 +376,20 @@ export type NotificationRoute =
 
 export function emitNotificationRoute(route: NotificationRoute) {
   window.dispatchEvent(new CustomEvent('elim:route', { detail: route }))
+}
+
+// Turn a tapped notification's data payload into an in-app route. Shared by
+// both native tap paths: the FCM notification tapped while backgrounded/killed
+// (pushNotificationActionPerformed) and the local notification we post in the
+// foreground (localNotificationActionPerformed). Keeping one function means a
+// tap opens the right screen no matter which state the app was in.
+export function routeFromNotificationData(data: any) {
+  const d = data || {}
+  if (d.kind === 'message') emitNotificationRoute({ kind: 'message', conversationId: d.conversationId })
+  else if (d.kind === 'post') emitNotificationRoute({ kind: 'post', postId: d.postId })
+  else if (d.kind === 'quiz') emitNotificationRoute({ kind: 'quiz' })
+  else if (d.kind === 'feed') emitNotificationRoute({ kind: 'feed' })
+  else if (d.url) emitNotificationRoute({ kind: 'url', url: d.url })
 }
 
 export function onNotificationRoute(handler: (route: NotificationRoute) => void) {

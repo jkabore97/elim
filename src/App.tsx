@@ -40,7 +40,7 @@ import { playMessageAlert, isAlertMuted, setAlertMuted } from './messageAlert'
 import { getSoundSettings, setSoundSettings, setEventSounds, getEventSound, emit as playFeedback, QUIZ_EVENTS, type SoundChannel, type QuizEvent } from './feedback'
 import { SOUND_IDS, SOUND_NAMES, playSound } from './quiz/soundlib'
 import { DataManagementTab } from './DataManagement'
-import { LibraryTab } from './Library'
+import { LibraryTab, useUnreadBooks } from './Library'
 import BibleQuiz from './BibleQuiz'
 import { App as CapApp } from '@capacitor/app'
 import { subscribeProfile as subscribeQuizProfile } from './quiz/store'
@@ -1360,6 +1360,26 @@ function AppInner() {
     const parsed = v ? parseInt(v, 10) : NaN
     return Number.isFinite(parsed) ? parsed : Date.now()
   })
+  // Per-tab "last opened" markers (like notifSeenAt) so each destination can
+  // show how many posts arrived since the user last looked at THAT tab. Stored
+  // per device, keyed by uid; default to now so a first login isn't flagged
+  // with the whole back catalogue as unread.
+  const [feedSeenAt, setFeedSeenAt] = useState<number>(0)
+  const [santeSeenAt, setSanteSeenAt] = useState<number>(0)
+  const [librarySeenAt, setLibrarySeenAt] = useState<number>(0)
+  useEffect(() => {
+    if (!user?.uid) return
+    const init = (key: string, set: (n: number) => void) => {
+      const v = storageGet(key)
+      const parsed = v ? parseInt(v, 10) : NaN
+      if (Number.isFinite(parsed)) { set(parsed); return }
+      const now = Date.now()
+      set(now); storageSet(key, String(now))
+    }
+    init('elim_feedSeen_' + user.uid, setFeedSeenAt)
+    init('elim_santeSeen_' + user.uid, setSanteSeenAt)
+    init('elim_librarySeen_' + user.uid, setLibrarySeenAt)
+  }, [user?.uid])
   const [showNotifPrompt, setShowNotifPrompt] = useState(false)
   // When set (from a tapped notification), the matching post scrolls into view
   // and shows a ring. Kept armed until the post actually loads into the feed —
@@ -1385,6 +1405,7 @@ function AppInner() {
   }, [user?.role])
   const { track: playerTrack } = useMediaPlayer()
   const unreadMessages = useUnreadCount(user as AppUser)
+  const unreadLibrary = useUnreadBooks(user?.uid, librarySeenAt)
   const [messageToast, setMessageToast] = useState(false)
   const prevUnread = useRef<number | null>(null)
   const likeInFlight = useRef<Set<string>>(new Set())
@@ -1894,6 +1915,29 @@ function AppInner() {
     !seenAnnounceIds.has(a.id) && toMs(a.createdAt) > notifSeenAt).length
   const bellCount = unreadNotifs + newPosts.length + unseenAnnounce
 
+  // Per-tab unread counts for the nav badges: posts in a section created since
+  // the user last opened that tab, excluding their own. Messages keeps its own
+  // (thread-based) count from useUnreadCount.
+  const isOwnPost = (p: Post) => p.churchId === user?.uid || (p as any).authorId === user?.uid
+  const unreadFeed = posts.filter(p => (p.section || 'feed') === 'feed' && !isOwnPost(p) && toMs(p.createdAt) > feedSeenAt).length
+  const unreadSante = posts.filter(p => p.section === 'sante' && !isOwnPost(p) && toMs(p.createdAt) > santeSeenAt).length
+  const tabUnread: Record<string, number> = { feed: unreadFeed, sante: unreadSante, messages: unreadMessages, library: unreadLibrary }
+
+  // Opening a tab clears its badge; staying on it keeps it clear as new posts
+  // arrive (you are looking at them). Ties into the per-uid markers above.
+  useEffect(() => {
+    if (!user?.uid) return
+    if (activeTab === 'feed') {
+      const now = Date.now(); setFeedSeenAt(now); storageSet('elim_feedSeen_' + user.uid, String(now))
+    } else if (activeTab === 'sante') {
+      const now = Date.now(); setSanteSeenAt(now); storageSet('elim_santeSeen_' + user.uid, String(now))
+    } else if (activeTab === 'library') {
+      const now = Date.now(); setLibrarySeenAt(now); storageSet('elim_librarySeen_' + user.uid, String(now))
+    }
+    // posts.length / unreadLibrary so an item arriving while you're already on
+    // the tab still counts as seen.
+  }, [activeTab, posts.length, unreadLibrary, user?.uid])
+
   // Opening the bell clears every signal: personal notifications are marked
   // read, announcements are marked seen (per device), and the feed "last seen"
   // marker moves to now. The new-post list is snapshotted first so the panel
@@ -2165,9 +2209,9 @@ function AppInner() {
                       {pendingChurches.length}
                     </span>
                   )}
-                  {item.id === 'messages' && unreadMessages > 0 && (
+                  {tabUnread[item.id] > 0 && (
                     <span className="ml-auto min-w-[20px] h-5 px-1.5 rounded-full bg-red-500 text-white text-[10px] font-bold flex items-center justify-center">
-                      {unreadMessages}
+                      {tabUnread[item.id] > 99 ? '99+' : tabUnread[item.id]}
                     </span>
                   )}
                 </button>
@@ -2534,9 +2578,9 @@ function AppInner() {
                       {pendingChurches.length}
                     </span>
                   )}
-                  {item.id === 'messages' && unreadMessages > 0 && (
+                  {tabUnread[item.id] > 0 && (
                     <span className="absolute top-1 right-1.5 min-w-[16px] h-4 px-1 rounded-full bg-red-500 text-white text-[9px] font-bold flex items-center justify-center ring-2 ring-[#201a16]">
-                      {unreadMessages > 9 ? '9+' : unreadMessages}
+                      {tabUnread[item.id] > 9 ? '9+' : tabUnread[item.id]}
                     </span>
                   )}
                   <span className="text-[10px] mt-1 font-bold leading-[1.1] text-center px-0.5 max-w-full whitespace-nowrap overflow-hidden text-ellipsis">
@@ -3936,6 +3980,59 @@ function AdminPanel({ pendingChurches, onApprove, onDeny }: {
   )
 }
 
+// A nicer inline video preview than a bare <video>: a real first-frame poster
+// (the element defaults to a big pixelated play button on a grey gradient) with
+// a clean circular play button and a duration badge. Tapping swaps in the
+// native controls and starts playback.
+function PostVideo({ src }: { src: string }) {
+  const ref = useRef<HTMLVideoElement>(null)
+  const [started, setStarted] = useState(false)
+  const [duration, setDuration] = useState('')
+
+  const onMeta = () => {
+    const v = ref.current
+    if (!v) return
+    // Nudge off 0s so the poster shows a real frame instead of a black/blank
+    // rectangle on browsers that don't paint the first frame for metadata.
+    try { if (v.currentTime === 0) v.currentTime = 0.1 } catch { /* seeking may be blocked; ignore */ }
+    const d = v.duration
+    if (Number.isFinite(d) && d > 0) {
+      const m = Math.floor(d / 60)
+      const s = Math.floor(d % 60)
+      setDuration(`${m}:${s.toString().padStart(2, '0')}`)
+    }
+  }
+
+  const play = () => {
+    const v = ref.current
+    if (!v) return
+    setStarted(true)
+    v.controls = true
+    v.play().catch(() => { /* autoplay/gesture edge cases: user can tap again */ })
+  }
+
+  return (
+    <div className="relative w-full bg-black">
+      <video ref={ref} src={src} playsInline preload="metadata" onLoadedMetadata={onMeta}
+        controls={started} className="w-full max-h-72 bg-black" />
+      {!started && (
+        <button onClick={play} aria-label="Play" className="absolute inset-0 flex items-center justify-center group">
+          {/* Gentle darkening so the button always reads over any frame. */}
+          <span className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-black/25" />
+          <span className="relative w-16 h-16 rounded-full bg-white/95 shadow-xl flex items-center justify-center transition group-active:scale-95">
+            <Play size={26} className="text-slate-900 ml-1" fill="currentColor" />
+          </span>
+          {duration && (
+            <span className="absolute bottom-2 right-2 px-1.5 py-0.5 rounded-md bg-black/70 text-white text-[11px] font-semibold tabular-nums">
+              {duration}
+            </span>
+          )}
+        </button>
+      )}
+    </div>
+  )
+}
+
 function PostCard({ post, onLike, onOpenComments, currentUser, isLiked, onEdit, onDelete, onOpenProfile, onOpenGroup, onOpenDoc, canModerate = false }: {
   post: Post
   onLike: (id: string) => Promise<void>
@@ -4231,7 +4328,7 @@ function PostCard({ post, onLike, onOpenComments, currentUser, isLiked, onEdit, 
       )}
 
       {post.type === 'video' && post.mediaUrl && !ytId && (
-        <video src={post.mediaUrl} controls playsInline preload="metadata" className="w-full max-h-72 bg-black" />
+        <PostVideo src={post.mediaUrl} />
       )}
 
       {post.type === 'audio' && post.mediaUrl && (

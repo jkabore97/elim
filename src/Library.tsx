@@ -53,6 +53,33 @@ function humanSize(bytes?: number) {
   return mb >= 1 ? `${mb.toFixed(1)} MB` : `${Math.round(bytes / 1024)} KB`
 }
 
+// Live count of books added since `seenAt` (excluding the user's own uploads),
+// for the Library tab's unread badge. Subscribes once to the most recent books
+// and recomputes against the marker in memory, so moving the marker on view
+// doesn't re-open the subscription.
+export function useUnreadBooks(uid: string | undefined, seenAt: number): number {
+  const [times, setTimes] = useState<number[]>([])
+  useEffect(() => {
+    if (!uid) { setTimes([]); return }
+    const unsub = onSnapshot(
+      query(collection(db, 'books'), orderBy('createdAt', 'desc'), limit(50)),
+      snap => {
+        const arr: number[] = []
+        snap.forEach(d => {
+          const v = d.data() as any
+          if (v.uploadedById === uid) return
+          const ms = v.createdAt?.toMillis ? v.createdAt.toMillis() : 0
+          if (ms) arr.push(ms)
+        })
+        setTimes(arr)
+      },
+      () => setTimes([])
+    )
+    return () => unsub()
+  }, [uid])
+  return useMemo(() => times.filter(ms => ms > seenAt).length, [times, seenAt])
+}
+
 // ==================== READER ====================
 
 function PdfReader({ book, onClose }: { book: Book; onClose: () => void }) {
