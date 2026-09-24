@@ -4098,6 +4098,25 @@ function PostCard({ post, onLike, onOpenComments, currentUser, isLiked, onEdit, 
   }
 
   const isOwner = post.churchId === currentUserUid
+  // Admin/pastor can re-push a post's notification to everyone (e.g. an important
+  // announcement that got buried). Backed by the resendPostNotification callable.
+  const isStaff = currentUser.role === 'admin' || currentUser.role === 'pastor'
+  const [confirmResend, setConfirmResend] = useState(false)
+  const [resending, setResending] = useState(false)
+  const [resent, setResent] = useState(false)
+  const doResend = async () => {
+    setResending(true)
+    try {
+      await httpsCallable(functions, 'resendPostNotification')({ postId: post.id })
+      setResent(true)
+      setTimeout(() => setResent(false), 3000)
+    } catch {
+      // Silent: the worst case is the admin taps again.
+    } finally {
+      setResending(false)
+      setConfirmResend(false)
+    }
+  }
 
   // Attribution shown on the card. A group post leads with the GROUP name and
   // shows the author small — unless the author is a featured lead (the pastor),
@@ -4223,7 +4242,7 @@ function PostCard({ post, onLike, onOpenComments, currentUser, isLiked, onEdit, 
             {subName ? `${subName} · ` : ''}{timeAgo(post.createdAt)}
           </p>
         </div>
-        {(isOwner || canModerate) && (
+        {(isOwner || canModerate || isStaff) && (
           confirmingDelete ? (
             <div className="flex items-center gap-1.5 shrink-0">
               <button disabled={deleting} onClick={async () => {
@@ -4246,8 +4265,27 @@ function PostCard({ post, onLike, onOpenComments, currentUser, isLiked, onEdit, 
                 {t('post.cancel')}
               </button>
             </div>
+          ) : confirmResend ? (
+            <div className="flex items-center gap-1.5 shrink-0">
+              <button disabled={resending} onClick={doResend}
+                className="text-xs font-semibold text-white bg-affirm-600 hover:bg-affirm-700 px-3 py-1.5 rounded-full transition disabled:opacity-50 flex items-center gap-1">
+                {resending ? <Loader2 size={13} className="animate-spin" /> : null}
+                {t('post.resendConfirm')}
+              </button>
+              <button onClick={() => setConfirmResend(false)}
+                className="text-xs font-semibold text-slate-400 hover:text-slate-600 px-2">
+                {t('post.cancel')}
+              </button>
+            </div>
           ) : (
             <div className="flex items-center gap-0.5 shrink-0">
+              {/* Admin/pastor: re-send this post's notification to everyone. */}
+              {isStaff && (
+                <button onClick={() => setConfirmResend(true)} title={t('post.resend')} aria-label={t('post.resend')}
+                  className="p-2 rounded-full text-slate-300 hover:text-affirm-600 hover:bg-affirm-50 transition">
+                  {resent ? <Check size={16} className="text-affirm-600" /> : <Bell size={16} />}
+                </button>
+              )}
               {/* Editing is owner-only; a moderating lead can delete but not
                   rewrite someone else's post. */}
               {isOwner && (
@@ -4256,10 +4294,12 @@ function PostCard({ post, onLike, onOpenComments, currentUser, isLiked, onEdit, 
                   <Pencil size={16} />
                 </button>
               )}
-              <button onClick={() => setConfirmingDelete(true)}
-                className="p-2 rounded-full text-slate-300 hover:text-red-500 hover:bg-red-50 transition">
-                <Trash2 size={17} />
-              </button>
+              {(isOwner || canModerate) && (
+                <button onClick={() => setConfirmingDelete(true)}
+                  className="p-2 rounded-full text-slate-300 hover:text-red-500 hover:bg-red-50 transition">
+                  <Trash2 size={17} />
+                </button>
+              )}
             </div>
           )
         )}

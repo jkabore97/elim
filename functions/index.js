@@ -188,12 +188,10 @@ function resolveAuto(cfg, key, def, vars, maxBody = 500) {
   return { title, body };
 }
 
-exports.notifyOnNewPost = onDocumentCreated('posts/{postId}', async (event) => {
-  const snapshot = event.data;
-  if (!snapshot) return;
-  const post = snapshot.data();
-
-  const db = getFirestore();
+// Push a post to everyone with notifications on (except its own author). Shared
+// by the automatic new-post trigger and the admin "resend notification" action.
+// Returns how many device tokens it targeted.
+async function pushPostToEveryone(db, postId, post) {
   const usersSnap = await db
     .collection('users')
     .where('notificationsEnabled', '==', true)
@@ -207,7 +205,7 @@ exports.notifyOnNewPost = onDocumentCreated('posts/{postId}', async (event) => {
     if (Array.isArray(data.fcmTokens)) tokens.push(...data.fcmTokens);
   });
 
-  if (tokens.length === 0) return;
+  if (tokens.length === 0) return 0;
 
   // Show who published: the GROUP name when the post is attributed to a group,
   // otherwise the author's name, falling back to the church name. (The old
@@ -234,10 +232,10 @@ exports.notifyOnNewPost = onDocumentCreated('posts/{postId}', async (event) => {
         notification: { title, body },
         // Read by the app when the notification is tapped, to route straight
         // to the post rather than dumping the person on the feed.
-        data: { kind: 'post', postId: event.params.postId },
+        data: { kind: 'post', postId },
         webpush: {
           notification: { icon: 'https://ccelim.com/elim-logo-mark.png' },
-          fcmOptions: { link: `https://ccelim.com/?post=${event.params.postId}` }
+          fcmOptions: { link: `https://ccelim.com/?post=${postId}` }
         },
         android: {
           priority: 'high',
@@ -280,6 +278,28 @@ exports.notifyOnNewPost = onDocumentCreated('posts/{postId}', async (event) => {
         )
     );
   }
+  return tokens.length;
+}
+
+exports.notifyOnNewPost = onDocumentCreated('posts/{postId}', async (event) => {
+  const snapshot = event.data;
+  if (!snapshot) return;
+  await pushPostToEveryone(getFirestore(), event.params.postId, snapshot.data());
+});
+
+// Admin/pastor action: re-send the "new post" notification to everyone for an
+// existing post (e.g. an important announcement that got buried, or a post
+// created while many had notifications off). Same title/body/deep-link as the
+// automatic new-post push, so a tap still opens the post.
+exports.resendPostNotification = onCall({ region: 'us-central1' }, async (request) => {
+  await requireAdmin(request);
+  const db = getFirestore();
+  const postId = String((request.data && request.data.postId) || '').trim();
+  if (!postId) throw new HttpsError('invalid-argument', 'postId requis.');
+  const snap = await db.collection('posts').doc(postId).get();
+  if (!snap.exists) throw new HttpsError('not-found', 'Publication introuvable.');
+  const sent = await pushPostToEveryone(db, postId, snap.data());
+  return { ok: true, sent };
 });
 
 
