@@ -1360,6 +1360,24 @@ function AppInner() {
     const parsed = v ? parseInt(v, 10) : NaN
     return Number.isFinite(parsed) ? parsed : Date.now()
   })
+  // Per-tab "last opened" markers (like notifSeenAt) so each destination can
+  // show how many posts arrived since the user last looked at THAT tab. Stored
+  // per device, keyed by uid; default to now so a first login isn't flagged
+  // with the whole back catalogue as unread.
+  const [feedSeenAt, setFeedSeenAt] = useState<number>(0)
+  const [santeSeenAt, setSanteSeenAt] = useState<number>(0)
+  useEffect(() => {
+    if (!user?.uid) return
+    const init = (key: string, set: (n: number) => void) => {
+      const v = storageGet(key)
+      const parsed = v ? parseInt(v, 10) : NaN
+      if (Number.isFinite(parsed)) { set(parsed); return }
+      const now = Date.now()
+      set(now); storageSet(key, String(now))
+    }
+    init('elim_feedSeen_' + user.uid, setFeedSeenAt)
+    init('elim_santeSeen_' + user.uid, setSanteSeenAt)
+  }, [user?.uid])
   const [showNotifPrompt, setShowNotifPrompt] = useState(false)
   // When set (from a tapped notification), the matching post scrolls into view
   // and shows a ring. Kept armed until the post actually loads into the feed —
@@ -1894,6 +1912,26 @@ function AppInner() {
     !seenAnnounceIds.has(a.id) && toMs(a.createdAt) > notifSeenAt).length
   const bellCount = unreadNotifs + newPosts.length + unseenAnnounce
 
+  // Per-tab unread counts for the nav badges: posts in a section created since
+  // the user last opened that tab, excluding their own. Messages keeps its own
+  // (thread-based) count from useUnreadCount.
+  const isOwnPost = (p: Post) => p.churchId === user?.uid || (p as any).authorId === user?.uid
+  const unreadFeed = posts.filter(p => (p.section || 'feed') === 'feed' && !isOwnPost(p) && toMs(p.createdAt) > feedSeenAt).length
+  const unreadSante = posts.filter(p => p.section === 'sante' && !isOwnPost(p) && toMs(p.createdAt) > santeSeenAt).length
+  const tabUnread: Record<string, number> = { feed: unreadFeed, sante: unreadSante, messages: unreadMessages }
+
+  // Opening a tab clears its badge; staying on it keeps it clear as new posts
+  // arrive (you are looking at them). Ties into the per-uid markers above.
+  useEffect(() => {
+    if (!user?.uid) return
+    if (activeTab === 'feed') {
+      const now = Date.now(); setFeedSeenAt(now); storageSet('elim_feedSeen_' + user.uid, String(now))
+    } else if (activeTab === 'sante') {
+      const now = Date.now(); setSanteSeenAt(now); storageSet('elim_santeSeen_' + user.uid, String(now))
+    }
+    // posts.length so a post arriving while you're already on the tab still counts as seen.
+  }, [activeTab, posts.length, user?.uid])
+
   // Opening the bell clears every signal: personal notifications are marked
   // read, announcements are marked seen (per device), and the feed "last seen"
   // marker moves to now. The new-post list is snapshotted first so the panel
@@ -2165,9 +2203,9 @@ function AppInner() {
                       {pendingChurches.length}
                     </span>
                   )}
-                  {item.id === 'messages' && unreadMessages > 0 && (
+                  {tabUnread[item.id] > 0 && (
                     <span className="ml-auto min-w-[20px] h-5 px-1.5 rounded-full bg-red-500 text-white text-[10px] font-bold flex items-center justify-center">
-                      {unreadMessages}
+                      {tabUnread[item.id] > 99 ? '99+' : tabUnread[item.id]}
                     </span>
                   )}
                 </button>
@@ -2534,9 +2572,9 @@ function AppInner() {
                       {pendingChurches.length}
                     </span>
                   )}
-                  {item.id === 'messages' && unreadMessages > 0 && (
+                  {tabUnread[item.id] > 0 && (
                     <span className="absolute top-1 right-1.5 min-w-[16px] h-4 px-1 rounded-full bg-red-500 text-white text-[9px] font-bold flex items-center justify-center ring-2 ring-[#201a16]">
-                      {unreadMessages > 9 ? '9+' : unreadMessages}
+                      {tabUnread[item.id] > 9 ? '9+' : tabUnread[item.id]}
                     </span>
                   )}
                   <span className="text-[10px] mt-1 font-bold leading-[1.1] text-center px-0.5 max-w-full whitespace-nowrap overflow-hidden text-ellipsis">
