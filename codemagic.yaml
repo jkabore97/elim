@@ -23,9 +23,6 @@ workflows:
       # Must match the API key name you created in the Codemagic UI (step 1 above).
       app_store_connect: ELIM ASC Key
     environment:
-      ios_signing:
-        distribution_type: app_store
-        bundle_identifier: com.ccelim.app
       vars:
         BUNDLE_ID: "com.ccelim.app"
         XCODE_PROJECT: "ios/App/App.xcodeproj"
@@ -44,8 +41,18 @@ workflows:
         # apple-generic versioning configured, which this project doesn't set.
         script: |
           sed -i '' "s/CURRENT_PROJECT_VERSION = [0-9][0-9]*;/CURRENT_PROJECT_VERSION = $BUILD_NUMBER;/g" ios/App/App.xcodeproj/project.pbxproj
-      - name: Apply the signing profile Codemagic fetched
-        script: xcode-project use-profiles
+      - name: Set up code signing (creates the certificate + profile if missing)
+        # Uses the App Store Connect API key from the "ELIM ASC Key" integration
+        # (Codemagic injects APP_STORE_CONNECT_* env vars). --create makes a new
+        # distribution certificate and App Store profile for the bundle id when
+        # none exist yet, then installs them for xcodebuild to use.
+        script: |
+          keychain initialize
+          app-store-connect fetch-signing-files "$BUNDLE_ID" \
+            --type IOS_APP_STORE \
+            --create
+          keychain add-certificates
+          xcode-project use-profiles
       - name: Build the signed .ipa
         script: |
           xcode-project build-ipa \
