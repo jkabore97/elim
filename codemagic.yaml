@@ -56,7 +56,9 @@ workflows:
             --type IOS_APP_STORE \
             --certificate-key "$CERT_KEY" \
             --create
-          keychain add-certificates --certificate-key "$CERT_KEY"
+          # fetch-signing-files already saved the cert as a .p12 (private key
+          # included), so add-certificates imports it as-is — no key arg here.
+          keychain add-certificates
           xcode-project use-profiles
       - name: Build the signed .ipa
         script: |
