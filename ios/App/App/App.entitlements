@@ -4,7 +4,7 @@
 <dict>
 	<!-- Push Notifications. "production" is what App Store / TestFlight builds use
 	     (TestFlight talks to the production APNs environment). The matching
-	     capability must also be enabled on the App ID (com.elim.app) in the
+	     capability must also be enabled on the App ID (com.ccelim.app) in the
 	     Apple Developer portal. -->
 	<key>aps-environment</key>
 	<string>production</string>

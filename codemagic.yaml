@@ -25,9 +25,9 @@ workflows:
     environment:
       ios_signing:
         distribution_type: app_store
-        bundle_identifier: com.elim.app
+        bundle_identifier: com.ccelim.app
       vars:
-        BUNDLE_ID: "com.elim.app"
+        BUNDLE_ID: "com.ccelim.app"
         XCODE_PROJECT: "ios/App/App.xcodeproj"
         XCODE_SCHEME: "App"
       node: 20
