@@ -1,0 +1,63 @@
+# Codemagic CI/CD — builds the ELIM iOS app (Capacitor, Swift Package Manager)
+# and publishes it to TestFlight. No Mac required.
+#
+# ONE-TIME SETUP in the Codemagic UI (Teams → Integrations, and the app settings):
+#   1. Add an "App Store Connect" API key integration:
+#        - In App Store Connect → Users and Access → Integrations → App Store Connect API,
+#          create a key with the "App Manager" role, download the .p8, note the Issuer ID
+#          and Key ID.
+#        - In Codemagic → Teams → your team → Integrations → Apple Developer Portal /
+#          App Store Connect → add the key. Give it the name "ELIM ASC Key"
+#          (must match `integrations.app_store_connect` below, or change it here).
+#   2. Nothing else — Codemagic creates the signing certificate and provisioning
+#      profile automatically from that API key (automatic signing).
+#
+# Then: open this workflow in Codemagic and click "Start new build".
+
+workflows:
+  ios-testflight:
+    name: ELIM iOS – TestFlight
+    max_build_duration: 60
+    instance_type: mac_mini_m2
+    integrations:
+      # Must match the API key name you created in the Codemagic UI (step 1 above).
+      app_store_connect: ELIM ASC Key
+    environment:
+      ios_signing:
+        distribution_type: app_store
+        bundle_identifier: com.elim.app
+      vars:
+        BUNDLE_ID: "com.elim.app"
+        XCODE_PROJECT: "ios/App/App.xcodeproj"
+        XCODE_SCHEME: "App"
+      node: 20
+      xcode: latest
+    scripts:
+      - name: Install npm dependencies
+        script: npm ci
+      - name: Build the web app (Vite)
+        script: npm run build
+      - name: Sync web assets into the iOS project
+        script: npx cap sync ios
+      - name: Set the build number (auto-increments each Codemagic build)
+        # Deterministic: rewrite CURRENT_PROJECT_VERSION directly. agvtool needs
+        # apple-generic versioning configured, which this project doesn't set.
+        script: |
+          sed -i '' "s/CURRENT_PROJECT_VERSION = [0-9][0-9]*;/CURRENT_PROJECT_VERSION = $BUILD_NUMBER;/g" ios/App/App.xcodeproj/project.pbxproj
+      - name: Apply the signing profile Codemagic fetched
+        script: xcode-project use-profiles
+      - name: Build the signed .ipa
+        script: |
+          xcode-project build-ipa \
+            --project "$XCODE_PROJECT" \
+            --scheme "$XCODE_SCHEME"
+    artifacts:
+      - build/ios/ipa/*.ipa
+      - /tmp/xcodebuild_logs/*.log
+    publishing:
+      app_store_connect:
+        auth: integration
+        # Uploads to TestFlight. Flip to true later (and add reviewer info in
+        # App Store Connect) when you're ready to push a build to App Store review.
+        submit_to_testflight: true
+        submit_to_app_store: false
