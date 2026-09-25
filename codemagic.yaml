@@ -41,17 +41,22 @@ workflows:
         # apple-generic versioning configured, which this project doesn't set.
         script: |
           sed -i '' "s/CURRENT_PROJECT_VERSION = [0-9][0-9]*;/CURRENT_PROJECT_VERSION = $BUILD_NUMBER;/g" ios/App/App.xcodeproj/project.pbxproj
-      - name: Set up code signing (Codemagic CLI, manual profile)
-        # codemagic-cli tools read the API key from the integration's env vars
-        # themselves (no .p8 file for us to corrupt). Create a distribution
-        # certificate + private key if none is saved, then fetch/create the App
-        # Store profile for the bundle id and apply it to the project.
+      - name: Set up code signing (create distribution cert + profile)
+        # codemagic-cli does NOT generate a certificate private key itself — it
+        # needs one supplied (that was the root of every "cannot save cert
+        # without private key" failure). Generate an RSA key, then have
+        # fetch-signing-files create the distribution certificate FROM that key
+        # plus the App Store profile for the bundle id, and import them.
         script: |
+          set -e
           keychain initialize
-          app-store-connect create-certificate --type IOS_DISTRIBUTION --save || \
-            echo "Distribution certificate may already exist; continuing."
-          app-store-connect fetch-signing-files "$BUNDLE_ID" --type IOS_APP_STORE --create
-          keychain add-certificates
+          openssl genpkey -algorithm RSA -pkeyopt rsa_keygen_bits:2048 -out "$CM_BUILD_DIR/cert_key.pem"
+          CERT_KEY="@file:$CM_BUILD_DIR/cert_key.pem"
+          app-store-connect fetch-signing-files "$BUNDLE_ID" \
+            --type IOS_APP_STORE \
+            --certificate-key "$CERT_KEY" \
+            --create
+          keychain add-certificates --certificate-key "$CERT_KEY"
           xcode-project use-profiles
       - name: Build the signed .ipa
         script: |
