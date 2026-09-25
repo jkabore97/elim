@@ -60,7 +60,8 @@ workflows:
             --scheme "$XCODE_SCHEME" \
             --export-options-plist "$CM_BUILD_DIR/ios/ExportOptions.plist" \
             --archive-xcargs "COMPILER_INDEX_STORE_ENABLE=NO CODE_SIGN_STYLE=Automatic DEVELOPMENT_TEAM=9K236BL7SX $AUTH" \
-            --export-xcargs "$AUTH"
+            --export-xcargs "$AUTH" \
+            --disable-xcpretty
     artifacts:
       - build/ios/ipa/*.ipa
       - /tmp/xcodebuild_logs/*.log
