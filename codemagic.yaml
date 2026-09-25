@@ -41,23 +41,25 @@ workflows:
         # apple-generic versioning configured, which this project doesn't set.
         script: |
           sed -i '' "s/CURRENT_PROJECT_VERSION = [0-9][0-9]*;/CURRENT_PROJECT_VERSION = $BUILD_NUMBER;/g" ios/App/App.xcodeproj/project.pbxproj
-      - name: Set up code signing (creates the certificate + profile if missing)
-        # Uses the App Store Connect API key from the "ELIM ASC Key" integration
-        # (Codemagic injects APP_STORE_CONNECT_* env vars). --create makes a new
-        # distribution certificate and App Store profile for the bundle id when
-        # none exist yet, then installs them for xcodebuild to use.
+      - name: Write the App Store Connect API key to a file
+        # Codemagic injects APP_STORE_CONNECT_* from the "ELIM ASC Key"
+        # integration. xcodebuild needs the private key as a .p8 file on disk.
         script: |
-          keychain initialize
-          app-store-connect fetch-signing-files "$BUNDLE_ID" \
-            --type IOS_APP_STORE \
-            --create
-          keychain add-certificates
-          xcode-project use-profiles
-      - name: Build the signed .ipa
+          mkdir -p "$CM_BUILD_DIR/private_keys"
+          echo "$APP_STORE_CONNECT_PRIVATE_KEY" > "$CM_BUILD_DIR/private_keys/AuthKey_$APP_STORE_CONNECT_KEY_IDENTIFIER.p8"
+      - name: Build & sign the .ipa (Xcode-managed automatic signing)
+        # -allowProvisioningUpdates lets Xcode create/reuse the distribution
+        # certificate, its private key, and the App Store profile itself via the
+        # API key — no manual certificate/private-key handling. This replaces the
+        # fetch-signing-files flow, which couldn't create a cert without a key.
         script: |
+          KEY_PATH="$CM_BUILD_DIR/private_keys/AuthKey_$APP_STORE_CONNECT_KEY_IDENTIFIER.p8"
+          AUTH="-allowProvisioningUpdates -authenticationKeyPath $KEY_PATH -authenticationKeyID $APP_STORE_CONNECT_KEY_IDENTIFIER -authenticationKeyIssuerID $APP_STORE_CONNECT_ISSUER_ID"
           xcode-project build-ipa \
             --project "$XCODE_PROJECT" \
-            --scheme "$XCODE_SCHEME"
+            --scheme "$XCODE_SCHEME" \
+            --archive-xcargs "COMPILER_INDEX_STORE_ENABLE=NO CODE_SIGN_STYLE=Automatic DEVELOPMENT_TEAM=9K236BL7SX $AUTH" \
+            --export-xcargs "$AUTH"
     artifacts:
       - build/ios/ipa/*.ipa
       - /tmp/xcodebuild_logs/*.log
