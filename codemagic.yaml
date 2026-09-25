@@ -47,24 +47,38 @@ workflows:
         script: |
           mkdir -p "$CM_BUILD_DIR/private_keys"
           echo "$APP_STORE_CONNECT_PRIVATE_KEY" > "$CM_BUILD_DIR/private_keys/AuthKey_$APP_STORE_CONNECT_KEY_IDENTIFIER.p8"
-      - name: Build & sign the .ipa (Xcode-managed automatic signing)
-        # -allowProvisioningUpdates lets Xcode create/reuse the distribution
-        # certificate, its private key, and the App Store profile itself via the
-        # API key — no manual certificate/private-key handling. This replaces the
-        # fetch-signing-files flow, which couldn't create a cert without a key.
+      - name: Archive & export the .ipa (raw xcodebuild, automatic signing)
+        # Raw xcodebuild so nothing overrides CODE_SIGN_STYLE (build-ipa was
+        # force-appending CODE_SIGN_STYLE=Manual). -allowProvisioningUpdates lets
+        # Xcode create/reuse the distribution certificate + App Store profile via
+        # the API key. The API key ID must be the bare key id (e.g. JKL34TQ44M),
+        # NOT the AuthKey_*.p8 filename.
         script: |
+          set -e
           KEY_PATH="$CM_BUILD_DIR/private_keys/AuthKey_$APP_STORE_CONNECT_KEY_IDENTIFIER.p8"
-          AUTH="-allowProvisioningUpdates -authenticationKeyPath $KEY_PATH -authenticationKeyID $APP_STORE_CONNECT_KEY_IDENTIFIER -authenticationKeyIssuerID $APP_STORE_CONNECT_ISSUER_ID"
-          xcode-project build-ipa \
-            --project "$XCODE_PROJECT" \
-            --scheme "$XCODE_SCHEME" \
-            --export-options-plist "$CM_BUILD_DIR/ios/ExportOptions.plist" \
-            --archive-xcargs "COMPILER_INDEX_STORE_ENABLE=NO CODE_SIGN_STYLE=Automatic DEVELOPMENT_TEAM=9K236BL7SX $AUTH" \
-            --export-xcargs "$AUTH" \
-            --disable-xcpretty
+          xcodebuild -project "$XCODE_PROJECT" \
+            -scheme "$XCODE_SCHEME" \
+            -configuration Release \
+            -destination "generic/platform=iOS" \
+            -archivePath "$CM_BUILD_DIR/build/App.xcarchive" \
+            -allowProvisioningUpdates \
+            -authenticationKeyPath "$KEY_PATH" \
+            -authenticationKeyID "$APP_STORE_CONNECT_KEY_IDENTIFIER" \
+            -authenticationKeyIssuerID "$APP_STORE_CONNECT_ISSUER_ID" \
+            CODE_SIGN_STYLE=Automatic \
+            DEVELOPMENT_TEAM=9K236BL7SX \
+            archive
+          xcodebuild -exportArchive \
+            -archivePath "$CM_BUILD_DIR/build/App.xcarchive" \
+            -exportPath "$CM_BUILD_DIR/build/ipa" \
+            -exportOptionsPlist "$CM_BUILD_DIR/ios/ExportOptions.plist" \
+            -allowProvisioningUpdates \
+            -authenticationKeyPath "$KEY_PATH" \
+            -authenticationKeyID "$APP_STORE_CONNECT_KEY_IDENTIFIER" \
+            -authenticationKeyIssuerID "$APP_STORE_CONNECT_ISSUER_ID"
     artifacts:
-      - build/ios/ipa/*.ipa
-      - /tmp/xcodebuild_logs/*.log
+      - build/ipa/*.ipa
+      - $CM_BUILD_DIR/build/ipa/*.ipa
     publishing:
       app_store_connect:
         auth: integration
