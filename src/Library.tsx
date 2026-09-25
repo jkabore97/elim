@@ -12,7 +12,7 @@ import {
 import { db, storage } from './firebase'
 import { useLanguage } from './i18n'
 import { logActivity } from './activityLog'
-import { TranscribeTool, ScriptsFolder } from './Transcribe'
+import { TranscribeTool, ScriptsFolder } from './TranscribeTools'
 import type { AppUser, Book } from './types'
 
 import 'react-pdf/dist/Page/AnnotationLayer.css'
