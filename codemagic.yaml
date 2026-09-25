@@ -41,52 +41,24 @@ workflows:
         # apple-generic versioning configured, which this project doesn't set.
         script: |
           sed -i '' "s/CURRENT_PROJECT_VERSION = [0-9][0-9]*;/CURRENT_PROJECT_VERSION = $BUILD_NUMBER;/g" ios/App/App.xcodeproj/project.pbxproj
-      - name: Write the App Store Connect API key to a file
-        # Codemagic injects APP_STORE_CONNECT_* from the "ELIM ASC Key"
-        # integration. xcodebuild needs the private key as a .p8 file on disk.
-        # Use printf '%b' (not echo): the key arrives with escaped \n, and echo
-        # wrote them literally -> "invalidPEMDocument". %b restores real newlines;
-        # PEM base64 has no backslashes, so a real-newline key is unaffected.
+      - name: Set up code signing (Codemagic CLI, manual profile)
+        # codemagic-cli tools read the API key from the integration's env vars
+        # themselves (no .p8 file for us to corrupt). Create a distribution
+        # certificate + private key if none is saved, then fetch/create the App
+        # Store profile for the bundle id and apply it to the project.
         script: |
-          mkdir -p "$CM_BUILD_DIR/private_keys"
-          KEY_PATH="$CM_BUILD_DIR/private_keys/AuthKey_$APP_STORE_CONNECT_KEY_IDENTIFIER.p8"
-          printf '%b' "$APP_STORE_CONNECT_PRIVATE_KEY" > "$KEY_PATH"
-          # Safe diagnostics only (no secret material): the header line and count.
-          echo "Key ID: $APP_STORE_CONNECT_KEY_IDENTIFIER"
-          echo "Key file lines: $(wc -l < "$KEY_PATH")"
-          head -c 27 "$KEY_PATH"; echo
-      - name: Archive & export the .ipa (raw xcodebuild, automatic signing)
-        # Raw xcodebuild so nothing overrides CODE_SIGN_STYLE (build-ipa was
-        # force-appending CODE_SIGN_STYLE=Manual). -allowProvisioningUpdates lets
-        # Xcode create/reuse the distribution certificate + App Store profile via
-        # the API key. The API key ID must be the bare key id (e.g. JKL34TQ44M),
-        # NOT the AuthKey_*.p8 filename.
+          keychain initialize
+          app-store-connect create-certificate --type IOS_DISTRIBUTION --save || \
+            echo "Distribution certificate may already exist; continuing."
+          app-store-connect fetch-signing-files "$BUNDLE_ID" --type IOS_APP_STORE --create
+          keychain add-certificates
+          xcode-project use-profiles
+      - name: Build the signed .ipa
         script: |
-          set -e
-          KEY_PATH="$CM_BUILD_DIR/private_keys/AuthKey_$APP_STORE_CONNECT_KEY_IDENTIFIER.p8"
-          xcodebuild -project "$XCODE_PROJECT" \
-            -scheme "$XCODE_SCHEME" \
-            -configuration Release \
-            -destination "generic/platform=iOS" \
-            -archivePath "$CM_BUILD_DIR/build/App.xcarchive" \
-            -allowProvisioningUpdates \
-            -authenticationKeyPath "$KEY_PATH" \
-            -authenticationKeyID "$APP_STORE_CONNECT_KEY_IDENTIFIER" \
-            -authenticationKeyIssuerID "$APP_STORE_CONNECT_ISSUER_ID" \
-            CODE_SIGN_STYLE=Automatic \
-            DEVELOPMENT_TEAM=9K236BL7SX \
-            archive
-          xcodebuild -exportArchive \
-            -archivePath "$CM_BUILD_DIR/build/App.xcarchive" \
-            -exportPath "$CM_BUILD_DIR/build/ipa" \
-            -exportOptionsPlist "$CM_BUILD_DIR/ios/ExportOptions.plist" \
-            -allowProvisioningUpdates \
-            -authenticationKeyPath "$KEY_PATH" \
-            -authenticationKeyID "$APP_STORE_CONNECT_KEY_IDENTIFIER" \
-            -authenticationKeyIssuerID "$APP_STORE_CONNECT_ISSUER_ID"
+          xcode-project build-ipa --project "$XCODE_PROJECT" --scheme "$XCODE_SCHEME"
     artifacts:
-      - build/ipa/*.ipa
-      - $CM_BUILD_DIR/build/ipa/*.ipa
+      - build/ios/ipa/*.ipa
+      - /tmp/xcodebuild_logs/*.log
     publishing:
       app_store_connect:
         auth: integration
