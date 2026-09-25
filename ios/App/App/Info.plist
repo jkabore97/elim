@@ -47,5 +47,20 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>ELIM utilise le microphone pour enregistrer vos messages vocaux.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>ELIM utilise l'appareil photo pour ajouter des photos à vos publications.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>ELIM accède à vos photos pour les joindre à vos publications.</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>ELIM enregistre des images dans votre galerie.</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>audio</string>
+		<string>remote-notification</string>
+	</array>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
 </dict>
 </plist>
