@@ -774,6 +774,60 @@ exports.sampleLivePresence = onSchedule(
   }
 );
 
+// Wish every member a happy birthday at 08:00 Ouagadougou time. Birthdays live
+// in users/{uid}/private/profile.dateOfBirth ("YYYY-MM-DD"), readable here via
+// the Admin SDK. The message is editable in config/autoNotifs under "birthday"
+// with a {name} placeholder. Feb 29 birthdays are greeted on Mar 1 in non-leap
+// years so they never get skipped.
+exports.birthdayGreetings = onSchedule(
+  { schedule: '0 8 * * *', timeZone: CHURCH_TZ, region: 'us-central1' },
+  async () => {
+    const db = getFirestore();
+    const todayMD = churchDayKey().slice(5); // "MM-DD" in Ouagadougou time
+    const [y] = churchDayKey().split('-').map(Number);
+    const isLeap = (y % 4 === 0 && y % 100 !== 0) || y % 400 === 0;
+    const targets = new Set([todayMD]);
+    if (todayMD === '03-01' && !isLeap) targets.add('02-29');
+
+    const cfg = await loadAutoConfig(db);
+
+    // A birthday may sit on the main user doc (legacy) or in the private/profile
+    // subdoc (current, for privacy). Collect the private ones first, keyed by uid.
+    const dobByUid = new Map();
+    try {
+      const priv = await db.collectionGroup('private').get();
+      priv.forEach((d) => {
+        if (d.id !== 'profile') return;
+        const dob = String((d.data() || {}).dateOfBirth || '');
+        const uid = d.ref.parent.parent && d.ref.parent.parent.id;
+        if (uid && dob) dobByUid.set(uid, dob);
+      });
+    } catch (e) {
+      console.error('birthdayGreetings: private collectionGroup read failed', e);
+    }
+
+    const usersSnap = await db.collection('users').get();
+    let sent = 0;
+    for (const u of usersSnap.docs) {
+      const data = u.data() || {};
+      const dob = dobByUid.get(u.id) || String(data.dateOfBirth || '');
+      if (dob.length < 10 || !targets.has(dob.slice(5))) continue;
+
+      const name = String(data.displayName || '').trim().split(/\s+/)[0] || '';
+      const msg = resolveAuto(cfg, 'birthday', {
+        title: name ? `Joyeux anniversaire ${name} ! 🎉` : 'Joyeux anniversaire ! 🎉',
+        body: 'Toute la communauté ELIM te souhaite une merveilleuse journée. Que Dieu te comble de ses bénédictions ! 🎂',
+      }, { name });
+      if (!msg) continue; // admin switched birthday messages off
+
+      // pushToUser checks notificationsEnabled + fcmTokens itself.
+      await pushToUser(db, u.id, { title: msg.title, body: msg.body, data: { kind: 'feed' } });
+      sent++;
+    }
+    console.log(`birthdayGreetings: ${todayMD} -> ${sent} greeting(s) sent`);
+  }
+);
+
 // Someone liked a comment -> tell the comment's author.
 exports.notifyOnCommentLike = onDocumentCreated('commentLikes/{likeId}', async (event) => {
   const like = event.data && event.data.data();
