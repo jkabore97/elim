@@ -4,6 +4,7 @@ const { onSchedule } = require('firebase-functions/v2/scheduler');
 const { defineSecret } = require('firebase-functions/params');
 const { initializeApp } = require('firebase-admin/app');
 const { getFirestore, FieldValue, Timestamp } = require('firebase-admin/firestore');
+const { getAuth } = require('firebase-admin/auth');
 const { getMessaging } = require('firebase-admin/messaging');
 const { getStorage } = require('firebase-admin/storage');
 const { Translate } = require('@google-cloud/translate').v2;
@@ -300,6 +301,60 @@ exports.resendPostNotification = onCall({ region: 'us-central1' }, async (reques
   if (!snap.exists) throw new HttpsError('not-found', 'Publication introuvable.');
   const sent = await pushPostToEveryone(db, postId, snap.data());
   return { ok: true, sent };
+});
+
+// Let a signed-in user permanently delete their OWN account and personal data
+// (App Store Guideline 5.1.1(v)). Removes their content, profile docs, and the
+// Firebase Auth account. Best-effort per collection so one failure doesn't block
+// the rest; the auth-user deletion is what actually revokes access.
+exports.deleteMyAccount = onCall({ region: 'us-central1' }, async (request) => {
+  if (!request.auth) throw new HttpsError('unauthenticated', 'Sign in first.');
+  const uid = request.auth.uid;
+  const db = getFirestore();
+
+  const deleteQuery = async (name, field) => {
+    try {
+      const snap = await db.collection(name).where(field, '==', uid).get();
+      const docs = snap.docs;
+      for (let i = 0; i < docs.length; i += 400) {
+        const batch = db.batch();
+        docs.slice(i, i + 400).forEach((d) => batch.delete(d.ref));
+        await batch.commit();
+      }
+    } catch (_e) { /* collection/field may not exist; keep going */ }
+  };
+
+  // The user's content and activity, matched on the various author/owner fields
+  // used across the app.
+  await deleteQuery('posts', 'authorId');
+  await deleteQuery('posts', 'churchId');
+  await deleteQuery('comments', 'userId');
+  await deleteQuery('messages', 'senderId');
+  await deleteQuery('likes', 'userId');
+  await deleteQuery('commentLikes', 'userId');
+  await deleteQuery('postViews', 'userId');
+  await deleteQuery('postShares', 'userId');
+  await deleteQuery('notifications', 'userId');
+  await deleteQuery('reports', 'reporterId');
+
+  // The per-user "private" subcollection (dateOfBirth etc.).
+  try {
+    const priv = await db.collection('users').doc(uid).collection('private').get();
+    if (!priv.empty) {
+      const batch = db.batch();
+      priv.forEach((d) => batch.delete(d.ref));
+      await batch.commit();
+    }
+  } catch (_e) { /* ignore */ }
+
+  // Profile documents.
+  await db.collection('users').doc(uid).delete().catch(() => {});
+  await db.collection('publicProfiles').doc(uid).delete().catch(() => {});
+
+  // Finally, remove the auth account so the credentials no longer work.
+  try { await getAuth().deleteUser(uid); } catch (_e) { /* already gone */ }
+
+  return { ok: true };
 });
 
 

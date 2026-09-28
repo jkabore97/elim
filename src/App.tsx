@@ -4,7 +4,7 @@ import {
   Image as ImageIcon, Video, Mic, X, Send, LogOut,
   Youtube, Facebook, CheckCircle2, Clock, ArrowRight, ShieldCheck, UserX, Sparkles,
   Trash2, Camera, FileText, Upload, Pencil, Globe, Eye, EyeOff, Search, Bell, ScrollText, Mail, Play, Pause, HeartPulse, Download, AlertTriangle, BookOpen, Music, LifeBuoy,
-  HandCoins, Copy, Check, Plus, Flag, Users, CreditCard, Loader2, Trophy, ChevronDown, Megaphone, AtSign, Radio
+  HandCoins, Copy, Check, Plus, Flag, Users, CreditCard, Loader2, Trophy, ChevronDown, Megaphone, AtSign, Radio, Ban
 } from 'lucide-react'
 import {
   collection, addDoc, onSnapshot, query, orderBy, where,
@@ -41,6 +41,7 @@ import { getSoundSettings, setSoundSettings, setEventSounds, getEventSound, emit
 import { SOUND_IDS, SOUND_NAMES, playSound } from './quiz/soundlib'
 import { DataManagementTab } from './DataManagement'
 import { LibraryTab, useUnreadBooks } from './Library'
+import { blockUser, unblockUser, deleteMyAccount } from './account'
 import BibleQuiz from './BibleQuiz'
 import { App as CapApp } from '@capacitor/app'
 import { subscribeProfile as subscribeQuizProfile } from './quiz/store'
@@ -352,6 +353,8 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
   const localeDefault = useMemo(() => defaultCountryEntry(), [])
   const [countryCode, setCountryCode] = useState(localeDefault.code)
   const [phone, setPhone] = useState('')
+  // Terms/EULA acceptance at sign-up (App Store UGC requirement).
+  const [agreedTerms, setAgreedTerms] = useState(false)
 
   // Member-only
   // Empty, not 'other': with the "no church" option gone there is no valid
@@ -502,6 +505,8 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
       // for the same reason gender is.
       if (interests.length === 0) { setError(t('auth.interestsRequired')); return }
     }
+
+    if (mode === 'register' && !agreedTerms) { setError(t('auth.mustAgree')); return }
 
     if (mode === 'register' && sanitizeDigits(phone) !== sanitizeDigits(confirmPhone)) {
       setError(t('auth.phonesDontMatch')); return
@@ -857,6 +862,20 @@ function AuthForm({ onSuccess, initialMode = 'login' }: {
             {t('auth.resetSent')}
           </p>
         )}
+        {mode === 'register' && (
+          <label className="flex items-start gap-2 text-xs text-slate-500 px-1 leading-relaxed">
+            <input type="checkbox" checked={agreedTerms} onChange={e => setAgreedTerms(e.target.checked)}
+              className="mt-0.5 accent-affirm-600 shrink-0" />
+            <span>
+              {t('auth.agree')}{' '}
+              <a href="/terms.html" target="_blank" rel="noreferrer" className="text-affirm-600 underline">{t('auth.termsLink')}</a>
+              {' '}{t('auth.and')}{' '}
+              <a href="/privacy.html" target="_blank" rel="noreferrer" className="text-affirm-600 underline">{t('auth.privacyLink')}</a>.
+              {' '}{t('auth.noTolerance')}
+            </span>
+          </label>
+        )}
+
         {error && <p className="text-sm text-red-600 bg-red-500/10 border border-red-500/20 rounded-xl px-4 py-3">{error}</p>}
 
         <button type="submit" disabled={loading}
@@ -1746,7 +1765,9 @@ function AppInner() {
     if (!user || user.role === 'pending_church' || !activeCommentsPost) { setComments([]); return }
     const q = query(collection(db, 'comments'), where('postId', '==', activeCommentsPost))
     return onSnapshot(q, (snap) => {
+      const blocked = new Set(user.blockedUids || [])
       const rows = snap.docs.map(d => ({ id: d.id, ...d.data() } as Comment))
+        .filter(c => !blocked.has((c as any).userId))
       rows.sort((a, b) => toMs(a.createdAt) - toMs(b.createdAt))
       setComments(rows)
     }, () => setComments([]))
@@ -2096,7 +2117,9 @@ function AppInner() {
   const visiblePosts = useMemo(() => {
     // Posts without a section are pre-existing ones from before this split,
     // and belong on the main feed.
-    let result = posts.filter(p => (p.section || 'feed') === 'feed')
+    const blocked = new Set(user?.blockedUids || [])
+    let result = posts.filter(p => (p.section || 'feed') === 'feed'
+      && !blocked.has((p as any).authorId) && !blocked.has(p.churchId))
 
     if (feedFilter === 'video') {
       result = result.filter(p => p.type === 'video' || p.type === 'youtube' || p.type === 'facebook')
@@ -2115,7 +2138,7 @@ function AppInner() {
       )
     }
     return result
-  }, [posts, feedFilter, searchQuery])
+  }, [posts, feedFilter, searchQuery, user?.blockedUids])
 
   // Anyone left on the music tab when it was switched off would otherwise be
   // stranded on a blank screen with no way back.
@@ -2178,8 +2201,13 @@ function AppInner() {
   // over a bounded list are cheap; the flicker fix that mattered was
   // memoising the media player's context value, which is safely at the top
   // of its own provider.
+  // Hide content from blocked users across every feed.
+  const blockedSet = new Set(user.blockedUids || [])
+  const notBlocked = (p: Post) => !blockedSet.has((p as any).authorId) && !blockedSet.has(p.churchId)
+
   const musiquePosts = posts
     .filter(p => p.section === 'musique')
+    .filter(notBlocked)
     .filter(p => musiqueCategory === 'all' || p.category === musiqueCategory)
     .filter(p => {
       const q = musiqueSearch.trim().toLowerCase()
@@ -2191,6 +2219,7 @@ function AppInner() {
 
   const santePosts = posts
     .filter(p => p.section === 'sante')
+    .filter(notBlocked)
     .filter(p => santeCategory === 'all' || p.category === santeCategory)
 
   const isStaffUser = user.role === 'admin' || user.role === 'pastor'
@@ -2736,7 +2765,7 @@ function AppInner() {
         <BibleQuiz user={user} onClose={() => { setShowQuiz(false); setActiveTab('feed') }} />
       )}
       {profileUid && (
-        <ProfilePopup uid={profileUid} onClose={() => setProfileUid(null)} />
+        <ProfilePopup uid={profileUid} currentUser={user} onClose={() => setProfileUid(null)} />
       )}
       {groupPopupId && (
         <GroupPopup groupId={groupPopupId} onClose={() => setGroupPopupId(null)} />
@@ -2991,6 +3020,21 @@ function ProfileTab({ user, onProfileUpdated, onLogout, onContactSupport }: {
   const [needsSettings, setNeedsSettings] = useState(false)
   const [soundOn, setSoundOn] = useState(!isAlertMuted())
   const [diag, setDiag] = useState<any>(null)
+  const [confirmDelete, setConfirmDelete] = useState(false)
+  const [deleting, setDeleting] = useState(false)
+  const [deleteError, setDeleteError] = useState('')
+
+  const handleDeleteAccount = async () => {
+    setDeleting(true); setDeleteError('')
+    try {
+      // On success the account is gone and the user is signed out; the auth
+      // listener returns the app to the login screen.
+      await deleteMyAccount()
+    } catch {
+      setDeleting(false)
+      setDeleteError(t('profile.deleteError'))
+    }
+  }
 
   useEffect(() => {
     notificationDiagnostics(user).then(setDiag).catch(() => {})
@@ -3278,6 +3322,32 @@ function ProfileTab({ user, onProfileUpdated, onLogout, onContactSupport }: {
         className="w-full flex items-center justify-center gap-2 py-3.5 rounded-2xl bg-white border border-red-100 text-red-600 font-semibold text-sm hover:bg-red-50 transition shadow-sm">
         <LogOut size={18} /> {t('profile.logout')}
       </button>
+
+      {/* Permanent account deletion — required by the App Store for any app with
+          sign-up. Two-step so it can't be triggered by accident. */}
+      <div className="mt-4 rounded-2xl border border-red-100 bg-white/70 p-4">
+        {!confirmDelete ? (
+          <button onClick={() => { setConfirmDelete(true); setDeleteError('') }}
+            className="w-full flex items-center justify-center gap-2 py-2.5 text-sm font-semibold text-red-600 hover:bg-red-50 rounded-xl transition">
+            <Trash2 size={16} /> {t('profile.deleteAccount')}
+          </button>
+        ) : (
+          <div className="space-y-3">
+            <p className="text-xs text-slate-600 leading-relaxed">{t('profile.deleteAccountWarn')}</p>
+            {deleteError && <p className="text-xs text-red-600 font-medium">{deleteError}</p>}
+            <div className="flex gap-2">
+              <button disabled={deleting} onClick={handleDeleteAccount}
+                className="flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-xl bg-red-600 hover:bg-red-700 text-white font-semibold text-sm disabled:opacity-50">
+                {deleting ? <Loader2 size={15} className="animate-spin" /> : <Trash2 size={15} />} {t('profile.deleteConfirm')}
+              </button>
+              <button disabled={deleting} onClick={() => setConfirmDelete(false)}
+                className="px-4 py-2.5 rounded-xl bg-slate-100 text-slate-600 font-semibold text-sm disabled:opacity-50">
+                {t('post.cancel')}
+              </button>
+            </div>
+          </div>
+        )}
+      </div>
 
       <div className="text-center py-4">
         <p className="text-[11px] text-on-bg">{COPYRIGHT}</p>
@@ -5016,11 +5086,24 @@ function CommentRow({ c, isReply, liked, likeCount, onLike, onReply, onReport, c
 // Tap-to-view profile: a member's photo, name, title/profession and the church
 // departments they serve in. Fetched on open via a callable (members can't read
 // the users collection directly), showing only what's safe to share.
-function ProfilePopup({ uid, onClose }: { uid: string; onClose: () => void }) {
+function ProfilePopup({ uid, currentUser, onClose }: { uid: string; currentUser: AppUser; onClose: () => void }) {
   const { t } = useLanguage()
   const [p, setP] = useState<MemberProfile | null>(null)
   const [loading, setLoading] = useState(true)
+  const [blocked, setBlocked] = useState((currentUser.blockedUids || []).includes(uid))
+  const [busy, setBusy] = useState(false)
+  const [reporting, setReporting] = useState(false)
+  const isSelf = uid === currentUser.uid
   useBackHandler(true, onClose)
+
+  const toggleBlock = async () => {
+    setBusy(true)
+    try {
+      if (blocked) { await unblockUser(currentUser.uid, uid); setBlocked(false) }
+      else { await blockUser(currentUser.uid, uid); setBlocked(true); onClose() }
+    } catch { /* ignore; leave state as-is */ }
+    finally { setBusy(false) }
+  }
   useEffect(() => {
     let alive = true
     setLoading(true)
@@ -5059,9 +5142,26 @@ function ProfilePopup({ uid, onClose }: { uid: string; onClose: () => void }) {
                 </div>
               </>
             )}
+            {/* Safety actions (App Store UGC): block / report another member. */}
+            {!isSelf && p.found && (
+              <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-center gap-2">
+                <button onClick={toggleBlock} disabled={busy}
+                  className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold text-slate-600 bg-slate-100 hover:bg-slate-200 transition disabled:opacity-50">
+                  <Ban size={14} /> {blocked ? t('profile.unblock') : t('block.action')}
+                </button>
+                <button onClick={() => setReporting(true)}
+                  className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold text-red-600 bg-red-50 hover:bg-red-100 transition">
+                  <Flag size={14} /> {t('report.action')}
+                </button>
+              </div>
+            )}
           </div>
         )}
       </div>
+      {reporting && (
+        <ReportSheet user={currentUser} targetType="user" targetId={uid}
+          targetOwnerId={uid} targetOwnerName={p?.name} onClose={() => setReporting(false)} />
+      )}
     </div>
   )
 }

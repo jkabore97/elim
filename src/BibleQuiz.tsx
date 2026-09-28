@@ -4,6 +4,7 @@ import {
   ChevronLeft, Check, Loader2, BookOpen, Crown, ScrollText, Pencil, Trash2, Lock, Star,
 } from 'lucide-react'
 import { Share } from '@capacitor/share'
+import { Capacitor } from '@capacitor/core'
 import { useLanguage } from './i18n'
 import { Portal } from './Portal'
 import { useBackHandler } from './backButton'
@@ -36,7 +37,13 @@ import {
   type LeaderRow, type KidRow, type ChampionDoc, type TopScorer, type PodiumRow,
 } from './quiz/store'
 
-const PLAY_URL = 'https://play.google.com/store/apps/details?id=com.elim.app'
+// The install link shared with a score — per platform so iOS never shares a
+// Play Store URL. Web shares the site (which routes to the right store).
+const SHARE_URL = Capacitor.getPlatform() === 'ios'
+  ? 'https://apps.apple.com/app/id6816252151'
+  : Capacitor.getPlatform() === 'android'
+    ? 'https://play.google.com/store/apps/details?id=com.elim.app'
+    : 'https://ccelim.com'
 // The remembered child profiles for this device. Each kid is just a name, so a
 // parent with several children can pick one or add another before playing.
 // (KID_NAME_KEY is the old single-name storage, still read once for migration.)
@@ -1083,8 +1090,8 @@ function ResultsScreen({ result, unlocked, profile, onReplay, onHome, onLeaders 
 
   async function share() {
     const text = t('quiz.shareText').replace('{score}', String(result.correct)).replace('{total}', String(result.total))
-    try { await Share.share({ title: t('quiz.title'), text: `${text} ${PLAY_URL}`, url: PLAY_URL }) }
-    catch { try { if (navigator.share) await navigator.share({ title: t('quiz.title'), text, url: PLAY_URL }) } catch { /* cancelled */ } }
+    try { await Share.share({ title: t('quiz.title'), text: `${text} ${SHARE_URL}`, url: SHARE_URL }) }
+    catch { try { if (navigator.share) await navigator.share({ title: t('quiz.title'), text, url: SHARE_URL }) } catch { /* cancelled */ } }
   }
 
   return (
