@@ -6,7 +6,7 @@ import {
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
 import {
   ArrowLeft, Send, Search, MessageCircle, Plus, X, LifeBuoy,
-  ShieldCheck, HeartHandshake, Image as ImageIcon, Mic, Trash2, Play, Pause, Pencil, Check, CheckCheck, Download, Church
+  ShieldCheck, HeartHandshake, Image as ImageIcon, Mic, Trash2, Play, Pause, Pencil, Check, CheckCheck, Download, Church, Ban, Flag
 } from 'lucide-react'
 import { db, storage } from './firebase'
 import { useLanguage } from './i18n'
@@ -14,6 +14,8 @@ import { useMediaPlayer } from './MediaPlayer'
 import { useBackHandler } from './backButton'
 import { ImageLightbox } from './ImageLightbox'
 import { TranslateToggle } from './TranslateToggle'
+import { ReportSheet } from './ReportSheet'
+import { blockUser, unblockUser } from './account'
 import type { AppUser, Conversation, Message } from './types'
 
 // Staff = the two accounts that receive and answer messages. Church accounts
@@ -197,6 +199,9 @@ function ChatView({ conversation, user, onBack }: {
   const [othersTyping, setOthersTyping] = useState<string[]>([])
   const lastTypingWrite = useRef(0)
   const [liveConv, setLiveConv] = useState<Conversation | null>(null)
+  const [reporting, setReporting] = useState(false)
+  const [blockBusy, setBlockBusy] = useState(false)
+  const [blockedLocal, setBlockedLocal] = useState<boolean | null>(null)
 
   // Heartbeat rather than start/stop events: a 'stopped typing' write can be
   // lost if someone closes the app mid-sentence, leaving the indicator stuck
@@ -518,6 +523,16 @@ function ChatView({ conversation, user, onBack }: {
         : { label: '', Icon: MessageCircle, tone: 'bg-affirm-500/15 text-affirm-400' }
 
   const otherUid = conversation.participantIds.find(id => id !== user.uid) || conversation.participantIds[0]
+  const isDirect = conversation.type === 'direct' && otherUid && otherUid !== user.uid
+  const blocked = blockedLocal ?? (user.blockedUids || []).includes(otherUid)
+  const toggleBlock = async () => {
+    setBlockBusy(true)
+    try {
+      if (blocked) { await unblockUser(user.uid, otherUid); setBlockedLocal(false) }
+      else { await blockUser(user.uid, otherUid); setBlockedLocal(true); onBack?.() }
+    } catch { /* leave state */ }
+    finally { setBlockBusy(false) }
+  }
   const title = conversation.type === 'direct'
     ? (conversation.participantNames?.[otherUid] || t('msg.conversation'))
     : staff
@@ -553,6 +568,22 @@ function ChatView({ conversation, user, onBack }: {
               : staff ? channelMeta.label : t('msg.usuallyReplies')}
           </p>
         </div>
+
+        {/* Direct chats: block / report the other member (App Store UGC). */}
+        {isDirect && (
+          <>
+            <button onClick={toggleBlock} disabled={blockBusy}
+              aria-label={blocked ? t('profile.unblock') : t('block.action')} title={blocked ? t('profile.unblock') : t('block.action')}
+              className="p-2 rounded-full hover:bg-white/10 text-on-bg shrink-0 transition disabled:opacity-50">
+              <Ban size={17} />
+            </button>
+            <button onClick={() => setReporting(true)}
+              aria-label={t('report.action')} title={t('report.action')}
+              className="p-2 rounded-full hover:bg-white/10 text-on-bg hover:text-red-200 shrink-0 transition">
+              <Flag size={17} />
+            </button>
+          </>
+        )}
 
         {/* The church channel is a read-only announcement thread - no delete
             affordance, so the read-only framing holds. */}
@@ -806,6 +837,11 @@ function ChatView({ conversation, user, onBack }: {
       )}
 
       {lightbox && <ImageLightbox src={lightbox} onClose={() => setLightbox(null)} />}
+      {reporting && (
+        <ReportSheet user={user} targetType="message" targetId={conversation.id}
+          targetOwnerId={otherUid} targetOwnerName={conversation.participantNames?.[otherUid]}
+          onClose={() => setReporting(false)} />
+      )}
     </div>
   )
 }
@@ -923,7 +959,12 @@ function ConversationList({ user, onOpen }: {
     const publish = () => {
       const byId = new Map<string, Conversation>()
       for (const row of [...channelRows, ...directRows]) byId.set(row.id, row)
-      const merged = Array.from(byId.values())
+      const blocked = new Set(user.blockedUids || [])
+      const merged = Array.from(byId.values()).filter(c => {
+        if (c.type !== 'direct') return true
+        const other = c.participantIds.find(id => id !== user.uid)
+        return !other || !blocked.has(other)
+      })
       merged.sort((a, b) => {
         const ta = a.lastMessageAt?.toMillis ? a.lastMessageAt.toMillis() : 0
         const tb = b.lastMessageAt?.toMillis ? b.lastMessageAt.toMillis() : 0
@@ -1109,8 +1150,11 @@ function ChannelChooser({ user, onOpen }: {
           // the chooser never rendered - so a conversation started BY staff was
           // invisible to the member. The notification arrived and opened
           // Messages, and there was simply nothing there.
-          if (row.type === 'direct') direct.push(row)
-          else map[row.type] = row
+          if (row.type === 'direct') {
+            // Hide threads with users this person has blocked.
+            const other = row.participantIds.find(id => id !== user.uid)
+            if (!other || !(user.blockedUids || []).includes(other)) direct.push(row)
+          } else map[row.type] = row
         })
         direct.sort((a, b) => {
           const ta = a.lastMessageAt?.toMillis ? a.lastMessageAt.toMillis() : 0

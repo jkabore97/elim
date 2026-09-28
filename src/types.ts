@@ -35,6 +35,10 @@ export interface AppUser {
   // Push notifications
   notificationsEnabled?: boolean;
   fcmTokens?: string[];
+  // Uids this user has blocked. Their posts, comments and messages are hidden
+  // from this user, and they can't start a conversation. Required for App Store
+  // user-generated-content rules (block abusive users).
+  blockedUids?: string[];
 }
 
 export interface ChurchProfile {
