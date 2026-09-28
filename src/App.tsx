@@ -1579,7 +1579,14 @@ function AppInner() {
     if (!user || !Capacitor.isNativePlatform()) return
     let cancelled = false
     let myBuild = 0
+    // iOS and Android have DIFFERENT build numbers and different stores, so the
+    // update check is platform-specific. Android reads latestBuild/minBuild/
+    // updateUrl; iOS reads iosLatestBuild/iosMinBuild/iosUpdateUrl. Without this,
+    // iOS (build ~16) was compared against Android version codes (~131) and kept
+    // showing a "New version available" banner pointing at the Play Store.
+    const isIOS = Capacitor.getPlatform() === 'ios'
     const PLAY_URL = 'https://play.google.com/store/apps/details?id=com.elim.app'
+    const APPSTORE_URL = 'https://apps.apple.com/app/id6816252151'
     const unsub = onSnapshot(doc(db, 'config', 'app'), async snap => {
       try {
         if (myBuild === 0) {
@@ -1589,11 +1596,13 @@ function AppInner() {
       } catch { myBuild = 0 }
       if (cancelled) return
       const data = snap.exists() ? snap.data() : null
-      const latest = Number(data?.latestBuild || 0)
-      const minBuild = Number(data?.minBuild || 0)
-      const url = (data?.updateUrl && String(data.updateUrl)) || PLAY_URL
+      const latest = Number((isIOS ? data?.iosLatestBuild : data?.latestBuild) || 0)
+      const minBuild = Number((isIOS ? data?.iosMinBuild : data?.minBuild) || 0)
+      const url = String((isIOS ? data?.iosUpdateUrl : data?.updateUrl) || '')
+        || (isIOS ? APPSTORE_URL : PLAY_URL)
       // Below the REQUIRED minimum -> hard-block the whole app. Otherwise, if
       // simply older than the latest published build, offer a dismissible update.
+      // iOS keys are unset until an admin ships an iOS update, so no nag on iOS.
       const mustUpdate = myBuild > 0 && minBuild > 0 && myBuild < minBuild
       setRequiredUpdateUrl(mustUpdate ? url : null)
       setUpdateUrl(!mustUpdate && myBuild > 0 && latest > myBuild ? url : null)
