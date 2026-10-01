@@ -4611,9 +4611,31 @@ function PostCard({ post, onLike, onOpenComments, currentUser, isLiked, onEdit, 
   )
 }
 
+// When a phone mislabels an audio file (e.g. an .m4a saved as .m4a.mp4 reported
+// as video/mp4, or no type at all), derive a correct audio contentType from the
+// extension so Storage stores it as audio (matching the audio security rule)
+// and the post plays it in an <audio> player rather than a video one.
+function audioContentType(f: File): string {
+  if (f.type.startsWith('audio/')) return f.type
+  const n = f.name.toLowerCase()
+  if (/\.mp3$/.test(n)) return 'audio/mpeg'
+  if (/\.aac$/.test(n)) return 'audio/aac'
+  if (/\.wav$/.test(n)) return 'audio/wav'
+  if (/\.(ogg|oga|opus)$/.test(n)) return 'audio/ogg'
+  if (/\.flac$/.test(n)) return 'audio/flac'
+  return 'audio/mp4'   // .m4a, .m4a.mp4, aac-in-mp4, or chosen-as-audio but unknown
+}
+
 const UPLOAD_RULES: Record<string, { accept: string; maxMB: number; check: (f: File) => boolean; label: string }> = {
   'text-image': { accept: 'image/jpeg,image/png,image/webp,image/gif', maxMB: 10, check: f => f.type.startsWith('image/'), label: 'a photo' },
-  audio: { accept: 'audio/*,.m4a', maxMB: 100, check: f => f.type.startsWith('audio/'), label: 'an audio file' },
+  // Phones often mislabel an .m4a (or a double-extension .m4a.mp4) as video/mp4
+  // or give no MIME type at all, so also accept by a known audio file extension.
+  audio: {
+    accept: 'audio/*,.m4a,.mp3,.aac,.wav,.ogg,.oga,.opus,.flac',
+    maxMB: 100,
+    check: f => f.type.startsWith('audio/') || /\.(m4a|mp3|aac|wav|ogg|oga|opus|flac|weba|aiff?|caf)\b/i.test(f.name),
+    label: 'an audio file',
+  },
   video: { accept: 'video/mp4,video/webm,video/quicktime', maxMB: 200, check: f => f.type.startsWith('video/'), label: 'a video' },
   document: { accept: 'application/pdf', maxMB: 20, check: f => f.type === 'application/pdf', label: 'a PDF' },
 }
@@ -4799,7 +4821,8 @@ function CreatePostModal({ onClose, onSubmit, uploaderUid, section = 'feed', myG
     setUploading(true)
     setUploadProgress(0)
     const storageRef = ref(storage, `post-media/${uploaderUid}/${Date.now()}-${file.name}`)
-    const task = uploadBytesResumable(storageRef, file)
+    const metadata = type === 'audio' ? { contentType: audioContentType(file) } : undefined
+    const task = uploadBytesResumable(storageRef, file, metadata)
     activeTask.current = task
     task.on('state_changed',
       snap => { if (mounted.current) setUploadProgress(Math.round((snap.bytesTransferred / snap.totalBytes) * 100)) },
