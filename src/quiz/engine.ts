@@ -326,7 +326,8 @@ export interface GameResult {
   total: number
   correct: number
   points: number          // CAREER points: every correct answer (drives level)
-  learningPoints: number  // points from NEW questions only (weekly/daily race)
+  learningPoints: number  // ranking points for the weekly/daily race: full for a
+                          // new question, half for a replay (see finishGame)
   newIds: string[]        // question ids mastered for the first time this game
 }
 

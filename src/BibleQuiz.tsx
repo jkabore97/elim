@@ -296,16 +296,22 @@ export default function BibleQuiz({ user, onClose }: { user: AppUser; onClose: (
       return
     }
 
-    // Adult: career points = every correct answer; learning points = NEW ones.
+    // Adult points, two separate tallies:
+    //  - career points: every correct answer at FULL value (drives the level).
+    //  - ranking points (weekly/daily race): FULL the first time a question is
+    //    answered correctly, HALF for one already mastered. Replays still count
+    //    (so playing always rewards the member) but can't farm the leaderboard.
     const careerPoints = correctQuestions.reduce((s, q) => s + pointsFor(q.difficulty), 0)
     const newQs = correctQuestions.filter(q => !profile.mastered?.[q.id])
-    const learningTotal = newQs.reduce((s, q) => s + pointsFor(q.difficulty), 0)
+    const rankValue = (q: PlayQuestion) =>
+      profile.mastered?.[q.id] ? Math.round(pointsFor(q.difficulty) / 2) : pointsFor(q.difficulty)
+    const rankTotal = correctQuestions.reduce((s, q) => s + rankValue(q), 0)
     const perCat: Partial<Record<QuizCategory, number>> = {}
-    for (const q of newQs) perCat[q.category] = (perCat[q.category] || 0) + pointsFor(q.difficulty)
+    for (const q of correctQuestions) perCat[q.category] = (perCat[q.category] || 0) + rankValue(q)
 
     const result: GameResult = {
       category: game.category, difficulty: game.difficulty,
-      total, correct, points: careerPoints, learningPoints: learningTotal,
+      total, correct, points: careerPoints, learningPoints: rankTotal,
       newIds: newQs.map(q => q.id),
     }
     // Parcours: record this lesson's best stars / pass locally. Completion and
@@ -322,7 +328,7 @@ export default function BibleQuiz({ user, onClose }: { user: AppUser; onClose: (
     // Difficulty calibration: log first-attempt outcomes per question (adult
     // answers lock on the first pick, so this is a clean signal). Best-effort.
     recordQuizStats(game.questions.map(q => ({ qid: q.id, correct: correctQuestions.some(c => c.id === q.id) }))).catch(() => {})
-    try { await commitAdultGame(next, perCat, learningTotal) } catch { /* offline: cache retries */ }
+    try { await commitAdultGame(next, perCat, rankTotal) } catch { /* offline: cache retries */ }
   }
 
   return (

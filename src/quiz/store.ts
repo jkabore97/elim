@@ -71,8 +71,10 @@ export function subscribeProfile(
 }
 
 // Commit a finished ADULT game: save the career profile and add the game's
-// learning points to the weekly leaderboards (grand + each category that had
-// new questions). One batch, so it also works offline (queued until online).
+// ranking points to the weekly leaderboards (grand + each category the game
+// scored in). Ranking points are full for a new question, half for a replay -
+// the caller (finishGame) does that split. One batch, so it also works offline
+// (queued until online).
 export async function commitAdultGame(
   next: QuizProfile,
   perCategoryLearning: Partial<Record<QuizCategory, number>>,
