@@ -1327,8 +1327,13 @@ function LeadersScreen({ uid, onBack, onPalmares, onKidsFame }: { uid: string; o
               {rows.map((r, i) => (
                 <div key={r.uid} className={`flex items-center gap-3 py-2.5 px-1 ${r.uid === uid ? 'bg-amber-50 rounded-xl' : ''}`}>
                   <span className="w-7 text-center font-bold text-slate-500">{i === 0 ? '👑' : i + 1}</span>
-                  <span className="flex-1 font-bold text-slate-800 truncate">{r.uid === uid ? `${t('quiz.you')} (${r.name})` : r.name}</span>
-                  <span className="font-extrabold text-affirm-600">{r.points.toLocaleString()}</span>
+                  <div className="flex-1 min-w-0">
+                    <p className="font-bold text-slate-800 truncate">{r.uid === uid ? `${t('quiz.you')} (${r.name})` : r.name}</p>
+                    {r.level != null && (
+                      <p className="text-[11px] text-slate-400 truncate">{t('quiz.level')} {r.level} : {t(`quiz.levelAlias.${r.level}` as any)}</p>
+                    )}
+                  </div>
+                  <span className="font-extrabold text-affirm-600 shrink-0">{r.points.toLocaleString()}</span>
                 </div>
               ))}
             </div>

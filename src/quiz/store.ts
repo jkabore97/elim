@@ -20,7 +20,7 @@ import {
 } from 'firebase/firestore'
 import { db } from '../firebase'
 import {
-  emptyProfile, weekKey, kidsWeekKey, pointsFor,
+  emptyProfile, weekKey, kidsWeekKey, pointsFor, levelFor,
   type QuizProfile, type QuizCategory,
 } from './engine'
 
@@ -119,7 +119,7 @@ export async function recordQuizStats(outcomes: { qid: string; correct: boolean 
 }
 
 // ---- Leaderboards -----------------------------------------------------------
-export interface LeaderRow { uid: string; name: string; avatar?: string; points: number; weeksWon?: number }
+export interface LeaderRow { uid: string; name: string; avatar?: string; points: number; weeksWon?: number; level?: number }
 
 // The General (all-adults) ranking reads each player's profile directly, so
 // it shows everyone's real weekly score - including scores earned before the
@@ -132,7 +132,8 @@ export async function fetchGrandLeaders(top = 30): Promise<LeaderRow[]> {
     return snap.docs
       .map(d => {
         const v = d.data() as any
-        return { uid: d.id, name: v.displayName || '—', avatar: v.avatar, points: v.weekPoints ?? 0, weeksWon: v.weeksWon || 0 }
+        // level comes from CAREER points (v.points), not the weekly ranking score.
+        return { uid: d.id, name: v.displayName || '—', avatar: v.avatar, points: v.weekPoints ?? 0, weeksWon: v.weeksWon || 0, level: levelFor(v.points ?? 0) }
       })
       .filter(r => r.points > 0)
   } catch { return [] }
