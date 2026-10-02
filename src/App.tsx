@@ -1857,7 +1857,7 @@ function AppInner() {
     logActivity(user, 'post_edited', content.slice(0, 80))
   }
 
-  const handleCreatePost = async (data: { type: Post['type']; content: string; mediaUrl?: string; coverUrl?: string; fileName?: string; section?: 'feed' | 'sante' | 'musique'; category?: string; groupId?: string }) => {
+  const handleCreatePost = async (data: { type: Post['type']; content: string; mediaUrl?: string; coverUrl?: string; fileName?: string; section?: 'feed' | 'sante' | 'musique'; category?: string; audioKind?: string; groupId?: string }) => {
     let finalType = data.type
     // Only auto-detect YouTube/Facebook links when the user didn't explicitly pick
     // a distinct media type (audio/document posts can otherwise get silently reclassified).
@@ -1894,6 +1894,7 @@ function AppInner() {
       commentsCount: 0,
       section: data.section || 'feed',
       ...(data.category ? { category: data.category } : {}),
+      ...(data.audioKind ? { audioKind: data.audioKind } : {}),
       createdAt: serverTimestamp()
     })
     logActivity(user, 'post_created',
@@ -2832,6 +2833,10 @@ const SANTE_CATEGORIES = [
   'Prévention', 'Nutrition', 'Maternité & enfance', 'Hygiène',
   'Infections', 'Santé mentale', 'Premiers secours', 'Général'
 ]
+
+// Kinds of audio a publisher can label a sound post with. Stable keys; the
+// label shown under "Écouter" is translated (see audioKind.* locale strings).
+const AUDIO_KINDS = ['sermon', 'teaching', 'testimony', 'worship', 'prayer', 'conference', 'other'] as const
 
 const PROFESSIONS = [
   'Agriculteur / Éleveur', 'Artisan', 'Commerçant', 'Chauffeur',
@@ -4505,7 +4510,7 @@ function PostCard({ post, onLike, onOpenComments, currentUser, isLiked, onEdit, 
                 id: post.id,
                 url: audioSrc || post.mediaUrl!,
                 title: post.content?.slice(0, 60) || 'Audio',
-                artist: post.authorName || post.churchName || 'ELIM',
+                artist: post.audioKind ? t(`audioKind.${post.audioKind}` as any) : (post.authorName || post.churchName || 'ELIM'),
                 artwork: post.coverUrl || undefined
               })
             }}
@@ -4518,7 +4523,7 @@ function PostCard({ post, onLike, onOpenComments, currentUser, isLiked, onEdit, 
               <p className="text-sm font-semibold text-slate-800 truncate">
                 {player.isCurrent(post.id) ? t('player.nowPlaying') : t('player.listen')}
               </p>
-              <p className="text-[11px] text-slate-400">{post.authorName || post.churchName || 'ELIM'}</p>
+              <p className="text-[11px] text-slate-400">{post.audioKind ? t(`audioKind.${post.audioKind}` as any) : (post.authorName || post.churchName || 'ELIM')}</p>
             </div>
           </button>
           <div className="mt-2 flex justify-end">
@@ -4748,7 +4753,7 @@ function BulkMusicModal({ user, onClose }: { user: AppUser; onClose: () => void 
 
 function CreatePostModal({ onClose, onSubmit, uploaderUid, section = 'feed', myGroups = [], canGoLive = false }: {
   onClose: () => void
-  onSubmit: (data: { type: Post['type']; content: string; mediaUrl?: string; coverUrl?: string; fileName?: string; section?: 'feed' | 'sante' | 'musique'; category?: string; groupId?: string }) => void | Promise<void>
+  onSubmit: (data: { type: Post['type']; content: string; mediaUrl?: string; coverUrl?: string; fileName?: string; section?: 'feed' | 'sante' | 'musique'; category?: string; audioKind?: string; groupId?: string }) => void | Promise<void>
   uploaderUid: string
   section?: 'feed' | 'sante' | 'musique'
   myGroups?: Group[]
@@ -4769,6 +4774,7 @@ function CreatePostModal({ onClose, onSubmit, uploaderUid, section = 'feed', myG
   const [uploadError, setUploadError] = useState('')
   const [publishing, setPublishing] = useState(false)
   const [santeCategory, setSanteCategory] = useState(SANTE_CATEGORIES[0])
+  const [audioKind, setAudioKind] = useState<string>(AUDIO_KINDS[0])
   // Only offer groups relevant to THIS surface: health posts under groups with
   // the health permission, feed/music under groups with the posting permission.
   // So a doctor-and-pastor picks "Docteurs" in health and "Pasteurs" in the feed.
@@ -4865,6 +4871,7 @@ function CreatePostModal({ onClose, onSubmit, uploaderUid, section = 'feed', myG
                   fileName: (type === 'document' && fileName) ? fileName : undefined,
                   section,
                   ...(section === 'sante' ? { category: santeCategory } : {}),
+                  ...(type === 'audio' ? { audioKind } : {}),
                   ...(groupId ? { groupId } : {})
                 })
                 // Published: the upload is now attached to a post, so don't
@@ -4939,6 +4946,16 @@ function CreatePostModal({ onClose, onSubmit, uploaderUid, section = 'feed', myG
           <textarea value={content} onChange={e => setContent(e.target.value)}
             placeholder={t('post.contentPlaceholder')}
             className="w-full min-h-[130px] p-4 rounded-2xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-affirm-400 resize-none text-[15px]" />
+
+          {type === 'audio' && (
+            <div>
+              <label className="block text-xs font-semibold text-slate-500 mb-1.5">{t('post.audioKindLabel')}</label>
+              <select value={audioKind} onChange={e => setAudioKind(e.target.value)}
+                className="w-full px-4 py-3 rounded-2xl border border-slate-200 text-[15px] bg-white focus:outline-none focus:ring-2 focus:ring-affirm-400">
+                {AUDIO_KINDS.map(k => <option key={k} value={k}>{t(`audioKind.${k}` as any)}</option>)}
+              </select>
+            </div>
+          )}
 
           {canUploadDirectly && rule && (
             <div>

@@ -117,6 +117,10 @@ export interface Post {
   authorTitle?: string;
   type: "text-image" | "audio" | "video" | "youtube" | "facebook" | "document";
   content: string;
+  // For an audio post: the kind of audio (sermon, testimony, …) chosen by the
+  // publisher, shown under "Écouter" instead of their name. A stable key that
+  // is translated for display (see audioKind.* locale strings).
+  audioKind?: string;
   mediaUrl?: string;
   coverUrl?: string;
   fileName?: string;
