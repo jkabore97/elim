@@ -14,7 +14,8 @@ import {
   createUserWithEmailAndPassword, signInWithEmailAndPassword,
   signOut, onAuthStateChanged, updateProfile,
   sendEmailVerification, sendPasswordResetEmail,
-  EmailAuthProvider, linkWithCredential
+  EmailAuthProvider, linkWithCredential,
+  updatePassword, reauthenticateWithCredential
 } from 'firebase/auth'
 import { ref, uploadBytes, uploadBytesResumable, getDownloadURL, deleteObject } from 'firebase/storage'
 import { httpsCallable } from 'firebase/functions'
@@ -2955,6 +2956,77 @@ function Fold({ title, children, defaultOpen = false }: { title: string; childre
   )
 }
 
+// Change-password (members) / change-PIN (church) folder in the Profile tab.
+// Members sign in with a 6-digit PIN, church accounts with an 8+ char password
+// (both stored as the Firebase password), so the fields and rules switch on
+// which kind of account is signed in. Firebase requires a recent login to
+// change the password, so we re-authenticate with the current secret first.
+function ChangePasswordFold() {
+  const { t } = useLanguage()
+  const isMember = (auth.currentUser?.email || '').endsWith('@elim-member.app')
+  const [current, setCurrent] = useState('')
+  const [next, setNext] = useState('')
+  const [confirm, setConfirm] = useState('')
+  const [busy, setBusy] = useState(false)
+  const [err, setErr] = useState('')
+  const [done, setDone] = useState(false)
+
+  // PIN fields are digits-only and capped at 6; passwords are free text.
+  const clean = (v: string) => isMember ? v.replace(/\D/g, '').slice(0, 6) : v
+
+  const submit = async () => {
+    setErr(''); setDone(false)
+    const cur = auth.currentUser
+    if (!cur || !cur.email) { setErr(t('pwd.error')); return }
+    if (isMember ? !/^\d{6}$/.test(next) : next.length < 8) {
+      setErr(isMember ? t('pwd.pinRule') : t('pwd.passRule')); return
+    }
+    if (next !== confirm) { setErr(t('pwd.mismatch')); return }
+    if (next === current) { setErr(t('pwd.sameAsOld')); return }
+    setBusy(true)
+    try {
+      await reauthenticateWithCredential(cur, EmailAuthProvider.credential(cur.email, current))
+      await updatePassword(cur, next)
+      setDone(true); setCurrent(''); setNext(''); setConfirm('')
+    } catch (e: any) {
+      const code = e?.code || ''
+      if (['auth/invalid-credential', 'auth/wrong-password', 'auth/invalid-login-credentials'].includes(code)) {
+        setErr(isMember ? t('pwd.wrongPin') : t('pwd.wrongPass'))
+      } else if (code === 'auth/weak-password') {
+        setErr(isMember ? t('pwd.pinRule') : t('pwd.passRule'))
+      } else if (code === 'auth/too-many-requests') {
+        setErr(t('pwd.tooMany'))
+      } else {
+        setErr(e?.message?.replace('Firebase: ', '') || t('pwd.error'))
+      }
+    } finally { setBusy(false) }
+  }
+
+  const inputCls = 'w-full px-4 py-3 rounded-2xl border border-slate-200 text-[15px] bg-white focus:outline-none focus:ring-2 focus:ring-affirm-400'
+  const pinProps = isMember ? { inputMode: 'numeric' as const, maxLength: 6 } : {}
+
+  return (
+    <Fold title={t('profile.groupSecurity')}>
+      <p className="text-xs text-slate-500 -mt-1">{isMember ? t('pwd.pinIntro') : t('pwd.passIntro')}</p>
+      <input type="password" autoComplete="current-password" {...pinProps}
+        value={current} onChange={e => { setCurrent(clean(e.target.value)); setDone(false) }}
+        placeholder={isMember ? t('pwd.currentPin') : t('pwd.currentPass')} className={inputCls} />
+      <input type="password" autoComplete="new-password" {...pinProps}
+        value={next} onChange={e => { setNext(clean(e.target.value)); setDone(false) }}
+        placeholder={isMember ? t('pwd.newPin') : t('pwd.newPass')} className={inputCls} />
+      <input type="password" autoComplete="new-password" {...pinProps}
+        value={confirm} onChange={e => { setConfirm(clean(e.target.value)); setDone(false) }}
+        placeholder={isMember ? t('pwd.confirmPin') : t('pwd.confirmPass')} className={inputCls} />
+      {err && <p className="text-xs text-red-600 font-medium">{err}</p>}
+      {done && <p className="text-xs text-emerald-600 font-medium">{t('pwd.success')}</p>}
+      <button disabled={busy || !current || !next || !confirm} onClick={submit}
+        className="w-full flex items-center justify-center gap-2 py-3 rounded-2xl bg-affirm-600 hover:bg-affirm-700 text-white font-semibold text-sm disabled:opacity-50">
+        {busy ? <Loader2 size={16} className="animate-spin" /> : null} {t('pwd.update')}
+      </button>
+    </Fold>
+  )
+}
+
 // The app's one sound control surface (Part C of the blueprint): a master
 // switch, per-channel toggles, quiet hours and the Sunday-service mute — all
 // backed by feedback.ts. A tap on a channel previews its earcon.
@@ -3322,6 +3394,8 @@ function ProfileTab({ user, onProfileUpdated, onLogout, onContactSupport }: {
         </div>
       </div>
       </Fold>
+
+      <ChangePasswordFold />
 
       <button onClick={onLogout}
         className="w-full flex items-center justify-center gap-2 py-3.5 rounded-2xl bg-white border border-red-100 text-red-600 font-semibold text-sm hover:bg-red-50 transition shadow-sm">
