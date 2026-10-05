@@ -1056,6 +1056,14 @@ function AuthScreen({ onSuccess }: { onSuccess: (user: AppUser) => void }) {
           <Mail size={15} /> {t('landing.contactSupport')}
         </a>
         <p className="text-[11px] text-white/70">{COPYRIGHT}</p>
+        {showWelcome && (
+          <a href="https://kaj-consulting.com" target="_blank" rel="noopener noreferrer"
+            className="mt-1 flex flex-col items-center gap-1.5">
+            <span className="text-[10px] uppercase tracking-[0.18em] text-white/55">{t('landing.poweredBy')}</span>
+            <img src="/kaj-logo.png" alt="KAJ Consulting LLC"
+              className="w-36 h-auto rounded-xl bg-white/95 px-3 py-2 shadow-md" />
+          </a>
+        )}
       </div>
     </div>
   )

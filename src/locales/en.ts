@@ -405,6 +405,7 @@ const en = {
   "landing.downloadApp": 'Download the app',
   "landing.downloadHint": 'Get the app for the best experience',
   "landing.contactSupport": 'Contact technical support',
+  "landing.poweredBy": 'Powered by',
   "landing.getItOn": 'Get it on',
   "landing.valueProp.photos": 'Photos & Updates',
   "landing.valueProp.audio": 'Audio Messages',
