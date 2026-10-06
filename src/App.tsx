@@ -1375,6 +1375,17 @@ function AppInner() {
   const [requiredUpdateUrl, setRequiredUpdateUrl] = useState<string | null>(null)
   const [donation, setDonation] = useState<DonationConfig | null>(null)
   const [showDonation, setShowDonation] = useState(false)
+  // On iOS, charitable donations must happen OUTSIDE the app (App Store
+  // Guideline 3.2.2(iv)), so the donate button opens the public giving page in
+  // the external browser instead of the in-app sheet. Android/web keep the
+  // in-app sheet.
+  const openDonate = () => {
+    if (Capacitor.getPlatform() === 'ios') {
+      window.open('https://ccelim.com/?give=1', '_blank', 'noopener,noreferrer')
+    } else {
+      setShowDonation(true)
+    }
+  }
   const [seenNewPosts, setSeenNewPosts] = useState<Post[]>([])
   // "New posts since you last looked" is derived from this timestamp rather
   // than stored server-side, so a new post costs zero writes. Per-device via
@@ -2177,6 +2188,12 @@ function AppInner() {
     return <UpdateRequiredGate url={requiredUpdateUrl} />
   }
 
+  // Public giving page (no login), opened in the external browser from iOS so
+  // donations happen outside the app (App Store Guideline 3.2.2(iv)).
+  if (typeof window !== 'undefined' && new URLSearchParams(window.location.search).get('give') === '1') {
+    return <PublicDonate />
+  }
+
   if (authLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -2294,7 +2311,7 @@ function AppInner() {
               <span className="absolute top-2 right-3 w-3 h-3 rounded-full bg-red-500 border-2 border-white animate-pulse" />
             )}
           </button>
-          <button onClick={() => setShowDonation(true)}
+          <button onClick={openDonate}
             className="btn-glass-amber w-full flex items-center justify-center gap-2 py-3 rounded-2xl font-semibold text-sm mb-3">
             <HandCoins size={18} /> {t('donate.button')}
           </button>
@@ -2353,7 +2370,7 @@ function AppInner() {
                     </span>
                   )}
                 </button>
-                <button onClick={() => setShowDonation(true)}
+                <button onClick={openDonate}
                   className="btn-glass-amber flex items-center gap-1.5 pl-2.5 pr-3 py-1.5 rounded-full text-xs font-semibold">
                   <HandCoins size={15} /> {t('donate.button')}
                 </button>
@@ -5960,6 +5977,86 @@ function donationBrandBtn(label: string) {
 const providerKind = (p: DonationProvider): 'number' | 'link' => (p.kind === 'link' ? 'link' : 'number')
 
 type Money = { amount: number; currency: string }
+
+// Public, no-login giving page. Opened in the EXTERNAL browser from the iOS
+// app (ccelim.com/?give=1) so donations happen OUTSIDE the app, per App Store
+// Guideline 3.2.2(iv). Shows the church's giving methods read-only — external
+// payment links + mobile-money numbers to copy — with no in-app card checkout
+// and no declaration step. Reads config/donation, which is world-readable.
+function PublicDonate() {
+  const { t } = useLanguage()
+  const [config, setConfig] = useState<DonationConfig | null>(null)
+  const [copied, setCopied] = useState<string | null>(null)
+
+  useEffect(() => {
+    let alive = true
+    getDoc(doc(db, 'config', 'donation'))
+      .then(s => { if (alive) setConfig(s.exists() ? (s.data() as DonationConfig) : { providers: [] }) })
+      .catch(() => { if (alive) setConfig({ providers: [] }) })
+    return () => { alive = false }
+  }, [])
+
+  const providers = (config?.providers || []).filter(p =>
+    providerKind(p) === 'link' ? (p.url || '').trim() : (p.number || '').trim())
+
+  const copy = async (p: DonationProvider) => {
+    try {
+      await navigator.clipboard.writeText(p.number)
+      setCopied(p.id)
+      setTimeout(() => setCopied(c => (c === p.id ? null : c)), 1500)
+    } catch { /* clipboard unavailable */ }
+  }
+
+  return (
+    <div className="min-h-screen heavenly-bg flex flex-col items-center px-5 py-10">
+      <div className="absolute top-0 right-0 p-4" style={{ paddingTop: 'calc(env(safe-area-inset-top, 0px) + 1rem)' }}>
+        <LanguageSwitcher />
+      </div>
+      <div className="w-full max-w-md">
+        <div className="text-center mb-6">
+          <Logo size={72} variant="full" />
+          <h1 className="mt-4 text-2xl font-extrabold text-white">{config?.title?.trim() || t('donate.title')}</h1>
+          <p className="mt-2 text-white/85 text-sm leading-relaxed">{config?.message?.trim() || t('donate.publicIntro')}</p>
+        </div>
+        <div className="glass rounded-3xl p-5 space-y-3">
+          {config === null ? (
+            <div className="py-10 flex justify-center"><Loader2 className="animate-spin text-slate-400" /></div>
+          ) : providers.length === 0 ? (
+            <p className="text-center text-slate-500 text-sm py-8">{t('donate.empty')}</p>
+          ) : providers.map(p => (
+            <div key={p.id} className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+              <div className="flex items-center gap-3 mb-3">
+                <div className={`w-9 h-9 rounded-full flex items-center justify-center text-sm font-bold shrink-0 ${donationAccent(p.label)}`}>
+                  {(p.label || '?').charAt(0).toUpperCase()}
+                </div>
+                <div className="min-w-0 flex-1">
+                  <p className="font-semibold text-slate-800 text-sm leading-tight truncate">{p.label}</p>
+                  {p.holder && <p className="text-xs text-slate-500 truncate">{p.holder}</p>}
+                </div>
+              </div>
+              {providerKind(p) === 'link' ? (
+                <a href={p.url} target="_blank" rel="noopener noreferrer"
+                  className={`w-full flex items-center justify-center gap-2 py-3.5 rounded-2xl text-[15px] font-bold shadow-sm ${donationBrandBtn(p.label)}`}>
+                  <CreditCard size={17} /> {p.label} <ArrowRight size={16} />
+                </a>
+              ) : (
+                <div className="flex items-center justify-between gap-2 bg-white rounded-xl px-3 py-2.5 border border-slate-200">
+                  <span className="font-mono font-semibold text-slate-800 text-[15px] tracking-wide break-all">{p.number}</span>
+                  <button onClick={() => copy(p)}
+                    className="flex items-center gap-1 text-xs font-semibold text-amber-600 hover:text-amber-700 shrink-0">
+                    {copied === p.id ? <><Check size={14} /> {t('donate.copied')}</> : <><Copy size={14} /> {t('donate.copy')}</>}
+                  </button>
+                </div>
+              )}
+              {p.note && <p className="text-xs text-slate-500 mt-2.5 whitespace-pre-wrap">{p.note}</p>}
+            </div>
+          ))}
+        </div>
+        <p className="text-center text-[11px] text-white/70 mt-6">{COPYRIGHT}</p>
+      </div>
+    </div>
+  )
+}
 
 function DonationSheet({ config, canEdit, user, onClose }: {
   config: DonationConfig | null

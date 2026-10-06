@@ -465,10 +465,13 @@ service cloud.firestore {
     }
 
     // ---- App config (donation details, etc.) ----
-    // Readable by any signed-in user (everyone sees how to give); only
-    // admins/pastors can edit.
+    // Signed-in users can read any config doc. The donation doc is additionally
+    // world-readable (no auth) so the public giving page (ccelim.com/?give=1),
+    // opened in the external browser from iOS, can show how to give without a
+    // login. It only contains public giving methods, so this is not sensitive.
+    // Only admins/pastors can edit.
     match /config/{docId} {
-      allow read: if isSignedIn();
+      allow read: if isSignedIn() || docId == 'donation';
       allow write: if isAdmin();
     }
 
