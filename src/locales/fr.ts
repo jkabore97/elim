@@ -603,6 +603,7 @@ const fr = {
   "broadcast.resetDefault": 'Défaut',
   "donate.button": 'Faire un don',
   "donate.title": 'Faire un don',
+  "donate.publicIntro": "Soutenez le ministère du Centre Chrétien E.L.I.M. Choisissez un moyen ci-dessous pour donner.",
   "donate.edit": 'Modifier',
   "donate.copy": 'Copier',
   "donate.copied": 'Copié !',
