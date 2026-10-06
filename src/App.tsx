@@ -5989,11 +5989,13 @@ function PublicDonate() {
   const [copied, setCopied] = useState<string | null>(null)
 
   useEffect(() => {
-    let alive = true
-    getDoc(doc(db, 'config', 'donation'))
-      .then(s => { if (alive) setConfig(s.exists() ? (s.data() as DonationConfig) : { providers: [] }) })
-      .catch(() => { if (alive) setConfig({ providers: [] }) })
-    return () => { alive = false }
+    // Live subscription (not a one-shot read) so the page self-heals: if the
+    // first read races deploy/propagation, the snapshot still delivers the data
+    // as soon as it is available, and later edits show without a reload.
+    const unsub = onSnapshot(doc(db, 'config', 'donation'),
+      s => setConfig(s.exists() ? (s.data() as DonationConfig) : { providers: [] }),
+      () => setConfig(prev => prev ?? { providers: [] }))
+    return () => unsub()
   }, [])
 
   const providers = (config?.providers || []).filter(p =>
