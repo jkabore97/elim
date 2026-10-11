@@ -227,11 +227,12 @@ export function LiveRadioAdmin({ onDone }: { onDone?: () => void }) {
       await setDoc(RADIO_DOC(), data, { merge: true })
       if (status === 'live' && notify) {
         try {
-          await httpsCallable(functions, 'sendBroadcast')({
+          // Dedicated live-only push (allowed for admins/pastors AND leads whose
+          // group grants "live"); the server builds the message from the
+          // current broadcast, so it can't be used to send arbitrary text.
+          await httpsCallable(functions, 'notifyLiveStarted')({
             title: `🔴 ${t('radio.title')}`,
-            body: title.trim() || t('radio.tapToListen'),
-            url: null,
-            route: 'feed',
+            fallbackBody: t('radio.tapToListen'),
           })
         } catch { /* the go-live still succeeded even if the push didn't */ }
       }

@@ -1312,7 +1312,7 @@ function AppInner() {
   const [posts, setPosts] = useState<Post[]>([])
   const [groups, setGroups] = useState<Group[]>([])
   // undefined = loading, null = not managed (grandfathered), object = enforced caps
-  const [myGroupCaps, setMyGroupCaps] = useState<Partial<Record<'post' | 'sante' | 'books' | 'transcribe', boolean>> | null | undefined>(undefined)
+  const [myGroupCaps, setMyGroupCaps] = useState<Partial<Record<'post' | 'sante' | 'books' | 'transcribe' | 'live', boolean>> | null | undefined>(undefined)
   const [comments, setComments] = useState<Comment[]>([])
   const [showCreate, setShowCreate] = useState(false)
   const [editingPost, setEditingPost] = useState<Post | null>(null)
@@ -2757,7 +2757,7 @@ function AppInner() {
       )}
 
       {showCreate && canPost && (
-        <CreatePostModal onClose={() => setShowCreate(false)} onSubmit={handleCreatePost} uploaderUid={user.uid} myGroups={myGroups} canGoLive={user.role === 'admin' || user.role === 'pastor'} />
+        <CreatePostModal onClose={() => setShowCreate(false)} onSubmit={handleCreatePost} uploaderUid={user.uid} myGroups={myGroups} canGoLive={user.role === 'admin' || user.role === 'pastor' || (user.role === 'church' && !!myGroupCaps?.live)} />
       )}
       {editingPost && (
         <EditPostModal post={editingPost} onClose={() => setEditingPost(null)} onSave={handleEditPost} />

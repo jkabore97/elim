@@ -104,6 +104,7 @@ const fr = {
   "groups.perm.books": 'Bibliothèque',
   "groups.perm.transcribe": 'Transcription',
   "groups.perm.moderate": 'Supprimer les publications',
+  "groups.perm.live": 'En direct',
   "groups.titlePlaceholder": 'Titre (ex. Docteur, Pasteur) — optionnel',
   "groups.importChurches": 'Importer les églises comme groupes',
   "groups.importDone": '{n} groupe(s) créé(s) à partir des églises.',

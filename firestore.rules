@@ -314,7 +314,8 @@ service cloud.firestore {
     // admin when a live ends. Readable by any signed-in user.
     match /liveSessions/{sessionId} {
       allow read: if isSignedIn();
-      allow write: if isAdmin();
+      // Leads whose group grants "live" save broadcast stats too.
+      allow write: if isAdmin() || groupCap('live');
     }
 
     // ---- Publishing groups ----
@@ -472,7 +473,9 @@ service cloud.firestore {
     // Only admins/pastors can edit.
     match /config/{docId} {
       allow read: if isSignedIn() || docId == 'donation';
-      allow write: if isAdmin();
+      // Admins edit any config. Leads whose group grants "live" may only start/
+      // stop the live broadcast pointer (config/liveRadio), nothing else.
+      allow write: if isAdmin() || (docId == 'liveRadio' && groupCap('live'));
     }
 
     // ---- Notifications ----
