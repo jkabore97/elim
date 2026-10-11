@@ -1319,7 +1319,7 @@ exports.syncGroupCaps = onDocumentWritten(
     await Promise.allSettled([...affected].map((uid) =>
       db.runTransaction(async (tx) => {
         const gsnap = await tx.get(db.collection('groups').where('leadIds', 'array-contains', uid));
-        const caps = { post: false, sante: false, books: false, transcribe: false };
+        const caps = { post: false, sante: false, books: false, transcribe: false, live: false };
         gsnap.forEach((doc) => {
           const g = doc.data();
           if (!g.leads || !g.leads[uid]) return;
@@ -1328,6 +1328,7 @@ exports.syncGroupCaps = onDocumentWritten(
           if (p.sante) caps.sante = true;
           if (p.books) caps.books = true;
           if (p.transcribe) caps.transcribe = true;
+          if (p.live) caps.live = true;
         });
         tx.set(db.collection('users').doc(uid), { groupCaps: caps }, { merge: true });
       })
@@ -1875,6 +1876,28 @@ exports.sendBroadcast = onCall({ region: 'us-central1' }, async (request) => {
   const db = getFirestore();
   const { title, body, url, route } = cleanBroadcast(request.data);
   await broadcastPush(db, { title, body, data: { kind: route, ...(url ? { url } : {}) } });
+  return { ok: true };
+});
+
+// "We're live" push. Allowed for admins/pastors and for leads whose group
+// grants the "live" capability. Unlike sendBroadcast it can't send arbitrary
+// text: it only fires while config/liveRadio is actually live, and the body is
+// the broadcast's own title (or a short fallback), capped in length.
+exports.notifyLiveStarted = onCall({ region: 'us-central1' }, async (request) => {
+  if (!request.auth) throw new HttpsError('unauthenticated', 'Sign in first.');
+  const db = getFirestore();
+  const u = await db.collection('users').doc(request.auth.uid).get();
+  const ud = u.exists ? u.data() : {};
+  const staff = ['admin', 'pastor'].includes(ud.role);
+  const leadLive = ud.role === 'church' && ud.groupCaps && ud.groupCaps.live === true;
+  if (!staff && !leadLive) throw new HttpsError('permission-denied', 'Not allowed to go live.');
+  const radio = await db.collection('config').doc('liveRadio').get();
+  if (!radio.exists || radio.data().status !== 'live') {
+    throw new HttpsError('failed-precondition', 'No live broadcast in progress.');
+  }
+  const title = String((request.data && request.data.title) || '🔴 En direct').trim().slice(0, 60);
+  const body = String(radio.data().title || (request.data && request.data.fallbackBody) || '').trim().slice(0, 140);
+  await broadcastPush(db, { title, body, data: { kind: 'feed' } });
   return { ok: true };
 });
 

@@ -71,6 +71,7 @@ export interface GroupPerms {
   books?: boolean;      // upload library books
   transcribe?: boolean; // use the audio/video transcription tool
   moderate?: boolean;   // delete any post published under this group
+  live?: boolean;       // start/stop the live broadcast ("En direct")
 }
 export interface Group {
   id: string;
