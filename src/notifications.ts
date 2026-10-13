@@ -172,7 +172,14 @@ export async function initNativeNotifications() {
     // thing it was about.
     await PushNotifications.addListener('pushNotificationActionPerformed', (action) => {
       // Tap on a notification FCM itself displayed (app backgrounded or killed).
-      routeFromNotificationData(action?.notification?.data)
+      // Android keeps the notification in the activity's launch intent and
+      // re-delivers it when the app is reopened from recents or restored after
+      // being killed - so without this check, ONE tapped quiz notification sent
+      // the person to the quiz on every later launch. Act on each tap once.
+      const n = action?.notification
+      const key = n?.id || n?.data?.['google.message_id'] || n?.data?.messageId
+      if (key && alreadyHandledTap(String(key))) return
+      routeFromNotificationData(n?.data)
     })
 
     // Route a tap on a FOREGROUND-shown local notification (see the received
@@ -390,6 +397,18 @@ export function routeFromNotificationData(data: any) {
   else if (d.kind === 'quiz') emitNotificationRoute({ kind: 'quiz' })
   else if (d.kind === 'feed') emitNotificationRoute({ kind: 'feed' })
   else if (d.url) emitNotificationRoute({ kind: 'url', url: d.url })
+}
+
+// Remembers which notification taps were already acted on (last 50 ids, kept
+// across launches), so a re-delivered launch intent can't route a second time.
+const HANDLED_TAPS_KEY = 'elim_handledNotifTaps'
+function alreadyHandledTap(id: string): boolean {
+  try {
+    const list: string[] = JSON.parse(localStorage.getItem(HANDLED_TAPS_KEY) || '[]')
+    if (list.includes(id)) return true
+    localStorage.setItem(HANDLED_TAPS_KEY, JSON.stringify([...list, id].slice(-50)))
+  } catch { /* storage unavailable: fall through and route */ }
+  return false
 }
 
 export function onNotificationRoute(handler: (route: NotificationRoute) => void) {
